@@ -4,6 +4,7 @@ import firebase from '../firebase'
 import Layout from '../components/shared/Layout'
 import { auth } from '../firebase'
 import Button from '../components/shared/Button'
+import { Helmet } from 'react-helmet'
 
 const Login = () => {
 	const navigate = useNavigate()
@@ -50,6 +51,9 @@ const Login = () => {
 
 	return (
 		<div>
+			<Helmet>
+				<title>Login</title>
+			</Helmet>
 			<Layout>
 				<main className="">
 					<section className="tw-flex tw-flex-col tw-items-center tw-mt-[100px]">

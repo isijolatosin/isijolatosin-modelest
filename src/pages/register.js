@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Helmet } from 'react-helmet'
 import { Link, useNavigate } from 'react-router-dom'
 import Layout from '../components/shared/Layout'
 import { auth, createUserProfileDocument } from '../firebase'
@@ -55,6 +56,9 @@ const Register = () => {
 
 	return (
 		<div>
+			<Helmet>
+				<title>Checkout</title>
+			</Helmet>
 			<Layout>
 				<section className="tw-flex tw-flex-col tw-items-center tw-mt-[100px]">
 					<div className="tw-text-center">

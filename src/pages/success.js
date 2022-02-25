@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearCartItem, selectCartItems } from '../slices/appSlices'
@@ -64,21 +65,28 @@ const Success = () => {
 	})
 
 	return (
-		<Layout>
-			<div className="tw-mt-[100px] tw-flex tw-flex-col tw-items-center">
-				<h1 className="tw-text-md tw-text-neutral-600 tw-uppercase tw-mb-1">{`Hey ${displayName}`}</h1>
-				<h1 className="tw-text-xl tw-uppercase">Thank you for your purchase</h1>
-				<div className="tw-mt-10 tw-text-neutral-600 tw-font-light">
-					<span>
-						We are currently processing your order and will send you a
-						confirmation email shortly
-					</span>
+		<>
+			<Helmet>
+				<title>Success</title>
+			</Helmet>
+			<Layout>
+				<div className="tw-mt-[100px] tw-flex tw-flex-col tw-items-center">
+					<h1 className="tw-text-md tw-text-neutral-600 tw-uppercase tw-mb-1">{`Hey ${displayName}`}</h1>
+					<h1 className="tw-text-xl tw-uppercase">
+						Thank you for your purchase
+					</h1>
+					<div className="tw-mt-10 tw-text-neutral-600 tw-font-light">
+						<span>
+							We are currently processing your order and will send you a
+							confirmation email shortly
+						</span>
+					</div>
+					<Link className="tw-my-10 " to="/">
+						<Button>Continue Shopping</Button>
+					</Link>
 				</div>
-				<Link className="tw-my-10 " to="/">
-					<Button>Continue Shopping</Button>
-				</Link>
-			</div>
-		</Layout>
+			</Layout>
+		</>
 	)
 }
 

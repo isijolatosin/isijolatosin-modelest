@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
 import Products from '../components/Products'
 
-function HomePage({ history }) {
+function HomePage() {
 	return (
 		<div className="tw-bg-neutral-800 relative">
 			<Helmet>
