@@ -1,13 +1,14 @@
 require('dotenv').config()
 const express = require('express')
+const serverless = require('serverless-http')
 const morgan = require('morgan')
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
-const stripeAPI = require('./stripe')
-const products = require('./routes/products')
-const connectDB = require('./db/connect')
-const notFound = require('./middleware/not-found')
-const errorHandlerMiddleware = require('./middleware/error-handler')
+const stripeAPI = require('../functions/stripe')
+const products = require('../functions/routes/products')
+const connectDB = require('../functions/db/connect')
+const notFound = require('../functions/middleware/not-found')
+const errorHandlerMiddleware = require('../functions/middleware/error-handler')
 
 // express
 const app = express()
@@ -19,7 +20,7 @@ app.get('/', (req, res) => {
 // middleware
 app.use(morgan('tiny'))
 app.use(fileUpload())
-// app.use(express.static('../build'))
+app.use(express.static('../build'))
 app.use(express.static('./public'))
 app.use(express.json())
 app.use(cors())
@@ -77,3 +78,5 @@ const start = async () => {
 
 // server func invoke
 start()
+
+module.exports.handler = serverless(app)
