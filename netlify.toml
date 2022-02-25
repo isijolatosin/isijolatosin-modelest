@@ -1,10 +1,11 @@
 [build]
+ base = "/"
  command = "npm run build"
- functions = "functions"
- publish = "public"
+ functions = "functions/"
+ publish = "build/"
 
 [[redirects]]
- to="/.netlify/functions/stripe-api/:splat"
+ to="/.netlify/functions/server/:splat"
  from = "/*"
  status = 200
 
