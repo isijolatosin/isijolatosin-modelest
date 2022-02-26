@@ -8,7 +8,6 @@ import Success from './pages/success'
 import Management from './pages/management'
 import HairBundles from './pages/hair-bundles'
 import ClosureFrontal from './pages/closure-frontal'
-import BlondeHairs from './pages/blonde-hairs'
 import JetBlackHair from './pages/jet-black-hairs'
 import Cart from './pages/cart'
 import Account from './pages/account'
@@ -23,7 +22,6 @@ function App() {
 			<Route exact path="/admin-portal" element={<Management />} />
 			<Route exact path="/hair-bundles" element={<HairBundles />} />
 			<Route exact path="/closure-frontal" element={<ClosureFrontal />} />
-			<Route exact path="/blonde-hairs" element={<BlondeHairs />} />
 			<Route exact path="/jet-black-&-blonde-hair" element={<JetBlackHair />} />
 			<Route exact path="/user-cart" element={<Cart />} />
 			<Route exact path="/user-account" element={<Account />} />

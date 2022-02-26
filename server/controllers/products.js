@@ -8,10 +8,10 @@ const getAllProducts = asyncWrapper(async (req, res) => {
 	res.status(StatusCodes.OK).json({ products })
 })
 
-const createProduct = asyncWrapper(async (req, res) => {
+const createProduct = async (req, res) => {
 	const product = await Product.create(req.body)
 	res.status(StatusCodes.CREATED).json({ product })
-})
+}
 
 const getProduct = asyncWrapper(async (req, res, next) => {
 	// console.log(req.params)

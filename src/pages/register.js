@@ -57,7 +57,7 @@ const Register = () => {
 	return (
 		<div>
 			<Helmet>
-				<title>Checkout</title>
+				<title>Sign Up</title>
 			</Helmet>
 			<Layout>
 				<section className="tw-flex tw-flex-col tw-items-center tw-mt-[100px]">

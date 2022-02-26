@@ -52,7 +52,7 @@ const Login = () => {
 	return (
 		<div>
 			<Helmet>
-				<title>Login</title>
+				<title>Sign In</title>
 			</Helmet>
 			<Layout>
 				<main className="">

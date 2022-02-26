@@ -16,6 +16,7 @@ function Products() {
 			const {
 				data: { products },
 			} = await axios.get('/api/v1/products')
+			console.log(products)
 			setAllproducts(products.sort((a, b) => a.name.localeCompare(b.name)))
 		} catch (error) {
 			console.log(error)

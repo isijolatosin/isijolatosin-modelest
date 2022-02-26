@@ -78,5 +78,3 @@ const start = async () => {
 
 // server func invoke
 start()
-
-module.exports.handler = serverless(app)
