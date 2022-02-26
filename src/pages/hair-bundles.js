@@ -45,7 +45,7 @@ function HairBundles() {
 				<title>Hair Bundles</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-flex tw-flex-col tw-items-center ">
+				<div className="tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-flex tw-flex-col tw-items-center">
 					<div className="tw-flex tw-flex-col md:tw-flex-row tw-justify-center tw-items-center tw-w-full">
 						{hairBundles.map((item) => (
 							<div key={item._id}>

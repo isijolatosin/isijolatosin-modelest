@@ -81,7 +81,7 @@ function Card({ product, setSingleproducts, length }) {
 		<div
 			onMouseOver={handleMouseIn}
 			onMouseOut={() => setClickedID('')}
-			className="tw-w-[90%] tw-h-[600px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-lg">
+			className="tw-w-[90%] tw-mx-auto tw-h-[600px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-lg">
 			<img
 				onClick={handleViewImage}
 				id={product._id}

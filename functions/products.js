@@ -20,8 +20,8 @@ app.get('/', (req, res) => {
 // middleware
 app.use(morgan('tiny'))
 app.use(fileUpload())
-// app.use(express.static('../build'))
-app.use(express.static('../public'))
+app.use(express.static('../build'))
+app.use(express.static('../server/public'))
 app.use(express.json())
 app.use(cors())
 
