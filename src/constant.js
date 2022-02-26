@@ -13,7 +13,7 @@ export const CURRENCY = 'usd'
 export const TAX_PERCENT = 0.06
 
 // Back end url
-export const HTTPS_LINK = 'https://www.model-est.com' || 'http://localhost:5000'
+export const HTTPS_LINK = 'http://localhost:5000'
 // export const HTTPS_LINK = 'https://www.bandgluxuryempire.com'
 
 export const AUTHORIZED_ID = {

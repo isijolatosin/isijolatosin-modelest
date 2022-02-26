@@ -86,7 +86,6 @@ const StripeCheckout = () => {
 			cartItems.map((item) => {
 				const taxCal = item.price * TAX_PERCENT
 				const price = Math.floor((item.price + taxCal) * 100)
-				console.log(price)
 				const description = item.description
 				line_items.push({
 					price_data: {
