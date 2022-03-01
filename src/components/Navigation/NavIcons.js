@@ -32,9 +32,11 @@ function NavIcons() {
 				onClick={() => navigate('/user-cart')}
 				className="tw-w-30 tw-h-30 tw-text-gray-300 tw-text-xl hover:tw-cursor-pointer hover:tw-bg-gray-300 hover:tw-p-2 hover:tw-rounded-full tw-ease-in tw-duration-300 tw-relative">
 				<GiShoppingBag />
-				<span className="tw-absolute tw--top-4 tw-right-[-16px] tw-border-2 tw-text-sm bg-blur2 tw-bg-clip-text tw-text-neutral-50 tw-font-light tw-rounded-full tw-p-3 tw-h-7 tw-w-7 tw-flex tw-mx-auto tw-justify-center tw-items-center">
-					{itemCount}
-				</span>
+				{itemCount > 1 && (
+					<span className="tw-absolute tw--top-4 tw-right-[-16px] tw-border-2 tw-text-sm bg-blur2 tw-bg-clip-text tw-text-neutral-50 tw-font-light tw-rounded-full tw-p-3 tw-h-7 tw-w-7 tw-flex tw-mx-auto tw-justify-center tw-items-center">
+						{itemCount}
+					</span>
+				)}
 			</div>
 			{/* <div
 				onMouseOver={!user && handleShow}
