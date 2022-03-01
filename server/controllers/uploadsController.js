@@ -14,7 +14,6 @@ const uploadProductImage = async (req, res) => {
 		throw new CustomAPIError.BadRequestError('Please Upload Image')
 	}
 
-	// console.log(productImage.size)
 	const maxSize = 624576
 	if (productImage.size > maxSize) {
 		throw new CustomAPIError.BadRequestError(
@@ -22,14 +21,15 @@ const uploadProductImage = async (req, res) => {
 		)
 	}
 
-	const imagePath = path.join(
+	const imagePathFunc = path.join(
 		__dirname,
-		'../public/uploads/' + `${productImage.name}`
+		'../../public/uploads/' + `${productImage.name}`
 	)
-	await productImage.mv(imagePath)
-	return res
-		.status(StatusCodes.OK)
-		.json({ image: { src: `/uploads/${productImage.name}` } })
+
+	await productImage.mv(imagePathFunc)
+	return res.status(StatusCodes.OK).json({
+		image: { src: `/uploads/${productImage.name}` },
+	})
 }
 
 module.exports = { uploadProductImage }

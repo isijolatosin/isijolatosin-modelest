@@ -25,7 +25,7 @@ const Cart = () => {
 				<title>Checkout</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-bg-gray-300 tw-py-[100px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center ">
+				<div className="tw-bg-gray-300 tw-pt-[150px] md:tw-pt-[100px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center ">
 					<div className="tw-flex tw-flex-row tw-items-center tw-mb-5">
 						<FaOpencart className="tw-text-2xl tw-text-violet-500" />
 						<h2 className="tw-text-2xl tw-ml-2 tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-pink-500 tw-to-violet-500">
@@ -38,13 +38,13 @@ const Cart = () => {
 							<Button handleFunc={() => navigate('/')}>Shop now</Button>
 						</>
 					) : (
-						<div className="tw-flex tw-flex-col tw-w-full tw-px-5 md:tw-flex-row lg:tw-w-[80%] tw-justify-center">
-							<div className="tw-w-full lg:tw-w-[80%]">
+						<div className="tw-flex tw-flex-col tw-w-full tw-px-5 lg:tw-flex-row lg:tw-w-[90%] tw-justify-center tw-items-center lg:tw-items-start">
+							<div className="tw-w-full lg:tw-w-[40%] xl:tw-w-[50%]">
 								{cartItems.map((item) => (
 									<CartItems product={item} key={item.id} />
 								))}
 							</div>
-							<div className="tw-w-full md:tw-ml-5 xl:tw-ml-5 lg:tw-w-[40%]">
+							<div className="tw-w-full lg:tw-ml-5 xl:tw-ml-5 lg:tw-w-[60%] xl:tw-w-[50%]">
 								<Total itemCount={itemCount} total={total} />
 							</div>
 						</div>

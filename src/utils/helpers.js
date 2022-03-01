@@ -15,6 +15,7 @@ export async function fetchFromAPI(endpoint, opts) {
 		...(body && { body: JSON.stringify(body) }),
 		headers: {
 			'Content-Type': 'application/json',
+			'Access-Control-Allow-Origin': '*',
 		},
 	})
 	return res.json()

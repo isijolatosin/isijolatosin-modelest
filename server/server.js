@@ -1,6 +1,6 @@
 require('dotenv').config()
 const express = require('express')
-const serverless = require('serverless-http')
+// const serverless = require('serverless-http')
 const morgan = require('morgan')
 const cors = require('cors')
 const fileUpload = require('express-fileupload')

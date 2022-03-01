@@ -49,20 +49,24 @@ function JetBlackHair() {
 			</Helmet>
 			<Layout>
 				<div className="tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-items-center ">
-					<div className="tw-flex tw-flex-col md:tw-grid md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-4 tw-w-[90%] xl:tw-w-[85%] 2xl:tw-w-[70%]">
-						{jetBlackHair.map((item) => (
-							<div
-								key={item._id}
-								className="tw-justify-center tw-items-center tw-flex tw-flex-row">
-								<Card
+					{jetBlackHair ? (
+						<div className="tw-flex tw-flex-col md:tw-grid md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-4 tw-w-[90%] xl:tw-w-[85%] 2xl:tw-w-[70%]">
+							{jetBlackHair.map((item) => (
+								<div
 									key={item._id}
-									product={item}
-									setSingleproducts={setSingleproducts}
-									length={length}
-								/>
-							</div>
-						))}
-					</div>
+									className="tw-justify-center tw-items-center tw-flex tw-flex-row">
+									<Card
+										key={item._id}
+										product={item}
+										setSingleproducts={setSingleproducts}
+										length={length}
+									/>
+								</div>
+							))}
+						</div>
+					) : (
+						<div className="tw-text-neutral-500">Loading hair...</div>
+					)}
 
 					{singleProducts && (
 						<div className="tw-absolute tw-z-10 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-0 tw-flex tw-flex-row tw-items-center tw-justify-center bg-blur2">

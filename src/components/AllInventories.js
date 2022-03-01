@@ -140,6 +140,7 @@ function AllInventories() {
 	}
 
 	const uploadFile = async (e) => {
+		e.preventDefault()
 		const imageFile = e.target.files[0]
 		const formData = new FormData()
 		formData.append('image', imageFile)
@@ -241,6 +242,11 @@ function AllInventories() {
 								placeholder="Description..."
 								className="tw-rounded tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[70%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
 							/>
+							<div className="tw-text-violet-700 tw-text-xs tw-mb-2 ">
+								<span>
+									Substitute space with a dash in image name ( e.g abc-def )
+								</span>
+							</div>
 							<div className="tw-rounded tw-flex tw-flex-row tw-items-center tw-shadow-xl tw-pl-3 tw-pb-1">
 								<label className="tw-mr-3 tw-text-gray-500 tw-text-sm">
 									Image

@@ -53,19 +53,23 @@ function Products() {
 				</div>
 			) : (
 				<>
-					<div className="tw-flex tw-flex-col tw-items-center tw-w-full md:tw-w-[90%] md:tw-grid md:tw-grid-cols-2 lg:tw-grid-cols-3 2xl:tw-grid-cols-4 3xl:tw-grid-cols-5 tw-gap-5 ">
-						{allProducts.map((product) => (
-							<div
-								key={product._id}
-								className="tw-justify-center tw-items-center tw-flex tw-flex-row">
-								<Card
+					{allProducts ? (
+						<div className="tw-flex tw-flex-col tw-items-center tw-w-full md:tw-w-[90%] md:tw-grid md:tw-grid-cols-2 lg:tw-grid-cols-3 2xl:tw-grid-cols-4 3xl:tw-grid-cols-5 tw-gap-5 ">
+							{allProducts.map((product) => (
+								<div
 									key={product._id}
-									product={product}
-									setSingleproducts={setSingleproducts}
-								/>
-							</div>
-						))}
-					</div>
+									className="tw-justify-center tw-items-center tw-flex tw-flex-row">
+									<Card
+										key={product._id}
+										product={product}
+										setSingleproducts={setSingleproducts}
+									/>
+								</div>
+							))}
+						</div>
+					) : (
+						<div className="tw-text-neutral-500">Loading data...</div>
+					)}
 					<div className="tw-mx-auto lg:tw-w-4/5 xl:tw-w-full tw-bg-neutral-50 tw-py-10 tw-mt-10">
 						<About />
 					</div>

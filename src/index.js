@@ -9,21 +9,13 @@ import { Provider } from 'react-redux'
 import { store, persistor } from './store'
 import { PersistGate } from 'redux-persist/integration/react'
 import UserContextProvider from './context/user-context'
-import { Elements } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
-
-const stripePromise = loadStripe(
-	'pk_test_51KQIMSLTIkVkSAcp9vIGMazcgD1450LNgPLEKUYqO4m3jxpDpXKFx14XQIH8qIZE1XHTGFkhqsKRa3eFEeKwOTKV000hsAZtpi'
-)
 
 ReactDOM.render(
 	<Provider store={store}>
 		<PersistGate persistor={persistor}>
 			<BrowserRouter>
 				<UserContextProvider>
-					<Elements stripe={stripePromise}>
-						<App />
-					</Elements>
+					<App />
 				</UserContextProvider>
 			</BrowserRouter>
 		</PersistGate>
