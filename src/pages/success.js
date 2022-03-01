@@ -70,12 +70,12 @@ const Success = () => {
 				<title>Success</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-mt-[100px] tw-flex tw-flex-col tw-items-center">
+				<div className="tw-mt-[150px] lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center">
 					<h1 className="tw-text-md tw-text-neutral-600 tw-uppercase tw-mb-1">{`Hey ${displayName}`}</h1>
 					<h1 className="tw-text-xl tw-uppercase">
 						Thank you for your purchase
 					</h1>
-					<div className="tw-mt-10 tw-text-neutral-600 tw-font-light">
+					<div className="tw-mt-10 tw-text-neutral-600 tw-font-light tw-text-center">
 						<span>
 							We are currently processing your order and will send you a
 							confirmation email shortly

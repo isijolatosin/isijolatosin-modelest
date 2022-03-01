@@ -16,7 +16,7 @@ function Nav() {
 					<NavIcons />
 				</div>
 			</div>
-			<div className="tw-in-line md:tw-hidden tw-flex-0.8 tw-border-t-[1px] tw-border-neutral-600 tw-py-2">
+			<div className="tw-in-line tw-px-3 md:tw-hidden tw-flex-0.8 tw-border-t-[1px] tw-border-neutral-600 tw-py-2">
 				<LinksComponent />
 			</div>
 		</div>

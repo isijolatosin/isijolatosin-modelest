@@ -7,7 +7,7 @@ import Heading from '../components/Heading'
 const Canceled = () => {
 	return (
 		<Layout>
-			<div className="tw-mt-[100px] tw-flex tw-flex-col tw-items-center">
+			<div className="tw-mt-[150px] lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center">
 				<Heading>payment failed</Heading>
 				<div className="tw-my-5">
 					<span className="tw-font-semibold tw-text-red-800">
