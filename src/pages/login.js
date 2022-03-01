@@ -56,9 +56,9 @@ const Login = () => {
 			</Helmet>
 			<Layout>
 				<main className="">
-					<section className="tw-flex tw-flex-col tw-items-center tw-mt-[100px]">
+					<section className="tw-flex tw-flex-col tw-items-center tw-mt-[150px] lg:tw-mt-[100px]">
 						<div className="tw-text-center">
-							<h1 className="tw-text-2xl tw-font-bold tw-my-10">Sign In</h1>
+							<h1 className="tw-text-2xl tw-font-bold tw-mb-10">Sign In</h1>
 							{/* <p className="tw-w-[55%] tw-mx-auto tw-my-10">
 								Fill in your login credentials to gain access to your personal
 								and cart history page.

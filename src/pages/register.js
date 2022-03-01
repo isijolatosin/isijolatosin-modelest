@@ -60,7 +60,7 @@ const Register = () => {
 				<title>Sign Up</title>
 			</Helmet>
 			<Layout>
-				<section className="tw-flex tw-flex-col tw-items-center tw-mt-[100px]">
+				<section className="tw-flex tw-flex-col tw-items-center tw-mt-[150px] lg:tw-mt-[100px]">
 					<div className="tw-text-center">
 						<h1 className="tw-text-2xl tw-font-bold">Sign Up</h1>
 						<p className="tw-w-[55%] tw-mx-auto tw-my-10">
