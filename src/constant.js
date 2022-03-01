@@ -1,4 +1,4 @@
-export const SUPER_USER1 = 'estherod2020@gmail.com'
+export const SUPER_USER1 = 'estherodi2020@gmail.com'
 export const SUPER_USER2 = 'tisijola7@gmail.com'
 export const SHIPPING_COST = {
 	canada: 20,
