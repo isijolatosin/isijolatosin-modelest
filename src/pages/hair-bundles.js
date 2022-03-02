@@ -45,11 +45,13 @@ function HairBundles() {
 				<title>Hair Bundles</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-flex tw-flex-col tw-items-center">
+				<div className="tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-flex tw-flex-col tw-items-center tw-mx-auto">
 					{hairBundles ? (
-						<div className="tw-flex tw-flex-col md:tw-flex-row tw-justify-center tw-items-center tw-w-full">
+						<div className="tw-flex tw-flex-col md:tw-grid md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-4 tw-w-[90%] xl:tw-w-[85%] 2xl:tw-w-[70%]">
 							{hairBundles.map((item) => (
-								<div key={item._id}>
+								<div
+									className="tw-justify-center tw-items-center tw-flex tw-flex-row"
+									key={item._id}>
 									<Card
 										key={item._id}
 										product={item}
