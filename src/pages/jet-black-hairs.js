@@ -8,6 +8,7 @@ import Card from '../components/Card3'
 function JetBlackHair() {
 	const [singleProducts, setSingleproducts] = React.useState(null)
 	const [jetBlackHair, setJetBlackHair] = React.useState([])
+	const [show, setShow] = React.useState(false)
 
 	async function fetchProducts() {
 		try {
@@ -27,6 +28,9 @@ function JetBlackHair() {
 
 	React.useEffect(() => {
 		fetchProducts()
+		setTimeout(() => {
+			setShow(true)
+		}, 2000)
 	}, [])
 
 	const length = [
@@ -49,7 +53,7 @@ function JetBlackHair() {
 			</Helmet>
 			<Layout>
 				<div className="tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-items-center ">
-					{jetBlackHair ? (
+					{show && jetBlackHair && (
 						<div className="tw-flex tw-flex-col md:tw-grid md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-4 tw-w-[90%] xl:tw-w-[85%] 2xl:tw-w-[70%]">
 							{jetBlackHair.map((item) => (
 								<div
@@ -64,12 +68,12 @@ function JetBlackHair() {
 								</div>
 							))}
 						</div>
-					) : (
-						<div className="tw-text-neutral-500 tw-my-[100px]">
-							Loading hair...
+					)}
+					{!show && (
+						<div className="tw-text-neutral-50 tw-font-light tw-text-sm">
+							Loading products...
 						</div>
 					)}
-
 					{singleProducts && (
 						<div className="tw-absolute tw-z-10 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-0 tw-flex tw-flex-row tw-items-center tw-justify-center bg-blur2">
 							<div className="tw-w-[600px] tw-h-[600px]">

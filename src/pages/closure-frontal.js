@@ -8,6 +8,7 @@ import axios from 'axios'
 function ClosureFrontal() {
 	const [singleProducts, setSingleproducts] = React.useState(null)
 	const [closureFrontal, setClosureFrontal] = React.useState([])
+	const [show, setShow] = React.useState(false)
 
 	async function fetchProducts() {
 		try {
@@ -27,6 +28,9 @@ function ClosureFrontal() {
 
 	React.useEffect(() => {
 		fetchProducts()
+		setTimeout(() => {
+			setShow(true)
+		}, 2000)
 	}, [])
 
 	return (
@@ -36,7 +40,7 @@ function ClosureFrontal() {
 			</Helmet>
 			<Layout>
 				<div className="tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-items-center ">
-					{closureFrontal ? (
+					{show && closureFrontal && (
 						<div
 							className={
 								closureFrontal.length > 2
@@ -55,9 +59,10 @@ function ClosureFrontal() {
 								</div>
 							))}
 						</div>
-					) : (
-						<div className="tw-text-neutral-500 tw-my-[100px]">
-							Loading hair...
+					)}
+					{!show && (
+						<div className="tw-text-neutral-50 tw-font-light tw-text-sm">
+							Loading products...
 						</div>
 					)}
 
