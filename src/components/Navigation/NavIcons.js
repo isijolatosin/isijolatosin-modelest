@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
-import { GiShoppingBag } from 'react-icons/gi'
+import { MdShoppingBag } from 'react-icons/md'
+import { MdOutlineShoppingBag } from 'react-icons/md'
 import { FiLogOut } from 'react-icons/fi'
 import { FiLogIn } from 'react-icons/fi'
 import { MdAssignmentInd } from 'react-icons/md'
@@ -31,8 +32,12 @@ function NavIcons() {
 			<div
 				onClick={() => navigate('/user-cart')}
 				className="tw-w-30 tw-h-30 tw-text-gray-300 tw-text-xl hover:tw-cursor-pointer hover:tw-bg-gray-300 hover:tw-p-2 hover:tw-rounded-full tw-ease-in tw-duration-300 tw-relative">
-				<GiShoppingBag />
-				{itemCount > 1 && (
+				{itemCount > 0 ? (
+					<MdShoppingBag size={25} />
+				) : (
+					<MdOutlineShoppingBag size={25} />
+				)}
+				{itemCount > 0 && (
 					<span className="tw-absolute tw--top-4 tw-right-[-16px] tw-border-2 tw-text-sm bg-blur2 tw-bg-clip-text tw-text-neutral-50 tw-font-light tw-rounded-full tw-p-3 tw-h-7 tw-w-7 tw-flex tw-mx-auto tw-justify-center tw-items-center">
 						{itemCount}
 					</span>
@@ -47,7 +52,7 @@ function NavIcons() {
 				<CursorText showText={showText}>Sign In Required</CursorText>
 			</div> */}
 			{user && (
-				<div className="tw-flex  tw-ml-[40px] tw-flex-col tw-justify-center tw-items-center hover:tw-opacity-[0.5] hover:tw-cursor-pointer  tw-relative">
+				<div className="tw-flex  tw-ml-[20px] tw-flex-col tw-justify-center tw-items-center hover:tw-opacity-[0.5] hover:tw-cursor-pointer  tw-relative">
 					<div className="tw-text-gray-300 tw-text-xl tw-ease-in tw-duration-500">
 						<FiLogOut onClick={handleSignOut} />
 					</div>
@@ -57,7 +62,7 @@ function NavIcons() {
 				</div>
 			)}
 			{!user && (
-				<div className="tw-w-[80px] tw-ml-[40px] tw-flex tw-flex-row tw-justify-between tw-items-center">
+				<div className="tw-w-[80px] tw-ml-[25px] tw-flex tw-flex-row tw-justify-between tw-items-center">
 					<div className="tw-flex tw-flex-col tw-justify-center tw-items-center hover:tw-opacity-[0.5] hover:tw-cursor-pointer tw-relative">
 						<div className="tw-text-gray-300 tw-text-xl tw-ease-in tw-duration-500">
 							<FiLogIn onClick={() => navigate('/login')} />
