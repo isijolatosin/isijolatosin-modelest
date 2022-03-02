@@ -42,21 +42,21 @@ function Card({ product, setSingleproducts, length }) {
 	if (bundles.length === '14-inches') {
 		cardPrice = product.price
 	} else if (bundles.length === '16-inches') {
-		cardPrice = 220
+		cardPrice = product.price + 10
 	} else if (bundles.length === '18-inches') {
-		cardPrice = 230
+		cardPrice = product.price + 20
 	} else if (bundles.length === '20-inches') {
-		cardPrice = 240
+		cardPrice = product.price + 30
 	} else if (bundles.length === '22-inches') {
-		cardPrice = 250
+		cardPrice = product.price + 40
 	} else if (bundles.length === '24-inches') {
-		cardPrice = 260
+		cardPrice = product.price + 50
 	} else if (bundles.length === '26-inches') {
-		cardPrice = 270
+		cardPrice = product.price + 60
 	} else if (bundles.length === '28-inches') {
-		cardPrice = 280
+		cardPrice = product.price + 70
 	} else if (bundles.length === '30-inches') {
-		cardPrice = 290
+		cardPrice = product.price + 80
 	}
 
 	// Adding to cart items

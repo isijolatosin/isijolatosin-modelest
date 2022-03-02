@@ -41,41 +41,41 @@ function Card({ product, setSingleproducts, length }) {
 	if (bundles.length === '14-inches') {
 		cardPrice1 = product.price
 	} else if (bundles.length === '16-inches') {
-		cardPrice1 = 240
+		cardPrice1 = product.price + 10
 	} else if (bundles.length === '18-inches') {
-		cardPrice1 = 250
+		cardPrice1 = product.price + 20
 	} else if (bundles.length === '20-inches') {
-		cardPrice1 = 260
+		cardPrice1 = product.price + 30
 	} else if (bundles.length === '22-inches') {
-		cardPrice1 = 270
+		cardPrice1 = product.price + 40
 	} else if (bundles.length === '24-inches') {
-		cardPrice1 = 280
+		cardPrice1 = product.price + 50
 	} else if (bundles.length === '26-inches') {
-		cardPrice1 = 290
+		cardPrice1 = product.price + 60
 	} else if (bundles.length === '28-inches') {
-		cardPrice1 = 300
+		cardPrice1 = product.price + 70
 	} else if (bundles.length === '30-inches') {
-		cardPrice1 = 310
+		cardPrice1 = product.price + 80
 	}
 	let cardPrice2 = product.price
 	if (bundles.length === '14-inches') {
 		cardPrice2 = product.price
 	} else if (bundles.length === '16-inches') {
-		cardPrice2 = 250
+		cardPrice2 = product.price + 10
 	} else if (bundles.length === '18-inches') {
-		cardPrice2 = 260
+		cardPrice2 = product.price + 20
 	} else if (bundles.length === '20-inches') {
-		cardPrice2 = 270
+		cardPrice2 = product.price + 30
 	} else if (bundles.length === '22-inches') {
-		cardPrice2 = 280
+		cardPrice2 = product.price + 40
 	} else if (bundles.length === '24-inches') {
-		cardPrice2 = 290
+		cardPrice2 = product.price + 50
 	} else if (bundles.length === '26-inches') {
-		cardPrice2 = 300
+		cardPrice2 = product.price + 60
 	} else if (bundles.length === '28-inches') {
-		cardPrice2 = 310
+		cardPrice2 = product.price + 70
 	} else if (bundles.length === '30-inches') {
-		cardPrice2 = 320
+		cardPrice2 = product.price + 80
 	}
 
 	// Adding to cart items

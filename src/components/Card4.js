@@ -45,10 +45,6 @@ function Card({ product, setSingleproducts }) {
 		{ id: 'len3', name: '18-inches' },
 		{ id: 'len4', name: '20-inches' },
 		{ id: 'len5', name: '22-inches' },
-		{ id: 'len6', name: '24-inches' },
-		{ id: 'len7', name: '26-inches' },
-		{ id: 'len8', name: '28-inches' },
-		{ id: 'len9', name: '30-inches' },
 	]
 
 	const color = [
@@ -61,41 +57,26 @@ function Card({ product, setSingleproducts }) {
 	if (bundles.length === '14-inches') {
 		cardPrice1 = product.price
 	} else if (bundles.length === '16-inches') {
-		cardPrice1 = 160
+		cardPrice1 = product.price + 10
 	} else if (bundles.length === '18-inches') {
-		cardPrice1 = 170
+		cardPrice1 = product.price + 20
 	} else if (bundles.length === '20-inches') {
-		cardPrice1 = 180
+		cardPrice1 = product.price + 30
 	} else if (bundles.length === '22-inches') {
-		cardPrice1 = 190
-	} else if (bundles.length === '24-inches') {
-		cardPrice1 = 200
-	} else if (bundles.length === '26-inches') {
-		cardPrice1 = 210
-	} else if (bundles.length === '28-inches') {
-		cardPrice1 = 220
-	} else if (bundles.length === '30-inches') {
-		cardPrice1 = 230
+		cardPrice1 = product.price + 40
 	}
+
 	let cardPrice2 = product.price
 	if (bundles.length === '14-inches') {
 		cardPrice2 = product.price
 	} else if (bundles.length === '16-inches') {
-		cardPrice2 = 220
+		cardPrice2 = product.price + 10
 	} else if (bundles.length === '18-inches') {
-		cardPrice2 = 230
+		cardPrice2 = product.price + 20
 	} else if (bundles.length === '20-inches') {
-		cardPrice2 = 240
+		cardPrice2 = product.price + 30
 	} else if (bundles.length === '22-inches') {
-		cardPrice2 = 250
-	} else if (bundles.length === '24-inches') {
-		cardPrice2 = 260
-	} else if (bundles.length === '26-inches') {
-		cardPrice2 = 270
-	} else if (bundles.length === '28-inches') {
-		cardPrice2 = 280
-	} else if (bundles.length === '30-inches') {
-		cardPrice2 = 290
+		cardPrice2 = product.price + 40
 	}
 
 	// Adding to cart items
@@ -103,10 +84,10 @@ function Card({ product, setSingleproducts }) {
 	const price =
 		product.type.toLowerCase() === 'frontal'
 			? bundles.color === 'Blonde613'
-				? (cardPrice2 += 20)
+				? (cardPrice2 += 10)
 				: cardPrice2
 			: bundles.color === 'Blonde613'
-			? (cardPrice1 += 20)
+			? (cardPrice1 += 10)
 			: cardPrice1
 
 	const hairLength = bundles.length

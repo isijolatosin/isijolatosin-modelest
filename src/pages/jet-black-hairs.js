@@ -65,7 +65,9 @@ function JetBlackHair() {
 							))}
 						</div>
 					) : (
-						<div className="tw-text-neutral-500">Loading hair...</div>
+						<div className="tw-text-neutral-500 tw-my-[100px]">
+							Loading hair...
+						</div>
 					)}
 
 					{singleProducts && (
