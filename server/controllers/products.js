@@ -2,13 +2,10 @@ const Product = require('../models/Product')
 const { StatusCodes } = require('http-status-codes')
 const asyncWrapper = require('../middleware/async')
 const { createCustomError } = require('../errors/custom-error')
-const os = require('os')
-
-const currentUser = os.userInfo()?.username
 
 const getAllProducts = asyncWrapper(async (req, res) => {
 	const products = await Product.find({})
-	res.status(StatusCodes.OK).json({ products, curUser: currentUser })
+	res.status(StatusCodes.OK).json({ products })
 })
 
 const createProduct = async (req, res) => {
