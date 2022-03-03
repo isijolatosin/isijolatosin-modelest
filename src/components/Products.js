@@ -1,15 +1,13 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import axios from 'axios'
 import Card from './Card'
 import { CgClose } from 'react-icons/cg'
 import About from './About'
 import { db } from '../firebase'
 import { AUTHORIZED_ID } from '../constant'
-import { UserContext } from '../context/user-context'
 // import Search from './Search'
 
 function Products() {
-	const { user } = useContext(UserContext)
 	const [allProducts, setAllproducts] = React.useState([])
 	const [singleProducts, setSingleproducts] = React.useState(null)
 	// const [search, setSearch] = React.useState('')
