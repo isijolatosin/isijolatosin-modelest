@@ -7,10 +7,13 @@ import Shippment from '../components/Shippment'
 import { BsFillArrowUpSquareFill } from 'react-icons/bs'
 import AllInventories from '../components/AllInventories'
 import { UserContext } from '../context/user-context'
+import { db } from '../firebase'
+import { AUTHORIZED_ID } from '../constant'
 
 function Management() {
 	const [section, setSection] = React.useState('all-inventory')
 	const { user } = useContext(UserContext)
+	const [hitRate, setHitRate] = React.useState('')
 
 	const toggleSection = (e) => {
 		setSection(e.target.id)
@@ -27,6 +30,29 @@ function Management() {
 			return <Shippment />
 		}
 	}
+
+	React.useEffect(() => {
+		db.collection('admin')
+			.doc(`${AUTHORIZED_ID.id_one}/`)
+			.collection('Hit')
+			.onSnapshot((snapshot) => {
+				const results = snapshot?.docs?.map((doc) => ({
+					data: doc.data(),
+				}))
+				setHitRate(results?.[0]?.data?.no)
+			})
+	}, [])
+
+	const hitRateStyle = () => {
+		if (hitRate < 20) {
+			return 'tw-text-xs tw-text-red-700'
+		} else if (hitRate > 20) {
+			return 'tw-text-xs tw-text-green-700'
+		} else if (hitRate > 50) {
+			return 'tw-text-xs tw-text-blue-700'
+		}
+	}
+
 	return (
 		<>
 			<Helmet>
@@ -34,6 +60,7 @@ function Management() {
 			</Helmet>
 			<Layout>
 				<div className="tw-mt-[70px] tw-pt-20 md:tw-pt-10 tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-bg-neutral-300">
+					<span className={hitRateStyle(hitRate)}>Hit Rate: {hitRate}</span>
 					<Heading>Admin portal</Heading>
 					<div className="tw-my-5 tw-w-[100%] tw-text-violet-700">
 						<ul className="tw-flex tw-text-xs tw-flex-row tw-items-center tw-justify-between tw-w-[90%] lg:tw-w-[50%] tw-mx-auto">

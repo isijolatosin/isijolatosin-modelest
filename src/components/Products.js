@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import axios from 'axios'
 import Card from './Card'
 import { CgClose } from 'react-icons/cg'
 import About from './About'
+import { db } from '../firebase'
+import { AUTHORIZED_ID } from '../constant'
+import { UserContext } from '../context/user-context'
 // import Search from './Search'
 
 function Products() {
+	const { user } = useContext(UserContext)
 	const [allProducts, setAllproducts] = React.useState([])
 	const [singleProducts, setSingleproducts] = React.useState(null)
 	// const [search, setSearch] = React.useState('')
@@ -14,8 +18,46 @@ function Products() {
 	async function fetchProducts() {
 		try {
 			const {
-				data: { products },
+				data: { products, curUser },
 			} = await axios.get('/api/v1/products')
+
+			// push number of page visit to db
+			const visitedUserArr = []
+			let count = 0
+
+			if (!visitedUserArr?.includes(curUser)) {
+				visitedUserArr?.push(curUser)
+				count += 1
+			}
+
+			db.collection('admin')
+				.doc(`${AUTHORIZED_ID.id_one}/`)
+				.collection('Hit')
+				.onSnapshot((snapshot) => {
+					const results = snapshot?.docs?.map((doc) => ({
+						data: doc.data(),
+					}))
+
+					if (results.length === 0) {
+						db.collection('admin')
+							.doc(`${AUTHORIZED_ID.id_one}/`)
+							.collection('Hit')
+							.add({ users: visitedUserArr, no: count })
+					}
+
+					if (results) {
+						// eslint-disable-next-line array-callback-return
+						results.map((hit) => {
+							if (!hit?.data?.users?.includes(curUser)) {
+								db.collection('admin')
+									.doc(`${AUTHORIZED_ID.id_one}/`)
+									.collection('Hit')
+									.add({ users: visitedUserArr, no: count })
+							}
+						})
+					}
+				})
+
 			setAllproducts(products.sort((a, b) => a.name.localeCompare(b.name)))
 		} catch (error) {
 			console.log(error)
