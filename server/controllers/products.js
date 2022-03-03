@@ -14,7 +14,6 @@ const createProduct = async (req, res) => {
 }
 
 const getProduct = asyncWrapper(async (req, res, next) => {
-	// console.log(req.params)
 	const { id: productID } = req.params
 	const product = await Product.findOne({ _id: productID })
 	if (!product) {

@@ -1,64 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import axios from 'axios'
 import Card from './Card'
 import { CgClose } from 'react-icons/cg'
 import About from './About'
-import { db } from '../firebase'
-import { AUTHORIZED_ID } from '../constant'
-import { UserContext } from '../context/user-context'
 
 function Products() {
-	const { user } = useContext(UserContext)
 	const [allProducts, setAllproducts] = React.useState([])
 	const [singleProducts, setSingleproducts] = React.useState(null)
-	// const [search, setSearch] = React.useState('')
-	// const [filterData, setFilterData] = React.useState([])
-
-	// 	async function getHitRate() {
-	// 		try {
-	// 			const { data } = await axios.get('/api/v1/hit')
-	//
-	// 			// push number of page visit to db
-	// 			const visitedUserArr = []
-	// 			let count = 0
-	//
-	// 			if (data && !visitedUserArr?.includes(user?.email)) {
-	// 				visitedUserArr?.push(user?.email)
-	// 				count += 1
-	// 			}
-	//
-	// 			db.collection('admin')
-	// 				.doc(`${AUTHORIZED_ID.id_one}/`)
-	// 				.collection('hit-rate')
-	// 				.onSnapshot((snapshot) => {
-	// 					const results = snapshot?.docs?.map((doc) => ({
-	// 						data: doc.data(),
-	// 					}))
-	//
-	// 					if (!results) {
-	// 						db.collection('admin')
-	// 							.doc(`${AUTHORIZED_ID.id_one}/`)
-	// 							.collection('hit-rate')
-	// 							.add({ users: visitedUserArr, no: count })
-	// 					}
-
-	// if (results) {
-	// 	// eslint-disable-next-line array-callback-return
-	// 	results.map((hit) => {
-	// 		if (!hit?.data?.users?.includes(user?.email)) {
-	// 			db.collection('admin')
-	// 				.doc(`${AUTHORIZED_ID.id_one}/`)
-	// 				.collection('Hit')
-	// 				.set({ users: visitedUserArr, no: count })
-	// 		}
-	// 	})
-	// }
-	// })
-
-	// console.log(visitedUserArr)
-	// console.log(count)
-	// } catch (error) {}
-	// }
 
 	async function fetchProducts() {
 		try {
@@ -77,7 +25,6 @@ function Products() {
 
 	React.useEffect(() => {
 		fetchProducts()
-		// getHitRate()
 	}, [])
 
 	return (
