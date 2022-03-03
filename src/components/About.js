@@ -17,30 +17,42 @@ function About() {
 			<div className="tw-relative">
 				<div className="tw-bg-clip-border tw-p-0.5 tw-mt-[-5px] tw-mb-[20px] tw-w-[40px] tw-ml-[280px] tw tw-bg-pink-600"></div>
 				<h3 className="tw-font-semibold tw-text-neutral-600 tw-mb-[15px]">
-					OFFERING THE BEST HAIRSTYLING SERVICES
+					OFFERING THE BEST HAIR BUNDLES
 				</h3>
 			</div>
 			<p className="tw-text-neutral-600 tw-font-thin">
-				Lorem Ipsum is simply dummy text of the printing and typesetting
-				industry. Lorem Ipsum has been the industry's standard dummy text ever
-				since the 1500s, when an unknown printer took a galley of type and
-				scrambled it to make a type specimen book. It has survived not only five
-				centuries, but also the leap into electronic typesetting, remaining
-				essentially unchanged. It was popularised in the 1960s with the release
-				of Letraset sheets containing Lorem Ipsum passages, and more recently
-				with desktop publishing software like Aldus PageMaker including versions
-				of Lorem Ipsum.
+				ModelEst was created for those who have a flair for hair, those that
+				have to switch it up by length, color and texture. This company birthed
+				out of passion for hair and poised appearance. I can never keep a
+				hairstyle for a long time because I love to switch it up. All women
+				should have the opportunity to look elegant and hair-raising. The
+				contemporary world we live in today has taken a 360 turn to feminism and
+				presentation of self is the order of the day.
 				<br />
 				<br />
-				Contrary to popular belief, Lorem Ipsum is not simply random text. It
-				has roots in a piece of classical Latin literature from 45 BC, making it
-				over 2000 years old. Richard McClintock, a Latin professor at
-				Hampden-Sydney College in Virginia, looked up one of the more obscure
-				Latin words, consectetur, from a Lorem Ipsum passage, and going through
-				the cites of the word in classical literature, discovered the
-				undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33
-				of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by
-				Cicero, written in 45 BC.
+				Our mode of serve ranges from full installment to scheduling payment. We
+				provide this method to ease the burden for those who want to make
+				installmental payment just because they couldn’t afford to let that hair
+				pass them by. We are fully here for your service if installmental is
+				your preferred option.
+				<br />
+				<br />
+				<div className="tw-italic tw-text-sm tw-font-semibold tw-text-left">
+					<span> ...we serve everyone and leave no one behind!</span>
+				</div>
+				<br />
+				Beaty don’t cost much if you are dealing with the right merchant that
+				cares about not making you break your bank and provides the best quality
+				you can ever get out there. We at modelEst cares and we are committed to
+				bringing to you the best quality with an affordable deal every time you
+				buy from us. Optimum guarantee for your desired hair product getting to
+				you in due time.
+				<br />
+				<br />
+				Integrity, respect, loyalty and service is what we are built on and
+				these principles have brought us this far and still drive us to forge
+				ahead. There is no stopping till all women of all ages look their best
+				and more…
 			</p>
 		</div>
 		// </div>
