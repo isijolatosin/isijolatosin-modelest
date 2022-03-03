@@ -318,7 +318,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 				<div className="tw-w-[90%] tw-mx-auto tw-pt-1">
 					<p className={succeeded ? 'result-message' : 'result-message hidden'}>
 						Payment Succeeded,
-						{user.email === 'tisijola7@gmail.com' && (
+						{user?.email === 'tisijola7@gmail.com' && (
 							<span>
 								{' '}
 								see the result in your
