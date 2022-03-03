@@ -22,8 +22,8 @@ function About() {
 			</div>
 			<p className="tw-text-neutral-600 tw-font-thin">
 				ModelEst was created for those who have a flair for hair, those that
-				have to switch it up by length, color and texture. This company birthed
-				out of passion for hair and poised appearance. I can never keep a
+				have to switch it up by length, color and texture. This vision came out
+				of passion for hair and poised appearance. As a woman, I can not keep a
 				hairstyle for a long time because I love to switch it up. All women
 				should have the opportunity to look elegant and hair-raising. The
 				contemporary world we live in today has taken a 360 turn to feminism and
@@ -33,8 +33,8 @@ function About() {
 				Our mode of serve ranges from full installment to scheduling payment. We
 				provide this method to ease the burden for those who want to make
 				installmental payment just because they couldn’t afford to let that hair
-				pass them by. We are fully here for your service if installmental is
-				your preferred option.
+				pass them by. We are fully here for your service if
+				installmental/scheduling payment is your preferred option.
 				<br />
 				<br />
 				<div className="tw-italic tw-text-sm tw-font-semibold tw-text-left">
@@ -44,8 +44,8 @@ function About() {
 				Beaty don’t cost much if you are dealing with the right merchant that
 				cares about not making you break your bank and provides the best quality
 				you can ever get out there. We at modelEst cares and we are committed to
-				bringing to you the best quality with an affordable deal every time you
-				buy from us. Optimum guarantee for your desired hair product getting to
+				bringing you the best quality with an affordable deal every time you buy
+				from us. Optimum guaranteed for your desired hair product and gets to
 				you in due time.
 				<br />
 				<br />
