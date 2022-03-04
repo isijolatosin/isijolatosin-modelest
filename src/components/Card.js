@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
-function Card({ product, setSingleproducts }) {
+function Card({ product, setSingleproducts, scrollToTop }) {
 	const [clickedID, setClickedID] = React.useState('')
 
 	function handleMouseIn(event) {
@@ -20,6 +20,7 @@ function Card({ product, setSingleproducts }) {
 		} catch (error) {
 			console.log(error)
 		}
+		scrollToTop()
 	}
 
 	return (

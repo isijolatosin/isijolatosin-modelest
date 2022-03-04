@@ -55,12 +55,12 @@ const CartItems = ({ product }) => {
 					{hairColor && <p>{`Color: ${hairColor}`}</p>}
 					<p>{`Quantity: ${quantity}`}</p>
 					<div className="">
-						{!expand && description.length >= 100 ? (
+						{!expand && description?.length >= 100 ? (
 							<span>{description.substring(0, 50)}...</span>
 						) : (
 							<span>{description}</span>
 						)}
-						{description.length >= 100 && (
+						{description?.length >= 100 && (
 							<span
 								onClick={() => setExpand(!expand)}
 								className="tw-cursor-pointer">

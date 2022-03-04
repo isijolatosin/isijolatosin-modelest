@@ -27,16 +27,41 @@ function Products() {
 		fetchProducts()
 	}, [])
 
+	const scrollToTop = function scrollToTop() {
+		window.scrollTo(0, 0)
+	}
+
 	return (
 		<div className="tw-pb-10 tw-pt-10 tw-relative tw-flex tw-flex-col tw-items-center ">
-			{singleProducts ? (
+			{allProducts ? (
+				<div className="tw-flex tw-flex-col tw-items-center tw-w-full md:tw-w-[90%] md:tw-grid md:tw-grid-cols-2 lg:tw-grid-cols-3 2xl:tw-grid-cols-4 3xl:tw-grid-cols-5 tw-gap-5 ">
+					{allProducts.map((product) => (
+						<div
+							key={product._id}
+							className="tw-justify-center tw-items-center tw-flex tw-flex-row">
+							<Card
+								key={product._id}
+								product={product}
+								setSingleproducts={setSingleproducts}
+								scrollToTop={scrollToTop}
+							/>
+						</div>
+					))}
+				</div>
+			) : (
+				<div className="tw-text-neutral-500">Loading data...</div>
+			)}
+			<div className="tw-mx-auto lg:tw-w-4/5 xl:tw-w-full tw-bg-neutral-50 tw-py-10 tw-mt-10">
+				<About />
+			</div>
+			{singleProducts && (
 				<div className="tw-absolute tw-z-10 tw-h-[100vh] tw-w-[100%] tw-right-0 tw-left-0 tw-top-0 tw-flex tw-flex-row tw-items-center tw-justify-center bg-blur2">
 					<div className="tw-w-[600px] tw-h-[600px]">
 						<img
 							id={singleProducts?.[0]._id}
 							src={singleProducts?.[0].image}
 							alt={singleProducts?.[0]._id}
-							className="tw-w-full tw-h-full tw-mt-[-50px] tw-object-contain"
+							className="tw-w-full tw-h-full tw-object-contain"
 						/>
 						<div className="tw-absolute tw-bottom-[30%]">
 							<p className="tw-text-md tw-font-200 tw-tracking-tight tw-text-neutral-900 tw-rounded-md tw-mb-[1px] bg-blur tw-px-2 tw-leading-6 lg:tw-mt-[150px]">
@@ -52,29 +77,6 @@ function Products() {
 						/>
 					</div>
 				</div>
-			) : (
-				<>
-					{allProducts ? (
-						<div className="tw-flex tw-flex-col tw-items-center tw-w-full md:tw-w-[90%] md:tw-grid md:tw-grid-cols-2 lg:tw-grid-cols-3 2xl:tw-grid-cols-4 3xl:tw-grid-cols-5 tw-gap-5 ">
-							{allProducts.map((product) => (
-								<div
-									key={product._id}
-									className="tw-justify-center tw-items-center tw-flex tw-flex-row">
-									<Card
-										key={product._id}
-										product={product}
-										setSingleproducts={setSingleproducts}
-									/>
-								</div>
-							))}
-						</div>
-					) : (
-						<div className="tw-text-neutral-500">Loading data...</div>
-					)}
-					<div className="tw-mx-auto lg:tw-w-4/5 xl:tw-w-full tw-bg-neutral-50 tw-py-10 tw-mt-10">
-						<About />
-					</div>
-				</>
 			)}
 		</div>
 	)

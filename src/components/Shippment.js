@@ -148,11 +148,51 @@ function Shippment() {
 		setModal(false)
 	}
 
+	const scrollToTop = function scrollToTop() {
+		window.scrollTo(0, 0)
+	}
+
 	return (
 		<div className="tw-flex tw-flex-col tw-items-center tw-my-5">
 			<Heading>Shipment</Heading>
 			{user?.email === AUTHORIZED_ID.id_one || AUTHORIZED_ID.id_two ? (
 				<div>
+					{trackingInput && (
+						<div className="tw-mt-10 tw-w-full">
+							<input
+								type="text"
+								name="number"
+								id="number"
+								value={trackingNum.number}
+								onChange={handleChangeAuthUser}
+								placeholder="Tracking Number"
+								className="tw-mt-1 tw-block lg:tw-w-[30%] tw-mx-auto tw-w-[70%] tw-px-3 tw-py-2 tw-border tw-border-neutral-100 tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-blue-600 focus:tw-ring-0 focus:tw-ring-blue-600 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5"
+							/>
+							<input
+								type="text"
+								name="courier"
+								id="courier"
+								value={trackingNum.courier}
+								onChange={handleChangeAuthUser}
+								placeholder="Courier Name"
+								className="tw-mt-1 tw-block lg:tw-w-[30%] tw-mx-auto tw-w-[70%] tw-px-3 tw-py-2 tw-border tw-border-neutral-100 tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-blue-600 focus:tw-ring-0 focus:tw-ring-blue-600 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5"
+							/>
+							<div
+								className={
+									trackingNum.number === '' || trackingNum.courier === ''
+										? 'tw-flex tw-flex-col tw-justify-center tw-text-sm tw-text-gray-200'
+										: 'tw-flex tw-flex-col tw-justify-center tw-text-sm tw-text-green-700 hover:tw-text-gray-400'
+								}>
+								<button
+									disabled={
+										trackingNum.number === '' || trackingNum.courier === ''
+									}
+									onClick={() => hideShipped(_id)}>
+									Submit Tracking
+								</button>
+							</div>
+						</div>
+					)}
 					<main className="history-page">
 						{shippingInfo?.shippingHeader?.length === 0 &&
 						shippingInfo?.shippingHeader?.length === 0 ? (
@@ -219,16 +259,17 @@ function Shippment() {
 														<div className="been-shipped">
 															<div className="tw-mt-[30px] tw-text-xs ">
 																Has this product been shipped ? <br />
-																<span className="been-shipped-textsm tw-text-red-400 tw-text-sm">
-																	Please verify before clicking on yes
+																<span className="been-shipped-textsm tw-text-green-700 tw-text-sm">
+																	Click YES to add tracking number
 																</span>
 															</div>
 															<div className="tw-flex tw-flex-row tw-justify-center">
 																<button
-																	className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-green-800"
+																	className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-green-700"
 																	onClick={() => {
 																		setId(item.id)
 																		setShowTrackingInput(true)
+																		scrollToTop()
 																	}}>
 																	<GiCheckMark className="tw-mr-1" />
 																	Yes
@@ -253,31 +294,6 @@ function Shippment() {
 							</>
 						)}
 					</main>
-					{trackingInput && (
-						<div className="tw-mt-10 tw-w-full">
-							<input
-								type="text"
-								name="number"
-								id="number"
-								value={trackingNum.number}
-								onChange={handleChangeAuthUser}
-								placeholder="Tracking Number"
-								className="tw-mt-1 tw-block lg:tw-w-[30%] tw-mx-auto tw-w-[70%] tw-px-3 tw-py-2 tw-border tw-border-neutral-100 tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-blue-600 focus:tw-ring-0 focus:tw-ring-blue-600 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5"
-							/>
-							<input
-								type="text"
-								name="courier"
-								id="courier"
-								value={trackingNum.courier}
-								onChange={handleChangeAuthUser}
-								placeholder="Courier Name"
-								className="tw-mt-1 tw-block lg:tw-w-[30%] tw-mx-auto tw-w-[70%] tw-px-3 tw-py-2 tw-border tw-border-neutral-100 tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-blue-600 focus:tw-ring-0 focus:tw-ring-blue-600 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5"
-							/>
-							<div className="tw-flex tw-flex-col tw-justify-center tw-text-sm tw-text-blue-500 hover:tw-text-gray-400">
-								<button onClick={() => hideShipped(_id)}>Send Tracking</button>
-							</div>
-						</div>
-					)}
 				</div>
 			) : (
 				<div className="history-page">
