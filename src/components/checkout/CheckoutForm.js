@@ -272,7 +272,8 @@ const CheckoutForm = ({ total, itemCount }) => {
 						<article className="tw-flex tw-items-center tw-justify-between tw-text-center tw-text-xs tw-p-1 tw-mt-5 tw-max-w-[95%] tw-mx-auto tw-rounded-sm tw-text-neutral-500">
 							<span className="tw-mt-3 tw-underline">
 								Hello, {user && user?.displayName}, your total is CA$
-								{((total_amount + shipping_fee) / 100).toFixed(2)} + tax
+								{((total_amount + shipping_fee) / 100).toFixed(2)} - (tax
+								inclusive)
 							</span>
 						</article>
 					)}

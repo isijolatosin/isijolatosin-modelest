@@ -20,7 +20,7 @@ function About() {
 					OFFERING THE BEST HAIR BUNDLES
 				</h3>
 			</div>
-			<p className="tw-text-neutral-600 tw-font-thin">
+			<p className="tw-text-neutral-600 tw-font-normal">
 				ModelEst was created for those who have a flair for hair, those that
 				have to switch it up by length, color and texture. This vision came out
 				of passion for hair and poised appearance. As a woman, I can not keep a
@@ -41,7 +41,7 @@ function About() {
 					<span> ...we serve everyone and leave no one behind!</span>
 				</div>
 				<br />
-				Beaty don’t cost much if you are dealing with the right merchant that
+				Beauty don’t cost much if you are dealing with the right merchant that
 				cares about not making you break your bank and provides the best quality
 				you can ever get out there. We at modelEst cares and we are committed to
 				bringing you the best quality with an affordable deal every time you buy
@@ -53,6 +53,12 @@ function About() {
 				these principles have brought us this far and still drive us to forge
 				ahead. There is no stopping till all women of all ages look their best
 				and more…
+				<br />
+				<br />
+				<span className="tw-italic tw-text-sm tw-font-semibold tw-text-left">
+					For inquiry, please contact us via:
+				</span>
+				<p className="tw-italic tw-text-xs">modelEst1010@gmail.com</p>
 			</p>
 		</div>
 		// </div>
