@@ -3,6 +3,7 @@ import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import { GoAlert } from 'react-icons/go'
 import { SiMastercard } from 'react-icons/si'
 import { RiVisaLine } from 'react-icons/ri'
+import { SiAmericanexpress } from 'react-icons/si'
 import { clearCartItem, selectCartItems } from '../../slices/appSlices'
 import { useSelector, useDispatch } from 'react-redux'
 import { UserContext } from '../../context/user-context'
@@ -285,15 +286,16 @@ const CheckoutForm = ({ total, itemCount }) => {
 				}
 				id="payment-form"
 				onSubmit={handleSubmit}>
-				<div className="tw-flex tw-max-w-[95%] tw-mb-1 tw-items-center tw-mx-auto tw-justify-end tw-mr-6">
+				<div className="tw-flex tw-max-w-[95%] tw-mb-1 tw-items-center tw-mx-auto tw-justify-end tw-mr-4 md:tw-mr-6 lg:tw-mr-5 xl:tw-mr-6">
 					<SiMastercard size={20} className="tw-text-yellow-500 tw-mr-3" />
 					<RiVisaLine size={30} className="tw-mr-3 tw-text-blue-900" />
-					<div className="tw-relative tw-flex tw-items-center">
+					<div className="tw-relative tw-flex tw-items-center tw-mr-5">
 						<RiVisaLine size={30} className="tw-text-blue-800" />
 						<span className="tw-absolute tw-bottom-[0px] tw-right-[1px] tw-text-[7px] tw-italic">
 							DEBIT
 						</span>
 					</div>
+					<SiAmericanexpress size={20} className="tw-text-blue-600 tw-mt-2" />
 				</div>
 				<CardElement
 					id="card-element"
