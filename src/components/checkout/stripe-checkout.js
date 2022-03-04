@@ -28,7 +28,7 @@ const Wrapper = styled.section`
 		border-radius: 7px;
 		padding-left: 10px;
 		padding-right: 10px;
-		padding-top: 30px;
+		/* padding-top: 30px; */
 		padding-bottom: 30px;
 	}
 

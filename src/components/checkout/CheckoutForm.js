@@ -1,6 +1,8 @@
 import React, { useContext } from 'react'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import { GoAlert } from 'react-icons/go'
+import { SiMastercard } from 'react-icons/si'
+import { RiVisaLine } from 'react-icons/ri'
 import { clearCartItem, selectCartItems } from '../../slices/appSlices'
 import { useSelector, useDispatch } from 'react-redux'
 import { UserContext } from '../../context/user-context'
@@ -156,7 +158,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 
 	return (
 		<div>
-			<div className="tw-flex tw-flex-col tw-max-w-[70%] tw-mx-auto tw-mt-5">
+			<div className="tw-flex tw-flex-col tw-max-w-[100%] lg:tw-max-w-[70%] tw-mx-auto tw-mt-5">
 				{!user && (
 					<input
 						type="email"
@@ -266,11 +268,11 @@ const CheckoutForm = ({ total, itemCount }) => {
 							</h4>
 						</article>
 					) : (
-						<article className="tw-text-center tw-text-xs tw-p-1 tw-mt-10 tw-max-w-[70%] tw-mx-auto tw-rounded-sm tw-text-neutral-500">
-							<p>
+						<article className="tw-flex tw-items-center tw-justify-between tw-text-center tw-text-xs tw-p-1 tw-mt-5 tw-max-w-[95%] tw-mx-auto tw-rounded-sm tw-text-neutral-500">
+							<span className="tw-mt-3 tw-underline">
 								Hello, {user && user?.displayName}, your total is CA$
 								{((total_amount + shipping_fee) / 100).toFixed(2)} + tax
-							</p>
+							</span>
 						</article>
 					)}
 				</div>
@@ -283,6 +285,16 @@ const CheckoutForm = ({ total, itemCount }) => {
 				}
 				id="payment-form"
 				onSubmit={handleSubmit}>
+				<div className="tw-flex tw-max-w-[95%] tw-mb-1 tw-items-center tw-mx-auto tw-justify-end tw-mr-6">
+					<SiMastercard size={20} className="tw-text-yellow-500 tw-mr-3" />
+					<RiVisaLine size={30} className="tw-mr-3 tw-text-blue-900" />
+					<div className="tw-relative tw-flex tw-items-center">
+						<RiVisaLine size={30} className="tw-text-blue-800" />
+						<span className="tw-absolute tw-bottom-[0px] tw-right-[1px] tw-text-[7px] tw-italic">
+							DEBIT
+						</span>
+					</div>
+				</div>
 				<CardElement
 					id="card-element"
 					options={cardStyle}
