@@ -43,6 +43,11 @@ function HairBundles() {
 		{ id: 'len8', name: '28-inches' },
 		{ id: 'len9', name: '30-inches' },
 	]
+
+	const scrollToTop = function scrollToTop() {
+		window.scrollTo(0, 0)
+	}
+
 	return (
 		<>
 			<Helmet>
@@ -61,6 +66,7 @@ function HairBundles() {
 										product={item}
 										setSingleproducts={setSingleproducts}
 										length={length}
+										scrollToTop={scrollToTop}
 									/>
 								</div>
 							))}

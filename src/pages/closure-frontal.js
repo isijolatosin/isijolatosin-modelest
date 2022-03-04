@@ -33,6 +33,10 @@ function ClosureFrontal() {
 		}, 2000)
 	}, [])
 
+	const scrollToTop = function scrollToTop() {
+		window.scrollTo(0, 0)
+	}
+
 	return (
 		<>
 			<Helmet>
@@ -55,6 +59,7 @@ function ClosureFrontal() {
 										key={item._id}
 										product={item}
 										setSingleproducts={setSingleproducts}
+										scrollToTop={scrollToTop}
 									/>
 								</div>
 							))}

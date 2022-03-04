@@ -10,7 +10,7 @@ import {
 } from '../slices/appSlices'
 import { isInCart } from '../utils/helpers'
 
-function Card({ product, setSingleproducts }) {
+function Card({ product, setSingleproducts, scrollToTop }) {
 	const [clickedID, setClickedID] = React.useState('')
 	// const [ID, setID] = React.useState('')
 	const cartItems = useSelector(selectCartItems)
@@ -36,6 +36,7 @@ function Card({ product, setSingleproducts }) {
 		} catch (error) {
 			console.log(error)
 		}
+		scrollToTop()
 	}
 
 	const length = [

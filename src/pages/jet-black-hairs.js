@@ -46,6 +46,10 @@ function JetBlackHair() {
 		{ id: 'len9', name: '30-inches' },
 	]
 
+	const scrollToTop = function scrollToTop() {
+		window.scrollTo(0, 0)
+	}
+
 	return (
 		<>
 			<Helmet>
@@ -64,6 +68,7 @@ function JetBlackHair() {
 										product={item}
 										setSingleproducts={setSingleproducts}
 										length={length}
+										scrollToTop={scrollToTop}
 									/>
 								</div>
 							))}

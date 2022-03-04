@@ -100,6 +100,11 @@
 	--max-width: 1520px;
 	--fixed-width: 600px;
 }
+
+html {
+	scroll-behavior: smooth;
+}
+
 input:focus,
 textarea:focus,
 select:focus {
