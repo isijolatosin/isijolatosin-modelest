@@ -78,7 +78,7 @@ const Success = () => {
 				<div
 					className={
 						sales
-							? 'tw-mt-[200px] lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
+							? 'tw-mt-[230px] lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
 							: 'tw-mt-[150px] lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
 					}>
 					<h1 className="tw-text-md tw-text-neutral-600 tw-uppercase tw-mb-1">{`Hey ${displayName}`}</h1>

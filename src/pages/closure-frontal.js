@@ -51,7 +51,7 @@ function ClosureFrontal() {
 				<div
 					className={
 						sales
-							? 'tw-mt-[50px] tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-items-center '
+							? 'tw-mt-[80px] tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-items-center '
 							: 'tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-items-center '
 					}>
 					{show && closureFrontal && (

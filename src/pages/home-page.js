@@ -18,7 +18,7 @@ function HomePage() {
 				<div
 					className={
 						sales
-							? 'tw-mt-[30px] tw-pt-[100px] md:tw-py-[70px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto'
+							? 'tw-mt-[70px] tw-pt-[100px] md:tw-py-[70px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto'
 							: 'tw-pt-[100px] md:tw-py-[70px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto'
 					}>
 					<Products />

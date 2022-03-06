@@ -14,12 +14,12 @@ function Nav() {
 		<div>
 			{sales && (
 				<div className="tw-bg-white tw-flex tw-flex-col tw-text-red-600 tw-font-bold tw-text-center tw-py-2 lg:tw-text-3xl">
-					<span className="tw-text-2xl">
+					<span className="tw-text-xl">
 						PROMO SALE! 15% OFF ON EVERYTHING!!
 					</span>
-					<span className="tw-text-[16px] tw-my-[-10px]">
+					{/* <span className="tw-text-[16px] tw-my-[-10px]">
 						Price deducted at checkout!
-					</span>
+					</span> */}
 				</div>
 			)}
 			<div className="tw-flex tw-w-[95%] lg:tw-w-[100%] xl:tw-w-[85%] 2xl:tw-w-[80%] tw-grow tw-flex-row tw-items-center tw-justify-between tw-my-0 tw-mx-auto">

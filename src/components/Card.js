@@ -47,9 +47,14 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 				<div className="tw-flex tw-flex-row tw-justify-between">
 					<div className="tw-pt-2 tw-w-full">
 						<div className="tw-flex tw-justify-between tw-items-center tw-w-full">
-							<p className=" tw-text-sm">{product.name}</p>
+							<p
+								className={
+									product.instock ? 'tw-flex-[0.7] tw-text-sm' : 'tw-text-sm'
+								}>
+								{product.name}
+							</p>
 							{product.instock && (
-								<div className="tw-flex tw-items-center">
+								<div className="tw-flex-[0.3] tw-justify-end tw-flex tw-items-center">
 									<GrCheckmark />
 									<span className="tw-text-[10px] tw-ml-1 tw-font-semibold">
 										In Stock

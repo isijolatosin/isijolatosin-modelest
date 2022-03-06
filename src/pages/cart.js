@@ -33,7 +33,7 @@ const Cart = () => {
 				<div
 					className={
 						sales
-							? 'tw-mt-[50px] tw-bg-gray-300 tw-pt-[150px] md:tw-pt-[100px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center '
+							? 'tw-mt-[80px] tw-bg-gray-300 tw-pt-[150px] md:tw-pt-[100px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center '
 							: 'tw-bg-gray-300 tw-pt-[150px] md:tw-pt-[100px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center '
 					}>
 					<div className="tw-flex tw-flex-row tw-items-center tw-mb-5">

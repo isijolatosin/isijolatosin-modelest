@@ -15,7 +15,7 @@ const Canceled = () => {
 			<div
 				className={
 					sales
-						? 'tw-mt-[200px] lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
+						? 'tw-mt-[230px] lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
 						: 'tw-mt-[150px] lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
 				}>
 				<Heading>payment failed</Heading>
