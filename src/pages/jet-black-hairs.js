@@ -9,6 +9,11 @@ function JetBlackHair() {
 	const [singleProducts, setSingleproducts] = React.useState(null)
 	const [jetBlackHair, setJetBlackHair] = React.useState([])
 	const [show, setShow] = React.useState(false)
+	const [sales, setSales] = React.useState(false)
+
+	React.useEffect(() => {
+		setSales(localStorage.getItem('isSales'))
+	}, [])
 
 	async function fetchProducts() {
 		try {
@@ -56,7 +61,12 @@ function JetBlackHair() {
 				<title>Jet Black & Blonde Hair</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-items-center ">
+				<div
+					className={
+						sales
+							? 'tw-mt-[50px] tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-items-center '
+							: 'tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-items-center '
+					}>
 					{show && jetBlackHair && (
 						<div className="tw-flex tw-flex-col md:tw-grid md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-4 tw-w-[90%] xl:tw-w-[85%] 2xl:tw-w-[70%]">
 							{jetBlackHair.map((item) => (

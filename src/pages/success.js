@@ -16,6 +16,11 @@ const Success = () => {
 	const dispatch = useDispatch()
 	const cartItems = useSelector(selectCartItems)
 	const userAddress = localStorage.getItem('address')
+	const [sales, setSales] = React.useState(false)
+
+	React.useEffect(() => {
+		setSales(localStorage.getItem('isSales'))
+	}, [])
 
 	React.useEffect(() => {
 		user?.email &&
@@ -70,7 +75,12 @@ const Success = () => {
 				<title>Success</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-mt-[150px] lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center">
+				<div
+					className={
+						sales
+							? 'tw-mt-[200px] lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
+							: 'tw-mt-[150px] lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
+					}>
 					<h1 className="tw-text-md tw-text-neutral-600 tw-uppercase tw-mb-1">{`Hey ${displayName}`}</h1>
 					<h1 className="tw-text-xl tw-uppercase">
 						Thank you for your purchase

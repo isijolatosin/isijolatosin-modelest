@@ -35,18 +35,21 @@ function Products() {
 		<div className="tw-pb-10 tw-pt-10 tw-relative tw-flex tw-flex-col tw-items-center ">
 			{allProducts ? (
 				<div className="tw-flex tw-flex-col tw-items-center tw-w-full md:tw-w-[90%] md:tw-grid md:tw-grid-cols-2 lg:tw-grid-cols-3 2xl:tw-grid-cols-4 3xl:tw-grid-cols-5 tw-gap-5 ">
-					{allProducts.map((product) => (
-						<div
-							key={product._id}
-							className="tw-justify-center tw-items-center tw-flex tw-flex-row">
-							<Card
+					{allProducts.map((product) => {
+						localStorage.setItem('isSales', product.sales)
+						return (
+							<div
 								key={product._id}
-								product={product}
-								setSingleproducts={setSingleproducts}
-								scrollToTop={scrollToTop}
-							/>
-						</div>
-					))}
+								className="tw-justify-center tw-items-center tw-flex tw-flex-row">
+								<Card
+									key={product._id}
+									product={product}
+									setSingleproducts={setSingleproducts}
+									scrollToTop={scrollToTop}
+								/>
+							</div>
+						)
+					})}
 				</div>
 			) : (
 				<div className="tw-text-neutral-500">Loading data...</div>

@@ -9,6 +9,11 @@ function ClosureFrontal() {
 	const [singleProducts, setSingleproducts] = React.useState(null)
 	const [closureFrontal, setClosureFrontal] = React.useState([])
 	const [show, setShow] = React.useState(false)
+	const [sales, setSales] = React.useState(false)
+
+	React.useEffect(() => {
+		setSales(localStorage.getItem('isSales'))
+	}, [])
 
 	async function fetchProducts() {
 		try {
@@ -43,7 +48,12 @@ function ClosureFrontal() {
 				<title>Closure & Frontal</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-items-center ">
+				<div
+					className={
+						sales
+							? 'tw-mt-[50px] tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-items-center '
+							: 'tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-items-center '
+					}>
 					{show && closureFrontal && (
 						<div
 							className={

@@ -40,7 +40,10 @@ function Card({ product, setSingleproducts, length, scrollToTop }) {
 		scrollToTop()
 	}
 
+	let salesAmount = Number(product.price - product.price * 0.15)
 	let cardPrice = product.price
+
+	// Actual price
 	if (bundles.length === '14-inches') {
 		cardPrice = product.price
 	} else if (bundles.length === '16-inches') {
@@ -60,10 +63,31 @@ function Card({ product, setSingleproducts, length, scrollToTop }) {
 	} else if (bundles.length === '30-inches') {
 		cardPrice = product.price + 80
 	}
+	// Sales Price
+
+	if (bundles.length === '14-inches') {
+		salesAmount = product.price - product.price * 0.15
+	} else if (bundles.length === '16-inches') {
+		salesAmount = salesAmount + 10
+	} else if (bundles.length === '18-inches') {
+		salesAmount = salesAmount + 20
+	} else if (bundles.length === '20-inches') {
+		salesAmount = salesAmount + 30
+	} else if (bundles.length === '22-inches') {
+		salesAmount = salesAmount + 40
+	} else if (bundles.length === '24-inches') {
+		salesAmount = salesAmount + 50
+	} else if (bundles.length === '26-inches') {
+		salesAmount = salesAmount + 60
+	} else if (bundles.length === '28-inches') {
+		salesAmount = salesAmount + 70
+	} else if (bundles.length === '30-inches') {
+		salesAmount = salesAmount + 80
+	}
 
 	// Adding to cart items
 	const { name, _id, image, description } = product
-	const price = cardPrice
+	const price = product.sales ? salesAmount : cardPrice
 	const hairLength = bundles.length
 
 	const singleProduct = { name, id: _id, image, price, hairLength, description }
@@ -113,13 +137,19 @@ function Card({ product, setSingleproducts, length, scrollToTop }) {
 							{product.description}
 						</p>
 						<div className="tw-pb-2">
-							<span>${cardPrice}</span>
-							{/* {product.sales && (
-								<>
-									<span className="tw-text-red-700 tw-font-light"> | </span>
-									<span className="tw-text-red-700 tw-text-xs">sales</span>
-								</>
-							)} */}
+							<span
+								className={
+									product.sales
+										? 'tw-line-through tw-tracking-wider'
+										: 'tw-tracking-wider'
+								}>
+								${cardPrice.toFixed(2)}
+							</span>
+							{product.sales && (
+								<span className="tw-ml-2 tw-tracking-wider tw-font-semibold">
+									${salesAmount.toFixed(2)}
+								</span>
+							)}
 						</div>
 					</div>
 				</div>

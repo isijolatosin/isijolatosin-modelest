@@ -18,6 +18,11 @@ const Cart = () => {
 	const total = useSelector(selectTotal)
 	const cartItems = useSelector(selectCartItems)
 	const navigate = useNavigate()
+	const [sales, setSales] = React.useState(false)
+
+	React.useEffect(() => {
+		setSales(localStorage.getItem('isSales'))
+	}, [])
 
 	return (
 		<>
@@ -25,7 +30,12 @@ const Cart = () => {
 				<title>Checkout</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-bg-gray-300 tw-pt-[150px] md:tw-pt-[100px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center ">
+				<div
+					className={
+						sales
+							? 'tw-mt-[50px] tw-bg-gray-300 tw-pt-[150px] md:tw-pt-[100px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center '
+							: 'tw-bg-gray-300 tw-pt-[150px] md:tw-pt-[100px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center '
+					}>
 					<div className="tw-flex tw-flex-row tw-items-center tw-mb-5">
 						<FaOpencart className="tw-text-2xl tw-text-violet-500" />
 						<h2 className="tw-text-2xl tw-ml-2 tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-pink-500 tw-to-violet-500">

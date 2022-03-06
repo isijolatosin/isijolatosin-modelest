@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { GrCheckmark } from 'react-icons/gr'
 
 function Card({ product, setSingleproducts, scrollToTop }) {
 	const [clickedID, setClickedID] = React.useState('')
@@ -42,10 +43,20 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 					</span>
 				</div>
 			)}
-			<div className="bg-blur tw-text-neutral-800 tw-pl-5 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-lg">
+			<div className="bg-blur tw-text-neutral-800 tw-px-5 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-lg">
 				<div className="tw-flex tw-flex-row tw-justify-between">
-					<div className="tw-pt-2">
-						<p className=" tw-text-sm">{product.name}</p>
+					<div className="tw-pt-2 tw-w-full">
+						<div className="tw-flex tw-justify-between tw-items-center tw-w-full">
+							<p className=" tw-text-sm">{product.name}</p>
+							{product.instock && (
+								<div className="tw-flex tw-items-center">
+									<GrCheckmark />
+									<span className="tw-text-[10px] tw-ml-1 tw-font-semibold">
+										In Stock
+									</span>
+								</div>
+							)}
+						</div>
 						<p className=" tw-text-xs tw-text-neutral-600 tw-mb-3">
 							{product.description}
 						</p>

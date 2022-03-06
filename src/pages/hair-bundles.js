@@ -9,6 +9,11 @@ function HairBundles() {
 	const [hairBundles, setHairBundles] = React.useState([])
 	const [singleProducts, setSingleproducts] = React.useState(null)
 	const [show, setShow] = React.useState(false)
+	const [sales, setSales] = React.useState(false)
+
+	React.useEffect(() => {
+		setSales(localStorage.getItem('isSales'))
+	}, [])
 
 	async function fetchProducts() {
 		try {
@@ -32,16 +37,46 @@ function HairBundles() {
 	}, [])
 
 	const length = [
-		{ id: '1', name: 'Length' },
-		{ id: 'len1', name: '14-inches' },
-		{ id: 'len2', name: '16-inches' },
-		{ id: 'len3', name: '18-inches' },
-		{ id: 'len4', name: '20-inches' },
-		{ id: 'len5', name: '22-inches' },
-		{ id: 'len6', name: '24-inches' },
-		{ id: 'len7', name: '26-inches' },
-		{ id: 'len8', name: '28-inches' },
-		{ id: 'len9', name: '30-inches' },
+		{
+			id: '1',
+			name: 'Length',
+		},
+		{
+			id: 'len1',
+			name: '14-inches',
+		},
+		{
+			id: 'len2',
+			name: '16-inches',
+		},
+		{
+			id: 'len3',
+			name: '18-inches',
+		},
+		{
+			id: 'len4',
+			name: '20-inches',
+		},
+		{
+			id: 'len5',
+			name: '22-inches',
+		},
+		{
+			id: 'len6',
+			name: '24-inches',
+		},
+		{
+			id: 'len7',
+			name: '26-inches',
+		},
+		{
+			id: 'len8',
+			name: '28-inches',
+		},
+		{
+			id: 'len9',
+			name: '30-inches',
+		},
 	]
 
 	const scrollToTop = function scrollToTop() {
@@ -54,7 +89,12 @@ function HairBundles() {
 				<title>Hair Bundles</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-flex tw-flex-col tw-items-center tw-mx-auto">
+				<div
+					className={
+						sales
+							? 'tw-mt-[50px] tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-flex tw-flex-col tw-items-center tw-mx-auto'
+							: 'tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-flex tw-flex-col tw-items-center tw-mx-auto'
+					}>
 					{show && hairBundles && (
 						<div className="tw-flex tw-flex-col md:tw-grid md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-4 tw-w-[90%] xl:tw-w-[85%] 2xl:tw-w-[70%]">
 							{hairBundles.map((item) => (

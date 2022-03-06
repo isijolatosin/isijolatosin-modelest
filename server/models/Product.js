@@ -43,6 +43,10 @@ const ProductSchema = new mongoose.Schema({
 		type: Boolean,
 		default: false,
 	},
+	instock: {
+		type: Boolean,
+		default: false,
+	},
 })
 
 module.exports = mongoose.model('Product', ProductSchema)

@@ -55,19 +55,56 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 	]
 
 	let cardPrice1 = product.price
+	let salesAmount1 = Number(product.price - product.price * 0.15)
+
+	//  Actual price1
 	if (bundles.length === '14-inches') {
-		cardPrice1 = product.price
+		if (product.sales) {
+			cardPrice1 = product.price
+		} else {
+			cardPrice1 = product.price
+		}
 	} else if (bundles.length === '16-inches') {
-		cardPrice1 = product.price + 10
+		if (product.sales) {
+			cardPrice1 = product.price
+		} else {
+			cardPrice1 = product.price + 10
+		}
 	} else if (bundles.length === '18-inches') {
-		cardPrice1 = product.price + 20
+		if (product.sales) {
+			cardPrice1 = product.price
+		} else {
+			cardPrice1 = product.price + 20
+		}
 	} else if (bundles.length === '20-inches') {
-		cardPrice1 = product.price + 30
+		if (product.sales) {
+			cardPrice1 = product.price
+		} else {
+			cardPrice1 = product.price + 30
+		}
 	} else if (bundles.length === '22-inches') {
-		cardPrice1 = product.price + 40
+		if (product.sales) {
+			cardPrice1 = product.price
+		} else {
+			cardPrice1 = product.price + 40
+		}
+	}
+	// Sales Price1
+	if (bundles.length === '14-inches') {
+		salesAmount1 = product.price - product.price * 0.15
+	} else if (bundles.length === '16-inches') {
+		salesAmount1 = salesAmount1 + 10
+	} else if (bundles.length === '18-inches') {
+		salesAmount1 = salesAmount1 + 20
+	} else if (bundles.length === '20-inches') {
+		salesAmount1 = salesAmount1 + 30
+	} else if (bundles.length === '22-inches') {
+		salesAmount1 = salesAmount1 + 40
 	}
 
 	let cardPrice2 = product.price
+	let salesAmount2 = Number(product.price - product.price * 0.15)
+	// Actual Price2
 	if (bundles.length === '14-inches') {
 		cardPrice2 = product.price
 	} else if (bundles.length === '16-inches') {
@@ -79,16 +116,36 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 	} else if (bundles.length === '22-inches') {
 		cardPrice2 = product.price + 40
 	}
+	// Sales Price2
+	if (bundles.length === '14-inches') {
+		salesAmount2 = product.price - product.price * 0.15
+	} else if (bundles.length === '16-inches') {
+		salesAmount2 = salesAmount2 + 10
+	} else if (bundles.length === '18-inches') {
+		salesAmount2 = salesAmount2 + 20
+	} else if (bundles.length === '20-inches') {
+		salesAmount2 = salesAmount2 + 30
+	} else if (bundles.length === '22-inches') {
+		salesAmount2 = salesAmount2 + 40
+	}
 
 	// Adding to cart items
 	const { name, _id, image, description } = product
 	const price =
 		product.type.toLowerCase() === 'frontal'
 			? bundles.color === 'Blonde613'
-				? (cardPrice2 += 10)
+				? product.sales
+					? (salesAmount2 += 10)
+					: (cardPrice2 += 10)
+				: product.sales
+				? salesAmount2
 				: cardPrice2
 			: bundles.color === 'Blonde613'
-			? (cardPrice1 += 10)
+			? product.sales
+				? (salesAmount1 += 10)
+				: (cardPrice1 += 10)
+			: product.sales
+			? salesAmount1
 			: cardPrice1
 
 	const hairLength = bundles.length
@@ -142,12 +199,25 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 							{product.description}
 						</p>
 						<div className="tw-pb-2">
-							<span>
+							<span
+								className={
+									product.sales
+										? 'tw-line-through tw-tracking-wider'
+										: 'tw-tracking-wider'
+								}>
 								$
 								{product.type.toLowerCase() === 'frontal'
-									? cardPrice2
-									: cardPrice1}
+									? cardPrice2.toFixed(2)
+									: cardPrice1.toFixed(2)}
 							</span>
+							{product.sales && (
+								<span className="tw-ml-2 tw-tracking-wider tw-font-semibold">
+									$
+									{product.type.toLowerCase() === 'frontal'
+										? salesAmount2.toFixed(2)
+										: salesAmount1.toFixed(2)}
+								</span>
+							)}
 						</div>
 					</div>
 				</div>
