@@ -221,8 +221,8 @@ function Shippment() {
 											</tr>
 										</thead>
 										<tbody>
-											{shippingInfo?.shippingData?.map((item) => (
-												<tr className="table-item-row" key={item?.id}>
+											{shippingInfo?.shippingData?.map((item, idx) => (
+												<tr className="table-item-row" key={idx}>
 													{Object?.values(item)?.map((itm, index) => (
 														<td
 															className={

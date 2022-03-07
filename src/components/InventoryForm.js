@@ -16,6 +16,7 @@ function InventoryForm({
 			<div className="tw-flex tw-flex-col tw-items-center">
 				{inputTypes.map((inputType) => (
 					<input
+						key={inputType.id}
 						type={inputType.type}
 						name={inputType.name}
 						id={inputType.id}
