@@ -17,6 +17,7 @@ function Shippment() {
 	const [modal, setModal] = React.useState(false)
 	const [_id, setId] = React.useState('')
 	const [matchIdx, setMatchIdx] = React.useState('')
+	const [custmr, setCustmr] = React.useState('')
 	const [isLoading, setIsLoading] = React.useState(true)
 	const [shippingInfo, setShippingInfo] = React.useState({
 		shippingHeader: [],
@@ -79,10 +80,11 @@ function Shippment() {
 						for (const result of results) {
 							data.push({
 								address: result?.data.address,
+								color: result?.data.color,
 								customer: result?.data.customer,
 								description: result?.data.description,
 								id: result?.data.id,
-								price: `CA$ ${result?.data.price}`,
+								price: `$${result?.data.price}`,
 								quantity: result?.data.quantity,
 								title: result?.data.title,
 							})
@@ -105,7 +107,8 @@ function Shippment() {
 		setMatchIdx(idx)
 		setReadMore(!readMore)
 	}
-	const toggleModal = (idx) => {
+	const toggleModal = (idx, customer) => {
+		setCustmr(customer)
 		setMatchIdx(idx)
 		setModal(true)
 	}
@@ -219,27 +222,29 @@ function Shippment() {
 										</thead>
 										<tbody>
 											{shippingInfo?.shippingData?.map((item) => (
-												<tr className="table-item-row" key={item.id}>
+												<tr className="table-item-row" key={item?.id}>
 													{Object?.values(item)?.map((itm, index) => (
 														<td
 															className={
-																itm.length >= 200
+																itm?.length >= 200
 																	? 'table-items align-left'
 																	: 'table-items'
 															}
 															key={index}
-															onClick={() => toggleModal(item.id)}>
+															onClick={() =>
+																toggleModal(item?.id, item?.customer)
+															}>
 															{typeof itm === 'string'
-																? itm.length >= 200
-																	? readMore && matchIdx === item.id
+																? itm?.length >= 200
+																	? readMore && matchIdx === item?.id
 																		? itm
 																		: `${itm.substring(0, 70)}...`
 																	: itm
 																: itm}
-															{itm.length >= 200 && (
+															{itm?.length >= 200 && (
 																<>
-																	<span onClick={() => toggleRead(item.id)}>
-																		{readMore && matchIdx === item.id ? (
+																	<span onClick={() => toggleRead(item?.id)}>
+																		{readMore && matchIdx === item?.id ? (
 																			<>
 																				<span>Read Less</span>{' '}
 																				<MdOutlineKeyboardArrowUp />
@@ -255,37 +260,39 @@ function Shippment() {
 															)}
 														</td>
 													))}
-													{modal && matchIdx === item.id && (
-														<div className="been-shipped">
-															<div className="tw-mt-[30px] tw-text-xs ">
-																Has this product been shipped ? <br />
-																<span className="been-shipped-textsm tw-text-green-700 tw-text-sm">
-																	Click YES to add tracking number
-																</span>
+													{modal &&
+														matchIdx === item.id &&
+														custmr === item?.customer && (
+															<div className="been-shipped">
+																<div className="tw-mt-[30px] tw-text-xs ">
+																	Has this product been shipped ? <br />
+																	<span className="been-shipped-textsm tw-text-green-700 tw-text-sm">
+																		Click YES to add tracking number
+																	</span>
+																</div>
+																<div className="tw-flex tw-flex-row tw-justify-center">
+																	<button
+																		className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-green-700"
+																		onClick={() => {
+																			setId(item.id)
+																			setShowTrackingInput(true)
+																			scrollToTop()
+																		}}>
+																		<GiCheckMark className="tw-mr-1" />
+																		Yes
+																	</button>
+																	<button
+																		className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-red-800"
+																		onClick={() => {
+																			setShowTrackingInput(false)
+																			setModal(false)
+																		}}>
+																		<MdClose size={20} className="tw-mr-1" />
+																		No
+																	</button>
+																</div>
 															</div>
-															<div className="tw-flex tw-flex-row tw-justify-center">
-																<button
-																	className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-green-700"
-																	onClick={() => {
-																		setId(item.id)
-																		setShowTrackingInput(true)
-																		scrollToTop()
-																	}}>
-																	<GiCheckMark className="tw-mr-1" />
-																	Yes
-																</button>
-																<button
-																	className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-red-800"
-																	onClick={() => {
-																		setShowTrackingInput(false)
-																		setModal(false)
-																	}}>
-																	<MdClose size={20} className="tw-mr-1" />
-																	No
-																</button>
-															</div>
-														</div>
-													)}
+														)}
 												</tr>
 											))}
 										</tbody>

@@ -19,6 +19,7 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 		length: '',
 		color: '',
 	})
+	const lengthArr = product.availablelength.split(',')
 
 	function handleMouseIn(event) {
 		setClickedID(event.target.id)
@@ -39,15 +40,6 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 		scrollToTop()
 	}
 
-	const length = [
-		{ id: '1', name: 'Length' },
-		{ id: 'len1', name: '14-inches' },
-		{ id: 'len2', name: '16-inches' },
-		{ id: 'len3', name: '18-inches' },
-		{ id: 'len4', name: '20-inches' },
-		{ id: 'len5', name: '22-inches' },
-	]
-
 	const color = [
 		{ id: '1', name: 'Color' },
 		{ id: 'colo1', name: 'Natural Black' },
@@ -58,31 +50,31 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 	let salesAmount1 = Number(product.price - product.price * 0.15)
 
 	//  Actual price1
-	if (bundles.length === '14-inches') {
+	if (bundles.length === '14') {
 		if (product.sales) {
 			cardPrice1 = product.price
 		} else {
 			cardPrice1 = product.price
 		}
-	} else if (bundles.length === '16-inches') {
+	} else if (bundles.length === '16') {
 		if (product.sales) {
 			cardPrice1 = product.price
 		} else {
 			cardPrice1 = product.price + 10
 		}
-	} else if (bundles.length === '18-inches') {
+	} else if (bundles.length === '18') {
 		if (product.sales) {
 			cardPrice1 = product.price
 		} else {
 			cardPrice1 = product.price + 20
 		}
-	} else if (bundles.length === '20-inches') {
+	} else if (bundles.length === '20') {
 		if (product.sales) {
 			cardPrice1 = product.price
 		} else {
 			cardPrice1 = product.price + 30
 		}
-	} else if (bundles.length === '22-inches') {
+	} else if (bundles.length === '22') {
 		if (product.sales) {
 			cardPrice1 = product.price
 		} else {
@@ -90,42 +82,42 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 		}
 	}
 	// Sales Price1
-	if (bundles.length === '14-inches') {
+	if (bundles.length === '14') {
 		salesAmount1 = product.price - product.price * 0.15
-	} else if (bundles.length === '16-inches') {
+	} else if (bundles.length === '16') {
 		salesAmount1 = salesAmount1 + 10
-	} else if (bundles.length === '18-inches') {
+	} else if (bundles.length === '18') {
 		salesAmount1 = salesAmount1 + 20
-	} else if (bundles.length === '20-inches') {
+	} else if (bundles.length === '20') {
 		salesAmount1 = salesAmount1 + 30
-	} else if (bundles.length === '22-inches') {
+	} else if (bundles.length === '22') {
 		salesAmount1 = salesAmount1 + 40
 	}
 
 	let cardPrice2 = product.price
 	let salesAmount2 = Number(product.price - product.price * 0.15)
 	// Actual Price2
-	if (bundles.length === '14-inches') {
+	if (bundles.length === '14') {
 		cardPrice2 = product.price
-	} else if (bundles.length === '16-inches') {
+	} else if (bundles.length === '16') {
 		cardPrice2 = product.price + 10
-	} else if (bundles.length === '18-inches') {
+	} else if (bundles.length === '18') {
 		cardPrice2 = product.price + 20
-	} else if (bundles.length === '20-inches') {
+	} else if (bundles.length === '20') {
 		cardPrice2 = product.price + 30
-	} else if (bundles.length === '22-inches') {
+	} else if (bundles.length === '22') {
 		cardPrice2 = product.price + 40
 	}
 	// Sales Price2
-	if (bundles.length === '14-inches') {
+	if (bundles.length === '14') {
 		salesAmount2 = product.price - product.price * 0.15
-	} else if (bundles.length === '16-inches') {
+	} else if (bundles.length === '16') {
 		salesAmount2 = salesAmount2 + 10
-	} else if (bundles.length === '18-inches') {
+	} else if (bundles.length === '18') {
 		salesAmount2 = salesAmount2 + 20
-	} else if (bundles.length === '20-inches') {
+	} else if (bundles.length === '20') {
 		salesAmount2 = salesAmount2 + 30
-	} else if (bundles.length === '22-inches') {
+	} else if (bundles.length === '22') {
 		salesAmount2 = salesAmount2 + 40
 	}
 
@@ -228,8 +220,8 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 						id="length"
 						value={bundles.length}
 						name="length">
-						{length.map((len) => (
-							<option key={len.id}>{len.name}</option>
+						{lengthArr.map((len, idx) => (
+							<option key={idx}>{len}</option>
 						))}
 					</select>
 					<select

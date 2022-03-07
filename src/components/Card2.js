@@ -10,7 +10,7 @@ import {
 } from '../slices/appSlices'
 import { isInCart } from '../utils/helpers'
 
-function Card({ product, setSingleproducts, length, scrollToTop }) {
+function Card({ product, setSingleproducts, scrollToTop }) {
 	const [clickedID, setClickedID] = React.useState('')
 	// const [ID, setID] = React.useState('')
 	const cartItems = useSelector(selectCartItems)
@@ -19,6 +19,7 @@ function Card({ product, setSingleproducts, length, scrollToTop }) {
 		length: '',
 		quantity: '',
 	})
+	const lengthArr = product.availablelength.split(',')
 
 	function handleMouseIn(event) {
 		setClickedID(event.target.id)
@@ -44,53 +45,62 @@ function Card({ product, setSingleproducts, length, scrollToTop }) {
 	let cardPrice = product.price
 
 	// Actual price
-	if (bundles.length === '14-inches') {
+	if (bundles.length === '14') {
 		cardPrice = product.price
-	} else if (bundles.length === '16-inches') {
+	} else if (bundles.length === '16') {
 		cardPrice = product.price + 10
-	} else if (bundles.length === '18-inches') {
+	} else if (bundles.length === '18') {
 		cardPrice = product.price + 20
-	} else if (bundles.length === '20-inches') {
+	} else if (bundles.length === '20') {
 		cardPrice = product.price + 30
-	} else if (bundles.length === '22-inches') {
+	} else if (bundles.length === '22') {
 		cardPrice = product.price + 40
-	} else if (bundles.length === '24-inches') {
+	} else if (bundles.length === '24') {
 		cardPrice = product.price + 50
-	} else if (bundles.length === '26-inches') {
+	} else if (bundles.length === '26') {
 		cardPrice = product.price + 60
-	} else if (bundles.length === '28-inches') {
+	} else if (bundles.length === '28') {
 		cardPrice = product.price + 70
-	} else if (bundles.length === '30-inches') {
+	} else if (bundles.length === '30') {
 		cardPrice = product.price + 80
 	}
 	// Sales Price
 
-	if (bundles.length === '14-inches') {
+	if (bundles.length === '14') {
 		salesAmount = product.price - product.price * 0.15
-	} else if (bundles.length === '16-inches') {
+	} else if (bundles.length === '16') {
 		salesAmount = salesAmount + 10
-	} else if (bundles.length === '18-inches') {
+	} else if (bundles.length === '18') {
 		salesAmount = salesAmount + 20
-	} else if (bundles.length === '20-inches') {
+	} else if (bundles.length === '20') {
 		salesAmount = salesAmount + 30
-	} else if (bundles.length === '22-inches') {
+	} else if (bundles.length === '22') {
 		salesAmount = salesAmount + 40
-	} else if (bundles.length === '24-inches') {
+	} else if (bundles.length === '24') {
 		salesAmount = salesAmount + 50
-	} else if (bundles.length === '26-inches') {
+	} else if (bundles.length === '26') {
 		salesAmount = salesAmount + 60
-	} else if (bundles.length === '28-inches') {
+	} else if (bundles.length === '28') {
 		salesAmount = salesAmount + 70
-	} else if (bundles.length === '30-inches') {
+	} else if (bundles.length === '30') {
 		salesAmount = salesAmount + 80
 	}
 
 	// Adding to cart items
-	const { name, _id, image, description } = product
+	const { name, _id, image, color, description } = product
 	const price = product.sales ? salesAmount : cardPrice
 	const hairLength = bundles.length
+	const hairColor = color
 
-	const singleProduct = { name, id: _id, image, price, hairLength, description }
+	const singleProduct = {
+		name,
+		id: _id,
+		image,
+		hairColor,
+		price,
+		hairLength,
+		description,
+	}
 	const addToCart = () => {
 		dispatch(addToCartItem(singleProduct))
 	}
@@ -161,8 +171,8 @@ function Card({ product, setSingleproducts, length, scrollToTop }) {
 						value={bundles.length}
 						name="length"
 						placeholder="Length">
-						{length.map((len) => (
-							<option key={len.id}>{len.name}</option>
+						{lengthArr.map((len, idx) => (
+							<option key={idx}>{len}</option>
 						))}
 					</select>
 				</div>

@@ -39,6 +39,7 @@ const Success = () => {
 						price: item.price,
 						address: userAddress,
 						customer: user?.displayName,
+						color: item?.hairColor,
 					})
 					.then(() => {
 						console.log(`SUCCESSFULL`)
@@ -57,6 +58,7 @@ const Success = () => {
 						price: item.price,
 						address: userAddress,
 						customer: user?.displayName,
+						color: item?.hairColor,
 					})
 					.then(() => {
 						console.log(`SUCCESSFULL`)

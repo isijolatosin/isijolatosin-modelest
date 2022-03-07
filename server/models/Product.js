@@ -24,6 +24,9 @@ const ProductSchema = new mongoose.Schema({
 		required: [true, 'must provide a price'],
 		trim: true,
 	},
+	Availablelength: {
+		type: String,
+	},
 	price: {
 		type: Number,
 		required: [true, 'must provide a price'],

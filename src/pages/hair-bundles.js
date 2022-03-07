@@ -36,49 +36,6 @@ function HairBundles() {
 		}, 2000)
 	}, [])
 
-	const length = [
-		{
-			id: '1',
-			name: 'Length',
-		},
-		{
-			id: 'len1',
-			name: '14-inches',
-		},
-		{
-			id: 'len2',
-			name: '16-inches',
-		},
-		{
-			id: 'len3',
-			name: '18-inches',
-		},
-		{
-			id: 'len4',
-			name: '20-inches',
-		},
-		{
-			id: 'len5',
-			name: '22-inches',
-		},
-		{
-			id: 'len6',
-			name: '24-inches',
-		},
-		{
-			id: 'len7',
-			name: '26-inches',
-		},
-		{
-			id: 'len8',
-			name: '28-inches',
-		},
-		{
-			id: 'len9',
-			name: '30-inches',
-		},
-	]
-
 	const scrollToTop = function scrollToTop() {
 		window.scrollTo(0, 0)
 	}
@@ -105,7 +62,6 @@ function HairBundles() {
 										key={item._id}
 										product={item}
 										setSingleproducts={setSingleproducts}
-										length={length}
 										scrollToTop={scrollToTop}
 									/>
 								</div>
