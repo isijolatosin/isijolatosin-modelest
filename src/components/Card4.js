@@ -106,17 +106,17 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 		product.type.toLowerCase() === 'frontal'
 			? bundles.color.includes('Blonde613')
 				? product.sales
-					? ((salesAmount2 += 10), (cardPrice2 += 10))
+					? ((cardPrice2 += 10), (salesAmount2 += 10))
 					: (cardPrice2 += 10)
 				: product.sales
 				? salesAmount2
 				: cardPrice2
 			: bundles.color.includes('Blonde613')
 			? product.sales
-				? ((salesAmount1 += 10), (cardPrice1 += 10))
+				? ((cardPrice1 += 10), (salesAmount1 += 10))
 				: (cardPrice1 += 10)
 			: product.sales
-			? (salesAmount1, cardPrice1)
+			? (cardPrice1, salesAmount1)
 			: cardPrice1
 
 	const hairLength = bundles.length
