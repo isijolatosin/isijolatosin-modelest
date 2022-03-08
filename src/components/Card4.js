@@ -188,9 +188,9 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 						</div>
 					</div>
 				</div>
-				<div className="tw-mr-5">
+				<div className="tw-mr-5 tw-flex tw-flex-row tw-items-center tw-justify-center tw-w-full">
 					<select
-						className="tw-text-gray-500 tw-mt-1 tw-block tw-w-full tw-mr-5 tw-px-3 tw-py-2 tw-border tw-border-gray-100 tw-rounded-md tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-noneinvalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-3"
+						className="tw-flex-[0.2] tw-text-gray-500 tw-mt-1 tw-block tw-w-full tw-mr-5 tw-px-3 tw-py-2 tw-border tw-border-gray-100 tw-rounded-md tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-noneinvalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-3"
 						onChange={handleOnChange}
 						id="length"
 						value={bundles.length}
@@ -200,7 +200,7 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 						))}
 					</select>
 					<select
-						className="tw-text-gray-500 tw-mt-1 tw-block tw-w-full tw-mr-5 tw-px-3 tw-py-2 tw-border tw-border-gray-100 tw-rounded-md tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-noneinvalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-3"
+						className="tw-flex-[0.8] tw-text-gray-500 tw-mt-1 tw-block tw-w-full tw-mr-5 tw-px-3 tw-py-2 tw-border tw-border-gray-100 tw-rounded-md tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-noneinvalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-3"
 						onChange={handleOnChange}
 						id="color"
 						value={bundles.color}
