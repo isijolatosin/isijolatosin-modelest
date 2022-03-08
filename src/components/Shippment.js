@@ -83,6 +83,7 @@ function Shippment() {
 								color: result?.data.color,
 								customer: result?.data.customer,
 								description: result?.data.description,
+								email: result?.data.email,
 								id: result?.data.id,
 								price: `$${result?.data.price}`,
 								quantity: result?.data.quantity,
@@ -206,7 +207,7 @@ function Shippment() {
 							)
 						) : (
 							<>
-								<div className="top">
+								<div className="tw-max-w-[90%] tw-mr-[50px] md:tw-px-[50px] md:tw-max-w-[80%] lg:tw-max-w-[100%] md:tw-overflow-x-auto">
 									<table>
 										<thead>
 											<tr className="table-head-row">

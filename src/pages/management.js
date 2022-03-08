@@ -11,6 +11,7 @@ import { UserContext } from '../context/user-context'
 function Management() {
 	const [section, setSection] = React.useState('all-inventory')
 	const { user } = useContext(UserContext)
+	const isSales = localStorage.getItem('isSales')
 
 	const toggleSection = (e) => {
 		setSection(e.target.id)
@@ -34,7 +35,12 @@ function Management() {
 				<title>Admin Portal</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-mt-[70px] tw-pt-20 md:tw-pt-10 tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-bg-neutral-300">
+				<div
+					className={
+						isSales
+							? 'tw-mt-[140px] lg:tw-mt-[110px] tw-pt-20 md:tw-pt-10 tw-flex tw-flex-col tw-w-[100vw] tw-items-center tw-bg-neutral-300'
+							: 'tw-mt-[70px] tw-pt-20 md:tw-pt-10 tw-flex tw-flex-col tw-w-[100vw] tw-items-center tw-bg-neutral-300'
+					}>
 					<Heading>Admin portal</Heading>
 					<div className="tw-my-5 tw-w-[100%] tw-text-violet-700">
 						<ul className="tw-flex tw-text-xs tw-flex-row tw-items-center tw-justify-between tw-w-[90%] lg:tw-w-[50%] tw-mx-auto">

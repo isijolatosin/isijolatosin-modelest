@@ -28,6 +28,11 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 				price: product.price,
 				description: product.description,
 				sales: product.sales,
+				type: product.type,
+				color: product.color,
+				availablecolor: product.availablecolor,
+				length: product.length,
+				availablelength: product.availablelength,
 			})
 
 			// console.log(product)
@@ -50,8 +55,14 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 				<div className="tw-flex tw-flex-col tw-mr-5 tw-text-xs tw-font-light tw-w-[85%]">
 					<span className="tw-w-[100%]">{`Name: ${product.name}`}</span>
 					<span className="tw-w-[100%]">{`Color: ${product.color}`}</span>
+					{product?.availablecolor && (
+						<span className="tw-w-[100%]">{`Available Color: ${product.availablecolor}`}</span>
+					)}
 					<span className="tw-w-[100%]">{`Price: CA$${product.price}`}</span>
 					<span className="tw-w-[100%]">{`Length: ${product.length}"`}</span>
+					{product.availablelength && (
+						<span className="tw-w-[100%]">{`Available Length: ${product.availablelength}"`}</span>
+					)}
 					<span className="tw-w-[100%]">{`Description: ${product.description}`}</span>
 					<span className="tw-text-red-800">{product.sales && 'onsale'}</span>
 				</div>

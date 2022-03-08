@@ -36,8 +36,10 @@ function AllInventories() {
 			name: e.target.value,
 			type: singleProduct.type,
 			color: singleProduct.color,
+			availablecolor: singleProduct.availablecolor,
 			price: Number(singleProduct.price),
 			length: Number(singleProduct.length),
+			availablelength: singleProduct.availablelength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 		})
@@ -48,8 +50,10 @@ function AllInventories() {
 			name: singleProduct.name,
 			type: e.target.value,
 			color: singleProduct.color,
+			availablecolor: singleProduct.availablecolor,
 			price: Number(singleProduct.price),
 			length: Number(singleProduct.length),
+			availablelength: singleProduct.availablelength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 		})
@@ -60,8 +64,24 @@ function AllInventories() {
 			name: singleProduct.name,
 			type: singleProduct.type,
 			color: e.target.value,
+			availablecolor: singleProduct.availablecolor,
 			price: Number(singleProduct.price),
 			length: Number(singleProduct.length),
+			availablelength: singleProduct.availablelength,
+			description: singleProduct.description,
+			sales: singleProduct.sales,
+		})
+	}
+	const handleInputAvailableColor = (e) => {
+		setSingleProduct({
+			id: singleProduct.id,
+			name: singleProduct.name,
+			type: singleProduct.type,
+			color: singleProduct.color,
+			availablecolor: e.target.value,
+			price: Number(singleProduct.price),
+			length: Number(singleProduct.length),
+			availablelength: singleProduct.availablelength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 		})
@@ -72,8 +92,24 @@ function AllInventories() {
 			name: singleProduct.name,
 			type: singleProduct.type,
 			color: singleProduct.color,
+			availablecolor: singleProduct.availablecolor,
 			price: Number(singleProduct.price),
 			length: e.target.value,
+			availablelength: singleProduct.availablelength,
+			description: singleProduct.description,
+			sales: singleProduct.sales,
+		})
+	}
+	const handleInputAvailableLen = (e) => {
+		setSingleProduct({
+			id: singleProduct.id,
+			name: singleProduct.name,
+			type: singleProduct.type,
+			color: singleProduct.color,
+			availablecolor: singleProduct.availablecolor,
+			price: Number(singleProduct.price),
+			length: Number(singleProduct.length),
+			availablelength: e.target.value,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 		})
@@ -84,8 +120,10 @@ function AllInventories() {
 			name: singleProduct.name,
 			type: singleProduct.type,
 			color: singleProduct.color,
+			availablecolor: singleProduct.availablecolor,
 			price: e.target.value,
 			length: Number(singleProduct.length),
+			availablelength: singleProduct.availablelength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 		})
@@ -96,8 +134,10 @@ function AllInventories() {
 			name: singleProduct.name,
 			type: singleProduct.type,
 			color: singleProduct.color,
+			availablecolor: singleProduct.availablecolor,
 			price: Number(singleProduct.price),
 			length: Number(singleProduct.length),
+			availablelength: singleProduct.availablelength,
 			sales: singleProduct.sales,
 			description: e.target.value,
 		})
@@ -111,8 +151,10 @@ function AllInventories() {
 				name: singleProduct.name,
 				type: singleProduct.type,
 				color: singleProduct.color,
+				availablecolor: singleProduct.availablecolor,
 				price: singleProduct.price,
 				length: singleProduct.length,
+				availablelength: singleProduct.availablelength,
 				description: singleProduct.description,
 				sales: isTrue,
 				image: imageFile,
@@ -195,7 +237,7 @@ function AllInventories() {
 								value={singleProduct.name}
 								onChange={handleInputName}
 								placeholder="Product Name..."
-								className="tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[70%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								className="tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
 							/>
 							<input
 								type="text"
@@ -204,16 +246,25 @@ function AllInventories() {
 								value={singleProduct.type}
 								onChange={handleInputType}
 								placeholder="Product Type..."
-								className="tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[70%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								className="tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
 							/>
 							<input
 								type="text"
 								name="color"
-								id="type"
+								id="color"
 								value={singleProduct.color}
 								onChange={handleInputColor}
 								placeholder="Product Color..."
-								className="tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[70%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								className="tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+							/>
+							<input
+								type="text"
+								name="availablecolor"
+								id="availablecolor"
+								value={singleProduct.availablecolor}
+								onChange={handleInputAvailableColor}
+								placeholder="Available Color..."
+								className="tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
 							/>
 							<input
 								type="number"
@@ -222,7 +273,16 @@ function AllInventories() {
 								value={singleProduct.length}
 								onChange={handleInputLen}
 								placeholder="Length..."
-								className="tw-rounded tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[70%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								className="tw-rounded tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+							/>
+							<input
+								type="text"
+								name="availablelength"
+								id="availablelength"
+								value={singleProduct.availablelength}
+								onChange={handleInputAvailableLen}
+								placeholder="Available Lengths..."
+								className="tw-rounded tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
 							/>
 							<input
 								type="number"
@@ -231,7 +291,7 @@ function AllInventories() {
 								value={singleProduct.price}
 								onChange={handleInputPrice}
 								placeholder="Price..."
-								className="tw-rounded tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[70%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								className="tw-rounded tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
 							/>
 							<textarea
 								value={singleProduct.description}
@@ -240,11 +300,11 @@ function AllInventories() {
 								rows={5}
 								cols={50}
 								placeholder="Description..."
-								className="tw-rounded tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[70%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								className="tw-rounded tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
 							/>
-							<div className="tw-text-violet-700 tw-text-xs tw-mb-2 ">
+							<div className="tw-text-red-800 tw-text-sm tw-mb-2 ">
 								<span>
-									Substitute space with a dash in image name ( e.g abc-def )
+									Rename Image and substitute space with a dash ( e.g abc-def )
 								</span>
 							</div>
 							<div className="tw-rounded tw-flex tw-flex-row tw-items-center tw-shadow-xl tw-pl-3 tw-pb-1">
