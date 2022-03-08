@@ -20,9 +20,14 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 		color: '',
 	})
 	const lengthArr = product.availablelength.split(',')
+	const colorArr = product?.availablecolor?.split(', ')
 
 	function handleMouseIn(event) {
 		setClickedID(event.target.id)
+	}
+
+	const handleOnChange = (e) => {
+		setBundles({ ...bundles, [e.target.name]: e.target.value })
 	}
 
 	async function handleViewImage(event) {
@@ -40,46 +45,20 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 		scrollToTop()
 	}
 
-	const color = [
-		{ id: '1', name: 'Color' },
-		{ id: 'colo1', name: 'Natural Black' },
-		{ id: 'colo2', name: 'Blonde613' },
-	]
-
 	let cardPrice1 = product.price
 	let salesAmount1 = Number(product.price - product.price * 0.15)
 
 	//  Actual price1
 	if (bundles.length === '14') {
-		if (product.sales) {
-			cardPrice1 = product.price
-		} else {
-			cardPrice1 = product.price
-		}
+		cardPrice1 = product.price
 	} else if (bundles.length === '16') {
-		if (product.sales) {
-			cardPrice1 = product.price
-		} else {
-			cardPrice1 = product.price + 10
-		}
+		cardPrice1 = product.price + 10
 	} else if (bundles.length === '18') {
-		if (product.sales) {
-			cardPrice1 = product.price
-		} else {
-			cardPrice1 = product.price + 20
-		}
+		cardPrice1 = product.price + 20
 	} else if (bundles.length === '20') {
-		if (product.sales) {
-			cardPrice1 = product.price
-		} else {
-			cardPrice1 = product.price + 30
-		}
+		cardPrice1 = product.price + 30
 	} else if (bundles.length === '22') {
-		if (product.sales) {
-			cardPrice1 = product.price
-		} else {
-			cardPrice1 = product.price + 40
-		}
+		cardPrice1 = product.price + 40
 	}
 	// Sales Price1
 	if (bundles.length === '14') {
@@ -125,19 +104,19 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 	const { name, _id, image, description } = product
 	const price =
 		product.type.toLowerCase() === 'frontal'
-			? bundles.color === 'Blonde613'
+			? bundles.color.includes('Blonde613')
 				? product.sales
-					? (salesAmount2 += 10)
+					? ((salesAmount2 += 10), (cardPrice2 += 10))
 					: (cardPrice2 += 10)
 				: product.sales
 				? salesAmount2
 				: cardPrice2
-			: bundles.color === 'Blonde613'
+			: bundles.color.includes('Blonde613')
 			? product.sales
-				? (salesAmount1 += 10)
+				? ((salesAmount1 += 10), (cardPrice1 += 10))
 				: (cardPrice1 += 10)
 			: product.sales
-			? salesAmount1
+			? (salesAmount1, cardPrice1)
 			: cardPrice1
 
 	const hairLength = bundles.length
@@ -158,10 +137,6 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 
 	const IncreaseItem = () => {
 		dispatch(increaseCartItem(singleProduct))
-	}
-
-	const handleOnChange = (e) => {
-		setBundles({ ...bundles, [e.target.name]: e.target.value })
 	}
 
 	return (
@@ -230,8 +205,8 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 						id="color"
 						value={bundles.color}
 						name="color">
-						{color.map((colo) => (
-							<option key={colo.id}>{colo.name}</option>
+						{colorArr.map((colo, idx) => (
+							<option key={idx}>{colo}</option>
 						))}
 					</select>
 				</div>
