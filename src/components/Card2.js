@@ -167,14 +167,14 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 						{isInCart(singleProduct, cartItems) ? (
 							<div
 								className="tw-flex tw-flex-row tw-items-center"
-								onClick={bundles.length !== '' ? IncreaseItem : null}>
+								onClick={cartItems.length !== 0 ? IncreaseItem : null}>
 								<span className="tw-mr-3">Add More</span>
 								<BsFillCartPlusFill />
 							</div>
 						) : (
 							<div
 								className="tw-flex tw-flex-row tw-items-center"
-								onClick={bundles.length !== '' ? addToCart : null}>
+								onClick={addToCart}>
 								<span className="tw-mr-3">Add to cart</span>
 								<FaOpencart />
 							</div>

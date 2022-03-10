@@ -219,7 +219,7 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 					) : (
 						<div
 							className="tw-flex tw-flex-row tw-items-center"
-							onClick={bundles.length !== '' ? addToCart : null}>
+							onClick={addToCart}>
 							<span className="tw-mr-3">Add to cart</span>
 							<FaOpencart />
 						</div>
