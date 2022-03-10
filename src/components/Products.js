@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import Card from './Card'
 import { CgClose } from 'react-icons/cg'
+import { GrCheckmark } from 'react-icons/gr'
 import About from './About'
 
 function Products() {
@@ -31,10 +32,12 @@ function Products() {
 		window.scrollTo(0, 0)
 	}
 
+	const sizes = singleProducts?.[0].availablelength.split(', ')
+
 	return (
 		<div className="tw-pb-10 tw-pt-10 tw-relative tw-flex tw-flex-col tw-items-center ">
 			{allProducts ? (
-				<div className="tw-flex tw-flex-col tw-items-center tw-w-full md:tw-w-[90%] md:tw-grid md:tw-grid-cols-2 lg:tw-grid-cols-3 2xl:tw-grid-cols-4 3xl:tw-grid-cols-5 tw-gap-5 ">
+				<div className="tw-grid tw-grid-cols-2 tw-w-full tw-px-2 md:tw-w-[90%] md:tw-grid-cols-4 lg:tw-grid-cols-5 2xl:tw-grid-cols-6 3xl:tw-grid-cols-7 tw-gap-2 md:tw-gap-5 ">
 					{allProducts.map((product) => {
 						localStorage.setItem('isSales', product.sales)
 						return (
@@ -64,15 +67,35 @@ function Products() {
 							id={singleProducts?.[0]._id}
 							src={singleProducts?.[0].image}
 							alt={singleProducts?.[0]._id}
-							className="tw-w-full tw-h-full tw-object-contain"
+							className="tw-w-[90%] tw-mx-auto tw-h-full tw-object-contain"
 						/>
 						<div className="tw-absolute tw-bottom-[30%]">
-							<p className="tw-text-md tw-font-200 tw-tracking-tight tw-text-neutral-900 tw-rounded-md tw-mb-[1px] bg-blur tw-px-2 tw-leading-6 lg:tw-mt-[150px]">
+							<p className="tw-text-md tw-font-200 tw-tracking-tight tw-text-neutral-900 tw-mb-[1px] bg-blur tw-px-2 tw-leading-6 lg:tw-mt-[150px]">
 								{singleProducts?.[0].name}
 							</p>
-							<p className="tw-font-medium tw-text-slate-900 tw-text-xs tw-rounded-md tw-mb-[1px] bg-blur tw-px-2 tw-mt-0">
+							<p className="tw-font-medium tw-text-slate-900 tw-text-xs tw-mb-[1px] bg-blur tw-px-2 tw-mt-0">
 								{singleProducts?.[0].description}
 							</p>
+							{singleProducts?.[0].instock && (
+								<div className="bg-blur tw-px-2 tw-flex tw-items-center">
+									<GrCheckmark />
+									<span className="tw-text-[10px] tw-ml-1 tw-font-semibold">
+										In Stock
+									</span>
+								</div>
+							)}
+							<div className="tw-flex tw-items-center">
+								<p className="tw-font-medium tw-text-slate-900 tw-text-xs bg-blur tw-px-2 tw-mt-0 tw-mr-2">
+									sizes
+								</p>
+								{sizes.map((size, idx) => (
+									<span
+										className="bg-blur tw-text-slate-900 tw-rounded-full tw-mr-2 tw-border-[1px] tw-border-neutral-600 tw-px-2 tw-text-xs"
+										key={idx}>
+										{size}
+									</span>
+								))}
+							</div>
 						</div>
 						<CgClose
 							onClick={() => setSingleproducts(null)}

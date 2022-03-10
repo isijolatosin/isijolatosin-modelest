@@ -70,7 +70,7 @@ const Success = () => {
 
 		setTimeout(() => {
 			dispatch(clearCartItem())
-		}, 1000)
+		}, 500)
 	})
 
 	return (

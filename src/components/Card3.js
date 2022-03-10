@@ -166,33 +166,41 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 		<div
 			onMouseOver={handleMouseIn}
 			onMouseOut={() => setClickedID('')}
-			className="tw-w-[90%] tw-h-[600px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-lg">
+			className="tw-w-[100%] tw-h-[400px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-sm">
 			<img
 				onClick={handleViewImage}
 				id={product._id}
 				src={product.image}
 				alt={product._id}
-				className=" tw-w-full tw-h-full tw-object-cover tw-rounded-lg hover:tw-cursor-pointer"
+				className=" tw-w-[400px] tw-h-full tw-object-cover tw-rounded-sm hover:tw-cursor-pointer"
 			/>
 			{clickedID === product._id && (
-				<div className="tw-absolute tw-top-0 tw-right-0 tw-bg-neutral-300 tw-rounded-tr-lg tw-rounded-bl-lg tw-text-xs tw-p-2">
+				<div className="tw-absolute tw-top-0 tw-right-0 tw-bg-neutral-300 tw-rounded-tr-sm tw-rounded-bl-sm tw-text-xs tw-p-2">
 					<span className="tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-pink-500 tw-to-violet-500">
 						View Image
 					</span>
 				</div>
 			)}
-			<div className="bg-blur tw-text-neutral-800 tw-pl-5 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-lg">
+			<div className="bg-blur tw-text-neutral-800 tw-px-2 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-sm">
 				<div className="tw-flex tw-flex-row tw-justify-between">
-					<div className="tw-pt-2">
-						<p className=" tw-text-sm">{product.name}</p>
-						<p className=" tw-text-xs tw-text-neutral-600">
+					<div className="tw-pt-2 tw-flex tw-justify-between tw-text-xs">
+						<p className="">{product.name}</p>
+						{/* <p className=" tw-text-xs tw-text-neutral-600">
 							{product.description}
-						</p>
+						</p> */}
 						<div className="tw-pb-2">
+							{product.sales && (
+								<span className="tw-mr-1 tw-tracking-wider tw-font-semibold">
+									$
+									{product.color === 'blonde613'
+										? salesAmount2.toFixed(2)
+										: salesAmount1.toFixed(2)}
+								</span>
+							)}
 							<span
 								className={
 									product.sales
-										? 'tw-line-through tw-tracking-wider'
+										? 'tw-line-through tw-tracking-wider tw-font-light'
 										: 'tw-tracking-wider'
 								}>
 								$
@@ -200,20 +208,12 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 									? cardPrice2.toFixed(2)
 									: cardPrice1.toFixed(2)}
 							</span>
-							{product.sales && (
-								<span className="tw-ml-2 tw-tracking-wider tw-font-semibold">
-									$
-									{product.color === 'blonde613'
-										? salesAmount2.toFixed(2)
-										: salesAmount1.toFixed(2)}
-								</span>
-							)}
 						</div>
 					</div>
 				</div>
-				<div className="tw-mr-5">
+				<div className="tw-flex tw-items-center tw-mb-5">
 					<select
-						className="tw-text-gray-500 tw-mt-1 tw-block tw-w-full tw-mr-5 tw-px-3 tw-py-2 tw-border tw-border-gray-100 tw-rounded-md tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-noneinvalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-3"
+						className="tw-flex-[0.3] tw-text-gray-500 tw-block tw-w-full tw-mr-5 tw-px-3 tw-py-1 tw-border tw-border-gray-100 tw-rounded-sm tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-noneinvalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
 						onChange={handleOnChange}
 						id="length"
 						value={bundles.length}
@@ -222,23 +222,23 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 							<option key={idx}>{len}</option>
 						))}
 					</select>
-				</div>
-				<div className="tw-text-sm tw-flex tw-flex-row tw-rounded-md tw-bg-gradient-to-r tw-from-pink-500 tw-to-violet-500 tw-px-4 tw-py-2 tw-items-center tw-justify-center tw-w-[150px] tw-mx-auto tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mb-5">
-					{isInCart(singleProduct, cartItems) ? (
-						<div
-							className="tw-flex tw-flex-row tw-items-center"
-							onClick={cartItems.length !== 0 ? IncreaseItem : null}>
-							<span className="tw-mr-3">Add More</span>
-							<BsFillCartPlusFill />
-						</div>
-					) : (
-						<div
-							className="tw-flex tw-flex-row tw-items-center"
-							onClick={bundles.length !== '' ? addToCart : null}>
-							<span className="tw-mr-3">Add to cart</span>
-							<FaOpencart />
-						</div>
-					)}
+					<div className="tw-flex-[0.7] tw-text-xs tw-flex tw-flex-row tw-rounded-sm tw-bg-neutral-700 tw-px-3 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[110px] tw-mx-auto tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500">
+						{isInCart(singleProduct, cartItems) ? (
+							<div
+								className="tw-flex tw-flex-row tw-items-center"
+								onClick={cartItems.length !== 0 ? IncreaseItem : null}>
+								<span className="tw-mr-3">Add More</span>
+								<BsFillCartPlusFill />
+							</div>
+						) : (
+							<div
+								className="tw-flex tw-flex-row tw-items-center"
+								onClick={bundles.length !== '' ? addToCart : null}>
+								<span className="tw-mr-3">Add to cart</span>
+								<FaOpencart />
+							</div>
+						)}
+					</div>
 				</div>
 			</div>
 		</div>
