@@ -143,7 +143,7 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 		<div
 			onMouseOver={handleMouseIn}
 			onMouseOut={() => setClickedID('')}
-			className="tw-w-[100%] tw-h-[400px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-sm">
+			className="tw-w-[100%] tw-h-[300px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-sm">
 			<img
 				onClick={handleViewImage}
 				id={product._id}

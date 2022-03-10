@@ -117,7 +117,7 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 		<div
 			onMouseOver={handleMouseIn}
 			onMouseOut={() => setClickedID('')}
-			className="tw-w-[100%] tw-mx-auto tw-h-[400px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-sm">
+			className="tw-w-[100%] tw-mx-auto tw-h-[300px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-sm">
 			<img
 				onClick={handleViewImage}
 				id={product._id}
@@ -151,9 +151,9 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 						</span>
 					</div>
 				</div>
-				<div className="tw-flex tw-items-center tw-mb-5">
+				<div className="tw-flex tw-items-center tw-mb-5 tw-justify-between">
 					<select
-						className="tw-flex-[0.3] tw-text-gray-500 tw-block tw-w-full tw-mr-5 tw-px-3 tw-py-1 tw-border tw-border-gray-100 tw-rounded-sm tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-noneinvalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+						className="tw-flex-[0.2] tw-text-gray-500 tw-block tw-w-full tw-mr-5 tw-px-3 tw-py-1 tw-border tw-border-gray-100 tw-rounded-sm tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-noneinvalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
 						onChange={handleOnChange}
 						id="length"
 						value={bundles.length}
@@ -163,7 +163,7 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 							<option key={idx}>{len}</option>
 						))}
 					</select>
-					<div className="tw-flex-[0.7] tw-text-xs tw-flex tw-flex-row tw-rounded-sm tw-bg-neutral-700 tw-px-3 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[110px] tw-mx-auto tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500">
+					<div className="tw-flex-[0.8] tw-text-xs tw-flex tw-flex-row tw-rounded-sm tw-bg-neutral-700 tw-px-1 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[110px] tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500">
 						{isInCart(singleProduct, cartItems) ? (
 							<div
 								className="tw-flex tw-flex-row tw-items-center"
