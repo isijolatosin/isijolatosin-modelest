@@ -24,7 +24,7 @@ function LinksComponent() {
 		<div className="tw-flex tw-flex-row tw-w-full tw-justify-between tw-relative">
 			{links.map((item) => (
 				<div
-					className="tw-px-3 tw-uppercase tw-text-xs tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-pink-500 tw-to-violet-500 hover:tw-text-zinc-300 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-text-center"
+					className="tw-px-3 tw-uppercase tw-text-[10px] hover:tw-text-zinc-400 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-text-center"
 					key={item.id}>
 					<Link to={item.route}>{item.name}</Link>
 				</div>

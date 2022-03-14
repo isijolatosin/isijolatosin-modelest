@@ -37,6 +37,16 @@ const CheckoutForm = ({ total, itemCount }) => {
 	const [error, setError] = React.useState(false)
 	const dispatch = useDispatch()
 	const { user } = useContext(UserContext)
+	const [payPlan, setPlan] = React.useState('')
+	const paymentPlan = [
+		{ id: 1, name: 'Payment Plan' },
+		{ id: 2, name: 'One-Time' },
+		{ id: 3, name: 'Bi-Weekly' },
+		{ id: 4, name: 'Monthly' },
+	]
+	const handleOnChange = (e) => {
+		setPlan(e.target.value)
+	}
 	const inputOnchangeHandler = (e) => {
 		setAddress({ ...address, [e.target.name]: e.target.value })
 	}
@@ -112,7 +122,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 		try {
 			const { data } = await axios.post(
 				'/.netlify/functions/create-payment-intent',
-				JSON.stringify({ cartItems, shipping_fee, total_amount })
+				JSON.stringify({ cartItems, shipping_fee, total_amount, payPlan })
 			)
 
 			setClientSecret(data.clientSecret.split("'")?.[0])
@@ -260,17 +270,27 @@ const CheckoutForm = ({ total, itemCount }) => {
 				</span>
 			</div>
 			{allowproceed && (
-				<div>
+				<div className="tw-flex tw-flex-col">
+					<select
+						className="tw-max-w-[120px] tw-mt-10 tw-text-neutral-500 tw-font-light tw-bg-neutral-50 tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[4px] tw-text-xs tw-border-[1px] tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+						onChange={handleOnChange}
+						id="payPlan"
+						value={payPlan}
+						name="payPlan">
+						{paymentPlan.map((plan) => (
+							<option key={plan.id}>{plan.name}</option>
+						))}
+					</select>
 					{succeeded ? (
-						<article className="tw-text-center tw-mt-5">
+						<article className="tw-text-center tw-mt-2">
 							<h4>Thank you. Your payment was successful!</h4>
-							<h4 className="tw-text-xs tw-text-green-700 tw-my-4">
+							<h4 className="tw-text-xs tw-text-green-700 tw-mb-2">
 								Redirecting to {succeeded ? 'success' : 'canceled'} page...
 							</h4>
 						</article>
 					) : (
-						<article className="tw-flex tw-text-[11px] tw-p-1 tw-mt-5 tw-max-w-[100%] tw-text-neutral-500">
-							<span className="tw-mt-3 tw-underline">
+						<article className="tw-flex tw-text-[11px] tw-p-1 tw-mt-1 tw-max-w-[100%] tw-text-neutral-500">
+							<span className="tw-underline">
 								Hello, {user && user?.displayName}, your total is $
 								{((total_amount + shipping_fee) / 100).toFixed(2)} - (tax &
 								shipping inclusive)
@@ -282,11 +302,13 @@ const CheckoutForm = ({ total, itemCount }) => {
 			<form
 				className={
 					allowproceed
-						? 'tw-block tw-ease-in tw-duration-300 tw-w-full'
+						? 'tw-block tw-ease-in tw-duration-300 tw-w-full tw-pt-2'
 						: 'tw-hidden tw-ease-in tw-duration-300'
 				}
 				id="payment-form"
-				onSubmit={handleSubmit}>
+				onSubmit={
+					payPlan === '' || payPlan === 'Select Plan' ? null : handleSubmit
+				}>
 				<div className="tw-flex tw-max-w-[95%] tw-mb-1 tw-items-center tw-mx-auto tw-justify-end tw-mr-4 md:tw-mr-6 lg:tw-mr-5 xl:tw-mr-6">
 					<SiMastercard size={20} className="tw-text-yellow-500 tw-mr-3" />
 					<RiVisaLine size={30} className="tw-mr-3 tw-text-blue-900" />
@@ -305,20 +327,26 @@ const CheckoutForm = ({ total, itemCount }) => {
 					className="tw-w-[95%] tw-mx-auto tw-border-[1px] tw-border-b-0 tw-p-3 tw-rounded-t-[4px] "
 				/>
 				<button
-					className="tw-bg-neutral-800 tw-w-[95%] tw-flex tw-mx-auto tw-justify-center tw-py-2 tw-rounded-b-md"
-					disabled={processing || disabled || succeeded}
+					className="tw-bg-neutral-900 tw-w-[95%] tw-flex tw-mx-auto tw-justify-center tw-py-2 tw-rounded-b-md"
+					disabled={
+						processing ||
+						disabled ||
+						succeeded ||
+						payPlan === '' ||
+						payPlan === 'Payment Plan'
+					}
 					id="submit">
 					<span
 						className={
-							processing || disabled || succeeded
+							processing ||
+							disabled ||
+							succeeded ||
+							payPlan === '' ||
+							payPlan === 'Payment Plan'
 								? 'tw-text-neutral-50 tw-font-light'
 								: 'tw-text-orange-500 tw-font-light'
 						}>
-						{processing ? (
-							<div className="spinner" id="spinner"></div>
-						) : (
-							'Pay now'
-						)}
+						{processing ? <div className="spinner" id="spinner"></div> : 'Pay'}
 					</span>
 				</button>
 				{_error && (

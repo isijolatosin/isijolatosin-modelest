@@ -52,8 +52,8 @@ function JetBlackHair() {
 				<div
 					className={
 						sales
-							? 'tw-mt-[80px] tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-items-center '
-							: 'tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-800 tw-items-center '
+							? 'tw-pt-[170px] tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-h-full tw-relative tw-bg-neutral-200 tw-items-center'
+							: 'tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-200 tw-items-center '
 					}>
 					{show && jetBlackHair && (
 						<div className="tw-grid tw-grid-cols-2 tw-w-full tw-px-2 md:tw-grid-cols-3 lg:tw-grid-cols-4 xl:tw-grid-cols-5 xl:tw-w-[85%] 2xl:tw-w-[70%] tw-gap-2 md:tw-gap-5">
@@ -72,7 +72,7 @@ function JetBlackHair() {
 						</div>
 					)}
 					{!show && (
-						<div className="tw-text-neutral-50 tw-font-light tw-text-sm">
+						<div className="tw-text-neutral-800 tw-font-light tw-text-sm">
 							Loading products...
 						</div>
 					)}

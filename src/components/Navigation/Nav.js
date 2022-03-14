@@ -13,7 +13,7 @@ function Nav() {
 	return (
 		<div>
 			{sales && (
-				<div className="tw-bg-white tw-flex tw-flex-col tw-text-red-600 tw-font-bold tw-text-center tw-py-2 lg:tw-text-3xl">
+				<div className="tw-bg-red-600 tw-flex tw-flex-col tw-text-white tw-border-b-[1px] tw-font-bold tw-text-center tw-py-2 lg:tw-text-3xl">
 					<span className="tw-text-xl">
 						PROMO SALE! 15% OFF ON EVERYTHING!!
 					</span>
@@ -33,7 +33,7 @@ function Nav() {
 					<NavIcons />
 				</div>
 			</div>
-			<div className="tw-in-line tw-px-3 md:tw-hidden tw-flex-0.8 tw-border-t-[1px] tw-border-neutral-600 tw-py-2">
+			<div className="tw-in-line tw-px-3 md:tw-hidden tw-flex-0.8 tw-border-t-[1px] tw-border-neutral-300 tw-bg-neutral-300 tw-py-2">
 				<LinksComponent />
 			</div>
 		</div>

@@ -10,7 +10,7 @@ function HomePage() {
 		setSales(localStorage.getItem('isSales'))
 	}, [])
 	return (
-		<div className="tw-bg-neutral-800 relative">
+		<div className="tw-bg-neutral-200 relative">
 			<Helmet>
 				<title>Home</title>
 			</Helmet>
@@ -18,7 +18,7 @@ function HomePage() {
 				<div
 					className={
 						sales
-							? 'tw-mt-[70px] tw-pt-[100px] md:tw-py-[70px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto'
+							? 'tw-mt-[70px] tw-pt-[70px] md:tw-py-[70px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto'
 							: 'tw-pt-[100px] md:tw-py-[70px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto'
 					}>
 					<Products />
