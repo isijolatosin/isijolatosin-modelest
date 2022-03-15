@@ -13,7 +13,7 @@ function Nav() {
 	return (
 		<div>
 			{sales && (
-				<div className="tw-bg-red-600 tw-flex tw-flex-col tw-text-white tw-border-b-[1px] tw-font-bold tw-text-center tw-py-2 lg:tw-text-3xl">
+				<div className="tw-bg-black tw-flex tw-flex-col tw-text-white tw-border-b-[1px] tw-font-bold tw-text-center tw-py-2 lg:tw-text-3xl">
 					<span className="tw-text-xl">
 						PROMO SALE! 15% OFF ON EVERYTHING!!
 					</span>

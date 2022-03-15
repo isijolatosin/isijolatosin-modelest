@@ -42,13 +42,53 @@ const CheckoutForm = ({ total, itemCount }) => {
 		{ id: 1, name: 'Payment Plan' },
 		{ id: 2, name: 'One-Time' },
 		{ id: 3, name: 'Bi-Weekly' },
-		{ id: 4, name: 'Monthly' },
 	]
 	const handleOnChange = (e) => {
 		setPlan(e.target.value)
 	}
 	const inputOnchangeHandler = (e) => {
 		setAddress({ ...address, [e.target.name]: e.target.value })
+	}
+
+	const cardStyle = {
+		style: {
+			base: {
+				color: '#32325d',
+				fontFamily: 'Arial, sans-serif',
+				fontSmoothing: 'antialiased',
+				fontSize: '16px',
+				'::placeholder': {
+					color: '#32325d',
+				},
+			},
+			invalid: {
+				color: '#fa755a',
+				iconColor: '#fa755a',
+			},
+		},
+	}
+
+	const shipping_fee = Math.floor(shippingCost.cost * 100)
+	const taxCal = total * TAX_PERCENT
+	const price = Math.floor((total + taxCal) * 100)
+	const total_amount = price
+
+	const createPaymentIntent = async () => {
+		try {
+			const { data } = await axios.post(
+				'/.netlify/functions/create-payment-intent',
+				JSON.stringify({ cartItems, shipping_fee, total_amount })
+			)
+
+			setClientSecret(data.clientSecret.split("'")?.[0])
+		} catch (error) {
+			set_Error(error?.response?.data ? 'Please contact modelEst Admin...' : '')
+		}
+	}
+
+	const handleChange = async (event) => {
+		setDisabled(event.empty)
+		set_Error(event.error ? event.error.message : '')
 	}
 
 	// Submit address
@@ -95,81 +135,102 @@ const CheckoutForm = ({ total, itemCount }) => {
 		)
 	}
 
-	const cardStyle = {
-		style: {
-			base: {
-				color: '#32325d',
-				fontFamily: 'Arial, sans-serif',
-				fontSmoothing: 'antialiased',
-				fontSize: '16px',
-				'::placeholder': {
-					color: '#32325d',
-				},
-			},
-			invalid: {
-				color: '#fa755a',
-				iconColor: '#fa755a',
-			},
-		},
-	}
-
-	const shipping_fee = Math.floor(shippingCost.cost * 100)
-	const taxCal = total * TAX_PERCENT
-	const price = Math.floor((total + taxCal) * 100)
-	const total_amount = price
-
-	const createPaymentIntent = async () => {
-		try {
-			const { data } = await axios.post(
-				'/.netlify/functions/create-payment-intent',
-				JSON.stringify({ cartItems, shipping_fee, total_amount, payPlan })
-			)
-
-			setClientSecret(data.clientSecret.split("'")?.[0])
-		} catch (error) {
-			set_Error(error?.response?.data ? 'Please contact modelEst Admin...' : '')
-		}
-	}
-
 	React.useEffect(() => {
 		createPaymentIntent()
-		// eslint-disable-next-line
-	}, [])
-
-	const handleChange = async (event) => {
-		setDisabled(event.empty)
-		set_Error(event.error ? event.error.message : '')
-	}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [shippingCost.cost])
 
 	const handleSubmit = async (ev) => {
 		ev.preventDefault()
-		setProcessing(true)
 
-		const payload = await stripe.confirmCardPayment(clientSecret, {
-			payment_method: {
+		if (payPlan === 'Payment Plan') return
+
+		if (payPlan.includes('One-Time')) {
+			// One time payment
+			setProcessing(true)
+
+			if (clientSecret) {
+				const payload = await stripe.confirmCardPayment(clientSecret, {
+					payment_method: {
+						card: elements.getElement(CardElement),
+					},
+				})
+
+				if (payload.error) {
+					set_Error(`Payment failed ${payload.error.message}`)
+					setProcessing(false)
+					setTimeout(() => {
+						navigate('/canceled')
+					}, 5000)
+				} else {
+					set_Error(null)
+					setProcessing(false)
+					setSucceeded(true)
+					setTimeout(() => {
+						navigate('/success')
+					}, 5000)
+				}
+			}
+		}
+		// recurring payment
+		else {
+			setProcessing(true)
+			const result = await stripe.createPaymentMethod({
+				type: 'card',
 				card: elements.getElement(CardElement),
-			},
-		})
+				billing_details: {
+					email: user?.email || email,
+				},
+			})
 
-		if (payload.error) {
-			set_Error(`Payment failed ${payload.error.message}`)
-			setProcessing(false)
-			setTimeout(() => {
-				navigate('/canceled')
-			}, 5000)
-		} else {
-			set_Error(null)
-			setProcessing(false)
-			setSucceeded(true)
-			setTimeout(() => {
-				navigate('/success')
-			}, 5000)
+			if (result.error) {
+				console.log(result.error)
+				set_Error(`Payment failed ${result.error.message}`)
+				setProcessing(false)
+				// setTimeout(() => {
+				// 	navigate('/canceled')
+				// }, 5000)
+			} else {
+				const res = await axios.post('/.netlify/functions/create-payment-sub', {
+					payment_method: result.paymentMethod.id,
+					email: user?.email || email,
+				})
+
+				const { client_secret, status } = res.data
+
+				if (status === 'requires_action') {
+					stripe.confirmCardPayment(client_secret).then(function (result) {
+						if (result.error) {
+							console.log(result.error)
+							set_Error(`Payment failed ${result.error.message}`)
+							setProcessing(false)
+							setTimeout(() => {
+								navigate('/canceled')
+							}, 5000)
+						} else {
+							set_Error(null)
+							setProcessing(false)
+							setSucceeded(true)
+							setTimeout(() => {
+								navigate('/success')
+							}, 5000)
+						}
+					})
+				} else {
+					set_Error(null)
+					setProcessing(false)
+					setSucceeded(true)
+					setTimeout(() => {
+						navigate('/success')
+					}, 5000)
+				}
+			}
 		}
 	}
 
 	return (
 		<div>
-			<div className="tw-flex tw-flex-col tw-max-w-[100%] lg:tw-max-w-[70%] tw-mx-auto tw-mt-5">
+			<div className="tw-flex tw-flex-col tw-max-w-[100%] lg:tw-max-w-[70%] tw-mx-auto">
 				{!user && (
 					<input
 						type="email"
@@ -179,7 +240,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 						className={
 							error && !email
 								? 'user-email-input input-error'
-								: 'user-email-input'
+								: 'user-email-input tw-text-sm'
 						}
 					/>
 				)}
@@ -192,7 +253,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 					className={
 						error && !address.street
 							? 'user-email-input input-error'
-							: 'user-email-input'
+							: 'user-email-input tw-text-sm tw-font-light'
 					}
 				/>
 				<input
@@ -204,7 +265,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 					className={
 						error && !address.city
 							? 'user-email-input input-error'
-							: 'user-email-input'
+							: 'user-email-input tw-text-sm tw-font-light'
 					}
 				/>
 				<input
@@ -216,7 +277,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 					className={
 						error && !address.province
 							? 'user-email-input input-error'
-							: 'user-email-input'
+							: 'user-email-input tw-text-sm tw-font-light'
 					}
 				/>
 				<input
@@ -228,7 +289,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 					className={
 						error && !address.postalcode
 							? 'user-email-input input-error'
-							: 'user-email-input'
+							: 'user-email-input tw-text-sm tw-font-light'
 					}
 				/>
 				<input
@@ -240,7 +301,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 					className={
 						error && !address.country
 							? 'user-email-input input-error'
-							: 'user-email-input'
+							: 'user-email-input tw-text-sm tw-font-light'
 					}
 				/>
 			</div>
@@ -258,7 +319,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 				<button
 					disabled={allowproceed}
 					onClick={handleSubmitAddress}
-					className="tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-pink-500 tw-to-violet-500 hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mr-5 tw-border-r-2 tw-pr-5"
+					className="tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-black tw-via-yellow-600 tw-to-yellow-700 hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mr-5 tw-border-r-2 tw-pr-5"
 					type="submit">
 					PROCEED
 				</button>
@@ -307,7 +368,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 				}
 				id="payment-form"
 				onSubmit={
-					payPlan === '' || payPlan === 'Select Plan' ? null : handleSubmit
+					payPlan === '' || payPlan === 'Payment Plan' ? null : handleSubmit
 				}>
 				<div className="tw-flex tw-max-w-[95%] tw-mb-1 tw-items-center tw-mx-auto tw-justify-end tw-mr-4 md:tw-mr-6 lg:tw-mr-5 xl:tw-mr-6">
 					<SiMastercard size={20} className="tw-text-yellow-500 tw-mr-3" />

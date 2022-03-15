@@ -20,8 +20,8 @@ function ImageComponent() {
 	return (
 		<div className="tw-py-5 tw-pl-5 tw-flex tw-flex-row tw-items-center ">
 			<Link to="/">
-				<div className="tw-text-md tw-font-extrabold">
-					<span className="tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-pink-500 tw-to-violet-500">
+				<div className="tw-text-lg tw-font-extrabold">
+					<span className="tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-black tw-via-yellow-600 tw-to-yellow-700">
 						modelEst
 					</span>
 				</div>
@@ -33,7 +33,7 @@ function ImageComponent() {
 					className="tw-relative"
 					onMouseOver={handleShow}
 					onMouseOut={handleHide}>
-					<div className="tw-w-30 tw-h-30 tw-p-2 tw-text-rose-800 tw-text-xl hover:tw-cursor-pointer tw-bg-neutral-200 tw-rounded-full tw-ease-in tw-duration-300 tw-ml-3">
+					<div className="tw-w-30 tw-h-30 tw-p-2 tw-text-black tw-text-xl hover:tw-cursor-pointer tw-bg-neutral-200 tw-rounded-full tw-ease-in tw-duration-300 tw-ml-3">
 						<RiAdminFill />
 					</div>
 					<CursorText showText={showText}>Admin</CursorText>

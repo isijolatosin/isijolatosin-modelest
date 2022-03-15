@@ -43,7 +43,7 @@ const Success = () => {
 						color: item?.hairColor,
 					})
 					.then(() => {
-						console.log(`SUCCESSFULL`)
+						// console.log(`SUCCESSFULL`)
 					})
 					.catch((error) => console.log('Error' + error.message))
 
@@ -82,8 +82,8 @@ const Success = () => {
 				<div
 					className={
 						sales
-							? 'tw-mt-[230px] lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
-							: 'tw-mt-[150px] lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
+							? 'tw-pt-[230px] tw-bg-neutral-200 lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
+							: 'tw-pt-[150px] tw-bg-neutral-200 lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
 					}>
 					<h1 className="tw-text-md tw-text-neutral-600 tw-uppercase tw-mb-1">{`Hey ${displayName}`}</h1>
 					<h1 className="tw-text-xl tw-uppercase">

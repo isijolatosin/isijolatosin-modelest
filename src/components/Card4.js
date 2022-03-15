@@ -208,7 +208,7 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 						))}
 					</select>
 				</div>
-				<div className="tw-text-xs tw-flex tw-flex-row tw-rounded-sm tw-bg-neutral-700 tw-px-3 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[110px] tw-mx-auto tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mb-5">
+				<div className="tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-sm tw-bg-neutral-900 tw-px-3 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[110px] tw-mx-auto tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mb-5">
 					{isInCart(singleProduct, cartItems) ? (
 						<div
 							className="tw-flex tw-flex-row tw-items-center"

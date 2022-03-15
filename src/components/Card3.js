@@ -222,7 +222,7 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 							<option key={idx}>{len}</option>
 						))}
 					</select>
-					<div className="tw-flex-[0.8] tw-text-xs tw-flex tw-flex-row tw-rounded-sm tw-bg-neutral-700 tw-px-1 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[110px] tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500">
+					<div className="tw-flex-[0.8] tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-sm tw-bg-neutral-900 tw-px-1 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[110px] tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500">
 						{isInCart(singleProduct, cartItems) ? (
 							<div
 								className="tw-flex tw-flex-row tw-items-center"
