@@ -5,8 +5,10 @@ import { SiMastercard } from 'react-icons/si'
 import { RiVisaLine } from 'react-icons/ri'
 import { SiAmericanexpress } from 'react-icons/si'
 import { countries } from '../country'
+import { useNavigate } from 'react-router-dom'
 
 function Footer() {
+	const navigate = useNavigate()
 	const paymentType = [
 		{ id: 1, type: <SiMastercard size={20} color="darkorange" /> },
 		{ id: 2, type: <RiVisaLine size={20} color="blue" /> },
@@ -45,7 +47,14 @@ function Footer() {
 		},
 	]
 	const scrollToTop = function scrollToTop() {
-		window.scrollTo(0, 1900)
+		if (window.location.pathname !== '/') {
+			navigate('/')
+		}
+		if (window.location.pathname === '/') {
+			setTimeout(function () {
+				window.scrollTo(0, 1900)
+			}, 500)
+		}
 	}
 
 	return (
