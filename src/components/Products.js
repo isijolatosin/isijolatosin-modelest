@@ -35,7 +35,7 @@ function Products() {
 	const sizes = singleProducts?.[0].availablelength.split(', ')
 
 	return (
-		<div className="tw-pb-10 tw-pt-10 tw-relative tw-flex tw-flex-col tw-items-center ">
+		<div className="tw-pt-10 tw-relative tw-flex tw-flex-col tw-items-center ">
 			{allProducts ? (
 				<div className="tw-grid tw-grid-cols-2 tw-w-full tw-px-2 md:tw-w-[90%] md:tw-grid-cols-4 lg:tw-grid-cols-5 2xl:tw-grid-cols-6 3xl:tw-grid-cols-7 tw-gap-2 md:tw-gap-5 ">
 					{allProducts.map((product) => {

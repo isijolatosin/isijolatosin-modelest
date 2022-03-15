@@ -10,7 +10,7 @@ import {
 } from '../slices/appSlices'
 import { isInCart } from '../utils/helpers'
 
-function Card({ product, setSingleproducts, scrollToTop }) {
+function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 	const [clickedID, setClickedID] = React.useState('')
 	const cartItems = useSelector(selectCartItems)
 	const dispatch = useDispatch()
@@ -152,10 +152,16 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 	}
 	const addToCart = () => {
 		dispatch(addToCartItem(singleProduct))
+		setTimeout(() => {
+			setSingleCart(singleProduct)
+		}, 1000)
 	}
 
 	const IncreaseItem = () => {
 		dispatch(increaseCartItem(singleProduct))
+		setTimeout(() => {
+			setSingleCart(singleProduct)
+		}, 1000)
 	}
 
 	const handleOnChange = (e) => {
@@ -183,7 +189,7 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 			)}
 			<div className="bg-blur tw-text-neutral-800 tw-px-2 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-sm">
 				<div className="tw-flex tw-flex-row tw-justify-between">
-					<div className="tw-pt-2 tw-flex tw-justify-between tw-text-xs">
+					<div className="tw-pt-2 tw-flex tw-justify-between tw-w-full tw-text-xs">
 						<p className="">{product.name}</p>
 						{/* <p className=" tw-text-xs tw-text-neutral-600">
 							{product.description}

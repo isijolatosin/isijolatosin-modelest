@@ -39,7 +39,7 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 			{clickedID === product._id && (
 				<div className="tw-absolute tw-top-0 tw-right-0 tw-bg-neutral-300 tw-rounded-tr-sm tw-rounded-bl-sm tw-text-xs tw-p-2">
 					<span className="tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-pink-500 tw-to-violet-500">
-						View Image
+						Quick view
 					</span>
 				</div>
 			)}

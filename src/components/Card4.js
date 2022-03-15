@@ -10,13 +10,13 @@ import {
 } from '../slices/appSlices'
 import { isInCart } from '../utils/helpers'
 
-function Card({ product, setSingleproducts, scrollToTop }) {
+function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 	const [clickedID, setClickedID] = React.useState('')
 	// const [ID, setID] = React.useState('')
 	const cartItems = useSelector(selectCartItems)
 	const dispatch = useDispatch()
 	const [bundles, setBundles] = React.useState({
-		length: '',
+		length: '14',
 		color: '',
 	})
 	const lengthArr = product.availablelength.split(',')
@@ -133,10 +133,16 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 	}
 	const addToCart = () => {
 		dispatch(addToCartItem(singleProduct))
+		setTimeout(() => {
+			setSingleCart(singleProduct)
+		}, 1000)
 	}
 
 	const IncreaseItem = () => {
 		dispatch(increaseCartItem(singleProduct))
+		setTimeout(() => {
+			setSingleCart(singleProduct)
+		}, 1000)
 	}
 
 	return (

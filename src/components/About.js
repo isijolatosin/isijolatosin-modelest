@@ -37,9 +37,11 @@ function About() {
 				installmental/scheduling payment is your preferred option.
 				<br />
 				<br />
-				<div className="tw-italic tw-text-sm tw-font-semibold tw-text-left">
-					<span> ...we serve everyone and leave no one behind!</span>
-				</div>
+				<span className="tw-italic tw-text-sm tw-font-semibold tw-text-left">
+					{' '}
+					...we serve everyone and leave no one behind!
+				</span>
+				<br />
 				<br />
 				Beauty don’t cost much if you are dealing with the right merchant that
 				cares about not making you break your bank and provides the best quality
@@ -58,7 +60,7 @@ function About() {
 				<span className="tw-italic tw-text-sm tw-font-semibold tw-text-left">
 					For inquiry, please contact us via:
 				</span>
-				<p className="tw-italic tw-text-xs">modelEst1010@gmail.com</p>
+				<span className="tw-italic tw-text-xs"> modelEst1010@gmail.com</span>
 			</p>
 		</div>
 		// </div>

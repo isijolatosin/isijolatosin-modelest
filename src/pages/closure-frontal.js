@@ -4,12 +4,19 @@ import Layout from '../components/shared/Layout'
 import { CgClose } from 'react-icons/cg'
 import Card from '../components/Card4'
 import axios from 'axios'
+import { GrCheckmark } from 'react-icons/gr'
+import { selectItemCount } from '../slices/appSlices'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 function ClosureFrontal() {
+	const itemCount = useSelector(selectItemCount)
 	const [singleProducts, setSingleproducts] = React.useState(null)
 	const [closureFrontal, setClosureFrontal] = React.useState([])
 	const [show, setShow] = React.useState(false)
 	const [sales, setSales] = React.useState(false)
+	const [singleCart, setSingleCart] = React.useState(null)
+	const navigate = useNavigate()
 
 	React.useEffect(() => {
 		setSales(localStorage.getItem('isSales'))
@@ -43,6 +50,15 @@ function ClosureFrontal() {
 	}
 	const sizes = singleProducts?.[0].availablelength.split(', ')
 
+	function handleCheckout() {
+		navigate('/user-cart')
+		setTimeout(() => {
+			setTimeout(function () {
+				window.scrollTo(0, window.innerHeight)
+			}, 500)
+		}, 500)
+	}
+
 	return (
 		<>
 			<Helmet>
@@ -55,6 +71,47 @@ function ClosureFrontal() {
 							? 'tw-pt-[170px] tw-flex tw-flex-col tw-pb-10 md:tw-pt-[150px] tw-h-full tw-relative tw-bg-neutral-200 tw-items-center '
 							: 'tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-200 tw-items-center '
 					}>
+					{singleCart && (
+						<div className="tw-absolute bg-blur2 tw-border tw-border-neutral-300 tw-p-10 tw-w-[350px] tw-top-[130px] md:tw-top-[95px] tw-z-10 tw-right-0 md:tw-right-[40px]">
+							<div className="tw-flex tw-items-center">
+								<GrCheckmark />
+								<span className="tw-text-xs tw-ml-2 tw-text-neutral-700">
+									Item added to your cart
+								</span>
+							</div>
+							<div className="tw-flex tw-flex-row tw-mb-10 tw-mt-7">
+								<img
+									id={singleCart._id}
+									src={singleCart.image}
+									alt={singleCart._id}
+									className=" tw-w-[80px] tw-h-[120px] tw-mr-3 tw-object-cover tw-rounded-sm hover:tw-cursor-pointer"
+								/>
+								<div className="tw-flex tw-flex-col tw-text-sm">
+									<span>{singleCart.name}</span>
+									<span>Length - {singleCart.hairLength}"</span>
+								</div>
+							</div>
+							<div
+								onClick={() => navigate('/user-cart')}
+								className="tw-border tw-border-black tw-py-2 tw-bg-white tw-text-center tw-mb-3">
+								<button>View cart ({itemCount})</button>
+							</div>
+							<div
+								onClick={handleCheckout}
+								className="tw-bg-black tw-text-white tw-py-2 tw-text-center">
+								<button>Check out</button>
+							</div>
+							<div
+								onClick={() => setSingleCart(null)}
+								size={25}
+								className="tw-text-center tw-mt-2 tw-border-b tw-pb-1 hover:tw-cursor-pointer">
+								<span>Continue shopping</span>
+							</div>
+							<div className="tw-absolute tw-top-10 tw-right-5 hover:tw-cursor-pointer">
+								<CgClose onClick={() => setSingleCart(null)} size={25} />
+							</div>
+						</div>
+					)}
 					{show && closureFrontal && (
 						<div className="tw-grid tw-grid-cols-2 tw-w-full tw-px-2 md:tw-grid-cols-3 lg:tw-grid-cols-4 xl:tw-grid-cols-5 xl:tw-w-[85%] 2xl:tw-w-[70%] tw-gap-2 md:tw-gap-5">
 							{closureFrontal.map((item) => (
@@ -65,6 +122,7 @@ function ClosureFrontal() {
 										key={item._id}
 										product={item}
 										setSingleproducts={setSingleproducts}
+										setSingleCart={setSingleCart}
 										scrollToTop={scrollToTop}
 									/>
 								</div>
@@ -78,7 +136,7 @@ function ClosureFrontal() {
 					)}
 
 					{singleProducts && (
-						<div className="tw-absolute tw-z-10 tw-h-[100vh] tw-w-[100%] tw-right-0 tw-left-0 tw-top-0 tw-flex tw-flex-row tw-items-start tw-justify-center bg-blur3">
+						<div className="tw-absolute tw-z-30 tw-h-[100vh] tw-w-[100%] tw-right-0 tw-left-0 tw-top-0 tw-flex tw-flex-row tw-items-start tw-justify-center bg-blur3">
 							<div className="tw-w-[600px] tw-h-[600px]">
 								<img
 									id={singleProducts?.[0]._id}
