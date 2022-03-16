@@ -77,7 +77,7 @@ function Footer() {
 			<span className="tw-text-center tw-mb-5 tw-text-sm tw-font-light">
 				Quick Links
 			</span>
-			<ul className="tw-flex tw-flex-col lg:tw-flex-row lg:tw-justify-center tw-w-[80%] tw-text-xs tw-font-light tw-mb-5">
+			<ul className="tw-flex tw-flex-row tw-justify-center tw-text-xs tw-font-light tw-mb-1">
 				{links.map((link) => (
 					<li
 						key={link.id}
@@ -94,7 +94,7 @@ function Footer() {
 								  }
 								: null
 						}
-						className="tw-mb-3 lg:tw-mx-5 hover:tw-cursor-pointer hover:tw-underline ">
+						className="tw-mx-5 hover:tw-cursor-pointer hover:tw-underline ">
 						{link.name}
 					</li>
 				))}
@@ -649,7 +649,7 @@ function Footer() {
 					</p>
 				</div>
 			)}
-			<div className="tw-border-t tw-border-b tw-border-neutral-100 tw-w-full tw-flex tw-flex-col tw-mt-5 tw-mb-10 tw-pb-5 tw-pt-10 tw-items-center">
+			<div className="tw-border-t tw-border-b tw-border-neutral-100 tw-w-full tw-flex tw-flex-col tw-mt-5 tw-mb-5 tw-pb-5 tw-pt-5 tw-items-center">
 				<span className="tw-text-xs tw-font-light tw-tracking-widest tw-text-black tw-mb-1">
 					Country/region
 				</span>
@@ -680,13 +680,13 @@ function Footer() {
 				))}
 			</div>
 			<div className="tw-flex tw-text-xs tw-text-neutral-500 tw-font-light">
-				<div className="tw-pr-5 tw-border-r-2 tw-border-r-neutral-800 md:tw-flex">
+				<div className="tw-pr-1 tw-border-r-2 tw-border-r-neutral-800 md:tw-flex">
 					<p className="">
 						&copy; {new Date().getUTCFullYear()} <span>modelEst</span>
 						<span> • All right reserved</span>
 					</p>
 				</div>
-				<div className="md:tw-flex tw-ml-5">
+				<div className="md:tw-flex tw-ml-1">
 					<p className="">
 						website develop by{' '}
 						<span className="rose-gold">

@@ -128,7 +128,7 @@ function HairBundles() {
 						</div>
 					)}
 					{!show && (
-						<div className="tw-text-neutral-800 tw-font-light tw-text-sm">
+						<div className="tw-text-neutral-800 tw-font-light tw-mt-10 tw-text-sm">
 							Loading products...
 						</div>
 					)}

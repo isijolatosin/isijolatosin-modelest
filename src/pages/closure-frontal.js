@@ -130,7 +130,7 @@ function ClosureFrontal() {
 						</div>
 					)}
 					{!show && (
-						<div className="tw-text-neutral-800 tw-font-light tw-text-sm">
+						<div className="tw-text-neutral-800 tw-mt-10 tw-font-light tw-text-sm">
 							Loading products...
 						</div>
 					)}
