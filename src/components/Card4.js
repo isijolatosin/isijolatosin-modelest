@@ -16,10 +16,10 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 	const cartItems = useSelector(selectCartItems)
 	const dispatch = useDispatch()
 	const [bundles, setBundles] = React.useState({
-		widthlength: '',
-		length: '',
-		color: '',
-		hairType: '',
+		widthlength: product.type.toLowerCase() === 'frontal' ? '13x4' : '5x4',
+		length: '14',
+		color: 'Natural black',
+		hairType: 'Straight',
 	})
 	const lengthArr = product.availablelength.split(',')
 	const colorArr = product?.availablecolor?.split(', ')
