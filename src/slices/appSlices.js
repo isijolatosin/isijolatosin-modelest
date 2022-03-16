@@ -41,29 +41,55 @@ export const appSlices = createSlice({
 
 		// Increase Item
 		increaseCartItem: (state, action) => {
-			const increaseIndex = state.cartItems.findIndex(
-				(item) => item.id === action.payload.id
-			)
+			if (
+				state.cartItems.find(
+					(item) =>
+						item.hairLength === action.payload.hairLength &&
+						item.id === action.payload.id
+				)
+			) {
+				const increaseIndex = state.cartItems.findIndex(
+					(item) =>
+						item.id === action.payload.id &&
+						item.hairLength === action.payload.hairLength
+				)
 
-			state.cartItems[increaseIndex].quantity++
+				state.cartItems[increaseIndex].quantity++
 
-			state.itemCount = state.cartItems.reduce(
-				(total, prod) => total + prod.quantity,
-				0
-			)
-			state.total = state.cartItems.reduce(
-				(total, prod) => total + prod.price * prod.quantity,
-				0
-			)
+				state.itemCount = state.cartItems.reduce(
+					(total, prod) => total + prod.quantity,
+					0
+				)
+				state.total = state.cartItems.reduce(
+					(total, prod) => total + prod.price * prod.quantity,
+					0
+				)
+			} else {
+				state.cartItems.push({
+					...action.payload,
+					quantity: 1,
+				})
+
+				state.itemCount = state.cartItems.reduce(
+					(total, prod) => total + prod.quantity,
+					0
+				)
+				state.total = state.cartItems.reduce(
+					(total, prod) => total + prod.price * prod.quantity,
+					0
+				)
+			}
 		},
 
 		// Decrease Item
 		decreaseCartItem: (state, action) => {
 			const decreaseIndex = state.cartItems.findIndex(
-				(item) => item.id === action.payload.id
+				(item) =>
+					item.id === action.payload.id &&
+					item.hairLength === action.payload.hairLength
 			)
 			const product = state.cartItems[decreaseIndex]
-			if (product.quantity > 1) {
+			if (product.quantity >= 1) {
 				product.quantity--
 			}
 			state.itemCount = state.cartItems.reduce(
@@ -78,9 +104,19 @@ export const appSlices = createSlice({
 
 		// Remove Item
 		removeCartItem: (state, action) => {
-			const newCartItems = state.cartItems.filter(
-				(item) => item.id !== action.payload.id
+			const removeIndex = state.cartItems.findIndex(
+				(item) =>
+					item.id === action.payload.id &&
+					item.hairLength === action.payload.hairLength
 			)
+
+			const a = state.cartItems.slice(0, state.cartItems[removeIndex])
+			const b = state.cartItems.slice(
+				state.cartItems[removeIndex + 1],
+				state.cartItems.length - 1
+			)
+
+			const newCartItems = [...a, ...b]
 
 			state.cartItems = [...newCartItems]
 
