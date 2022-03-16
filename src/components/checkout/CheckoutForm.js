@@ -7,7 +7,11 @@ import { SiAmericanexpress } from 'react-icons/si'
 import { clearCartItem, selectCartItems } from '../../slices/appSlices'
 import { useSelector, useDispatch } from 'react-redux'
 import { UserContext } from '../../context/user-context'
-import { SHIPPING_COST, TAX_PERCENT } from '../../constant'
+import {
+	SHIPPING_COST,
+	TAX_PERCENT,
+	installmentStartPrice,
+} from '../../constant'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -95,7 +99,15 @@ const CheckoutForm = ({ total, itemCount }) => {
 	const handleSubmitAddress = () => {
 		const shippingAd = `${address.street}, ${address.city}. ${address.province}. ${address.postalcode}. ${address.country}`
 
-		if (!user || !email) {
+		if (
+			!user ||
+			!email ||
+			!address.street ||
+			!address.city ||
+			!address.province ||
+			!address.postalcode ||
+			!address.country
+		) {
 			setError(true)
 		}
 		if (
@@ -174,55 +186,61 @@ const CheckoutForm = ({ total, itemCount }) => {
 		}
 		// recurring payment
 		else {
-			setProcessing(true)
-			const result = await stripe.createPaymentMethod({
-				type: 'card',
-				card: elements.getElement(CardElement),
-				billing_details: {
-					email: user?.email || email,
-				},
-			})
-
-			if (result.error) {
-				console.log(result.error)
-				set_Error(`Payment failed ${result.error.message}`)
-				setProcessing(false)
-				// setTimeout(() => {
-				// 	navigate('/canceled')
-				// }, 5000)
-			} else {
-				const res = await axios.post('/.netlify/functions/create-payment-sub', {
-					payment_method: result.paymentMethod.id,
-					email: user?.email || email,
+			if (total_amount > installmentStartPrice) {
+				setProcessing(true)
+				const result = await stripe.createPaymentMethod({
+					type: 'card',
+					card: elements.getElement(CardElement),
+					billing_details: {
+						email: user?.email || email,
+					},
 				})
 
-				const { client_secret, status } = res.data
-
-				if (status === 'requires_action') {
-					stripe.confirmCardPayment(client_secret).then(function (result) {
-						if (result.error) {
-							console.log(result.error)
-							set_Error(`Payment failed ${result.error.message}`)
-							setProcessing(false)
-							setTimeout(() => {
-								navigate('/canceled')
-							}, 5000)
-						} else {
-							set_Error(null)
-							setProcessing(false)
-							setSucceeded(true)
-							setTimeout(() => {
-								navigate('/success')
-							}, 5000)
-						}
-					})
-				} else {
-					set_Error(null)
+				if (result.error) {
+					console.log(result.error)
+					set_Error(`Payment failed ${result.error.message}`)
 					setProcessing(false)
-					setSucceeded(true)
-					setTimeout(() => {
-						navigate('/success')
-					}, 5000)
+					// setTimeout(() => {
+					// 	navigate('/canceled')
+					// }, 5000)
+				} else {
+					const res = await axios.post(
+						'/.netlify/functions/create-payment-sub',
+						{
+							payment_method: result.paymentMethod.id,
+							email: user?.email || email,
+							balance: total_amount + shipping_fee,
+						}
+					)
+
+					const { client_secret, status } = res.data
+
+					if (status === 'requires_action') {
+						stripe.confirmCardPayment(client_secret).then(function (result) {
+							if (result.error) {
+								console.log(result.error)
+								set_Error(`Payment failed ${result.error.message}`)
+								setProcessing(false)
+								setTimeout(() => {
+									navigate('/canceled')
+								}, 5000)
+							} else {
+								set_Error(null)
+								setProcessing(false)
+								setSucceeded(true)
+								setTimeout(() => {
+									navigate('/success')
+								}, 5000)
+							}
+						})
+					} else {
+						set_Error(null)
+						setProcessing(false)
+						setSucceeded(true)
+						setTimeout(() => {
+							navigate('/success')
+						}, 5000)
+					}
 				}
 			}
 		}
@@ -231,6 +249,12 @@ const CheckoutForm = ({ total, itemCount }) => {
 	return (
 		<div>
 			<div className="tw-flex tw-flex-col tw-max-w-[100%] lg:tw-max-w-[70%] tw-mx-auto">
+				<span className="tw-text-xs tw-text-center tw-mb-5 tw-mt-5 tw-font-light">
+					We currently ship to these 3 countries -{' '}
+					<span className="tw-font-bold">United States</span> -{' '}
+					<span className="tw-font-bold">United Kingdom</span> -{' '}
+					<span className="tw-font-bold">Canada</span>
+				</span>
 				{!user && (
 					<input
 						type="email"
@@ -350,12 +374,17 @@ const CheckoutForm = ({ total, itemCount }) => {
 							</h4>
 						</article>
 					) : (
-						<article className="tw-flex tw-text-[11px] tw-p-1 tw-mt-1 tw-max-w-[100%] tw-text-neutral-500">
+						<article className="tw-flex tw-justify-between tw-text-[11px] tw-p-1 tw-mt-1 tw-max-w-[100%] tw-text-neutral-500">
 							<span className="tw-underline">
 								Hello, {user && user?.displayName}, your total is $
 								{((total_amount + shipping_fee) / 100).toFixed(2)} - (tax &
 								shipping inclusive)
 							</span>
+							{total_amount < installmentStartPrice && (
+								<span className="tw-text-blue-700">
+									You are only elligible for one-time payment
+								</span>
+							)}
 						</article>
 					)}
 				</div>

@@ -48,17 +48,6 @@ function Footer() {
 		},
 	]
 
-	// function scrollToTop() {
-	// 	if (window.location.pathname !== '/') {
-	// 		navigate('/')
-	// 	}
-	// 	if (window.location.pathname === '/') {
-	// 		setTimeout(function () {
-	// 			window.scrollTo(0, 0)
-	// 		}, 500)
-	// 	}
-	// }
-
 	const handleContactInput = (e) => {
 		setcontactInput({ ...contactInput, [e.target.name]: e.target.value })
 	}
@@ -656,12 +645,12 @@ function Footer() {
 						<br />
 						<br />
 						Questions about the Terms of Service should be sent to us at
-						info@onlyrawbeauty.com.
+						modelEst1010@gmail.com.
 					</p>
 				</div>
 			)}
 			<div className="tw-border-t tw-border-b tw-border-neutral-100 tw-w-full tw-flex tw-flex-col tw-mt-5 tw-mb-10 tw-pb-5 tw-pt-10 tw-items-center">
-				<span className="tw-text-xs tw-font-light tw-tracking-widest tw-text-neutral-400 tw-mb-1">
+				<span className="tw-text-xs tw-font-light tw-tracking-widest tw-text-black tw-mb-1">
 					Country/region
 				</span>
 				<select

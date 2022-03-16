@@ -1,16 +1,23 @@
 require('dotenv').config()
-const { StatusCodes } = require('http-status-codes')
 
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
 
 // domain/.netlify/functions/create-payment-intent
 exports.handler = async function (event, context) {
+	const daysFromNow = (n) => {
+		let d = new Date()
+		return Math.floor(d.setDate(d.getDate() + n) / 1000)
+	}
+
 	if (event.body) {
-		const { payment_method, email } = JSON.parse(event.body)
+		const { payment_method, email, balance } = JSON.parse(event.body)
+		const noOfInstallment = 4
+		const subAmount = balance / noOfInstallment
 
 		try {
 			// create customer
 			const customer = await stripe.customers.create({
+				balance: subAmount,
 				payment_method: payment_method,
 				email: email,
 				invoice_settings: {
@@ -20,7 +27,8 @@ exports.handler = async function (event, context) {
 
 			const subscription = await stripe.subscriptions.create({
 				customer: customer.id,
-				items: [{ plan: 'price_1KdRi7LTIkVkSAcp451zK8HR' }],
+				cancel_at: daysFromNow(42),
+				items: [{ plan: 'price_1KdiVMLTIkVkSAcp6fej2hu8' }],
 				expand: ['latest_invoice.payment_intent'],
 			})
 			const status = subscription.latest_invoice.payment_intent.status

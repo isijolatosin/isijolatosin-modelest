@@ -16,11 +16,15 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 	const cartItems = useSelector(selectCartItems)
 	const dispatch = useDispatch()
 	const [bundles, setBundles] = React.useState({
-		length: '14',
+		widthlength: '',
+		length: '',
 		color: '',
+		hairType: '',
 	})
 	const lengthArr = product.availablelength.split(',')
 	const colorArr = product?.availablecolor?.split(', ')
+	const widthlength = product?.widthlength?.split(', ')
+	const hairType = ['Straight', 'Bodywave', 'Wavy', 'Curly']
 
 	function handleMouseIn(event) {
 		setClickedID(event.target.id)
@@ -103,21 +107,33 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 	// Adding to cart items
 	const { name, _id, image, description } = product
 	const price =
+		// checking for frontal
 		product.type.toLowerCase() === 'frontal'
 			? bundles.color.includes('Blonde613')
 				? product.sales
 					? ((cardPrice2 += 10), (salesAmount2 += 10))
 					: (cardPrice2 += 10)
 				: product.sales
-				? salesAmount2
+				? bundles.hairType.includes('Bodywave') ||
+				  bundles.hairType.includes('Wavy') ||
+				  bundles.hairType.includes('Curly')
+					? ((cardPrice2 += 5), (salesAmount2 += 5))
+					: cardPrice2
 				: cardPrice2
-			: bundles.color.includes('Blonde613')
-			? product.sales
-				? ((cardPrice1 += 10), (salesAmount1 += 10))
-				: (cardPrice1 += 10)
-			: product.sales
-			? (cardPrice1, salesAmount1)
-			: cardPrice1
+			: // checking for closure
+			bundles.color.includes('Natural black') &&
+			  (bundles.hairType.includes('Bodywave') ||
+					bundles.hairType.includes('Wavy') ||
+					bundles.hairType.includes('Curly'))
+			? ((cardPrice1 += 5), product.sales && (salesAmount1 += 5))
+			: bundles.color.includes('Natural black') &&
+			  bundles.hairType.includes('Straight')
+			? product.sales && (cardPrice1, salesAmount1)
+			: bundles.color.includes('Blonde613') &&
+			  (bundles.hairType.includes('Bodywave') ||
+					bundles.hairType.includes('Wavy'))
+			? product.sales && ((cardPrice1 += 15), (salesAmount1 += 15))
+			: ((cardPrice1 += 10), (salesAmount1 += 10))
 
 	const hairLength = bundles.length
 	const hairColor = bundles.color
@@ -194,7 +210,7 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 				</div>
 				<div className="tw-flex tw-items-center tw-justify-between tw-w-full">
 					<select
-						className="tw-flex-[0.2] tw-text-gray-500 tw-mt-1 tw-block tw-w-full tw-mr-2 tw-px-3 tw-py-1 tw-border tw-border-gray-100 tw-rounded-sm tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-3"
+						className="tw-flex-[0.5] tw-text-gray-500 tw-mt-1 tw-block tw-w-full tw-mr-2 tw-px-3 tw-py-1 tw-border tw-border-gray-100 tw-rounded-sm tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
 						onChange={handleOnChange}
 						id="length"
 						value={bundles.length}
@@ -204,13 +220,35 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 						))}
 					</select>
 					<select
-						className="tw-flex-[0.8] tw-text-gray-500 tw-mt-1 tw-block tw-w-full tw-px-3 tw-py-1 tw-border tw-border-gray-100 tw-rounded-sm tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-3"
+						className="tw-flex-[0.5] tw-text-gray-500 tw-mt-1 tw-block tw-w-full tw-px-3 tw-py-1 tw-border tw-border-gray-100 tw-rounded-sm tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+						onChange={handleOnChange}
+						id="widthlength"
+						value={bundles.widthlength}
+						name="widthlength">
+						{widthlength.map((len, idx) => (
+							<option key={idx}>{len}</option>
+						))}
+					</select>
+				</div>
+				<div className="tw-flex tw-items-center tw-justify-between tw-w-full">
+					<select
+						className="tw-text-gray-500 tw-mt-1 tw-mr-2 tw-block tw-w-full tw-px-3 tw-py-1 tw-border tw-border-gray-100 tw-rounded-sm tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-3"
 						onChange={handleOnChange}
 						id="color"
 						value={bundles.color}
 						name="color">
 						{colorArr.map((colo, idx) => (
 							<option key={idx}>{colo}</option>
+						))}
+					</select>
+					<select
+						className="tw-text-gray-500 tw-mt-1 tw-block tw-w-full tw-px-3 tw-py-1 tw-border tw-border-gray-100 tw-rounded-sm tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-3"
+						onChange={handleOnChange}
+						id="hairType"
+						value={bundles.hairType}
+						name="hairType">
+						{hairType.map((type, idx) => (
+							<option key={idx}>{type}</option>
 						))}
 					</select>
 				</div>
