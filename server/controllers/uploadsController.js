@@ -39,7 +39,7 @@ const uploadProductImage = async (req, res) => {
 		req.files.image.tempFilePath,
 		{
 			use_filename: true,
-			folder: 'pvg-upload',
+			folder: 'modelest-upload',
 		}
 	)
 	fs.unlinkSync(req.files.image.tempFilePath)
