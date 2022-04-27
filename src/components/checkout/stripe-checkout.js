@@ -4,9 +4,6 @@ import styled from 'styled-components'
 import { loadStripe } from '@stripe/stripe-js'
 import CheckoutForm from './CheckoutForm'
 
-// const promise = loadStripe(
-// 	'pk_live_51KQIMSLTIkVkSAcpbfJjcDC9oMzqtRdbC4bLu9LJuaTh9HzCWflHOK8HyhY7AJfdE2F088cQirCdKvPssaCXVrwh00mUeAZT6h'
-// )
 const promise = loadStripe(
 	'pk_test_51KQIMSLTIkVkSAcp9vIGMazcgD1450LNgPLEKUYqO4m3jxpDpXKFx14XQIH8qIZE1XHTGFkhqsKRa3eFEeKwOTKV000hsAZtpi'
 )

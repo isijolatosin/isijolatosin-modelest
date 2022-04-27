@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
+import { GoAlert } from 'react-icons/go'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearCartItem, selectCartItems } from '../slices/appSlices'
 import { db } from '../firebase'
@@ -17,18 +18,26 @@ const Success = () => {
 	const cartItems = useSelector(selectCartItems)
 	const userAddress = localStorage.getItem('address')
 	const [sales, setSales] = React.useState(false)
+	const payload = localStorage.getItem('payload')
 
 	React.useEffect(() => {
 		setSales(localStorage.getItem('isSales'))
 	}, [])
 
 	React.useEffect(() => {
+		setTimeout(() => {
+			localStorage.setItem('payload', '')
+		}, 3000)
+	}, [])
+
+	React.useEffect(() => {
 		user?.email &&
 			cartItems.length !== 0 &&
+			payload &&
 			// eslint-disable-next-line array-callback-return
 			cartItems.map((item) => {
 				// shopping path
-				db.collection('users')
+				db.collection('purchased')
 					.doc(`${user?.email}/`)
 					.collection('shoppings')
 					.add({
@@ -79,26 +88,35 @@ const Success = () => {
 				<title>Success</title>
 			</Helmet>
 			<Layout>
-				<div
-					className={
-						sales
-							? 'tw-pt-[230px] tw-bg-neutral-200 lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
-							: 'tw-pt-[150px] tw-bg-neutral-200 lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
-					}>
-					<h1 className="tw-text-md tw-text-neutral-600 tw-uppercase tw-mb-1">{`Hey ${displayName}`}</h1>
-					<h1 className="tw-text-xl tw-uppercase">
-						Thank you for your purchase
-					</h1>
-					<div className="tw-mt-10 tw-text-neutral-600 tw-font-light tw-text-center">
-						<span>
-							We are currently processing your order and will send you a
-							confirmation email shortly
-						</span>
+				{payload ? (
+					<div
+						className={
+							sales
+								? 'tw-pt-[230px] tw-bg-neutral-200 lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
+								: 'tw-pt-[150px] tw-bg-neutral-200 lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
+						}>
+						<h1 className="tw-text-md tw-text-neutral-600 tw-uppercase tw-mb-1">{`Hey ${
+							displayName && displayName
+						}`}</h1>
+						<h1 className="tw-text-xl tw-uppercase">
+							Thank you for your purchase
+						</h1>
+						<div className="tw-mt-10 tw-text-neutral-600 tw-font-light tw-text-center">
+							<span>
+								We are currently processing your order and will send you a
+								confirmation email shortly
+							</span>
+						</div>
+						<Link className="tw-my-10 " to="/">
+							<Button>Continue Shopping</Button>
+						</Link>
 					</div>
-					<Link className="tw-my-10 " to="/">
-						<Button>Continue Shopping</Button>
-					</Link>
-				</div>
+				) : (
+					<div className="tw-text-red-700 tw-flex tw-flex-col tw-items-center tw-justify-center tw-my-10 tw-uppercase tw-font-bold tw-mt-[250px] tw-mb-20">
+						<GoAlert className="tw-mr-5 tw-text-3xl tw-mb-5" />
+						<p className="tw-text-red-700">You do not have any transactions</p>
+					</div>
+				)}
 			</Layout>
 		</>
 	)
