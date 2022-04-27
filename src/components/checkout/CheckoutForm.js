@@ -168,6 +168,8 @@ const CheckoutForm = ({ total, itemCount }) => {
 					},
 				})
 
+				localStorage.setItem('payload', payload?.paymentIntent?.client_secret)
+
 				if (payload.error) {
 					set_Error(`Payment failed ${payload.error.message}`)
 					setProcessing(false)
@@ -178,9 +180,10 @@ const CheckoutForm = ({ total, itemCount }) => {
 					set_Error(null)
 					setProcessing(false)
 					setSucceeded(true)
-					setTimeout(() => {
-						navigate('/success')
-					}, 5000)
+					payload?.paymentIntent?.client_secret &&
+						setTimeout(() => {
+							navigate('/success')
+						}, 5000)
 				}
 			}
 		}
