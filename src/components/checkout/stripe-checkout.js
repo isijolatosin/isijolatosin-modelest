@@ -4,9 +4,7 @@ import styled from 'styled-components'
 import { loadStripe } from '@stripe/stripe-js'
 import CheckoutForm from './CheckoutForm'
 
-const promise = loadStripe(
-	'pk_test_51KQIMSLTIkVkSAcp9vIGMazcgD1450LNgPLEKUYqO4m3jxpDpXKFx14XQIH8qIZE1XHTGFkhqsKRa3eFEeKwOTKV000hsAZtpi'
-)
+const promise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
 
 const StripeCheckout = ({ total, itemCount }) => {
 	return (

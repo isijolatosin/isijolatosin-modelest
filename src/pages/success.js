@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Helmet } from 'react-helmet'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { GoAlert } from 'react-icons/go'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearCartItem, selectCartItems } from '../slices/appSlices'
@@ -12,6 +12,7 @@ import { AUTHORIZED_ID } from '../constant'
 
 const Success = () => {
 	const { user } = useContext(UserContext)
+	const navigate = useNavigate()
 
 	const { displayName } = user
 	const dispatch = useDispatch()
@@ -82,6 +83,11 @@ const Success = () => {
 		}, 500)
 	})
 
+	const handleBackToShopping = () => {
+		localStorage.setItem('payload', '')
+		navigate('/')
+	}
+
 	return (
 		<>
 			<Helmet>
@@ -107,9 +113,11 @@ const Success = () => {
 								confirmation email shortly
 							</span>
 						</div>
-						<Link className="tw-my-10 " to="/">
-							<Button>Continue Shopping</Button>
-						</Link>
+						<div className="tw-my-10">
+							<Button handleFunc={handleBackToShopping}>
+								Continue Shopping
+							</Button>
+						</div>
 					</div>
 				) : (
 					<div className="tw-text-red-700 tw-flex tw-flex-col tw-items-center tw-justify-center tw-my-10 tw-uppercase tw-font-bold tw-mt-[250px] tw-mb-20">
