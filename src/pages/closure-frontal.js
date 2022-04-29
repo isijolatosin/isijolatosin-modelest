@@ -70,7 +70,7 @@ function ClosureFrontal() {
 						sales
 							? `${
 									closureFrontal.length === 0 && !show
-										? 'tw-pt-[250px]'
+										? 'tw-pt-[230px]'
 										: 'tw-pt-[170px]'
 							  } tw-pb-10 md:tw-pt-[150px] tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto`
 							: 'tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto'
