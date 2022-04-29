@@ -39,10 +39,10 @@ function ClosureFrontal() {
 	}
 
 	React.useEffect(() => {
-		fetchProducts()
 		setTimeout(() => {
+			fetchProducts()
 			setShow(true)
-		}, 2000)
+		}, 3000)
 	}, [])
 
 	const scrollToTop = function scrollToTop() {
@@ -68,8 +68,12 @@ function ClosureFrontal() {
 				<div
 					className={
 						sales
-							? 'tw-pt-[170px] tw-flex tw-flex-col tw-pb-10 md:tw-pt-[150px] tw-h-full tw-relative tw-bg-neutral-200 tw-items-center '
-							: 'tw-flex tw-flex-col tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-200 tw-items-center '
+							? `${
+									closureFrontal.length === 0 && !show
+										? 'tw-pt-[250px]'
+										: 'tw-pt-[170px]'
+							  } tw-pb-10 md:tw-pt-[150px] tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto`
+							: 'tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto'
 					}>
 					{singleCart && (
 						<div className="tw-absolute bg-blur2 tw-border tw-border-neutral-300 tw-p-10 tw-w-[350px] tw-top-[130px] md:tw-top-[95px] tw-z-10 tw-right-0 md:tw-right-[40px]">
