@@ -130,8 +130,8 @@ function JetBlackHair() {
 						</div>
 					)}
 					{!show && (
-						<div className="tw-text-neutral-800 tw-mt-10 tw-font-light tw-text-sm">
-							Loading products...
+						<div className="tw-rounded-full progress">
+							<div className="inner"></div>
 						</div>
 					)}
 					{singleProducts && (

@@ -1,32 +1,11 @@
 import React from 'react'
-import axios from 'axios'
 import Card from './Card'
 import { CgClose } from 'react-icons/cg'
 import { GrCheckmark } from 'react-icons/gr'
 import About from './About'
 
-function Products() {
-	const [allProducts, setAllproducts] = React.useState([])
+function Products({ allProducts }) {
 	const [singleProducts, setSingleproducts] = React.useState(null)
-
-	async function fetchProducts() {
-		try {
-			const {
-				data: {
-					products,
-					//  curUser
-				},
-			} = await axios.get('/api/v1/products')
-
-			setAllproducts(products.sort((a, b) => a.name.localeCompare(b.name)))
-		} catch (error) {
-			console.log(error)
-		}
-	}
-
-	React.useEffect(() => {
-		fetchProducts()
-	}, [])
 
 	const scrollToTop = function scrollToTop() {
 		window.scrollTo(0, 0)

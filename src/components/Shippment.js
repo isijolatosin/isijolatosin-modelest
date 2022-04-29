@@ -91,10 +91,12 @@ function Shippment() {
 							})
 						}
 
-						setShippingInfo({
-							shippingHeader: getObjectHeader(results),
-							shippingData: data,
-						})
+						setTimeout(() => {
+							setShippingInfo({
+								shippingHeader: getObjectHeader(results),
+								shippingData: data,
+							})
+						}, 5000)
 					}
 				})
 	}, [user])
@@ -201,7 +203,9 @@ function Shippment() {
 						{shippingInfo?.shippingHeader?.length === 0 &&
 						shippingInfo?.shippingHeader?.length === 0 ? (
 							isLoading ? (
-								<span>Loading...</span>
+								<div className="tw-rounded-full progress">
+									<div className="inner"></div>
+								</div>
 							) : (
 								<span>Data not Found</span>
 							)
