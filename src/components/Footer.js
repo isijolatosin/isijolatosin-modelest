@@ -706,7 +706,7 @@ function Footer() {
 			</span>
 			<div className="tw-flex tw-justify-evenly tw-items-center tw-w-[80%] md:tw-w-[8%] md:tw-ml-10 tw-mt-3 rose-gold">
 				<a
-					href="https://www.instagram.com/es.motayo/"
+					href="https://www.instagram.com/modelestluxuryhair/"
 					target="_blank"
 					rel="noopener noreferrer">
 					<AiOutlineInstagram size={20} className="hover:tw-text-rose-100" />
