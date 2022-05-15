@@ -1,19 +1,20 @@
 import React, { useContext } from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import { GoAlert } from 'react-icons/go'
 import { SiMastercard } from 'react-icons/si'
 import { RiVisaLine } from 'react-icons/ri'
 import { SiAmericanexpress } from 'react-icons/si'
 import { clearCartItem, selectCartItems } from '../../slices/appSlices'
-import { useSelector, useDispatch } from 'react-redux'
 import { UserContext } from '../../context/user-context'
 import {
 	SHIPPING_COST,
 	TAX_PERCENT,
 	installmentStartPrice,
 } from '../../constant'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { ValidateEmail } from '../../utils/ValidateEmail'
 
 const CheckoutForm = ({ total, itemCount }) => {
 	const navigate = useNavigate()
@@ -51,7 +52,75 @@ const CheckoutForm = ({ total, itemCount }) => {
 		setPlan(e.target.value)
 	}
 	const inputOnchangeHandler = (e) => {
-		setAddress({ ...address, [e.target.name]: e.target.value })
+		let value = e.target.value
+		if (
+			e.target.value.toLowerCase() === 'united states of america' ||
+			e.target.value.toLowerCase() === 'united states' ||
+			e.target.value.toLowerCase() === 'america'
+		) {
+			value = 'usa'
+		}
+		if (
+			e.target.value.toLowerCase() === 'united kingdom' ||
+			e.target.value.toLowerCase() === 'london'
+		) {
+			value = 'uk'
+		}
+		setAddress({ ...address, [e.target.name]: value })
+	}
+
+	// Submit address
+	const handleSubmitAddress = () => {
+		const shippingAd = `${address.street}, ${address.city}. ${address.province}. ${address.postalcode}. ${address.country}`
+
+		if (
+			!user ||
+			!email ||
+			!address.street ||
+			!address.city ||
+			!address.province ||
+			!address.postalcode ||
+			!address.country
+		) {
+			setError(true)
+		}
+		if (!ValidateEmail(email)) {
+			setError(true)
+		}
+		if (
+			(user &&
+				address?.street &&
+				address?.city &&
+				address?.province &&
+				address?.postalcode &&
+				address?.country) ||
+			(email &&
+				ValidateEmail(email) &&
+				address?.street &&
+				address?.city &&
+				address?.province &&
+				address?.postalcode &&
+				address?.country)
+		) {
+			localStorage.setItem('address', shippingAd)
+			setAllowProceed(true)
+			setAddress({
+				street: '',
+				city: '',
+				province: '',
+				postalcode: '',
+				country: '',
+			})
+			setError(false)
+		}
+		Object.keys(SHIPPING_COST).filter(
+			(cntry) =>
+				cntry.toLowerCase() === address.country.toLowerCase() &&
+				setShippingCost({
+					country: cntry,
+					cost: SHIPPING_COST[cntry],
+				})
+		)
 	}
 
 	const cardStyle = {
@@ -73,15 +142,17 @@ const CheckoutForm = ({ total, itemCount }) => {
 	}
 
 	const shipping_fee = Math.floor(shippingCost.cost * 100)
-	const taxCal = total * TAX_PERCENT
-	const price = Math.floor((total + taxCal) * 100)
+	const taxPercentage = total * TAX_PERCENT
+	const tax = Math.floor(taxPercentage * 100)
+	const price = Math.floor((total + taxPercentage) * 100)
 	const total_amount = price
+	const totalPrice = Math.floor(total * 100)
 
 	const createPaymentIntent = async () => {
 		try {
 			const { data } = await axios.post(
 				'/.netlify/functions/create-payment-intent',
-				JSON.stringify({ cartItems, shipping_fee, total_amount })
+				JSON.stringify({ cartItems, shipping_fee, totalPrice, tax })
 			)
 
 			setClientSecret(data.clientSecret.split("'")?.[0])
@@ -90,67 +161,15 @@ const CheckoutForm = ({ total, itemCount }) => {
 		}
 	}
 
+	React.useEffect(() => {
+		createPaymentIntent()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [shipping_fee])
+
 	const handleChange = async (event) => {
 		setDisabled(event.empty)
 		set_Error(event.error ? event.error.message : '')
 	}
-
-	// Submit address
-	const handleSubmitAddress = () => {
-		const shippingAd = `${address.street}, ${address.city}. ${address.province}. ${address.postalcode}. ${address.country}`
-
-		if (
-			!user ||
-			!email ||
-			!address.street ||
-			!address.city ||
-			!address.province ||
-			!address.postalcode ||
-			!address.country
-		) {
-			setError(true)
-		}
-		if (
-			(user &&
-				address?.street &&
-				address?.city &&
-				address?.province &&
-				address?.postalcode &&
-				address?.country) ||
-			(email &&
-				address?.street &&
-				address?.city &&
-				address?.province &&
-				address?.postalcode &&
-				address?.country)
-		) {
-			localStorage.setItem('address', shippingAd)
-			// dispatch(setShippingObject(shippingAd))
-			setAllowProceed(true)
-			setAddress({
-				street: '',
-				city: '',
-				province: '',
-				postalcode: '',
-				country: '',
-			})
-			// setEmail("")
-			setError(false)
-		}
-		Object.keys(SHIPPING_COST).filter(
-			(cntry) =>
-				cntry.toLowerCase() === address.country.toLowerCase() &&
-				setShippingCost({
-					country: cntry,
-					cost: SHIPPING_COST[cntry],
-				})
-		)
-	}
-
-	React.useEffect(() => {
-		createPaymentIntent()
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [shippingCost.cost])
 
 	const handleSubmit = async (ev) => {
 		ev.preventDefault()
@@ -169,6 +188,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 				})
 
 				localStorage.setItem('payload', payload?.paymentIntent?.client_secret)
+				localStorage.setItem('altEmail', email)
 
 				if (payload.error) {
 					set_Error(`Payment failed ${payload.error.message}`)
@@ -203,16 +223,18 @@ const CheckoutForm = ({ total, itemCount }) => {
 					console.log(result.error)
 					set_Error(`Payment failed ${result.error.message}`)
 					setProcessing(false)
-					// setTimeout(() => {
-					// 	navigate('/canceled')
-					// }, 5000)
+					setTimeout(() => {
+						navigate('/canceled')
+					}, 5000)
 				} else {
 					const res = await axios.post(
 						'/.netlify/functions/create-payment-sub',
 						{
 							payment_method: result.paymentMethod.id,
 							email: user?.email || email,
-							balance: total_amount + shipping_fee,
+							balance: totalPrice,
+							shippingFee: shipping_fee,
+							tax: tax,
 						}
 					)
 
@@ -220,6 +242,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 
 					if (status === 'requires_action') {
 						stripe.confirmCardPayment(client_secret).then(function (result) {
+							console.log(result)
 							if (result.error) {
 								console.log(result.error)
 								set_Error(`Payment failed ${result.error.message}`)
@@ -231,6 +254,8 @@ const CheckoutForm = ({ total, itemCount }) => {
 								set_Error(null)
 								setProcessing(false)
 								setSucceeded(true)
+								localStorage.setItem('altEmail', email)
+								localStorage.setItem('payload', client_secret)
 								setTimeout(() => {
 									navigate('/success')
 								}, 5000)
@@ -240,6 +265,8 @@ const CheckoutForm = ({ total, itemCount }) => {
 						set_Error(null)
 						setProcessing(false)
 						setSucceeded(true)
+						localStorage.setItem('altEmail', email)
+						localStorage.setItem('payload', client_secret)
 						setTimeout(() => {
 							navigate('/success')
 						}, 5000)
@@ -265,7 +292,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 						placeholder="Email"
 						value={email}
 						className={
-							error && !email
+							error && !ValidateEmail(email)
 								? 'user-email-input input-error'
 								: 'user-email-input tw-text-sm'
 						}
@@ -333,13 +360,13 @@ const CheckoutForm = ({ total, itemCount }) => {
 				/>
 			</div>
 			{email.substr(email.length - 3) === 'com' && (
-				<div className="email-verify">
+				<div className="email-verify tw-text-center tw-text-xs">
 					<span>Please verify you have the correct email and address</span>
 				</div>
 			)}
-			{error && email.length < 1 && (
+			{error && (
 				<div className="user-email-input-error tw-text-center">
-					<span>Hey! You have missing credentials!</span>
+					<span className="tw-text-xs">Hey! You have missing credentials!</span>
 				</div>
 			)}
 			<div className="total-button tw-text-sm tw-mx-auto tw-flex tw-flex-row tw-items-center">

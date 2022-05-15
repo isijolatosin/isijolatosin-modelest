@@ -13,33 +13,26 @@ import { AUTHORIZED_ID } from '../constant'
 const Success = () => {
 	const { user } = useContext(UserContext)
 	const navigate = useNavigate()
-
-	const { displayName } = user
 	const dispatch = useDispatch()
 	const cartItems = useSelector(selectCartItems)
 	const userAddress = localStorage.getItem('address')
 	const [sales, setSales] = React.useState(false)
 	const payload = localStorage.getItem('payload')
+	const userEmail = user?.email || localStorage.getItem('altEmail')
 
 	React.useEffect(() => {
 		setSales(localStorage.getItem('isSales'))
 	}, [])
 
 	React.useEffect(() => {
-		setTimeout(() => {
-			localStorage.setItem('payload', '')
-		}, 3000)
-	}, [])
-
-	React.useEffect(() => {
-		user?.email &&
+		userEmail &&
 			cartItems.length !== 0 &&
 			payload &&
 			// eslint-disable-next-line array-callback-return
 			cartItems.map((item) => {
 				// shopping path
 				db.collection('purchased')
-					.doc(`${user?.email}/`)
+					.doc(`${userEmail}/`)
 					.collection('shoppings')
 					.add({
 						id: item.id,
@@ -48,8 +41,8 @@ const Success = () => {
 						quantity: item.quantity,
 						price: item.price,
 						address: userAddress,
-						customer: user?.displayName,
-						email: user?.email,
+						customer: user && user?.displayName,
+						email: userEmail,
 						color: item?.hairColor,
 					})
 					.then(() => {
@@ -68,8 +61,8 @@ const Success = () => {
 						quantity: item.quantity,
 						price: item.price,
 						address: userAddress,
-						customer: user?.displayName,
-						email: user?.email,
+						customer: user && user?.displayName,
+						email: userEmail,
 						color: item?.hairColor,
 					})
 					.then(() => {
@@ -85,6 +78,8 @@ const Success = () => {
 
 	const handleBackToShopping = () => {
 		localStorage.setItem('payload', '')
+		localStorage.setItem('address', '')
+		localStorage.setItem('altEmail', '')
 		navigate('/')
 	}
 
@@ -101,9 +96,9 @@ const Success = () => {
 								? 'tw-pt-[230px] tw-bg-neutral-200 lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
 								: 'tw-pt-[150px] tw-bg-neutral-200 lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
 						}>
-						<h1 className="tw-text-md tw-text-neutral-600 tw-uppercase tw-mb-1">{`Hey ${
-							displayName && displayName
-						}`}</h1>
+						<h1 className="tw-text-md tw-text-neutral-600 tw-uppercase tw-mb-1">
+							{user ? `Hey ${user?.displayName}` : 'Hey!'}
+						</h1>
 						<h1 className="tw-text-xl tw-uppercase">
 							Thank you for your purchase
 						</h1>

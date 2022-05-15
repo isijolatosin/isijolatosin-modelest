@@ -10,9 +10,13 @@ exports.handler = async function (event, context) {
 	}
 
 	if (event.body) {
-		const { payment_method, email, balance } = JSON.parse(event.body)
+		const { payment_method, email, balance, shippingFee, tax } = JSON.parse(
+			event.body
+		)
 		const noOfInstallment = 4
-		const subAmount = balance / noOfInstallment
+		const subAmount = Math.floor(
+			(balance + shippingFee + tax) / noOfInstallment
+		)
 
 		try {
 			// create customer
@@ -44,6 +48,7 @@ exports.handler = async function (event, context) {
 				}),
 			}
 		} catch (error) {
+			console.log(error)
 			return {
 				statusCodes: 500,
 				body: JSON.stringify({ msg: error.message }),
