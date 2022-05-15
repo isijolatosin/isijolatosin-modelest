@@ -235,6 +235,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 							balance: totalPrice,
 							shippingFee: shipping_fee,
 							tax: tax,
+							cartItems: cartItems,
 						}
 					)
 
