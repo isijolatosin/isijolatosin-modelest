@@ -23,17 +23,31 @@ const CheckoutForm = ({ total, itemCount }) => {
 	const cartItems = useSelector(selectCartItems)
 	const [email, setEmail] = React.useState('')
 	const [succeeded, setSucceeded] = React.useState(false)
+	const [alert, setAlert] = React.useState(false)
 	const [_error, set_Error] = React.useState(null)
 	const [processing, setProcessing] = React.useState('')
 	const [disabled, setDisabled] = React.useState(true)
 	const [clientSecret, setClientSecret] = React.useState('')
-	const [allowproceed, setAllowProceed] = React.useState(false) //CHANGE BACK TO FALSE
+	const [allowproceed, setAllowProceed] = React.useState(false)
+
+	const localStorageCountry = localStorage
+		.getItem('country')
+		.toLowerCase()
+		.split(' - ')[0]
+	const region =
+		((localStorageCountry === 'united states of america' ||
+			localStorageCountry === 'united states') &&
+			'usa') ||
+		((localStorageCountry === 'united kingdom' ||
+			localStorageCountry === 'london') &&
+			'uk') ||
+		localStorageCountry
 	const [address, setAddress] = React.useState({
 		street: '',
 		city: '',
 		province: '',
 		postalcode: '',
-		country: '',
+		country: localStorage.getItem('country') ? region : '',
 	})
 	const [shippingCost, setShippingCost] = React.useState({
 		country: '',
@@ -71,56 +85,68 @@ const CheckoutForm = ({ total, itemCount }) => {
 
 	// Submit address
 	const handleSubmitAddress = () => {
-		const shippingAd = `${address.street}, ${address.city}. ${address.province}. ${address.postalcode}. ${address.country}`
+		if (
+			address?.country.toLowerCase() === 'united states of america' ||
+			address?.country.toLowerCase() === 'united states' ||
+			address?.country.toLowerCase() === 'america' ||
+			address?.country.toLowerCase() === 'united kingdom' ||
+			address?.country.toLowerCase() === 'london' ||
+			address?.country.toLowerCase() === 'canada'
+		) {
+			const shippingAd = `${address.street}, ${address.city}. ${address.province}. ${address.postalcode}. ${address.country}`
 
-		if (
-			!user ||
-			!email ||
-			!address.street ||
-			!address.city ||
-			!address.province ||
-			!address.postalcode ||
-			!address.country
-		) {
-			setError(true)
-		}
-		if (!ValidateEmail(email)) {
-			setError(true)
-		}
-		if (
-			(user &&
-				address?.street &&
-				address?.city &&
-				address?.province &&
-				address?.postalcode &&
-				address?.country) ||
-			(email &&
-				ValidateEmail(email) &&
-				address?.street &&
-				address?.city &&
-				address?.province &&
-				address?.postalcode &&
-				address?.country)
-		) {
-			localStorage.setItem('address', shippingAd)
-			setAllowProceed(true)
-			setAddress({
-				street: '',
-				city: '',
-				province: '',
-				postalcode: '',
-				country: '',
-			})
-			setError(false)
-		}
-		Object.keys(SHIPPING_COST).filter(
-			(cntry) =>
-				cntry.toLowerCase() === address.country.toLowerCase() &&
-				setShippingCost({
-					country: cntry,
-					cost: SHIPPING_COST[cntry],
+			if (
+				!user ||
+				!email ||
+				!address.street ||
+				!address.city ||
+				!address.province ||
+				!address.postalcode ||
+				!address.country
+			) {
+				setError(true)
+			}
+			if (!ValidateEmail(email)) {
+				setError(true)
+			}
+			if (
+				(user &&
+					address?.street &&
+					address?.city &&
+					address?.province &&
+					address?.postalcode &&
+					address?.country) ||
+				(email &&
+					ValidateEmail(email) &&
+					address?.street &&
+					address?.city &&
+					address?.province &&
+					address?.postalcode &&
+					address?.country)
+			) {
+				localStorage.setItem('address', shippingAd)
+				setAllowProceed(true)
+				setAddress({
+					street: '',
+					city: '',
+					province: '',
+					postalcode: '',
+					country: '',
 				})
-		)
+				setError(false)
+			}
+			Object.keys(SHIPPING_COST).filter(
+				(cntry) =>
+					cntry.toLowerCase() === address.country.toLowerCase() &&
+					setShippingCost({
+						country: cntry,
+						cost: SHIPPING_COST[cntry],
+					})
+			)
+			setEmail('')
+		} else {
+			setAlert(true)
+		}
 	}
 
 	const cardStyle = {
@@ -368,6 +394,14 @@ const CheckoutForm = ({ total, itemCount }) => {
 			{error && (
 				<div className="user-email-input-error tw-text-center">
 					<span className="tw-text-xs">Hey! You have missing credentials!</span>
+				</div>
+			)}
+			{alert && (
+				<div className="tw-text-red-800 tw-text-xs tw-flex tw-flex-row tw-items-center tw-justify-center tw-mt-5">
+					<GoAlert className="tw-mr-2" />
+					<span>
+						You are not authorize to make purchase from this region/country
+					</span>
 				</div>
 			)}
 			<div className="total-button tw-text-sm tw-mx-auto tw-flex tw-flex-row tw-items-center">

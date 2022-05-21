@@ -43,14 +43,6 @@ function NavIcons() {
 					</span>
 				)}
 			</div>
-			{/* <div
-				onMouseOver={!user && handleShow}
-				onMouseOut={!user && handleHide}
-				onClick={() => user && navigate('/user-account')}
-				className="tw-w-30 tw-h-30 tw-text-gray-300 tw-text-xl hover:tw-cursor-pointer hover:tw-bg-gray-300 hover:tw-p-2 hover:tw-rounded-full tw-ease-in tw-duration-300 ">
-				<GoPerson />
-				<CursorText showText={showText}>Sign In Required</CursorText>
-			</div> */}
 			{user && (
 				<div className="tw-flex  tw-ml-[20px] tw-flex-col tw-justify-center tw-items-center hover:tw-opacity-[0.5] hover:tw-cursor-pointer  tw-relative">
 					<div className="tw-text-gray-800 tw-text-xl tw-ease-in tw-duration-500">

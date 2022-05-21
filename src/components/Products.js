@@ -40,7 +40,7 @@ function Products({ allProducts }) {
 				<About />
 			</div>
 			{singleProducts && (
-				<div className="tw-absolute tw-z-10 tw-h-[100vh] tw-w-[100%] tw-right-0 tw-left-0 tw-top-[-140px] tw-flex tw-flex-row tw-items-start tw-justify-center bg-blur3">
+				<div className="tw-absolute  tw-z-10 tw-h-[100vh] tw-w-[100%] tw-right-0 tw-left-0 tw-top-[-30px] md:tw-top-[-100px] tw-flex tw-flex-row tw-items-start tw-justify-center bg-blur3">
 					<div className="tw-w-[600px] tw-h-[600px]">
 						<img
 							id={singleProducts?.[0]._id}

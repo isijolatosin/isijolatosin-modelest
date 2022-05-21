@@ -19,7 +19,7 @@ function Footer() {
 	const [showTerms, setShowTerms] = React.useState(false)
 	const handleOnChange = (e) => {
 		setCountry(e.target.value)
-		localStorage.setItem('Country/region', country)
+		localStorage.setItem('country', e.target.value)
 	}
 	const [contactInput, setcontactInput] = React.useState({
 		name: '',
@@ -28,10 +28,6 @@ function Footer() {
 		message: '',
 		error: null,
 	})
-
-	React.useEffect(() => {
-		localStorage.setItem('Country/region', country)
-	}, [country])
 
 	const links = [
 		{

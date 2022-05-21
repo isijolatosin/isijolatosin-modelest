@@ -6,6 +6,7 @@ import Products from '../components/Products'
 
 function HomePage() {
 	const [sales, setSales] = React.useState(false)
+	const [hideRegionSet, setHideRegionSet] = React.useState(true)
 	const [allProducts, setAllproducts] = React.useState([])
 
 	async function fetchProducts() {
@@ -31,7 +32,15 @@ function HomePage() {
 
 	React.useEffect(() => {
 		setSales(localStorage.getItem('isSales'))
+		setTimeout(() => {
+			setHideRegionSet(false)
+		}, 10000)
 	}, [])
+
+	const scrollToTop = function scrollToTop() {
+		window.scrollTo(0, document.body.scrollHeight)
+	}
+
 	return (
 		<div className="tw-bg-neutral-200 relative">
 			<Helmet>
@@ -49,7 +58,23 @@ function HomePage() {
 							  } md:tw-py-[70px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
 					}>
 					{allProducts.length !== 0 ? (
-						<Products allProducts={allProducts} />
+						<div className="tw-flex tw-flex-col tw-items-center">
+							{hideRegionSet && (
+								<div className="tw-flex tw-flex-col tw-items-center">
+									<span className="tw-mb-2 tw-text-sm">
+										Set your Country/Region below
+									</span>
+									<div
+										onClick={scrollToTop}
+										className="arrows-wrapper tw-rounded-lg tw-bg-gradient-to-r tw-from-neutral-200 tw-via-neutral-500 tw-to-neutral-400 hover:tw-cursor-pointer">
+										<span className="arrow"></span>
+										<span className="arrow"></span>
+										<span className="arrow"></span>
+									</div>
+								</div>
+							)}
+							<Products allProducts={allProducts} />
+						</div>
 					) : (
 						<div className="tw-rounded-full progress">
 							<div className="inner"></div>
