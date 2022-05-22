@@ -504,10 +504,12 @@ const CheckoutForm = ({ total, itemCount }) => {
 						{processing ? <div className="spinner" id="spinner"></div> : 'Pay'}
 					</span>
 				</button>
-				<span className="tw-text-red-700 tw-text-xs tw-flex tw-items-center tw-justify-center tw-mt-2 tw-capitalize">
-					<GoAlert className="tw-mr-2" />
-					Please set your payment plan
-				</span>
+				{paymentPlanWarn && (
+					<span className="tw-text-red-700 tw-text-xs tw-flex tw-items-center tw-justify-center tw-mt-2 tw-capitalize">
+						<GoAlert className="tw-mr-2" />
+						Please set your payment plan
+					</span>
+				)}
 				{_error && (
 					<div
 						className="card-error tw-flex tw-items-center tw-justify-center tw-text-xs tw-text-red-700 "
