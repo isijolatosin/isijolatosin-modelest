@@ -4,15 +4,9 @@ import LinksComponent from './LinksComponent'
 import NavIcons from './NavIcons'
 
 function Nav() {
-	const [sales, setSales] = React.useState(false)
-
-	React.useEffect(() => {
-		setSales(localStorage.getItem('isSales'))
-	}, [])
-
 	return (
 		<div>
-			{sales && (
+			{localStorage.getItem('isSales') && (
 				<div className="tw-bg-black tw-flex tw-flex-col tw-text-white tw-border-b-[1px] tw-font-bold tw-text-center tw-py-2 lg:tw-text-3xl">
 					<span className="tw-text-xl">
 						PROMO SALE! 15% OFF ON EVERYTHING!!

@@ -5,7 +5,6 @@ import Layout from '../components/shared/Layout'
 import Products from '../components/Products'
 
 function HomePage() {
-	const [sales, setSales] = React.useState(false)
 	const [hideRegionSet, setHideRegionSet] = React.useState(true)
 	const [allProducts, setAllproducts] = React.useState([])
 
@@ -18,6 +17,9 @@ function HomePage() {
 				},
 			} = await axios.get('/api/v1/products')
 
+			if (products.every((product) => product.sales)) {
+				localStorage.setItem('isSales', true)
+			}
 			setTimeout(() => {
 				setAllproducts(products.sort((a, b) => a.name.localeCompare(b.name)))
 			}, 3000)
@@ -31,10 +33,10 @@ function HomePage() {
 	}, [])
 
 	React.useEffect(() => {
-		setSales(localStorage.getItem('isSales'))
 		setTimeout(() => {
 			setHideRegionSet(false)
 		}, 10000)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const scrollToTop = function scrollToTop() {
@@ -49,7 +51,7 @@ function HomePage() {
 			<Layout>
 				<div
 					className={
-						sales
+						allProducts.every((product) => product.sales)
 							? `tw-flex tw-flex-col tw-items-center ${
 									allProducts.length === 0 ? 'tw-mt-[150px]' : 'tw-mt-[70px]'
 							  } tw-pt-[70px] md:tw-py-[70px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
@@ -60,7 +62,7 @@ function HomePage() {
 					{allProducts.length !== 0 ? (
 						<div className="tw-flex tw-flex-col tw-items-center">
 							{hideRegionSet && (
-								<div className="tw-flex tw-flex-col tw-items-center">
+								<div className="tw-mt-20 md:tw-mt-10 tw-flex tw-flex-col tw-items-center">
 									<span className="tw-mb-2 tw-text-sm">
 										Set your Country/Region below
 									</span>
