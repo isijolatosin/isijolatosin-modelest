@@ -31,9 +31,9 @@ const CheckoutForm = ({ total, itemCount }) => {
 	const [allowproceed, setAllowProceed] = React.useState(false)
 
 	const localStorageCountry = localStorage
-		.getItem('country')
-		.toLowerCase()
-		.split(' - ')[0]
+		?.getItem('country')
+		?.toLowerCase()
+		?.split(' - ')[0]
 	const region =
 		((localStorageCountry === 'united states of america' ||
 			localStorageCountry === 'united states') &&
