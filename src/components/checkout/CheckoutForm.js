@@ -86,11 +86,8 @@ const CheckoutForm = ({ total, itemCount }) => {
 	// Submit address
 	const handleSubmitAddress = () => {
 		if (
-			address?.country.toLowerCase() === 'united states of america' ||
-			address?.country.toLowerCase() === 'united states' ||
-			address?.country.toLowerCase() === 'america' ||
-			address?.country.toLowerCase() === 'united kingdom' ||
-			address?.country.toLowerCase() === 'london' ||
+			address?.country.toLowerCase() === 'usa' ||
+			address?.country.toLowerCase() === 'uk' ||
 			address?.country.toLowerCase() === 'canada'
 		) {
 			const shippingAd = `${address.street}, ${address.city}. ${address.province}. ${address.postalcode}. ${address.country}`
