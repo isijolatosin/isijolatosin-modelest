@@ -60,7 +60,7 @@ function About() {
 				<span className="tw-italic tw-text-sm tw-font-semibold tw-text-left">
 					For inquiry, please contact us via:
 				</span>
-				<span className="tw-italic tw-text-xs"> modelEst1010@gmail.com</span>
+				<span className="tw-italic tw-text-xs"> modelEst2020@gmail.com</span>
 			</p>
 		</div>
 		// </div>

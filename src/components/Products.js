@@ -13,12 +13,14 @@ function Products({ allProducts }) {
 
 	const sizes = singleProducts?.[0].availablelength.split(', ')
 
+	allProducts.every((product) => product.sales) &&
+		localStorage.setItem('isSales', true)
+
 	return (
 		<div className="tw-pt-10 tw-relative tw-flex tw-flex-col tw-items-center ">
 			{allProducts ? (
 				<div className="tw-grid tw-grid-cols-2 tw-w-full tw-px-2 md:tw-w-[90%] md:tw-grid-cols-4 lg:tw-grid-cols-5 2xl:tw-grid-cols-6 3xl:tw-grid-cols-7 tw-gap-2 md:tw-gap-5 ">
 					{allProducts.map((product) => {
-						localStorage.setItem('isSales', product.sales)
 						return (
 							<div
 								key={product._id}
