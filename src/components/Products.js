@@ -13,8 +13,14 @@ function Products({ allProducts }) {
 
 	const sizes = singleProducts?.[0].availablelength.split(', ')
 
-	allProducts.every((product) => product.sales) &&
-		localStorage.setItem('isSales', true)
+	React.useEffect(() => {
+		if (allProducts.every((product) => product.sales)) {
+			localStorage.setItem('isSales', true)
+		} else {
+			localStorage.setItem('isSales', '')
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	return (
 		<div className="tw-pt-10 tw-relative tw-flex tw-flex-col tw-items-center ">
