@@ -301,6 +301,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 				}
 			}
 		}
+		localStorage.setItem('address', '')
 	}
 
 	return (
