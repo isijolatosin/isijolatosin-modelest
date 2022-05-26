@@ -77,9 +77,7 @@ const Success = () => {
 	}, [])
 
 	const handleBackToShopping = () => {
-		setTimeout(() => {
-			dispatch(clearCartItem())
-		}, 500)
+		dispatch(clearCartItem())
 		localStorage.setItem('payload', '')
 		localStorage.setItem('address', '')
 		localStorage.setItem('altEmail', '')
