@@ -123,6 +123,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 					address?.country)
 			) {
 				localStorage.setItem('address', shippingAd)
+				localStorage.setItem('altEmail', email)
 				setAllowProceed(true)
 				setAddress({
 					street: '',
@@ -214,7 +215,6 @@ const CheckoutForm = ({ total, itemCount }) => {
 				})
 
 				localStorage.setItem('payload', payload?.paymentIntent?.client_secret)
-				localStorage.setItem('altEmail', email)
 
 				if (payload.error) {
 					set_Error(`Payment failed ${payload.error.message}`)
@@ -281,7 +281,6 @@ const CheckoutForm = ({ total, itemCount }) => {
 								set_Error(null)
 								setProcessing(false)
 								setSucceeded(true)
-								localStorage.setItem('altEmail', email)
 								localStorage.setItem('payload', client_secret)
 								setTimeout(() => {
 									navigate('/success')
@@ -292,7 +291,6 @@ const CheckoutForm = ({ total, itemCount }) => {
 						set_Error(null)
 						setProcessing(false)
 						setSucceeded(true)
-						localStorage.setItem('altEmail', email)
 						localStorage.setItem('payload', client_secret)
 						setTimeout(() => {
 							navigate('/success')
@@ -301,7 +299,6 @@ const CheckoutForm = ({ total, itemCount }) => {
 				}
 			}
 		}
-		localStorage.setItem('address', '')
 	}
 
 	return (
@@ -420,18 +417,23 @@ const CheckoutForm = ({ total, itemCount }) => {
 					CLEAR CART
 				</span>
 			</div>
-			{allowproceed && (
+			<div className="tw-flex tw-flex-col tw-items-center tw-my-10 tw-w-[80%] tw-mx-auto">
+				<select
+					className="tw-w-[150px] tw-text-neutral-500 tw-font-light tw-bg-neutral-50 tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[4px] tw-text-xs tw-border-[1px] tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+					onChange={handleOnChange}
+					id="payPlan"
+					value={payPlan}
+					name="payPlan">
+					{paymentPlan.map((plan) => (
+						<option key={plan.id}>{plan.name}</option>
+					))}
+				</select>
+				<span className="tw-text-sm tw-font-light tw-text-neutral-600 tw-mt-2">
+					Please select payment plan before payment
+				</span>
+			</div>
+			{payPlan !== '' && payPlan !== 'Payment Plan' && (
 				<div className="tw-flex tw-flex-col">
-					<select
-						className="tw-max-w-[120px] tw-mt-10 tw-text-neutral-500 tw-font-light tw-bg-neutral-50 tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[4px] tw-text-xs tw-border-[1px] tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
-						onChange={handleOnChange}
-						id="payPlan"
-						value={payPlan}
-						name="payPlan">
-						{paymentPlan.map((plan) => (
-							<option key={plan.id}>{plan.name}</option>
-						))}
-					</select>
 					{succeeded ? (
 						<article className="tw-text-center tw-mt-2">
 							<h4>Thank you. Your payment was successful!</h4>
@@ -457,7 +459,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 			)}
 			<form
 				className={
-					allowproceed
+					payPlan !== '' && payPlan !== 'Payment Plan'
 						? 'tw-block tw-ease-in tw-duration-300 tw-w-full tw-pt-2'
 						: 'tw-hidden tw-ease-in tw-duration-300'
 				}

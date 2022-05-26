@@ -41,14 +41,15 @@ const Success = () => {
 						quantity: item.quantity,
 						price: item.price,
 						address: userAddress,
-						customer: user && user?.displayName,
+						customer: (user && user?.displayName) || userEmail,
 						email: userEmail,
 						color: item?.hairColor,
+						length: item?.hairLength,
 					})
 					.then(() => {
-						// console.log(`SUCCESSFULL`)
+						console.log(`SUCCESSFULL`)
 					})
-					.catch((error) => console.log('Error' + error.message))
+					.catch((error) => console.log('Error ' + error.message))
 
 				// admin path
 				db.collection('admin')
@@ -61,23 +62,24 @@ const Success = () => {
 						quantity: item.quantity,
 						price: item.price,
 						address: userAddress,
-						customer: user && user?.displayName,
+						customer: (user && user?.displayName) || userEmail,
 						email: userEmail,
 						color: item?.hairColor,
+						length: item?.hairLength,
 					})
 					.then(() => {
 						console.log(`SUCCESSFULL`)
 					})
-					.catch((error) => console.log('Error' + error.message))
+					.catch((error) => console.log('Error ' + error.message))
 			})
 
-		setTimeout(() => {
-			dispatch(clearCartItem())
-		}, 500)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const handleBackToShopping = () => {
+		setTimeout(() => {
+			dispatch(clearCartItem())
+		}, 500)
 		localStorage.setItem('payload', '')
 		localStorage.setItem('address', '')
 		localStorage.setItem('altEmail', '')
