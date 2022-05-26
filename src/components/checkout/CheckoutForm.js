@@ -187,7 +187,9 @@ const CheckoutForm = ({ total, itemCount }) => {
 	}
 
 	React.useEffect(() => {
-		createPaymentIntent()
+		if (shipping_fee !== 0) {
+			createPaymentIntent()
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [shipping_fee])
 
