@@ -33,8 +33,8 @@ const Cart = () => {
 				<div
 					className={
 						sales
-							? 'tw-pt-[170px] tw-bg-neutral-200 md:tw-pt-[120px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center '
-							: 'tw-bg-neutral-200 tw-pt-[150px] md:tw-pt-[100px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center '
+							? 'tw-pt-[170px] tw-bg-neutral-200 md:tw-pt-[120px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center home'
+							: 'tw-bg-neutral-200 tw-pt-[150px] md:tw-pt-[100px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center home'
 					}>
 					<div className="tw-flex tw-flex-row tw-items-center tw-mb-5">
 						<FaOpencart className="tw-text-2xl tw-text-violet-500" />

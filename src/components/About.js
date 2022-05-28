@@ -2,11 +2,6 @@ const aboutImg = require('../assets/about.jpeg')
 
 function About() {
 	return (
-		// <div className="about-container">
-		// {/* <div className="about-left">
-		// 	<div className="about-rec"></div>
-		// 	<img className="about-img " src={aboutImg} alt="" />
-		// </div> */}
 		<div className="tw-px-10">
 			<img
 				className="tw-w-64 tw-h-[300px] tw-float-left tw-aspect-[1/1] lg:tw-aspect-[1/2] tw-rounded-lg tw-shadow-lg tw-object-cover tw-object-center tw-mb-0 tw-mr-6 [clip-path:var(--my-shape)] [shape-outside:var(--my-shape)] lg:[--my-shape:polygon(0%_0%,100%_0%,75%_100%,0%_100%)]"
@@ -16,11 +11,11 @@ function About() {
 			<h1 className="tw-text-3xl tw-font-bold">ABOUT US</h1>
 			<div className="tw-relative">
 				<div className="tw-bg-clip-border tw-p-0.5 tw-mt-[-5px] tw-mb-[20px] tw-w-[40px] tw-ml-[280px] tw tw-bg-pink-600"></div>
-				<h3 className="tw-font-semibold tw-text-neutral-600 tw-mb-[15px]">
+				<h3 className="tw-font-semibold tw-text-neutral-100 tw-mb-[15px]">
 					OFFERING THE BEST HAIR BUNDLES
 				</h3>
 			</div>
-			<p className="tw-text-neutral-600 tw-font-normal">
+			<p className="tw-text-neutral-50 tw-font-normal">
 				ModelEst was created for those who have a flair for hair, those that
 				have to switch it up by length, color and texture. This vision came out
 				of passion for hair and poised appearance. As a woman, I can not keep a

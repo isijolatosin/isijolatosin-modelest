@@ -44,7 +44,7 @@ function HomePage() {
 	}
 
 	return (
-		<div className="tw-bg-neutral-200 relative">
+		<div className="tw-bg-neutral-200 relative home">
 			<Helmet>
 				<title>Home</title>
 			</Helmet>
@@ -53,17 +53,17 @@ function HomePage() {
 					className={
 						allProducts.every((product) => product.sales)
 							? `tw-flex tw-flex-col tw-items-center ${
-									allProducts.length === 0 ? 'tw-mt-[150px]' : 'tw-mt-[70px]'
-							  } tw-pt-[70px] md:tw-py-[70px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
+									allProducts.length === 0 ? 'tw-pt-[230px]' : 'tw-pt-[150px]'
+							  } tw-pb-10 md:tw-py-[100px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
 							: `tw-flex tw-flex-col tw-items-center ${
-									allProducts.length === 0 ? 'tw-pt-[180px]' : 'tw-pt-[100px]'
-							  } md:tw-py-[70px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
+									allProducts.length === 0 ? 'tw-pt-[230px]' : 'tw-pt-[150px]'
+							  } md:tw-py-[100px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
 					}>
 					{allProducts.length !== 0 ? (
 						<div className="tw-flex tw-flex-col tw-items-center">
 							{hideRegionSet && (
 								<div className="tw-mt-20 md:tw-mt-10 tw-flex tw-flex-col tw-items-center">
-									<span className="tw-mb-2 tw-text-sm">
+									<span className="tw-mb-2 tw-text-sm tw-text-neutral-50">
 										Set your Country/Region below
 									</span>
 									<div
@@ -78,7 +78,7 @@ function HomePage() {
 							<Products allProducts={allProducts} />
 						</div>
 					) : (
-						<div className="tw-rounded-full progress">
+						<div className="tw-rounded-full progress tw-mt-[50px]">
 							<div className="inner"></div>
 						</div>
 					)}

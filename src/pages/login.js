@@ -55,10 +55,12 @@ const Login = () => {
 				<title>Sign In</title>
 			</Helmet>
 			<Layout>
-				<main className="">
-					<section className="tw-flex tw-flex-col tw-items-center tw-mt-[150px] lg:tw-mt-[100px]">
+				<main className="home">
+					<section className="tw-flex tw-flex-col tw-items-center tw-mt-[150px] lg:tw-pt-[100px]">
 						<div className="tw-text-center">
-							<h1 className="tw-text-2xl tw-font-bold tw-mb-10">Sign In</h1>
+							<h1 className="tw-text-2xl tw-font-bold tw-mb-10 tw-text-neutral-50">
+								Sign In
+							</h1>
 							{/* <p className="tw-w-[55%] tw-mx-auto tw-my-10">
 								Fill in your login credentials to gain access to your personal
 								and cart history page.
@@ -105,7 +107,7 @@ const Login = () => {
 								</div>
 							</form>
 						</article>
-						<div className="tw-text-neutral-700 tw-items-center tw-text-sm tw-flex tw-flex-col tw-font-light ">
+						<div className="tw-text-neutral-100 tw-items-center tw-text-sm tw-flex tw-flex-col tw-font-light ">
 							<span>
 								Forgot Password? |{' '}
 								<button

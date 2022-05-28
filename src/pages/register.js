@@ -60,10 +60,12 @@ const Register = () => {
 				<title>Sign Up</title>
 			</Helmet>
 			<Layout>
-				<section className="tw-flex tw-flex-col tw-items-center tw-mt-[150px] lg:tw-mt-[100px]">
+				<section className="home tw-flex tw-flex-col tw-items-center tw-pt-[150px] lg:tw-pt-[150px]">
 					<div className="tw-text-center">
-						<h1 className="tw-text-2xl tw-font-bold">Sign Up</h1>
-						<p className="tw-w-[55%] tw-mx-auto tw-my-10">
+						<h1 className="tw-text-2xl tw-font-bold tw-text-neutral-50">
+							Sign Up
+						</h1>
+						<p className="tw-w-[55%] tw-mx-auto tw-my-10 tw-text-neutral-50">
 							By creating account with us, you consent to receiving newsletters
 							or promotions from{' '}
 							<Link to="/">
@@ -128,7 +130,7 @@ const Register = () => {
 						</form>
 					</article>
 					<div>
-						<p className="tw-text-neutral-500 tw-font-light">
+						<p className="tw-text-neutral-300 tw-font-light">
 							Already have an account with us?{' '}
 							<Link to="/login">
 								<button className="tw-text-pink-800 tw-mb-10">Login</button>
@@ -136,7 +138,7 @@ const Register = () => {
 						</p>
 					</div>
 					<div>
-						<p className="tw-font-light tw-mb-10 tw-w-[70%] tw-mx-auto tw-text-center">
+						<p className="tw-font-light tw-mb-10 tw-w-[70%] tw-mx-auto tw-text-center tw-text-neutral-50">
 							This site is protected by Google{' '}
 							<a
 								href="https://policies.google.com/privacy"

@@ -70,8 +70,8 @@ function HairBundles() {
 						sales
 							? `${
 									hairBundles.length === 0 && !show
-										? 'tw-pt-[230px]'
-										: 'tw-pt-[170px]'
+										? 'tw-pt-[230px] home'
+										: 'tw-pt-[200px] home'
 							  } tw-pb-10 md:tw-pt-[150px] tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto`
 							: 'tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto'
 					}>
@@ -151,7 +151,7 @@ function HairBundles() {
 									className="tw-w-[90%] tw-mt-20 tw-mx-auto tw-h-full tw-object-cover tw-mb-1"
 								/>
 								<div className="tw-max-w-[90%] tw-mx-auto">
-									<p className="tw-text-xs tw-font-200 tw-tracking-tight tw-text-neutral-900 tw-mb-[1px] bg-blur tw-px-2 tw-leading-6 lg:tw-mt-[150px]">
+									<p className="tw-text-xs tw-font-200 tw-tracking-tight tw-text-neutral-900 tw-mb-[1px] bg-blur tw-px-2 tw-leading-6 lg:tw-mt-[10px]">
 										{singleProducts?.[0].name}
 									</p>
 									<p className="tw-font-medium tw-text-slate-900 tw-text-xs tw-mb-[1px] bg-blur tw-px-2 tw-mt-0">

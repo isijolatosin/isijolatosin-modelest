@@ -44,11 +44,13 @@ function Products({ allProducts }) {
 			) : (
 				<div className="tw-text-neutral-500">Loading data...</div>
 			)}
-			<div className="tw-mx-auto lg:tw-w-4/5 xl:tw-w-full tw-bg-neutral-50 tw-py-10 tw-mt-10">
-				<About />
+			<div className="tw-mx-auto tw-w-full bg-blur tw-py-10 tw-mt-10">
+				<div className="tw-w-[100%] md:tw-w-[95%] tw-mx-auto">
+					<About />
+				</div>
 			</div>
 			{singleProducts && (
-				<div className="tw-absolute  tw-z-10 tw-h-[100vh] tw-w-[100%] tw-right-0 tw-left-0 tw-top-[-30px] md:tw-top-[-100px] tw-flex tw-flex-row tw-items-start tw-justify-center bg-blur3">
+				<div className="tw-absolute tw-z-20 tw-h-[100vh] tw-w-[100%] tw-right-0 tw-left-0 tw-top-[-150px] md:tw-top-[-75px] tw-flex tw-flex-row tw-items-start tw-justify-center bg-blur3">
 					<div className="tw-w-[600px] tw-h-[600px]">
 						<img
 							id={singleProducts?.[0]._id}
@@ -57,7 +59,7 @@ function Products({ allProducts }) {
 							className="tw-w-[90%] tw-mt-20 tw-mx-auto tw-h-full tw-object-cover tw-mb-1"
 						/>
 						<div className="tw-max-w-[90%] tw-mx-auto">
-							<p className="tw-text-md tw-font-200 tw-tracking-tight tw-text-neutral-900 tw-mb-[1px] bg-blur tw-px-2 tw-leading-6 lg:tw-mt-[150px]">
+							<p className="tw-text-md tw-font-200 tw-tracking-tight tw-text-neutral-900 tw-mb-[1px] bg-blur tw-px-2 tw-leading-6 lg:tw-mt-[10px]">
 								{singleProducts?.[0].name}
 							</p>
 							<p className="tw-font-medium tw-text-slate-900 tw-text-xs tw-mb-[1px] bg-blur tw-px-2 tw-mt-0">
