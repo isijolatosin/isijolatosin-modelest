@@ -53,7 +53,7 @@ function HomePage() {
 					className={
 						allProducts.every((product) => product.sales)
 							? `tw-flex tw-flex-col tw-items-center ${
-									allProducts.length === 0 ? 'tw-pt-[230px]' : 'tw-pt-[150px]'
+									allProducts.length === 0 ? 'tw-pt-[230px]' : 'tw-pt-[120px]'
 							  } tw-pb-10 md:tw-py-[100px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
 							: `tw-flex tw-flex-col tw-items-center ${
 									allProducts.length === 0 ? 'tw-pt-[230px]' : 'tw-pt-[150px]'
@@ -78,7 +78,7 @@ function HomePage() {
 							<Products allProducts={allProducts} />
 						</div>
 					) : (
-						<div className="tw-rounded-full progress tw-mt-[50px]">
+						<div className="tw-rounded-full progress">
 							<div className="inner"></div>
 						</div>
 					)}

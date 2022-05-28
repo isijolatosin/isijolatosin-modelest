@@ -71,7 +71,7 @@ function HairBundles() {
 							? `${
 									hairBundles.length === 0 && !show
 										? 'tw-pt-[230px] home'
-										: 'tw-pt-[200px] home'
+										: 'tw-pt-[160px] home'
 							  } tw-pb-10 md:tw-pt-[150px] tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto`
 							: 'tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto'
 					}>
