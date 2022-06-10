@@ -16,6 +16,8 @@ function Shippment() {
 	const [trackingInput, setShowTrackingInput] = React.useState(false)
 	const [modal, setModal] = React.useState(false)
 	const [_id, setId] = React.useState('')
+	const [clientShippingEmail, setClientShippingEmail] = React.useState('')
+	const [clientShippingName, setClientShippingName] = React.useState('')
 	const [matchIdx, setMatchIdx] = React.useState('')
 	const [custmr, setCustmr] = React.useState('')
 	const [isLoading, setIsLoading] = React.useState(true)
@@ -43,9 +45,9 @@ function Shippment() {
 	})
 
 	const messageParams = {
-		name: user.displayName,
-		message: `Thank you for your patronage. Your order of ${itemObj?.[0]?.quantity} ${itemObj?.[0]?.name}, is being processed and your tracking information is: Tracking No - ${trackingNum.number}, Courier - ${trackingNum.courier}.`,
-		client: user?.email,
+		name: clientShippingName,
+		message: `Thank you for your patronage. Your order of ${itemObj?.[0]?.quantity} ${itemObj?.[0]?.name} has been shipped and your tracking information is: Tracking No - ${trackingNum.number}, Courier - ${trackingNum.courier}.`,
+		client: clientShippingEmail,
 	}
 
 	const handleChangeAuthUser = (e) => {
@@ -280,6 +282,8 @@ function Shippment() {
 																		className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-green-700"
 																		onClick={() => {
 																			setId(item.id)
+																			setClientShippingEmail(item?.email)
+																			setClientShippingName(item?.customer)
 																			setShowTrackingInput(true)
 																			scrollToTop()
 																		}}>

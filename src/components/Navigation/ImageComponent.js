@@ -5,7 +5,7 @@ import { SUPER_USER1, SUPER_USER2 } from '../../constant'
 import { UserContext } from '../../context/user-context'
 import CursorText from '../shared/CursorText'
 
-// const logo = require('../../assets/HairPosey-logo2.png')
+const logo = require('../../assets/logo.jpeg')
 
 function ImageComponent() {
 	const { user } = useContext(UserContext)
@@ -18,14 +18,19 @@ function ImageComponent() {
 		setShowText(false)
 	}
 	return (
-		<div className="tw-py-5 tw-pl-5 tw-flex tw-flex-row tw-items-center ">
+		<div className="tw-py-1 tw-pl-5 tw-flex tw-flex-row tw-items-center ">
 			<Link to="/">
-				<div className="tw-text-lg tw-font-extrabold">
+				{/* <div className="tw-text-lg tw-font-extrabold">
 					<span className="tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-black tw-via-yellow-600 tw-to-yellow-700">
 						modelEst
 					</span>
-				</div>
-				{/* <img src={logo} loading="lazy" alt=".." className="tw-w-[200px]" /> */}
+				</div> */}
+				<img
+					src={logo}
+					loading="lazy"
+					alt=".."
+					className="tw-w-[60px] tw-object-contain tw-rounded-full"
+				/>
 			</Link>
 			{(SUPER_USER1 === user?.email || SUPER_USER2 === user?.email) && (
 				<Link
