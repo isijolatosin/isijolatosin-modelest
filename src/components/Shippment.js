@@ -46,7 +46,7 @@ function Shippment() {
 
 	const messageParams = {
 		name: clientShippingName,
-		message: `Thank you for your patronage. Your order of ${itemObj?.[0]?.quantity} ${itemObj?.[0]?.name} has been shipped and your tracking information is: Tracking No - ${trackingNum.number}, Courier - ${trackingNum.courier}.`,
+		message: `Thank you for your patronage. Your order of ${itemObj?.[0]?.quantity} ${itemObj?.[0]?.name} has been shipped. You can track your parcel with the following tracking details: Tracking No - ${trackingNum.number}, Courier - ${trackingNum.courier}.`,
 		client: clientShippingEmail,
 	}
 
