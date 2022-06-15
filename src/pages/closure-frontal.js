@@ -25,10 +25,18 @@ function ClosureFrontal() {
 	const [error, setError] = React.useState(false)
 	const [sales, setSales] = React.useState(false)
 	const [length, setLength] = React.useState(null)
+	const [_color, setColor] = React.useState(null)
+	const [_hairType, sethairType] = React.useState(null)
 	const [singleCart, setSingleCart] = React.useState(null)
 	const cartItems = useSelector(selectCartItems)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
+
+	const _hairColor =
+		singleProducts?.[0]?.type.toLowerCase() === 'frontal'
+			? ['Natural black']
+			: ['Natural black', 'Blonde613']
+	const texture = ['straight', 'Bodywave', 'Curly', 'Wavy']
 
 	React.useEffect(() => {
 		setSales(localStorage.getItem('isSales'))
@@ -87,17 +95,34 @@ function ClosureFrontal() {
 		_price = cardPrice + 30
 	} else if (length === '22') {
 		_price = cardPrice + 40
-	} else if (length === '24') {
-		_price = cardPrice + 50
-	} else if (length === '26') {
-		_price = cardPrice + 60
-	} else if (length === '28') {
-		_price = cardPrice + 70
-	} else if (length === '30') {
-		_price = cardPrice + 80
 	}
 
-	console.log(singleProducts?.[0])
+	const price =
+		// checking for frontal
+		singleProducts?.[0]?.type.toLowerCase() === 'frontal'
+			? _color?.includes('Blonde613')
+				? singleProducts?.[0]?.sales
+					? (_price += 10)
+					: (_price += 10)
+				: singleProducts?.[0]?.sales
+				? _hairType?.includes('Bodywave') ||
+				  _hairType?.includes('Wavy') ||
+				  _hairType?.includes('Curly')
+					? (_price += 5)
+					: _price
+				: _price
+			: // checking for closure
+			_color?.includes('Natural black') &&
+			  (_hairType?.includes('Bodywave') ||
+					_hairType?.includes('Wavy') ||
+					_hairType?.includes('Curly'))
+			? ((_price += 5), singleProducts?.[0]?.sales && (_price += 5))
+			: _color?.includes('Natural black') && _hairType?.includes('Straight')
+			? singleProducts?.[0]?.sales && _price
+			: _color?.includes('Blonde613') &&
+			  (_hairType?.includes('Bodywave') || _hairType?.includes('Wavy'))
+			? singleProducts?.[0]?.sales && (_price += 15)
+			: (_price += 10)
 
 	// Adding to cart items
 	const name = singleProducts?.[0] && singleProducts?.[0]?.name
@@ -105,7 +130,6 @@ function ClosureFrontal() {
 	const image = singleProducts?.[0] && singleProducts?.[0]?.image
 	const color = singleProducts?.[0] && singleProducts?.[0]?.color
 	const description = singleProducts?.[0] && singleProducts?.[0]?.description
-	const price = _price
 	const hairLength = singleProducts?.[0]?.length
 	const hairColor = color
 
@@ -118,8 +142,10 @@ function ClosureFrontal() {
 		hairLength,
 		description,
 	}
+
+	console.log(singleProduct)
 	const addToCart = () => {
-		if (length) {
+		if (typeof price === 'number') {
 			dispatch(addToCartItem(singleProduct))
 			setTimeout(() => {
 				setSingleCart(singleProduct)
@@ -268,15 +294,42 @@ function ClosureFrontal() {
 											</div>
 										))}
 									</div>
-									<div className="tw-flex tw-flex-col tw-mb-5">
+									<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
+										<div className="tw-flex tw-flex-wrap">
+											{_hairColor.map((colr, idx) => (
+												<span
+													onClick={() => {
+														setColor(colr)
+													}}
+													className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-xs tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-300 tw-ease-in tw-duration-300"
+													key={idx}>
+													<span>{colr}</span>
+												</span>
+											))}
+										</div>
+									</div>
+									<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
+										<div className="tw-flex tw-flex-wrap">
+											{texture.map((tex, idx) => (
+												<span
+													onClick={() => {
+														sethairType(tex)
+													}}
+													className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-xs tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-300 tw-ease-in tw-duration-300"
+													key={idx}>
+													<span>{tex}</span>
+												</span>
+											))}
+										</div>
+									</div>
+									<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
 										<div className="tw-flex tw-flex-wrap">
 											{sizes.map((size, idx) => (
 												<span
 													onClick={() => {
 														setLength(size)
-														setError(false)
 													}}
-													className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-px-2 tw-text-xs tw-text-neutral-900 tw-p-5 hover:tw-cursor-pointer hover:tw-bg-neutral-300 tw-ease-in tw-duration-300"
+													className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-xs tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-300 tw-ease-in tw-duration-300"
 													key={idx}>
 													{size}inch
 												</span>
@@ -286,7 +339,8 @@ function ClosureFrontal() {
 									{error && (
 										<div>
 											<p className="tw-text-center tw-mb-2 tw-text-red-600 tw-text-xs">
-												Please provide length for {singleProducts?.[0].name}
+												Please provide the requirement{' '}
+												{singleProducts?.[0].name}
 											</p>
 										</div>
 									)}
