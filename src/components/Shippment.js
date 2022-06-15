@@ -87,6 +87,7 @@ function Shippment() {
 								description: result?.data.description,
 								email: result?.data.email,
 								id: result?.data.id,
+								length: result?.data.length,
 								price: `$${result?.data.price}`,
 								quantity: result?.data.quantity,
 								title: result?.data.title,

@@ -78,9 +78,9 @@ const Success = () => {
 
 	const handleBackToShopping = () => {
 		dispatch(clearCartItem())
-		localStorage.setItem('payload', '')
-		localStorage.setItem('address', '')
-		localStorage.setItem('altEmail', '')
+		localStorage.removeItem('payload', '')
+		localStorage.removeItem('address', '')
+		localStorage.removeItem('altEmail', '')
 		navigate('/')
 	}
 
