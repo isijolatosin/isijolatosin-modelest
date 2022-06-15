@@ -143,7 +143,6 @@ function ClosureFrontal() {
 		description,
 	}
 
-	console.log(singleProduct)
 	const addToCart = () => {
 		if (typeof price === 'number') {
 			dispatch(addToCartItem(singleProduct))

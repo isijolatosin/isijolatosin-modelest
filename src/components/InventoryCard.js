@@ -34,8 +34,6 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 				length: product.length,
 				availablelength: product.availablelength,
 			})
-
-			// console.log(product)
 		} catch (error) {
 			console.log(error)
 		}

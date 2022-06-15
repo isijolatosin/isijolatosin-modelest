@@ -95,8 +95,6 @@ function HairBundles() {
 		_price = cardPrice + 80
 	}
 
-	console.log(singleProducts?.[0])
-
 	// Adding to cart items
 	const name = singleProducts?.[0] && singleProducts?.[0]?.name
 	const id = singleProducts?.[0] && singleProducts?.[0]?._id

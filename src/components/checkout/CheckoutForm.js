@@ -270,7 +270,6 @@ const CheckoutForm = ({ total, itemCount }) => {
 
 					if (status === 'requires_action') {
 						stripe.confirmCardPayment(client_secret).then(function (result) {
-							console.log(result)
 							if (result.error) {
 								console.log(result.error)
 								set_Error(`Payment failed ${result.error.message}`)
