@@ -16,8 +16,6 @@ import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/user-context'
 import { isInCart } from '../utils/helpers'
 
-const logo = require('../assets/logo2.png')
-
 function HairBundles() {
 	const itemCount = useSelector(selectItemCount)
 	const { user } = useContext(UserContext)
