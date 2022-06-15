@@ -9,11 +9,7 @@ import { RiVisaLine } from 'react-icons/ri'
 import { SiAmericanexpress } from 'react-icons/si'
 import { clearCartItem, selectCartItems } from '../../slices/appSlices'
 import { UserContext } from '../../context/user-context'
-import {
-	SHIPPING_COST,
-	TAX_PERCENT,
-	installmentStartPrice,
-} from '../../constant'
+import { SHIPPING_COST } from '../../constant'
 import { ValidateEmail } from '../../utils/ValidateEmail'
 
 const CheckoutForm = ({ total, itemCount }) => {
@@ -167,9 +163,8 @@ const CheckoutForm = ({ total, itemCount }) => {
 			},
 		},
 	}
-
 	const shipping_fee = Math.floor(shippingCost.cost * 100)
-	const taxPercentage = total * TAX_PERCENT
+	const taxPercentage = total * Number(process.env.REACT_APP_TAX_PERCENT)
 	const tax = Math.floor(taxPercentage * 100)
 	const price = Math.floor((total + taxPercentage) * 100)
 	const total_amount = price
@@ -239,7 +234,9 @@ const CheckoutForm = ({ total, itemCount }) => {
 		}
 		// recurring payment
 		else {
-			if (total_amount > installmentStartPrice) {
+			if (
+				total_amount > Number(process.env.REACT_APP_INSTALLMENT_START_PRICE)
+			) {
 				setProcessing(true)
 				const result = await stripe.createPaymentMethod({
 					type: 'card',
@@ -454,7 +451,8 @@ const CheckoutForm = ({ total, itemCount }) => {
 								{((total_amount + shipping_fee) / 100).toFixed(2)} - (tax &
 								shipping inclusive)
 							</span>
-							{total_amount < installmentStartPrice && (
+							{total_amount <
+								Number(process.env.REACT_APP_INSTALLMENT_START_PRICE) && (
 								<span className="tw-text-blue-700">
 									You are only elligible for one-time payment
 								</span>

@@ -358,16 +358,19 @@ select:focus {
 } */
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-.image-list::-webkit-scrollbar {
+.image-list::-webkit-scrollbar,
+.single::-webkit-scrollbar {
 	display: none;
 }
-.hair-care-image-list::-webkit-scrollbar {
+.hair-care-image-list::-webkit-scrollbar,
+.single::-webkit-scrollbar {
 	display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .image-list,
-.hair-care-image-list {
+.hair-care-image-list,
+.single {
 	-ms-overflow-style: none; /* IE and Edge */
 	scrollbar-width: none; /* Firefox */
 }

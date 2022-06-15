@@ -5,7 +5,7 @@ import { SUPER_USER1, SUPER_USER2 } from '../../constant'
 import { UserContext } from '../../context/user-context'
 import CursorText from '../shared/CursorText'
 
-const logo = require('../../assets/logo.jpeg')
+const logo = require('../../assets/logo2.png')
 
 function ImageComponent() {
 	const { user } = useContext(UserContext)
@@ -29,7 +29,7 @@ function ImageComponent() {
 					src={logo}
 					loading="lazy"
 					alt=".."
-					className="tw-w-[60px] tw-object-contain tw-rounded-full"
+					className="tw-w-[90px] tw-h-full tw-object-contain tw-rounded-full"
 				/>
 			</Link>
 			{(SUPER_USER1 === user?.email || SUPER_USER2 === user?.email) && (

@@ -8,10 +8,10 @@ export const SHIPPING_COST = {
 export const CANADA = 'canada'
 export const USERS = 'users'
 export const BOOKINGS = 'bookings'
-export const FREE_SHIPPING_AMOUNT = 200
+// export const FREE_SHIPPING_AMOUNT = 200
 export const CURRENCY = 'usd'
-export const TAX_PERCENT = 0.06
-export const installmentStartPrice = 29900
+// export const TAX_PERCENT = 0.06
+// export const installmentStartPrice = 49900
 
 // Back end url
 export const HTTPS_LINK = 'http://localhost:5000'

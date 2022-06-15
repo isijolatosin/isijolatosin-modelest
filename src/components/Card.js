@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { GrCheckmark } from 'react-icons/gr'
+import truncate from '../utils/truncate'
 
 function Card({ product, setSingleproducts, scrollToTop }) {
 	const [clickedID, setClickedID] = React.useState('')
@@ -65,7 +66,7 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 							)}
 						</div>
 						<p className=" tw-text-xs tw-text-neutral-600 tw-mb-3">
-							{product.description}
+							{truncate(product.description)}
 						</p>
 					</div>
 				</div>

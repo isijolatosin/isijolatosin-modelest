@@ -5,10 +5,16 @@ import Layout from '../components/shared/Layout'
 import { CgClose } from 'react-icons/cg'
 import Card from '../components/Card3'
 import { GrCheckmark } from 'react-icons/gr'
-import { selectItemCount } from '../slices/appSlices'
-import { useSelector } from 'react-redux'
+import {
+	addToCartItem,
+	increaseCartItem,
+	selectCartItems,
+	selectItemCount,
+} from '../slices/appSlices'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/user-context'
+import { isInCart } from '../utils/helpers'
 
 function JetBlackHair() {
 	const itemCount = useSelector(selectItemCount)
@@ -16,9 +22,13 @@ function JetBlackHair() {
 	const [singleProducts, setSingleproducts] = React.useState(null)
 	const [jetBlackHair, setJetBlackHair] = React.useState([])
 	const [show, setShow] = React.useState(false)
+	const [error, setError] = React.useState(false)
 	const [sales, setSales] = React.useState(false)
+	const [length, setLength] = React.useState(null)
+	const cartItems = useSelector(selectCartItems)
 	const [singleCart, setSingleCart] = React.useState(null)
 	const navigate = useNavigate()
+	const dispatch = useDispatch()
 
 	React.useEffect(() => {
 		setSales(localStorage.getItem('isSales'))
@@ -60,6 +70,82 @@ function JetBlackHair() {
 			}, 500)
 		}, 500)
 	}
+
+	let cardPrice = sales
+		? singleProducts?.[0]?.price - singleProducts?.[0]?.price * 0.15
+		: singleProducts?.[0]?.price
+
+	let _price
+
+	if (length === '14') {
+		_price = cardPrice
+	} else if (length === '16') {
+		_price = cardPrice + 10
+	} else if (length === '18') {
+		_price = cardPrice + 20
+	} else if (length === '20') {
+		_price = cardPrice + 30
+	} else if (length === '22') {
+		_price = cardPrice + 40
+	} else if (length === '24') {
+		_price = cardPrice + 50
+	} else if (length === '26') {
+		_price = cardPrice + 60
+	} else if (length === '28') {
+		_price = cardPrice + 70
+	} else if (length === '30') {
+		_price = cardPrice + 80
+	}
+
+	console.log(singleProducts?.[0])
+
+	// Adding to cart items
+	const name = singleProducts?.[0] && singleProducts?.[0]?.name
+	const id = singleProducts?.[0] && singleProducts?.[0]?._id
+	const image = singleProducts?.[0] && singleProducts?.[0]?.image
+	const color = singleProducts?.[0] && singleProducts?.[0]?.color
+	const description = singleProducts?.[0] && singleProducts?.[0]?.description
+	const price = _price
+	const hairLength = singleProducts?.[0]?.length
+	const hairColor = color
+
+	const singleProduct = {
+		name,
+		id,
+		image,
+		hairColor,
+		price,
+		hairLength,
+		description,
+	}
+	const addToCart = () => {
+		if (length) {
+			dispatch(addToCartItem(singleProduct))
+			setTimeout(() => {
+				setSingleCart(singleProduct)
+			}, 1000)
+		} else {
+			setError(true)
+		}
+	}
+
+	const IncreaseItem = () => {
+		dispatch(increaseCartItem(singleProduct))
+		setTimeout(() => {
+			setSingleCart(singleProduct)
+		}, 1000)
+	}
+
+	const desc = [
+		{ key: 'Hair Texture', value: name },
+		{ key: 'Hair Color', value: color },
+		{
+			key: 'Hair Length',
+			value: `Available from ${sizes?.[0]}" - ${
+				sizes?.[sizes.length - 1]
+			}" inches`,
+		},
+	]
 
 	return (
 		<>
@@ -143,46 +229,82 @@ function JetBlackHair() {
 						</div>
 					)}
 					{singleProducts && (
-						<div className="tw-absolute tw-z-30 tw-h-[100vh] tw-w-[100%] tw-right-0 tw-left-0 tw-top-0 tw-flex tw-flex-row tw-items-start tw-justify-center bg-blur3">
-							<div className="tw-w-[600px] tw-h-[600px]">
-								<img
-									id={singleProducts?.[0]._id}
-									src={singleProducts?.[0].image}
-									alt={singleProducts?.[0]._id}
-									className="tw-w-[90%] tw-mt-20 tw-mx-auto tw-h-full tw-object-cover tw-mb-1"
-								/>
-								<div className="tw-max-w-[90%] tw-mx-auto">
-									<p className="tw-text-xs tw-font-200 tw-tracking-tight tw-text-neutral-900 tw-mb-[1px] bg-blur tw-px-2 tw-leading-6 lg:tw-mt-[10px]">
+						<div className="single tw-absolute tw-z-30 tw-overflow-scroll tw-w-[100%] tw-h-[100%] tw-right-0 tw-left-0 tw-top-[130px] md:tw-top-[95px] md:tw-pt-5 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
+							<div className="md:tw-w-[80%] xl:tw-w-[70%] md:tw-mx-auto tw-w-[100%] tw-h-full tw-flex md:tw-flex-row tw-flex-col">
+								<div className="tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
+									<img
+										id={singleProducts?.[0]._id}
+										src={singleProducts?.[0].image}
+										alt={singleProducts?.[0]._id}
+										className="tw-max-w-[70%] tw-object-contain tw-object-top md:tw-mr-10"
+									/>
+								</div>
+								<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 ">
+									<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] bg-blur tw-leading-6">
 										{singleProducts?.[0].name}
 									</p>
-									<p className="tw-font-medium tw-text-slate-900 tw-text-xs tw-mb-[1px] bg-blur tw-px-2 tw-mt-0">
-										{singleProducts?.[0].description}
+									<p className="tw-font-medium tw-text-sm tw-mb-[1px] bg-blur tw-mt-0">
+										Description: {singleProducts?.[0].description}
 									</p>
-									<div className="tw-flex tw-flex-col">
-										<p className="tw-font-medium tw-text-white tw-text-xs tw-mt-2 tw-mr-2">
-											Length
-										</p>
-										<div>
+									<p className="tw-font-medium tw-text-md tw-mb-[1px] bg-blur tw-my-1">
+										Price: $
+										{sales
+											? singleProducts?.[0].price -
+											  singleProducts?.[0].price * 0.15
+											: singleProducts?.[0].price}{' '}
+										USD
+									</p>
+									<p className="tw-font-medium tw-text-sm tw-mb-[1px] bg-blur tw-my-1 tw-text-red-600">
+										Sales: {sales && '15%'}
+									</p>
+									<div className="tw-my-5 tw-border-t-[1px] tw-border-b-[1px] tw-border-red-700 tw-py-5">
+										{desc.map((item, idx) => (
+											<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm">
+												<span className="tw-uppercase tw-text-xs tw-text-red-600 tw-font-bold">
+													{item.key}:{' '}
+												</span>
+												<span>{item.value}</span>
+											</div>
+										))}
+									</div>
+									<div className="tw-flex tw-flex-col tw-mb-5">
+										<div className="tw-flex tw-flex-wrap ">
 											{sizes.map((size, idx) => (
 												<span
-													className="bg-blur tw-text-slate-900 tw-rounded-full tw-mr-2 tw-border-[1px] tw-border-neutral-600 tw-px-2 tw-text-xs"
+													onClick={() => {
+														setLength(size)
+														setError(false)
+													}}
+													className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-px-2 tw-text-xs tw-text-neutral-900 tw-p-5 hover:tw-cursor-pointer hover:tw-bg-neutral-300 tw-ease-in tw-duration-300"
 													key={idx}>
-													{size}
+													{size}inch
 												</span>
 											))}
 										</div>
 									</div>
+									{error && (
+										<div>
+											<p className="tw-text-center tw-mb-2 tw-text-red-600 tw-text-xs">
+												Please provide length for {singleProducts?.[0].name}
+											</p>
+										</div>
+									)}
+									<div className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-cursor-pointer hover:tw-opacity-50 tw-ease-in tw-duration-300  ">
+										{isInCart(singleProduct, cartItems) ? (
+											<span
+												onClick={cartItems.length !== 0 ? IncreaseItem : null}>
+												Add more
+											</span>
+										) : (
+											<span onClick={addToCart}>Add to cart</span>
+										)}
+									</div>
+									<div
+										onClick={() => setSingleproducts(null)}
+										className="tw-text-black tw-text-sm tw-font-normal tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-mt-5 tw-mb-20 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-300 hover:tw-cursor-pointer hover:tw-opacity-50 tw-ease-in tw-duration-300  ">
+										<span>Close</span>
+									</div>
 								</div>
-								{/* <div className="tw-text-white tw-text-sm tw-font-light tw-max-w-[90%] tw-mx-auto tw-text-center tw-py-2 tw-mt-4 tw-border tw-border-white hover:tw-cursor-pointer hover:tw-opacity-50 tw-ease-in tw-duration-300">
-									<span>Add to cart</span>
-								</div>
-								<div className="tw-text-black tw-text-sm tw-font-light tw-max-w-[90%] tw-mx-auto tw-text-center tw-py-2 tw-mt-4 tw-bg-white hover:tw-cursor-pointer hover:tw-opacity-50 tw-ease-in tw-duration-300">
-									<span>Buy now</span>
-								</div> */}
-								<CgClose
-									onClick={() => setSingleproducts(null)}
-									className="tw-absolute tw-top-[100px] tw-right-10 tw-w-10 tw-h-10 tw-p-3 tw-bg-gray-100 tw-rounded-full hover:tw-cursor-pointer"
-								/>
 							</div>
 						</div>
 					)}
