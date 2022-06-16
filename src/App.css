@@ -711,3 +711,43 @@ label input::placeholder {
 		),
 		url('https://res.cloudinary.com/dhdccvkyt/image/upload/v1653721553/modelest-upload/about2_wsiqfc.jpg');
 }
+
+.slider {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.image {
+	border-radius: 10px;
+	max-width: 500px;
+	object-fit: cover;
+}
+.right-arrow {
+	position: absolute;
+	top: 45%;
+	font-size: 1.5rem;
+	color: red;
+	z-index: 10;
+	cursor: pointer;
+	user-select: none;
+}
+.left-arrow {
+	position: absolute;
+	top: 45%;
+	font-size: 1.5rem;
+	color: red;
+	z-index: 10;
+	cursor: pointer;
+	user-select: none;
+}
+.slide {
+	opacity: 0;
+	transition-duration: 1s ease;
+	transform: scale(0.8);
+}
+.slide.active {
+	opacity: 1;
+	transition-duration: 1s;
+	transform: scale(1);
+}

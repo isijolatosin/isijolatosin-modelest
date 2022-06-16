@@ -203,11 +203,9 @@ function HairBundles() {
 						</div>
 					)}
 					{show && hairBundles && (
-						<div className="tw-grid tw-grid-cols-2 tw-w-full tw-px-2 md:tw-grid-cols-3 lg:tw-grid-cols-4 xl:tw-grid-cols-5 xl:tw-w-[85%] 2xl:tw-w-[70%] tw-gap-2 md:tw-gap-5">
+						<div className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-w-full tw-px-2 tw-gap-2 md:tw-gap-5">
 							{hairBundles.map((item) => (
-								<div
-									className="tw-justify-center tw-items-center tw-flex tw-flex-row"
-									key={item._id}>
+								<div key={item._id}>
 									<Card
 										key={item._id}
 										product={item}

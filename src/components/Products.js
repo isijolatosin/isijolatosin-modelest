@@ -1,4 +1,7 @@
 import React from 'react'
+import { Slide, Fade } from 'react-slideshow-image'
+import 'react-slideshow-image/dist/styles.css'
+import Slideshow from '../utils/Slideshow'
 import Card from './Card'
 import About from './About'
 import { isInCart } from '../utils/helpers'
@@ -39,7 +42,7 @@ function Products({ allProducts }) {
 		if (allProducts.every((product) => product.sales)) {
 			localStorage.setItem('isSales', true)
 		} else {
-			localStorage.setItem('isSales', '')
+			localStorage.removeItem('isSales', '')
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
@@ -193,31 +196,26 @@ function Products({ allProducts }) {
 				</div>
 			</div>
 			{singleProducts && (
-				<div className="single tw-absolute tw-z-30 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-[-95px] md:tw-top-[-5px] md:tw-pt-5 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
+				<div className="single tw-absolute tw-z-30 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-[-97px] md:tw-top-[-3px] md:tw-pt-20 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
 					<div className="md:tw-w-[80%] xl:tw-w-[70%] md:tw-mx-auto tw-w-[100%] tw-h-full tw-flex md:tw-flex-row tw-flex-col">
 						<div className="tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
-							<img
-								id={singleProducts?.[0]._id}
-								src={singleProducts?.[0].image}
-								alt={singleProducts?.[0]._id}
-								className="tw-max-w-[70%] tw-object-contain tw-object-top md:tw-mr-10"
-							/>
+							<Slideshow images={singleProducts?.[0]} />
 						</div>
-						<div className="tw-max-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 ">
-							<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] bg-blur tw-leading-6">
+						<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 tw-mt-5 md:tw-mt-0">
+							<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
 								{singleProducts?.[0].name}
 							</p>
-							<p className="tw-font-medium tw-text-sm tw-mb-[1px] bg-blur tw-mt-0">
+							<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-mt-0">
 								Description: {singleProducts?.[0].description}
 							</p>
-							<p className="tw-font-medium tw-text-md tw-mb-[1px] bg-blur tw-my-1">
+							<p className="tw-font-medium tw-text-md tw-mb-[1px] tw-my-1">
 								Price: $
 								{sales
 									? singleProducts?.[0].price - singleProducts?.[0].price * 0.15
 									: singleProducts?.[0].price}{' '}
 								USD
 							</p>
-							<p className="tw-font-medium tw-text-sm tw-mb-[1px] bg-blur tw-my-1 tw-text-red-600">
+							<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-my-1 tw-text-red-600">
 								Sales: {sales && '15%'}
 							</p>
 							<div className="tw-my-5 tw-border-t-[1px] tw-border-b-[1px] tw-border-red-700 tw-py-5">

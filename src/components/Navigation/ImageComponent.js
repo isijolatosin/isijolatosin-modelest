@@ -33,7 +33,7 @@ function ImageComponent() {
 					className="tw-relative"
 					onMouseOver={handleShow}
 					onMouseOut={handleHide}>
-					<div className="tw-w-30 tw-h-30 tw-p-2 tw-text-black tw-text-xl hover:tw-cursor-pointer tw-bg-neutral-200 tw-rounded-full tw-ease-in tw-duration-300 tw-ml-3">
+					<div className="tw-w-30 tw-h-30 tw-p-2 tw-text-black tw-text-xl hover:tw-cursor-pointer tw-bg-neutral-200 tw-rounded-full tw-ease-in tw-duration-300 tw-ml-[-5px]">
 						<RiAdminFill />
 					</div>
 					<CursorText showText={showText}>Admin</CursorText>
