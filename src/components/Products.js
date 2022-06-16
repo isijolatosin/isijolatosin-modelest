@@ -1,6 +1,4 @@
 import React from 'react'
-import { Slide, Fade } from 'react-slideshow-image'
-import 'react-slideshow-image/dist/styles.css'
 import Slideshow from '../utils/Slideshow'
 import Card from './Card'
 import About from './About'
