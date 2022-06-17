@@ -239,11 +239,17 @@ function HairBundles() {
 									</p>
 									<p className="tw-font-medium tw-text-md tw-mb-[1px] bg-blur tw-my-1">
 										Price: $
-										{sales
-											? singleProducts?.[0].price -
-											  singleProducts?.[0].price * 0.15
-											: singleProducts?.[0].price}{' '}
-										USD
+										{sales &&
+											singleProducts?.[0].price -
+												singleProducts?.[0].price * 0.15}{' '}
+										USD{' '}
+										<span
+											className={
+												sales &&
+												'tw-ml-2 tw-line-through tw-text-neutral-400 tw-border-l-[1px] tw-border-neutral-500 tw-pl-3'
+											}>
+											${singleProducts?.[0].price} USD
+										</span>
 									</p>
 									<p className="tw-font-medium tw-text-sm tw-mb-[1px] bg-blur tw-my-1 tw-text-red-600">
 										Sales: {sales && '15%'}

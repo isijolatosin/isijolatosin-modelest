@@ -44,7 +44,7 @@ const Cart = () => {
 					</div>
 					{cartItems.length === 0 ? (
 						<>
-							<div className="tw-mb-5">Your Cart is Empty</div>
+							<div className="tw-mb-5 tw-text-white">Your Cart is Empty</div>
 							<Button handleFunc={() => navigate('/')}>Shop now</Button>
 						</>
 					) : (
