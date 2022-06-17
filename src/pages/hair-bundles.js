@@ -238,22 +238,26 @@ function HairBundles() {
 										Description: {singleProducts?.[0].description}
 									</p>
 									<p className="tw-font-medium tw-text-md tw-mb-[1px] bg-blur tw-my-1">
-										Price: $
-										{sales &&
-											singleProducts?.[0].price -
-												singleProducts?.[0].price * 0.15}{' '}
-										USD{' '}
+										Price:{' '}
+										{singleProducts?.[0]?.sales &&
+											`$${
+												singleProducts?.[0].price -
+												singleProducts?.[0].price * 0.15
+											}${' '}
+										USD${' '}`}
 										<span
 											className={
-												sales &&
+												singleProducts?.[0]?.sales &&
 												'tw-ml-2 tw-line-through tw-text-neutral-400 tw-border-l-[1px] tw-border-neutral-500 tw-pl-3'
 											}>
 											${singleProducts?.[0].price} USD
 										</span>
 									</p>
-									<p className="tw-font-medium tw-text-sm tw-mb-[1px] bg-blur tw-my-1 tw-text-red-600">
-										Sales: {sales && '15%'}
-									</p>
+									{singleProducts?.[0]?.sales && (
+										<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-my-1 tw-text-red-600">
+											Sales: {sales && '15%'}
+										</p>
+									)}
 									<div className="tw-my-5 tw-border-t-[1px] tw-border-b-[1px] tw-border-red-700 tw-py-5">
 										{desc.map((item, idx) => (
 											<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm">
