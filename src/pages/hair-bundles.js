@@ -41,7 +41,10 @@ function HairBundles() {
 				data: { products },
 			} = await axios.get('/api/v1/products')
 			const filtered = products.filter(
-				(product) => product.color.toLowerCase() === 'natural black'
+				(product) =>
+					product.color.toLowerCase() === 'natural black' &&
+					product.name.toLowerCase() !== 'closure' &&
+					product.name.toLowerCase() !== 'frontal'
 			)
 			setHairBundles(filtered.sort((a, b) => a.name.localeCompare(b.name)))
 		} catch (error) {
