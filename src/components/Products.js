@@ -130,7 +130,7 @@ function Products({ allProducts }) {
 		singleProducts?.[0]?.type.toLowerCase() === 'closure'
 			? f_cPrice
 			: _price
-	const hairLength = singleProducts?.[0]?.length
+	const hairLength = length
 	const hairColor = color
 
 	const singleProduct = {

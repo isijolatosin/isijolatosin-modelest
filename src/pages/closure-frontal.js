@@ -131,7 +131,7 @@ function ClosureFrontal() {
 	const image = singleProducts?.[0] && singleProducts?.[0]?.image
 	const color = singleProducts?.[0] && singleProducts?.[0]?.color
 	const description = singleProducts?.[0] && singleProducts?.[0]?.description
-	const hairLength = singleProducts?.[0]?.length
+	const hairLength = length
 	const hairColor = color
 
 	const singleProduct = {
