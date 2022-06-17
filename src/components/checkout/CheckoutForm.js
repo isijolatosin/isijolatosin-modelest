@@ -79,6 +79,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 			value = 'uk'
 		}
 		setAddress({ ...address, [e.target.name]: value })
+		setAlert(false)
 	}
 
 	// Submit address
