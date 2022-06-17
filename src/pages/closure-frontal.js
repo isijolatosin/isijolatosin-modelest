@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/user-context'
 import { isInCart } from '../utils/helpers'
+import Slideshow from '../utils/Slideshow'
 
 function ClosureFrontal() {
 	const itemCount = useSelector(selectItemCount)
@@ -232,7 +233,7 @@ function ClosureFrontal() {
 						</div>
 					)}
 					{show && closureFrontal && (
-						<div className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-w-full tw-px-2 tw-gap-2 md:tw-gap-5">
+						<div className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-w-[90%] md:tw-w-full tw-px-2 tw-gap-2 md:tw-gap-5">
 							{closureFrontal.map((item) => (
 								<div key={item._id}>
 									<Card
@@ -253,17 +254,12 @@ function ClosureFrontal() {
 					)}
 
 					{singleProducts && (
-						<div className="single tw-absolute tw-z-30 tw-overflow-scroll tw-w-[100%] tw-h-[100%] tw-right-0 tw-left-0 tw-top-0 md:tw-top-[95px] md:tw-pt-5 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
+						<div className="single tw-absolute tw-z-30 tw-w-[100%] tw-h-[100vh] tw-right-0 tw-left-0 tw-top-0 tw-bottom-0 md:tw-top-[95px] md:tw-pt-20 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
 							<div className="md:tw-w-[80%] xl:tw-w-[70%] md:tw-mx-auto tw-w-[100%] tw-h-full tw-flex md:tw-flex-row tw-flex-col">
 								<div className="tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
-									<img
-										id={singleProducts?.[0]._id}
-										src={singleProducts?.[0].image}
-										alt={singleProducts?.[0]._id}
-										className="tw-max-w-[70%] tw-object-contain tw-object-top md:tw-mr-10"
-									/>
+									<Slideshow images={singleProducts?.[0]} />
 								</div>
-								<div className="tw-max-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 ">
+								<div className="tw-max-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 tw-mt-5 md:tw-mt-0">
 									<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] bg-blur tw-leading-6">
 										{singleProducts?.[0].name}
 									</p>
