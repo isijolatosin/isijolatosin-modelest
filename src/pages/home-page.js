@@ -62,13 +62,13 @@ function HomePage() {
 					{allProducts.length !== 0 ? (
 						<div className="tw-flex tw-flex-col tw-items-center">
 							{hideRegionSet && (
-								<div className="tw-mt-20 md:tw-mt-10 tw-flex tw-flex-col tw-items-center">
-									<span className="tw-mb-2 tw-text-sm tw-text-neutral-50">
+								<div className="tw-relative tw-mt-20 md:tw-mt-10 tw-flex tw-flex-col tw-items-center">
+									<span className="tw-mb-2 tw-text-sm tw-text-neutral-50 tw-opacity-[0.4]">
 										Set your Country/Region below
 									</span>
 									<div
 										onClick={scrollToTop}
-										className="arrows-wrapper tw-rounded-lg tw-bg-gradient-to-r tw-from-neutral-200 tw-via-neutral-500 tw-to-neutral-400 hover:tw-cursor-pointer">
+										className="arrows-wrapper tw-rounded-lg tw-absolute tw-top-[-30px] hover:tw-cursor-pointer">
 										<span className="arrow"></span>
 										<span className="arrow"></span>
 										<span className="arrow"></span>

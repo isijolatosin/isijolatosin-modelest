@@ -48,7 +48,7 @@ const Cart = () => {
 							<Button handleFunc={() => navigate('/')}>Shop now</Button>
 						</>
 					) : (
-						<div className="tw-flex tw-flex-col tw-w-full tw-px-5 lg:tw-flex-row lg:tw-w-[90%] tw-justify-center tw-items-center lg:tw-items-start">
+						<div className="tw-flex tw-flex-col tw-w-full lg:tw-flex-row lg:tw-w-[90%] tw-justify-center tw-items-center lg:tw-items-start">
 							<div className="tw-w-full lg:tw-w-[40%] xl:tw-w-[50%]">
 								{cartItems.map((item) => (
 									<CartItems product={item} key={item.id} />

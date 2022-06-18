@@ -690,7 +690,7 @@ function Footer() {
 								href="https://www.linkedin.com/in/oluwatosin-isijola-33333ba8/"
 								target="_blank"
 								rel="noopener noreferrer">
-								- Tony Isijola
+								- oluwatosin
 							</a>
 						</span>
 					</p>

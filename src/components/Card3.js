@@ -13,9 +13,10 @@ import { isInCart } from '../utils/helpers'
 function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 	const [clickedID, setClickedID] = React.useState('')
 	const cartItems = useSelector(selectCartItems)
+	const [error, setError] = React.useState(false)
 	const dispatch = useDispatch()
 	const [bundles, setBundles] = React.useState({
-		length: '',
+		length: null,
 		quantity: '',
 	})
 	const lengthArr = product.availablelength.split(',')
@@ -151,10 +152,14 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 		description,
 	}
 	const addToCart = () => {
-		dispatch(addToCartItem(singleProduct))
-		setTimeout(() => {
-			setSingleCart(singleProduct)
-		}, 1000)
+		if (bundles?.length) {
+			dispatch(addToCartItem(singleProduct))
+			setTimeout(() => {
+				setSingleCart(singleProduct)
+			}, 1000)
+		} else {
+			setError(true)
+		}
 	}
 
 	const IncreaseItem = () => {
@@ -166,6 +171,7 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 
 	const handleOnChange = (e) => {
 		setBundles({ ...bundles, [e.target.name]: e.target.value })
+		setError(false)
 	}
 
 	return (
@@ -233,24 +239,34 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 							<option key={idx}>{len}</option>
 						))}
 					</select>
-					<div className="tw-flex-[0.8] tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-sm tw-bg-neutral-900 tw-px-1 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[110px] tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500">
-						{isInCart(singleProduct, cartItems) ? (
-							<div
-								className="tw-flex tw-flex-row tw-items-center"
-								onClick={cartItems.length !== 0 ? IncreaseItem : null}>
+
+					{isInCart(singleProduct, cartItems) ? (
+						<div
+							className="tw-flex-[0.8] tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-sm tw-bg-neutral-900 tw-px-1 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[110px] tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500"
+							onClick={cartItems.length !== 0 ? IncreaseItem : null}>
+							<div className="tw-flex tw-flex-row tw-items-center">
 								<span className="tw-mr-3">Add More</span>
 								<BsFillCartPlusFill />
 							</div>
-						) : (
-							<div
-								className="tw-flex tw-flex-row tw-items-center"
-								onClick={addToCart}>
+						</div>
+					) : (
+						<div
+							className="tw-flex-[0.8] tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-sm tw-bg-neutral-900 tw-px-1 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[110px] tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500"
+							onClick={addToCart}>
+							<div className="tw-flex tw-flex-row tw-items-center">
 								<span className="tw-mr-3">Add to cart</span>
 								<FaOpencart />
 							</div>
-						)}
-					</div>
+						</div>
+					)}
 				</div>
+				{error && (
+					<div>
+						<p className="tw-text-center tw-mb-2 tw-text-red-600 tw-text-xs">
+							Please provide length ...
+						</p>
+					</div>
+				)}
 			</div>
 		</div>
 	)

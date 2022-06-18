@@ -9,9 +9,11 @@ import {
 	selectCartItems,
 } from '../slices/appSlices'
 import { useDispatch, useSelector } from 'react-redux'
+import Add2CartPopup from './shared/Add2CartPopup'
 
 function Products({ allProducts }) {
 	const [singleProducts, setSingleproducts] = React.useState(null)
+	const [singleCart, setSingleCart] = React.useState(null)
 	const [error, setError] = React.useState(false)
 	const [sales, setSales] = React.useState(false)
 	const [length, setLength] = React.useState(null)
@@ -125,6 +127,7 @@ function Products({ allProducts }) {
 	const image = singleProducts?.[0] && singleProducts?.[0]?.image
 	const color = singleProducts?.[0] && singleProducts?.[0]?.color
 	const description = singleProducts?.[0] && singleProducts?.[0]?.description
+	const width = singleProducts?.[0] && singleProducts?.[0]?.widthlength
 	const price =
 		singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
 		singleProducts?.[0]?.type.toLowerCase() === 'closure'
@@ -141,11 +144,15 @@ function Products({ allProducts }) {
 		price,
 		hairLength,
 		description,
+		width,
 	}
 
 	const addToCart = () => {
 		if (length) {
 			dispatch(addToCartItem(singleProduct))
+			setTimeout(() => {
+				setSingleCart(singleProduct)
+			}, 1000)
 		} else {
 			setError(true)
 		}
@@ -168,6 +175,9 @@ function Products({ allProducts }) {
 
 	return (
 		<div className="tw-pt-10 tw-relative tw-flex tw-flex-col tw-items-center ">
+			<div className="tw-absolute tw-top-[-100px] tw-right-0">
+				<Add2CartPopup singleCart={singleCart} setSingleCart={setSingleCart} />
+			</div>
 			{allProducts ? (
 				<div className="tw-grid tw-grid-cols-2 tw-w-full tw-px-2 md:tw-w-[90%] md:tw-grid-cols-4 lg:tw-grid-cols-5 2xl:tw-grid-cols-6 3xl:tw-grid-cols-7 tw-gap-2 md:tw-gap-5 ">
 					{allProducts.map((product) => {
@@ -307,15 +317,21 @@ function Products({ allProducts }) {
 									</p>
 								</div>
 							)}
-							<div className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-cursor-pointer hover:tw-opacity-50 tw-ease-in tw-duration-300  ">
-								{isInCart(singleProduct, cartItems) ? (
-									<span onClick={cartItems.length !== 0 ? IncreaseItem : null}>
-										Add more
-									</span>
-								) : (
-									<span onClick={addToCart}>Add to cart</span>
-								)}
-							</div>
+
+							{isInCart(singleProduct, cartItems) ? (
+								<div
+									className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-cursor-pointer hover:tw-opacity-50 tw-ease-in tw-duration-300"
+									onClick={cartItems.length !== 0 ? IncreaseItem : null}>
+									<span>Add more</span>
+								</div>
+							) : (
+								<div
+									className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-cursor-pointer hover:tw-opacity-50 tw-ease-in tw-duration-300"
+									onClick={addToCart}>
+									<span>Add to cart</span>
+								</div>
+							)}
+
 							<div
 								onClick={() => setSingleproducts(null)}
 								className="tw-text-black tw-text-sm tw-font-normal tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-mt-5 tw-mb-20 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-300 hover:tw-cursor-pointer hover:tw-opacity-50 tw-ease-in tw-duration-300  ">
