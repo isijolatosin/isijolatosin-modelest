@@ -72,7 +72,7 @@ function Shippment() {
 				.collection('admin')
 				.doc(`${AUTHORIZED_ID.id_one}/`)
 				.collection('all-purchased')
-				.orderBy('title', 'asc')
+				.orderBy('customer', 'asc')
 				.onSnapshot((snapshot) => {
 					const results = snapshot.docs.map((doc) => ({
 						data: doc.data(),
