@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { Helmet } from 'react-helmet'
+import emailjs from 'emailjs-com'
 import { useNavigate } from 'react-router-dom'
 import { GoAlert } from 'react-icons/go'
 import { useDispatch, useSelector } from 'react-redux'
@@ -50,6 +51,36 @@ const Success = () => {
 						console.log(`SUCCESSFULL`)
 					})
 					.catch((error) => console.log('Error ' + error.message))
+
+				// Send a purchase mail to client
+
+				const messageParams = {
+					name: (user && user?.displayName) || userEmail,
+					message: `Hi ${
+						(user && user?.displayName) || userEmail
+					}. Your order of ${item.quantity} ${item.name} of length-${
+						item?.hairLength
+					}" inches and color-${
+						item?.hairColor
+					} has been received. Currently, we are sorting your order and you will receive in a mail within 14 business days. Hang tight &#128522;`,
+					client: userEmail,
+				}
+
+				const SendClientSuccessfulPurchaseEmail = () => {
+					emailjs
+						.send(
+							'service_2yc5daa',
+							'template_kxtdmr3',
+							messageParams,
+							'user_VORMh20QoM0GcnDrVoVnj'
+						)
+						.then((res) => {})
+						.catch((err) => console.log(err))
+				}
+
+				setTimeout(() => {
+					SendClientSuccessfulPurchaseEmail()
+				}, 1000)
 
 				// admin path
 				db.collection('admin')
