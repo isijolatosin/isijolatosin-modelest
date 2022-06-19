@@ -45,12 +45,12 @@ function LinksComponent() {
 				onMouseOver={handleMousein1}
 				onMouseLeave={() => setList1(false)}
 				className="tw-w-full tw-relative tw-uppercase tw-font-bold tw-text-[10px]">
-				<div className="tw-flex tw-flex-row tw-justify-between tw-items-center hover:tw-cursor-pointer tw-border-l-[1px] tw-border-neutral-600 tw-pl-2 tw-mr-4">
+				<p className="hover:tw-cursor-pointer tw-border-l-[1px] tw-border-neutral-600 tw-pl-2 tw-mr-4 tw-text-center">
 					Indian - hair
-				</div>
+				</p>
 
 				{list1 && (
-					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-left-[-12px] tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
 						{subLinks.map((item) => (
 							<Link
 								to={item.route}
@@ -66,9 +66,9 @@ function LinksComponent() {
 				onMouseOver={handleMousein2}
 				onMouseLeave={() => setList2(false)}
 				className="tw-w-full tw-relative tw-uppercase tw-font-bold tw-text-[10px]">
-				<div className="tw-flex tw-flex-row tw-justify-between tw-items-center hover:tw-cursor-pointer tw-border-l-[1px] tw-border-neutral-600 tw-pl-2 tw-mr-4">
+				<p className="tw-text-center hover:tw-cursor-pointer tw-border-l-[1px] tw-border-neutral-600 tw-pl-2 tw-mr-4">
 					Vietnamese - hair
-				</div>
+				</p>
 
 				{list2 && (
 					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-left-[-35px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
@@ -97,9 +97,9 @@ function LinksComponent() {
 				onMouseOver={handleMousein3}
 				onMouseLeave={() => setList3(false)}
 				className="tw-w-full tw-relative tw-uppercase tw-font-bold tw-text-[10px]">
-				<div className="tw-flex tw-flex-row tw-justify-between tw-items-center hover:tw-cursor-pointer tw-border-l-[1px] tw-border-neutral-600 tw-pl-2 tw-mr-4">
+				<p className="tw-text-center hover:tw-cursor-pointer tw-border-l-[1px] tw-border-r-[1px] tw-border-neutral-600 tw-px-2">
 					Brazillian - hair
-				</div>
+				</p>
 
 				{list3 && (
 					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-right-[-10px] md:tw-right-0 md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">

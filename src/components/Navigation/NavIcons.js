@@ -14,21 +14,14 @@ function NavIcons() {
 	const { user } = useContext(UserContext)
 	const itemCount = useSelector(selectItemCount)
 	const navigate = useNavigate()
-	// const [showText, setShowText] = React.useState(false)
 
-	// const handleShow = () => {
-	// 	!showText && setShowText(true)
-	// }
-	// const handleHide = () => {
-	// 	setShowText(false)
-	// }
 	const handleSignOut = () => {
 		auth.signOut()
 		navigate('/')
 	}
 
 	return (
-		<div className=" tw-flex tw-flex-row tw-w-46 tw-mr-5 tw-justify-center tw-items-center">
+		<div className=" tw-flex tw-flex-row tw-w-46 tw-mr-[-15px] tw-justify-center tw-items-center">
 			<div
 				onClick={() =>
 					navigate(`/user-cart/${user?.displayName || 'new-customer'}`)
