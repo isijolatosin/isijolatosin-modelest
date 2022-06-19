@@ -1,5 +1,6 @@
 import React from 'react'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
+import { GiPencil } from 'react-icons/gi'
 import { useNavigate } from 'react-router-dom'
 import { db } from '../../firebase'
 import Button from '../shared/Button'
@@ -121,14 +122,18 @@ const Reviews = ({ category }) => {
 								</span>
 							)}
 						</div>
-						<span
+						<div
+							className="tw-mt-5 md:tw-mt-0 tw-flex tw-items-center tw-text-red-700 "
 							onClick={() => {
 								setIsForm(!isForm)
 								navigate(`/${category}/reviews`)
-							}}
-							className="tw-text-red-700 tw-font-[600] hover:tw-cursor-pointer tw-mt-5 md:tw-mt-0">
-							Write a review
-						</span>
+							}}>
+							<span className="tw-font-[600] hover:tw-cursor-pointer tw-mr-1">
+								Write a review
+							</span>
+							...
+							<GiPencil size={15} />
+						</div>
 					</div>
 				</div>
 				{isForm && (
