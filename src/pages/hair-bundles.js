@@ -152,7 +152,7 @@ function HairBundles() {
 						setSingleCart={setSingleCart}
 					/>
 					{show && hairBundles && (
-						<div className="tw-w-[90%] md:tw-w-full tw-px-2">
+						<div className="tw-w-full tw-px-2">
 							<div className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-2 md:tw-gap-5">
 								{hairBundles.map((item) => (
 									<div key={item._id}>
