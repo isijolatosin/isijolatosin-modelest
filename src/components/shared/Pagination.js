@@ -160,7 +160,7 @@ const Pagination = ({ data, contentPerPage, totalContent, setChunkIndex }) => {
 								? 'tw-opacity-[0.1] flipArrow pagButton'
 								: 'flipArrow pagButton'
 						}>
-						<MdDoubleArrow size={14} className="tw-ml-1" />
+						<MdDoubleArrow size={16} />
 					</button>
 
 					<button
@@ -172,7 +172,7 @@ const Pagination = ({ data, contentPerPage, totalContent, setChunkIndex }) => {
 						onClick={handlePrevPage}
 						disabled={allowPrevious || currentPage === 1}
 						type="button">
-						<MdKeyboardArrowLeft className="tw-ml-[2px]" />
+						<MdKeyboardArrowLeft />
 					</button>
 
 					{paginatedCards.map((pagination) => (
@@ -197,7 +197,7 @@ const Pagination = ({ data, contentPerPage, totalContent, setChunkIndex }) => {
 						onClick={handleNextPage}
 						disabled={allowNext || currentPage === totalCards}
 						type="button">
-						<MdKeyboardArrowRight className="tw-ml-[3px]" />
+						<MdKeyboardArrowRight />
 					</button>
 
 					<button
@@ -209,7 +209,7 @@ const Pagination = ({ data, contentPerPage, totalContent, setChunkIndex }) => {
 						onClick={handleLastPage}
 						disabled={allowNext || currentPage === totalCards}
 						type="button">
-						<MdDoubleArrow size={14} className="tw-ml-1" />
+						<MdDoubleArrow size={16} />
 					</button>
 				</div>
 			)}
