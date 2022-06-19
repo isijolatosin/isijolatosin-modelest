@@ -50,7 +50,7 @@ function LinksComponent() {
 				</div>
 
 				{list1 && (
-					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-left-[-10px] tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
 						{subLinks.map((item) => (
 							<Link
 								to={item.route}
@@ -71,7 +71,7 @@ function LinksComponent() {
 				</div>
 
 				{list2 && (
-					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-left-[-50px] md:tw-left-[-18px] tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-left-[-35px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
 						<p className="tw-text-center md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[12px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
 							coming soon...
 						</p>
@@ -102,7 +102,7 @@ function LinksComponent() {
 				</div>
 
 				{list3 && (
-					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-right-[-10px] md:tw-right-0 md:tw-left-[-18px] tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-right-[-10px] md:tw-right-0 md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
 						<p className="tw-text-right md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[12px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
 							coming soon...
 						</p>
