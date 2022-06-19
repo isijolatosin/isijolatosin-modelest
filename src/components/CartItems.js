@@ -18,6 +18,7 @@ const CartItems = ({ product }) => {
 		price,
 		quantity,
 		hairLength,
+		hairTexture,
 		hairColor,
 		description,
 		id,
@@ -53,6 +54,7 @@ const CartItems = ({ product }) => {
 					<p>{`Price: $${price}`}</p>
 					<p>{`Length: ${hairLength}`}</p>
 					{hairColor && <p>{`Color: ${hairColor}`}</p>}
+					{hairTexture && <p>{`Texture: ${hairTexture}`}</p>}
 					<p>{`Quantity: ${quantity}`}</p>
 					<div className="">
 						{!expand && description?.length >= 100 ? (

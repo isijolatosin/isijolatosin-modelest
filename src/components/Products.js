@@ -134,7 +134,8 @@ function Products({ allProducts }) {
 			? f_cPrice
 			: _price
 	const hairLength = length
-	const hairColor = color
+	const hairColor = _color || color
+	const hairTexture = _hairType && _hairType
 
 	const singleProduct = {
 		name,
@@ -145,6 +146,7 @@ function Products({ allProducts }) {
 		hairLength,
 		description,
 		width,
+		hairTexture,
 	}
 
 	const addToCart = () => {

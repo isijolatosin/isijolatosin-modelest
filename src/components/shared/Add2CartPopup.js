@@ -39,9 +39,12 @@ const Add2CartPopup = ({ singleCart, setSingleCart }) => {
 						/>
 						<div className="tw-flex tw-flex-col tw-text-sm">
 							<span>{singleCart.name}</span>
-							<span>Length - {singleCart.hairLength}" inches</span>
-							{singleCart.width && <span>Width - {singleCart.width}</span>}
 							<span>Color - {singleCart.hairColor}</span>
+							{singleCart.hairTexture && (
+								<span>Texture - {singleCart.hairTexture}</span>
+							)}
+							{singleCart.width && <span>Width - {singleCart.width}</span>}
+							<span>Length - {singleCart.hairLength}" inches</span>
 							<span>Price - ${singleCart.price} USD</span>
 						</div>
 					</div>

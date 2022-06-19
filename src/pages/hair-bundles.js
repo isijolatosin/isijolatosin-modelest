@@ -92,6 +92,7 @@ function HairBundles() {
 	const price = _price
 	const hairLength = length
 	const hairColor = color
+	const hairTexture = singleProducts?.[0] && singleProducts?.[0]?.name
 
 	const singleProduct = {
 		name,
@@ -101,7 +102,9 @@ function HairBundles() {
 		price,
 		hairLength,
 		description,
+		hairTexture,
 	}
+	console.log(singleProduct)
 	const addToCart = () => {
 		if (length) {
 			dispatch(addToCartItem(singleProduct))

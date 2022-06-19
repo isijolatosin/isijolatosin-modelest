@@ -117,6 +117,7 @@ function ClosureFrontal() {
 	const description = singleProducts?.[0] && singleProducts?.[0]?.description
 	const hairLength = length
 	const hairColor = _color
+	const hairTexture = _hairType && _hairType
 
 	const singleProduct = {
 		name,
@@ -126,6 +127,7 @@ function ClosureFrontal() {
 		price,
 		hairLength,
 		description,
+		hairTexture,
 	}
 
 	const addToCart = () => {
