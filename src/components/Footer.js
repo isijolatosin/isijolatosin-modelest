@@ -5,10 +5,12 @@ import { SiMastercard } from 'react-icons/si'
 import { RiVisaLine } from 'react-icons/ri'
 import { SiAmericanexpress } from 'react-icons/si'
 import { countries } from '../country'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { MdLocationPin } from 'react-icons/md'
+import { googleSearch, location } from '../constant'
 
 function Footer() {
-	// const navigate = useNavigate()
+	const navigate = useNavigate()
 	const paymentType = [
 		{ id: 1, type: <SiMastercard size={20} color="darkorange" /> },
 		{ id: 2, type: <RiVisaLine size={20} color="blue" /> },
@@ -32,15 +34,71 @@ function Footer() {
 	const links = [
 		{
 			id: 1,
-			name: 'Search',
-		},
-		{
-			id: 2,
 			name: 'Contact Us',
 		},
 		{
-			id: 3,
+			id: 2,
 			name: 'Terms and Conditions',
+		},
+		{
+			id: 3,
+			name: 'Shipping & Returns',
+		},
+		{
+			id: 4,
+			name: 'Privacy Policy',
+		},
+	]
+
+	const indian = [
+		{
+			id: '1',
+			name: 'Bundles (Indian)',
+			route: '/indian-bundles',
+		},
+		{
+			id: '2',
+			name: 'Closure / Frontal (Indian)',
+			route: '/indian-closure-frontal',
+		},
+		{
+			id: '3',
+			name: 'Jet Black / Blonde (Indian)',
+			route: '/indian-jet-black-&-blonde',
+		},
+	]
+	const vietnamese = [
+		{
+			id: '1',
+			name: 'Bundles (Vietnamese)',
+			// route: '/vietnamese-bundles',
+		},
+		{
+			id: '2',
+			name: 'Closure / Frontal (Vietnamese)',
+			// route: '/vietnamese-closure-frontal',
+		},
+		{
+			id: '3',
+			name: 'Jet Black / Blonde (Vietnamese)',
+			// route: '/vietnamese-jet-black-&-blonde',
+		},
+	]
+	const Brazillian = [
+		{
+			id: '1',
+			name: 'Bundles (Brazillian)',
+			// route: '/brazillian-bundles',
+		},
+		{
+			id: '2',
+			name: 'Closure / Frontal (Brazillian)',
+			// route: '/brazillian-closure-frontal',
+		},
+		{
+			id: '3',
+			name: 'Jet Black / Blonde (Brazillian)',
+			// route: '/brazillian-jet-black-&-blonde-hair',
 		},
 	]
 
@@ -73,33 +131,118 @@ function Footer() {
 			<span className="tw-text-center tw-mb-5 tw-text-sm tw-font-light">
 				Quick Links
 			</span>
-			<ul className="tw-flex tw-flex-row tw-justify-center tw-text-xs tw-font-light tw-mb-1">
-				{links.map((link) => (
-					<li
-						key={link.id}
-						onClick={
-							link.name === 'Contact Us'
-								? () => {
-										setShowContactForm(!showContactForm)
-										setShowTerms(false)
-								  }
-								: link.name === 'Terms and Conditions'
-								? () => {
-										setShowTerms(!showTerms)
-										setShowContactForm(false)
-								  }
-								: null
-						}
-						className="tw-mx-5 hover:tw-cursor-pointer hover:tw-underline ">
-						{link.name}
-					</li>
-				))}
-			</ul>
+			<div className="xl:tw-w-[60%] tw-w-full md:tw-w-[90%] tw-px-5 md:tw-px-10 tw-flex tw-flex-col md:tw-flex-row md:tw-justify-between tw-border-b tw-mb-5">
+				<div className="tw-w-full tw-grid tw-grid-cols-2 tw-gap-2 md:tw-mr-10 tw-text-neutral-600 md:tw-border-r-[1px] md:tw-pr-20 tw-mb-10">
+					<div className="tw-mb-5">
+						<h1 className="tw-text-xs tw-font-bold  tw-mb-2">Indian Hair</h1>
+						<ul className="tw-flex tw-flex-col tw-justify-center tw-text-xs tw-font-light tw-mb-1">
+							{indian.map((ind) => (
+								<li
+									key={ind.id}
+									onClick={() => navigate(`/${ind.route}`)}
+									className="hover:tw-cursor-pointer hover:tw-underline tw-mb-1 ">
+									{ind.name}
+								</li>
+							))}
+						</ul>
+					</div>
+					<div className="tw-mb-5">
+						<h1 className="tw-text-xs tw-font-bold  tw-mb-2">
+							Vietnamese Hair
+						</h1>
+						<ul className="tw-flex tw-flex-col tw-justify-center tw-text-xs tw-font-light tw-mb-1">
+							{vietnamese.map((veit) => (
+								<li
+									key={veit.id}
+									// onClick={() => navigate(`/${veit.route}`)}
+									className="hover:tw-cursor-pointer hover:tw-underline tw-mb-1 ">
+									{veit.name}{' '}
+									<span className="tw-text-[10px] tw-font-bold">
+										- coming soon...
+									</span>
+								</li>
+							))}
+						</ul>
+					</div>
+					<div className="tw-mb-5">
+						<h1 className="tw-text-xs tw-font-bold  tw-mb-2">
+							Brazillian Hair
+						</h1>
+						<ul className="tw-flex tw-flex-col tw-justify-center tw-text-xs tw-font-light tw-mb-1">
+							{Brazillian.map((braz) => (
+								<li
+									key={braz.id}
+									// onClick={() => navigate(`/${braz.route}`)}
+									className="hover:tw-cursor-pointer hover:tw-underline tw-mb-1 ">
+									{braz.name}{' '}
+									<span className="tw-text-[10px] tw-font-bold">
+										- coming soon...
+									</span>
+								</li>
+							))}
+						</ul>
+					</div>
+					<div>
+						<MdLocationPin size={25} className="tw-text-yellow-500 tw-mb-2" />
+						<h1 className="tw-text-xs tw-font-bold  tw-mb-2">Location</h1>
+						<a
+							href={`${googleSearch + location}`}
+							target="_blank"
+							rel="noreferrer"
+							className="tw-flex-col tw-text-xs tw-font-light tw-flex tw-items-center tw-justify-center tw-mb-7 hover:tw-text-neutral-600 tw-ease tw-duration-300 ">
+							<span>{location}</span>
+						</a>
+					</div>
+				</div>
+				<div className=" tw-text-neutral-600">
+					<h1 className="tw-text-xs tw-font-bold  tw-mb-2">Customer Service</h1>
+					<ul className="tw-flex tw-flex-col tw-justify-center tw-text-xs tw-font-light tw-mb-1">
+						{links.map((link) => (
+							<li
+								key={link.id}
+								onClick={
+									link.name === 'Contact Us'
+										? () => {
+												setShowContactForm(!showContactForm)
+												setShowTerms(false)
+										  }
+										: link.name === 'Terms and Conditions'
+										? () => {
+												setShowTerms(!showTerms)
+												setShowContactForm(false)
+										  }
+										: null
+								}
+								className="hover:tw-cursor-pointer hover:tw-underline tw-mb-1 ">
+								{link.name}
+							</li>
+						))}
+					</ul>
+					<div className="tw-border-neutral-100 tw-w-full tw-flex tw-flex-col tw-mt-5 tw-mb-5 tw-pb-5 tw-pt-5 md:tw-items-center">
+						<span className="tw-text-xs tw-font-light tw-tracking-widest tw-text-black tw-mb-1">
+							Country/region
+						</span>
+						<select
+							className="tw-w-[220px] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-neutral-500 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+							onChange={handleOnChange}
+							id="country"
+							value={country}
+							name="country">
+							{countries.map((item, idx) => (
+								<option key={idx}>
+									{item.countryName} - {item.currencyCode}
+								</option>
+							))}
+						</select>
+					</div>
+				</div>
+			</div>
+
 			{showContactForm && (
 				<form
 					onSubmit={handleSubmit}
 					className="tw-w-full tw-flex tw-flex-col tw-items-center md:tw-max-w-[80%] tw-bg-neutral-50 tw-py-5 tw-mb-5">
-					<span className="tw-text-sm tw-font-light tw-mb-2">
+					<span className="tw-text-2xl tw-font-light tw-mb-1 tw-mt-5">
 						Contact - ModelEst
 					</span>
 					<p className="tw-font-light tw-text-[14px] tw-max-w-[80%] lg:tw-max-w-[50%] tw-my-5">
@@ -118,7 +261,7 @@ function Footer() {
 							value={contactInput.name}
 							onChange={handleContactInput}
 							placeholder="Full Name"
-							className="tw-w-[100%] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-neutral-300 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+							className="tw-w-[100%] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-neutral-400 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
 						/>
 						<input
 							type="text"
@@ -127,7 +270,7 @@ function Footer() {
 							value={contactInput.email}
 							onChange={handleContactInput}
 							placeholder="Email"
-							className="tw-w-[100%] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-neutral-300 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+							className="tw-w-[100%] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-neutral-400 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
 						/>
 						<input
 							type="text"
@@ -135,8 +278,8 @@ function Footer() {
 							id="subject"
 							value={contactInput.subject}
 							onChange={handleContactInput}
-							placeholder="subject"
-							className="tw-w-[100%] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-neutral-300 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+							placeholder="subject / order - number"
+							className="tw-w-[100%] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-neutral-400 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
 						/>
 						<textarea
 							id="message"
@@ -146,7 +289,7 @@ function Footer() {
 							value={contactInput.message}
 							onChange={handleContactInput}
 							placeholder="message..."
-							className="tw-w-[100%] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-neutral-300 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+							className="tw-w-[100%] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-neutral-400 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
 						/>
 						<div className="tw-text-center tw-text-xs tw-text-red-800">
 							{contactInput.error ? (
@@ -645,23 +788,6 @@ function Footer() {
 					</p>
 				</div>
 			)}
-			<div className="tw-border-t tw-border-b tw-border-neutral-100 tw-w-full tw-flex tw-flex-col tw-mt-5 tw-mb-5 tw-pb-5 tw-pt-5 tw-items-center">
-				<span className="tw-text-xs tw-font-light tw-tracking-widest tw-text-black tw-mb-1">
-					Country/region
-				</span>
-				<select
-					className="tw-w-[220px] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-neutral-500 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
-					onChange={handleOnChange}
-					id="country"
-					value={country}
-					name="country">
-					{countries.map((item, idx) => (
-						<option key={idx}>
-							{item.countryName} - {item.currencyCode}
-						</option>
-					))}
-				</select>
-			</div>
 			<div className="tw-flex tw-flex-row tw-justify-between tw-items-center tw-mb-5">
 				{paymentType.map((item) => (
 					<div

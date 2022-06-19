@@ -4,18 +4,18 @@ import { Link } from 'react-router-dom'
 const subLinks = [
 	{
 		id: '1',
-		name: 'Hair Bundles (Indian)',
-		route: '/hair-bundles',
+		name: 'Bundles (Indian)',
+		route: '/indian-bundles',
 	},
 	{
 		id: '2',
 		name: 'Closure / Frontal (Indian)',
-		route: '/closure-frontal',
+		route: '/indian-closure-frontal',
 	},
 	{
 		id: '3',
 		name: 'Jet Black / Blonde (Indian)',
-		route: '/jet-black-&-blonde-hair',
+		route: '/indian-jet-black-&-blonde',
 	},
 ]
 
