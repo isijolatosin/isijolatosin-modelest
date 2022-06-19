@@ -21,8 +21,19 @@ function App() {
 			<Route exact path="/success" element={<Success />} />
 			<Route exact path="/admin-portal" element={<Management />} />
 			<Route exact path="/hair-bundles" element={<HairBundles />} />
+			<Route exact path="/hair-bundles/:reviews" element={<HairBundles />} />
 			<Route exact path="/closure-frontal" element={<ClosureFrontal />} />
+			<Route
+				exact
+				path="/closure-frontal/:reviews"
+				element={<ClosureFrontal />}
+			/>
 			<Route exact path="/jet-black-&-blonde-hair" element={<JetBlackHair />} />
+			<Route
+				exact
+				path="/jet-black-&-blonde-hair/:reviews"
+				element={<JetBlackHair />}
+			/>
 			<Route exact path="/user-cart/:userId" element={<Cart />} />
 			<Route exact path="/user-account" element={<Account />} />
 			<Route exact path="*" element={<NotFound />} />

@@ -190,7 +190,7 @@ function ClosureFrontal() {
 									/>
 								</div>
 							))}
-							<Reviews category="customer-review-closure-frontal" />
+							<Reviews category="closure-frontal" />
 						</div>
 					)}
 					{!show && (

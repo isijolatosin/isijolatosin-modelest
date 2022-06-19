@@ -1,9 +1,11 @@
 import React from 'react'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
+import { useNavigate } from 'react-router-dom'
 import { db } from '../../firebase'
 import Button from '../shared/Button'
 
 const Reviews = ({ category }) => {
+	const navigate = useNavigate()
 	const [isForm, setIsForm] = React.useState(false)
 	const [count1, setCount1] = React.useState(null)
 	const [count2, setCount2] = React.useState(null)
@@ -45,6 +47,10 @@ const Reviews = ({ category }) => {
 	}
 
 	React.useEffect(() => {
+		if (window.location.pathname === `/${category}/reviews`) {
+			setIsForm(true)
+		}
+
 		db.collection(category)
 			.orderBy('date', 'asc')
 			.onSnapshot((snapshot) => {
@@ -67,20 +73,20 @@ const Reviews = ({ category }) => {
 				}
 			})
 
-		db.collection('customer-review-closure-frontal').onSnapshot((snapshot) => {
+		db.collection('closure-frontal').onSnapshot((snapshot) => {
 			const results = snapshot.docs.map((doc) => ({
 				data: doc.data(),
 			}))
 			setCount1(results.length)
 		})
 
-		db.collection('customer-review-hairbundle').onSnapshot((snapshot) => {
+		db.collection('hair-bundles').onSnapshot((snapshot) => {
 			const results = snapshot.docs.map((doc) => ({
 				data: doc.data(),
 			}))
 			setCount2(results.length)
 		})
-		db.collection('customer-review-jet-black').onSnapshot((snapshot) => {
+		db.collection('jet-black-&-blonde-hair').onSnapshot((snapshot) => {
 			const results = snapshot.docs.map((doc) => ({
 				data: doc.data(),
 			}))
@@ -91,7 +97,7 @@ const Reviews = ({ category }) => {
 
 	return (
 		<div className="tw-bg-white tw-mt-10 tw-py-10 tw-w-full">
-			<div className="tw-border-[1px] tw-w-full md:tw-w-[80%] xl:tw-w-[70%] tw-mx-auto tw-p-5">
+			<div className="tw-border-[1px] tw-w-full md:tw-w-[80%] xl:tw-w-[55%] tw-mx-auto tw-p-5">
 				<div className="tw-border-b-[1px] tw-pb-5">
 					<h1 className="tw-text-neutral-700 tw-text-[28px] tw-mb-2 Oswald">
 						Customer Reviews
@@ -116,14 +122,17 @@ const Reviews = ({ category }) => {
 							)}
 						</div>
 						<span
-							onClick={() => setIsForm(!isForm)}
+							onClick={() => {
+								setIsForm(!isForm)
+								navigate(`/${category}/reviews`)
+							}}
 							className="tw-text-red-700 tw-font-[600] hover:tw-cursor-pointer tw-mt-5 md:tw-mt-0">
 							Write a review
 						</span>
 					</div>
 				</div>
 				{isForm && (
-					<div className="tw-py-5 tw-border-b-[1px]">
+					<div className="tw-py-5">
 						<p className="Oswald tw-pb-2">Write a review</p>
 						<div>
 							<p>Name</p>
@@ -257,7 +266,7 @@ const Reviews = ({ category }) => {
 					</div>
 				)}
 				{reviewsArray.map((review, idx) => (
-					<div key={idx} className="tw-py-5">
+					<div key={idx} className="tw-py-5 tw-border-t-[1px]">
 						<div className="tw-flex tw-mb-2">
 							{Array(review?.rating)
 								.fill()
