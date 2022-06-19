@@ -4,9 +4,11 @@ import { GiPencil } from 'react-icons/gi'
 import { useNavigate } from 'react-router-dom'
 import { db } from '../../firebase'
 import Button from '../shared/Button'
+import Pagination from './Pagination'
 
 const Reviews = ({ category }) => {
 	const navigate = useNavigate()
+	const [chunkIndex, setChunkIndex] = React.useState(0)
 	const [isForm, setIsForm] = React.useState(false)
 	const [count1, setCount1] = React.useState(null)
 	const [count2, setCount2] = React.useState(null)
@@ -19,11 +21,9 @@ const Reviews = ({ category }) => {
 		message: null,
 	})
 	const [rating, setRating] = React.useState(0)
-	// const MAX_RATING = 5
-	// const MIN_RATING = 1
-	// const [rating] = React.useState(
-	// 	Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1) + MIN_RATING)
-	// )
+	const contentPerPage = 3
+	const totalCards = reviewsArray.length / contentPerPage
+
 	const handleChangeAuthUser = (e) => {
 		setReviews({ ...reviews, [e.target.name]: e.target.value })
 	}
@@ -55,7 +55,7 @@ const Reviews = ({ category }) => {
 		db.collection(category)
 			.orderBy('date', 'asc')
 			.onSnapshot((snapshot) => {
-				const results = snapshot.docs.map((doc) => ({
+				const results = snapshot.docs?.map((doc) => ({
 					data: doc.data(),
 				}))
 				if (results) {
@@ -95,6 +95,13 @@ const Reviews = ({ category }) => {
 		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
+
+	const chunkedCards = []
+	let index = 0
+	for (let i = 0; i < totalCards; i++) {
+		chunkedCards.push(reviewsArray.slice(index, contentPerPage + index))
+		index += contentPerPage
+	}
 
 	return (
 		<div className="tw-bg-white tw-mt-10 tw-py-10 tw-w-full">
@@ -270,7 +277,7 @@ const Reviews = ({ category }) => {
 						</div>
 					</div>
 				)}
-				{reviewsArray.map((review, idx) => (
+				{chunkedCards[chunkIndex]?.map((review, idx) => (
 					<div key={idx} className="tw-py-5 tw-border-t-[1px]">
 						<div className="tw-flex tw-mb-2">
 							{Array(review?.rating)
@@ -318,6 +325,14 @@ const Reviews = ({ category }) => {
 						</p>
 					</div>
 				))}
+				{reviewsArray?.length > contentPerPage && (
+					<Pagination
+						data={reviewsArray}
+						contentPerPage={contentPerPage}
+						setChunkIndex={setChunkIndex}
+						totalContent={reviewsArray.length}
+					/>
+				)}
 			</div>
 		</div>
 	)

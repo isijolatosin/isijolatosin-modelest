@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom'
 const subLinks = [
 	{
 		id: '1',
-		name: 'Hair Bundles(Indian)',
+		name: 'Hair Bundles (Indian)',
 		route: '/hair-bundles',
 	},
 	{
 		id: '2',
-		name: 'Closure / Frontal(Indian)',
+		name: 'Closure / Frontal (Indian)',
 		route: '/closure-frontal',
 	},
 	{
 		id: '3',
-		name: 'Jet Black / Blonde(Indian)',
+		name: 'Jet Black / Blonde (Indian)',
 		route: '/jet-black-&-blonde-hair',
 	},
 ]
@@ -50,11 +50,11 @@ function LinksComponent() {
 				</p>
 
 				{list1 && (
-					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-left-[-12px] tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-left-[-12px] md:tw-left-[-11px] tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
 						{subLinks.map((item) => (
 							<Link
 								to={item.route}
-								className="tw-px-3 tw-rounded-sm md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500"
+								className="md:tw-text-center tw-px-3 tw-rounded-sm md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500"
 								key={item.id}>
 								{item.name}
 							</Link>
@@ -71,14 +71,14 @@ function LinksComponent() {
 				</p>
 
 				{list2 && (
-					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-left-[-35px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
-						<p className="tw-text-center md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
+					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-left-[-35px] md:tw-left-[-9px] tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+						<p className="tw-text-center md:tw-text-center tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
 							coming soon...
 						</p>
-						<p className="tw-text-center md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
+						<p className="tw-text-center md:tw-text-center tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
 							coming soon...
 						</p>
-						<p className="tw-text-center md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
+						<p className="tw-text-center md:tw-text-center tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
 							coming soon...
 						</p>
 
@@ -102,14 +102,14 @@ function LinksComponent() {
 				</p>
 
 				{list3 && (
-					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-right-[-10px] md:tw-right-0 md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
-						<p className="tw-text-right md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
+					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-right-[-10px] md:tw-left-[-10px] tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+						<p className="tw-text-right md:tw-text-center tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
 							coming soon...
 						</p>
-						<p className="tw-text-right md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
+						<p className="tw-text-right md:tw-text-center tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
 							coming soon...
 						</p>
-						<p className="tw-text-right md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
+						<p className="tw-text-right md:tw-text-center tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
 							coming soon...
 						</p>
 						{/* {subLinks.map((item) => (
