@@ -5,6 +5,9 @@ import Button from '../shared/Button'
 
 const Reviews = ({ category }) => {
 	const [isForm, setIsForm] = React.useState(false)
+	const [count1, setCount1] = React.useState(0)
+	const [count2, setCount2] = React.useState(0)
+	const [count3, setCount3] = React.useState(0)
 	const [reviewsArray, setReviewsArray] = React.useState([])
 	const [reviews, setReviews] = React.useState({
 		name: null,
@@ -63,6 +66,26 @@ const Reviews = ({ category }) => {
 					setReviewsArray(data)
 				}
 			})
+
+		db.collection('customer-review-closure-frontal').onSnapshot((snapshot) => {
+			const results = snapshot.docs.map((doc) => ({
+				data: doc.data(),
+			}))
+			setCount1(results.length)
+		})
+
+		db.collection('customer-review-hairbundle').onSnapshot((snapshot) => {
+			const results = snapshot.docs.map((doc) => ({
+				data: doc.data(),
+			}))
+			setCount2(results.length)
+		})
+		db.collection('customer-review-jet-black').onSnapshot((snapshot) => {
+			const results = snapshot.docs.map((doc) => ({
+				data: doc.data(),
+			}))
+			setCount3(results.length)
+		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -87,7 +110,7 @@ const Reviews = ({ category }) => {
 									))}
 							</div>
 							<span className="md:tw-ml-2 tw-text-neutral-600">
-								Based on 194 reviews
+								Based on {count1 + count2 + count3} reviews
 							</span>
 						</div>
 						<span
