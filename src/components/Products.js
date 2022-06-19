@@ -216,7 +216,7 @@ function Products({ allProducts }) {
 							<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-mt-0">
 								Description: {singleProducts?.[0].description}
 							</p>
-							<p className="tw-font-medium tw-text-md tw-mb-[1px] tw-my-1">
+							<p className="tw-font-medium tw-text-xl tw-my-[10px]">
 								Price:{' '}
 								{singleProducts?.[0]?.sales &&
 									`$${
@@ -256,7 +256,7 @@ function Products({ allProducts }) {
 													onClick={() => {
 														setColor(colr)
 													}}
-													className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-xs tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-300 tw-ease-in tw-duration-300"
+													className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-300 tw-ease-in tw-duration-300"
 													key={idx}>
 													<span>{colr}</span>
 												</span>
@@ -270,7 +270,7 @@ function Products({ allProducts }) {
 													onClick={() => {
 														sethairType(tex)
 													}}
-													className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-xs tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-300 tw-ease-in tw-duration-300"
+													className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-300 tw-ease-in tw-duration-300"
 													key={idx}>
 													<span>{tex}</span>
 												</span>
@@ -284,7 +284,7 @@ function Products({ allProducts }) {
 													onClick={() => {
 														setLength(size)
 													}}
-													className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-xs tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-300 tw-ease-in tw-duration-300"
+													className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[16px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-300 tw-ease-in tw-duration-300"
 													key={idx}>
 													{size}inch
 												</span>
@@ -301,7 +301,7 @@ function Products({ allProducts }) {
 													setLength(size)
 													setError(false)
 												}}
-												className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-px-2 tw-text-xs tw-text-neutral-900 tw-p-5 hover:tw-cursor-pointer hover:tw-bg-neutral-300 tw-ease-in tw-duration-300"
+												className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-px-2 tw-text-[16px] tw-text-neutral-900 tw-p-5 hover:tw-cursor-pointer hover:tw-bg-neutral-300 tw-ease-in tw-duration-300"
 												key={idx}>
 												{size}inch
 											</span>

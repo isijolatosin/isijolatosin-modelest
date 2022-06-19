@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom'
 const subLinks = [
 	{
 		id: '1',
-		name: 'Hair Bundles',
+		name: 'Hair Bundles(Indian)',
 		route: '/hair-bundles',
 	},
 	{
 		id: '2',
-		name: 'Closure / Frontal',
+		name: 'Closure / Frontal(Indian)',
 		route: '/closure-frontal',
 	},
 	{
 		id: '3',
-		name: 'Jet Black / Blonde',
+		name: 'Jet Black / Blonde(Indian)',
 		route: '/jet-black-&-blonde-hair',
 	},
 ]
@@ -54,7 +54,7 @@ function LinksComponent() {
 						{subLinks.map((item) => (
 							<Link
 								to={item.route}
-								className="tw-px-3 tw-rounded-sm md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[12px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500"
+								className="tw-px-3 tw-rounded-sm md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500"
 								key={item.id}>
 								{item.name}
 							</Link>
@@ -72,20 +72,20 @@ function LinksComponent() {
 
 				{list2 && (
 					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-left-[-35px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
-						<p className="tw-text-center md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[12px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
+						<p className="tw-text-center md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
 							coming soon...
 						</p>
-						<p className="tw-text-center md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[12px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
+						<p className="tw-text-center md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
 							coming soon...
 						</p>
-						<p className="tw-text-center md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[12px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
+						<p className="tw-text-center md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
 							coming soon...
 						</p>
 
 						{/* {subLinks.map((item) => (
 							<Link
 								to={item.route}
-								className="tw-text-center md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 tw-w-[250px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[12px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500"
+								className="tw-text-center md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 tw-w-[250px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500"
 								key={item.id}>
 								{item.name}
 							</Link>
@@ -103,19 +103,19 @@ function LinksComponent() {
 
 				{list3 && (
 					<div className="tw-absolute tw-top-[25px] md:tw-top-4 tw-right-[-10px] md:tw-right-0 md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
-						<p className="tw-text-right md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[12px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
+						<p className="tw-text-right md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
 							coming soon...
 						</p>
-						<p className="tw-text-right md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[12px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
+						<p className="tw-text-right md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
 							coming soon...
 						</p>
-						<p className="tw-text-right md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[12px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
+						<p className="tw-text-right md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 md:tw-w-[250px] tw-w-[200px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500">
 							coming soon...
 						</p>
 						{/* {subLinks.map((item) => (
 							<Link
 								to={item.route}
-								className="tw-text-right md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 tw-w-[250px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[12px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500"
+								className="tw-text-right md:tw-text-left tw-px-3 tw-rounded-sm tw-pl-5 tw-w-[250px] tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500"
 								key={item.id}>
 								{item.name}
 							</Link>
