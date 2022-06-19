@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import Add2CartPopup from '../components/shared/Add2CartPopup'
 import SingleProductModal from '../components/shared/SingleProductModal'
+import Reviews from '../components/shared/Reviews'
 
 function JetBlackHair() {
 	const [singleProducts, setSingleproducts] = React.useState(null)
@@ -163,6 +164,7 @@ function JetBlackHair() {
 									/>
 								</div>
 							))}
+							<Reviews category="customer-review-jet-black" />
 						</div>
 					)}
 					{!show && (

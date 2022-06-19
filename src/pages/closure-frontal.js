@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import Add2CartPopup from '../components/shared/Add2CartPopup'
 import SingleProductModal from '../components/shared/SingleProductModal'
+import Reviews from '../components/shared/Reviews'
 
 function ClosureFrontal() {
 	const [singleProducts, setSingleproducts] = React.useState(null)
@@ -189,6 +190,7 @@ function ClosureFrontal() {
 									/>
 								</div>
 							))}
+							<Reviews category="customer-review-closure-frontal" />
 						</div>
 					)}
 					{!show && (

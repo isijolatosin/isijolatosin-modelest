@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import Add2CartPopup from '../components/shared/Add2CartPopup'
 import SingleProductModal from '../components/shared/SingleProductModal'
+import Reviews from '../components/shared/Reviews'
 
 function HairBundles() {
 	const [hairBundles, setHairBundles] = React.useState([])
@@ -151,18 +152,21 @@ function HairBundles() {
 						setSingleCart={setSingleCart}
 					/>
 					{show && hairBundles && (
-						<div className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-w-[90%] md:tw-w-full tw-px-2 tw-gap-2 md:tw-gap-5">
-							{hairBundles.map((item) => (
-								<div key={item._id}>
-									<Card
-										key={item._id}
-										product={item}
-										setSingleproducts={setSingleproducts}
-										setSingleCart={setSingleCart}
-										scrollToTop={scrollToTop}
-									/>
-								</div>
-							))}
+						<div className="tw-w-[90%] md:tw-w-full tw-px-2">
+							<div className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-2 md:tw-gap-5">
+								{hairBundles.map((item) => (
+									<div key={item._id}>
+										<Card
+											key={item._id}
+											product={item}
+											setSingleproducts={setSingleproducts}
+											setSingleCart={setSingleCart}
+											scrollToTop={scrollToTop}
+										/>
+									</div>
+								))}
+							</div>
+							<Reviews category="customer-review-hairbundle" />
 						</div>
 					)}
 					{!show && (
