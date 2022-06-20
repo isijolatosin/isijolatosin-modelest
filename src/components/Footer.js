@@ -6,8 +6,8 @@ import { RiVisaLine } from 'react-icons/ri'
 import { SiAmericanexpress } from 'react-icons/si'
 import { countries } from '../country'
 import { useNavigate } from 'react-router-dom'
-import { MdLocationPin } from 'react-icons/md'
-import { googleSearch, location } from '../constant'
+// import { MdLocationPin } from 'react-icons/md'
+// import { googleSearch, location } from '../constant'
 
 function Footer() {
 	const navigate = useNavigate()
@@ -182,7 +182,7 @@ function Footer() {
 							))}
 						</ul>
 					</div>
-					<div>
+					{/* <div>
 						<MdLocationPin size={25} className="tw-text-yellow-500 tw-mb-2" />
 						<h1 className="tw-text-xs tw-font-bold  tw-mb-2">Location</h1>
 						<a
@@ -192,7 +192,7 @@ function Footer() {
 							className="tw-flex-col tw-text-xs tw-font-light tw-flex tw-items-center tw-justify-center tw-mb-7 hover:tw-text-neutral-600 tw-ease tw-duration-300 ">
 							<span>{location}</span>
 						</a>
-					</div>
+					</div> */}
 				</div>
 				<div className=" tw-text-neutral-600">
 					<h1 className="tw-text-xs tw-font-bold  tw-mb-2">Customer Service</h1>
