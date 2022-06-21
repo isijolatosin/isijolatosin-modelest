@@ -43,7 +43,12 @@ const SingleProductModal = ({
 
 	const handleLike = () => {
 		dispatch(setLike(singleProducts?.[0]?.name))
-		setCount(count + 1)
+
+		const starCountRef = ref(database, category)
+		onValue(starCountRef, (snapshot) => {
+			const data = snapshot.val()
+			setCount(data.no)
+		})
 
 		set(ref(database, category), {
 			no: count + 1,
@@ -52,7 +57,11 @@ const SingleProductModal = ({
 
 	const handleDislike = () => {
 		dispatch(setDislike(singleProducts?.[0]?.name))
-		setCount(count - 1)
+		const starCountRef = ref(database, category)
+		onValue(starCountRef, (snapshot) => {
+			const data = snapshot.val()
+			setCount(data.no)
+		})
 
 		const updates = {}
 		updates[category] = {
