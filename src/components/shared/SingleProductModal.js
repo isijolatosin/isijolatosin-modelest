@@ -1,10 +1,10 @@
 import React from 'react'
-import { db } from '../../firebase'
+import { getDatabase, ref, set, onValue, update } from 'firebase/database'
 import { isInCart } from '../../utils/helpers'
 import Slideshow from '../../utils/Slideshow'
 import { BsHeart, BsHeartFill } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectIsLike, setLike } from '../../slices/appSlices'
+import { selectIsLike, setDislike, setLike } from '../../slices/appSlices'
 
 const SingleProductModal = ({
 	category,
@@ -25,99 +25,42 @@ const SingleProductModal = ({
 	sethairType,
 	setColor,
 }) => {
+	const database = getDatabase()
 	const dispatch = useDispatch()
 	const isLike = useSelector(selectIsLike)
-	const [noOfLikes, setNoOfLikes] = React.useState(false)
 	const [count, setCount] = React.useState(0)
+	const [noOfLikes, setNoOfLikes] = React.useState(false)
 
 	React.useEffect(() => {
-		db.collection('admin')
-			.doc('likes')
-			.collection(category)
-			.onSnapshot((snapshot) => {
-				const results = snapshot.docs.map((doc) => ({
-					data: doc.data(),
-				}))
-				if (results.length > 1) setNoOfLikes(Number(results[1]?.data?.no))
-				if (results.length === 1) setNoOfLikes(Number(results[0]?.data?.no))
-			})
+		const starCountRef = ref(database, category)
+		onValue(starCountRef, (snapshot) => {
+			const data = snapshot.val()
+
+			setNoOfLikes(data.no)
+		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const handleLike = () => {
 		dispatch(setLike(singleProducts?.[0]?.name))
+		setCount(count + 1)
 
-		db.collection('admin')
-			.doc('likes')
-			.collection(category)
-			.orderBy('date', 'asc')
-			.onSnapshot((snapshot) => {
-				const results = snapshot.docs.map((doc) => ({
-					data: doc.data(),
-				}))
-				console.log(results)
-				if (results.length > 1) setCount(Number(results[1]?.data?.no))
-				if (results.length === 1) setCount(Number(results[0]?.data?.no))
-			})
-		count >= 0 &&
-			db
-				.collection('admin')
-				.doc('likes')
-				.collection(category)
-				.add({
-					no: count + 1,
-					date: new Date(),
-				})
-
-		db.collection('admin')
-			.doc('likes')
-			.collection(category)
-			.onSnapshot((snapshot) => {
-				const results = snapshot.docs.map((doc) => ({
-					data: doc.data(),
-				}))
-				if (results.length > 1) setNoOfLikes(Number(results[1]?.data?.no))
-				if (results.length === 1) setNoOfLikes(Number(results[0]?.data?.no))
-			})
+		set(ref(database, category), {
+			no: count + 1,
+		})
 	}
 
-	// 	const handleDislike = () => {
-	// 		dispatch(setDislike(singleProducts?.[0]?.name))
-	//
-	// 		db.collection('admin')
-	// 			.doc('likes')
-	// 			.collection(category)
-	// 			.orderBy('date', 'asc')
-	// 			.onSnapshot((snapshot) => {
-	// 				const results = snapshot.docs.map((doc) => ({
-	// 					data: doc.data(),
-	// 				}))
-	// 				console.log(results)
-	// 				if (results.length > 1) setCount(Number(results[1]?.data?.no) - 1)
-	// 				if (results.length === 1) setCount(Number(results[0]?.data?.no) - 1)
-	// 			})
-	// 		count >= 1 &&
-	// 			db
-	// 				.collection('admin')
-	// 				.doc('likes')
-	// 				.collection(category)
-	// 				.add({
-	// 					no: count - 1,
-	// 					date: new Date(),
-	// 				})
-	//
-	// 		db.collection('admin')
-	// 			.doc('likes')
-	// 			.collection(category)
-	// 			.onSnapshot((snapshot) => {
-	// 				const results = snapshot.docs.map((doc) => ({
-	// 					data: doc.data(),
-	// 				}))
-	// 				if (results.length > 1) setNoOfLikes(Number(results[1]?.data?.no))
-	// 				if (results.length === 1) setNoOfLikes(Number(results[0]?.data?.no))
-	// 			})
-	// 	}
-	// 	console.log(count)
+	const handleDislike = () => {
+		dispatch(setDislike(singleProducts?.[0]?.name))
+		setCount(count - 1)
+
+		const updates = {}
+		updates[category] = {
+			no: count - 1,
+		}
+
+		return update(ref(database), updates)
+	}
 
 	return (
 		<div>
@@ -153,11 +96,13 @@ const SingleProductModal = ({
 								</p>
 								<div className="tw-flex tw-flex-row tw-items-center ">
 									<span className="tw-text-xs">
-										likes {noOfLikes > 0 ? noOfLikes : '0'}{' '}
+										{noOfLikes > 1 && `${noOfLikes} likes`}
+										{(noOfLikes === 1 || noOfLikes === 0) &&
+											`${noOfLikes} like`}
 									</span>
 									{isLike.includes(singleProducts?.[0]?.name) ? (
 										<BsHeartFill
-											// onClick={handleDislike}
+											onClick={handleDislike}
 											className="tw-ml-2 hover:tw-cursor-pointer tw-text-red-600"
 										/>
 									) : (

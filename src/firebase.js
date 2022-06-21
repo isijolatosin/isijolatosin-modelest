@@ -20,6 +20,7 @@ const appCheck = firebase.appCheck()
 appCheck.activate('AIzaSyCLLAOzIV1VDBcE_vyFx0ivy3MjDCJMYyc', true)
 
 const db = firebase.firestore()
+const updateDoc = firebase.firestore()
 const storage = firebase.storage()
 const auth = firebase.auth()
 
@@ -48,4 +49,11 @@ async function createUserProfileDocument(userAuth, additionalData) {
 
 	return userRef
 }
-export { db, storage, auth, createUserProfileDocument, firebase as default }
+export {
+	db,
+	updateDoc,
+	storage,
+	auth,
+	createUserProfileDocument,
+	firebase as default,
+}
