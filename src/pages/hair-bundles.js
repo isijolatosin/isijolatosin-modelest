@@ -178,20 +178,23 @@ function HairBundles() {
 						</div>
 					)}
 
-					<SingleProductModal
-						singleProducts={singleProducts}
-						setSingleproducts={setSingleproducts}
-						sales={sales}
-						desc={desc}
-						sizes={sizes}
-						setLength={setLength}
-						setError={setError}
-						error={error}
-						singleProduct={singleProduct}
-						cartItems={cartItems}
-						IncreaseItem={IncreaseItem}
-						addToCart={addToCart}
-					/>
+					{singleProducts && (
+						<SingleProductModal
+							category={singleProducts?.[0]?.name}
+							singleProducts={singleProducts}
+							setSingleproducts={setSingleproducts}
+							sales={sales}
+							desc={desc}
+							sizes={sizes}
+							setLength={setLength}
+							setError={setError}
+							error={error}
+							singleProduct={singleProduct}
+							cartItems={cartItems}
+							IncreaseItem={IncreaseItem}
+							addToCart={addToCart}
+						/>
+					)}
 				</div>
 			</Layout>
 		</>

@@ -5,7 +5,7 @@ import storage from 'redux-persist/lib/storage'
 const persistConfig = {
 	key: 'root',
 	storage,
-	whitelist: ['cartItems', 'itemCount', 'total'],
+	whitelist: ['cartItems', 'itemCount', 'total', 'isLike'],
 }
 
 const initialState = {
@@ -13,12 +13,25 @@ const initialState = {
 	itemCount: 0,
 	total: 0,
 	bookingObject: '',
+	isLike: [],
 }
 
 export const appSlices = createSlice({
 	name: 'app',
 	initialState,
 	reducers: {
+		// likes
+		setLike: (state, action) => {
+			// eslint-disable-next-line no-unused-expressions
+			state.isLike.push(action.payload)
+		},
+		setDislike: (state, action) => {
+			const removeIndex = state.isLike.findIndex(
+				(item) => item === action.payload
+			)
+			state.isLike.splice(removeIndex, 1)
+		},
+
 		// Add item
 		addToCartItem: (state, action) => {
 			// check if item is in the cart
@@ -149,6 +162,8 @@ export const {
 	removeCartItem,
 	clearCartItem,
 	setBookingObject,
+	setLike,
+	setDislike,
 } = appSlices.actions
 
 // Selectors
@@ -156,6 +171,7 @@ export const selectCartItems = (state) => state.app.cartItems
 export const selectItemCount = (state) => state.app.itemCount
 export const selectTotal = (state) => state.app.total
 export const selectBookingObject = (state) => state.app.bookingObject
+export const selectIsLike = (state) => state.app.isLike
 
 const rootReducer = appSlices.reducer
 

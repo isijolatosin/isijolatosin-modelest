@@ -201,24 +201,27 @@ function ClosureFrontal() {
 						</div>
 					)}
 
-					<SingleProductModal
-						singleProducts={singleProducts}
-						setSingleproducts={setSingleproducts}
-						sales={sales}
-						desc={desc}
-						sizes={sizes}
-						setLength={setLength}
-						setError={setError}
-						error={error}
-						singleProduct={singleProduct}
-						cartItems={cartItems}
-						IncreaseItem={IncreaseItem}
-						addToCart={addToCart}
-						_hairColor={_hairColor}
-						texture={texture}
-						sethairType={sethairType}
-						setColor={setColor}
-					/>
+					{singleProducts && (
+						<SingleProductModal
+							category={singleProducts?.[0]?.name}
+							singleProducts={singleProducts}
+							setSingleproducts={setSingleproducts}
+							sales={sales}
+							desc={desc}
+							sizes={sizes}
+							setLength={setLength}
+							setError={setError}
+							error={error}
+							singleProduct={singleProduct}
+							cartItems={cartItems}
+							IncreaseItem={IncreaseItem}
+							addToCart={addToCart}
+							_hairColor={_hairColor}
+							texture={texture}
+							sethairType={sethairType}
+							setColor={setColor}
+						/>
+					)}
 				</div>
 			</Layout>
 		</>
