@@ -491,7 +491,6 @@ label input::placeholder {
 	width: 100vw;
 	text-align: center;
 	color: var(--grey-800);
-	cursor: pointer;
 }
 .align-left {
 	text-align: left;
@@ -624,7 +623,7 @@ label input::placeholder {
 	.bg-blur3 {
 		-webkit-backdrop-filter: blur(3px);
 		backdrop-filter: blur(3px);
-		background-color: rgba(0, 0, 0, 0.9);
+		background-color: rgba(0, 0, 0, 0.5);
 	}
 }
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {

@@ -211,6 +211,9 @@ const CheckoutForm = ({ total, itemCount }) => {
 				const payload = await stripe.confirmCardPayment(clientSecret, {
 					payment_method: {
 						card: elements.getElement(CardElement),
+						billing_details: {
+							email: user?.email || email,
+						},
 					},
 				})
 
@@ -353,7 +356,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 					type="text"
 					value={address.province}
 					onChange={inputOnchangeHandler}
-					placeholder="Province"
+					placeholder="State / Province"
 					className={
 						error && !address.province
 							? 'user-email-input input-error'

@@ -9,10 +9,13 @@ import { MdClose } from 'react-icons/md'
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
 import Button from './shared/Button'
 import { AUTHORIZED_ID } from '../constant'
+import { FaShippingFast } from 'react-icons/fa'
 
 function Shippment() {
 	const { user } = useContext(UserContext)
 	const [readMore, setReadMore] = React.useState(false)
+	const [showShipText, setShowShipText] = React.useState(false)
+	const [compareID, setCompareID] = React.useState(false)
 	const [trackingInput, setShowTrackingInput] = React.useState(false)
 	const [modal, setModal] = React.useState(false)
 	const [_id, setId] = React.useState('')
@@ -37,9 +40,9 @@ function Shippment() {
 			name: item.title,
 			quantity: item.quantity,
 			description: item.description,
-			id: item.id,
+			id: item?.id,
 		}
-		if (item.id === _id) {
+		if (item?.id === _id) {
 			itemObj.push(obj)
 		}
 	})
@@ -88,6 +91,7 @@ function Shippment() {
 								email: result?.data.email,
 								id: result?.data.id,
 								length: result?.data.length,
+								orderNo: result?.data.orderNo,
 								price: `$${result?.data.price}`,
 								quantity: result?.data.quantity,
 								title: result?.data.title,
@@ -117,6 +121,7 @@ function Shippment() {
 		setCustmr(customer)
 		setMatchIdx(idx)
 		setModal(true)
+		setShowShipText(false)
 	}
 
 	const hideShipped = (id) => {
@@ -140,7 +145,7 @@ function Shippment() {
 		const SendClientSuccessfulPurchaseEmail = () => {
 			emailjs
 				.send(
-					'service_2yc5daa',
+					'service_czeioxp',
 					'template_kxtdmr3',
 					messageParams,
 					'user_VORMh20QoM0GcnDrVoVnj'
@@ -161,6 +166,12 @@ function Shippment() {
 		window.scrollTo(0, 0)
 	}
 
+	const handleShipText = (e) => {
+		if (e) {
+			setShowShipText(true)
+			setCompareID(e)
+		}
+	}
 	return (
 		<div className="tw-flex tw-flex-col tw-items-center tw-my-5">
 			<Heading>Shipment</Heading>
@@ -230,26 +241,24 @@ function Shippment() {
 										</thead>
 										<tbody>
 											{shippingInfo?.shippingData?.map((item, idx) => (
-												<tr className="table-item-row" key={idx}>
+												<tr className="tw-relative table-item-row" key={idx}>
 													{Object?.values(item)?.map((itm, index) => (
 														<td
+															onMouseOver={() => handleShipText(item?.id)}
 															className={
-																itm?.length >= 200
+																itm?.length >= 100
 																	? 'table-items align-left'
 																	: 'table-items'
 															}
-															key={index}
-															onClick={() =>
-																toggleModal(item?.id, item?.customer)
-															}>
+															key={index}>
 															{typeof itm === 'string'
-																? itm?.length >= 200
+																? itm?.length >= 100
 																	? readMore && matchIdx === item?.id
 																		? itm
-																		: `${itm.substring(0, 70)}...`
+																		: `${itm.substring(0, 30)}...`
 																	: itm
 																: itm}
-															{itm?.length >= 200 && (
+															{itm?.length >= 100 && (
 																<>
 																	<span onClick={() => toggleRead(item?.id)}>
 																		{readMore && matchIdx === item?.id ? (
@@ -269,7 +278,7 @@ function Shippment() {
 														</td>
 													))}
 													{modal &&
-														matchIdx === item.id &&
+														matchIdx === item?.id &&
 														custmr === item?.customer && (
 															<div className="been-shipped">
 																<div className="tw-mt-[30px] tw-text-xs ">
@@ -282,7 +291,7 @@ function Shippment() {
 																	<button
 																		className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-green-700"
 																		onClick={() => {
-																			setId(item.id)
+																			setId(item?.id)
 																			setClientShippingEmail(item?.email)
 																			setClientShippingName(item?.customer)
 																			setShowTrackingInput(true)
@@ -303,6 +312,16 @@ function Shippment() {
 																</div>
 															</div>
 														)}
+													{showShipText && compareID === item?.id && (
+														<div
+															className="tw-absolute tw-right-0 tw-flex tw-flex-col tw-items-center tw-justify-center tw-h-full hover:tw-cursor-pointer bg-blur3 tw-text-white tw-p-2 tw-rounded-l-md tw-text-xs tw-font-bold"
+															onClick={() =>
+																toggleModal(item?.id, item?.customer)
+															}>
+															<FaShippingFast size={55} color="darkgrey" />
+															<span>Ship Now</span>
+														</div>
+													)}
 												</tr>
 											))}
 										</tbody>

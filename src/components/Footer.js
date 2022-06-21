@@ -5,12 +5,11 @@ import { SiMastercard } from 'react-icons/si'
 import { RiVisaLine } from 'react-icons/ri'
 import { SiAmericanexpress } from 'react-icons/si'
 import { countries } from '../country'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 // import { MdLocationPin } from 'react-icons/md'
 // import { googleSearch, location } from '../constant'
 
 function Footer() {
-	const navigate = useNavigate()
 	const paymentType = [
 		{ id: 1, type: <SiMastercard size={20} color="darkorange" /> },
 		{ id: 2, type: <RiVisaLine size={20} color="blue" /> },
@@ -137,12 +136,12 @@ function Footer() {
 						<h1 className="tw-text-xs tw-font-bold  tw-mb-2">Indian Hair</h1>
 						<ul className="tw-flex tw-flex-col tw-justify-center tw-text-xs tw-font-light tw-mb-1">
 							{indian.map((ind) => (
-								<li
+								<Link
 									key={ind.id}
-									onClick={() => navigate(`/${ind.route}`)}
+									to={ind.route}
 									className="hover:tw-cursor-pointer hover:tw-underline tw-mb-1 ">
 									{ind.name}
-								</li>
+								</Link>
 							))}
 						</ul>
 					</div>
@@ -152,15 +151,16 @@ function Footer() {
 						</h1>
 						<ul className="tw-flex tw-flex-col tw-justify-center tw-text-xs tw-font-light tw-mb-1">
 							{vietnamese.map((veit) => (
-								<li
+								<Link
 									key={veit.id}
+									to="/"
 									// onClick={() => navigate(`/${veit.route}`)}
 									className="hover:tw-cursor-pointer hover:tw-underline tw-mb-1 ">
 									{veit.name}{' '}
 									<span className="tw-text-[10px] tw-font-bold">
 										- coming soon...
 									</span>
-								</li>
+								</Link>
 							))}
 						</ul>
 					</div>
@@ -170,15 +170,16 @@ function Footer() {
 						</h1>
 						<ul className="tw-flex tw-flex-col tw-justify-center tw-text-xs tw-font-light tw-mb-1">
 							{Brazillian.map((braz) => (
-								<li
+								<Link
 									key={braz.id}
+									to="/"
 									// onClick={() => navigate(`/${braz.route}`)}
 									className="hover:tw-cursor-pointer hover:tw-underline tw-mb-1 ">
 									{braz.name}{' '}
 									<span className="tw-text-[10px] tw-font-bold">
 										- coming soon...
 									</span>
-								</li>
+								</Link>
 							))}
 						</ul>
 					</div>

@@ -48,7 +48,7 @@ const Reviews = ({ category }) => {
 	}
 
 	React.useEffect(() => {
-		if (window.location.pathname === `/${category}/reviews`) {
+		if (window?.location?.pathname === `/${category}/reviews`) {
 			setIsForm(true)
 		}
 

@@ -24,8 +24,64 @@ const Success = () => {
 	React.useEffect(() => {
 		setSales(localStorage.getItem('isSales'))
 	}, [])
+	const orderNo = `ModelEst${Math.random().toString(36).slice(2)}`
+
+	let nameArray = []
+	let quantity = 0
+	let id = []
+	let price = 0
+
+	// eslint-disable-next-line array-callback-return
+	cartItems.map((item) => {
+		nameArray.push(
+			`${item.quantity} ${item.name} - ${item.hairLength}inches ..... $${item.price}`
+		)
+		quantity += item.quantity
+		id.push(`${item.id}-${item.name}`)
+		price += item.price * item.quantity
+	})
 
 	React.useEffect(() => {
+		// Send a purchase mail to client
+		const a = userAddress.split(' ')
+		const cntry = a[a.length - 1]
+		const tax = Number((price * 0.06).toFixed(2))
+		const shipping = cntry === 'usa' ? 9 : 20
+		const total = Number((price + tax + shipping).toFixed(2))
+
+		const messageParams = {
+			name: (user && user?.displayName) || userEmail,
+			id: id.join(', '),
+			orderNo: orderNo,
+			date: new Date().toDateString(),
+			product: nameArray.join(', '),
+			price: price,
+			quantity: quantity,
+			discount: '00.00',
+			subtotal: price,
+			shipping: shipping,
+			tax: tax,
+			total: total,
+			address: userAddress,
+			client: userEmail,
+		}
+
+		const SendClientSuccessfulPurchaseEmail = () => {
+			emailjs
+				.send(
+					'service_czeioxp',
+					'template_doi2qb7',
+					messageParams,
+					'user_VORMh20QoM0GcnDrVoVnj'
+				)
+				.then((res) => {})
+				.catch((err) => console.log(err))
+		}
+
+		setTimeout(() => {
+			SendClientSuccessfulPurchaseEmail()
+		}, 1000)
+
 		userEmail &&
 			cartItems.length !== 0 &&
 			payload &&
@@ -46,41 +102,12 @@ const Success = () => {
 						email: userEmail,
 						color: item?.hairColor,
 						length: item?.hairLength,
+						orderNo: orderNo,
 					})
 					.then(() => {
 						console.log(`SUCCESSFULL`)
 					})
 					.catch((error) => console.log('Error ' + error.message))
-
-				// Send a purchase mail to client
-
-				const messageParams = {
-					name: (user && user?.displayName) || userEmail,
-					message: `Hi ${
-						(user && user?.displayName) || userEmail
-					}. Your order of ${item.quantity} ${item.name} of length-${
-						item?.hairLength
-					}" inches and color-${
-						item?.hairColor
-					} has been received. Currently, we are sorting your order and you will receive in a mail within 14 business days. Hang tight &#128522;`,
-					client: userEmail,
-				}
-
-				const SendClientSuccessfulPurchaseEmail = () => {
-					emailjs
-						.send(
-							'service_2yc5daa',
-							'template_kxtdmr3',
-							messageParams,
-							'user_VORMh20QoM0GcnDrVoVnj'
-						)
-						.then((res) => {})
-						.catch((err) => console.log(err))
-				}
-
-				setTimeout(() => {
-					SendClientSuccessfulPurchaseEmail()
-				}, 1000)
 
 				// admin path
 				db.collection('admin')
@@ -97,6 +124,7 @@ const Success = () => {
 						email: userEmail,
 						color: item?.hairColor,
 						length: item?.hairLength,
+						orderNo: orderNo,
 					})
 					.then(() => {
 						console.log(`SUCCESSFULL`)

@@ -26,7 +26,7 @@ function Products({ allProducts }) {
 		singleProducts?.[0]?.type.toLowerCase() === 'frontal'
 			? ['Natural black']
 			: ['Natural black', 'Blonde613']
-	const texture = ['straight', 'Bodywave', 'Curly', 'Wavy']
+	const texture = ['Straight', 'Bodywave', 'Curly', 'Wavy']
 
 	const scrollToTop = function scrollToTop() {
 		window.scrollTo(0, 0)

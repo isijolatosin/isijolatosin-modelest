@@ -103,7 +103,7 @@ function JetBlackHair() {
 		description,
 		hairTexture,
 	}
-	console.log(singleProduct)
+
 	const addToCart = () => {
 		if (length) {
 			dispatch(addToCartItem(singleProduct))
