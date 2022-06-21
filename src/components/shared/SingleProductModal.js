@@ -63,12 +63,13 @@ const SingleProductModal = ({
 			setCount(data.no)
 		})
 
-		const updates = {}
-		updates[category] = {
-			no: count - 1,
+		if (count > 1) {
+			const updates = {}
+			updates[category] = {
+				no: count - 1,
+			}
+			return update(ref(database), updates)
 		}
-
-		return update(ref(database), updates)
 	}
 
 	return (
