@@ -2,6 +2,7 @@ import React from 'react'
 import { AiOutlineInstagram } from 'react-icons/ai'
 import { FaTiktok } from 'react-icons/fa'
 import { SiMastercard } from 'react-icons/si'
+import { SiTreyarch } from 'react-icons/si'
 import { RiVisaLine } from 'react-icons/ri'
 import { SiAmericanexpress } from 'react-icons/si'
 import { countries } from '../country'
@@ -810,14 +811,14 @@ function Footer() {
 					</p>
 				</div>
 				<div className="md:tw-flex tw-ml-1">
-					<p className="">
-						website develop by{' '}
-						<span className="rose-gold">
+					<p className="tw-flex tw-items-center">
+						<span>Design by</span>{' '}
+						<span className="rose-gold tw-ml-1">
 							<a
 								href="https://www.linkedin.com/in/oluwatosin-isijola-33333ba8/"
 								target="_blank"
 								rel="noopener noreferrer">
-								- oluwatosin
+								<SiTreyarch size={15} />
 							</a>
 						</span>
 					</p>

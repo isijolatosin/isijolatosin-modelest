@@ -10,6 +10,7 @@ import {
 } from '../slices/appSlices'
 import { useDispatch, useSelector } from 'react-redux'
 import Add2CartPopup from './shared/Add2CartPopup'
+import { AiFillStar } from 'react-icons/ai'
 
 function Products({ allProducts }) {
 	const [singleProducts, setSingleproducts] = React.useState(null)
@@ -21,6 +22,13 @@ function Products({ allProducts }) {
 	const [_hairType, sethairType] = React.useState(null)
 	const dispatch = useDispatch()
 	const cartItems = useSelector(selectCartItems)
+
+	const MAX_RATING = 5
+	const MIN_RATING = 1
+	const [rating] = React.useState(
+		Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1) + MIN_RATING)
+	)
+	const deci = Number(Math.random().toFixed(1))
 
 	const _hairColor =
 		singleProducts?.[0]?.type.toLowerCase() === 'frontal'
@@ -181,7 +189,7 @@ function Products({ allProducts }) {
 				<Add2CartPopup singleCart={singleCart} setSingleCart={setSingleCart} />
 			</div>
 			{allProducts ? (
-				<div className="tw-grid tw-grid-cols-2 tw-w-full tw-px-2 md:tw-w-[90%] md:tw-grid-cols-4 lg:tw-grid-cols-5 2xl:tw-grid-cols-6 3xl:tw-grid-cols-7 tw-gap-2 md:tw-gap-5 ">
+				<div className="tw-grid tw-grid-cols-2 tw-w-full tw-px-2 md:tw-w-[100%] md:tw-grid-cols-4 lg:tw-grid-cols-5 2xl:tw-grid-cols-6 3xl:tw-grid-cols-7 tw-gap-2 md:tw-gap-5 ">
 					{allProducts.map((product) => {
 						return (
 							<div
@@ -211,7 +219,7 @@ function Products({ allProducts }) {
 						<div className="tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
 							<Slideshow images={singleProducts?.[0]} />
 						</div>
-						<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 tw-mt-5 md:tw-mt-0">
+						<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 tw-mt-10 md:tw-mt-0">
 							<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
 								{singleProducts?.[0].name}
 							</p>
@@ -233,6 +241,15 @@ function Products({ allProducts }) {
 									${singleProducts?.[0].price} USD
 								</span>
 							</p>
+							<div className="tw-flex tw-items-center">
+								<span className="tw-mr-2">Review: </span>
+								{Array(rating)
+									.fill()
+									.map((_, i) => (
+										<AiFillStar className="tw-text-red-800" size={20} key={i} />
+									))}
+								<span className="tw-ml-1">{rating + deci}</span>
+							</div>
 							{singleProducts?.[0]?.sales && (
 								<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-my-1 tw-text-red-600">
 									Sales: {sales && '15%'}

@@ -1,10 +1,10 @@
 import React from 'react'
-import { getDatabase, ref, set, onValue, update } from 'firebase/database'
+// import { getDatabase, ref, set, onValue, update } from 'firebase/database'
 import { isInCart } from '../../utils/helpers'
 import Slideshow from '../../utils/Slideshow'
-import { BsHeart, BsHeartFill } from 'react-icons/bs'
-import { useDispatch, useSelector } from 'react-redux'
-import { selectIsLike, setDislike, setLike } from '../../slices/appSlices'
+import { AiFillStar } from 'react-icons/ai'
+// import { useDispatch, useSelector } from 'react-redux'
+// import { selectIsLike, setDislike, setLike } from '../../slices/appSlices'
 
 const SingleProductModal = ({
 	category,
@@ -25,52 +25,57 @@ const SingleProductModal = ({
 	sethairType,
 	setColor,
 }) => {
-	const database = getDatabase()
-	const dispatch = useDispatch()
-	const isLike = useSelector(selectIsLike)
-	const [count, setCount] = React.useState(0)
-	const [noOfLikes, setNoOfLikes] = React.useState(false)
+	const MAX_RATING = 5
+	const MIN_RATING = 1
+	const [rating] = React.useState(
+		Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1) + MIN_RATING)
+	)
+	const deci = Number(Math.random().toFixed(1))
+	// const database = getDatabase()
+	// const dispatch = useDispatch()
+	// const isLike = useSelector(selectIsLike)
+	// const [noOfLikes, setNoOfLikes] = React.useState(false)
 
-	React.useEffect(() => {
-		const starCountRef = ref(database, category)
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
+	// 	React.useEffect(() => {
+	// 		const starCountRef = ref(database, category)
+	// 		onValue(starCountRef, (snapshot) => {
+	// 			const data = snapshot.val()
+	//
+	// 			setNoOfLikes(data.no)
+	// 		})
+	// 		// eslint-disable-next-line react-hooks/exhaustive-deps
+	// 	}, [])
 
-			setNoOfLikes(data.no)
-		})
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
-
-	const handleLike = () => {
-		dispatch(setLike(singleProducts?.[0]?.name))
-
-		const starCountRef = ref(database, category)
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-			setCount(data.no)
-		})
-
-		set(ref(database, category), {
-			no: count + 1,
-		})
-	}
-
-	const handleDislike = () => {
-		dispatch(setDislike(singleProducts?.[0]?.name))
-		const starCountRef = ref(database, category)
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-			setCount(data.no)
-		})
-
-		if (count > 1) {
-			const updates = {}
-			updates[category] = {
-				no: count - 1,
-			}
-			return update(ref(database), updates)
-		}
-	}
+	// 	const handleLike = () => {
+	// 		dispatch(setLike(singleProducts?.[0]?.name))
+	//
+	// 		const starCountRef = ref(database, category)
+	// 		onValue(starCountRef, (snapshot) => {
+	// 			const data = snapshot.val()
+	// 			setCount(data.no)
+	// 		})
+	//
+	// 		set(ref(database, category), {
+	// 			no: count + 1,
+	// 		})
+	// 	}
+	//
+	// 	const handleDislike = () => {
+	// 		dispatch(setDislike(singleProducts?.[0]?.name))
+	// 		const starCountRef = ref(database, category)
+	// 		onValue(starCountRef, (snapshot) => {
+	// 			const data = snapshot.val()
+	// 			setCount(data.no)
+	// 		})
+	//
+	// 		if (count > 1) {
+	// 			const updates = {}
+	// 			updates[category] = {
+	// 				no: count - 1,
+	// 			}
+	// 			return update(ref(database), updates)
+	// 		}
+	// 	}
 
 	return (
 		<div>
@@ -80,14 +85,14 @@ const SingleProductModal = ({
 						<div className="tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
 							<Slideshow images={singleProducts?.[0]} />
 						</div>
-						<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 tw-mt-5 md:tw-mt-0">
+						<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 tw-mt-10 md:tw-mt-0">
 							<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
 								{singleProducts?.[0].name}
 							</p>
 							<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-mt-0">
 								Description: {singleProducts?.[0].description}
 							</p>
-							<div className="tw-flex tw-flex-row tw-items-center tw-justify-between">
+							<div className="tw-flex tw-flex-col">
 								<p className="tw-font-medium tw-text-xl tw-my-[10px]">
 									Price:{' '}
 									{singleProducts?.[0]?.sales &&
@@ -104,7 +109,20 @@ const SingleProductModal = ({
 										${singleProducts?.[0].price} USD
 									</span>
 								</p>
-								<div className="tw-flex tw-flex-row tw-items-center ">
+								<div className="tw-flex tw-items-center">
+									<span className="tw-mr-2">Review: </span>
+									{Array(rating)
+										.fill()
+										.map((_, i) => (
+											<AiFillStar
+												className="tw-text-red-800"
+												size={20}
+												key={i}
+											/>
+										))}
+									<span className="tw-ml-1">{rating + deci}</span>
+								</div>
+								{/* <div className="tw-flex tw-flex-row tw-items-center ">
 									<span className="tw-text-xs">
 										{noOfLikes > 1 && `${noOfLikes} likes`}
 										{(noOfLikes === 1 || noOfLikes === 0) &&
@@ -121,7 +139,7 @@ const SingleProductModal = ({
 											className="tw-ml-2 hover:tw-cursor-pointer"
 										/>
 									)}
-								</div>
+								</div> */}
 							</div>
 							{singleProducts?.[0]?.sales && (
 								<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-my-1 tw-text-red-600">
