@@ -145,7 +145,8 @@ const SingleProductModal = ({
 							</div>
 							{singleProducts?.[0]?.sales && (
 								<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-my-1 tw-text-red-600">
-									Sales: {sales && `${sales} %`}
+									Sales: {sales && `${sales}%`}{' '}
+									<span className="tw-text-xs">OFF</span>
 								</p>
 							)}
 							<div className="tw-my-5 tw-border-t-[1px] tw-border-b-[1px] tw-border-red-700 tw-py-5">
