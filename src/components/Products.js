@@ -1,5 +1,4 @@
 import React from 'react'
-import { getDatabase, ref, onValue } from 'firebase/database'
 import Slideshow from '../utils/Slideshow'
 import Card from './Card'
 import About from './About'
@@ -13,17 +12,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import Add2CartPopup from './shared/Add2CartPopup'
 import { AiFillStar } from 'react-icons/ai'
 
-function Products({ allProducts }) {
+function Products({ allProducts, sales }) {
 	const [singleProducts, setSingleproducts] = React.useState(null)
 	const [singleCart, setSingleCart] = React.useState(null)
 	const [error, setError] = React.useState(false)
-	const [sales, setSales] = React.useState(null)
 	const [length, setLength] = React.useState(null)
 	const [_color, setColor] = React.useState(null)
 	const [_hairType, sethairType] = React.useState(null)
 	const dispatch = useDispatch()
 	const cartItems = useSelector(selectCartItems)
-	const database = getDatabase()
 
 	const MAX_RATING = 5
 	const MIN_RATING = 1
@@ -41,16 +38,6 @@ function Products({ allProducts }) {
 	const scrollToTop = function scrollToTop() {
 		window.scrollTo(0, 0)
 	}
-
-	React.useEffect(() => {
-		const starCountRef = ref(database, 'sales')
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-
-			setSales(data.no)
-		})
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
 
 	const sizes = singleProducts?.[0].availablelength.split(', ')
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { getDatabase, ref, onValue } from 'firebase/database'
 import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
 import Products from '../components/Products'
@@ -7,6 +8,18 @@ import Products from '../components/Products'
 function HomePage() {
 	const [hideRegionSet, setHideRegionSet] = React.useState(true)
 	const [allProducts, setAllproducts] = React.useState([])
+	const [sales, setSales] = React.useState(null)
+	const database = getDatabase()
+
+	React.useEffect(() => {
+		const starCountRef = ref(database, 'sales')
+		onValue(starCountRef, (snapshot) => {
+			const data = snapshot.val()
+
+			setSales(data.no)
+		})
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	async function fetchProducts() {
 		try {
@@ -56,8 +69,12 @@ function HomePage() {
 									allProducts.length === 0 ? 'tw-pt-[230px]' : 'tw-pt-[120px]'
 							  } tw-pb-10 md:tw-py-[50px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
 							: `tw-flex tw-flex-col tw-items-center ${
-									allProducts.length === 0 ? 'tw-pt-[230px]' : 'tw-pt-[125px]'
-							  } md:tw-pb-[50px] md:tw-pt-[75px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
+									allProducts.length === 0 && 'tw-pt-[230px]'
+							  } ${
+									sales !== 0
+										? 'md:tw-pt-[75px] tw-pt-[95px]'
+										: 'md:tw-pt-[35px] tw-pt-[50px]'
+							  } md:tw-pb-[50px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
 					}>
 					{allProducts.length !== 0 ? (
 						<div className="tw-flex tw-flex-col tw-items-center">
