@@ -21,12 +21,14 @@ function NavIcons() {
 	}
 
 	return (
-		<div className=" tw-flex tw-flex-row tw-w-46 tw-mr-[-15px] tw-justify-center tw-items-center">
+		<div className=" tw-flex tw-flex-row tw-w-46 tw-justify-end tw-items-center">
 			<div
 				onClick={() =>
 					navigate(`/user-cart/${user?.displayName || 'new-customer'}`)
 				}
-				className="tw-w-30 tw-h-30 tw-text-gray-800 tw-text-xl tw-mb-3 hover:tw-cursor-pointer hover:tw-bg-gray-300 hover:tw-p-2 hover:tw-rounded-full hover:tw--mb-[2px] tw-ease-in tw-duration-300 tw-relative">
+				className={`${
+					itemCount > 0 && 'tw-mt-4 tw-mr-5'
+				} tw-w-30 tw-h-30 tw-text-gray-800 tw-text-xl tw-mb-3 hover:tw-cursor-pointer hover:tw-bg-gray-300 hover:tw-p-2 hover:tw-rounded-full hover:tw--mb-[2px] tw-ease-in tw-duration-300 tw-relative`}>
 				{itemCount > 0 ? (
 					<MdShoppingBag size={25} />
 				) : (
@@ -39,7 +41,7 @@ function NavIcons() {
 				)}
 			</div>
 			{user && (
-				<div className="tw-flex  tw-ml-[20px] tw-flex-col tw-justify-center tw-items-center hover:tw-opacity-[0.5] hover:tw-cursor-pointer  tw-relative">
+				<div className="tw-flex tw-ml-[20px] tw-mr-4 tw-flex-col tw-justify-center tw-items-center hover:tw-opacity-[0.5] hover:tw-cursor-pointer  tw-relative">
 					<div className="tw-text-gray-800 tw-text-xl tw-ease-in tw-duration-500">
 						<FiLogOut onClick={handleSignOut} />
 					</div>
@@ -49,7 +51,7 @@ function NavIcons() {
 				</div>
 			)}
 			{!user && (
-				<div className="tw-w-[80px] tw-ml-[25px] tw-flex tw-flex-row tw-justify-between tw-items-center">
+				<div className="tw-w-[60%] md:tw-w-[35%] tw-ml-[25px] tw-flex tw-flex-row tw-justify-between tw-items-center">
 					<div className="tw-flex tw-flex-col tw-justify-center tw-items-center hover:tw-opacity-[0.5] hover:tw-cursor-pointer tw-relative">
 						<div className="tw-text-gray-800 tw-text-xl tw-ease-in tw-duration-500">
 							<FiLogIn onClick={() => navigate('/login')} />
@@ -58,7 +60,7 @@ function NavIcons() {
 							sign in
 						</span>
 					</div>
-					<div className="tw-flex tw-flex-col tw-justify-center tw-items-center hover:tw-opacity-[0.5] hover:tw-cursor-pointer tw-relative">
+					<div className="tw-flex tw-flex-col tw-justify-center tw-items-center hover:tw-opacity-[0.5] hover:tw-cursor-pointer tw-relative tw-mr-2">
 						<div className="tw-text-gray-800 tw-text-xl tw-ease-in tw-duration-500">
 							<MdAssignmentInd onClick={() => navigate('/register')} />
 						</div>

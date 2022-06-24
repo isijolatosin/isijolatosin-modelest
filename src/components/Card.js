@@ -61,25 +61,25 @@ function Card({ product, setSingleproducts, scrollToTop, sales }) {
 						)}
 					</div>
 					<div className="tw-pt-2 tw-w-full">
-						<div className="tw-flex tw-justify-between tw-items-center tw-w-full">
+						<div className="tw-flex tw-justify-between tw-w-full">
 							<p
 								className={
 									product.instock
-										? 'tw-flex-[0.7] tw-text-xs tw-font-bold'
+										? 'tw-flex-[0.6] tw-text-xs tw-font-bold'
 										: 'tw-text-xs tw-font-bold'
 								}>
 								{product.name}
 							</p>
 							{product.instock && (
-								<div className="tw-flex-[0.3] tw-justify-end tw-flex tw-items-center">
+								<div className="tw-flex-[0.4] tw-justify-center tw-flex tw-h-[20px] tw-bg-neutral-600 tw-pr-2 tw-text-neutral-50 tw-p-[2px]">
 									<GrCheckmark />
-									<span className="tw-text-[10px] tw-ml-1 tw-font-semibold">
+									<span className="tw-text-[10px] tw-ml-1 tw-font-bold">
 										In Stock
 									</span>
 								</div>
 							)}
 						</div>
-						<p className=" tw-text-xs tw-text-neutral-600 tw-mb-3">
+						<p className="tw-mt-4 tw-border-t-[1px] tw-pt-2 tw-border-neutral-700 tw-text-xs tw-text-neutral-900 tw-mb-3">
 							{truncate(product.description)}
 						</p>
 					</div>

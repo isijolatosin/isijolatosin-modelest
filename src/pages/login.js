@@ -56,7 +56,7 @@ const Login = () => {
 			</Helmet>
 			<Layout>
 				<main className="home">
-					<section className="tw-flex tw-flex-col tw-items-center tw-mt-[150px] lg:tw-pt-[100px]">
+					<section className="tw-flex tw-flex-col tw-items-center tw-pt-[150px] lg:tw-pt-[100px]">
 						<div className="tw-text-center">
 							<h1 className="tw-text-2xl tw-font-bold tw-mb-10 tw-text-neutral-50">
 								Sign In

@@ -156,21 +156,21 @@ function Card({
 				</div>
 			)}
 			<div className="bg-blur tw-text-neutral-800 tw-px-2 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-sm">
-				<div className="tw-pt-2 tw-flex tw-justify-between tw-w-full">
-					<p className=" tw-text-xs">{product.name}</p>
-					<div className="tw-pb-2 tw-text-xs">
+				<div className="tw-pt-2 tw-flex tw-justify-between tw-w-full tw-text-[14px]">
+					<p className="tw-font-light">{product.name}</p>
+					<div className="tw-pb-2 tw-flex tw-flex-col">
 						{sales !== 0 && product.sales && (
-							<span className="tw-mr-2 tw-tracking-wider tw-font-semibold">
-								${salesAmount.toFixed(2)}
+							<span className="tw-mr-2 tw-font-semibold">
+								${salesAmount.toFixed(2)} USD
 							</span>
 						)}
 						<span
 							className={
 								sales !== 0 && product.sales
-									? 'tw-line-through tw-tracking-wider  tw-font-light'
-									: 'tw-tracking-wider'
+									? 'tw-line-through tw-font-light tw-text-[11px]'
+									: 'tw-font-semibold'
 							}>
-							${cardPrice.toFixed(2)}
+							${cardPrice.toFixed(2)} USD
 						</span>
 					</div>
 				</div>

@@ -206,30 +206,29 @@ function Card({
 			)}
 			<div className="bg-blur tw-text-neutral-800 tw-px-2 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-sm">
 				<div className="tw-flex tw-flex-row tw-justify-between">
-					<div className="tw-pt-2 tw-flex tw-justify-between tw-w-full tw-text-xs">
-						<p className="">{product.name}</p>
-						{/* <p className=" tw-text-xs tw-text-neutral-600">
-							{product.description}
-						</p> */}
-						<div className="tw-pb-2">
+					<div className="tw-pt-2 tw-flex tw-justify-between tw-w-full tw-text-[14px]">
+						<p className="tw-font-light">{product.name}</p>
+						<div className="tw-pb-2 tw-flex tw-flex-col">
 							{sales !== 0 && product.sales && (
-								<span className="tw-mr-1 tw-tracking-wider tw-font-semibold">
+								<span className="tw-mr-1 tw-font-semibold">
 									$
 									{product.color === 'blonde613'
 										? salesAmount2.toFixed(2)
-										: salesAmount1.toFixed(2)}
+										: salesAmount1.toFixed(2)}{' '}
+									USD
 								</span>
 							)}
 							<span
 								className={
 									sales !== 0 && product.sales
-										? 'tw-line-through tw-tracking-wider tw-font-light'
-										: 'tw-tracking-wider'
+										? 'tw-line-through tw-font-light tw-text-[11px]'
+										: 'tw-font-semibold'
 								}>
 								$
 								{product.color === 'blonde613'
 									? cardPrice2.toFixed(2)
-									: cardPrice1.toFixed(2)}
+									: cardPrice1.toFixed(2)}{' '}
+								USD
 							</span>
 						</div>
 					</div>
