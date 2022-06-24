@@ -155,8 +155,8 @@ function HairBundles() {
 							? `${
 									hairBundles.length === 0 && !show
 										? 'tw-pt-[230px] home'
-										: 'tw-pt-[160px] home'
-							  } tw-pb-10 md:tw-pt-[150px] tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto`
+										: 'tw-pt-[165px] home'
+							  } tw-pb-10 md:tw-pt-[120px] tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto`
 							: 'tw-pb-10 tw-pt-24 tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto'
 					}>
 					<Add2CartPopup
