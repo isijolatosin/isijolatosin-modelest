@@ -1,15 +1,27 @@
 import React from 'react'
+import { getDatabase, ref, onValue } from 'firebase/database'
 import ImageComponent from './ImageComponent'
 import LinksComponent from './LinksComponent'
 import NavIcons from './NavIcons'
 
 function Nav() {
+	const [sales, setSales] = React.useState(null)
+	const database = getDatabase()
+	React.useEffect(() => {
+		const starCountRef = ref(database, 'sales')
+		onValue(starCountRef, (snapshot) => {
+			const data = snapshot.val()
+
+			setSales(data.no)
+		})
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 	return (
 		<div>
-			{localStorage.getItem('isSales') && (
+			{sales !== 0 && (
 				<div className="tw-bg-black tw-flex tw-flex-col tw-text-white tw-border-b-[1px] tw-font-bold tw-text-center tw-py-2 lg:tw-text-3xl">
 					<span className="tw-text-xl">
-						PROMO SALE! 15% OFF ON EVERYTHING!!
+						PROMO SALE! {sales}% OFF ON EVERYTHING!!
 					</span>
 					{/* <span className="tw-text-[16px] tw-my-[-10px]">
 						Price deducted at checkout!

@@ -54,10 +54,10 @@ function HomePage() {
 						allProducts.every((product) => product.sales)
 							? `tw-flex tw-flex-col tw-items-center ${
 									allProducts.length === 0 ? 'tw-pt-[230px]' : 'tw-pt-[120px]'
-							  } tw-pb-10 md:tw-py-[100px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
+							  } tw-pb-10 md:tw-py-[50px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
 							: `tw-flex tw-flex-col tw-items-center ${
-									allProducts.length === 0 ? 'tw-pt-[230px]' : 'tw-pt-[150px]'
-							  } md:tw-py-[100px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
+									allProducts.length === 0 ? 'tw-pt-[230px]' : 'tw-pt-[50px]'
+							  } md:tw-py-[50px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
 					}>
 					{allProducts.length !== 0 ? (
 						<div className="tw-flex tw-flex-col tw-items-center">

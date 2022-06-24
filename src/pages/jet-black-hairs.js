@@ -1,6 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import axios from 'axios'
+import { getDatabase, ref, onValue } from 'firebase/database'
 import Layout from '../components/shared/Layout'
 import Card from '../components/Card3'
 import {
@@ -18,14 +19,21 @@ function JetBlackHair() {
 	const [jetBlackHair, setJetBlackHair] = React.useState([])
 	const [show, setShow] = React.useState(false)
 	const [error, setError] = React.useState(false)
-	const [sales, setSales] = React.useState(false)
+	const [sales, setSales] = React.useState(null)
 	const [length, setLength] = React.useState(null)
 	const cartItems = useSelector(selectCartItems)
 	const [singleCart, setSingleCart] = React.useState(null)
 	const dispatch = useDispatch()
+	const database = getDatabase()
 
 	React.useEffect(() => {
-		setSales(localStorage.getItem('isSales'))
+		const starCountRef = ref(database, 'sales')
+		onValue(starCountRef, (snapshot) => {
+			const data = snapshot.val()
+
+			setSales(data.no)
+		})
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	async function fetchProducts() {
@@ -56,9 +64,10 @@ function JetBlackHair() {
 	}
 	const sizes = singleProducts?.[0].availablelength.split(', ')
 
-	let cardPrice = sales
-		? singleProducts?.[0]?.price - singleProducts?.[0]?.price * 0.15
-		: singleProducts?.[0]?.price
+	let cardPrice =
+		sales !== 0
+			? singleProducts?.[0]?.price - singleProducts?.[0]?.price * sales
+			: singleProducts?.[0]?.price
 
 	let _price
 
@@ -147,7 +156,7 @@ function JetBlackHair() {
 										? 'tw-pt-[230px] home'
 										: 'tw-pt-[160px] home'
 							  } tw-pb-10 md:tw-pt-[150px] tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto`
-							: 'tw-pb-10 md:tw-pt-24 tw-pt-32 tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto'
+							: 'tw-pb-10 tw-pt-24 tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto'
 					}>
 					<Add2CartPopup
 						singleCart={singleCart}
