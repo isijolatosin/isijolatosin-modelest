@@ -74,7 +74,7 @@ function ClosureFrontal() {
 
 	let cardPrice =
 		sales !== 0
-			? singleProducts?.[0]?.price - singleProducts?.[0]?.price * sales
+			? singleProducts?.[0]?.price - singleProducts?.[0]?.price * (sales / 100)
 			: singleProducts?.[0]?.price
 
 	let _price
@@ -114,7 +114,9 @@ function ClosureFrontal() {
 			: _color?.includes('Natural black') && _hairType?.includes('Straight')
 			? singleProducts?.[0]?.sales && _price
 			: _color?.includes('Blonde613') &&
-			  (_hairType?.includes('Bodywave') || _hairType?.includes('Wavy'))
+			  (_hairType?.includes('Bodywave') ||
+					_hairType?.includes('Wavy') ||
+					_hairType?.includes('Curly'))
 			? singleProducts?.[0]?.sales && (_price += 15)
 			: (_price += 10)
 
@@ -193,6 +195,7 @@ function ClosureFrontal() {
 							{closureFrontal.map((item) => (
 								<div key={item._id}>
 									<Card
+										sales={sales}
 										key={item._id}
 										product={item}
 										setSingleproducts={setSingleproducts}

@@ -3,7 +3,7 @@ import axios from 'axios'
 import { GrCheckmark } from 'react-icons/gr'
 import truncate from '../utils/truncate'
 
-function Card({ product, setSingleproducts, scrollToTop }) {
+function Card({ product, setSingleproducts, scrollToTop, sales }) {
 	const [clickedID, setClickedID] = React.useState('')
 
 	function handleMouseIn(event) {
@@ -47,13 +47,13 @@ function Card({ product, setSingleproducts, scrollToTop }) {
 			<div className="bg-blur tw-text-neutral-800 tw-px-2 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-sm">
 				<div className="tw-relative tw-flex tw-flex-row tw-justify-between">
 					<div className="tw-w-full tw-flex tw-flex-row tw-justify-between tw-items-center tw-absolute tw-top-[-24px] tw-right-0 tw-left-0 tw-text-neutral-50 tw-bg-[rgba(0,0,0,0.8)] tw-px-2 tw-py-1 tw-text-xs">
-						{product?.sales ? (
+						{sales !== 0 && product?.sales ? (
 							<>
 								<span className="tw-text-neutral-500 tw-line-through">
 									${product?.price}.00 USD
 								</span>
 								<span className="tw-mr-2">
-									${product?.price - product?.price * 0.15} USD
+									${product?.price - product?.price * (sales / 100)} USD
 								</span>
 							</>
 						) : (

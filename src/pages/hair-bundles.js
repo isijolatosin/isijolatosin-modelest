@@ -67,7 +67,7 @@ function HairBundles() {
 
 	let cardPrice =
 		sales !== 0
-			? singleProducts?.[0]?.price - singleProducts?.[0]?.price * sales
+			? singleProducts?.[0]?.price - singleProducts?.[0]?.price * (sales / 100)
 			: singleProducts?.[0]?.price
 
 	let _price
@@ -169,6 +169,7 @@ function HairBundles() {
 								{hairBundles.map((item) => (
 									<div key={item._id}>
 										<Card
+											sales={sales}
 											key={item._id}
 											product={item}
 											setSingleproducts={setSingleproducts}

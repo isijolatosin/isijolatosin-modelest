@@ -33,7 +33,7 @@ function NavIcons() {
 					<MdOutlineShoppingBag size={25} />
 				)}
 				{itemCount > 0 && (
-					<span className="tw-absolute tw--top-[20px] tw-right-[-20px] tw-border-[2px] tw-border-neutral-50 tw-font-bold tw-text-sm bg-blur3 tw-bg-clip-text tw-text-neutral-800 tw-rounded-full tw-p-4 tw-h-2 tw-w-2 tw-flex tw-mx-auto tw-justify-center tw-items-center">
+					<span className="tw-absolute tw--top-[10px] tw-right-[-18px] tw-border-[2px] tw-border-neutral-50 tw-font-bold tw-text-sm bg-blur3 tw-bg-clip-text tw-text-neutral-800 tw-rounded-full tw-p-3 tw-h-1 tw-w-1 tw-flex tw-mx-auto tw-justify-center tw-items-center">
 						{itemCount}
 					</span>
 				)}

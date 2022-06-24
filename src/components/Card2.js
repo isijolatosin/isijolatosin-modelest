@@ -10,7 +10,13 @@ import {
 } from '../slices/appSlices'
 import { isInCart } from '../utils/helpers'
 
-function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
+function Card({
+	product,
+	setSingleproducts,
+	setSingleCart,
+	scrollToTop,
+	sales,
+}) {
 	const [clickedID, setClickedID] = React.useState('')
 	// const [ID, setID] = React.useState('')
 	const cartItems = useSelector(selectCartItems)
@@ -42,7 +48,7 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 		scrollToTop()
 	}
 
-	let salesAmount = Number(product.price - product.price * 0.15)
+	let salesAmount = Number(product.price - product.price * (sales / 100))
 	let cardPrice = product.price
 
 	// Actual price
@@ -137,9 +143,9 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 				alt={product._id}
 				className=" tw-w-[400px] tw-h-full tw-object-cover tw-rounded-sm hover:tw-cursor-pointer"
 			/>
-			{product?.sales && (
+			{product?.sales && sales !== 0 && (
 				<span className="tw-absolute tw-top-0 tw-left-0 tw-bg-gray-600 tw-text-white tw-rounded-tl-sm tw-rounded-br-sm tw-text-xs tw-p-[2px] tw-font-light">
-					{product.sales && 'on sales'}
+					on sales
 				</span>
 			)}
 			{clickedID === product._id && (
@@ -153,14 +159,14 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 				<div className="tw-pt-2 tw-flex tw-justify-between tw-w-full">
 					<p className=" tw-text-xs">{product.name}</p>
 					<div className="tw-pb-2 tw-text-xs">
-						{product.sales && (
+						{sales !== 0 && product.sales && (
 							<span className="tw-mr-2 tw-tracking-wider tw-font-semibold">
 								${salesAmount.toFixed(2)}
 							</span>
 						)}
 						<span
 							className={
-								product.sales
+								sales !== 0 && product.sales
 									? 'tw-line-through tw-tracking-wider  tw-font-light'
 									: 'tw-tracking-wider'
 							}>

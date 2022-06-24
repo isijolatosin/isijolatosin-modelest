@@ -92,7 +92,7 @@ function HomePage() {
 									</div>
 								</div>
 							)}
-							<Products allProducts={allProducts} />
+							<Products sales={sales} allProducts={allProducts} />
 						</div>
 					) : (
 						<div className="tw-rounded-full progress">

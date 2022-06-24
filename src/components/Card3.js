@@ -10,7 +10,13 @@ import {
 } from '../slices/appSlices'
 import { isInCart } from '../utils/helpers'
 
-function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
+function Card({
+	product,
+	setSingleproducts,
+	setSingleCart,
+	scrollToTop,
+	sales,
+}) {
 	const [clickedID, setClickedID] = React.useState('')
 	const cartItems = useSelector(selectCartItems)
 	const [error, setError] = React.useState(false)
@@ -41,7 +47,7 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 		scrollToTop()
 	}
 
-	let salesAmount1 = Number(product.price - product.price * 0.15)
+	let salesAmount1 = Number(product.price - product.price * (sales / 100))
 	let cardPrice1 = product.price
 
 	//  Actual Price
@@ -66,7 +72,7 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 	}
 	//  Sales Price
 	if (bundles.length === '14') {
-		salesAmount1 = product.price - product.price * 0.15
+		salesAmount1 = product.price - product.price * (sales / 100)
 	} else if (bundles.length === '16') {
 		salesAmount1 = salesAmount1 + 10
 	} else if (bundles.length === '18') {
@@ -85,7 +91,7 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 		salesAmount1 = salesAmount1 + 80
 	}
 
-	let salesAmount2 = Number(product.price - product.price * 0.15)
+	let salesAmount2 = Number(product.price - product.price * (sales / 100))
 	let cardPrice2 = product.price
 
 	//  Actual price
@@ -110,7 +116,7 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 	}
 	// Sales Price
 	if (bundles.length === '14') {
-		salesAmount2 = product.price - product.price * 0.15
+		salesAmount2 = product.price - product.price * (sales / 100)
 	} else if (bundles.length === '16') {
 		salesAmount2 = salesAmount2 + 10
 	} else if (bundles.length === '18') {
@@ -186,9 +192,9 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 				alt={product._id}
 				className=" tw-w-[400px] tw-h-full tw-object-cover tw-rounded-sm hover:tw-cursor-pointer"
 			/>
-			{product?.sales && (
+			{product?.sales && sales !== 0 && (
 				<span className="tw-absolute tw-top-0 tw-left-0 tw-bg-gray-600 tw-text-white tw-rounded-tl-sm tw-rounded-br-sm tw-text-xs tw-p-[2px] tw-font-light">
-					{product.sales && 'on sales'}
+					on sales
 				</span>
 			)}
 			{clickedID === product._id && (
@@ -206,7 +212,7 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 							{product.description}
 						</p> */}
 						<div className="tw-pb-2">
-							{product.sales && (
+							{sales !== 0 && product.sales && (
 								<span className="tw-mr-1 tw-tracking-wider tw-font-semibold">
 									$
 									{product.color === 'blonde613'
@@ -216,7 +222,7 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 							)}
 							<span
 								className={
-									product.sales
+									sales !== 0 && product.sales
 										? 'tw-line-through tw-tracking-wider tw-font-light'
 										: 'tw-tracking-wider'
 								}>
