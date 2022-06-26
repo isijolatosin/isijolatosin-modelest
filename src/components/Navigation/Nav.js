@@ -16,6 +16,7 @@ function Nav() {
 		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
+
 	return (
 		<div>
 			{sales !== 0 && (

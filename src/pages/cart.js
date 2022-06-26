@@ -1,5 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
+import { getDatabase, ref, onValue } from 'firebase/database'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { FaOpencart } from 'react-icons/fa'
@@ -19,9 +20,16 @@ const Cart = () => {
 	const cartItems = useSelector(selectCartItems)
 	const navigate = useNavigate()
 	const [sales, setSales] = React.useState(false)
+	const database = getDatabase()
 
 	React.useEffect(() => {
-		setSales(localStorage.getItem('isSales'))
+		const starCountRef = ref(database, 'sales')
+		onValue(starCountRef, (snapshot) => {
+			const data = snapshot.val()
+
+			setSales(data.no)
+		})
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	return (

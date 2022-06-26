@@ -29,13 +29,13 @@ function Card({ product, setSingleproducts, scrollToTop, sales }) {
 		<div
 			onMouseOver={handleMouseIn}
 			onMouseOut={() => setClickedID('')}
-			className="tw-w-[100%] tw-h-[300px] md:tw-w-[300px] tw-shadow-lg md:tw-h-[300px] tw-relative tw-rounded-sm">
+			className="tw-w-[100%] tw-h-[300px] md:tw-w-[300px] tw-shadow-lg md:tw-h-[300px] tw-relative tw-rounded-lg">
 			<img
 				onClick={handleViewImage}
 				id={product._id}
 				src={product?.image}
 				alt={product._id}
-				className=" tw-w-[400px] tw-h-full tw-object-cover tw-rounded-sm hover:tw-cursor-pointer"
+				className=" tw-w-[400px] tw-h-full tw-object-cover hover:tw-cursor-pointer tw-rounded-lg"
 			/>
 			{clickedID === product._id && (
 				<div className="tw-absolute tw-top-0 tw-right-0 tw-bg-neutral-300 tw-rounded-tr-sm tw-rounded-bl-sm tw-text-xs tw-p-2">
@@ -44,7 +44,7 @@ function Card({ product, setSingleproducts, scrollToTop, sales }) {
 					</span>
 				</div>
 			)}
-			<div className="bg-blur tw-text-neutral-800 tw-px-2 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-sm">
+			<div className="bg-blur tw-text-neutral-800 tw-px-2 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-lg">
 				<div className="tw-relative tw-flex tw-flex-row tw-justify-between">
 					<div className="tw-w-full tw-flex tw-flex-row tw-justify-between tw-items-center tw-absolute tw-top-[-24px] tw-right-0 tw-left-0 tw-text-neutral-50 tw-bg-[rgba(0,0,0,0.8)] tw-px-2 tw-py-1 tw-text-xs">
 						{sales !== 0 && product?.sales ? (
@@ -61,25 +61,8 @@ function Card({ product, setSingleproducts, scrollToTop, sales }) {
 						)}
 					</div>
 					<div className="tw-pt-2 tw-w-full">
-						<div className="tw-flex tw-justify-between tw-w-full">
-							<p
-								className={
-									product.instock
-										? 'tw-flex-[0.6] tw-text-xs tw-font-bold'
-										: 'tw-text-xs tw-font-bold'
-								}>
-								{product.name}
-							</p>
-							{product.instock && (
-								<div className="tw-flex-[0.4] tw-justify-center tw-flex tw-h-[20px] tw-bg-neutral-600 tw-pr-2 tw-text-neutral-50 tw-p-[2px]">
-									<GrCheckmark />
-									<span className="tw-text-[10px] tw-ml-1 tw-font-bold">
-										In Stock
-									</span>
-								</div>
-							)}
-						</div>
-						<p className="tw-mt-4 tw-border-t-[1px] tw-pt-2 tw-border-neutral-700 tw-text-xs tw-text-neutral-900 tw-mb-3">
+						<p className="tw-text-[14px] tw-font-bold">{product.name}</p>
+						<p className="tw-pt-2 tw-border-t-[1px] tw-border-neutral-700 tw-text-xs tw-text-neutral-900 tw-mb-3">
 							{truncate(product.description)}
 						</p>
 					</div>

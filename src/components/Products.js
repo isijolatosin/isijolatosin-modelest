@@ -169,7 +169,7 @@ function Products({ allProducts, sales }) {
 			}" inches`,
 		},
 	]
-	console.log(singleProducts)
+
 	return (
 		<div className="tw-pt-10 tw-relative tw-flex tw-flex-col tw-items-center ">
 			<div className="tw-absolute tw-top-[-100px] tw-right-0">
