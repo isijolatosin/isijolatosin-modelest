@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import { GrCheckmark } from 'react-icons/gr'
 import truncate from '../utils/truncate'
 
 function Card({ product, setSingleproducts, scrollToTop, sales }) {
