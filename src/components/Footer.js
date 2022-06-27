@@ -573,7 +573,7 @@ function Footer() {
 						compliance with applicable US federal and state regulations.
 					</p>
 					<div className="tw-mb-2 tw-mt-5">
-						<p className="tw-font-bold tw-uppercase">Photo Blast Disclaimer</p>
+						<p className="tw-font-bold tw-uppercase">Photo Share Disclaimer</p>
 					</div>
 					<p>
 						Upon sending ModelEst Hair, photos of you, our product, or tools
