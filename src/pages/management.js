@@ -64,7 +64,7 @@ function Management() {
 							: 'tw-mt-[60px] tw-pt-20 md:tw-pt-10 tw-flex tw-flex-col tw-w-[100vw] tw-items-center tw-bg-neutral-300'
 					}>
 					<div className="tw-flex tw-flex-row tw-items-center tw-justify-between tw-w-[85%]">
-						<Heading>Admin portal</Heading>
+						<Heading children="Admin portal" isBold={true} />
 						<div className="tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[50%] md:tw-w-[30%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-200">
 							<input
 								type="number"

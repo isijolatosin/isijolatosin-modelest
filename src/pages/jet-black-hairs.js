@@ -140,6 +140,20 @@ function JetBlackHair() {
 				sizes?.[sizes.length - 1]
 			}" inches`,
 		},
+		{ key: 'Material', value: '100% Human Hair' },
+		{ key: 'Density', value: '150% - 200%' },
+		{ key: 'Cap Size', value: 'Average Size(Head circumference: 54cm - 58cm' },
+		{ key: 'Can be bleached.dyed', value: 'Yes' },
+		{
+			key: 'Delivery time',
+			value:
+				'We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)',
+		},
+		{
+			key: 'Return policy',
+			value:
+				'We accept 30-days no reason return exchange with hair not been used',
+		},
 	]
 
 	return (

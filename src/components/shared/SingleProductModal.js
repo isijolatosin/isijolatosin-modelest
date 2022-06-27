@@ -1,4 +1,5 @@
 import React from 'react'
+import { CgClose } from 'react-icons/cg'
 import { isInCart } from '../../utils/helpers'
 import Slideshow from '../../utils/Slideshow'
 import Rating from './Rating'
@@ -25,12 +26,60 @@ const SingleProductModal = ({
 	return (
 		<div>
 			{singleProducts && (
-				<div className="single tw-absolute tw-z-30 tw-w-[100%] tw-h-[140%] md:tw-h-[100vh] tw-right-0 tw-left-0 tw-top-0 tw-bottom-0 md:tw-top-[50px] md:tw-pt-20 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
+				<div className="single tw-fixed tw-z-30 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-[0px] md:tw-pt-10 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
 					<div className="md:tw-w-[80%] xl:tw-w-[70%] md:tw-mx-auto tw-w-[100%] tw-h-full tw-flex md:tw-flex-row tw-flex-col">
 						<div className="tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
 							<Slideshow images={singleProducts?.[0]} />
+							{_hairColor && (
+								<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
+									<div className="tw-flex tw-flex-wrap">
+										{_hairColor.map((colr, idx) => (
+											<span
+												onClick={() => {
+													setColor(colr)
+													setError(false)
+												}}
+												className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300"
+												key={idx}>
+												<span>{colr}</span>
+											</span>
+										))}
+									</div>
+								</div>
+							)}
+							{texture && (
+								<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
+									<div className="tw-flex tw-flex-wrap">
+										{texture.map((tex, idx) => (
+											<span
+												onClick={() => {
+													sethairType(tex)
+												}}
+												className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300"
+												key={idx}>
+												<span>{tex}</span>
+											</span>
+										))}
+									</div>
+								</div>
+							)}
+							<div className="tw-flex tw-flex-col tw-mb-5 tw-ml-5 md:tw-ml-0">
+								<div className="tw-flex tw-flex-wrap">
+									{sizes.map((size, idx) => (
+										<span
+											onClick={() => {
+												setLength(size)
+												setError(false)
+											}}
+											className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-px-2 tw-text-[16px] tw-text-neutral-900 tw-p-5 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300"
+											key={idx}>
+											{size}inch
+										</span>
+									))}
+								</div>
+							</div>
 						</div>
-						<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 tw-mt-10 md:tw-mt-0">
+						<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900">
 							<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
 								{singleProducts?.[0].name}
 							</p>
@@ -77,77 +126,34 @@ const SingleProductModal = ({
 									</div>
 								))}
 							</div>
-							{_hairColor && (
-								<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
-									<div className="tw-flex tw-flex-wrap">
-										{_hairColor.map((colr, idx) => (
-											<span
-												onClick={() => {
-													setColor(colr)
-												}}
-												className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-300 tw-ease-in tw-duration-300"
-												key={idx}>
-												<span>{colr}</span>
-											</span>
-										))}
-									</div>
-								</div>
-							)}
-							{texture && (
-								<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
-									<div className="tw-flex tw-flex-wrap">
-										{texture.map((tex, idx) => (
-											<span
-												onClick={() => {
-													sethairType(tex)
-												}}
-												className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-300 tw-ease-in tw-duration-300"
-												key={idx}>
-												<span>{tex}</span>
-											</span>
-										))}
-									</div>
-								</div>
-							)}
-							<div className="tw-flex tw-flex-col tw-mb-5">
-								<div className="tw-flex tw-flex-wrap">
-									{sizes.map((size, idx) => (
-										<span
-											onClick={() => {
-												setLength(size)
-												setError(false)
-											}}
-											className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-px-2 tw-text-[16px] tw-text-neutral-900 tw-p-5 hover:tw-cursor-pointer hover:tw-bg-neutral-300 tw-ease-in tw-duration-300"
-											key={idx}>
-											{size}inch
-										</span>
-									))}
-								</div>
-							</div>
+
 							{error && (
 								<div>
 									<p className="tw-text-center tw-mb-2 tw-text-red-600 tw-text-xs">
-										Please provide length for {singleProducts?.[0].name}
+										{singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
+										singleProducts?.[0]?.type.toLowerCase() === 'closure'
+											? `Please provide color, texture and length for ${singleProducts?.[0].name}`
+											: `Please provide length for ${singleProducts?.[0].name}`}
 									</p>
 								</div>
 							)}
 							{isInCart(singleProduct, cartItems) ? (
 								<div
-									className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-cursor-pointer hover:tw-opacity-50 tw-ease-in tw-duration-300"
+									className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 tw-mb-40"
 									onClick={cartItems.length !== 0 ? IncreaseItem : null}>
 									<span>Add more</span>
 								</div>
 							) : (
 								<div
-									className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-cursor-pointer hover:tw-opacity-50 tw-ease-in tw-duration-300"
+									className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 tw-mb-40"
 									onClick={addToCart}>
 									<span>Add to cart</span>
 								</div>
 							)}
 							<div
 								onClick={() => setSingleproducts(null)}
-								className="tw-text-black tw-text-sm tw-font-normal tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-mt-5 tw-mb-20 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-300 hover:tw-cursor-pointer hover:tw-opacity-50 tw-ease-in tw-duration-300  ">
-								<span>Close</span>
+								className="tw-text-2xl tw-bg-neutral-200 tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-absolute tw-top-[20px] tw-right-[20px] tw-ease-in tw-duration-300 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white">
+								<CgClose />
 							</div>
 						</div>
 					</div>

@@ -45,7 +45,7 @@ const Slideshow = ({ images }) => {
 					onClick={nextSlide}
 				/>
 			)}
-			<div className="slider tw-h-[550px]">
+			<div className="slider tw-h-[550px] tw-mb-10">
 				{imageArray.map((item, idx) => (
 					<div key={idx} className={idx === current ? 'slide active' : 'slide'}>
 						{idx === current && (

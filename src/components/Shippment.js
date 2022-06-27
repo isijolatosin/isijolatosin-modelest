@@ -174,7 +174,7 @@ function Shippment() {
 	}
 	return (
 		<div className="tw-flex tw-flex-col tw-items-center tw-my-5">
-			<Heading>Shipment</Heading>
+			<Heading children="Shipment" isBold={true} />
 			{user?.email === AUTHORIZED_ID.id_one || AUTHORIZED_ID.id_two ? (
 				<div>
 					{trackingInput && (
