@@ -312,12 +312,12 @@ function Footer() {
 						<span>Terms and Services</span>
 					</div>
 					<p>
-						This website is operated by Only Raw Beauty. Throughout the site,
-						the terms “we”, “us” and “our” refer to Only Raw Beauty. Only Raw
-						Beauty offers this website, including all information, tools and
-						services available from this site to you, the user, conditioned upon
-						your acceptance of all terms, conditions, policies and notices
-						stated here.
+						This website is operated by modelEst hair. Throughout the site, the
+						terms “we”, “us” and “our” refer to modelEst hair. Only Raw Beauty
+						offers this website, including all information, tools and services
+						available from this site to you, the user, conditioned upon your
+						acceptance of all terms, conditions, policies and notices stated
+						here.
 						<br />
 						<br />
 						By visiting our site and/ or purchasing something from us, you
@@ -347,11 +347,6 @@ function Footer() {
 						It is your responsibility to check this page periodically for
 						changes. Your continued use of or access to the website following
 						the posting of any changes constitutes acceptance of those changes.
-						<br />
-						<br />
-						Our store is hosted on Shopify Inc. They provide us with the online
-						e-commerce platform that allows us to sell our products and services
-						to you.
 						<br />
 						<br />
 						<br />
@@ -427,6 +422,7 @@ function Footer() {
 						<p className="tw-font-normal">
 							SECTION 4 - MODIFICATIONS TO THE SERVICE AND PRICES
 						</p>
+						<br />
 						Prices for our products are subject to change without notice.
 						<br />
 						<br />
@@ -443,6 +439,7 @@ function Footer() {
 						<p className="tw-font-normal">
 							SECTION 5 - PRODUCTS OR SERVICES (if applicable)
 						</p>
+						<br />
 						Certain products or services may be available exclusively online
 						through the website. These products or services may have limited
 						quantities and are subject to return or exchange only according to
@@ -500,7 +497,7 @@ function Footer() {
 						<br />
 						<br />
 						<br />
-						<p className="tw-font-normal">SECTION 7 - OPTIONAL TOOLS</p>
+						{/* <p className="tw-font-normal">SECTION 7 - OPTIONAL TOOLS</p>
 						<br />
 						We may provide you with access to third-party tools over which we
 						neither monitor nor have any control nor input.
@@ -525,8 +522,9 @@ function Footer() {
 						to these Terms of Service.
 						<br />
 						<br />
+						<br /> */}
+						{/* <p className="tw-font-normal">SECTION 8 - THIRD-PARTY LINKS</p>
 						<br />
-						<p className="tw-font-normal">SECTION 8 - THIRD-PARTY LINKS</p>
 						Certain content, products and services available via our Service may
 						include materials from third-parties.
 						<br />
@@ -548,9 +546,9 @@ function Footer() {
 						products should be directed to the third-party.
 						<br />
 						<br />
-						<br />
+						<br /> */}
 						<p className="tw-font-normal">
-							SECTION 9 - USER COMMENTS, FEEDBACK AND OTHER SUBMISSIONS
+							SECTION 7 - USER COMMENTS, FEEDBACK AND OTHER SUBMISSIONS
 						</p>
 						<br />
 						If, at our request, you send certain specific submissions (for
@@ -587,7 +585,7 @@ function Footer() {
 						<br />
 						<br />
 						<br />
-						<p className="tw-font-normal">SECTION 10 - PERSONAL INFORMATION</p>
+						<p className="tw-font-normal">SECTION 8 - PERSONAL INFORMATION</p>
 						<br />
 						Your submission of personal information through the store is
 						governed by our Privacy Policy. To view our Privacy Policy.
@@ -595,7 +593,7 @@ function Footer() {
 						<br />
 						<br />
 						<p className="tw-font-normal">
-							SECTION 11 - ERRORS, INACCURACIES AND OMISSIONS
+							SECTION 9 - ERRORS, INACCURACIES AND OMISSIONS
 						</p>
 						<br />
 						Occasionally there may be information on our site or in the Service
@@ -618,7 +616,7 @@ function Footer() {
 						<br />
 						<br />
 						<br />
-						<p className="tw-font-normal">SECTION 12 - PROHIBITED USES</p>
+						<p className="tw-font-normal">SECTION 10 - PROHIBITED USES</p>
 						<br />
 						In addition to other prohibitions as set forth in the Terms of
 						Service, you are prohibited from using the site or its content: (a)
@@ -645,7 +643,7 @@ function Footer() {
 						<br />
 						<br />
 						<p className="tw-font-normal">
-							SECTION 13 - DISCLAIMER OF WARRANTIES; LIMITATION OF LIABILITY
+							SECTION 11 - DISCLAIMER OF WARRANTIES; LIMITATION OF LIABILITY
 						</p>
 						<br />
 						We do not guarantee, represent or warrant that your use of our
@@ -671,31 +669,31 @@ function Footer() {
 						particular purpose, durability, title, and non-infringement.
 						<br />
 						<br />
-						In no case shall Only Raw Beauty, our directors, officers,
-						employees, affiliates, agents, contractors, interns, suppliers,
-						service providers or licensors be liable for any injury, loss,
-						claim, or any direct, indirect, incidental, punitive, special, or
-						consequential damages of any kind, including, without limitation
-						lost profits, lost revenue, lost savings, loss of data, replacement
-						costs, or any similar damages, whether based in contract, tort
-						(including negligence), strict liability or otherwise, arising from
-						your use of any of the service or any products procured using the
-						service, or for any other claim related in any way to your use of
-						the service or any product, including, but not limited to, any
-						errors or omissions in any content, or any loss or damage of any
-						kind incurred as a result of the use of the service or any content
-						(or product) posted, transmitted, or otherwise made available via
-						the service, even if advised of their possibility. Because some
-						states or jurisdictions do not allow the exclusion or the limitation
-						of liability for consequential or incidental damages, in such states
-						or jurisdictions, our liability shall be limited to the maximum
-						extent permitted by law.
+						In no case shall modelEst hair, our directors, officers, employees,
+						affiliates, agents, contractors, interns, suppliers, service
+						providers or licensors be liable for any injury, loss, claim, or any
+						direct, indirect, incidental, punitive, special, or consequential
+						damages of any kind, including, without limitation lost profits,
+						lost revenue, lost savings, loss of data, replacement costs, or any
+						similar damages, whether based in contract, tort (including
+						negligence), strict liability or otherwise, arising from your use of
+						any of the service or any products procured using the service, or
+						for any other claim related in any way to your use of the service or
+						any product, including, but not limited to, any errors or omissions
+						in any content, or any loss or damage of any kind incurred as a
+						result of the use of the service or any content (or product) posted,
+						transmitted, or otherwise made available via the service, even if
+						advised of their possibility. Because some states or jurisdictions
+						do not allow the exclusion or the limitation of liability for
+						consequential or incidental damages, in such states or
+						jurisdictions, our liability shall be limited to the maximum extent
+						permitted by law.
 						<br />
 						<br />
 						<br />
-						<p className="tw-font-normal">SECTION 14 - INDEMNIFICATION</p>
+						<p className="tw-font-normal">SECTION 12 - INDEMNIFICATION</p>
 						<br />
-						You agree to indemnify, defend and hold harmless Only Raw Beauty and
+						You agree to indemnify, defend and hold harmless modelEst hair and
 						our parent, subsidiaries, affiliates, partners, officers, directors,
 						agents, contractors, licensors, service providers, subcontractors,
 						suppliers, interns and employees, harmless from any claim or demand,
@@ -706,7 +704,7 @@ function Footer() {
 						<br />
 						<br />
 						<br />
-						<p className="tw-font-normal">SECTION 15 - SEVERABILITY</p>
+						<p className="tw-font-normal">SECTION 13 - SEVERABILITY</p>
 						<br />
 						In the event that any provision of these Terms of Service is
 						determined to be unlawful, void or unenforceable, such provision
@@ -718,7 +716,7 @@ function Footer() {
 						<br />
 						<br />
 						<br />
-						<p className="tw-font-normal">SECTION 16 - TERMINATION</p>
+						<p className="tw-font-normal">SECTION 14 - TERMINATION</p>
 						<br />
 						The obligations and liabilities of the parties incurred prior to the
 						termination date shall survive the termination of this agreement for
@@ -740,7 +738,7 @@ function Footer() {
 						<br />
 						<br />
 						<br />
-						<p className="tw-font-normal">SECTION 17 - ENTIRE AGREEMENT</p>
+						<p className="tw-font-normal">SECTION 15 - ENTIRE AGREEMENT</p>
 						<br />
 						The failure of us to exercise or enforce any right or provision of
 						these Terms of Service shall not constitute a waiver of such right
@@ -761,7 +759,7 @@ function Footer() {
 						<br />
 						<br />
 						<br />
-						<p className="tw-font-normal">SECTION 18 - GOVERNING LAW</p>
+						<p className="tw-font-normal">SECTION 16 - GOVERNING LAW</p>
 						<br />
 						These Terms of Service and any separate agreements whereby we
 						provide you Services shall be governed by and construed in
@@ -770,7 +768,7 @@ function Footer() {
 						<br />
 						<br />
 						<p className="tw-font-normal">
-							SECTION 19 - CHANGES TO TERMS OF SERVICE
+							SECTION 17 - CHANGES TO TERMS OF SERVICE
 						</p>
 						<br />
 						You can review the most current version of the Terms of Service at
