@@ -1,10 +1,7 @@
 import React from 'react'
-// import { getDatabase, ref, set, onValue, update } from 'firebase/database'
 import { isInCart } from '../../utils/helpers'
 import Slideshow from '../../utils/Slideshow'
-import { AiFillStar } from 'react-icons/ai'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { selectIsLike, setDislike, setLike } from '../../slices/appSlices'
+import Rating from './Rating'
 
 const SingleProductModal = ({
 	category,
@@ -25,58 +22,6 @@ const SingleProductModal = ({
 	sethairType,
 	setColor,
 }) => {
-	const MAX_RATING = 5
-	const MIN_RATING = 1
-	const [rating] = React.useState(
-		Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1) + MIN_RATING)
-	)
-	const deci = Number(Math.random().toFixed(1))
-	// const database = getDatabase()
-	// const dispatch = useDispatch()
-	// const isLike = useSelector(selectIsLike)
-	// const [noOfLikes, setNoOfLikes] = React.useState(false)
-
-	// 	React.useEffect(() => {
-	// 		const starCountRef = ref(database, category)
-	// 		onValue(starCountRef, (snapshot) => {
-	// 			const data = snapshot.val()
-	//
-	// 			setNoOfLikes(data.no)
-	// 		})
-	// 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	// 	}, [])
-
-	// 	const handleLike = () => {
-	// 		dispatch(setLike(singleProducts?.[0]?.name))
-	//
-	// 		const starCountRef = ref(database, category)
-	// 		onValue(starCountRef, (snapshot) => {
-	// 			const data = snapshot.val()
-	// 			setCount(data.no)
-	// 		})
-	//
-	// 		set(ref(database, category), {
-	// 			no: count + 1,
-	// 		})
-	// 	}
-	//
-	// 	const handleDislike = () => {
-	// 		dispatch(setDislike(singleProducts?.[0]?.name))
-	// 		const starCountRef = ref(database, category)
-	// 		onValue(starCountRef, (snapshot) => {
-	// 			const data = snapshot.val()
-	// 			setCount(data.no)
-	// 		})
-	//
-	// 		if (count > 1) {
-	// 			const updates = {}
-	// 			updates[category] = {
-	// 				no: count - 1,
-	// 			}
-	// 			return update(ref(database), updates)
-	// 		}
-	// 	}
-
 	return (
 		<div>
 			{singleProducts && (
@@ -113,35 +58,8 @@ const SingleProductModal = ({
 								</p>
 								<div className="tw-flex tw-items-center">
 									<span className="tw-mr-2">Review: </span>
-									{Array(rating)
-										.fill()
-										.map((_, i) => (
-											<AiFillStar
-												className="tw-text-red-800"
-												size={20}
-												key={i}
-											/>
-										))}
-									<span className="tw-ml-1">{rating + deci}</span>
+									<Rating isNum={true} />
 								</div>
-								{/* <div className="tw-flex tw-flex-row tw-items-center ">
-									<span className="tw-text-xs">
-										{noOfLikes > 1 && `${noOfLikes} likes`}
-										{(noOfLikes === 1 || noOfLikes === 0) &&
-											`${noOfLikes} like`}
-									</span>
-									{isLike.includes(singleProducts?.[0]?.name) ? (
-										<BsHeartFill
-											onClick={handleDislike}
-											className="tw-ml-2 hover:tw-cursor-pointer tw-text-red-600"
-										/>
-									) : (
-										<BsHeart
-											onClick={handleLike}
-											className="tw-ml-2 hover:tw-cursor-pointer"
-										/>
-									)}
-								</div> */}
 							</div>
 							{singleProducts?.[0]?.sales && (
 								<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-my-1 tw-text-red-600">

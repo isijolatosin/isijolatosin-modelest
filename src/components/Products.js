@@ -10,7 +10,7 @@ import {
 } from '../slices/appSlices'
 import { useDispatch, useSelector } from 'react-redux'
 import Add2CartPopup from './shared/Add2CartPopup'
-import { AiFillStar } from 'react-icons/ai'
+import Rating from './shared/Rating'
 
 function Products({ allProducts, sales }) {
 	const [singleProducts, setSingleproducts] = React.useState(null)
@@ -21,13 +21,6 @@ function Products({ allProducts, sales }) {
 	const [_hairType, sethairType] = React.useState(null)
 	const dispatch = useDispatch()
 	const cartItems = useSelector(selectCartItems)
-
-	const MAX_RATING = 5
-	const MIN_RATING = 1
-	const [rating] = React.useState(
-		Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1) + MIN_RATING)
-	)
-	const deci = Number(Math.random().toFixed(1))
 
 	const _hairColor =
 		singleProducts?.[0]?.type.toLowerCase() === 'frontal'
@@ -234,12 +227,7 @@ function Products({ allProducts, sales }) {
 							</p>
 							<div className="tw-flex tw-items-center">
 								<span className="tw-mr-2">Review: </span>
-								{Array(rating)
-									.fill()
-									.map((_, i) => (
-										<AiFillStar className="tw-text-red-800" size={20} key={i} />
-									))}
-								<span className="tw-ml-1">{rating + deci}</span>
+								<Rating isNum={true} />
 							</div>
 							{singleProducts?.[0]?.sales && (
 								<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-my-1 tw-text-red-600">
