@@ -152,7 +152,7 @@ function JetBlackHair() {
 		{
 			key: 'Return policy',
 			value:
-				'We accept 30-days no reason return exchange with hair not been used',
+				'We accept 10-days no reason return exchange with hair not been used',
 		},
 	]
 

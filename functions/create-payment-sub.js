@@ -38,7 +38,7 @@ exports.handler = async function (event, context) {
 
 				const subscription = await stripe.subscriptions.create({
 					customer: customer.id,
-					cancel_at: daysFromNow(42),
+					cancel_at: new Date(daysFromNow(42) * 1000),
 					items: [{ plan: 'price_1KdiVMLTIkVkSAcp6fej2hu8' }],
 					expand: ['latest_invoice.payment_intent'],
 				})

@@ -7,8 +7,7 @@ import { RiVisaLine } from 'react-icons/ri'
 import { SiAmericanexpress } from 'react-icons/si'
 import { countries } from '../country'
 import { Link } from 'react-router-dom'
-// import { MdLocationPin } from 'react-icons/md'
-// import { googleSearch, location } from '../constant'
+import Heading from './Heading'
 
 function Footer() {
 	const paymentType = [
@@ -19,6 +18,8 @@ function Footer() {
 	const [country, setCountry] = React.useState('United States')
 	const [showContactForm, setShowContactForm] = React.useState(false)
 	const [showTerms, setShowTerms] = React.useState(false)
+	const [showShippingReturns, setShowShippingReturns] = React.useState(false)
+	const [showPrivacyReturns, setPrivacyReturns] = React.useState(false)
 	const handleOnChange = (e) => {
 		setCountry(e.target.value)
 		localStorage.setItem('country', e.target.value)
@@ -42,7 +43,7 @@ function Footer() {
 		},
 		{
 			id: 3,
-			name: 'Shipping & Returns',
+			name: 'Shipping & Returns Policy',
 		},
 		{
 			id: 4,
@@ -184,17 +185,6 @@ function Footer() {
 							))}
 						</ul>
 					</div>
-					{/* <div>
-						<MdLocationPin size={25} className="tw-text-yellow-500 tw-mb-2" />
-						<h1 className="tw-text-xs tw-font-bold  tw-mb-2">Location</h1>
-						<a
-							href={`${googleSearch + location}`}
-							target="_blank"
-							rel="noreferrer"
-							className="tw-flex-col tw-text-xs tw-font-light tw-flex tw-items-center tw-justify-center tw-mb-7 hover:tw-text-neutral-600 tw-ease tw-duration-300 ">
-							<span>{location}</span>
-						</a>
-					</div> */}
 				</div>
 				<div className=" tw-text-neutral-600">
 					<h1 className="tw-text-xs tw-font-bold  tw-mb-2">Customer Service</h1>
@@ -207,11 +197,28 @@ function Footer() {
 										? () => {
 												setShowContactForm(!showContactForm)
 												setShowTerms(false)
+												setShowShippingReturns(false)
+												setPrivacyReturns(false)
 										  }
 										: link.name === 'Terms and Conditions'
 										? () => {
 												setShowTerms(!showTerms)
 												setShowContactForm(false)
+												setShowShippingReturns(false)
+												setPrivacyReturns(false)
+										  }
+										: link.name === 'Shipping & Returns Policy'
+										? () => {
+												setShowShippingReturns(!showShippingReturns)
+												setShowTerms(false)
+												setShowContactForm(false)
+										  }
+										: link.name === 'Privacy Policy'
+										? () => {
+												setPrivacyReturns(!showPrivacyReturns)
+												setShowTerms(false)
+												setShowContactForm(false)
+												setShowShippingReturns(false)
 										  }
 										: null
 								}
@@ -239,6 +246,361 @@ function Footer() {
 					</div>
 				</div>
 			</div>
+			{showShippingReturns && (
+				<div className="tw-w-[80%] tw-text-sm tw-font-light tw-mb-10">
+					<div className="tw-text-center tw-mb-4 tw-mt-5 tw-font-light tw-text-lg tw-uppercase tw-border-b">
+						<Heading children="Shipping & Return Policy" isBold={true} />
+					</div>
+					<div className="tw-mb-2">
+						<p className="tw-font-bold tw-uppercase">Shipping Policy</p>
+					</div>
+					<p>
+						Once your modelEst order has been processed, it’s mode of shipping
+						is standard delivery. Shipping address must be imputed correctly.
+						All orders will require a signature upon delivery. Please allow at
+						least 5 days for order processing, order processing may take longer
+						than 5 days depending on order volume. Please allow another 2 weeks
+						- not subject to weekends, for orders to be shipped. Once order has
+						been shipped, a tracking number will be sent via email once order
+						has been dispatched. Failure to sign for the delivery may result in
+						the package being returned to your local post office
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">Order Processing</p>
+					</div>
+					<p>
+						Incorrect billing information and/or shipping to an address other
+						than the billing address may cause shipping delays, as information
+						must be verified. ModelEst has the right to decline an order and
+						issue a refund at our sole option. Confirmation of billing may be
+						required and customer can/will be contacted via phone and email to
+						complete.
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">Tracking information</p>
+					</div>
+					<p>
+						You will receive an email with a tracking number once your items
+						have been shipped. If you do not receive a tracking number within 14
+						business days of placing your order, email ModelEst at
+						<strong> modelEst1010@gmail.com</strong>. Please, have your order
+						number included in the email. We do not ship on weekends, holidays,
+						and in the occurrence of a natural disaster.
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">
+							Cancellation and modification policy
+						</p>
+					</div>
+					<p>
+						Orders can be changed or modified but never cancelled for “full
+						refund”. We DO NOT OFFER REFUNDS, due to the nature of the product.
+						Once the order has been placed, we will only make modifications to
+						the order. Please, refer to Return and Exchange Policy below.
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">
+							Return and exchange policy
+						</p>
+					</div>
+					<p>
+						Due to the nature of the product, your order must meet Federal
+						Health Regulations before requesting a return or exchange. All
+						returns are processed within 14 business days upon arrival to our
+						offices.
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">Return</p>
+					</div>
+					<p>
+						All hair has undergone a quality assurance process to ensure it is
+						free of imperfections. If you receive an item that is damaged,
+						defective, or materially different, please email customer service at
+						<strong> modelEst1010@gmail.com</strong> within 3 business days of
+						the receipt date. If the hair received does not meet our brand
+						standards, we will gladly exchange it and begin the exchange process
+						per our cost. Our fulfillment department must inspect all incoming
+						shipments to ensure all product is in its original condition. No
+						in-store credit will be given if product has been unraveled,
+						co-washed, or manipulated in any manner from its original state.
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">Exchanges</p>
+					</div>
+					<div>
+						<ul className="">
+							<li>
+								1. Requests must be made within 3 business days of receipt of
+								product(s).
+							</li>
+							<br />
+							<li>
+								2. Any exchange requested after 3 business days of receiving the
+								product will not be honored.
+							</li>
+							<br />
+							<li>
+								3. We will not accept any merchandise, which has been used or
+								altered (unraveled, washed, brushed, combed or cut) in any way.
+							</li>
+							<br />
+							<li>
+								4. According to the Federal law you cannot return human hair
+								products that have been used due to hygienic reasons. Please
+								return the item in the original and resalable condition as a
+								necessary health precaution.
+							</li>
+							<br />
+							<li>
+								5. Product must be exchanged for something of equal or greater
+								value.
+							</li>
+							<br />
+							<li>
+								6. In order to process an exchange, the product would need to be
+								sent back at your expense. When requesting an exchange, a
+								modelEst representative will send a return label to you via your
+								email address. This label should be printed and placed onto your
+								package to ensure your package is insured during its route back
+								to our offices. Once your product has been received it will be
+								examined thoroughly. If the product has been returned unused in
+								its original condition, we will exchange the product for
+								something of equal or greater value per your selection.
+							</li>
+							<br />
+							<li>
+								7. Exchanges are limited to two exchanges per order. No refunds
+								will be permitted, unless it is determined that ModelEst hair is
+								the party at fault due to a fulfillment error, then we shall
+								exchange the product at no additional cost to the customer.
+							</li>
+							<br />
+							<li>
+								8. Customer is responsible for the reshipment cost as that is a
+								separate service that has already been used.
+							</li>
+							<br />
+							<li>
+								9. For any exchange that permits a difference (less than
+								original) customer will hold a in-store credit for the remaining
+								balance owed as we do not refund ANY costs.
+							</li>
+						</ul>
+					</div>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">
+							Return and Exchange procedure
+						</p>
+					</div>
+					<p>
+						When you receive your item(s), open the box and visually examine the
+						product to verify if you have received the desired texture and
+						lengths you ordered. You can gently take the hair out of the
+						plastic. At this time, you can determine if the products you have
+						received are damaged, defective, or materially different from what
+						you ordered. Please, contact us immediately via email at
+						<strong> modelEst1010@gmail.com</strong> with any discrepancy or
+						questions.
+					</p>
+				</div>
+			)}
+			{showPrivacyReturns && (
+				<div className="tw-w-[80%] tw-text-sm tw-font-light tw-mb-10">
+					<div className="tw-text-center tw-mb-4 tw-mt-5 tw-font-light tw-text-lg tw-uppercase tw-border-b">
+						<Heading children="Privacy Policy" isBold={true} />
+					</div>
+					<div className="tw-mb-2">
+						<p className="tw-font-bold tw-uppercase">
+							Privacy Policy for ModelEst Hair
+						</p>
+					</div>
+					<p>
+						This policy describes the ways we collect, store, use and protect
+						your personal information. You accept this Privacy Policy when you
+						sign up for or use our products, services or any other features,
+						technologies or functionalities offered by us on our website,
+						application or through any other means collectively the "ModelEst
+						hair. ". We may amend this policy at any time by posting a revised
+						version on our website. The revised version will be effective at the
+						time we post it to Her Hair Company.
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">
+							What Information Do We Collect?
+						</p>
+					</div>
+					<p>
+						We collect information from you when you register on our site, place
+						an order, subscribe to our newsletter or fill out a form.
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">Orders</p>
+					</div>
+					<p>
+						If you purchase a product from us, we request certain personally
+						identifiable information from you on our order form. You must
+						provide contact information (such as name, email, and shipping
+						address, phone #) and financial information (such as credit card
+						number, expiration date, billing address). We use this information
+						for billing purposes and to fill your orders. If we have trouble
+						processing an order, we will use this information to contact you.
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">
+							How We Use the Personal Information We Collect
+						</p>
+					</div>
+					<p>
+						Our primary purpose in collecting personal information is to provide
+						you with a secure, smooth, efficient, and customized experience. We
+						use the Order Information that we collect generally to fulfill any
+						orders placed through the Site (including processing your payment
+						information, arranging for shipping, and providing you with invoices
+						and/or order confirmations). Additionally, we use this Order
+						Information to:
+						<br />
+						<br />
+						* Communicate with you;
+						<br />
+						<br />
+						* Process transactions and send notices about your transactions;
+						<br />
+						<br />
+						* Resolve disputes, collect fees, and troubleshoot problems;
+						<br />
+						<br /> * Prevent potentially prohibited or illegal activities, and
+						enforce our User Agreement;
+						<br />
+						<br /> * Screen our orders for potential risk or fraud; and
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">Customer Service</p>
+					</div>
+					<p>
+						When you place an order on our site, an email containing your
+						receipt will be sent immediately after checkout to confirm your
+						purchase.
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">Reviews/Testimonials</p>
+					</div>
+					<p>
+						If you use “Write a Review” to post a review on this Web site, you
+						should be aware that any personally identifiable information you
+						submit there can be read, collected, or used by other users of these
+						forums. We post testimonials and comments received from our
+						customers via email. We are not responsible for the personally
+						identifiable information you choose to submit in these forums.
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">
+							Information Sharing and Disclosure
+						</p>
+					</div>
+					<p>
+						We will share your personal information with third parties only in
+						the ways that are described in this privacy statement. We do not
+						sell, rent, trade, or otherwise share your personal information with
+						third parties except as described in this privacy statement.
+						<br />
+						<br />
+						We may also share your Personal Information to comply with
+						applicable laws and regulations, to respond to a subpoena, search
+						warrant or other lawful request for information we receive, or to
+						otherwise protect our rights.
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">Do Not Track</p>
+					</div>
+					<p>
+						Please note that we do not alter our Site’s data collection and use
+						practices when we see a Do Not Track signal from your browser.
+						<br />
+						<br />
+						If you are a European resident, you have the right to access
+						personal information we hold about you and to ask that your personal
+						information be corrected, updated, or deleted. If you would like to
+						exercise this right, please contact us through the contact
+						information below.
+						<br />
+						<br />
+						Additionally, if you are a European resident we note that we are
+						processing your information in order to fulfill contracts we might
+						have with you (for example if you make an order through the Site),
+						or otherwise to pursue our legitimate business interests listed
+						above. Additionally, please note that your information will be
+						transferred outside of Europe, including to Canada and the United
+						States.
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">Minors</p>
+					</div>
+					<p>The Site is not intended for individuals under the age of 18.</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">Data Retention</p>
+					</div>
+					<p>
+						When you place an order through the Site, we will maintain your
+						Order Information for our records unless and until you ask us to
+						delete this information.
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">Legal Disclaimer</p>
+					</div>
+					<p>
+						We reserve the right to disclose your personally identifiable
+						information as required by law and when we believe that disclosure
+						is necessary to protect our rights and/or comply with a judicial
+						proceeding, court order, or legal process served on our Web site.
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">
+							How We Protect and Store Personal Information
+						</p>
+					</div>
+					<p>
+						Throughout this policy, we use the term "personal information" to
+						describe information that can be associated with a specific person
+						and can be used to identify that person. We do not consider personal
+						information to include information that has been anonymized so that
+						it does not identify a specific user.
+						<br />
+						<br />
+						We store and process your personal information on our computers in
+						the US and elsewhere in the world where Her Hair Company Inc.
+						facilities or our service providers are located, and we protect it
+						by maintaining physical, electronic and procedural safeguards in
+						compliance with applicable US federal and state regulations.
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">Photo Blast Disclaimer</p>
+					</div>
+					<p>
+						Upon sending ModelEst Hair, photos of you, our product, or tools
+						used, they become property of ModelEst. Photos are used for but not
+						limited to promotions, marketing, social media, newsletters, and our
+						site. Owners’ rights to the photo are given to ModelEst Hair,
+						without the anticipation for royalties and/or lawsuits. NO photo
+						will be used for any reason to publicly harass or embarrass any
+						customer. All photos must be of high quality with no existing
+						watermarks. ModelEst Hair, will add a watermark to your photo to
+						prevent any other site, organization, company, or viewer to
+						illegally copy the image. We use the hashtag #ModelEstHair on social
+						media to specify the photos posted from our company. Thank you for
+						participating and supporting our company as well as providing our
+						viewers with an image to better help them see the products.
+					</p>
+					<div className="tw-mb-2 tw-mt-5">
+						<p className="tw-font-bold tw-uppercase">Contact Us</p>
+					</div>
+					<p>
+						For more information about our privacy practices, if you have
+						questions, or if you would like to make a complaint, please contact
+						us by e-mail at <strong> modelEst1010@gmail.com</strong> or by mail
+						using the details provided below:
+					</p>
+				</div>
+			)}
 
 			{showContactForm && (
 				<form
@@ -309,7 +671,7 @@ function Footer() {
 			{showTerms && (
 				<div className="tw-w-[80%] tw-text-sm tw-font-light tw-mb-10">
 					<div className="tw-text-center tw-mb-4 tw-mt-5 tw-font-light tw-text-lg tw-uppercase tw-border-b">
-						<span>Terms and Services</span>
+						<Heading children="Terms and Services" isBold={true} />
 					</div>
 					<p>
 						This website is operated by modelEst hair. Throughout the site, the
@@ -784,7 +1146,7 @@ function Footer() {
 						<br />
 						<br />
 						Questions about the Terms of Service should be sent to us at
-						<span className="tw-font-bold tw-ml-2">modelEst2020@gmail.com</span>
+						<span className="tw-font-bold tw-ml-2">modelEst1010@gmail.com</span>
 						.
 					</p>
 				</div>
