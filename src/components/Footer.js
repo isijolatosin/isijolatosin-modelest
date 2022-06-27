@@ -307,7 +307,7 @@ function Footer() {
 				</form>
 			)}
 			{showTerms && (
-				<div className="tw-w-[80%] tw-text-sm tw-font-light">
+				<div className="tw-w-[80%] tw-text-sm tw-font-light tw-mb-10">
 					<div className="tw-text-center tw-mb-4 tw-mt-5 tw-font-light tw-text-lg tw-uppercase tw-border-b">
 						<span>Terms and Services</span>
 					</div>
@@ -784,7 +784,8 @@ function Footer() {
 						<br />
 						<br />
 						Questions about the Terms of Service should be sent to us at
-						modelEst1010@gmail.com.
+						<span className="tw-font-bold tw-ml-2">modelEst2020@gmail.com</span>
+						.
 					</p>
 				</div>
 			)}
