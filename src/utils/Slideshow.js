@@ -32,7 +32,7 @@ const Slideshow = ({ images }) => {
 	}
 
 	return (
-		<div className="tw-relative ">
+		<div className="tw-relative tw-my-10 ">
 			{imageArray.length > 1 && (
 				<MdArrowBackIosNew
 					className="left-arrow tw-left-3"

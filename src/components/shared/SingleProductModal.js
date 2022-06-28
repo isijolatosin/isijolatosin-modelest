@@ -31,7 +31,7 @@ const SingleProductModal = ({
 						<div className="tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
 							<Slideshow images={singleProducts?.[0]} />
 							{_hairColor && (
-								<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
+								<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5 tw-mt-20">
 									<div className="tw-flex tw-flex-wrap">
 										{_hairColor.map((colr, idx) => (
 											<span
@@ -63,7 +63,7 @@ const SingleProductModal = ({
 									</div>
 								</div>
 							)}
-							<div className="tw-flex tw-flex-col tw-mb-5 tw-ml-5 md:tw-ml-0">
+							<div className="tw-flex tw-flex-col tw-mb-5 tw-ml-5 md:tw-ml-0 tw-mt-20">
 								<div className="tw-flex tw-flex-wrap">
 									{sizes.map((size, idx) => (
 										<span

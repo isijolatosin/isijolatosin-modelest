@@ -224,7 +224,7 @@ function Products({ allProducts, sales }) {
 							<Slideshow images={singleProducts?.[0]} />
 							{singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
 							singleProducts?.[0]?.type.toLowerCase() === 'closure' ? (
-								<div className="tw-ml-5  md:tw-ml-0">
+								<div className="tw-ml-5  md:tw-ml-0 tw-mt-20">
 									<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
 										<div className="tw-flex tw-flex-wrap">
 											{_hairColor.map((colr, idx) => (
@@ -270,7 +270,7 @@ function Products({ allProducts, sales }) {
 									</div>
 								</div>
 							) : (
-								<div className="tw-flex tw-flex-col tw-ml-5 md:tw-ml-0">
+								<div className="tw-flex tw-flex-col tw-ml-5 tw-mt-20 md:tw-ml-0">
 									<div className="tw-flex tw-flex-wrap">
 										{sizes.map((size, idx) => (
 											<span
