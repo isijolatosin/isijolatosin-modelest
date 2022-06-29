@@ -1,23 +1,23 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Helmet } from 'react-helmet'
-import { getDatabase, ref, onValue } from 'firebase/database'
+// import { getDatabase, ref, onValue } from 'firebase/database'
 import Layout from '../components/shared/Layout'
-import { UserContext } from '../context/user-context'
+// import { UserContext } from '../context/user-context'
 
 function BrazilianDeal() {
-	const { user } = useContext(UserContext)
-	const database = getDatabase()
-	const [bundleDeals, setBundleDeals] = React.useState(null)
-
-	React.useEffect(() => {
-		const starCountRef = ref(database, 'bundle deals')
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-
-			setBundleDeals(data?.no)
-		})
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	// 	const { user } = useContext(UserContext)
+	// 	const database = getDatabase()
+	// 	const [bundleDeals, setBundleDeals] = React.useState(null)
+	//
+	// 	React.useEffect(() => {
+	// 		const starCountRef = ref(database, 'bundle deals')
+	// 		onValue(starCountRef, (snapshot) => {
+	// 			const data = snapshot.val()
+	//
+	// 			setBundleDeals(data?.no)
+	// 		})
+	// 		// eslint-disable-next-line react-hooks/exhaustive-deps
+	// 	}, [])
 
 	return (
 		<>
