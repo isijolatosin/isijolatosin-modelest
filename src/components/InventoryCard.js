@@ -25,6 +25,7 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 			setSingleProduct({
 				id: product._id,
 				name: product.name,
+				brand: product.brand,
 				price: product.price,
 				description: product.description,
 				sales: product.sales,
@@ -53,6 +54,7 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 				<div className="tw-flex tw-flex-col tw-mr-5 tw-text-xs tw-font-light tw-w-[85%]">
 					<span className="tw-w-[100%]">{`Name: ${product.name}`}</span>
 					<span className="tw-w-[100%]">{`Color: ${product.color}`}</span>
+					<span className="tw-w-[100%]">{`Brand: ${product.brand}`}</span>
 					{product?.availablecolor && (
 						<span className="tw-w-[100%]">{`Available Color: ${product.availablecolor}`}</span>
 					)}

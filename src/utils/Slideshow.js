@@ -1,22 +1,22 @@
 import React from 'react'
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md'
 
-const Slideshow = ({ images }) => {
+const Slideshow = ({ images, iconSize }) => {
 	const imageArray = [
 		{
-			image: images.image && images.image,
+			image: (images.image && images.image) || (images?.[0] && images?.[0]),
 			id: 1,
 		},
 		{
-			image: images.image2 && images.image2,
+			image: (images.image2 && images.image2) || (images?.[1] && images?.[1]),
 			id: 2,
 		},
 		{
-			image: images.image3 && images.image3,
+			image: (images.image3 && images.image3) || (images?.[2] && images?.[2]),
 			id: 3,
 		},
 		{
-			image: images.image4 && images.image4,
+			image: (images.image4 && images.image4) || (images?.[3] && images?.[3]),
 			id: 4,
 		},
 	].filter((x) => x.image)
@@ -35,12 +35,14 @@ const Slideshow = ({ images }) => {
 		<div className="tw-relative tw-my-10 ">
 			{imageArray.length > 1 && (
 				<MdArrowBackIosNew
+					size={iconSize}
 					className="left-arrow tw-left-3"
 					onClick={prevSlide}
 				/>
 			)}
 			{imageArray.length > 1 && (
 				<MdArrowForwardIos
+					size={iconSize}
 					className="right-arrow tw-right-3"
 					onClick={nextSlide}
 				/>

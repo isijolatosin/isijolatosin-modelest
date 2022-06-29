@@ -41,7 +41,7 @@ function NavIcons() {
 				)}
 			</div>
 			{user && (
-				<div className="tw-flex tw-ml-[20px] tw-mr-4 tw-flex-col tw-justify-center tw-items-center hover:tw-opacity-[0.5] hover:tw-cursor-pointer  tw-relative">
+				<div className="tw-flex tw-ml-[20px] tw-flex-col tw-justify-center tw-items-center hover:tw-opacity-[0.5] hover:tw-cursor-pointer  tw-relative">
 					<div className="tw-text-gray-800 tw-text-xl tw-ease-in tw-duration-500">
 						<FiLogOut onClick={handleSignOut} />
 					</div>
@@ -60,7 +60,7 @@ function NavIcons() {
 							sign in
 						</span>
 					</div>
-					<div className="tw-flex tw-flex-col tw-justify-center tw-items-center hover:tw-opacity-[0.5] hover:tw-cursor-pointer tw-relative tw-mr-2">
+					<div className="tw-flex tw-flex-col tw-justify-center tw-items-center hover:tw-opacity-[0.5] hover:tw-cursor-pointer tw-relative ">
 						<div className="tw-text-gray-800 tw-text-xl tw-ease-in tw-duration-500">
 							<MdAssignmentInd onClick={() => navigate('/register')} />
 						</div>

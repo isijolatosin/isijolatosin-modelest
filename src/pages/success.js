@@ -138,7 +138,7 @@ const Success = () => {
 						address: userAddress,
 						customer: (user && user?.displayName) || userEmail,
 						email: userEmail,
-						color: item?.hairColor,
+						color: item?.hairColor ? item?.hairColor : '',
 						length: item?.hairLength,
 						orderNo: orderNo,
 					})
@@ -160,7 +160,7 @@ const Success = () => {
 						address: userAddress,
 						customer: (user && user?.displayName) || userEmail,
 						email: userEmail,
-						color: item?.hairColor,
+						color: item?.hairColor ? item?.hairColor : '',
 						length: item?.hairLength,
 						orderNo: orderNo,
 					})

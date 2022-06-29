@@ -7,6 +7,7 @@ function Inventory() {
 	const [postError, setPostError] = React.useState('')
 	const [formData, setFormData] = React.useState({
 		title: '',
+		brand: '',
 		type: '',
 		price: '',
 		length: '',
@@ -29,6 +30,7 @@ function Inventory() {
 		try {
 			const product = {
 				name: formData.title,
+				brand: formData.brand,
 				type: formData.type,
 				color: formData.color,
 				price: formData.price,
@@ -46,6 +48,7 @@ function Inventory() {
 
 		setFormData({
 			title: '',
+			brand: '',
 			type: '',
 			color: '',
 			price: '',
@@ -66,41 +69,48 @@ function Inventory() {
 		},
 		{
 			id: '2',
+			name: 'brand',
+			type: 'text',
+			value: formData.brand,
+			placeholder: 'Product Brand...',
+		},
+		{
+			id: '3',
 			name: 'type',
 			type: 'text',
 			value: formData.type,
 			placeholder: 'Product Type...',
 		},
 		{
-			id: '3',
+			id: '4',
 			name: 'color',
 			type: 'text',
 			value: formData.color,
 			placeholder: 'Product Color...',
 		},
 		{
-			id: '4',
+			id: '5',
 			name: 'availablecolor',
 			type: 'text',
 			value: formData.availablecolor,
 			placeholder: 'Available Color...',
 		},
 		{
-			id: '5',
+			id: '6',
 			name: 'length',
 			type: 'number',
 			value: formData.length,
 			placeholder: 'Length...',
 		},
 		{
-			id: '6',
+			id: '7',
 			name: 'availablelength',
 			type: 'text',
 			value: formData.availablelength,
 			placeholder: 'Available Lengths...',
 		},
 		{
-			id: '7',
+			id: '8',
 			name: 'price',
 			type: 'number',
 			value: formData.price,

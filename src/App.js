@@ -11,6 +11,10 @@ import ClosureFrontal from './pages/closure-frontal'
 import JetBlackHair from './pages/jet-black-hairs'
 import Cart from './pages/cart'
 import Account from './pages/account'
+import IndianDeal from './pages/indianDeal'
+import VietnameseDeal from './pages/vietnameseDeal'
+import BrazilianDeal from './pages/brazilianDeal'
+import DealPage from './pages/dealPage'
 
 function App() {
 	return (
@@ -21,6 +25,18 @@ function App() {
 			<Route exact path="/success" element={<Success />} />
 			<Route exact path="/admin-portal" element={<Management />} />
 			<Route exact path="/indian-bundles" element={<HairBundles />} />
+			<Route exact path="/deals/:dealInfo" element={<DealPage />} />
+			<Route exact path="/indian-bundles-deals" element={<IndianDeal />} />
+			<Route
+				exact
+				path="/vietnamese-bundles-deals"
+				element={<VietnameseDeal />}
+			/>
+			<Route
+				exact
+				path="/brazilian-bundles-deals"
+				element={<BrazilianDeal />}
+			/>
 			<Route exact path="/indian-bundles/:reviews" element={<HairBundles />} />
 			<Route
 				exact

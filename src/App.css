@@ -803,3 +803,166 @@ label input::placeholder {
 	color: rgb(199, 0, 0);
 	transition: background 0.5s ease;
 }
+.card {
+	width: 400px;
+	height: 500px;
+	background: #000;
+	overflow: hidden;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.25s ease;
+	backface-visibility: hidden;
+}
+.card:hover {
+	transform: scale(0.9);
+}
+.card:hover:after {
+	height: 280px;
+}
+.card:hover .con-text p {
+	margin-bottom: 30px;
+	margin-top: 10px;
+	opacity: 1;
+}
+.card:hover .con-text h2 {
+	margin-bottom: 0px;
+}
+.card .con-text h2 {
+	font-size: 20px;
+	margin-bottom: 30px;
+}
+.card:hover button {
+	opacity: 1;
+}
+.card:hover img {
+	transform: scale(1.25);
+	mask-image: linear-gradient(
+		to top,
+		rgba(0, 0, 0, 0) 0%,
+		rgba(0, 0, 0, 0.65) 100%
+	);
+	-webkit-mask-image: linear-gradient(
+		to top,
+		rgba(0, 0, 0, 0) 0%,
+		rgba(0, 0, 0, 0.65) 100%
+	);
+}
+.card:hover .ul {
+	transform: translate(0);
+	opacity: 1;
+}
+.card:after {
+	width: 100%;
+	content: '';
+	left: 0px;
+	bottom: 0px;
+	height: 150px;
+	position: absolute;
+	background: linear-gradient(180deg, rgba(0, 0, 0, 100%));
+	z-index: 20;
+	transition: all 0.25s ease;
+}
+.card img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	z-index: 10;
+	transition: all 0.25s ease;
+}
+.card .con-text {
+	z-index: 10;
+	position: absolute;
+	bottom: 0px;
+	color: rgb(0, 0, 0);
+	padding: 20px;
+	padding-bottom: 30px;
+}
+.card .con-text p {
+	color: rgb(0, 0, 0);
+	font-size: 0.8rem;
+	opacity: 0;
+	margin-bottom: -170px;
+	margin-top: 0px;
+	transition: all 0.25s ease;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	flex-direction: column;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+		'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.card button {
+	padding: 2px 17px;
+	border-radius: 8px;
+	background: transparent;
+	border: 1px solid rgb(0, 0, 0);
+	color: rgb(0, 0, 0);
+	margin-top: 10px;
+	opacity: 0;
+	cursor: pointer;
+	transition: all 0.25s ease;
+	font-size: 1.2rem;
+	font-weight: bold;
+	outline: none;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+		'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.card button:hover {
+	background: rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
+}
+.ul {
+	position: absolute;
+	right: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	z-index: 40;
+	border-radius: 14px;
+	padding-left: 0px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	top: 0px;
+	opacity: 0;
+	transform: translate(100%);
+	transition: all 0.25s ease;
+}
+.ul li {
+	background: #fff;
+	list-style: none;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0.7;
+	transition: all 0.25s ease;
+	backface-visibility: hidden;
+}
+/* .ul li:last-child {
+	border-radius: 0px 0px 12px 12px;
+}
+.ul li:first-child {
+	border-radius: 12px 12px 0px 0px;
+} */
+.ul li:hover {
+	opacity: 1;
+	transform: translate(-7px, -4px);
+	border-radius: 6px;
+}
+.ul li svg {
+	font-size: 1.4rem;
+	color: #000;
+}
+@import url('https://fonts.googleapis.com/css2?family=Arizonia&family=Oswald:wght@200&display=swap');
+.font_cursive {
+	font-family: 'Arizonia';
+}
+@import url('https://fonts.googleapis.com/css2?family=Smooch&display=swap');
+.font_cursive2 {
+	font-family: 'Cedarville Cursive', cursive;
+}

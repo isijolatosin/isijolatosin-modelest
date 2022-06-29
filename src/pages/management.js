@@ -15,6 +15,7 @@ function Management() {
 	const [sales, setSales] = React.useState(null)
 	const [section, setSection] = React.useState('all-inventory')
 	const [percentSale, setPercentSale] = React.useState(null)
+	const [bundlePercentSale, setBundlePercentSale] = React.useState(null)
 	const { user } = useContext(UserContext)
 
 	React.useEffect(() => {
@@ -50,6 +51,14 @@ function Management() {
 		}
 		setPercentSale('')
 	}
+	const handleSubmitBundleDeal = () => {
+		if (bundlePercentSale !== null || bundlePercentSale !== '') {
+			set(ref(database, 'bundle deals'), {
+				no: bundlePercentSale,
+			})
+		}
+		setBundlePercentSale('')
+	}
 
 	return (
 		<>
@@ -63,9 +72,9 @@ function Management() {
 							? 'tw-mt-[100px] lg:tw-mt-[100px] tw-pt-20 md:tw-pt-10 tw-flex tw-flex-col tw-w-[100vw] tw-items-center tw-bg-neutral-300'
 							: 'tw-mt-[60px] tw-pt-20 md:tw-pt-10 tw-flex tw-flex-col tw-w-[100vw] tw-items-center tw-bg-neutral-300'
 					}>
-					<div className="tw-flex tw-flex-row tw-items-center tw-justify-between tw-w-[85%]">
+					<div className="tw-flex tw-flex-col md:tw-flex-row md:tw-items-center tw-justify-between tw-w-[85%]">
 						<Heading children="Admin portal" isBold={true} />
-						<div className="tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[50%] md:tw-w-[30%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-200">
+						<div className="tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[50%] md:tw-w-[30%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-200 tw-mb-2 md:tw-mb-0">
 							<input
 								type="number"
 								name="percentSale"
@@ -77,6 +86,22 @@ function Management() {
 							/>
 							<RiSendPlaneLine
 								onClick={handleSubmit}
+								size={20}
+								className="tw-text-violet-700 hover:tw-text-violet-300 tw-ease-in tw-duration-300 tw-w-[10%] tw-mr-2"
+							/>
+						</div>
+						<div className="tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[50%] md:tw-w-[30%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-200">
+							<input
+								type="number"
+								name="bndlePercentSale"
+								id="number"
+								value={bundlePercentSale}
+								onChange={(e) => setBundlePercentSale(Number(e.target.value))}
+								placeholder="bundle-deals sales %"
+								className="tw-w-[90%] tw-h-[30px] tw-placeholder-gray-400 focus:tw-outline-none tw-border-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-bg-transparent"
+							/>
+							<RiSendPlaneLine
+								onClick={handleSubmitBundleDeal}
 								size={20}
 								className="tw-text-violet-700 hover:tw-text-violet-300 tw-ease-in tw-duration-300 tw-w-[10%] tw-mr-2"
 							/>

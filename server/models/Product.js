@@ -7,15 +7,21 @@ const ProductSchema = new mongoose.Schema({
 		trim: true,
 		maxlength: [50, 'name maximum character exceeded!'],
 	},
+	brand: {
+		type: String,
+		required: [true, 'must provide a brand'],
+		trim: true,
+		maxlength: [50, 'name maximum character exceeded!'],
+	},
 	type: {
 		type: String,
-		required: [true, 'must provide a name'],
+		required: [true, 'must provide a type'],
 		trim: true,
 		maxlength: [50, 'name maximum character exceeded!'],
 	},
 	color: {
 		type: String,
-		required: [true, 'must provide a name'],
+		required: [true, 'must provide a color'],
 		trim: true,
 		maxlength: [50, 'name maximum character exceeded!'],
 	},
@@ -24,7 +30,7 @@ const ProductSchema = new mongoose.Schema({
 	},
 	length: {
 		type: Number,
-		required: [true, 'must provide a price'],
+		required: [true, 'must provide a length'],
 		trim: true,
 	},
 	availablelength: {

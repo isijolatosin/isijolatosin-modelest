@@ -1,6 +1,4 @@
-const maxLength = 10
-
-const truncate = (text) => {
+const truncate = (text, maxLength) => {
 	const summaryWords = []
 	let sentence
 	const words = text.split(' ')

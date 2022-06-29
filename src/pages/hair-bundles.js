@@ -31,7 +31,7 @@ function HairBundles() {
 		onValue(starCountRef, (snapshot) => {
 			const data = snapshot.val()
 
-			setSales(data.no)
+			setSales(data?.no)
 		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
