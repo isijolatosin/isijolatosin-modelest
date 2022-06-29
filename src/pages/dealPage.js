@@ -129,30 +129,35 @@ const DealPage = () => {
 		fetchProducts()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
-
+	console.log(deals)
 	// Adding to cart items
 	const name =
-		deals?.[0]?.name !== 'frontal' || deals?.[0]?.name !== 'closure'
-			? deals?.[0]?.name
-			: deals?.[1]?.name
+		deals[0]?.name.toLowerCase().includes('frontal') ||
+		deals?.[0]?.name.toLowerCase().includes('closure')
+			? deals[1]?.name
+			: deals[0]?.name
 	const id =
-		deals?.[0]?.name !== 'frontal' || deals?.[0]?.name !== 'closure'
-			? deals?.[0]?._id
-			: deals?.[1]?._id
+		deals[0]?.name.toLowerCase().includes('frontal') ||
+		deals?.[0]?.name.toLowerCase().includes('closure')
+			? deals?.[1]?._id
+			: deals?.[0]?._id
 	const image =
-		deals?.[0]?.name !== 'frontal' || deals?.[0]?.name !== 'closure'
-			? deals?.[0]?.image
-			: deals?.[1]?.image
+		deals[0]?.name.toLowerCase().includes('frontal') ||
+		deals?.[0]?.name.toLowerCase().includes('closure')
+			? deals?.[1]?.image
+			: deals?.[0]?.image
 	const description =
-		deals?.[0]?.name !== 'frontal' || deals?.[0]?.name !== 'closure'
-			? deals?.[0]?.description
-			: deals?.[1]?.description
+		deals[0]?.name.toLowerCase().includes('frontal') ||
+		deals?.[0]?.name.toLowerCase().includes('closure')
+			? deals?.[1]?.description
+			: deals?.[0]?.description
 	const price = dealPrice
 	const hairLength = _length
 	const hairTexture =
-		deals?.[0]?.name !== 'frontal' || deals?.[0]?.name !== 'closure'
-			? deals?.[0]?.name
-			: deals?.[1]?.name
+		deals[0]?.name.toLowerCase().includes('frontal') ||
+		deals?.[0]?.name.toLowerCase().includes('closure')
+			? deals?.[1]?.name
+			: deals?.[0]?.name
 	const quantity = Number(_quantity)
 
 	const dealsProduct = {
@@ -181,7 +186,7 @@ const DealPage = () => {
 	return (
 		<>
 			<Helmet>
-				<title>{`${deals?.[0]?.name}-Hair-Bundle-Deals`}</title>
+				<title>{`${name}-Hair-Bundle-Deals`}</title>
 			</Helmet>
 			<Layout sales={bundleDealsPercentage}>
 				<div className="tw-w-full tw-bg-neutral-100 tw-flex tw-flex-col tw-items-center">
