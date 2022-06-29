@@ -19,17 +19,7 @@ function IndianDeal() {
 	const [CurlyFrontal, setCurlyFrontal] = React.useState(null)
 	const [bodyWaveClosure, setBodyWaveClosure] = React.useState(null)
 	const [CurlyClosure, setCurlyClosure] = React.useState(null)
-	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(null)
-
-	React.useEffect(() => {
-		const starCountRef = ref(database, 'bundle deals')
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-
-			setBundleDealsPercentage(data?.no)
-		})
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12)
 
 	async function fetchProducts() {
 		try {
@@ -111,7 +101,14 @@ function IndianDeal() {
 	}
 
 	React.useEffect(() => {
+		const starCountRef = ref(database, 'bundle deals')
+		onValue(starCountRef, (snapshot) => {
+			const data = snapshot.val()
+
+			setBundleDealsPercentage(data.no)
+		})
 		fetchProducts()
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -121,7 +118,7 @@ function IndianDeal() {
 				<title>Indian-hair-Bundle-Deals</title>
 			</Helmet>
 			<Layout sales={bundleDealsPercentage}>
-				<div className="tw-w-full tw-bg-white">
+				<div className="tw-w-full tw-bg-white tw-mt-[50px] md:tw-mt-[0px]">
 					<div className="xl:tw-w-[80%] lg:tw-w-[70%] tw-mx-auto tw-py-[70px] tw-px-5 tw-grid xl:tw-grid-cols-3 lg:tw-grid-cols-2 md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
 						<div className="tw-w-full tw-flex tw-justify-center">
 							{bodyWaveFrontal && (

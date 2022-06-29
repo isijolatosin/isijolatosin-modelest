@@ -5,15 +5,7 @@ import RatingFix from './shared/RatingFix'
 import truncate from '../utils/truncate'
 import { Link } from 'react-router-dom'
 
-function BundleCard({
-	product,
-	sales,
-	setImage,
-	setIsSingleImage,
-	dealPrice,
-	frontalClosure,
-	texture,
-}) {
+function BundleCard({ product, sales, dealPrice, frontalClosure, texture }) {
 	// const handleView = async (event) => {
 	// 	try {
 	// 		const {

@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const DealPage = () => {
 	const database = getDatabase()
-	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(null)
+	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12)
 	const [deals, setDeals] = React.useState([])
 	const [error, setError] = React.useState(false)
 	const [dealsImage, setDealsImage] = React.useState([])
@@ -41,7 +41,13 @@ const DealPage = () => {
 		'18inch, 20inch, & 22inch',
 		'20inch, 22inch, & 24inch',
 	]
-
+	const frntlClsr = window.location.pathname
+		.split('-')
+		?.[window.location.pathname.split('-').length - 1].split('&')?.[
+		(window.location.pathname
+			.split('-')
+			?.[window.location.pathname.split('-').length - 1].split('&')).length - 1
+	]
 	async function fetchProducts() {
 		try {
 			const {
@@ -86,8 +92,10 @@ const DealPage = () => {
 						price += product?.price + 20
 					}
 				}
-				const discount = price * (bundleDealsPercentage / 100)
-				setDealPrice((price - discount).toFixed(2))
+				const discnt = Number(
+					(price * (bundleDealsPercentage / 100)).toFixed(2)
+				)
+				setDealPrice((price - discnt).toFixed(2))
 			})
 
 			setDeals(filtered.sort((a, b) => a.name.localeCompare(b.name)))
@@ -110,7 +118,8 @@ const DealPage = () => {
 				imgSpread.push(item.image)
 				imgSpread.push(item.image2)
 			})
-			setDealsImage(imgSpread.filter((x) => x))
+			const rever = imgSpread.filter((x) => x).reverse()
+			setDealsImage(rever)
 		} catch (error) {
 			console.log(error)
 		}
@@ -122,13 +131,28 @@ const DealPage = () => {
 	}, [])
 
 	// Adding to cart items
-	const name = deals && deals?.[0]?.name
-	const id = deals && deals?.[0]?._id
-	const image = deals && deals?.[0]?.image
-	const description = deals && deals?.[0]?.description
+	const name =
+		deals?.[0]?.name !== 'frontal' || deals?.[0]?.name !== 'closure'
+			? deals?.[0]?.name
+			: deals?.[1]?.name
+	const id =
+		deals?.[0]?.name !== 'frontal' || deals?.[0]?.name !== 'closure'
+			? deals?.[0]?._id
+			: deals?.[1]?._id
+	const image =
+		deals?.[0]?.name !== 'frontal' || deals?.[0]?.name !== 'closure'
+			? deals?.[0]?.image
+			: deals?.[1]?.image
+	const description =
+		deals?.[0]?.name !== 'frontal' || deals?.[0]?.name !== 'closure'
+			? deals?.[0]?.description
+			: deals?.[1]?.description
 	const price = dealPrice
 	const hairLength = _length
-	const hairTexture = deals && deals?.[0]?.name
+	const hairTexture =
+		deals?.[0]?.name !== 'frontal' || deals?.[0]?.name !== 'closure'
+			? deals?.[0]?.name
+			: deals?.[1]?.name
 	const quantity = Number(_quantity)
 
 	const dealsProduct = {
@@ -166,7 +190,9 @@ const DealPage = () => {
 							<Slideshow images={dealsImage} iconSize={40} />
 						</div>
 						<div className="">
-							<h1 className="tw-text-3xl tw-uppercase">Hair - 3 Bundle Deal</h1>
+							<h1 className="tw-text-xl md:tw-text-3xl tw-uppercase">
+								{name} & {frntlClsr} - 3 Bundle Deal
+							</h1>
 							<div className="tw-mb-5">
 								<RatingFix isReview={true} size={20} color="black" />
 							</div>
