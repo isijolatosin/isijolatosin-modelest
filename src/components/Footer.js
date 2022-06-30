@@ -85,21 +85,21 @@ function Footer() {
 			// route: '/vietnamese-jet-black-&-blonde',
 		},
 	]
-	const Brazillian = [
+	const Virgin = [
 		{
 			id: '1',
-			name: 'Bundles (Brazillian)',
-			// route: '/brazillian-bundles',
+			name: 'Bundles (Virgin)',
+			// route: '/virgin-bundles',
 		},
 		{
 			id: '2',
-			name: 'Closure / Frontal (Brazillian)',
-			// route: '/brazillian-closure-frontal',
+			name: 'Closure / Frontal (Virgin)',
+			// route: '/virgin-closure-frontal',
 		},
 		{
 			id: '3',
-			name: 'Jet Black / Blonde (Brazillian)',
-			// route: '/brazillian-jet-black-&-blonde-hair',
+			name: 'Jet Black / Blonde (Virgin)',
+			// route: '/virgin-jet-black-&-blonde-hair',
 		},
 	]
 
@@ -167,17 +167,15 @@ function Footer() {
 						</ul>
 					</div>
 					<div className="tw-mb-5">
-						<h1 className="tw-text-xs tw-font-bold  tw-mb-2">
-							Brazillian Hair
-						</h1>
+						<h1 className="tw-text-xs tw-font-bold  tw-mb-2">Virgin Hair</h1>
 						<ul className="tw-flex tw-flex-col tw-justify-center tw-text-xs tw-font-light tw-mb-1">
-							{Brazillian.map((braz) => (
+							{Virgin.map((virg) => (
 								<Link
-									key={braz.id}
+									key={virg.id}
 									to="/"
-									// onClick={() => navigate(`/${braz.route}`)}
+									// onClick={() => navigate(`/${virg.route}`)}
 									className="hover:tw-cursor-pointer hover:tw-underline tw-mb-1 ">
-									{braz.name}{' '}
+									{virg.name}{' '}
 									<span className="tw-text-[10px] tw-font-bold">
 										- coming soon...
 									</span>

@@ -241,7 +241,7 @@ function Shippment() {
 										</thead>
 										<tbody>
 											{shippingInfo?.shippingData?.map((item, idx) => (
-												<tr className="tw-relative table-item-row" key={idx}>
+												<tr className="table-item-row" key={idx}>
 													{Object?.values(item)?.map((itm, index) => (
 														<td
 															onMouseOver={() => handleShipText(item?.id)}
@@ -277,51 +277,53 @@ function Shippment() {
 															)}
 														</td>
 													))}
-													{modal &&
-														matchIdx === item?.id &&
-														custmr === item?.customer && (
-															<div className="been-shipped">
-																<div className="tw-mt-[30px] tw-text-xs ">
-																	Has this product been shipped ? <br />
-																	<span className="been-shipped-textsm tw-text-green-700 tw-text-sm">
-																		Click YES to add tracking number
-																	</span>
+													<div className="tw-absolute tw-right-0 tw-h-[125px] tw-flex tw-flex-row ">
+														{modal &&
+															matchIdx === item?.id &&
+															custmr === item?.customer && (
+																<div className="been-shipped tw-px-10">
+																	<div className="tw-mt-[30px] tw-text-xs ">
+																		Has this product been shipped ? <br />
+																		<span className="been-shipped-textsm tw-text-green-700 tw-text-sm">
+																			Click YES to add tracking number
+																		</span>
+																	</div>
+																	<div className="tw-flex tw-flex-row tw-justify-center">
+																		<button
+																			className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-green-700"
+																			onClick={() => {
+																				setId(item?.id)
+																				setClientShippingEmail(item?.email)
+																				setClientShippingName(item?.customer)
+																				setShowTrackingInput(true)
+																				scrollToTop()
+																			}}>
+																			<GiCheckMark className="tw-mr-1" />
+																			Yes
+																		</button>
+																		<button
+																			className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-red-800"
+																			onClick={() => {
+																				setShowTrackingInput(false)
+																				setModal(false)
+																			}}>
+																			<MdClose size={20} className="tw-mr-1" />
+																			No
+																		</button>
+																	</div>
 																</div>
-																<div className="tw-flex tw-flex-row tw-justify-center">
-																	<button
-																		className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-green-700"
-																		onClick={() => {
-																			setId(item?.id)
-																			setClientShippingEmail(item?.email)
-																			setClientShippingName(item?.customer)
-																			setShowTrackingInput(true)
-																			scrollToTop()
-																		}}>
-																		<GiCheckMark className="tw-mr-1" />
-																		Yes
-																	</button>
-																	<button
-																		className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-red-800"
-																		onClick={() => {
-																			setShowTrackingInput(false)
-																			setModal(false)
-																		}}>
-																		<MdClose size={20} className="tw-mr-1" />
-																		No
-																	</button>
-																</div>
+															)}
+														{showShipText && compareID === item?.id && (
+															<div
+																className="tw-absolute tw-right-0 tw-flex tw-flex-col tw-items-center tw-justify-center md:tw-h-full hover:tw-cursor-pointer bg-blur3 tw-text-white tw-p-2 tw-rounded-l-md tw-text-xs tw-font-bold"
+																onClick={() =>
+																	toggleModal(item?.id, item?.customer)
+																}>
+																<FaShippingFast size={55} color="darkgrey" />
+																<span>Ship Now</span>
 															</div>
 														)}
-													{showShipText && compareID === item?.id && (
-														<div
-															className="tw-absolute tw-right-0 tw-flex tw-flex-col tw-items-center tw-justify-center tw-h-full hover:tw-cursor-pointer bg-blur3 tw-text-white tw-p-2 tw-rounded-l-md tw-text-xs tw-font-bold"
-															onClick={() =>
-																toggleModal(item?.id, item?.customer)
-															}>
-															<FaShippingFast size={55} color="darkgrey" />
-															<span>Ship Now</span>
-														</div>
-													)}
+													</div>
 												</tr>
 											))}
 										</tbody>

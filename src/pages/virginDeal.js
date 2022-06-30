@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
 // import { UserContext } from '../context/user-context'
 
-function BrazilianDeal() {
+function VirginDeal() {
 	// 	const { user } = useContext(UserContext)
 	// 	const database = getDatabase()
 	// 	const [bundleDeals, setBundleDeals] = React.useState(null)
@@ -22,15 +22,15 @@ function BrazilianDeal() {
 	return (
 		<>
 			<Helmet>
-				<title>Brazilian-hair-Bundle-Deals</title>
+				<title>Virgin-hair-Bundle-Deals</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-py-[100px] tw-px-5 tw-bg-gray-300 tw-flex tw-flex-col tw-items-center">
-					Brazilian-hair-Bundle-Deals
+				<div className="tw-py-[100px] tw-px-5 tw-bg-gray-300 tw-flex tw-flex-col tw-items-center tw-text-pink-700 tw-italic tw-text-sm tw-font-bold">
+					Virgin hair Bundle Deals coming soon course we got you covered...
 				</div>
 			</Layout>
 		</>
 	)
 }
 
-export default BrazilianDeal
+export default VirginDeal

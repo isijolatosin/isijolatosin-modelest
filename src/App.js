@@ -13,7 +13,7 @@ import Cart from './pages/cart'
 import Account from './pages/account'
 import IndianDeal from './pages/indianDeal'
 import VietnameseDeal from './pages/vietnameseDeal'
-import BrazilianDeal from './pages/brazilianDeal'
+import VirginDeal from './pages/virginDeal'
 import DealPage from './pages/dealPage'
 
 function App() {
@@ -44,11 +44,7 @@ function App() {
 				path="/vietnamese-bundles-deals"
 				element={<VietnameseDeal />}
 			/>
-			<Route
-				exact
-				path="/brazilian-bundles-deals"
-				element={<BrazilianDeal />}
-			/>
+			<Route exact path="/Virgin-bundles-deals" element={<VirginDeal />} />
 			<Route exact path="/indian-bundles/:reviews" element={<HairBundles />} />
 			<Route
 				exact
