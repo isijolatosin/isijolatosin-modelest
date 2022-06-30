@@ -141,7 +141,7 @@ function Card({
 				id={product._id}
 				src={product.image}
 				alt={product._id}
-				className=" tw-w-[400px] tw-h-full tw-object-cover tw-rounded-sm hover:tw-cursor-pointer"
+				className=" tw-w-[350px] tw-h-full tw-object-cover tw-rounded-sm hover:tw-cursor-pointer"
 			/>
 			{product?.sales && sales !== 0 && (
 				<span className="tw-absolute tw-top-0 tw-left-0 tw-bg-gray-600 tw-text-white tw-rounded-tl-sm tw-rounded-br-sm tw-text-xs tw-p-[2px] tw-font-light">

@@ -32,7 +32,7 @@ const Slideshow = ({ images, iconSize }) => {
 	}
 
 	return (
-		<div className="tw-relative tw-my-10 ">
+		<div className="tw-relative">
 			{imageArray.length > 1 && (
 				<MdArrowBackIosNew
 					size={iconSize}

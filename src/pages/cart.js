@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet'
 import { getDatabase, ref, onValue } from 'firebase/database'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { FaOpencart } from 'react-icons/fa'
+import { FaOpencart, FaHandPointRight } from 'react-icons/fa'
 import Layout from '../components/shared/Layout'
 import CartItems from '../components/CartItems'
 import {
@@ -51,10 +51,13 @@ const Cart = () => {
 						</h2>
 					</div>
 					{cartItems.length === 0 ? (
-						<>
-							<div className="tw-mb-5 tw-text-white">Your Cart is Empty</div>
+						<div className="tw-flex tw-items-center">
+							<div className="tw-mr-5 tw-font-light tw-text-white">
+								Your Cart is Empty
+							</div>
+							<FaHandPointRight className="tw-text-pink-700 tw-mr-5 tw-text-2xl" />
 							<Button handleFunc={() => navigate('/')}>Shop now</Button>
-						</>
+						</div>
 					) : (
 						<div className="tw-flex tw-flex-col tw-w-full lg:tw-flex-row lg:tw-w-[90%] tw-justify-center tw-items-center lg:tw-items-start">
 							<div className="tw-w-full lg:tw-w-[40%] xl:tw-w-[50%]">

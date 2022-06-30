@@ -23,7 +23,7 @@ const Add2CartPopup = ({ singleCart, setSingleCart }) => {
 	return (
 		<div>
 			{singleCart && (
-				<div className="tw-absolute bg-blur2 tw-border tw-border-neutral-300 tw-p-10 tw-w-[350px] tw-top-0 md:tw-top-[95px] tw-z-40 tw-right-0 md:tw-right-[40px]">
+				<div className="tw-absolute bg-blur2 tw-border tw-border-neutral-300 tw-p-10 tw-w-[350px] tw-top-0 md:tw-top-[95px] tw-z-40 tw-right-0 md:tw-right-[40px] tw-shadow-lg">
 					<div className="tw-flex tw-items-center">
 						<GrCheckmark />
 						<span className="tw-text-xs tw-ml-2 tw-text-neutral-700">
@@ -39,7 +39,9 @@ const Add2CartPopup = ({ singleCart, setSingleCart }) => {
 						/>
 						<div className="tw-flex tw-flex-col tw-text-sm">
 							<span>{singleCart.name}</span>
-							<span>Color - {singleCart.hairColor}</span>
+							{singleCart.hairColor && (
+								<span>Color - {singleCart.hairColor}</span>
+							)}
 							{singleCart.hairTexture && (
 								<span>Texture - {singleCart.hairTexture}</span>
 							)}

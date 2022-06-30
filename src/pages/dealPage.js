@@ -12,12 +12,14 @@ import {
 	selectCartItems,
 } from '../slices/appSlices'
 import Reviews from '../components/shared/Reviews'
+import Add2CartPopup from '../components/shared/Add2CartPopup'
 import { useDispatch, useSelector } from 'react-redux'
 
 const DealPage = () => {
 	const database = getDatabase()
 	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12)
 	const [deals, setDeals] = React.useState([])
+	const [singleCart, setSingleCart] = React.useState(null)
 	const [error, setError] = React.useState(false)
 	const [dealsImage, setDealsImage] = React.useState([])
 	const [dealPrice, setDealPrice] = React.useState(null)
@@ -38,7 +40,7 @@ const DealPage = () => {
 				'-'
 			).length - 1
 	]
-	console.log(category)
+
 	React.useEffect(() => {
 		const starCountRef = ref(database, 'bundle deals')
 		onValue(starCountRef, (snapshot) => {
@@ -192,10 +194,16 @@ const DealPage = () => {
 		} else {
 			setError(true)
 		}
+		setTimeout(() => {
+			setSingleCart(dealsProduct)
+		}, 1000)
 	}
 
 	const IncreaseItem = () => {
 		dispatch(increaseCartItem(dealsProduct))
+		setTimeout(() => {
+			setSingleCart(dealsProduct)
+		}, 1000)
 	}
 
 	return (
@@ -205,6 +213,12 @@ const DealPage = () => {
 			</Helmet>
 			<Layout sales={bundleDealsPercentage}>
 				<div className="tw-w-full tw-bg-neutral-100 tw-flex tw-flex-col tw-items-center">
+					<div className="tw-fixed tw-z-20 tw-top-0 md:tw-top-[-95px] tw-right-0">
+						<Add2CartPopup
+							singleCart={singleCart}
+							setSingleCart={setSingleCart}
+						/>
+					</div>
 					<div className="tw-pt-[70px] xl:tw-w-[80%] tw-px-5 tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
 						<div className="">
 							<Slideshow images={dealsImage} iconSize={40} />

@@ -20,7 +20,7 @@ function IndianJetBlackHair() {
 	const [show, setShow] = React.useState(false)
 	const [error, setError] = React.useState(false)
 	const [sales, setSales] = React.useState(null)
-	const [length, setLength] = React.useState(null)
+	const [length, setLength] = React.useState('14')
 	const cartItems = useSelector(selectCartItems)
 	const [singleCart, setSingleCart] = React.useState(null)
 	const dispatch = useDispatch()
@@ -65,7 +65,7 @@ function IndianJetBlackHair() {
 	const sizes = singleProducts?.[0].availablelength.split(', ')
 
 	let cardPrice =
-		sales !== 0
+		sales !== 0 && singleProducts?.[0]?.sales
 			? singleProducts?.[0]?.price - singleProducts?.[0]?.price * (sales / 100)
 			: singleProducts?.[0]?.price
 
@@ -97,7 +97,7 @@ function IndianJetBlackHair() {
 	const image = singleProducts?.[0] && singleProducts?.[0]?.image
 	const color = singleProducts?.[0] && singleProducts?.[0]?.color
 	const description = singleProducts?.[0] && singleProducts?.[0]?.description
-	const price = _price
+	const price = Number(_price)
 	const hairLength = length
 	const hairColor = color
 	const hairTexture = singleProducts?.[0] && singleProducts?.[0]?.name
@@ -172,10 +172,12 @@ function IndianJetBlackHair() {
 							  } tw-pb-10 md:tw-pt-[120px] tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto`
 							: 'tw-pb-10 tw-pt-[110px] md:tw-pt-20 tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto home'
 					}>
-					<Add2CartPopup
-						singleCart={singleCart}
-						setSingleCart={setSingleCart}
-					/>
+					<div className="tw-fixed tw-z-40 tw-top-0 md:tw-top-[-95px] tw-right-0 md:tw-right-[-30px]">
+						<Add2CartPopup
+							singleCart={singleCart}
+							setSingleCart={setSingleCart}
+						/>
+					</div>
 					{show && jetBlackHair && (
 						<div className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-w-full tw-px-2 tw-gap-2 md:tw-gap-5">
 							{jetBlackHair.map((item) => (
@@ -213,6 +215,8 @@ function IndianJetBlackHair() {
 							cartItems={cartItems}
 							IncreaseItem={IncreaseItem}
 							addToCart={addToCart}
+							price={price}
+							length={length}
 						/>
 					)}
 				</div>

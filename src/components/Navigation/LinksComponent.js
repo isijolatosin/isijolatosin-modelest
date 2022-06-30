@@ -106,7 +106,7 @@ function LinksComponent() {
 				onMouseOver={handleMousein1}
 				onMouseLeave={() => setList1(false)}
 				className="tw-w-full tw-relative tw-uppercase tw-font-bold tw-text-[10px]">
-				<p className="hover:tw-cursor-pointer tw-border-l-[1px] tw-border-neutral-600 tw-pl-2 tw-mr-4 tw-text-center">
+				<p className="hover:tw-cursor-pointer tw-border-l-[1px] tw-border-r-[1px] tw-border-neutral-600 tw-px-2 tw-text-center">
 					Indian - hair
 				</p>
 
@@ -115,7 +115,7 @@ function LinksComponent() {
 						{indianSubLinks.map((item) => (
 							<Link
 								to={item.route}
-								className="tw-shadow-lg md:tw-text-center tw-px-3 tw-rounded-sm  tw-w-[180px] tw-bg-neutral-300 md:tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
+								className="tw-shadow-lg md:tw-text-center tw-px-3 tw-rounded-sm  md:tw-w-[190px] tw-w-[180px] tw-bg-neutral-300 md:tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
 								key={item.id}>
 								{item.name}
 							</Link>
@@ -128,7 +128,7 @@ function LinksComponent() {
 				onMouseOver={handleMousein3}
 				onMouseLeave={() => setList3(false)}
 				className="tw-w-full tw-relative tw-uppercase tw-font-bold tw-text-[10px]">
-				<p className="tw-text-center hover:tw-cursor-pointer tw-border-l-[1px] tw-border-r-[1px] tw-border-neutral-600 tw-px-2">
+				<p className="tw-text-center hover:tw-cursor-pointer tw-border-r-[1px] tw-border-neutral-600 tw-px-2">
 					Virgin - hair
 				</p>
 
@@ -137,7 +137,7 @@ function LinksComponent() {
 						{virginSubLinks.map((item) => (
 							<Link
 								to={item.route}
-								className="tw-text-center tw-px-3 tw-rounded-sm tw-w-[180px] tw-bg-neutral-300 md:tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
+								className="tw-text-center tw-px-3 tw-rounded-sm md:tw-w-[190px] tw-w-[180px] tw-bg-neutral-300 md:tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
 								key={item.id}>
 								{item.name}
 							</Link>
@@ -150,7 +150,7 @@ function LinksComponent() {
 				onMouseOver={handleMousein2}
 				onMouseLeave={() => setList2(false)}
 				className="tw-w-full tw-relative tw-uppercase tw-font-bold tw-text-[10px]">
-				<p className="tw-text-center hover:tw-cursor-pointer tw-border-l-[1px] tw-border-neutral-600 tw-pl-2 tw-mr-4">
+				<p className="tw-text-center hover:tw-cursor-pointer tw-border-r-[1px] tw-border-neutral-600 tw-px-2">
 					Vietnamese - hair
 				</p>
 
@@ -159,7 +159,7 @@ function LinksComponent() {
 						{vietnameseSubLinks.map((item) => (
 							<Link
 								to={item.route}
-								className="tw-text-center md:tw-text-center tw-px-3 tw-rounded-sm tw-w-[180px] tw-bg-neutral-300 md:tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
+								className="tw-text-center md:tw-text-center tw-px-3 tw-rounded-sm md:tw-w-[190px] tw-w-[180px] tw-bg-neutral-300 md:tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
 								key={item.id}>
 								{item.name}
 							</Link>
@@ -172,7 +172,7 @@ function LinksComponent() {
 				onMouseOver={handleMousein4}
 				onMouseLeave={() => setList4(false)}
 				className="tw-w-full tw-relative tw-uppercase tw-font-bold tw-text-[10px]">
-				<p className="tw-text-center hover:tw-cursor-pointer tw-border-l-[1px] tw-border-r-[1px] tw-border-neutral-600 tw-px-2">
+				<p className="tw-text-center hover:tw-cursor-pointer tw-border-r-[1px] tw-border-neutral-600 tw-px-2">
 					Bundle - Deals
 				</p>
 
@@ -181,7 +181,7 @@ function LinksComponent() {
 						{bundlesDeals.map((item) => (
 							<Link
 								to={item.route}
-								className="tw-shadow-lg tw-text-right md:tw-text-center tw-px-3 tw-rounded-sm tw-w-[180px] tw-bg-neutral-300 md:tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
+								className="tw-shadow-lg tw-text-right md:tw-text-center tw-px-3 tw-rounded-sm md:tw-w-[190px] tw-w-[180px] tw-bg-neutral-300 md:tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
 								key={item.id}>
 								{item.name}
 							</Link>

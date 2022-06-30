@@ -18,7 +18,7 @@ function Products({ allProducts, sales }) {
 	const [singleProducts, setSingleproducts] = React.useState(null)
 	const [singleCart, setSingleCart] = React.useState(null)
 	const [error, setError] = React.useState(false)
-	const [length, setLength] = React.useState(null)
+	const [length, setLength] = React.useState('14')
 	const [_color, setColor] = React.useState(null)
 	const [_hairType, sethairType] = React.useState(null)
 	const dispatch = useDispatch()
@@ -37,7 +37,7 @@ function Products({ allProducts, sales }) {
 	const sizes = singleProducts?.[0].availablelength.split(', ')
 
 	let cardPrice =
-		sales !== 0
+		sales !== 0 && singleProducts?.[0]?.sales
 			? singleProducts?.[0]?.price - singleProducts?.[0]?.price * (sales / 100)
 			: singleProducts?.[0]?.price
 
@@ -84,32 +84,53 @@ function Products({ allProducts, sales }) {
 		_price2 = cardPrice + 80
 	}
 
-	const f_cPrice =
-		// checking for frontal
-		singleProducts?.[0]?.type.toLowerCase() === 'frontal'
-			? _color?.includes('Blonde613')
-				? singleProducts?.[0]?.sales
-					? (_price2 += 10)
-					: (_price2 += 10)
-				: singleProducts?.[0]?.sales
-				? _hairType?.includes('Bodywave') ||
-				  _hairType?.includes('Wavy') ||
-				  _hairType?.includes('Curly')
-					? (_price2 += 5)
-					: _price2
-				: _price2
-			: // checking for closure
-			_color?.includes('Natural black') &&
-			  (_hairType?.includes('Bodywave') ||
+	const pricePredict = () => {
+		if (singleProducts?.[0]?.type.toLowerCase() === 'Frontal') {
+			if (
+				_color?.includes('Natural black') &&
+				(_hairType?.includes('Bodywave') ||
 					_hairType?.includes('Wavy') ||
 					_hairType?.includes('Curly'))
-			? ((_price2 += 5), singleProducts?.[0]?.sales && (_price2 += 5))
-			: _color?.includes('Natural black') && _hairType?.includes('Straight')
-			? singleProducts?.[0]?.sales && _price2
-			: _color?.includes('Blonde613') &&
-			  (_hairType?.includes('Bodywave') || _hairType?.includes('Wavy'))
-			? singleProducts?.[0]?.sales && (_price2 += 15)
-			: (_price2 += 10)
+			) {
+				return (_price2 += 10)
+			} else if (
+				_color?.includes('Natural black') &&
+				_hairType?.includes('Straight')
+			) {
+				return _price2
+			}
+		} else {
+			if (
+				_color?.includes('Natural black') &&
+				(_hairType?.includes('Bodywave') ||
+					_hairType?.includes('Wavy') ||
+					_hairType?.includes('Curly'))
+			) {
+				return (_price2 += 5)
+			} else if (
+				_color?.includes('Natural black') &&
+				_hairType?.includes('Straight')
+			) {
+				return _price2
+			}
+
+			if (
+				_color?.includes('Blonde613') &&
+				(_hairType?.includes('Bodywave') ||
+					_hairType?.includes('Wavy') ||
+					_hairType?.includes('Curly'))
+			) {
+				return (_price2 += 15)
+			} else if (
+				_color?.includes('Blonde613') &&
+				_hairType?.includes('Straight')
+			) {
+				return (_price2 += 10)
+			}
+		}
+	}
+
+	const f_cPrice = pricePredict()
 
 	// Adding to cart items
 	const name = singleProducts?.[0] && singleProducts?.[0]?.name
@@ -118,7 +139,7 @@ function Products({ allProducts, sales }) {
 	const color = singleProducts?.[0] && singleProducts?.[0]?.color
 	const description = singleProducts?.[0] && singleProducts?.[0]?.description
 	const width = singleProducts?.[0] && singleProducts?.[0]?.widthlength
-	const price =
+	const price_Nosales =
 		singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
 		singleProducts?.[0]?.type.toLowerCase() === 'closure'
 			? f_cPrice
@@ -126,6 +147,22 @@ function Products({ allProducts, sales }) {
 	const hairLength = length
 	const hairColor = _color || color
 	const hairTexture = _hairType && _hairType
+	const priceFunc = () => {
+		if (singleProducts?.[0]?.sales) {
+			if (
+				singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
+				singleProducts?.[0]?.type.toLowerCase() === 'closure'
+			) {
+				return Number(f_cPrice)
+			} else {
+				return Number(_price)
+			}
+		} else {
+			return Number(price_Nosales)
+		}
+	}
+	console.log(price_Nosales)
+	const price = priceFunc()
 
 	const singleProduct = {
 		name,
@@ -188,7 +225,7 @@ function Products({ allProducts, sales }) {
 
 	return (
 		<div className="tw-pt-10 tw-relative tw-flex tw-flex-col tw-items-center ">
-			<div className="tw-absolute tw-top-[-100px] tw-right-0">
+			<div className="tw-fixed tw-top-[-100px] tw-right-[-20px] tw-z-40">
 				<Add2CartPopup singleCart={singleCart} setSingleCart={setSingleCart} />
 			</div>
 			{allProducts ? (
@@ -294,24 +331,49 @@ function Products({ allProducts, sales }) {
 							<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-mt-0">
 								Description: {singleProducts?.[0].description}
 							</p>
+							{singleProducts?.[0]?.sales &&
+								!price_Nosales &&
+								(singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
+								singleProducts?.[0]?.type.toLowerCase() === 'closure' ? (
+									<span className="tw-mt-2 tw-text-xs tw-text-green-700">
+										Select color, tetxure & length to calculate sales price...
+									</span>
+								) : (
+									<span className="tw-mt-2 tw-text-xs tw-text-green-700">
+										Select length to calculate sales price...
+									</span>
+								))}
+							{(singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
+								singleProducts?.[0]?.type.toLowerCase() === 'closure') &&
+								!price_Nosales && (
+									<span className="tw-mt-2 tw-text-xs tw-text-green-700">
+										Select color & tetxure to calculate sales price...
+									</span>
+								)}
 							<p className="tw-font-medium tw-text-xl tw-my-[10px]">
 								Price:{' '}
-								{sales !== 0 &&
-									singleProducts?.[0].sales &&
-									`$${
-										singleProducts?.[0].price -
-										singleProducts?.[0].price * (sales / 100)
-									}${' '}
-										USD${' '}`}
 								<span
 									className={
 										sales !== 0 &&
 										singleProducts?.[0].sales &&
-										'tw-ml-2 tw-line-through tw-text-neutral-400 tw-border-l-[1px] tw-border-neutral-500 tw-pl-3'
+										'tw-mr-3 tw-line-through tw-text-neutral-400 tw-border-r-[1px] tw-border-neutral-500 tw-pr-3'
 									}>
-									${singleProducts?.[0].price} USD
+									{sales !== 0 &&
+										singleProducts?.[0].sales &&
+										`$${
+											price_Nosales
+												? price_Nosales +
+												  singleProducts?.[0].price * (sales / 100)
+												: singleProducts?.[0].price +
+												  singleProducts?.[0].price * (sales / 100)
+										}${' '}
+										USD${' '}`}
 								</span>
+								${price_Nosales ? price_Nosales : ' ***'} USD
 							</p>
+							<div>
+								Length: <span>{length}" inches</span>
+							</div>
 							<div className="tw-flex tw-items-center">
 								<span className="tw-mr-2">Review: </span>
 								<Rating isNum={true} />
@@ -349,7 +411,16 @@ function Products({ allProducts, sales }) {
 								<div
 									className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 tw-mb-40"
 									onClick={cartItems.length !== 0 ? IncreaseItem : null}>
-									<span>Add more</span>
+									{singleProducts?.[0].type.toLowerCase() === 'frontal' ||
+									singleProducts?.[0].type.toLowerCase() === 'closure' ? (
+										<span>
+											Add more of {_hairType} {_color} - {length}"
+										</span>
+									) : (
+										<span>
+											Add more of {singleProducts?.[0].name} - {length}"
+										</span>
+									)}
 								</div>
 							) : (
 								<div
@@ -359,7 +430,12 @@ function Products({ allProducts, sales }) {
 								</div>
 							)}
 							<div
-								onClick={() => setSingleproducts(null)}
+								onClick={() => {
+									setSingleproducts(null)
+									setColor(null)
+									sethairType(null)
+									setLength('14')
+								}}
 								className="tw-text-2xl tw-bg-neutral-200 tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-absolute tw-top-[20px] tw-right-[20px] tw-ease-in tw-duration-300 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white">
 								<CgClose />
 							</div>

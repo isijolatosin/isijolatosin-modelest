@@ -20,7 +20,7 @@ function ClosureFrontal() {
 	const [show, setShow] = React.useState(false)
 	const [error, setError] = React.useState(false)
 	const [sales, setSales] = React.useState(null)
-	const [length, setLength] = React.useState(null)
+	const [length, setLength] = React.useState('14')
 	const [_color, setColor] = React.useState(null)
 	const [_hairType, sethairType] = React.useState(null)
 	const [singleCart, setSingleCart] = React.useState(null)
@@ -32,7 +32,7 @@ function ClosureFrontal() {
 		singleProducts?.[0]?.type.toLowerCase() === 'frontal'
 			? ['Natural black']
 			: ['Natural black', 'Blonde613']
-	const texture = ['straight', 'Bodywave', 'Curly', 'Wavy']
+	const texture = ['Straight', 'Bodywave', 'Curly', 'Wavy']
 
 	React.useEffect(() => {
 		const starCountRef = ref(database, 'sales')
@@ -73,7 +73,7 @@ function ClosureFrontal() {
 	const sizes = singleProducts?.[0].availablelength.split(', ')
 
 	let cardPrice =
-		sales !== 0
+		sales !== 0 && singleProducts?.[0]?.sales
 			? singleProducts?.[0]?.price - singleProducts?.[0]?.price * (sales / 100)
 			: singleProducts?.[0]?.price
 
@@ -91,34 +91,52 @@ function ClosureFrontal() {
 		_price = cardPrice + 40
 	}
 
-	const price =
-		// checking for frontal
-		singleProducts?.[0]?.type.toLowerCase() === 'frontal'
-			? _color?.includes('Blonde613')
-				? singleProducts?.[0]?.sales
-					? (_price += 10)
-					: (_price += 10)
-				: singleProducts?.[0]?.sales
-				? _hairType?.includes('Bodywave') ||
-				  _hairType?.includes('Wavy') ||
-				  _hairType?.includes('Curly')
-					? (_price += 5)
-					: _price
-				: _price
-			: // checking for closure
-			_color?.includes('Natural black') &&
-			  (_hairType?.includes('Bodywave') ||
+	const pricePredict = () => {
+		if (singleProducts?.[0]?.type.toLowerCase() === 'Frontal') {
+			if (
+				_color?.includes('Natural black') &&
+				(_hairType?.includes('Bodywave') ||
 					_hairType?.includes('Wavy') ||
 					_hairType?.includes('Curly'))
-			? ((_price += 5), singleProducts?.[0]?.sales && (_price += 5))
-			: _color?.includes('Natural black') && _hairType?.includes('Straight')
-			? singleProducts?.[0]?.sales && _price
-			: _color?.includes('Blonde613') &&
-			  (_hairType?.includes('Bodywave') ||
+			) {
+				return (_price += 10)
+			} else if (
+				_color?.includes('Natural black') &&
+				_hairType?.includes('Straight')
+			) {
+				return _price
+			}
+		} else {
+			if (
+				_color?.includes('Natural black') &&
+				(_hairType?.includes('Bodywave') ||
 					_hairType?.includes('Wavy') ||
 					_hairType?.includes('Curly'))
-			? singleProducts?.[0]?.sales && (_price += 15)
-			: (_price += 10)
+			) {
+				return (_price += 5)
+			} else if (
+				_color?.includes('Natural black') &&
+				_hairType?.includes('Straight')
+			) {
+				return _price
+			}
+
+			if (
+				_color?.includes('Blonde613') &&
+				(_hairType?.includes('Bodywave') ||
+					_hairType?.includes('Wavy') ||
+					_hairType?.includes('Curly'))
+			) {
+				return (_price += 15)
+			} else if (
+				_color?.includes('Blonde613') &&
+				_hairType?.includes('Straight')
+			) {
+				return (_price += 10)
+			}
+		}
+	}
+	const price = Number(pricePredict())
 
 	// Adding to cart items
 	const name = singleProducts?.[0] && singleProducts?.[0]?.name
@@ -199,25 +217,29 @@ function ClosureFrontal() {
 							  } tw-pb-10 md:tw-pt-[120px] tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto`
 							: 'tw-pb-10 tw-pt-[110px] md:tw-pt-20 tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto home'
 					}>
-					<Add2CartPopup
-						singleCart={singleCart}
-						setSingleCart={setSingleCart}
-					/>
+					<div className="tw-fixed tw-z-40 tw-top-0 md:tw-top-[-95px] tw-right-0 md:tw-right-[-30px]">
+						<Add2CartPopup
+							singleCart={singleCart}
+							setSingleCart={setSingleCart}
+						/>
+					</div>
 					{show && closureFrontal && (
-						<div className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-w-full tw-px-2 tw-gap-2 md:tw-gap-5">
-							{closureFrontal.map((item) => (
-								<div key={item._id}>
-									<Card
-										sales={sales}
-										key={item._id}
-										product={item}
-										setSingleproducts={setSingleproducts}
-										setSingleCart={setSingleCart}
-										scrollToTop={scrollToTop}
-									/>
-								</div>
-							))}
-							<Reviews category="closure-frontal" color="white" />
+						<div className="tw-w-full tw-px-2">
+							<div className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-2 md:tw-gap-5">
+								{closureFrontal.map((item) => (
+									<div key={item._id}>
+										<Card
+											sales={sales}
+											key={item._id}
+											product={item}
+											setSingleproducts={setSingleproducts}
+											setSingleCart={setSingleCart}
+											scrollToTop={scrollToTop}
+										/>
+									</div>
+								))}
+								<Reviews category="closure-frontal" color="white" />
+							</div>
 						</div>
 					)}
 					{!show && (
@@ -245,6 +267,10 @@ function ClosureFrontal() {
 							texture={texture}
 							sethairType={sethairType}
 							setColor={setColor}
+							price={price}
+							length={length}
+							color={_color}
+							hairType={_hairType}
 						/>
 					)}
 				</div>

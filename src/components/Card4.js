@@ -101,7 +101,7 @@ function Card({
 	}
 	// Sales Price2
 	if (bundles.length === '14') {
-		salesAmount2 = product.price - product.price * (sales / 100)
+		salesAmount2 = Number(product.price - product.price * (sales / 100))
 	} else if (bundles.length === '16') {
 		salesAmount2 = salesAmount2 + 10
 	} else if (bundles.length === '18') {
@@ -114,36 +114,56 @@ function Card({
 
 	// Adding to cart items
 	const { name, _id, image, description } = product
-	const price =
-		// checking for frontal
-		product.type.toLowerCase() === 'frontal'
-			? bundles.color.includes('Blonde613')
-				? product.sales
-					? ((cardPrice2 += 10), (salesAmount2 += 10))
-					: (cardPrice2 += 10)
-				: product.sales
-				? bundles.hairType.includes('Bodywave') ||
-				  bundles.hairType.includes('Wavy') ||
-				  bundles.hairType.includes('Curly')
-					? ((cardPrice2 += 5), (salesAmount2 += 5))
-					: cardPrice2
-				: cardPrice2
-			: // checking for closure
-			bundles.color.includes('Natural black') &&
-			  (bundles.hairType.includes('Bodywave') ||
+	const pricePredict = () => {
+		if (product.type.toLowerCase() === 'frontal') {
+			if (
+				bundles.color.includes('Natural black') &&
+				(bundles.hairType.includes('Bodywave') ||
 					bundles.hairType.includes('Wavy') ||
 					bundles.hairType.includes('Curly'))
-			? ((cardPrice1 += 5), product.sales && (salesAmount1 += 5))
-			: bundles.color.includes('Natural black') &&
-			  bundles.hairType.includes('Straight')
-			? product.sales && (cardPrice1, salesAmount1)
-			: bundles.color.includes('Blonde613') &&
-			  (bundles.hairType.includes('Bodywave') ||
+			) {
+				cardPrice2 += 10
+				salesAmount2 += 10
+			} else if (
+				bundles.color.includes('Natural black') &&
+				bundles.hairType.includes('Straight')
+			) {
+				return { cardPrice2, salesAmount2 }
+			}
+		} else {
+			if (
+				bundles.color.includes('Natural black') &&
+				(bundles.hairType.includes('Bodywave') ||
 					bundles.hairType.includes('Wavy') ||
 					bundles.hairType.includes('Curly'))
-			? product.sales && ((cardPrice1 += 15), (salesAmount1 += 15))
-			: ((cardPrice1 += 10), (salesAmount1 += 10))
+			) {
+				cardPrice1 += 5
+				salesAmount1 += 5
+			} else if (
+				bundles.color.includes('Natural black') &&
+				bundles.hairType.includes('Straight')
+			) {
+				return { cardPrice1, salesAmount1 }
+			}
 
+			if (
+				bundles.color.includes('Blonde613') &&
+				(bundles.hairType.includes('Bodywave') ||
+					bundles.hairType.includes('Wavy') ||
+					bundles.hairType.includes('Curly'))
+			) {
+				cardPrice1 += 15
+				salesAmount1 += 15
+			} else if (
+				bundles.color.includes('Blonde613') &&
+				bundles.hairType.includes('Straight')
+			) {
+				cardPrice1 += 10
+				salesAmount1 += 10
+			}
+		}
+	}
+	const price = pricePredict()
 	const hairLength = bundles.length
 	const hairColor = bundles.color
 
@@ -184,7 +204,7 @@ function Card({
 				id={product._id}
 				src={product.image}
 				alt={product._id}
-				className=" tw-w-full tw-h-full tw-object-cover tw-rounded-sm hover:tw-cursor-pointer"
+				className=" tw-w-[350px] tw-h-full tw-object-cover tw-rounded-sm hover:tw-cursor-pointer"
 			/>
 			{product?.sales && sales !== 0 && (
 				<span className="tw-absolute tw-top-0 tw-left-0 tw-bg-gray-600 tw-text-white tw-rounded-tl-sm tw-rounded-br-sm tw-text-xs tw-p-[2px] tw-font-light">

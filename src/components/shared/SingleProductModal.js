@@ -5,7 +5,7 @@ import Slideshow from '../../utils/Slideshow'
 import Rating from './Rating'
 
 const SingleProductModal = ({
-	category,
+	price,
 	singleProducts,
 	setSingleproducts,
 	sales,
@@ -22,6 +22,9 @@ const SingleProductModal = ({
 	texture,
 	sethairType,
 	setColor,
+	length,
+	color,
+	hairType,
 }) => {
 	return (
 		<div>
@@ -31,7 +34,7 @@ const SingleProductModal = ({
 						<div className="tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
 							<Slideshow images={singleProducts?.[0]} />
 							{_hairColor && (
-								<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5 tw-mt-20">
+								<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5 tw-mt-5">
 									<div className="tw-flex tw-flex-wrap">
 										{_hairColor.map((colr, idx) => (
 											<span
@@ -63,7 +66,7 @@ const SingleProductModal = ({
 									</div>
 								</div>
 							)}
-							<div className="tw-flex tw-flex-col tw-mb-5 tw-ml-5 md:tw-ml-0 tw-mt-20">
+							<div className="tw-flex tw-flex-col tw-mb-5 tw-ml-5 md:tw-ml-0 tw-mt-5">
 								<div className="tw-flex tw-flex-wrap">
 									{sizes.map((size, idx) => (
 										<span
@@ -87,24 +90,39 @@ const SingleProductModal = ({
 								Description: {singleProducts?.[0].description}
 							</p>
 							<div className="tw-flex tw-flex-col">
+								{singleProducts?.[0]?.sales &&
+									(singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
+									singleProducts?.[0]?.type.toLowerCase() === 'closure' ? (
+										<span className="tw-mt-2 tw-text-xs tw-text-green-700">
+											Select color, tetxure & length to calculate sales price...
+										</span>
+									) : (
+										<span className="tw-mt-2 tw-text-xs tw-text-green-700">
+											Select length to calculate sales price...
+										</span>
+									))}
 								<p className="tw-font-medium tw-text-xl tw-my-[10px]">
 									Price:{' '}
-									{sales !== 0 &&
-										singleProducts?.[0]?.sales &&
-										`$${
-											singleProducts?.[0].price -
-											singleProducts?.[0].price * (sales / 100)
-										}${' '}
-										USD${' '}`}
 									<span
 										className={
 											sales !== 0 &&
 											singleProducts?.[0]?.sales &&
-											'tw-ml-2 tw-line-through tw-text-neutral-400 tw-border-l-[1px] tw-border-neutral-500 tw-pl-3'
+											'tw-mr-3 tw-line-through tw-text-neutral-400 tw-border-r-[1px] tw-border-neutral-500 tw-pr-3'
 										}>
-										${singleProducts?.[0].price} USD
+										{sales !== 0 &&
+											singleProducts?.[0]?.sales &&
+											`$${
+												price
+													? price + singleProducts?.[0].price * (sales / 100)
+													: singleProducts?.[0].price
+											}${' '}
+										USD${' '}`}
 									</span>
+									${price ? price : ' ***'} USD
 								</p>
+								<div>
+									Length: <span>{length}" inches</span>
+								</div>
 								<div className="tw-flex tw-items-center">
 									<span className="tw-mr-2">Review: </span>
 									<Rating isNum={true} />
@@ -141,7 +159,10 @@ const SingleProductModal = ({
 								<div
 									className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 tw-mb-40"
 									onClick={cartItems.length !== 0 ? IncreaseItem : null}>
-									<span>Add more</span>
+									<span>
+										Add more of {singleProducts?.[0].name} {color} {hairType} -{' '}
+										{length}"
+									</span>
 								</div>
 							) : (
 								<div
@@ -151,7 +172,12 @@ const SingleProductModal = ({
 								</div>
 							)}
 							<div
-								onClick={() => setSingleproducts(null)}
+								onClick={() => {
+									setSingleproducts(null)
+									setColor(null)
+									sethairType(null)
+									setLength('14')
+								}}
 								className="tw-text-2xl tw-bg-neutral-200 tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-absolute tw-top-[20px] tw-right-[20px] tw-ease-in tw-duration-300 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white">
 								<CgClose />
 							</div>
