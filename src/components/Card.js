@@ -62,7 +62,7 @@ function Card({ product, setSingleproducts, scrollToTop, sales }) {
 					<div className="tw-pt-2 tw-w-full">
 						<p className="tw-text-[14px] tw-font-bold">{product.name}</p>
 						<p className="tw-pt-2 tw-border-t-[1px] tw-border-neutral-700 tw-text-xs tw-text-neutral-900 tw-mb-3">
-							{truncate(product.description)}
+							{truncate(product.description, 10)}
 						</p>
 					</div>
 				</div>

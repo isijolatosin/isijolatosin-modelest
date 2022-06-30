@@ -190,7 +190,7 @@ function JetBlackHair() {
 									/>
 								</div>
 							))}
-							<Reviews category="jet-black-&-blonde-hair" />
+							<Reviews category="jet-black-&-blonde-hair" color="white" />
 						</div>
 					)}
 					{!show && (

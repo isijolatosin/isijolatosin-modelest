@@ -193,7 +193,7 @@ function HairBundles() {
 									</div>
 								))}
 							</div>
-							<Reviews category="hair-bundles" />
+							<Reviews category="hair-bundles" color="white" />
 						</div>
 					)}
 					{!show && (

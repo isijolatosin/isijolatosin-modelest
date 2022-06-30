@@ -217,7 +217,7 @@ function ClosureFrontal() {
 									/>
 								</div>
 							))}
-							<Reviews category="closure-frontal" />
+							<Reviews category="closure-frontal" color="white" />
 						</div>
 					)}
 					{!show && (

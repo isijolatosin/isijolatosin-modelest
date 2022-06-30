@@ -26,6 +26,18 @@ function App() {
 			<Route exact path="/admin-portal" element={<Management />} />
 			<Route exact path="/indian-bundles" element={<HairBundles />} />
 			<Route exact path="/deals/:dealInfo" element={<DealPage />} />
+			<Route exact path="/bodywave&frontal/:reviews" element={<DealPage />} />
+			<Route
+				exact
+				path="/naturalcurly&frontal/:reviews"
+				element={<DealPage />}
+			/>
+			<Route exact path="/bodywave&closure/:reviews" element={<DealPage />} />
+			<Route
+				exact
+				path="/naturalcurly&closure/:reviews"
+				element={<DealPage />}
+			/>
 			<Route exact path="/indian-bundles-deals" element={<IndianDeal />} />
 			<Route
 				exact

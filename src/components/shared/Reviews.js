@@ -6,13 +6,17 @@ import { db } from '../../firebase'
 import Button from '../shared/Button'
 import Pagination from './Pagination'
 
-const Reviews = ({ category }) => {
+const Reviews = ({ category, color }) => {
 	const navigate = useNavigate()
 	const [chunkIndex, setChunkIndex] = React.useState(0)
 	const [isForm, setIsForm] = React.useState(false)
 	const [count1, setCount1] = React.useState(null)
 	const [count2, setCount2] = React.useState(null)
 	const [count3, setCount3] = React.useState(null)
+	const [count4, setCount4] = React.useState(null)
+	const [count5, setCount5] = React.useState(null)
+	const [count6, setCount6] = React.useState(null)
+	const [count7, setCount7] = React.useState(null)
 	const [reviewsArray, setReviewsArray] = React.useState([])
 	const [reviews, setReviews] = React.useState({
 		name: null,
@@ -45,6 +49,8 @@ const Reviews = ({ category }) => {
 			title: '',
 			message: '',
 		})
+		setIsForm(false)
+		window.history.back()
 	}
 
 	React.useEffect(() => {
@@ -93,6 +99,30 @@ const Reviews = ({ category }) => {
 			}))
 			setCount3(results.length)
 		})
+		db.collection('naturalcurly&closure').onSnapshot((snapshot) => {
+			const results = snapshot.docs.map((doc) => ({
+				data: doc.data(),
+			}))
+			setCount4(results.length)
+		})
+		db.collection('bodywave&closure').onSnapshot((snapshot) => {
+			const results = snapshot.docs.map((doc) => ({
+				data: doc.data(),
+			}))
+			setCount5(results.length)
+		})
+		db.collection('naturalcurly&frontal').onSnapshot((snapshot) => {
+			const results = snapshot.docs.map((doc) => ({
+				data: doc.data(),
+			}))
+			setCount6(results.length)
+		})
+		db.collection('bodywave&frontal').onSnapshot((snapshot) => {
+			const results = snapshot.docs.map((doc) => ({
+				data: doc.data(),
+			}))
+			setCount7(results.length)
+		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -104,7 +134,7 @@ const Reviews = ({ category }) => {
 	}
 
 	return (
-		<div className="tw-bg-white tw-mt-10 tw-py-10 tw-w-full">
+		<div className={`tw-bg-${color} tw-mt-10 tw-py-10 tw-w-full`}>
 			<div className="tw-border-[1px] tw-w-full md:tw-w-[80%] xl:tw-w-[55%] tw-mx-auto tw-p-5">
 				<div className="tw-border-b-[1px] tw-pb-5">
 					<h1 className="tw-text-neutral-700 tw-text-[28px] tw-mb-2 Oswald">
@@ -125,22 +155,26 @@ const Reviews = ({ category }) => {
 							</div>
 							{count1 && count2 && count3 && (
 								<span className="md:tw-ml-2 tw-text-neutral-600">
-									Based on {count1 + count2 + count3} reviews
+									Based on{' '}
+									{count1 + count2 + count3 + count4 + count5 + count6 + count7}{' '}
+									reviews
 								</span>
 							)}
 						</div>
-						<div
-							className="tw-mt-5 md:tw-mt-0 tw-flex tw-items-center tw-text-red-700 "
-							onClick={() => {
-								setIsForm(!isForm)
-								navigate(`/${category}/reviews`)
-							}}>
-							<span className="tw-font-[600] hover:tw-cursor-pointer tw-mr-1">
-								Write a review
-							</span>
-							...
-							<GiPencil size={15} />
-						</div>
+						{!isForm && (
+							<div
+								className="tw-mt-5 md:tw-mt-0 tw-flex tw-items-center tw-text-red-700 "
+								onClick={() => {
+									setIsForm(true)
+									navigate(`/${category}/reviews`)
+								}}>
+								<span className="tw-font-[600] hover:tw-cursor-pointer tw-mr-1">
+									Write a review
+								</span>
+								...
+								<GiPencil size={15} />
+							</div>
+						)}
 					</div>
 				</div>
 				{isForm && (

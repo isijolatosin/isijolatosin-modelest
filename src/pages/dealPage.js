@@ -11,6 +11,7 @@ import {
 	increaseCartItem,
 	selectCartItems,
 } from '../slices/appSlices'
+import Reviews from '../components/shared/Reviews'
 import { useDispatch, useSelector } from 'react-redux'
 
 const DealPage = () => {
@@ -24,7 +25,20 @@ const DealPage = () => {
 	const [_length, setLength] = React.useState('')
 	const dispatch = useDispatch()
 	const cartItems = useSelector(selectCartItems)
-
+	const category = window.location.pathname
+		.split('/')
+		.filter((x) => x)
+		?.[window.location.pathname.split('/').filter((x) => x).length - 1].split(
+			'-'
+		)?.[
+		window.location.pathname
+			.split('/')
+			.filter((x) => x)
+			?.[window.location.pathname.split('/').filter((x) => x).length - 1].split(
+				'-'
+			).length - 1
+	]
+	console.log(category)
 	React.useEffect(() => {
 		const starCountRef = ref(database, 'bundle deals')
 		onValue(starCountRef, (snapshot) => {
@@ -48,6 +62,7 @@ const DealPage = () => {
 			.split('-')
 			?.[window.location.pathname.split('-').length - 1].split('&')).length - 1
 	]
+
 	async function fetchProducts() {
 		try {
 			const {
@@ -129,7 +144,7 @@ const DealPage = () => {
 		fetchProducts()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
-	console.log(deals)
+
 	// Adding to cart items
 	const name =
 		deals[0]?.name.toLowerCase().includes('frontal') ||
@@ -263,6 +278,7 @@ const DealPage = () => {
 							)}
 						</div>
 					</div>
+					<Reviews category={category} />
 				</div>
 			</Layout>
 		</>
