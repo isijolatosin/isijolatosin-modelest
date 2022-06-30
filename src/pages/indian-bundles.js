@@ -160,7 +160,7 @@ function IndianBundles() {
 	return (
 		<>
 			<Helmet>
-				<title>Hair Bundles</title>
+				<title>Indian-Hair-Bundles</title>
 			</Helmet>
 			<Layout>
 				<div

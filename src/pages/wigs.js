@@ -22,7 +22,7 @@ function Wigs() {
 	return (
 		<>
 			<Helmet>
-				<title>Virgin-hair-Bundle-Deals</title>
+				<title>Wigs</title>
 			</Helmet>
 			<Layout>
 				<div className="tw-py-[100px] tw-px-5 tw-bg-gray-300 tw-flex tw-flex-col tw-items-center tw-text-pink-700 tw-italic tw-text-sm tw-font-bold">

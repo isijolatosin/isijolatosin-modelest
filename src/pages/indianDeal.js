@@ -115,7 +115,7 @@ function IndianDeal() {
 	return (
 		<>
 			<Helmet>
-				<title>Indian-hair-Bundle-Deals</title>
+				<title>Indian-Hair-Bundle-Deals</title>
 			</Helmet>
 			<Layout sales={bundleDealsPercentage}>
 				<div className="tw-w-full tw-bg-white tw-mt-[50px] md:tw-mt-[0px]">

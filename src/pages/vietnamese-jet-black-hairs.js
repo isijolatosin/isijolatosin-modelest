@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
 // import { UserContext } from '../context/user-context'
 
-function VietnameseClosureFrontal() {
+function VietnameseJetBlack() {
 	// 	const { user } = useContext(UserContext)
 	// 	const database = getDatabase()
 	// 	const [bundleDeals, setBundleDeals] = React.useState(null)
@@ -22,7 +22,7 @@ function VietnameseClosureFrontal() {
 	return (
 		<>
 			<Helmet>
-				<title>Vietnamese-Hair-Closure&Frontal</title>
+				<title>Vietnamese-Jet-Black&Blonde-Hair</title>
 			</Helmet>
 			<Layout>
 				<div className="tw-py-[100px] tw-px-5 tw-bg-gray-300 tw-flex tw-flex-col tw-items-center tw-text-pink-700 tw-italic tw-text-sm tw-font-bold">
@@ -34,4 +34,4 @@ function VietnameseClosureFrontal() {
 	)
 }
 
-export default VietnameseClosureFrontal
+export default VietnameseJetBlack

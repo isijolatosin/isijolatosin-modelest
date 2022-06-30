@@ -186,7 +186,7 @@ function ClosureFrontal() {
 	return (
 		<>
 			<Helmet>
-				<title>Closure & Frontal</title>
+				<title>Indian-Hair-Closure&Frontal</title>
 			</Helmet>
 			<Layout>
 				<div

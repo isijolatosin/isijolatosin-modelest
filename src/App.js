@@ -12,7 +12,9 @@ import VietnameseBundles from './pages/vietnamese-bundles'
 import IndianClosureFrontal from './pages/indian-closure-frontal'
 import VirginClosureFrontal from './pages/virgin-closure-frontal'
 import VietnameseClosureFrontal from './pages/vietnamese-closure-frontal'
-import JetBlackHair from './pages/jet-black-hairs'
+import IndianJetBlackHair from './pages/indian-jet-black-hairs'
+import VirginJetBlackHair from './pages/virgin-jet-black-hairs'
+import VietnameseJetBlackHair from './pages/vietnamese-jet-black-hairs'
 import Cart from './pages/cart'
 import Account from './pages/account'
 import IndianDeal from './pages/indianDeal'
@@ -53,17 +55,17 @@ function App() {
 			<Route
 				exact
 				path="/jet-black-&-blonde/indian"
-				element={<JetBlackHair />}
+				element={<IndianJetBlackHair />}
 			/>
 			<Route
 				exact
 				path="/jet-black-&-blonde/virgin"
-				element={<JetBlackHair />}
+				element={<VirginJetBlackHair />}
 			/>
 			<Route
 				exact
 				path="/jet-black-&-blonde/vietnamese"
-				element={<JetBlackHair />}
+				element={<VietnameseJetBlackHair />}
 			/>
 			<Route exact path="/indian-bundles-deals" element={<IndianDeal />} />
 			<Route
@@ -115,8 +117,18 @@ function App() {
 			/>
 			<Route
 				exact
-				path="/jet-black-&-blonde/:brand/:reviews"
-				element={<JetBlackHair />}
+				path="/jet-black-&-blonde/indian/:reviews"
+				element={<IndianJetBlackHair />}
+			/>
+			<Route
+				exact
+				path="/jet-black-&-blonde/virgin/:reviews"
+				element={<VirginJetBlackHair />}
+			/>
+			<Route
+				exact
+				path="/jet-black-&-blonde/vietnamese/:reviews"
+				element={<VietnameseJetBlackHair />}
 			/>
 			<Route exact path="/user-cart/:userId" element={<Cart />} />
 			<Route exact path="/user-account" element={<Account />} />

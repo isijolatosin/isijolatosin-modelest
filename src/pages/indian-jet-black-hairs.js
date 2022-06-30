@@ -14,7 +14,7 @@ import Add2CartPopup from '../components/shared/Add2CartPopup'
 import SingleProductModal from '../components/shared/SingleProductModal'
 import Reviews from '../components/shared/Reviews'
 
-function JetBlackHair() {
+function IndianJetBlackHair() {
 	const [singleProducts, setSingleproducts] = React.useState(null)
 	const [jetBlackHair, setJetBlackHair] = React.useState([])
 	const [show, setShow] = React.useState(false)
@@ -159,7 +159,7 @@ function JetBlackHair() {
 	return (
 		<>
 			<Helmet>
-				<title>Jet Black & Blonde Hair</title>
+				<title>Indian-Hair-Jet-Black&Blonde</title>
 			</Helmet>
 			<Layout>
 				<div
@@ -221,4 +221,4 @@ function JetBlackHair() {
 	)
 }
 
-export default JetBlackHair
+export default IndianJetBlackHair
