@@ -205,7 +205,7 @@ const DealPage = () => {
 			</Helmet>
 			<Layout sales={bundleDealsPercentage}>
 				<div className="tw-w-full tw-bg-neutral-100 tw-flex tw-flex-col tw-items-center">
-					<div className="tw-py-[70px] xl:tw-w-[80%] tw-px-5 tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
+					<div className="tw-pt-[70px] xl:tw-w-[80%] tw-px-5 tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
 						<div className="">
 							<Slideshow images={dealsImage} iconSize={40} />
 						</div>
@@ -261,7 +261,7 @@ const DealPage = () => {
 							)}
 							{isInCart(dealsProduct, cartItems) ? (
 								<div
-									className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[50%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 tw-mb-40 ${
+									className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[50%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
 										!error && 'tw-mt-5'
 									}`}
 									onClick={cartItems.length !== 0 ? IncreaseItem : null}>
@@ -269,7 +269,7 @@ const DealPage = () => {
 								</div>
 							) : (
 								<div
-									className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[50%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 tw-mb-40 ${
+									className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[50%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
 										!error && 'tw-mt-5'
 									}`}
 									onClick={addToCart}>
