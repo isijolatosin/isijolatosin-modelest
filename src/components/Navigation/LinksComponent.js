@@ -137,7 +137,7 @@ function LinksComponent() {
 						{virginSubLinks.map((item) => (
 							<Link
 								to={item.route}
-								className="tw-text-right md:tw-text-center tw-px-3 tw-rounded-sm tw-w-[180px] tw-bg-neutral-300 md:tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
+								className="tw-text-center tw-px-3 tw-rounded-sm tw-w-[180px] tw-bg-neutral-300 md:tw-bg-neutral-400 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-neutral-800 hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
 								key={item.id}>
 								{item.name}
 							</Link>
