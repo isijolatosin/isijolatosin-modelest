@@ -14,7 +14,7 @@ import Add2CartPopup from '../components/shared/Add2CartPopup'
 import SingleProductModal from '../components/shared/SingleProductModal'
 import Reviews from '../components/shared/Reviews'
 
-function HairBundles() {
+function IndianBundles() {
 	const [hairBundles, setHairBundles] = React.useState([])
 	const [singleProducts, setSingleproducts] = React.useState(null)
 	const [singleCart, setSingleCart] = React.useState(null)
@@ -225,4 +225,4 @@ function HairBundles() {
 	)
 }
 
-export default HairBundles
+export default IndianBundles

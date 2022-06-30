@@ -6,8 +6,12 @@ import NotFound from './pages/error'
 import Canceled from './pages/canceled'
 import Success from './pages/success'
 import Management from './pages/management'
-import HairBundles from './pages/hair-bundles'
-import ClosureFrontal from './pages/closure-frontal'
+import IndianBundles from './pages/indian-bundles'
+import VirginBundles from './pages/virgin-bundles'
+import VietnameseBundles from './pages/vietnamese-bundles'
+import IndianClosureFrontal from './pages/indian-closure-frontal'
+import VirginClosureFrontal from './pages/virgin-closure-frontal'
+import VietnameseClosureFrontal from './pages/vietnamese-closure-frontal'
 import JetBlackHair from './pages/jet-black-hairs'
 import Cart from './pages/cart'
 import Account from './pages/account'
@@ -15,6 +19,7 @@ import IndianDeal from './pages/indianDeal'
 import VietnameseDeal from './pages/vietnameseDeal'
 import VirginDeal from './pages/virginDeal'
 import DealPage from './pages/dealPage'
+import Wigs from './pages/wigs'
 
 function App() {
 	return (
@@ -24,19 +29,41 @@ function App() {
 			<Route exact path="/canceled" element={<Canceled />} />
 			<Route exact path="/success" element={<Success />} />
 			<Route exact path="/admin-portal" element={<Management />} />
-			<Route exact path="/indian-bundles" element={<HairBundles />} />
+			<Route exact path="/bundles/indian" element={<IndianBundles />} />
+			<Route exact path="/bundles/virgin" element={<VirginBundles />} />
+			<Route exact path="/bundles/vietnamese" element={<VietnameseBundles />} />
 			<Route exact path="/deals/:dealInfo" element={<DealPage />} />
+			<Route exact path="/wigs/:brand" element={<Wigs />} />
 			<Route exact path="/bodywave&frontal/:reviews" element={<DealPage />} />
 			<Route
 				exact
-				path="/naturalcurly&frontal/:reviews"
-				element={<DealPage />}
+				path="/closure-frontal/indian"
+				element={<IndianClosureFrontal />}
 			/>
-			<Route exact path="/bodywave&closure/:reviews" element={<DealPage />} />
 			<Route
 				exact
-				path="/naturalcurly&closure/:reviews"
-				element={<DealPage />}
+				path="/closure-frontal/virgin"
+				element={<VirginClosureFrontal />}
+			/>
+			<Route
+				exact
+				path="/closure-frontal/vietnamese"
+				element={<VietnameseClosureFrontal />}
+			/>
+			<Route
+				exact
+				path="/jet-black-&-blonde/indian"
+				element={<JetBlackHair />}
+			/>
+			<Route
+				exact
+				path="/jet-black-&-blonde/virgin"
+				element={<JetBlackHair />}
+			/>
+			<Route
+				exact
+				path="/jet-black-&-blonde/vietnamese"
+				element={<JetBlackHair />}
 			/>
 			<Route exact path="/indian-bundles-deals" element={<IndianDeal />} />
 			<Route
@@ -45,25 +72,50 @@ function App() {
 				element={<VietnameseDeal />}
 			/>
 			<Route exact path="/Virgin-bundles-deals" element={<VirginDeal />} />
-			<Route exact path="/indian-bundles/:reviews" element={<HairBundles />} />
+			<Route exact path="/bodywave&closure/:reviews" element={<DealPage />} />
 			<Route
 				exact
-				path="/indian-closure-frontal"
-				element={<ClosureFrontal />}
+				path="/naturalcurly&closure/:reviews"
+				element={<DealPage />}
 			/>
 			<Route
 				exact
-				path="/indian-closure-frontal/:reviews"
-				element={<ClosureFrontal />}
+				path="/naturalcurly&frontal/:reviews"
+				element={<DealPage />}
 			/>
 			<Route
 				exact
-				path="/indian-jet-black-&-blonde"
-				element={<JetBlackHair />}
+				path="/bundles/:brand/:reviews"
+				element={<IndianBundles />}
 			/>
 			<Route
 				exact
-				path="/indian-jet-black-&-blonde/:reviews"
+				path="/bundles/:brand/:reviews"
+				element={<VirginBundles />}
+			/>
+			<Route
+				exact
+				path="/bundles/:brand/:reviews"
+				element={<VietnameseBundles />}
+			/>
+			<Route
+				exact
+				path="/closure-frontal/indian/:reviews"
+				element={<IndianClosureFrontal />}
+			/>
+			<Route
+				exact
+				path="/closure-frontal/virgin/:reviews"
+				element={<VirginClosureFrontal />}
+			/>
+			<Route
+				exact
+				path="/closure-frontal/vietnamese/:reviews"
+				element={<VietnameseClosureFrontal />}
+			/>
+			<Route
+				exact
+				path="/jet-black-&-blonde/:brand/:reviews"
 				element={<JetBlackHair />}
 			/>
 			<Route exact path="/user-cart/:userId" element={<Cart />} />
