@@ -277,7 +277,7 @@ function Products({ allProducts, sales }) {
 														_color === colr
 															? 'tw-bg-neutral-900 tw-text-white'
 															: 'tw-bg-neutral-200 tw-text-neutral-900'
-													} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
+													} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 													key={idx}>
 													<span>{colr}</span>
 												</span>
@@ -295,7 +295,7 @@ function Products({ allProducts, sales }) {
 														_hairType === tex
 															? 'tw-bg-neutral-900 tw-text-white'
 															: 'tw-bg-neutral-200 tw-text-neutral-900'
-													} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
+													} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 													key={idx}>
 													<span>{tex}</span>
 												</span>
@@ -313,7 +313,7 @@ function Products({ allProducts, sales }) {
 														length === size
 															? 'tw-bg-neutral-900 tw-text-white'
 															: 'tw-bg-neutral-200 tw-text-neutral-900'
-													} tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-p-3 tw-text-[16px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
+													} tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-p-3 tw-text-[16px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 													key={idx}>
 													{size}inch
 												</span>
