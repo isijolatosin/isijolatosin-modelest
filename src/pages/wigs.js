@@ -27,7 +27,7 @@ function Wigs() {
 			<Layout>
 				<div className="tw-py-[100px] tw-px-5 tw-bg-gray-300 tw-flex tw-flex-col tw-items-center tw-text-pink-700 tw-italic tw-text-sm tw-font-bold">
 					{window.location.pathname.split('/').filter((x) => x)?.[0]} coming
-					soon course we got you covered...
+					soon. We got you covered...
 				</div>
 			</Layout>
 		</>

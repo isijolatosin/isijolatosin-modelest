@@ -26,7 +26,7 @@ function VietnameseDeal() {
 			</Helmet>
 			<Layout>
 				<div className="tw-py-[100px] tw-px-5 tw-bg-gray-300 tw-flex tw-flex-col tw-items-center tw-text-pink-700 tw-italic tw-text-sm tw-font-bold">
-					Vietnamese hair Bundle Deals coming soon course we got you covered...
+					Vietnamese hair Bundle Deals coming soon. We got you covered...
 				</div>
 			</Layout>
 		</>
