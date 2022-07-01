@@ -273,7 +273,11 @@ function Products({ allProducts, sales }) {
 														setColor(colr)
 														setError(false)
 													}}
-													className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300"
+													className={`${
+														_color === colr
+															? 'tw-bg-neutral-900 tw-text-white'
+															: 'tw-bg-neutral-200 tw-text-neutral-900'
+													} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 													key={idx}>
 													<span>{colr}</span>
 												</span>
@@ -287,7 +291,11 @@ function Products({ allProducts, sales }) {
 													onClick={() => {
 														sethairType(tex)
 													}}
-													className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300"
+													className={`${
+														_hairType === tex
+															? 'tw-bg-neutral-900 tw-text-white'
+															: 'tw-bg-neutral-200 tw-text-neutral-900'
+													} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 													key={idx}>
 													<span>{tex}</span>
 												</span>
@@ -301,7 +309,11 @@ function Products({ allProducts, sales }) {
 													onClick={() => {
 														setLength(size)
 													}}
-													className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[16px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300"
+													className={`tw-flex tw-flex-wrap ${
+														length === size
+															? 'tw-bg-neutral-900 tw-text-white'
+															: 'tw-bg-neutral-200 tw-text-neutral-900'
+													} tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-p-3 tw-text-[16px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 													key={idx}>
 													{size}inch
 												</span>
@@ -318,7 +330,11 @@ function Products({ allProducts, sales }) {
 													setLength(size)
 													setError(false)
 												}}
-												className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-px-2 tw-text-[16px] tw-text-neutral-900 tw-p-5 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300"
+												className={`tw-flex tw-flex-wrap ${
+													length === size
+														? 'tw-bg-neutral-900 tw-text-white'
+														: 'tw-bg-neutral-200 tw-text-neutral-900'
+												} tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-p-3 tw-text-[16px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 												key={idx}>
 												{size}inch
 											</span>
@@ -345,13 +361,6 @@ function Products({ allProducts, sales }) {
 										***Select length to calculate sales price...***
 									</span>
 								))}
-							{/* {(singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
-								singleProducts?.[0]?.type.toLowerCase() === 'closure') &&
-								!price_Nosales && (
-									<span className="tw-mt-2 tw-text-xs tw-text-green-700">
-										***Select color & tetxure to calculate sales price...***
-									</span>
-								)} */}
 							<p className="tw-font-medium tw-text-xl tw-my-[10px]">
 								Price:{' '}
 								<span
@@ -446,7 +455,7 @@ function Products({ allProducts, sales }) {
 									sethairType(null)
 									setLength('14')
 								}}
-								className="tw-text-2xl tw-bg-neutral-200 tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-absolute tw-top-[20px] tw-right-[20px] tw-ease-in tw-duration-300 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white">
+								className="tw-text-2xl tw-text-white tw-bg-neutral-900 tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-absolute tw-top-[20px] tw-right-[20px] tw-ease-in tw-duration-300 hover:tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900">
 								<CgClose />
 							</div>
 						</div>

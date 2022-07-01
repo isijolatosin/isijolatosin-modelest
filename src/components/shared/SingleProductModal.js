@@ -42,7 +42,11 @@ const SingleProductModal = ({
 													setColor(colr)
 													setError(false)
 												}}
-												className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300"
+												className={`${
+													color === colr
+														? 'tw-bg-neutral-900 tw-text-white'
+														: 'tw-bg-neutral-200 tw-text-neutral-900'
+												} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 												key={idx}>
 												<span>{colr}</span>
 											</span>
@@ -58,7 +62,11 @@ const SingleProductModal = ({
 												onClick={() => {
 													sethairType(tex)
 												}}
-												className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] tw-text-neutral-900 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300"
+												className={`${
+													hairType === tex
+														? 'tw-bg-neutral-900 tw-text-white'
+														: 'tw-bg-neutral-200 tw-text-neutral-900'
+												} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 												key={idx}>
 												<span>{tex}</span>
 											</span>
@@ -74,7 +82,11 @@ const SingleProductModal = ({
 												setLength(size)
 												setError(false)
 											}}
-											className="tw-flex tw-flex-wrap tw-bg-neutral-200 tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-px-2 tw-text-[16px] tw-text-neutral-900 tw-p-5 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300"
+											className={`${
+												length === size
+													? 'tw-bg-neutral-900 tw-text-white'
+													: 'tw-bg-neutral-200 tw-text-neutral-900'
+											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-text-[16px] tw-p-3 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 											key={idx}>
 											{size}inch
 										</span>
