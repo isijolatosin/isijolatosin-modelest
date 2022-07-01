@@ -3,7 +3,8 @@ import emailjs from 'emailjs-com'
 import { UserContext } from '../context/user-context'
 import Heading from './Heading'
 import { db } from '../firebase'
-import { MdEmail, MdOutlineKeyboardArrowUp } from 'react-icons/md'
+import { MdOutlineKeyboardArrowUp } from 'react-icons/md'
+import { GoMailRead } from 'react-icons/go'
 import { GiCheckMark } from 'react-icons/gi'
 import { MdClose } from 'react-icons/md'
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
@@ -11,13 +12,11 @@ import Button from './shared/Button'
 import { AUTHORIZED_ID } from '../constant'
 import { FaShippingFast } from 'react-icons/fa'
 import { SiMinutemailer } from 'react-icons/si'
-import { BsShieldFillExclamation } from 'react-icons/bs'
 
 function Shippment() {
 	const { user } = useContext(UserContext)
 	const [readMore, setReadMore] = React.useState(false)
 	const [emailSent, setEmailSent] = React.useState(false)
-	const [showEmailIcon, setShowEmailIcon] = React.useState(false)
 	const [showSendIcon, setShowSendIcon] = React.useState(false)
 	const [showShipText, setShowShipText] = React.useState(false)
 	const [compareID, setCompareID] = React.useState(false)
@@ -344,58 +343,43 @@ function Shippment() {
 																</div>
 															)}
 														{showShipText && compareID === item?.id && (
-															<div className="tw-absolute tw-right-0 tw-flex tw-flex-row tw-items-center tw-justify-center bg-blur3 tw-text-white tw-text-xs tw-font-bold tw-p-2">
+															<div className="tw-absolute tw-right-[-7px] tw-flex tw-flex-row tw-items-center tw-justify-center tw-text-xs tw-font-bold tw-p-2 tw-text-violet-900">
 																<div
-																	className="hover:tw-cursor-pointer tw-relative tw-pr-3 tw-border-r-[1px]"
+																	className="hover:tw-cursor-pointer tw-relative tw-px-3 tw-py-1 tw-rounded-[3px] tw-mr-[1px] tw-bg-violet-500"
 																	onClick={() =>
 																		toggleModal(item?.id, item?.customer)
 																	}>
-																	<FaShippingFast size={30} color="white" />
+																	<FaShippingFast size={30} />
 																</div>
-																{!showEmailIcon && (
-																	<div
-																		onClick={() =>
-																			setShowEmailIcon(!showEmailIcon)
-																		}
-																		className="tw-pl-3">
-																		<BsShieldFillExclamation
+																<div className="tw-flex tw-items-center">
+																	<div className="hover:tw-cursor-pointer tw-pl-3 tw-bg-violet-500 tw-px-3 tw-py-1 tw-rounded-[3px] tw-mr-[1px]">
+																		<GoMailRead
+																			onClick={() =>
+																				setShowSendIcon(!showSendIcon)
+																			}
 																			size={30}
-																			color="white"
 																		/>
 																	</div>
-																)}
-																{showEmailIcon && (
-																	<div className="tw-flex tw-items-center">
-																		<div className="hover:tw-cursor-pointer tw-border-r-[1px] tw-px-3">
-																			<MdEmail
+																	<div className="hover:tw-cursor-pointer tw-bg-violet-500 tw-text-white tw-px-3 tw-py-[9.3px] tw-rounded-[3px]">
+																		{showSendIcon && (
+																			<SiMinutemailer
 																				onClick={() =>
-																					setShowSendIcon(!showSendIcon)
+																					SendFutureEmail(
+																						item?.email,
+																						item?.customer,
+																						item?.color,
+																						item?.title,
+																						item?.quantity
+																					)
 																				}
-																				size={30}
-																				color="white"
+																				size={20}
 																			/>
-																		</div>
-																		<div className="hover:tw-cursor-pointer tw-pl-3">
-																			{showSendIcon && (
-																				<SiMinutemailer
-																					onClick={() =>
-																						SendFutureEmail(
-																							item?.email,
-																							item?.customer,
-																							item?.color,
-																							item?.title,
-																							item?.quantity
-																						)
-																					}
-																					size={30}
-																					color="white"
-																				/>
-																			)}
-																		</div>
+																		)}
 																	</div>
-																)}
+																</div>
+
 																{emailSent && (
-																	<span className="tw-absolute tw-bottom-[10%] tw-w-full tw-text-center tw-bg-white tw-px-1 tw-right-0 tw-mb-3 tw-font-light tw-text-neutral-900">
+																	<span className="tw-absolute tw-bottom-[4%] tw-w-[60%] tw-text-center bg-blur3 tw-p-1 tw-right-[8px] tw-mb-3 tw-text-white tw-font-light tw-text-[12px] tw-tracking-widest">
 																		Email sent!
 																	</span>
 																)}
