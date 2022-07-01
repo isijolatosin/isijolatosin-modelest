@@ -258,7 +258,7 @@ function Shippment() {
 							)
 						) : (
 							<>
-								<div className="tw-max-w-[90%] tw-mr-[50px] md:tw-px-[50px] md:tw-max-w-[80%] lg:tw-max-w-[100%] md:tw-overflow-x-auto">
+								<div className="tw-max-w-[90%] md:tw-px-[50px] md:tw-max-w-[80%] lg:tw-max-w-[100%] md:tw-overflow-x-auto">
 									<table>
 										<thead>
 											<tr className="table-head-row">
