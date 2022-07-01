@@ -225,11 +225,14 @@ function Products({ allProducts, sales }) {
 
 	return (
 		<div className="tw-pt-10 tw-relative tw-flex tw-flex-col tw-items-center ">
-			<div className="tw-fixed tw-top-[-100px] tw-right-[-20px] tw-z-40">
+			<div className="tw-fixed tw-top-0 tw-right-0 md:tw-top-[-100px] md:tw-right-[-20px] tw-z-40">
 				<Add2CartPopup singleCart={singleCart} setSingleCart={setSingleCart} />
 			</div>
 			{allProducts ? (
-				<div className="tw-grid tw-grid-cols-2 tw-w-full tw-px-2 md:tw-w-[100%] md:tw-grid-cols-4 lg:tw-grid-cols-5 2xl:tw-grid-cols-6 3xl:tw-grid-cols-7 tw-gap-2 md:tw-gap-5 ">
+				<div
+					className={`tw-grid tw-grid-cols-2 tw-w-full tw-px-2 ${
+						!sales && 'tw-pt-[20px]'
+					} md:tw-w-[100%] md:tw-grid-cols-4 lg:tw-grid-cols-5 2xl:tw-grid-cols-6 3xl:tw-grid-cols-7 tw-gap-2 md:tw-gap-5 `}>
 					{allProducts.map((product) => {
 						return (
 							<div
@@ -331,25 +334,24 @@ function Products({ allProducts, sales }) {
 							<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-mt-0">
 								Description: {singleProducts?.[0].description}
 							</p>
-							{singleProducts?.[0]?.sales &&
-								!price_Nosales &&
+							{!price_Nosales &&
 								(singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
 								singleProducts?.[0]?.type.toLowerCase() === 'closure' ? (
 									<span className="tw-mt-2 tw-text-xs tw-text-green-700">
-										Select color, tetxure & length to calculate sales price...
+										***Select color & tetxure to calculate sales price...***
 									</span>
 								) : (
 									<span className="tw-mt-2 tw-text-xs tw-text-green-700">
-										Select length to calculate sales price...
+										***Select length to calculate sales price...***
 									</span>
 								))}
-							{(singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
+							{/* {(singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
 								singleProducts?.[0]?.type.toLowerCase() === 'closure') &&
 								!price_Nosales && (
 									<span className="tw-mt-2 tw-text-xs tw-text-green-700">
-										Select color & tetxure to calculate sales price...
+										***Select color & tetxure to calculate sales price...***
 									</span>
-								)}
+								)} */}
 							<p className="tw-font-medium tw-text-xl tw-my-[10px]">
 								Price:{' '}
 								<span
@@ -371,8 +373,16 @@ function Products({ allProducts, sales }) {
 								</span>
 								${price_Nosales ? price_Nosales : ' ***'} USD
 							</p>
-							<div>
-								Length: <span>{length}" inches</span>
+							<div className="tw-text-sm tw-font-light">
+								<div>
+									Color: <span>{_color ? _color : '***'}</span>
+								</div>
+								<div>
+									Texture: <span>{_hairType ? _hairType : '***'}</span>
+								</div>
+								<div>
+									Length: <span>{length}" inches</span>
+								</div>
 							</div>
 							<div className="tw-flex tw-items-center">
 								<span className="tw-mr-2">Review: </span>

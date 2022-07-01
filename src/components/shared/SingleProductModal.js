@@ -120,8 +120,16 @@ const SingleProductModal = ({
 									</span>
 									${price ? price : ' ***'} USD
 								</p>
-								<div>
-									Length: <span>{length}" inches</span>
+								<div className="tw-text-sm tw-font-light">
+									<div>
+										Color: <span>{color ? color : '***'}</span>
+									</div>
+									<div>
+										Texture: <span>{hairType ? hairType : '***'}</span>
+									</div>
+									<div>
+										Length: <span>{length}" inches</span>
+									</div>
 								</div>
 								<div className="tw-flex tw-items-center">
 									<span className="tw-mr-2">Review: </span>
