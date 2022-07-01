@@ -360,8 +360,8 @@ function Shippment() {
 																			size={30}
 																		/>
 																	</div>
-																	<div className="hover:tw-cursor-pointer tw-bg-violet-500 tw-text-white tw-px-3 tw-py-[9.3px] tw-rounded-[3px]">
-																		{showSendIcon && (
+																	{showSendIcon && (
+																		<div className="hover:tw-cursor-pointer tw-bg-violet-500 tw-text-white tw-px-3 tw-py-[9.3px] tw-rounded-[3px]">
 																			<SiMinutemailer
 																				onClick={() =>
 																					SendFutureEmail(
@@ -374,8 +374,8 @@ function Shippment() {
 																				}
 																				size={20}
 																			/>
-																		)}
-																	</div>
+																		</div>
+																	)}
 																</div>
 
 																{emailSent && (
