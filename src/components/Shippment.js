@@ -3,17 +3,22 @@ import emailjs from 'emailjs-com'
 import { UserContext } from '../context/user-context'
 import Heading from './Heading'
 import { db } from '../firebase'
-import { MdOutlineKeyboardArrowUp } from 'react-icons/md'
+import { MdEmail, MdOutlineKeyboardArrowUp } from 'react-icons/md'
 import { GiCheckMark } from 'react-icons/gi'
 import { MdClose } from 'react-icons/md'
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
 import Button from './shared/Button'
 import { AUTHORIZED_ID } from '../constant'
 import { FaShippingFast } from 'react-icons/fa'
+import { SiMinutemailer } from 'react-icons/si'
+import { BsShieldFillExclamation } from 'react-icons/bs'
 
 function Shippment() {
 	const { user } = useContext(UserContext)
 	const [readMore, setReadMore] = React.useState(false)
+	const [emailSent, setEmailSent] = React.useState(false)
+	const [showEmailIcon, setShowEmailIcon] = React.useState(false)
+	const [showSendIcon, setShowSendIcon] = React.useState(false)
 	const [showShipText, setShowShipText] = React.useState(false)
 	const [compareID, setCompareID] = React.useState(false)
 	const [trackingInput, setShowTrackingInput] = React.useState(false)
@@ -94,6 +99,7 @@ function Shippment() {
 								orderNo: result?.data.orderNo,
 								price: `$${result?.data.price}`,
 								quantity: result?.data.quantity,
+								timestamp: new Date(result?.data.timestamp).toDateString(),
 								title: result?.data.title,
 							})
 						}
@@ -172,11 +178,38 @@ function Shippment() {
 			setCompareID(e)
 		}
 	}
+
+	// 5DAYS after purchase EMAIL TO CUSTOMER
+	const SendFutureEmail = (email, customer, color, title, quantity) => {
+		const futureMessage = {
+			name: customer,
+			message: `Your order - ${quantity} ${title} of color ${color} is currently being processed. Once order has been shipped, a tracking number with a courier name will be sent to your email. Thank you for being our valued customer`,
+			client: email,
+		}
+		setTimeout(() => {
+			emailjs
+				.send(
+					'service_czeioxp',
+					'template_kxtdmr3',
+					futureMessage,
+					'user_VORMh20QoM0GcnDrVoVnj'
+				)
+				.then((res) => {})
+				.catch((err) => console.log(err))
+
+			setEmailSent(true)
+		}, 1000)
+
+		setTimeout(() => {
+			setEmailSent(false)
+		}, 5000)
+	}
+
 	return (
 		<div className="tw-flex tw-flex-col tw-items-center tw-my-5">
 			<Heading children="Shipment" isBold={true} />
 			{user?.email === AUTHORIZED_ID.id_one || AUTHORIZED_ID.id_two ? (
-				<div>
+				<div className="tw-max-w-[100%]">
 					{trackingInput && (
 						<div className="tw-mt-10 tw-w-full">
 							<input
@@ -231,10 +264,7 @@ function Shippment() {
 											<tr className="table-head-row">
 												{shippingInfo?.shippingHeader?.[0]?.map((head, idx) => (
 													<th key={idx} className="table-head-item">
-														{head}{' '}
-														{head === 'appointment' || head === 'reservation'
-															? ' - date'
-															: ''}
+														{head}
 													</th>
 												))}
 											</tr>
@@ -245,11 +275,11 @@ function Shippment() {
 													{Object?.values(item)?.map((itm, index) => (
 														<td
 															onMouseOver={() => handleShipText(item?.id)}
-															className={
+															className={`${
 																itm?.length >= 100
 																	? 'table-items align-left'
 																	: 'table-items'
-															}
+															}`}
 															key={index}>
 															{typeof itm === 'string'
 																? itm?.length >= 100
@@ -314,13 +344,61 @@ function Shippment() {
 																</div>
 															)}
 														{showShipText && compareID === item?.id && (
-															<div
-																className="tw-absolute tw-right-0 tw-flex tw-flex-col tw-items-center tw-justify-center md:tw-h-full hover:tw-cursor-pointer bg-blur3 tw-text-white tw-p-2 tw-rounded-l-md tw-text-xs tw-font-bold"
-																onClick={() =>
-																	toggleModal(item?.id, item?.customer)
-																}>
-																<FaShippingFast size={55} color="darkgrey" />
-																<span>Ship Now</span>
+															<div className="tw-absolute tw-right-0 tw-flex tw-flex-row tw-items-center tw-justify-center bg-blur3 tw-text-white tw-text-xs tw-font-bold tw-p-2">
+																<div
+																	className="hover:tw-cursor-pointer tw-relative tw-pr-3 tw-border-r-[1px]"
+																	onClick={() =>
+																		toggleModal(item?.id, item?.customer)
+																	}>
+																	<FaShippingFast size={30} color="white" />
+																</div>
+																{!showEmailIcon && (
+																	<div
+																		onClick={() =>
+																			setShowEmailIcon(!showEmailIcon)
+																		}
+																		className="tw-pl-3">
+																		<BsShieldFillExclamation
+																			size={30}
+																			color="white"
+																		/>
+																	</div>
+																)}
+																{showEmailIcon && (
+																	<div className="tw-flex tw-items-center">
+																		<div className="hover:tw-cursor-pointer tw-border-r-[1px] tw-px-3">
+																			<MdEmail
+																				onClick={() =>
+																					setShowSendIcon(!showSendIcon)
+																				}
+																				size={30}
+																				color="white"
+																			/>
+																		</div>
+																		<div className="hover:tw-cursor-pointer tw-pl-3">
+																			{showSendIcon && (
+																				<SiMinutemailer
+																					onClick={() =>
+																						SendFutureEmail(
+																							item?.email,
+																							item?.customer,
+																							item?.color,
+																							item?.title,
+																							item?.quantity
+																						)
+																					}
+																					size={30}
+																					color="white"
+																				/>
+																			)}
+																		</div>
+																	</div>
+																)}
+																{emailSent && (
+																	<span className="tw-absolute tw-bottom-[10%] tw-w-full tw-text-center tw-bg-white tw-px-1 tw-right-0 tw-mb-3 tw-font-light tw-text-neutral-900">
+																		Email sent!
+																	</span>
+																)}
 															</div>
 														)}
 													</div>

@@ -953,6 +953,7 @@ label input::placeholder {
 	font-size: 1.4rem;
 	color: #000;
 }
+
 @import url('https://fonts.googleapis.com/css2?family=Arizonia&family=Oswald:wght@200&display=swap');
 .font_cursive {
 	font-family: 'Arizonia';

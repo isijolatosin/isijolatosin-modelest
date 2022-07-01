@@ -49,10 +49,10 @@ const Success = () => {
 		price += item.price * item.quantity
 	})
 
-	const daysFromNow = (n) => {
-		let d = new Date()
-		return Math.floor(d.setDate(d.getDate() + n) / 1000)
-	}
+	// const daysFromNow = (n) => {
+	// 	let d = new Date()
+	// 	return Math.floor(d.setDate(d.getDate() + n) / 1000)
+	// }
 
 	React.useEffect(() => {
 		// Send a purchase mail to client
@@ -96,29 +96,27 @@ const Success = () => {
 		}, 1000)
 
 		// FUTURE EMAIL TO CUSTOMER
-		const futureMessage = {
-			name: (user && user?.displayName) || userEmail,
-			message:
-				'Your order is currently being processed. Once order has been shipped, a tracking number with a courier name will be sent to your email. Thank you for being our valued customer',
-			client: userEmail,
-		}
-		const SendFutureEmail = () => {
-			emailjs
-				.send(
-					'service_czeioxp',
-					'template_kxtdmr3',
-					futureMessage,
-					'user_VORMh20QoM0GcnDrVoVnj'
-				)
-				.then((res) => {})
-				.catch((err) => console.log(err))
-		}
-
-		setInterval(() => {
-			if (new Date() === new Date(daysFromNow(1) * 1000)) {
-				SendFutureEmail()
-			}
-		})
+		// 		const futureMessage = {
+		// 			name: (user && user?.displayName) || userEmail,
+		// 			message:
+		// 				'Your order is currently being processed. Once order has been shipped, a tracking number with a courier name will be sent to your email. Thank you for being our valued customer',
+		// 			client: userEmail,
+		// 		}
+		// 		const SendFutureEmail = () => {
+		// 			emailjs
+		// 				.send(
+		// 					'service_czeioxp',
+		// 					'template_kxtdmr3',
+		// 					futureMessage,
+		// 					'user_VORMh20QoM0GcnDrVoVnj'
+		// 				)
+		// 				.then((res) => {})
+		// 				.catch((err) => console.log(err))
+		// 		}
+		//
+		// 		if (new Date() === new Date(daysFromNow(1) * 1000)) {
+		// 			SendFutureEmail()
+		// 		}
 
 		userEmail &&
 			cartItems.length !== 0 &&
@@ -141,6 +139,7 @@ const Success = () => {
 						color: item?.hairColor ? item?.hairColor : '',
 						length: item?.hairLength,
 						orderNo: orderNo,
+						timestamp: new Date().valueOf(),
 					})
 					.then(() => {
 						console.log(`SUCCESSFULL`)
@@ -163,6 +162,7 @@ const Success = () => {
 						color: item?.hairColor ? item?.hairColor : '',
 						length: item?.hairLength,
 						orderNo: orderNo,
+						timestamp: new Date().valueOf(),
 					})
 					.then(() => {
 						console.log(`SUCCESSFULL`)
