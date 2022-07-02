@@ -13,6 +13,9 @@ import Add2CartPopup from './shared/Add2CartPopup'
 import Rating from './shared/Rating'
 import Heading from './Heading'
 import { CgClose } from 'react-icons/cg'
+import { MdMoneyOff } from 'react-icons/md'
+import { Link } from 'react-router-dom'
+import DealsCard from './shared/DealsCard'
 
 function Products({ allProducts, sales }) {
 	const [singleProducts, setSingleproducts] = React.useState(null)
@@ -223,6 +226,13 @@ function Products({ allProducts, sales }) {
 		},
 	]
 
+	const lengthArray = [
+		'14inch, 16inch, & 18inch',
+		'16inch, 18inch, & 20inch',
+		'18inch, 20inch, & 22inch',
+		'20inch, 22inch, & 24inch',
+	]
+
 	return (
 		<div className="tw-pt-10 tw-relative tw-flex tw-flex-col tw-items-center ">
 			<div className="tw-fixed tw-top-0 tw-right-0 md:tw-top-[-100px] md:tw-right-[-20px] tw-z-40">
@@ -252,7 +262,8 @@ function Products({ allProducts, sales }) {
 			) : (
 				<div className="tw-text-neutral-500">Loading data...</div>
 			)}
-			<div className="tw-mx-auto tw-w-full bg-blur tw-py-10 tw-mt-10">
+			<DealsCard lengthArray={lengthArray} brand="Indian, Virgin, Vietnamese" />
+			<div className="tw-mx-auto tw-w-full bg-blur tw-py-10 tw-mt-10 tw-rounded-lg">
 				<div className="tw-w-[100%] md:tw-w-[95%] tw-mx-auto">
 					<About />
 				</div>
