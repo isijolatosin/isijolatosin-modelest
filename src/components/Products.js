@@ -13,8 +13,6 @@ import Add2CartPopup from './shared/Add2CartPopup'
 import Rating from './shared/Rating'
 import Heading from './Heading'
 import { CgClose } from 'react-icons/cg'
-import { MdMoneyOff } from 'react-icons/md'
-import { Link } from 'react-router-dom'
 import DealsCard from './shared/DealsCard'
 
 function Products({ allProducts, sales }) {
