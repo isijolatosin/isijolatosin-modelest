@@ -6,7 +6,7 @@ const DealsCard = ({ lengthArray, brand }) => {
 	return (
 		<div className="tw-bg-white tw-w-full lg:tw-h-[170px] tw-mt-10 tw-rounded-lg">
 			<div className="tw-flex tw-flex-col lg:tw-flex-row tw-w-[100%] tw-h-full">
-				<div className="tw-rounded-l-lg md:tw-rounded-bl-lg md:tw-rounded-t-lg lg:tw-rounded-r-[0px] tw-text-center tw-bg-neutral-200 tw-flex tw-flex-col tw-justify-center lg:tw-items-center tw-px-5 tw-mb-5 lg:tw-mb-0 tw-py-5 lg:tw-py-2 lg:tw-w-[25%] tw-border-r-[1px] tw-border-neutral-300 tw-h-full">
+				<div className="tw-rounded-t-lg lg:tw-rounded-bl-lg lg:tw-rounded-t-lg lg:tw-rounded-r-[0px] tw-text-center tw-bg-neutral-200 tw-flex tw-flex-col tw-justify-center lg:tw-items-center tw-px-5 tw-mb-5 lg:tw-mb-0 tw-py-5 lg:tw-py-2 lg:tw-w-[25%] tw-border-r-[1px] tw-border-neutral-300 tw-h-full">
 					<span className="tw-leading-7 tw-text-[22px] tw-mb-[-10px]">
 						{brand} Bundle
 					</span>
