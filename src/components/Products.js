@@ -193,6 +193,7 @@ function Products({ allProducts, sales }) {
 	}
 
 	const desc = [
+		{ key: 'Brand', value: `Raw ${singleProducts?.[0]?.brand} hair` },
 		{
 			key: 'Hair Texture',
 			value:
@@ -417,7 +418,7 @@ function Products({ allProducts, sales }) {
 									<Heading children="Product Details" isBold={false} />
 								</div>
 								{desc.map((item, idx) => (
-									<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm">
+									<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm tw-capitalize">
 										<span className="tw-uppercase tw-text-xs tw-text-red-600 tw-font-bold">
 											{item.key}:{' '}
 										</span>

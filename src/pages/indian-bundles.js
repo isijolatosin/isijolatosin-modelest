@@ -133,6 +133,7 @@ function IndianBundles() {
 	}
 
 	const desc = [
+		{ key: 'Brand', value: `raw ${singleProducts?.[0]?.brand} hair` },
 		{ key: 'Hair Texture', value: name },
 		{ key: 'Hair Color', value: color },
 		{

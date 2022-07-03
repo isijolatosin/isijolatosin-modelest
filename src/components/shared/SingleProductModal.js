@@ -156,7 +156,7 @@ const SingleProductModal = ({
 							)}
 							<div className="tw-my-5 tw-border-t-[1px] tw-border-b-[1px] tw-border-red-700 tw-py-5">
 								{desc.map((item, idx) => (
-									<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm">
+									<div className="tw-capitalize tw-flex tw-flex-col tw-mb-2 tw-text-sm">
 										<span className="tw-uppercase tw-text-xs tw-text-red-600 tw-font-bold">
 											{item.key}:{' '}
 										</span>
