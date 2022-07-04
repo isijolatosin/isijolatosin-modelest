@@ -91,25 +91,25 @@ function Card({
 	if (bundles.length === '14') {
 		cardPrice2 = product.price
 	} else if (bundles.length === '16') {
-		cardPrice2 = product.price + 10
+		cardPrice2 = product.price + 6
 	} else if (bundles.length === '18') {
-		cardPrice2 = product.price + 20
+		cardPrice2 = product.price + 12
 	} else if (bundles.length === '20') {
-		cardPrice2 = product.price + 30
+		cardPrice2 = product.price + 18
 	} else if (bundles.length === '22') {
-		cardPrice2 = product.price + 40
+		cardPrice2 = product.price + 24
 	}
 	// Sales Price2
 	if (bundles.length === '14') {
 		salesAmount2 = Number(product.price - product.price * (sales / 100))
 	} else if (bundles.length === '16') {
-		salesAmount2 = salesAmount2 + 10
+		salesAmount2 = salesAmount2 + 6
 	} else if (bundles.length === '18') {
-		salesAmount2 = salesAmount2 + 20
+		salesAmount2 = salesAmount2 + 12
 	} else if (bundles.length === '20') {
-		salesAmount2 = salesAmount2 + 30
+		salesAmount2 = salesAmount2 + 18
 	} else if (bundles.length === '22') {
-		salesAmount2 = salesAmount2 + 40
+		salesAmount2 = salesAmount2 + 24
 	}
 
 	// Adding to cart items
@@ -128,7 +128,11 @@ function Card({
 				bundles.color.includes('Natural black') &&
 				bundles.hairType.includes('Straight')
 			) {
-				return { cardPrice2, salesAmount2 }
+				if (sales !== 0) {
+					return salesAmount2
+				} else {
+					return cardPrice2
+				}
 			}
 		} else {
 			if (
@@ -137,13 +141,20 @@ function Card({
 					bundles.hairType.includes('Wavy') ||
 					bundles.hairType.includes('Curly'))
 			) {
-				cardPrice1 += 5
-				salesAmount1 += 5
+				if (sales !== 0) {
+					return (salesAmount1 += 5)
+				} else {
+					return (cardPrice1 += 5)
+				}
 			} else if (
 				bundles.color.includes('Natural black') &&
 				bundles.hairType.includes('Straight')
 			) {
-				return { cardPrice1, salesAmount1 }
+				if (sales !== 0) {
+					return salesAmount1
+				} else {
+					return cardPrice1
+				}
 			}
 
 			if (
@@ -152,14 +163,20 @@ function Card({
 					bundles.hairType.includes('Wavy') ||
 					bundles.hairType.includes('Curly'))
 			) {
-				cardPrice1 += 15
-				salesAmount1 += 15
+				if (sales !== 0) {
+					return (salesAmount1 += 15)
+				} else {
+					return (cardPrice1 += 15)
+				}
 			} else if (
 				bundles.color.includes('Blonde613') &&
 				bundles.hairType.includes('Straight')
 			) {
-				cardPrice1 += 10
-				salesAmount1 += 10
+				if (sales !== 0) {
+					return (salesAmount1 += 10)
+				} else {
+					return (cardPrice1 += 10)
+				}
 			}
 		}
 	}
@@ -176,6 +193,7 @@ function Card({
 		hairColor,
 		description,
 	}
+
 	const addToCart = () => {
 		if (bundles?.length) {
 			dispatch(addToCartItem(singleProduct))

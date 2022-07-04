@@ -68,21 +68,21 @@ function Products({ allProducts, sales }) {
 	if (length === '14') {
 		_price2 = cardPrice
 	} else if (length === '16') {
-		_price2 = cardPrice + 10
+		_price2 = cardPrice + 6
 	} else if (length === '18') {
-		_price2 = cardPrice + 20
+		_price2 = cardPrice + 12
 	} else if (length === '20') {
-		_price2 = cardPrice + 30
+		_price2 = cardPrice + 18
 	} else if (length === '22') {
-		_price2 = cardPrice + 40
+		_price2 = cardPrice + 24
 	} else if (length === '24') {
-		_price2 = cardPrice + 50
+		_price2 = cardPrice + 30
 	} else if (length === '26') {
-		_price2 = cardPrice + 60
+		_price2 = cardPrice + 36
 	} else if (length === '28') {
-		_price2 = cardPrice + 70
+		_price2 = cardPrice + 42
 	} else if (length === '30') {
-		_price2 = cardPrice + 80
+		_price2 = cardPrice + 48
 	}
 
 	const pricePredict = () => {
@@ -107,12 +107,12 @@ function Products({ allProducts, sales }) {
 					_hairType?.includes('Wavy') ||
 					_hairType?.includes('Curly'))
 			) {
-				return (_price2 += 5)
+				return (_price += 5)
 			} else if (
 				_color?.includes('Natural black') &&
 				_hairType?.includes('Straight')
 			) {
-				return _price2
+				return _price
 			}
 
 			if (
@@ -121,12 +121,12 @@ function Products({ allProducts, sales }) {
 					_hairType?.includes('Wavy') ||
 					_hairType?.includes('Curly'))
 			) {
-				return (_price2 += 15)
+				return (_price += 15)
 			} else if (
 				_color?.includes('Blonde613') &&
 				_hairType?.includes('Straight')
 			) {
-				return (_price2 += 10)
+				return (_price += 10)
 			}
 		}
 	}
@@ -162,7 +162,7 @@ function Products({ allProducts, sales }) {
 			return Number(price_Nosales)
 		}
 	}
-	console.log(price_Nosales)
+
 	const price = priceFunc()
 
 	const singleProduct = {
