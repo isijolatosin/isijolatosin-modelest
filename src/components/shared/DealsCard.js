@@ -16,8 +16,9 @@ const DealsCard = ({ lengthArray, brand }) => {
 				</div>
 				<div className="tw-flex tw-flex-col tw-items-center md:tw-flex-row md:tw-items-center md:tw-justify-between md:tw-w-[75%] sm:tw-mx-[10px] md:tw-mx-[100px] lg:tw-mx-[30px] xl:tw-mx-[80px] 2xl:tw-mx-[120px] md:tw-mb-10 lg:tw-mb-0 sm:tw-mb-0">
 					<div className="md:tw-grid lg:tw-grid-cols-2 lg:tw-gap-2 tw-w-[80%]">
-						{lengthArray.map((item) => (
+						{lengthArray.map((item, idx) => (
 							<div
+								key={idx}
 								className={`tw-mb-2 lg:tw-mb-0 tw-text-center tw-text-white tw-bg-neutral-400 tw-px-5 tw-py-2 tw-ease-in tw-duration-300 tw-rounded-sm tw-w-[100%] md:tw-w-[220px] lg:tw-w-[250px]`}>
 								<span>{item}</span>
 							</div>

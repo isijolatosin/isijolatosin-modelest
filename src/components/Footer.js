@@ -9,17 +9,22 @@ import { countries } from '../country'
 import { Link } from 'react-router-dom'
 import Heading from './Heading'
 
-function Footer() {
+function Footer({
+	showContactForm,
+	setShowContactForm,
+	showTerms,
+	setShowTerms,
+	showShippingReturns,
+	setShowShippingReturns,
+	showPrivacyReturns,
+	setPrivacyReturns,
+}) {
 	const paymentType = [
 		{ id: 1, type: <SiMastercard size={20} color="darkorange" /> },
 		{ id: 2, type: <RiVisaLine size={20} color="blue" /> },
 		{ id: 3, type: <SiAmericanexpress size={20} color="blue" /> },
 	]
 	const [country, setCountry] = React.useState('United States')
-	const [showContactForm, setShowContactForm] = React.useState(false)
-	const [showTerms, setShowTerms] = React.useState(false)
-	const [showShippingReturns, setShowShippingReturns] = React.useState(false)
-	const [showPrivacyReturns, setPrivacyReturns] = React.useState(false)
 	const handleOnChange = (e) => {
 		setCountry(e.target.value)
 		localStorage.setItem('country', e.target.value)
@@ -245,7 +250,9 @@ function Footer() {
 				</div>
 			</div>
 			{showShippingReturns && (
-				<div className="tw-w-[80%] tw-text-sm tw-font-light tw-mb-10">
+				<div
+					id="shipping"
+					className="tw-w-[80%] tw-text-sm tw-font-light tw-mb-10">
 					<div className="tw-text-center tw-mb-4 tw-mt-5 tw-font-light tw-text-lg tw-uppercase tw-border-b">
 						<Heading children="Shipping & Return Policy" isBold={true} />
 					</div>
@@ -403,7 +410,9 @@ function Footer() {
 				</div>
 			)}
 			{showPrivacyReturns && (
-				<div className="tw-w-[80%] tw-text-sm tw-font-light tw-mb-10">
+				<div
+					id="privacy"
+					className="tw-w-[80%] tw-text-sm tw-font-light tw-mb-10">
 					<div className="tw-text-center tw-mb-4 tw-mt-5 tw-font-light tw-text-lg tw-uppercase tw-border-b">
 						<Heading children="Privacy Policy" isBold={true} />
 					</div>
@@ -604,7 +613,9 @@ function Footer() {
 				<form
 					onSubmit={handleSubmit}
 					className="tw-w-full tw-flex tw-flex-col tw-items-center md:tw-max-w-[80%] tw-bg-neutral-50 tw-py-5 tw-mb-5">
-					<span className="tw-text-2xl tw-font-light tw-mb-1 tw-mt-5">
+					<span
+						id="contact"
+						className="tw-text-2xl tw-font-light tw-mb-1 tw-mt-5">
 						Contact - ModelEst
 					</span>
 					<p className="tw-font-light tw-text-[14px] tw-max-w-[80%] lg:tw-max-w-[50%] tw-my-5">
@@ -667,7 +678,9 @@ function Footer() {
 				</form>
 			)}
 			{showTerms && (
-				<div className="tw-w-[80%] tw-text-sm tw-font-light tw-mb-10">
+				<div
+					id="terms"
+					className="tw-w-[80%] tw-text-sm tw-font-light tw-mb-10">
 					<div className="tw-text-center tw-mb-4 tw-mt-5 tw-font-light tw-text-lg tw-uppercase tw-border-b">
 						<Heading children="Terms and Services" isBold={true} />
 					</div>

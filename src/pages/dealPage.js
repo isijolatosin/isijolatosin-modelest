@@ -24,7 +24,7 @@ const DealPage = () => {
 	const [dealsImage, setDealsImage] = React.useState([])
 	const [dealPrice, setDealPrice] = React.useState(null)
 	const [_quantity, setQuantity] = React.useState(1)
-	const [_length, setLength] = React.useState('')
+	const [_length, setLength] = React.useState(null)
 	const dispatch = useDispatch()
 	const cartItems = useSelector(selectCartItems)
 	const category = window.location.pathname
@@ -195,7 +195,7 @@ const DealPage = () => {
 			setError(true)
 		}
 		setTimeout(() => {
-			setSingleCart(dealsProduct)
+			_length && setSingleCart(dealsProduct)
 		}, 1000)
 	}
 
@@ -268,7 +268,7 @@ const DealPage = () => {
 							</span>
 							{error && (
 								<div>
-									<p className="tw-text-center tw-mt-5 tw-text-red-600 tw-text-xs">
+									<p className="tw-text-left tw-mb-2 tw-mt-5 tw-text-red-600 tw-text-xs">
 										Please provide length and quantity for your order
 									</p>
 								</div>

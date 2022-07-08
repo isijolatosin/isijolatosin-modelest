@@ -4,7 +4,12 @@ import ImageComponent from './ImageComponent'
 import LinksComponent from './LinksComponent'
 import NavIcons from './NavIcons'
 
-function Nav() {
+function Nav({
+	setShowContactForm,
+	setShowTerms,
+	setShowShippingReturns,
+	setPrivacyReturns,
+}) {
 	const [sales, setSales] = React.useState(null)
 	const database = getDatabase()
 	React.useEffect(() => {
@@ -29,14 +34,24 @@ function Nav() {
 					<ImageComponent />
 				</div>
 				<div className="tw-hidden md:tw-w-[70%] md:tw-inline tw-w-[60%]">
-					<LinksComponent />
+					<LinksComponent
+						setShowContactForm={setShowContactForm}
+						setShowTerms={setShowTerms}
+						setShowShippingReturns={setShowShippingReturns}
+						setPrivacyReturns={setPrivacyReturns}
+					/>
 				</div>
 				<div className="tw-w-[30%] md:tw-w-[20%]">
 					<NavIcons />
 				</div>
 			</div>
 			<div className="tw-in-line tw-px-3 md:tw-hidden tw-flex-0.8 tw-border-t-[1px] tw-border-neutral-300 tw-bg-neutral-300 tw-py-2">
-				<LinksComponent />
+				<LinksComponent
+					setShowContactForm={setShowContactForm}
+					setShowTerms={setShowTerms}
+					setShowShippingReturns={setShowShippingReturns}
+					setPrivacyReturns={setPrivacyReturns}
+				/>
 			</div>
 		</div>
 	)
