@@ -268,13 +268,21 @@ function Products({ allProducts, sales }) {
 				</div>
 			</div>
 			{singleProducts && (
-				<div className="single tw-fixed tw-z-30 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-[0px] md:tw-pt-10 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
+				<div className="single tw-pt-[50px] tw-fixed tw-z-30 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-0 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
 					<div className="md:tw-w-[80%] xl:tw-w-[70%] md:tw-mx-auto tw-w-[100%] tw-h-full tw-flex md:tw-flex-row tw-flex-col">
 						<div className="tw-relative tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
 							<Slideshow images={singleProducts?.[0]} />
+							<div className="tw-w-[90%] tw-mx-auto md:tw-w-[100%]">
+								<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
+									{singleProducts?.[0].name}
+								</p>
+								<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-mt-0">
+									Description: {singleProducts?.[0].description}
+								</p>
+							</div>
 							{singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
 							singleProducts?.[0]?.type.toLowerCase() === 'closure' ? (
-								<div className="tw-ml-5  md:tw-ml-0 tw-mt-20">
+								<div className="tw-ml-5  md:tw-ml-0 tw-mt-5">
 									<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
 										<div className="tw-flex tw-flex-wrap">
 											{_hairColor.map((colr, idx) => (
@@ -323,7 +331,7 @@ function Products({ allProducts, sales }) {
 														length === size
 															? 'tw-bg-neutral-900 tw-text-white'
 															: 'tw-bg-neutral-200 tw-text-neutral-900'
-													} tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-p-3 tw-text-[16px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
+													} tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-py-1 tw-px-2 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 													key={idx}>
 													{size}inch
 												</span>
@@ -332,7 +340,7 @@ function Products({ allProducts, sales }) {
 									</div>
 								</div>
 							) : (
-								<div className="tw-flex tw-flex-col tw-ml-5 tw-mt-20 md:tw-ml-0">
+								<div className="tw-flex tw-flex-col tw-ml-5 tw-mt-5 md:tw-ml-0">
 									<div className="tw-flex tw-flex-wrap">
 										{sizes.map((size, idx) => (
 											<span
@@ -344,7 +352,7 @@ function Products({ allProducts, sales }) {
 													length === size
 														? 'tw-bg-neutral-900 tw-text-white'
 														: 'tw-bg-neutral-200 tw-text-neutral-900'
-												} tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-p-3 tw-text-[16px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
+												} tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-p-1 tw-px-2 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 												key={idx}>
 												{size}inch
 											</span>
@@ -354,12 +362,6 @@ function Products({ allProducts, sales }) {
 							)}
 						</div>
 						<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 tw-mt-10 md:tw-mt-0">
-							<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
-								{singleProducts?.[0].name}
-							</p>
-							<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-mt-0">
-								Description: {singleProducts?.[0].description}
-							</p>
 							{!price_Nosales &&
 								(singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
 								singleProducts?.[0]?.type.toLowerCase() === 'closure' ? (
@@ -371,7 +373,7 @@ function Products({ allProducts, sales }) {
 										***Select length to calculate sales price...***
 									</span>
 								))}
-							<p className="tw-font-medium tw-text-xl tw-my-[10px]">
+							<p className="tw-font-medium tw-text-2xl tw-mb-[10px]">
 								Price:{' '}
 								<span
 									className={
@@ -413,17 +415,29 @@ function Products({ allProducts, sales }) {
 									<span className="tw-text-xs">OFF</span>
 								</p>
 							)}
-							<div className="tw-my-5 tw-border-t-[1px] tw-border-b-[1px] tw-border-red-700 tw-py-5">
+							<div className="tw-my-5 tw-border-t-[1px] tw-border-red-700 tw-py-5 tw-overflow-scroll single tw-h-[70%]">
 								<div className="tw-mb-5">
 									<Heading children="Product Details" isBold={false} />
 								</div>
-								{desc.map((item, idx) => (
-									<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm tw-capitalize">
-										<span className="tw-uppercase tw-text-xs tw-text-red-600 tw-font-bold">
-											{item.key}:{' '}
-										</span>
-										<span>{item.value}</span>
+								<div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 md:tw-gap-x-10">
+									{desc.map((item, idx) => (
+										<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm tw-capitalize">
+											<span className="tw-uppercase tw-text-xs tw-text-red-600 tw-font-bold">
+												{item.key}:{' '}
+											</span>
+											<span>{item.value}</span>
+										</div>
+									))}
+								</div>
+								{singleProducts?.[0]?.maintenance && (
+									<div className="tw-mt-10 tw-mb-2">
+										<Heading children="Maintenance" isBold={false} />
 									</div>
+								)}
+								{singleProducts?.[0]?.maintenance?.map((item, idx) => (
+									<li key={idx} className="tw-text-sm ">
+										{item}
+									</li>
 								))}
 							</div>
 							{error && (

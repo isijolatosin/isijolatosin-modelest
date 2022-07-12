@@ -22,12 +22,14 @@ import VietnameseDeal from './pages/vietnameseDeal'
 import VirginDeal from './pages/virginDeal'
 import DealPage from './pages/dealPage'
 import Wigs from './pages/wigs'
+import Faqs from './pages/faqs'
 
 function App() {
 	return (
 		<Routes>
 			<Route exact path="/register" element={<Register />} />
 			<Route exact path="/login" element={<Login />} />
+			<Route exact path="/modelEst/faqs" element={<Faqs />} />
 			<Route exact path="/canceled" element={<Canceled />} />
 			<Route exact path="/success" element={<Success />} />
 			<Route exact path="/admin-portal" element={<Management />} />

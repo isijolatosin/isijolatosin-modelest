@@ -2,6 +2,7 @@ import React from 'react'
 import { CgClose } from 'react-icons/cg'
 import { isInCart } from '../../utils/helpers'
 import Slideshow from '../../utils/Slideshow'
+import Heading from '../Heading'
 import Rating from './Rating'
 
 const SingleProductModal = ({
@@ -33,6 +34,14 @@ const SingleProductModal = ({
 					<div className="md:tw-w-[80%] xl:tw-w-[70%] md:tw-mx-auto tw-w-[100%] tw-h-full tw-flex md:tw-flex-row tw-flex-col">
 						<div className="tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
 							<Slideshow images={singleProducts?.[0]} />
+							<div className="tw-w-[90%] tw-mx-auto md:tw-w-[100%]">
+								<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
+									{singleProducts?.[0].name}
+								</p>
+								<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-mt-0">
+									Description: {singleProducts?.[0].description}
+								</p>
+							</div>
 							{_hairColor && (
 								<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5 tw-mt-5">
 									<div className="tw-flex tw-flex-wrap">
@@ -86,7 +95,7 @@ const SingleProductModal = ({
 												length === size
 													? 'tw-bg-neutral-900 tw-text-white'
 													: 'tw-bg-neutral-200 tw-text-neutral-900'
-											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-text-[16px] tw-p-3 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
+											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-text-[14px] tw-py-1 tw-px-2 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 											key={idx}>
 											{size}inch
 										</span>
@@ -95,12 +104,6 @@ const SingleProductModal = ({
 							</div>
 						</div>
 						<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900">
-							<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
-								{singleProducts?.[0].name}
-							</p>
-							<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-mt-0">
-								Description: {singleProducts?.[0].description}
-							</p>
 							<div className="tw-flex tw-flex-col">
 								{singleProducts?.[0]?.sales &&
 									(singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
@@ -154,14 +157,29 @@ const SingleProductModal = ({
 									<span className="tw-text-xs">OFF</span>
 								</p>
 							)}
-							<div className="tw-my-5 tw-border-t-[1px] tw-border-b-[1px] tw-border-red-700 tw-py-5">
-								{desc.map((item, idx) => (
-									<div className="tw-capitalize tw-flex tw-flex-col tw-mb-2 tw-text-sm">
-										<span className="tw-uppercase tw-text-xs tw-text-red-600 tw-font-bold">
-											{item.key}:{' '}
-										</span>
-										<span>{item.value}</span>
+							<div className="tw-my-5 tw-border-t-[1px] tw-border-red-700 tw-py-5 tw-overflow-scroll single tw-h-[70%]">
+								<div className="tw-mb-5">
+									<Heading children="Product Details" isBold={false} />
+								</div>
+								<div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 md:tw-gap-x-10">
+									{desc.map((item, idx) => (
+										<div className="tw-capitalize tw-flex tw-flex-col tw-mb-2 tw-text-sm">
+											<span className="tw-uppercase tw-text-xs tw-text-red-600 tw-font-bold">
+												{item.key}:{' '}
+											</span>
+											<span>{item.value}</span>
+										</div>
+									))}
+								</div>
+								{singleProducts?.[0]?.maintenance && (
+									<div className="tw-mt-10 tw-mb-2">
+										<Heading children="Maintenance" isBold={false} />
 									</div>
+								)}
+								{singleProducts?.[0]?.maintenance?.map((item, idx) => (
+									<li key={idx} className="tw-text-sm ">
+										{item}
+									</li>
 								))}
 							</div>
 

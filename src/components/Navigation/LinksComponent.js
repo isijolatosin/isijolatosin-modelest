@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const indianSubLinks = [
 	{
@@ -90,6 +91,11 @@ const helpLinks = [
 		key: 'terms',
 		name: 'Terms & Conditions',
 	},
+	{
+		id: '5',
+		key: 'faqs',
+		name: 'FAQs',
+	},
 ]
 
 function LinksComponent({
@@ -98,6 +104,7 @@ function LinksComponent({
 	setShowShippingReturns,
 	setPrivacyReturns,
 }) {
+	const navigate = useNavigate()
 	const [list1, setList1] = React.useState(false)
 	const [list2, setList2] = React.useState(false)
 	const [list3, setList3] = React.useState(false)
@@ -161,6 +168,11 @@ function LinksComponent({
 			setPrivacyReturns(false)
 			setShowShippingReturns(false)
 			setShowTerms(true)
+		} else if (txt.toLowerCase() === 'faqs') {
+			setShowContactForm(false)
+			setPrivacyReturns(false)
+			setShowShippingReturns(false)
+			navigate('/modelEst/faqs')
 		}
 		window.scrollTo(0, document.body.scrollHeight)
 	}
