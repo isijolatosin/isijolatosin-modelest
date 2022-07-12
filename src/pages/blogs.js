@@ -27,7 +27,7 @@ function Blogs() {
 				)}
 				{show && (
 					<div className="tw-bg-neutral-50 tw-text-neutral-700">
-						<div className="tw-pb-[100px] tw-pt-[80px] tw-px-5 tw-flex tw-flex-col tw-items-left tw-text-sm tw-w-[50%] tw-mx-auto">
+						<div className="tw-pb-[100px] tw-pt-[120px] md:tw-pt-[80px] tw-px-5 tw-flex tw-flex-col tw-items-left tw-text-sm tw-w-[100%] md:tw-w-[80%] lg:tw-w-[70%] tw-mx-auto">
 							<p className="tw-text-xl tw-mb-10 tw-leading-8">
 								The package of Virgin Brazilian Hair Extensions you’ve been
 								waiting for has finally arrived at your doorstep. The excitement

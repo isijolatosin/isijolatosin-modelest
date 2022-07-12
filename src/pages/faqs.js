@@ -84,7 +84,7 @@ function Faqs() {
 				)}
 				{show && (
 					<div className="tw-bg-neutral-50 tw-text-neutral-700">
-						<div className="tw-pb-[100px] tw-pt-[80px] tw-px-5 tw-flex tw-flex-col tw-items-left tw-text-sm tw-w-[50%] tw-mx-auto">
+						<div className="tw-pb-[100px] tw-pt-[120px] md:tw-pt-[80px] tw-px-5 tw-flex tw-flex-col tw-items-left tw-text-sm tw-w-[100%] md:tw-w-[80%] lg:tw-w-[70%] tw-mx-auto">
 							<p className="tw-mb-5">
 								Virgin Hair is human hair that is in its natural state. No
 								chemical changes, no color, has not been processed, and all
