@@ -95,8 +95,10 @@ function HomePage() {
 							<Products sales={sales} allProducts={allProducts} />
 						</div>
 					) : (
-						<div className="tw-rounded-full progress">
-							<div className="inner"></div>
+						<div className="tw-bg-neutral-300 tw-py-[100px] tw-flex tw-justify-center">
+							<div className="tw-rounded-full progress">
+								<div className="inner"></div>
+							</div>
 						</div>
 					)}
 				</div>

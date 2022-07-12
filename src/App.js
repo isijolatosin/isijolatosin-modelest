@@ -23,13 +23,23 @@ import VirginDeal from './pages/virginDeal'
 import DealPage from './pages/dealPage'
 import Wigs from './pages/wigs'
 import Faqs from './pages/faqs'
+import Blogs from './pages/blogs'
 
 function App() {
 	return (
 		<Routes>
 			<Route exact path="/register" element={<Register />} />
 			<Route exact path="/login" element={<Login />} />
-			<Route exact path="/modelEst/faqs" element={<Faqs />} />
+			<Route
+				exact
+				path="/modelEst/frequently-asked-questions"
+				element={<Faqs />}
+			/>
+			<Route
+				exact
+				path="/blogs/caring-for-indian-virgin-vietnamese-hair-extensions"
+				element={<Blogs />}
+			/>
 			<Route exact path="/canceled" element={<Canceled />} />
 			<Route exact path="/success" element={<Success />} />
 			<Route exact path="/admin-portal" element={<Management />} />

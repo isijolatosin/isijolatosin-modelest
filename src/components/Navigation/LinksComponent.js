@@ -153,28 +153,31 @@ function LinksComponent({
 			setPrivacyReturns(false)
 			setShowShippingReturns(false)
 			setShowTerms(false)
+			window.scrollTo(0, document.body.scrollHeight)
 		} else if (txt.toLowerCase() === 'privacy policy') {
 			setShowContactForm(false)
 			setPrivacyReturns(true)
 			setShowShippingReturns(false)
 			setShowTerms(false)
+			window.scrollTo(0, document.body.scrollHeight)
 		} else if (txt.toLowerCase() === 'shipping & returns') {
 			setShowContactForm(false)
 			setPrivacyReturns(false)
 			setShowShippingReturns(true)
 			setShowTerms(false)
+			window.scrollTo(0, document.body.scrollHeight)
 		} else if (txt.toLowerCase() === 'terms & conditions') {
 			setShowContactForm(false)
 			setPrivacyReturns(false)
 			setShowShippingReturns(false)
 			setShowTerms(true)
+			window.scrollTo(0, document.body.scrollHeight)
 		} else if (txt.toLowerCase() === 'faqs') {
 			setShowContactForm(false)
 			setPrivacyReturns(false)
 			setShowShippingReturns(false)
-			navigate('/modelEst/faqs')
+			navigate('/modelEst/frequently-asked-questions')
 		}
-		window.scrollTo(0, document.body.scrollHeight)
 	}
 
 	return (

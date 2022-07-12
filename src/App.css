@@ -556,13 +556,13 @@ label input::placeholder {
 	height: 2px;
 	width: 80%;
 	margin: 0 auto;
-	background-color: var(--grey-100);
+	background-color: var(--pink-700);
 	position: absolute;
 	overflow: hidden;
 }
 .progress .inner {
 	height: 100%;
-	background-color: var(--grey-700);
+	background-color: var(--pink-100);
 	position: absolute;
 	animation: progress 1s infinite;
 }

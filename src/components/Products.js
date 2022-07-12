@@ -435,7 +435,9 @@ function Products({ allProducts, sales }) {
 									</div>
 								)}
 								{singleProducts?.[0]?.maintenance?.map((item, idx) => (
-									<li key={idx} className="tw-text-sm ">
+									<li
+										key={idx}
+										className="tw-text-sm tw-italic tw-text-neutral-500 tw-font-light tw-mb-2">
 										{item}
 									</li>
 								))}
