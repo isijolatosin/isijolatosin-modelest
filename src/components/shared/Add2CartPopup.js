@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../context/user-context'
 import { selectItemCount } from '../../slices/appSlices'
 
-const Add2CartPopup = ({ singleCart, setSingleCart }) => {
+const Add2CartPopup = ({ singleCart, setSingleCart, quantity }) => {
 	const navigate = useNavigate()
 	const { user } = useContext(UserContext)
 	const itemCount = useSelector(selectItemCount)
@@ -27,7 +27,7 @@ const Add2CartPopup = ({ singleCart, setSingleCart }) => {
 					<div className="tw-flex tw-items-center">
 						<GrCheckmark />
 						<span className="tw-text-xs tw-ml-2 tw-text-neutral-700">
-							Item added to your cart
+							{`${quantity} Item added to your cart`}
 						</span>
 					</div>
 					<div className="tw-flex tw-flex-row tw-mb-10 tw-mt-7">
@@ -46,7 +46,13 @@ const Add2CartPopup = ({ singleCart, setSingleCart }) => {
 								<span>Texture - {singleCart.hairTexture}</span>
 							)}
 							{singleCart.width && <span>Width - {singleCart.width}</span>}
-							<span>Length - {singleCart.hairLength}" inches</span>
+							<span>
+								Length -{' '}
+								{singleCart.hairLength.includes('inch')
+									? singleCart.hairLength
+									: `${singleCart.hairLength} inches`}
+								"
+							</span>
 							<span>Price - ${singleCart.price} USD</span>
 						</div>
 					</div>

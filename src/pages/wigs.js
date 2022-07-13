@@ -1,37 +1,58 @@
 import React from 'react'
+import axios from 'axios'
 import { Helmet } from 'react-helmet'
-// import { getDatabase, ref, onValue } from 'firebase/database'
 import Layout from '../components/shared/Layout'
-// import { UserContext } from '../context/user-context'
+import WigsCard from '../components/WigsCard'
 
-function Wigs() {
-	// 	const { user } = useContext(UserContext)
-	// 	const database = getDatabase()
-	// 	const [bundleDeals, setBundleDeals] = React.useState(null)
-	//
-	// 	React.useEffect(() => {
-	// 		const starCountRef = ref(database, 'bundle deals')
-	// 		onValue(starCountRef, (snapshot) => {
-	// 			const data = snapshot.val()
-	//
-	// 			setBundleDeals(data?.no)
-	// 		})
-	// 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	// 	}, [])
+function IndianDeal() {
+	const [wigs, setWigs] = React.useState(null)
+
+	async function fetchProducts() {
+		try {
+			const {
+				data: { products },
+			} = await axios.get('/api/v1/products')
+
+			const filtered = []
+			// eslint-disable-next-line array-callback-return
+			products.filter((product) => {
+				if (product.type.toLowerCase() === 'wig') {
+					filtered.push(product)
+				}
+			})
+			setWigs(filtered)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	React.useEffect(() => {
+		fetchProducts()
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	return (
 		<>
 			<Helmet>
-				<title>Wigs</title>
+				<title>Virgin-wigs</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-py-[100px] tw-px-5 tw-bg-gray-300 tw-flex tw-flex-col tw-items-center tw-text-pink-700 tw-italic tw-text-sm tw-font-bold">
-					{window.location.pathname.split('/').filter((x) => x)?.[0]} coming
-					soon. We got you covered...
+				<div className="tw-w-full tw-bg-white tw-mt-[50px] md:tw-mt-[0px]">
+					<div className="xl:tw-w-[80%] lg:tw-w-[70%] tw-mx-auto tw-py-[70px] tw-px-5 tw-grid xl:tw-grid-cols-3 lg:tw-grid-cols-2 md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
+						<div className="tw-w-full tw-flex tw-justify-center">
+							{wigs &&
+								wigs?.map((wig) => (
+									<div key={wig.id}>
+										<WigsCard product={wig} dealPrice={wig?.price} />
+									</div>
+								))}
+						</div>
+					</div>
 				</div>
 			</Layout>
 		</>
 	)
 }
 
-export default Wigs
+export default IndianDeal

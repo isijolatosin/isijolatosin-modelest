@@ -21,7 +21,8 @@ import IndianDeal from './pages/indianDeal'
 import VietnameseDeal from './pages/vietnameseDeal'
 import VirginDeal from './pages/virginDeal'
 import DealPage from './pages/dealPage'
-import Wigs from './pages/wigs'
+import SingleWig from './pages/singlewig'
+import Wig from './pages/wigs'
 import Faqs from './pages/faqs'
 import Blogs from './pages/blogs'
 
@@ -47,7 +48,8 @@ function App() {
 			<Route exact path="/bundles/virgin" element={<VirginBundles />} />
 			<Route exact path="/bundles/vietnamese" element={<VietnameseBundles />} />
 			<Route exact path="/deals/:dealInfo" element={<DealPage />} />
-			<Route exact path="/wigs/:brand" element={<Wigs />} />
+			<Route exact path="/wigs/:id" element={<SingleWig />} />
+			<Route exact path="/wigs" element={<Wig />} />
 			<Route exact path="/bodywave&frontal/:reviews" element={<DealPage />} />
 			<Route
 				exact
