@@ -86,7 +86,7 @@ function Faqs() {
 					<div className="tw-bg-neutral-50 tw-text-neutral-700">
 						<div className="tw-pb-[100px] tw-pt-[120px] md:tw-pt-[80px] tw-px-5 tw-flex tw-flex-col tw-items-left tw-text-sm tw-w-[100%] md:tw-w-[80%] lg:tw-w-[70%] tw-mx-auto">
 							<p className="tw-mb-5">
-								The Virgin Hair is a natural human hair that still maintains its
+								Virgin Hair are natural human hair that still maintains its
 								natural state. No chemical changes, no color, has not been
 								processed, and all cuticles are intact. All hair sold by
 								modelEst Hair Company is virgin hair.
