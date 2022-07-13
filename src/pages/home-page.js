@@ -30,11 +30,11 @@ function HomePage() {
 				},
 			} = await axios.get('/api/v1/products')
 
-			if (products.every((product) => product.sales)) {
-				localStorage.setItem('isSales', true)
-			}
+			// if (products.every((product) => product.sales)) {
+			// 	localStorage.setItem('isSales', true)
+			// }
 			setTimeout(() => {
-				setAllproducts(products.sort((a, b) => a.name.localeCompare(b.name)))
+				setAllproducts(products.sort((a, b) => a.name.localeCompare(b.type)))
 			}, 3000)
 		} catch (error) {
 			console.log(error)
