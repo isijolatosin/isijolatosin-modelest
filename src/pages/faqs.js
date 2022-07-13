@@ -11,7 +11,7 @@ function Faqs() {
 			id: '1',
 			title: 'HOW CAN I MEASURE THE LENGTH OF MY BUNDLES?',
 			value:
-				'Your Brazilian hair extensions should be measured to the fall of the hair. Start 0 at the weft and measure to the ends of the bundle. The Brazilian Wavy, Brazilian Body Wave, Brazilian Curly, and Kinky Curly hair extensions must be measured by pulling the hair straight. Again, start 0 at the weft; pull the hair straight from the ends, and the length will be at the tips of the hair. Each bundle will not measure exact when it is still wrapped in its band, as tension can affect the fall of each strand.',
+				'Your Brazilian hair extensions should be measured to the fall of the hair. Start 0 at the weft and measure to the ends of the bundle. The Indian, Virgin and Vietnamese Wavy, Indian, Virgin and Vietnamese Body Wave, Indian and Virgin and Vietnamese Curly hair extensions must be measured by pulling the hair straight. Again, start 0 at the weft; pull the hair straight from the ends, and the length will be at the tips of the hair. Each bundle will not measure exact when it is still wrapped in its band, as tension can affect the fall of each strand.',
 		},
 		{
 			id: '2',
@@ -86,10 +86,10 @@ function Faqs() {
 					<div className="tw-bg-neutral-50 tw-text-neutral-700">
 						<div className="tw-pb-[100px] tw-pt-[120px] md:tw-pt-[80px] tw-px-5 tw-flex tw-flex-col tw-items-left tw-text-sm tw-w-[100%] md:tw-w-[80%] lg:tw-w-[70%] tw-mx-auto">
 							<p className="tw-mb-5">
-								Virgin Hair is human hair that is in its natural state. No
-								chemical changes, no color, has not been processed, and all
-								cuticles are intact. All hair sold by Her Hair Company is virgin
-								hair.
+								The Virgin Hair is a natural human hair that still maintains its
+								natural state. No chemical changes, no color, has not been
+								processed, and all cuticles are intact. All hair sold by
+								modelEst Hair Company is virgin hair.
 							</p>
 							{faqs.slice(0, 4).map((faq) => (
 								<div key={faq.id}>
