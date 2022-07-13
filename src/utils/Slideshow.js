@@ -2,7 +2,6 @@ import React from 'react'
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md'
 
 const Slideshow = ({ images, iconSize }) => {
-	console.log(images)
 	const imageArray = [
 		{
 			image: (images.image && images.image) || (images?.[0] && images?.[0]),

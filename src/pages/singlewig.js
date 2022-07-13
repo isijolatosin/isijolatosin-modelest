@@ -28,7 +28,6 @@ const DealPage = () => {
 		.split('/')
 		.filter((x) => x)?.[1]
 		.split('-')?.[1]
-
 	const lengthArray = [
 		'14inch',
 		'16inch',
