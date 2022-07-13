@@ -163,7 +163,9 @@ const DealPage = () => {
 								</div>
 							</div>
 							<div className="tw-mb-1">
-								<span className="tw-text-3xl">${price}:00</span>
+								<span className="tw-text-3xl">
+									${price * Number(_quantity)}:00
+								</span>
 							</div>
 							<span className="tw-text-sm">
 								or 4 interest-free payments of ${price / 4} with{' '}
