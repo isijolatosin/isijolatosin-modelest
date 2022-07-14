@@ -37,7 +37,7 @@ function Card({ product, setSingleproducts, scrollToTop, sales }) {
 				className=" tw-w-[400px] tw-h-full tw-object-cover hover:tw-cursor-pointer tw-rounded-lg"
 			/>
 			<div className="tw-absolute tw-top-0 tw-text-center tw-rounded-t-lg tw-bg-white tw-text-neutral-900 tw-font-bold tw-w-full tw-text-[9px] tw-uppercase tw-tracking-widest">
-				<span>Raw {product?.brand} Hair</span>
+				<span>Raw {product?.brand}</span>
 			</div>
 			{clickedID === product._id && (
 				<div className="tw-absolute tw-top-0 tw-right-0 tw-bg-neutral-300 tw-rounded-tr-sm tw-rounded-bl-sm tw-text-xs tw-p-2">

@@ -11,19 +11,19 @@ function Faqs() {
 			id: '1',
 			title: 'HOW CAN I MEASURE THE LENGTH OF MY BUNDLES?',
 			value:
-				'Your Brazilian hair extensions should be measured to the fall of the hair. Start 0 at the weft and measure to the ends of the bundle. The Indian, Virgin and Vietnamese Wavy, Indian, Virgin and Vietnamese Body Wave, Indian and Virgin and Vietnamese Curly hair extensions must be measured by pulling the hair straight. Again, start 0 at the weft; pull the hair straight from the ends, and the length will be at the tips of the hair. Each bundle will not measure exact when it is still wrapped in its band, as tension can affect the fall of each strand.',
+				'ModelEst hair extensions should be measured to the fall of the hair. Start 0 at the weft and measure to the fall of the hair. Curly hair extensions must be measured by pulling the hair straight. Again, start 0 at the weft; pull the hair straight from the ends, and the length will be at the tips of the hair. Each bundle will not measure exact when it is still wrapped in its band, as tension can affect the fall of each strand.',
 		},
 		{
 			id: '2',
 			title: 'CAN THE HAIR BE STRAIGHTENED OR CURLED?',
 			value:
-				'Your new virgin hair extensions can be styled like your own hair. You are able to use a thermal (hot) tool to straighten, curl, crimp, etc. Keep in mind the hair does not have all the nutrients that a strand growing from your scalp will. Heat damage can cause breakage and dryness. Therefore, it is imperative that you use a heat-protecting product, always co-wash your hair, and protect it during sleep hours.',
+				'ModelEst hair extensions can be styled like your own hair. You are able to use a thermal (hot) tool to straighten, curl, crimp, etc. Keep in mind the hair does not have all the nutrients that a strand growing from your scalp will. Heat damage can cause breakage and dryness. Therefore, it is imperative that you use a heat-protecting product, always co-wash your hair, and protect it during sleep hours.',
 		},
 		{
 			id: '3',
 			title: 'CAN I COLOR MY BUNDLES?',
 			value:
-				'Any chemical processes should be done by a professional or at least consulted by one. This purchase is an investment for you and chemically altering the hair can possibly damage it. Although our virgin hair extensions can handle a coloring process very well, please be cautious. Once the hair is chemically-altered incorrectly, the cuticle can become damaged and overexposed, causing fraying, breakage, dryness, and tangling. This in turn will affect the overall look and feel of your hair. Chemical damage has no reverse button, and we will not be held liable for any damages.',
+				'Yes, but keep in mind that this purchase is an investment for you and chemically altering the hair can possibly damage it if not done correctly. Professional consultation is advised. ModelEst hair extensions can handle a coloring process very well, but please be cautious. Once the hair is chemically-altered incorrectly, the cuticle can become damaged and overexposed, causing fraying, breakage, dryness, and tangling. This in turn will affect the overall look and feel of your hair. Chemical damage has no reverse button, and we will not be held liable for any damages.',
 		},
 		{
 			id: '4',
@@ -35,7 +35,7 @@ function Faqs() {
 			id: '5',
 			title: 'WHAT DOES CO-WASH MEAN?',
 			value:
-				'Co-washing simply means washing with conditioner. It is a key task in extending the life of your extensions and keeping them healthy. We recommend a co-wash once a week with moisturizing conditioner to ensure your hair gets the nutrients and moisture it needs. When you first receive your extensions, it is important to co-wash the hair, as it has been through Her Hair Company fulfillment department hands, manufacturers’ hands, packaging, etc. Shampooing the hair can strip the hair entirely too much of its moisture. Always use WARM water, as hot water will overexpose the cuticle of the hair.',
+				'Co-washing simply means washing with conditioner. It is a key task in extending the life of your extensions and keeping them healthy. We recommend a co-wash once a week with moisturizing conditioner to ensure your hair gets the nutrients and moisture it needs. When you first receive your extensions, it is important to co-wash the hair to maintain its luster and softness and to prevent over drying. Shampooing the hair can strip the hair entirely too much of its moisture, mild shampoo is advised Always use cold to warm water, as hot water will overexpose the cuticle of the hair.',
 		},
 		{
 			id: '6',
@@ -111,13 +111,15 @@ function Faqs() {
 							<div className="tw-mb-6 tw-font-light">
 								<span>
 									Our weft sealer is available for purchase{' '}
-									<Link
-										to="/blogs/caring-for-indian-virgin-vietnamese-hair-extensions"
-										className="tw-text-red-600 tw-font-normal tw-italic">
+									<Link to="/" className="tw-text-red-600 tw-font-normal">
 										here
 									</Link>
-									. On that page is a “How To” video explaining how to use the
-									sealer.
+									. To watch “How To” video or read about the sealer,{' '}
+									<Link
+										to="/blogs/caring-for-indian-virgin-vietnamese-hair-extensions"
+										className="tw-text-red-600 tw-font-normal">
+										click here
+									</Link>
 								</span>
 							</div>
 							<div className="tw-my-2">
@@ -129,14 +131,14 @@ function Faqs() {
 							</div>
 							<div className="tw-mb-6 tw-font-light">
 								<span>
-									Our weft sealer is available for purchase{' '}
+									Our raw and virgin hair can last up to 3 years or more with
+									proper care and maintenance. Learn more about caring for your
+									Virgin, Indian and Vietnamese hair extensions{' '}
 									<Link
 										to="/blogs/caring-for-indian-virgin-vietnamese-hair-extensions"
-										className="tw-text-red-600 tw-font-normal tw-italic">
-										here
+										className="tw-text-red-600 tw-font-normal">
+										here...
 									</Link>
-									. On that page is a “How To” video explaining how to use the
-									sealer.
 								</span>
 							</div>
 							{faqs.slice(4, faqs.length).map((faq) => (

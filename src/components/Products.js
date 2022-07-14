@@ -233,7 +233,7 @@ function Products({ allProducts, sales }) {
 	]
 
 	return (
-		<div className="tw-pt-10 tw-relative tw-flex tw-flex-col tw-items-center ">
+		<div className="tw-pt-[120px] tw-relative tw-flex tw-flex-col tw-items-center ">
 			<div className="tw-fixed tw-top-0 tw-right-0 md:tw-top-[-100px] md:tw-right-[-20px] tw-z-40">
 				<Add2CartPopup singleCart={singleCart} setSingleCart={setSingleCart} />
 			</div>
