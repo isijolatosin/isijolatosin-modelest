@@ -130,8 +130,8 @@ function HomePage() {
 						<FaArrowUp />
 					</div>
 					<div
-						className={`${
-							searchControl ? 'tw-w-[100vw] lg:tw-w-[50vw]' : 'tw-w-[100px]'
+						className={`tw-w-[100%] ${
+							searchControl && 'tw-w-[100vw] lg:tw-w-[50vw]'
 						} tw-flex tw-items-center content tw-fixed tw-top-[90px] md:tw-top-[60px] tw-left-[-40px] tw-z-10 tw-ease-in tw-duration-300`}>
 						<div
 							className={`${
@@ -162,7 +162,7 @@ function HomePage() {
 									setFiltered([])
 									setSearchError(false)
 								}}
-								className="tw-ml-5 tw-text-pink-800 tw-tracking-wide tw-font-light tw-text-xs tw-border-[2px] tw-border-pink-800 tw-rounded-full tw-px-3 tw-bg-pink-200 hover:tw-bg-pink-900 hover:tw-text-pink-200 hover:tw-border-pink-200 tw-ease-in tw-duration-300 hover:tw-cursor-pointer">
+								className="tw-ml-5 tw-text-neutral-800 tw-tracking-wide tw-font-light tw-text-xs tw-border-[2px] tw-border-neutral-800 tw-rounded-full tw-px-3 tw-bg-neutral-200 hover:tw-bg-neutral-900 hover:tw-text-neutral-200 hover:tw-border-neutral-200 tw-ease-in tw-duration-300 hover:tw-cursor-pointer">
 								<span>Reset</span>
 							</div>
 						)}
