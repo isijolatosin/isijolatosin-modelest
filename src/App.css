@@ -961,7 +961,7 @@ label input::placeholder {
 .search {
 	margin-left: 30px;
 	--size: 40px;
-	border: 2px solid rgb(61, 61, 61);
+	border: 2px solid rgb(0, 0, 0);
 	display: flex;
 	border-radius: 100px;
 	overflow: hidden;
@@ -993,7 +993,7 @@ label input::placeholder {
 	align-items: center;
 	justify-content: center;
 	margin-left: auto;
-	background: rgb(77, 77, 77);
+	background: rgb(0, 0, 0);
 	border: 0;
 	cursor: pointer;
 	border-radius: 50%;
