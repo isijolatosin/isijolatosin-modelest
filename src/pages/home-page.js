@@ -126,7 +126,7 @@ function HomePage() {
 						onClick={() => window.scrollTo(0, 0)}
 						className={`${
 							toBottom ? 'tw-opacity-1' : 'tw-opacity-0'
-						} tw-fixed tw-bottom-[50px] tw-right-[50px] tw-bg-neutral-900 tw-text-white tw-p-5 tw-rounded-[30px] tw-z-20 hover:tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 `}>
+						} tw-fixed tw-bottom-[50px] tw-right-[50px] tw-bg-[rgba(0,0,0,0.85)] tw-text-white tw-p-5 tw-rounded-[30px] tw-z-20 hover:tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 `}>
 						<FaArrowUp />
 					</div>
 					<div className="tw-flex tw-items-center content tw-w-[100vw] lg:tw-w-[50vw] tw-fixed tw-top-[90px] md:tw-top-[60px] tw-left-[-20px] md:tw-left-0 tw-z-20 md:tw-ml-8">
