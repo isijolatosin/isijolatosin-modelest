@@ -66,19 +66,19 @@ function HomePage() {
 			// eslint-disable-next-line array-callback-return
 			allProducts.filter((product) => {
 				if (product?.name.toLowerCase().includes(inputValue.toLowerCase())) {
-					window.scrollTo(0, 0)
 					returnFiltered.push(product)
 				} else if (
 					product?.brand.toLowerCase().includes(inputValue.toLowerCase())
 				) {
-					window.scrollTo(0, 0)
 					returnFiltered.push(product)
 				} else {
-					window.scrollTo(0, 0)
 					setSearchError(true)
 				}
 			})
-			setFiltered(returnFiltered)
+			if (returnFiltered.length > 0) {
+				window.scrollTo(0, 0)
+				setFiltered(returnFiltered)
+			}
 		}
 	}
 	React.useEffect(() => {
