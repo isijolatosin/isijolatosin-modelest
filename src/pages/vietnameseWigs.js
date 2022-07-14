@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
 import WigsCard from '../components/WigsCard'
 
-function IndianDeal() {
+function VietnameseWigs() {
 	const [wigs, setWigs] = React.useState(null)
 
 	async function fetchProducts() {
@@ -16,7 +16,7 @@ function IndianDeal() {
 			const filtered = []
 			// eslint-disable-next-line array-callback-return
 			products.filter((product) => {
-				if (product.type.toLowerCase() === 'wig') {
+				if (product.type.toLowerCase().includes('vietnamese wig')) {
 					filtered.push(product)
 				}
 			})
@@ -33,12 +33,12 @@ function IndianDeal() {
 	}, [])
 
 	return (
-		<>
+		<div className="home">
 			<Helmet>
-				<title>Virgin-wigs</title>
+				<title>Vietnamese-wigs</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-w-full tw-bg-white tw-mt-[50px] md:tw-mt-[0px]">
+				<div className="tw-w-full tw-bg-[rgba(255,255,255,0.5)] tw-mt-[50px] md:tw-mt-[0px]">
 					<div className="xl:tw-w-[80%] lg:tw-w-[70%] tw-mx-auto tw-py-[70px] tw-px-5 tw-grid xl:tw-grid-cols-3 lg:tw-grid-cols-2 md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
 						<div className="tw-w-full tw-flex tw-justify-center">
 							{wigs &&
@@ -51,8 +51,8 @@ function IndianDeal() {
 					</div>
 				</div>
 			</Layout>
-		</>
+		</div>
 	)
 }
 
-export default IndianDeal
+export default VietnameseWigs

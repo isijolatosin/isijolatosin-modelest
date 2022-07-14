@@ -113,12 +113,12 @@ function IndianDeal() {
 	}, [])
 
 	return (
-		<>
+		<div className="home">
 			<Helmet>
 				<title>Indian-Hair-Bundle-Deals</title>
 			</Helmet>
 			<Layout sales={bundleDealsPercentage}>
-				<div className="tw-w-full tw-bg-white tw-mt-[50px] md:tw-mt-[0px]">
+				<div className="tw-w-full tw-bg-[rgba(255,255,255,0.5)] tw-mt-[50px] md:tw-mt-[0px]">
 					<div className="xl:tw-w-[80%] lg:tw-w-[70%] tw-mx-auto tw-py-[70px] tw-px-5 tw-grid xl:tw-grid-cols-3 lg:tw-grid-cols-2 md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
 						<div className="tw-w-full tw-flex tw-justify-center">
 							{bodyWaveFrontal && (
@@ -167,7 +167,7 @@ function IndianDeal() {
 					</div>
 				</div>
 			</Layout>
-		</>
+		</div>
 	)
 }
 

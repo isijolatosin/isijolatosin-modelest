@@ -212,7 +212,7 @@ const DealPage = () => {
 				<title>{`${name}-Hair-Bundle-Deals`}</title>
 			</Helmet>
 			<Layout sales={bundleDealsPercentage}>
-				<div className="tw-w-full tw-bg-neutral-100 tw-flex tw-flex-col tw-items-center">
+				<div className="tw-w-full tw-bg-white tw-flex tw-flex-col tw-items-center">
 					<div className="tw-fixed tw-z-20 tw-top-0 md:tw-top-[-95px] tw-right-0">
 						<Add2CartPopup
 							singleCart={singleCart}
@@ -260,7 +260,9 @@ const DealPage = () => {
 								</div>
 							</div>
 							<div className="tw-mb-1">
-								<span className="tw-text-3xl">${dealPrice}</span>
+								<span className="tw-text-3xl">
+									${(dealPrice * _quantity).toFixed(2)}
+								</span>
 							</div>
 							<span className="tw-text-sm">
 								or 4 interest-free payments of ${dealPrice / 4} with{' '}

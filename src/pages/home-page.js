@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { RiSearch2Line } from 'react-icons/ri'
+import { RiSearch2Fill } from 'react-icons/ri'
 import { FaArrowUp } from 'react-icons/fa'
 import { getDatabase, ref, onValue } from 'firebase/database'
 import { Helmet } from 'react-helmet'
@@ -103,7 +103,7 @@ function HomePage() {
 	}
 
 	return (
-		<div className="tw-bg-neutral-200 relative home">
+		<div className="relative home ">
 			<Helmet>
 				<title>Home</title>
 			</Helmet>
@@ -114,13 +114,13 @@ function HomePage() {
 							? `tw-flex tw-flex-col tw-items-center ${
 									allProducts.length === 0 ? 'tw-pt-[230px]' : 'tw-pt-[120px]'
 							  } tw-pb-10 md:tw-py-[50px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
-							: `tw-flex tw-flex-col tw-items-center ${
+							: ` tw-flex tw-flex-col tw-items-center ${
 									allProducts.length === 0 && 'tw-pt-[230px]'
 							  } ${
 									sales !== 0
 										? 'md:tw-pt-[75px] tw-pt-[95px]'
 										: 'md:tw-pt-[35px] tw-pt-[50px]'
-							  } md:tw-pb-[50px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
+							  } md:tw-pb-[50px] lg:tw-w-[100%] 2xl:tw-px-[40px] lg:tw-mx-auto tw-bg-[rgba(255,255,255,0.4)]`
 					}>
 					<div
 						onClick={() => window.scrollTo(0, 0)}
@@ -129,7 +129,10 @@ function HomePage() {
 						} tw-fixed tw-bottom-[50px] tw-right-[50px] tw-bg-[rgba(0,0,0,0.85)] tw-text-white tw-p-5 tw-rounded-[30px] tw-z-20 hover:tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 `}>
 						<FaArrowUp />
 					</div>
-					<div className="tw-flex tw-items-center content tw-w-[100vw] lg:tw-w-[50vw] tw-fixed tw-top-[90px] md:tw-top-[60px] tw-left-[-20px] md:tw-left-0 tw-z-20 md:tw-ml-8">
+					<div
+						className={`${
+							searchControl ? 'tw-w-[100vw] lg:tw-w-[50vw]' : 'tw-w-[100px]'
+						} tw-flex tw-items-center content tw-fixed tw-top-[90px] md:tw-top-[60px] tw-left-[-40px] tw-z-10 tw-ease-in tw-duration-300`}>
 						<div
 							className={`${
 								searchControl ? 'search bg-blur __search' : 'search bg-blur'
@@ -148,9 +151,9 @@ function HomePage() {
 							/>
 							<button
 								onClick={handleSubmit}
-								className="search__submit tw-z-10"
+								className="search__submit tw-z-10 tw-text-neutral-400"
 								aria-label="submit search">
-								<RiSearch2Line />
+								<RiSearch2Fill />
 							</button>
 						</div>
 						{filtered?.length > 0 && (
@@ -159,7 +162,7 @@ function HomePage() {
 									setFiltered([])
 									setSearchError(false)
 								}}
-								className="tw-ml-5 tw-text-neutral-800 tw-tracking-wide tw-font-light tw-text-xs tw-border-[2px] tw-border-neutral-800 tw-rounded-full tw-px-3 tw-bg-neutral-200 hover:tw-bg-neutral-900 hover:tw-text-neutral-200 hover:tw-border-neutral-200 tw-ease-in tw-duration-300 hover:tw-cursor-pointer">
+								className="tw-ml-5 tw-text-pink-800 tw-tracking-wide tw-font-light tw-text-xs tw-border-[2px] tw-border-pink-800 tw-rounded-full tw-px-3 tw-bg-pink-200 hover:tw-bg-pink-900 hover:tw-text-pink-200 hover:tw-border-pink-200 tw-ease-in tw-duration-300 hover:tw-cursor-pointer">
 								<span>Reset</span>
 							</div>
 						)}
@@ -197,7 +200,7 @@ function HomePage() {
 							/>
 						</div>
 					) : (
-						<div className="tw-bg-neutral-300 tw-py-[100px] tw-flex tw-justify-center">
+						<div className="tw-py-[100px] tw-flex tw-justify-center">
 							<div className="tw-rounded-full progress">
 								<div className="inner"></div>
 							</div>

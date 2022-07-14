@@ -23,7 +23,7 @@ const virginSubLinks = [
 	{
 		id: '3',
 		name: 'Wigs',
-		route: '/wigs/',
+		route: '/virgin-wigs/',
 	},
 	{
 		id: '1',
@@ -40,7 +40,7 @@ const vietnameseSubLinks = [
 	{
 		id: '3',
 		name: 'Wigs',
-		route: '/wigs/',
+		route: '/vietnamese-wigs/',
 	},
 	{
 		id: '1',

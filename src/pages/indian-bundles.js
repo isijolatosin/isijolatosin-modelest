@@ -45,7 +45,9 @@ function IndianBundles() {
 				(product) =>
 					product.color.toLowerCase() === 'natural black' &&
 					product.name.toLowerCase() !== 'closure' &&
-					product.name.toLowerCase() !== 'frontal'
+					product.name.toLowerCase() !== 'frontal' &&
+					!product.brand.toLowerCase().includes('virgin hair') &&
+					!product.brand.toLowerCase().includes('vietnamese hair')
 			)
 			setHairBundles(filtered.sort((a, b) => a.name.localeCompare(b.name)))
 		} catch (error) {
@@ -159,7 +161,7 @@ function IndianBundles() {
 	]
 
 	return (
-		<>
+		<div className="home">
 			<Helmet>
 				<title>Indian-Hair-Bundles</title>
 			</Helmet>
@@ -169,10 +171,10 @@ function IndianBundles() {
 						sales
 							? `${
 									hairBundles.length === 0 && !show
-										? 'tw-pt-[230px] home'
-										: 'tw-pt-[155px] home'
-							  } tw-pb-10 md:tw-pt-[120px] tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto`
-							: 'tw-pb-10 tw-pt-[110px] md:tw-pt-20 tw-h-full tw-relative tw-bg-neutral-200 tw-flex tw-flex-col tw-items-center tw-mx-auto home'
+										? 'tw-pt-[230px]'
+										: 'tw-pt-[155px]'
+							  } tw-pb-10 md:tw-pt-[120px] tw-h-full tw-relative  tw-flex tw-flex-col tw-items-center tw-mx-auto tw-bg-[rgba(255,255,255,0.5)]`
+							: 'tw-pb-10 tw-pt-[110px] md:tw-pt-20 tw-h-full tw-relative  tw-flex tw-flex-col tw-items-center tw-mx-auto tw-bg-[rgba(255,255,255,0.5)]'
 					}>
 					<div className="tw-fixed tw-z-40 tw-top-0 md:tw-top-[-95px] tw-right-0 md:tw-right-[-30px]">
 						<Add2CartPopup
@@ -226,7 +228,7 @@ function IndianBundles() {
 					)}
 				</div>
 			</Layout>
-		</>
+		</div>
 	)
 }
 
