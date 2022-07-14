@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { RiSearch2Line } from 'react-icons/ri'
+import { FaArrowUp } from 'react-icons/fa'
 import { getDatabase, ref, onValue } from 'firebase/database'
 import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
@@ -10,6 +11,7 @@ function HomePage() {
 	// const [hideRegionSet, setHideRegionSet] = React.useState(true)
 	const [inputValue, setInputValue] = React.useState('')
 	const [searchControl, setSearchControl] = React.useState(false)
+	const [toBottom, setToBottom] = React.useState(false)
 	const [searchError, setSearchError] = React.useState(false)
 	const [allProducts, setAllproducts] = React.useState([])
 	const [filtered, setFiltered] = React.useState([])
@@ -89,6 +91,17 @@ function HomePage() {
 		}
 	}, [searchError])
 
+	window.onscroll = function (ev) {
+		if (
+			window.innerHeight + window.scrollY >=
+			document.body.offsetHeight - (window.innerHeight + window.scrollY)
+		) {
+			setToBottom(true)
+		} else {
+			setToBottom(false)
+		}
+	}
+
 	return (
 		<div className="tw-bg-neutral-200 relative home">
 			<Helmet>
@@ -109,6 +122,13 @@ function HomePage() {
 										: 'md:tw-pt-[35px] tw-pt-[50px]'
 							  } md:tw-pb-[50px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
 					}>
+					<div
+						onClick={() => window.scrollTo(0, 0)}
+						className={`${
+							toBottom ? 'tw-opacity-1' : 'tw-opacity-0'
+						} tw-fixed tw-bottom-[50px] tw-right-[50px] tw-bg-neutral-900 tw-text-white tw-p-5 tw-rounded-[30px] tw-z-20 hover:tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 `}>
+						<FaArrowUp />
+					</div>
 					<div className="tw-flex tw-items-center content tw-w-[100vw] lg:tw-w-[50vw] tw-fixed tw-top-[90px] md:tw-top-[60px] tw-left-[-20px] md:tw-left-0 tw-z-20 md:tw-ml-8">
 						<div
 							className={`${
