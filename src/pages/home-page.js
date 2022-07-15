@@ -165,14 +165,14 @@ function HomePage() {
 					<div
 						onClick={() => window.scrollTo(0, 0)}
 						className={`${
-							toBottom ? 'tw-opacity-1' : 'tw-opacity-0'
+							toBottom ? 'tw-inline' : 'tw-hidden'
 						} tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-white tw-p-5 tw-rounded-[30px] tw-z-40 hover:tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 `}>
 						<FaArrowUp />
 					</div>
 					<div
 						onClick={() => setShowForm(!showForm)}
 						className={`${
-							chat ? 'tw-opacity-1' : 'tw-opacity-0'
+							chat ? 'tw-inline' : 'tw-hidden'
 						} tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-white tw-p-5 tw-rounded-[30px] tw-z-40 hover:tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300  `}>
 						<RiChat1Fill />
 					</div>
