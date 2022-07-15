@@ -1,22 +1,32 @@
 import React from 'react'
 import axios from 'axios'
+import emailjs from 'emailjs-com'
 import { RiSearch2Fill } from 'react-icons/ri'
 import { FaArrowUp } from 'react-icons/fa'
+import { RiChat1Fill } from 'react-icons/ri'
 import { getDatabase, ref, onValue } from 'firebase/database'
 import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
 import Products from '../components/Products'
+import { CgClose } from 'react-icons/cg'
 
 function HomePage() {
 	// const [hideRegionSet, setHideRegionSet] = React.useState(true)
 	const [inputValue, setInputValue] = React.useState('')
 	const [searchControl, setSearchControl] = React.useState(false)
 	const [toBottom, setToBottom] = React.useState(false)
+	const [chat, setChat] = React.useState(true)
+	const [showForm, setShowForm] = React.useState(false)
 	const [searchError, setSearchError] = React.useState(false)
 	const [allProducts, setAllproducts] = React.useState([])
 	const [filtered, setFiltered] = React.useState([])
 	const [sales, setSales] = React.useState(null)
 	const database = getDatabase()
+	const [chatDetail, setChatDetail] = React.useState({
+		name: '',
+		email: '',
+		message: '',
+	})
 
 	React.useEffect(() => {
 		const starCountRef = ref(database, 'sales')
@@ -97,9 +107,39 @@ function HomePage() {
 			document.body.offsetHeight - (window.innerHeight + window.scrollY)
 		) {
 			setToBottom(true)
+			setChat(false)
 		} else {
 			setToBottom(false)
+			setChat(true)
 		}
+	}
+	const handleChangeChat = (e) => {
+		setChatDetail({ ...chatDetail, [e.target.name]: e.target.value })
+	}
+
+	const inquryMessage = {
+		name: 'Modelest Hair',
+		client: 'modelest1010@gmail.com',
+		message: `${chatDetail?.message}. SENDER - ${chatDetail?.email}. SENDER NAME - ${chatDetail?.name}`,
+	}
+
+	const SubmitInqury = (e) => {
+		e.preventDefault()
+		emailjs
+			.send(
+				'service_czeioxp',
+				'template_kxtdmr3',
+				inquryMessage,
+				'user_VORMh20QoM0GcnDrVoVnj'
+			)
+			.then((res) => {})
+			.catch((err) => console.log(err))
+
+		setChatDetail({
+			name: '',
+			email: '',
+			message: '',
+		})
 	}
 
 	return (
@@ -120,14 +160,71 @@ function HomePage() {
 									sales !== 0
 										? 'md:tw-pt-[75px] tw-pt-[95px]'
 										: 'md:tw-pt-[35px] tw-pt-[50px]'
-							  } md:tw-pb-[50px] lg:tw-w-[100%] 2xl:tw-px-[40px] lg:tw-mx-auto tw-bg-[rgba(255,255,255,0.4)]`
+							  } md:tw-pb-[50px] lg:tw-w-[100%] 2xl:tw-px-[40px] lg:tw-mx-auto tw-bg-[rgba(255,255,255,0.4)] tw-relative`
 					}>
 					<div
 						onClick={() => window.scrollTo(0, 0)}
 						className={`${
 							toBottom ? 'tw-opacity-1' : 'tw-opacity-0'
-						} tw-fixed tw-bottom-[50px] tw-right-[50px] tw-bg-[rgba(0,0,0,0.85)] tw-text-white tw-p-5 tw-rounded-[30px] tw-z-20 hover:tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 `}>
+						} tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-white tw-p-5 tw-rounded-[30px] tw-z-40 hover:tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 `}>
 						<FaArrowUp />
+					</div>
+					<div
+						onClick={() => setShowForm(!showForm)}
+						className={`${
+							chat ? 'tw-opacity-1' : 'tw-opacity-0'
+						} tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-white tw-p-5 tw-rounded-[30px] tw-z-40 hover:tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300  `}>
+						<RiChat1Fill />
+					</div>
+					<div
+						className={`${
+							showForm ? 'tw-opacity-1' : 'tw-opacity-0'
+						} tw-w-[100%] tw-h-screen tw-px-5 tw-pt-[150px] md:tw-pt-0 md:tw-max-h-[560px] md:tw-w-[350px] tw-fixed tw-z-30 tw-bg-[rgba(255,255,255,0.9)] tw-p-2 tw-rounded-md tw-bottom-0 md:tw-bottom-[50px] tw-right-0 md:tw-right-[8px] tw-text-neutral-900 tw-ease-in tw-duration-300`}>
+						<form>
+							<div className="tw-flex tw-justify-end tw-mt-5">
+								<div
+									onClick={() => setShowForm(false)}
+									className="tw-text-md tw-text-white tw-bg-neutral-900 tw-w-[30px] tw-h-[30px] tw-p-[8px] tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-ease-in tw-duration-300 hover:tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900">
+									<CgClose />
+								</div>
+							</div>
+							<p className="tw-text-center tw-leading-5 tw-text-xs tw-my-3 tw-font-bold tw-w-[80%] tw-mx-auto">
+								Please fill out the form below and we will get back to you as
+								soon as possible
+							</p>
+							<input
+								type="text"
+								name="name"
+								id="name"
+								value={chatDetail.name}
+								onChange={handleChangeChat}
+								placeholder="Name"
+								className="tw-bg-transparent tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-text-xs tw-shadow-xl tw-placeholder-neutral-900 placeholder:tw-text-xs focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-1 placeholder:tw-text-neutral-900 tw-font-bold"
+							/>
+							<input
+								type="email"
+								name="email"
+								id="email"
+								value={chatDetail.email}
+								onChange={handleChangeChat}
+								placeholder="Email"
+								className="tw-bg-transparent tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-text-xs tw-shadow-xl tw-placeholder-neutral-900 placeholder:tw-text-xs focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-1 placeholder:tw-text-neutral-900 tw-font-bold"
+							/>
+							<textarea
+								name="message"
+								rows={15}
+								cols={25}
+								value={chatDetail.message}
+								onChange={handleChangeChat}
+								placeholder="Message..."
+								className="tw-bg-transparent tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-text-xs tw-shadow-xl focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-1 placeholder:tw-font-bold placeholder:tw-text-neutral-900 tw-text-neutral-900 tw-font-bold"
+							/>
+							<div
+								onClick={SubmitInqury}
+								className="tw-bg-neutral-900 tw-text-white tw-text-center tw-text-xs tw-py-2 tw-mt-3 tw-mb-10 tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900 tw-ease-in tw-duration-300">
+								<button>Send message</button>
+							</div>
+						</form>
 					</div>
 					<div
 						className={`tw-w-[100%] ${
