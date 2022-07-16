@@ -9,6 +9,7 @@ import { BsFillArrowUpSquareFill } from 'react-icons/bs'
 import { RiSendPlaneLine } from 'react-icons/ri'
 import AllInventories from '../components/AllInventories'
 import { UserContext } from '../context/user-context'
+import Inqury from '../components/Inqury'
 
 function Management() {
 	const database = getDatabase()
@@ -42,6 +43,9 @@ function Management() {
 		if (section === 'shipping') {
 			return <Shippment />
 		}
+		if (section === 'inquiry') {
+			return <Inqury />
+		}
 	}
 	const handleSubmit = () => {
 		if (percentSale !== null || percentSale !== '') {
@@ -69,12 +73,12 @@ function Management() {
 				<div
 					className={
 						sales
-							? 'tw-mt-[100px] lg:tw-mt-[100px] tw-pt-20 md:tw-pt-10 tw-flex tw-flex-col tw-w-[100vw] tw-items-center tw-bg-neutral-300'
-							: 'tw-mt-[60px] tw-pt-20 md:tw-pt-10 tw-flex tw-flex-col tw-w-[100vw] tw-items-center tw-bg-neutral-300'
+							? 'tw-mt-[100px] lg:tw-mt-[100px] tw-pt-20 md:tw-pt-10 tw-flex tw-flex-col tw-w-[100vw] tw-items-center tw-bg-neutral-200'
+							: 'tw-mt-[60px] tw-pt-20 md:tw-pt-10 tw-flex tw-flex-col tw-w-[100vw] tw-items-center tw-bg-neutral-200'
 					}>
 					<div className="tw-flex tw-flex-col md:tw-flex-row md:tw-items-center tw-justify-between tw-w-[85%]">
 						<Heading children="Admin portal" isBold={true} />
-						<div className="tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[50%] md:tw-w-[30%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-200 tw-mb-2 md:tw-mb-0">
+						<div className="tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[50%] md:tw-w-[30%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100 tw-mb-2 md:tw-mb-0">
 							<input
 								type="number"
 								name="percentSale"
@@ -90,7 +94,7 @@ function Management() {
 								className="tw-text-violet-700 hover:tw-text-violet-300 tw-ease-in tw-duration-300 tw-w-[10%] tw-mr-2"
 							/>
 						</div>
-						<div className="tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[50%] md:tw-w-[30%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-200">
+						<div className="tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[50%] md:tw-w-[30%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100">
 							<input
 								type="number"
 								name="bndlePercentSale"
@@ -107,25 +111,31 @@ function Management() {
 							/>
 						</div>
 					</div>
-					<div className="tw-my-5 tw-w-[100%] tw-text-violet-700">
-						<ul className="tw-flex tw-text-xs tw-flex-row tw-items-center tw-justify-between tw-w-[90%] lg:tw-w-[50%] tw-mx-auto">
+					<div className="tw-my-5 tw-w-full md:tw-w-[90%] tw-text-violet-700">
+						<ul className="tw-flex tw-text-xs tw-flex-row tw-items-center tw-justify-between tw-w-[95%] lg:tw-w-[50%] tw-mx-auto">
 							<li
 								id="all-inventory"
 								className="hover:tw-cursor-pointer tw-bg-violet-50 tw-px-4 tw-py-2 tw-rounded-full hover:tw-bg-violet-100 tw-ease-in tw-duration-300"
 								onClick={toggleSection}>
-								All Inventories
+								Inventories
 							</li>
 							<li
 								id="inventory"
 								className="hover:tw-cursor-pointer tw-bg-violet-50 tw-px-4 tw-py-2 tw-rounded-full hover:tw-bg-violet-100 tw-ease-in tw-duration-300"
 								onClick={toggleSection}>
-								Add to Inventory
+								+Inventory
 							</li>
 							<li
 								id="shipping"
 								className="hover:tw-cursor-pointer tw-bg-violet-50  tw-px-4 tw-py-2 tw-rounded-full hover:tw-bg-violet-100 tw-ease-in tw-duration-300"
 								onClick={toggleSection}>
 								Shipment
+							</li>
+							<li
+								id="inquiry"
+								className="hover:tw-cursor-pointer tw-bg-violet-50  tw-px-4 tw-py-2 tw-rounded-full hover:tw-bg-violet-100 tw-ease-in tw-duration-300"
+								onClick={toggleSection}>
+								Inquiry
 							</li>
 						</ul>
 					</div>
