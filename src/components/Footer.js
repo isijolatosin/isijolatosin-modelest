@@ -254,7 +254,11 @@ function Footer({
 					id="shipping"
 					className="tw-w-[80%] tw-text-sm tw-font-light tw-mb-10">
 					<div className="tw-text-center tw-mb-4 tw-mt-5 tw-font-light tw-text-lg tw-uppercase tw-border-b">
-						<Heading children="Shipping & Return Policy" isBold={true} />
+						<Heading
+							children="Shipping & Return Policy"
+							isBold={true}
+							size3={true}
+						/>
 					</div>
 					<div className="tw-mb-2">
 						<p className="tw-font-bold tw-uppercase">Shipping Policy</p>
@@ -414,7 +418,7 @@ function Footer({
 					id="privacy"
 					className="tw-w-[80%] tw-text-sm tw-font-light tw-mb-10">
 					<div className="tw-text-center tw-mb-4 tw-mt-5 tw-font-light tw-text-lg tw-uppercase tw-border-b">
-						<Heading children="Privacy Policy" isBold={true} />
+						<Heading children="Privacy Policy" isBold={true} size3={true} />
 					</div>
 					<div className="tw-mb-2">
 						<p className="tw-font-bold tw-uppercase">
@@ -682,7 +686,7 @@ function Footer({
 					id="terms"
 					className="tw-w-[80%] tw-text-sm tw-font-light tw-mb-10">
 					<div className="tw-text-center tw-mb-4 tw-mt-5 tw-font-light tw-text-lg tw-uppercase tw-border-b">
-						<Heading children="Terms and Services" isBold={true} />
+						<Heading children="Terms and Services" isBold={true} size3={true} />
 					</div>
 					<p>
 						This website is operated by modelEst hair. Throughout the site, the

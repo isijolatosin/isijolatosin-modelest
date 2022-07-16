@@ -206,7 +206,7 @@ function Shippment() {
 
 	return (
 		<div className="tw-flex tw-flex-col tw-items-center tw-my-5">
-			<Heading children="Shipment" isBold={true} />
+			<Heading children="Shipment" isBold={true} size2={true} />
 			{user?.email === AUTHORIZED_ID.id_one || AUTHORIZED_ID.id_two ? (
 				<div className="tw-max-w-[100%]">
 					{trackingInput && (

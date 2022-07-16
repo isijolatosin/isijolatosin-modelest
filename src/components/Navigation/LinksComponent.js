@@ -96,6 +96,11 @@ const helpLinks = [
 		key: 'faqs',
 		name: 'FAQs',
 	},
+	{
+		id: '6',
+		key: '/blogs/caring-for-indian-virgin-vietnamese-hair-extensions',
+		name: 'Blogs',
+	},
 ]
 
 function LinksComponent({
@@ -177,6 +182,11 @@ function LinksComponent({
 			setPrivacyReturns(false)
 			setShowShippingReturns(false)
 			navigate('/modelEst/frequently-asked-questions')
+		} else if (txt.toLowerCase() === 'blogs') {
+			setShowContactForm(false)
+			setPrivacyReturns(false)
+			setShowShippingReturns(false)
+			navigate('/blogs/caring-for-indian-virgin-vietnamese-hair-extensions')
 		}
 	}
 

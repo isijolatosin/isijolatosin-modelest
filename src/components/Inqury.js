@@ -27,7 +27,7 @@ const Inqury = () => {
 	return (
 		<div className="tw-w-[95%] md:tw-w-[90%] tw-mx-auto tw-mb-10">
 			<div className="tw-flex tw-justify-center tw-my-5">
-				<Heading children="Customers Inquries" isBold={true} />
+				<Heading children="Customers Inquries" isBold={true} size2={true} />
 			</div>
 			{inqury.length === 0 ? (
 				<div className="tw-w-full tw-flex tw-justify-center">

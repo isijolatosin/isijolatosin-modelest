@@ -94,7 +94,7 @@ function Faqs() {
 							{faqs.slice(0, 4).map((faq) => (
 								<div key={faq.id}>
 									<div className="tw-my-2">
-										<Heading children={faq.title} isBold={true} size={true} />
+										<Heading children={faq.title} isBold={true} size1={true} />
 									</div>
 									<div className="tw-mb-6 tw-font-light">
 										<span>{faq.value}</span>
@@ -105,7 +105,7 @@ function Faqs() {
 								<Heading
 									children="HOW DO I SEAL MY WEFTS?"
 									isBold={true}
-									size={true}
+									size1={true}
 								/>
 							</div>
 							<div className="tw-mb-6 tw-font-light">
@@ -126,7 +126,7 @@ function Faqs() {
 								<Heading
 									children="HOW LONG DOES THIS HAIR LAST?"
 									isBold={true}
-									size={true}
+									size1={true}
 								/>
 							</div>
 							<div className="tw-mb-6 tw-font-light">
@@ -144,7 +144,7 @@ function Faqs() {
 							{faqs.slice(4, faqs.length).map((faq) => (
 								<div key={faq.id}>
 									<div className="tw-my-2">
-										<Heading children={faq.title} isBold={true} size={true} />
+										<Heading children={faq.title} isBold={true} size1={true} />
 									</div>
 									<div className="tw-mb-6 tw-font-light">
 										<span>{faq.value}</span>
