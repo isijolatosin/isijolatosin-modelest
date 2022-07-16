@@ -203,6 +203,12 @@ function HomePage() {
 							setShowForm(!showForm)
 							setChatError(false)
 							setChatSuccess(false)
+							setChatDetail({
+								name: '',
+								title: '',
+								email: '',
+								message: '',
+							})
 						}}
 						className={`${
 							chat ? 'tw-inline' : 'tw-hidden'
@@ -222,6 +228,12 @@ function HomePage() {
 										setShowForm(false)
 										setChatError(false)
 										setChatSuccess(false)
+										setChatDetail({
+											name: '',
+											title: '',
+											email: '',
+											message: '',
+										})
 									}}
 									className="tw-text-md tw-text-white tw-bg-neutral-900 tw-w-[30px] tw-h-[30px] tw-p-[8px] tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-ease-in tw-duration-300 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900">
 									<CgClose />
