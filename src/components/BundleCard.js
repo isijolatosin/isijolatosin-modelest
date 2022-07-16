@@ -60,7 +60,7 @@ function BundleCard({ product, sales, dealPrice, frontalClosure, texture }) {
 					Starting from{' '}
 					<span className="tw-font-bold tw-text-xl">${dealPrice}</span>
 				</span>
-				<p className="">{truncate(product.description, 30)}</p>
+				<p className="">{truncate(product?.description, 30)}</p>
 			</div>
 			<Link
 				to={`/deals/3-bundle-deal-${product?.brand}-${texture}&${frontalClosure}`}>

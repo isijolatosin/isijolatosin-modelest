@@ -14,6 +14,8 @@ function HomePage() {
 	// const [hideRegionSet, setHideRegionSet] = React.useState(true)
 	const [inputValue, setInputValue] = React.useState('')
 	const [searchControl, setSearchControl] = React.useState(false)
+	const [chatError, setChatError] = React.useState(false)
+	const [chatSuccess, setChatSuccess] = React.useState(false)
 	const [toBottom, setToBottom] = React.useState(false)
 	const [chat, setChat] = React.useState(true)
 	const [showForm, setShowForm] = React.useState(false)
@@ -115,32 +117,58 @@ function HomePage() {
 		}
 	}
 	const handleChangeChat = (e) => {
+		setChatError(false)
 		setChatDetail({ ...chatDetail, [e.target.name]: e.target.value })
 	}
 
 	const SubmitInqury = (e) => {
 		e.preventDefault()
 
-		db.collection('customer-inqury')
-			.add({
-				id: `ModelEst${Math.random().toString(36).slice(2)}`,
-				name: chatDetail.name,
-				title: chatDetail.title,
-				message: chatDetail.message,
-				email: chatDetail.email,
-				timestamp: new Date().valueOf(),
-			})
-			.then(() => {
-				console.log(`SUCCESSFULL`)
-			})
-			.catch((error) => console.log('Error ' + error.message))
+		if (
+			chatDetail.name === '' ||
+			chatDetail.title === '' ||
+			chatDetail.email === '' ||
+			chatDetail.message === ''
+		) {
+			setChatError(true)
+		}
+		if (
+			chatDetail.name === '' &&
+			chatDetail.title === '' &&
+			chatDetail.email === '' &&
+			chatDetail.message === ''
+		) {
+			setChatError(true)
+		} else if (
+			chatDetail.name !== '' &&
+			chatDetail.title !== '' &&
+			chatDetail.email !== '' &&
+			chatDetail.message !== ''
+		) {
+			db.collection('customer-inqury')
+				.add({
+					id: `ModelEst${Math.random().toString(36).slice(2)}`,
+					name: chatDetail.name,
+					title: chatDetail.title,
+					message: chatDetail.message,
+					email: chatDetail.email,
+					timestamp: new Date().valueOf(),
+				})
+				.then(() => {
+					console.log(`SUCCESSFULL`)
+				})
+				.catch((error) => console.log('Error ' + error.message))
 
-		setChatDetail({
-			name: '',
-			title: '',
-			email: '',
-			message: '',
-		})
+			setChatDetail({
+				name: '',
+				title: '',
+				email: '',
+				message: '',
+			})
+			setTimeout(() => {
+				setChatSuccess(true)
+			}, 1000)
+		}
 	}
 
 	return (
@@ -167,14 +195,18 @@ function HomePage() {
 						onClick={() => window.scrollTo(0, 0)}
 						className={`${
 							toBottom ? 'tw-inline' : 'tw-hidden'
-						} tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-white tw-p-5 tw-rounded-[30px] tw-z-40 hover:tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 `}>
+						} tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-white tw-p-5 tw-rounded-[30px] tw-z-40 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 `}>
 						<FaArrowUp />
 					</div>
 					<div
-						onClick={() => setShowForm(!showForm)}
+						onClick={() => {
+							setShowForm(!showForm)
+							setChatError(false)
+							setChatSuccess(false)
+						}}
 						className={`${
 							chat ? 'tw-inline' : 'tw-hidden'
-						} tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-white tw-p-5 tw-rounded-[30px] tw-z-40 hover:tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300  `}>
+						} tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-white tw-p-5 tw-rounded-[30px] tw-z-40 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300  `}>
 						<RiChat1Fill />
 					</div>
 					<div
@@ -183,11 +215,15 @@ function HomePage() {
 								? 'tw-right-0 md:tw-right-[8px]'
 								: 'tw-right-[-550px] md:tw-right-[-350px]'
 						} tw-w-[100%] tw-h-screen tw-px-5 tw-pt-[115px] md:tw-pt-0 md:tw-max-h-[600px] md:tw-w-[350px] tw-fixed tw-z-30 tw-bg-[rgba(255,255,255,0.97)] tw-p-2 tw-rounded-md tw-bottom-0 md:tw-bottom-[50px] tw-text-neutral-900 tw-ease-in tw-duration-300`}>
-						<form>
+						<form onSubmit={SubmitInqury}>
 							<div className="tw-flex tw-justify-end tw-mt-5">
 								<div
-									onClick={() => setShowForm(false)}
-									className="tw-text-md tw-text-white tw-bg-neutral-900 tw-w-[30px] tw-h-[30px] tw-p-[8px] tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-ease-in tw-duration-300 hover:tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900">
+									onClick={() => {
+										setShowForm(false)
+										setChatError(false)
+										setChatSuccess(false)
+									}}
+									className="tw-text-md tw-text-white tw-bg-neutral-900 tw-w-[30px] tw-h-[30px] tw-p-[8px] tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-ease-in tw-duration-300 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900">
 									<CgClose />
 								</div>
 							</div>
@@ -239,19 +275,21 @@ function HomePage() {
 									className="tw-bg-transparent tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-text-xs tw-shadow-xl focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-1 placeholder:tw-font-bold placeholder:tw-text-neutral-900 tw-text-neutral-900 tw-font-bold"
 								/>
 							</div>
-							<div
-								onClick={SubmitInqury}
-								className="tw-bg-neutral-900 tw-text-white tw-text-center tw-text-xs tw-py-2 tw-mt-3 tw-mb-10 tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900 tw-ease-in tw-duration-300">
-								<button
-									disabled={
-										chatDetail?.name === '' &&
-										chatDetail?.title === '' &&
-										chatDetail?.email === '' &&
-										chatDetail?.message === ''
-									}>
-									Send message
-								</button>
-							</div>
+							{chatError && (
+								<div className="tw-text-center tw-text-xs tw-mt-2 tw-text-red-700">
+									<span>Please enter required field(s) above</span>
+								</div>
+							)}
+							{chatSuccess && (
+								<div className="tw-text-center tw-text-xs tw-mt-2 tw-text-blue-700">
+									<span>Message Sent!</span>
+								</div>
+							)}
+							<button
+								className="tw-w-full tw-bg-neutral-900 tw-text-white tw-text-center tw-text-xs tw-py-2 tw-mt-3 tw-mb-10 tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900 tw-ease-in tw-duration-300"
+								type="submit">
+								Send message
+							</button>
 						</form>
 					</div>
 					<div

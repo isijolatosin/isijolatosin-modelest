@@ -107,7 +107,9 @@ function IndianDeal() {
 
 			setBundleDealsPercentage(data.no)
 		})
-		fetchProducts()
+		setTimeout(() => {
+			fetchProducts()
+		}, 3000)
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
@@ -119,52 +121,63 @@ function IndianDeal() {
 			</Helmet>
 			<Layout sales={bundleDealsPercentage}>
 				<div className="tw-w-full tw-bg-[rgba(255,255,255,0.5)] tw-mt-[50px] md:tw-mt-[0px]">
-					<div className="xl:tw-w-[80%] lg:tw-w-[70%] tw-mx-auto tw-py-[70px] tw-px-5 tw-grid xl:tw-grid-cols-3 lg:tw-grid-cols-2 md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
-						<div className="tw-w-full tw-flex tw-justify-center">
-							{bodyWaveFrontal && (
-								<BundleCard
-									dealPrice={dealPriceBodyWaveFrontal}
-									product={bodyWaveFrontal}
-									sales={bundleDealsPercentage}
-									frontalClosure="frontal"
-									texture="bodywave"
-								/>
-							)}
+					{bodyWaveFrontal === null &&
+					CurlyFrontal === null &&
+					bodyWaveClosure === null &&
+					CurlyClosure === null ? (
+						<div className="tw-w-full tw-flex tw-justify-center tw-pt-[100px] tw-pb-[50px]">
+							<div className="tw-rounded-full progress">
+								<div className="inner"></div>
+							</div>
 						</div>
-						<div className="tw-w-full tw-flex tw-justify-center">
-							{CurlyFrontal && (
-								<BundleCard
-									dealPrice={dealPriceCurlyFrontal}
-									product={CurlyFrontal}
-									sales={bundleDealsPercentage}
-									frontalClosure="frontal"
-									texture="naturalcurly"
-								/>
-							)}
+					) : (
+						<div className="xl:tw-w-[80%] lg:tw-w-[70%] tw-mx-auto tw-py-[70px] tw-px-5 tw-grid xl:tw-grid-cols-3 lg:tw-grid-cols-2 md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
+							<div className="tw-w-full tw-flex tw-justify-center">
+								{bodyWaveFrontal && (
+									<BundleCard
+										dealPrice={dealPriceBodyWaveFrontal}
+										product={bodyWaveFrontal}
+										sales={bundleDealsPercentage}
+										frontalClosure="frontal"
+										texture="bodywave"
+									/>
+								)}
+							</div>
+							<div className="tw-w-full tw-flex tw-justify-center">
+								{CurlyFrontal && (
+									<BundleCard
+										dealPrice={dealPriceCurlyFrontal}
+										product={CurlyFrontal}
+										sales={bundleDealsPercentage}
+										frontalClosure="frontal"
+										texture="naturalcurly"
+									/>
+								)}
+							</div>
+							<div className="tw-w-full tw-flex tw-justify-center">
+								{bodyWaveClosure && (
+									<BundleCard
+										dealPrice={dealPriceBodyWaveClosure}
+										product={bodyWaveClosure}
+										sales={bundleDealsPercentage}
+										frontalClosure="closure"
+										texture="bodywave"
+									/>
+								)}
+							</div>
+							<div className="tw-w-full tw-flex tw-justify-center">
+								{CurlyClosure && (
+									<BundleCard
+										dealPrice={dealPriceCurlyClosure}
+										product={CurlyClosure}
+										sales={bundleDealsPercentage}
+										frontalClosure="closure"
+										texture="naturalcurly"
+									/>
+								)}
+							</div>
 						</div>
-						<div className="tw-w-full tw-flex tw-justify-center">
-							{bodyWaveClosure && (
-								<BundleCard
-									dealPrice={dealPriceBodyWaveClosure}
-									product={bodyWaveClosure}
-									sales={bundleDealsPercentage}
-									frontalClosure="closure"
-									texture="bodywave"
-								/>
-							)}
-						</div>
-						<div className="tw-w-full tw-flex tw-justify-center">
-							{CurlyClosure && (
-								<BundleCard
-									dealPrice={dealPriceCurlyClosure}
-									product={CurlyClosure}
-									sales={bundleDealsPercentage}
-									frontalClosure="closure"
-									texture="naturalcurly"
-								/>
-							)}
-						</div>
-					</div>
+					)}
 				</div>
 			</Layout>
 		</div>

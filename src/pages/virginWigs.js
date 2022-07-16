@@ -5,7 +5,7 @@ import Layout from '../components/shared/Layout'
 import WigsCard from '../components/WigsCard'
 
 function VirginWigs() {
-	const [wigs, setWigs] = React.useState(null)
+	const [wigs, setWigs] = React.useState([])
 
 	async function fetchProducts() {
 		try {
@@ -27,7 +27,9 @@ function VirginWigs() {
 	}
 
 	React.useEffect(() => {
-		fetchProducts()
+		setTimeout(() => {
+			fetchProducts()
+		}, 3000)
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
@@ -39,16 +41,24 @@ function VirginWigs() {
 			</Helmet>
 			<Layout>
 				<div className="tw-w-full tw-bg-[rgba(255,255,255,0.5)] tw-mt-[50px] md:tw-mt-[0px]">
-					<div className="xl:tw-w-[80%] lg:tw-w-[70%] tw-mx-auto tw-py-[70px] tw-px-5 tw-grid xl:tw-grid-cols-3 lg:tw-grid-cols-2 md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
-						<div className="tw-w-full tw-flex tw-justify-center">
-							{wigs &&
-								wigs?.map((wig) => (
-									<div key={wig.id}>
-										<WigsCard product={wig} dealPrice={wig?.price} />
-									</div>
-								))}
+					{wigs?.length === 0 ? (
+						<div className="tw-w-full tw-flex tw-justify-center tw-pt-[100px] tw-pb-[50px]">
+							<div className="tw-rounded-full progress">
+								<div className="inner"></div>
+							</div>
 						</div>
-					</div>
+					) : (
+						<div className="xl:tw-w-[80%] lg:tw-w-[70%] tw-mx-auto tw-py-[70px] tw-px-5 tw-grid xl:tw-grid-cols-3 lg:tw-grid-cols-2 md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
+							<div className="tw-w-full tw-flex tw-justify-center">
+								{wigs &&
+									wigs?.map((wig) => (
+										<div key={wig.id}>
+											<WigsCard product={wig} dealPrice={wig?.price} />
+										</div>
+									))}
+							</div>
+						</div>
+					)}
 				</div>
 			</Layout>
 		</div>
