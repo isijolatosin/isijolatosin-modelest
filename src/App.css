@@ -720,7 +720,7 @@ label input::placeholder {
 }
 .image {
 	border-radius: 10px;
-	max-width: 450px;
+	max-width: 400px;
 	object-fit: cover;
 }
 .right-arrow {

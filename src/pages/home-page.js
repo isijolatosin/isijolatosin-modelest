@@ -219,7 +219,7 @@ function HomePage() {
 						className={`${
 							showForm
 								? 'tw-right-0 md:tw-right-[8px]'
-								: 'tw-right-[-550px] md:tw-right-[-350px]'
+								: 'tw-right-[-800px] md:tw-right-[-350px]'
 						} tw-w-[100%] tw-h-screen tw-px-5 tw-pt-[115px] md:tw-pt-0 md:tw-max-h-[600px] md:tw-w-[350px] tw-fixed tw-z-30 tw-bg-[rgba(255,255,255,0.97)] tw-p-2 tw-rounded-md tw-bottom-0 md:tw-bottom-[50px] tw-text-neutral-900 tw-ease-in tw-duration-300`}>
 						<form onSubmit={SubmitInqury}>
 							<div className="tw-flex tw-justify-end tw-mt-5">
@@ -307,7 +307,7 @@ function HomePage() {
 					<div
 						className={`tw-w-[100%] ${
 							searchControl && 'tw-w-[100vw] lg:tw-w-[40vw]'
-						} tw-flex tw-items-center content tw-fixed tw-top-[90px] md:tw-top-[60px] tw-left-[-40px] tw-z-10 tw-ease-in tw-duration-300`}>
+						} tw-flex tw-items-center content tw-fixed tw-top-[80px] md:tw-top-[35px] tw-left-[-40px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10`}>
 						<div
 							className={`${
 								searchControl ? 'search bg-blur __search' : 'search bg-blur'

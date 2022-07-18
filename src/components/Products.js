@@ -16,6 +16,7 @@ import { CgClose } from 'react-icons/cg'
 import DealsCard from './shared/DealsCard'
 
 function Products({ allProducts, sales }) {
+	const allSizes = ['14', '16', '18', '20', '22', '24']
 	const [singleProducts, setSingleproducts] = React.useState(null)
 	const [singleCart, setSingleCart] = React.useState(null)
 	const [error, setError] = React.useState(false)
@@ -145,6 +146,7 @@ function Products({ allProducts, sales }) {
 		singleProducts?.[0]?.type.toLowerCase() === 'closure'
 			? f_cPrice
 			: _price
+
 	const hairLength = length
 	const hairColor = _color || color
 	const hairTexture = _hairType && _hairType
@@ -233,7 +235,7 @@ function Products({ allProducts, sales }) {
 	]
 
 	return (
-		<div className="tw-mt-[100px] tw-relative tw-flex tw-flex-col tw-items-center ">
+		<div className="tw-mt-[90px] md:tw-mt-[60px] tw-relative tw-flex tw-flex-col tw-items-center ">
 			<div className="tw-fixed tw-top-0 tw-right-0 md:tw-top-[-100px] md:tw-right-[-20px] tw-z-50">
 				<Add2CartPopup
 					singleCart={singleCart}
@@ -347,21 +349,28 @@ function Products({ allProducts, sales }) {
 							) : (
 								<div className="tw-flex tw-flex-col tw-ml-5 tw-mt-5 md:tw-ml-0">
 									<div className="tw-flex tw-flex-wrap">
-										{sizes.map((size, idx) => (
-											<span
-												onClick={() => {
-													setLength(size)
-													setError(false)
-												}}
-												className={`tw-flex tw-flex-wrap ${
-													length === size
-														? 'tw-bg-neutral-900 tw-text-white'
-														: 'tw-bg-white tw-text-neutral-900'
-												} tw-rounded-full tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-900 tw-p-2 tw-px-3 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
-												key={idx}>
-												{size}
-											</span>
-										))}
+										{allSizes.map(
+											// eslint-disable-next-line array-callback-return
+											(item) =>
+												sizes.includes(item) ? (
+													<div
+														onClick={() => {
+															setLength(item)
+															setError(false)
+														}}
+														className={` tw-flex tw-flex-wrap tw-mr-2 tw-mb-2 tw-p-2 tw-px-3 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
+															item === length &&
+															'tw-bg-neutral-900 tw-text-white'
+														}`}>
+														<span>{item}</span>
+													</div>
+												) : (
+													<div
+														className={`tw-flex tw-flex-wrap tw-mr-2 tw-mb-2 tw-p-2 tw-px-3 tw-border-[1px] tw-rounded-full tw-cursor-not-allowed tw-text-neutral-300`}>
+														<span>{item}</span>
+													</div>
+												)
+										)}
 									</div>
 								</div>
 							)}
@@ -386,6 +395,7 @@ function Products({ allProducts, sales }) {
 										singleProducts?.[0].sales &&
 										'tw-mr-3 tw-line-through tw-text-neutral-400 tw-border-r-[1px] tw-border-neutral-500 tw-pr-3'
 									}>
+									$
 									{sales !== 0 &&
 										singleProducts?.[0].sales &&
 										`$${
@@ -396,8 +406,13 @@ function Products({ allProducts, sales }) {
 												  singleProducts?.[0].price * (sales / 100)
 										}${' '}
 										USD${' '}`}
-								</span>
-								${price_Nosales ? price_Nosales : ' ***'} USD
+									{singleProducts?.[0]?.type.includes('virgin wig')
+										? singleProducts?.[0]?.price
+										: price_Nosales
+										? price_Nosales
+										: ' ***'}
+								</span>{' '}
+								USD
 							</p>
 							<div className="tw-text-sm tw-font-light">
 								<div>
