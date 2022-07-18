@@ -37,34 +37,22 @@ function IndianDeal() {
 				if (product.name.toLowerCase() === 'body wave') {
 					filtered.push(product)
 					setBodyWaveFrontal(product)
-					const length18 = product?.price + 20
-					const length20 = product?.price + 30
-					const length22 = product?.price + 40
-					price += length18 + length20 + length22
+					price += product?.price * 3 + 20 + 30 + 40
 				}
 				if (product.name.toLowerCase() === 'natural curly') {
 					filtered.push(product)
 					setCurlyClosure(product)
-					const length16 = product?.price + 10
-					const length18 = product?.price + 20
-					const length20 = product?.price + 30
-					price2 += length16 + length18 + length20
+					price2 += product?.price * 3 + 20 + 30 + 40
 				}
 				if (product.name.toLowerCase() === 'body wave') {
 					filtered.push(product)
 					setBodyWaveClosure(product)
-					const length18 = product?.price + 20
-					const length20 = product?.price + 30
-					const length22 = product?.price + 40
-					price3 += length18 + length20 + length22
+					price3 += product?.price * 3 + 20 + 30 + 40
 				}
 				if (product.name.toLowerCase() === 'natural curly') {
 					filtered.push(product)
 					setCurlyFrontal(product)
-					const length16 = product?.price + 10
-					const length18 = product?.price + 20
-					const length20 = product?.price + 30
-					price4 += length16 + length18 + length20
+					price4 += product?.price * 3 + 20 + 30 + 40
 				}
 				// Body wave frontal 18inch
 				if (product.type.toLowerCase() === 'frontal') {
@@ -74,12 +62,12 @@ function IndianDeal() {
 				// Natural curly frontal 16inch
 				if (product.type.toLowerCase() === 'frontal') {
 					filtered.push(product)
-					price2 += product?.price + 10
+					price2 += product?.price + 20
 				}
 				// Body wave closure 18inch
 				if (product.type.toLowerCase() === 'closure') {
 					filtered.push(product)
-					price3 += product?.price + 20
+					price3 += product?.price + 10
 				}
 				// Natural curly closure 16inch
 				if (product.type.toLowerCase() === 'closure') {

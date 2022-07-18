@@ -79,10 +79,7 @@ const DealPage = () => {
 						filtered.push(product)
 						// eslint-disable-next-line array-callback-return
 						filtered.map((product) => {
-							const length18 = product?.price + 20
-							const length20 = product?.price + 30
-							const length22 = product?.price + 40
-							price += length18 + length20 + length22
+							price += product?.price * 3 + 20 + 30 + 40
 						})
 					}
 				}
@@ -91,10 +88,7 @@ const DealPage = () => {
 						filtered.push(product)
 						// eslint-disable-next-line array-callback-return
 						filtered.map((product) => {
-							const length18 = product?.price + 20
-							const length20 = product?.price + 30
-							const length22 = product?.price + 40
-							price += length18 + length20 + length22
+							price += product?.price * 3 + 20 + 30 + 40
 						})
 					}
 				}
@@ -106,7 +100,7 @@ const DealPage = () => {
 				} else if (window.location.pathname.includes('closure')) {
 					if (product.type.toLowerCase() === 'closure') {
 						filtered.push(product)
-						price += product?.price + 20
+						price += product?.price + 10
 					}
 				}
 				const discnt = Number(
@@ -146,7 +140,7 @@ const DealPage = () => {
 		fetchProducts()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
-
+	console.log(deals)
 	// Adding to cart items
 	const name =
 		deals[0]?.name.toLowerCase().includes('frontal') ||
