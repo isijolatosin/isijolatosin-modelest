@@ -9,6 +9,7 @@ function Nav({
 	setShowTerms,
 	setShowShippingReturns,
 	setPrivacyReturns,
+	showContactForm,
 }) {
 	const [sales, setSales] = React.useState(null)
 	const database = getDatabase()
@@ -39,6 +40,7 @@ function Nav({
 						setShowTerms={setShowTerms}
 						setShowShippingReturns={setShowShippingReturns}
 						setPrivacyReturns={setPrivacyReturns}
+						showContactForm={showContactForm}
 					/>
 				</div>
 				<div className="tw-w-[30%] md:tw-w-[20%]">

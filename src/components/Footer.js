@@ -8,6 +8,7 @@ import { SiAmericanexpress } from 'react-icons/si'
 import { countries } from '../country'
 import { Link } from 'react-router-dom'
 import Heading from './Heading'
+import About from './About'
 
 function Footer({
 	showContactForm,
@@ -40,7 +41,7 @@ function Footer({
 	const links = [
 		{
 			id: 1,
-			name: 'Contact Us',
+			name: 'About Us / Contact Us',
 		},
 		{
 			id: 2,
@@ -196,9 +197,9 @@ function Footer({
 							<li
 								key={link.id}
 								onClick={
-									link.name === 'Contact Us'
+									link.name === 'About Us / Contact Us'
 										? () => {
-												setShowContactForm(!showContactForm)
+												setShowContactForm(true)
 												setShowTerms(false)
 												setShowShippingReturns(false)
 												setPrivacyReturns(false)
@@ -614,72 +615,80 @@ function Footer({
 			)}
 
 			{showContactForm && (
-				<form
-					onSubmit={handleSubmit}
-					className="tw-w-full tw-flex tw-flex-col tw-items-center md:tw-max-w-[80%] tw-bg-neutral-50 tw-py-5 tw-mb-5">
-					<span
-						id="contact"
-						className="tw-text-2xl tw-font-light tw-mb-1 tw-mt-5">
-						Contact - ModelEst
-					</span>
-					<p className="tw-font-light tw-text-[14px] tw-max-w-[80%] lg:tw-max-w-[50%] tw-my-5">
-						We at modelEst are customer centric, we take pride in our customers.
-						We are committed in helping with picking the right hair for you,
-						adequate information regarding education on hair maintenance, and
-						providing high quality hair extensions. We value you our customers
-						and we are committed to long time support. Our customers are our
-						sister’s. We respond within 24-48 business hours Monday - Friday.
-					</p>
-					<div className="md:tw-w-[90%] lg:tw-w-[70%] 2xl:tw-w-[50%] tw-mx-auto tw-flex tw-flex-col tw-items-center">
-						<input
-							type="text"
-							name="name"
-							id="name"
-							value={contactInput.name}
-							onChange={handleContactInput}
-							placeholder="Full Name"
-							className="tw-w-[100%] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-neutral-400 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
-						/>
-						<input
-							type="text"
-							name="email"
-							id="email"
-							value={contactInput.email}
-							onChange={handleContactInput}
-							placeholder="Email"
-							className="tw-w-[100%] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-neutral-400 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
-						/>
-						<input
-							type="text"
-							name="subject"
-							id="subject"
-							value={contactInput.subject}
-							onChange={handleContactInput}
-							placeholder="subject / order - number"
-							className="tw-w-[100%] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-neutral-400 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
-						/>
-						<textarea
-							id="message"
-							rows="4"
-							cols="50"
-							name="message"
-							value={contactInput.message}
-							onChange={handleContactInput}
-							placeholder="message..."
-							className="tw-w-[100%] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-neutral-400 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
-						/>
-						<div className="tw-text-center tw-text-xs tw-text-red-800">
-							{contactInput.error ? (
-								<p>Error message: {contactInput.error}</p>
-							) : null}
+				<div className="tw-flex tw-flex-col lg:tw-flex-row  tw-justify-center tw-mb-10">
+					<div className="tw-mx-auto tw-w-full bg-blur tw-py-10 tw-rounded-lg">
+						<div className="tw-w-[100%] md:tw-w-[95%] tw-mx-auto">
+							<About />
 						</div>
-						<button
-							className="tw-bg-neutral-600 tw-w-[70%] tw-text-white tw-py-2 tw-text-sm tw-font-light tw-tracking-wide"
-							type="submit">
-							submit
-						</button>
 					</div>
-				</form>
+					<form
+						onSubmit={handleSubmit}
+						className="tw-w-full tw-flex tw-flex-col tw-items-center md:tw-max-w-[80%] tw-bg-neutral-50 tw-py-5 tw-mb-5">
+						<span
+							id="contact"
+							className="tw-text-2xl tw-font-light tw-mb-1 tw-mt-5">
+							Contact - ModelEst
+						</span>
+						<p className="tw-font-light tw-text-[14px] tw-max-w-[80%] lg:tw-max-w-[50%] tw-my-5">
+							We at modelEst are customer centric, we take pride in our
+							customers. We are committed in helping with picking the right hair
+							for you, adequate information regarding education on hair
+							maintenance, and providing high quality hair extensions. We value
+							you our customers and we are committed to long time support. Our
+							customers are our sister’s. We respond within 24-48 business hours
+							Monday - Friday.
+						</p>
+						<div className="md:tw-w-[90%] lg:tw-w-[70%] 2xl:tw-w-[50%] tw-mx-auto tw-flex tw-flex-col tw-items-center">
+							<input
+								type="text"
+								name="name"
+								id="name"
+								value={contactInput.name}
+								onChange={handleContactInput}
+								placeholder="Full Name"
+								className="tw-w-[100%] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-neutral-400 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+							/>
+							<input
+								type="text"
+								name="email"
+								id="email"
+								value={contactInput.email}
+								onChange={handleContactInput}
+								placeholder="Email"
+								className="tw-w-[100%] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-neutral-400 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+							/>
+							<input
+								type="text"
+								name="subject"
+								id="subject"
+								value={contactInput.subject}
+								onChange={handleContactInput}
+								placeholder="subject / order - number"
+								className="tw-w-[100%] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-neutral-400 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+							/>
+							<textarea
+								id="message"
+								rows="4"
+								cols="50"
+								name="message"
+								value={contactInput.message}
+								onChange={handleContactInput}
+								placeholder="message..."
+								className="tw-w-[100%] tw-mb-5 tw-text-neutral-500 tw-font-light tw-bg-white tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[2px] tw-text-xs tw-border-[1px] tw-placeholder-neutral-400 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+							/>
+							<div className="tw-text-center tw-text-xs tw-text-red-800">
+								{contactInput.error ? (
+									<p>Error message: {contactInput.error}</p>
+								) : null}
+							</div>
+							<button
+								className="tw-bg-neutral-600 tw-w-[70%] tw-text-white tw-py-2 tw-text-sm tw-font-light tw-tracking-wide"
+								type="submit">
+								submit
+							</button>
+						</div>
+					</form>
+				</div>
 			)}
 			{showTerms && (
 				<div

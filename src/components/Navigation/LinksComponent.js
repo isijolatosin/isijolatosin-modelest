@@ -73,33 +73,33 @@ const bundlesDeals = [
 const helpLinks = [
 	{
 		id: '1',
-		key: 'contact',
-		name: 'Contact Us',
-	},
-	{
-		id: '2',
-		key: 'privacy',
-		name: 'Privacy Policy',
-	},
-	{
-		id: '3',
-		key: 'shipping',
-		name: 'Shipping & Returns',
-	},
-	{
-		id: '4',
-		key: 'terms',
-		name: 'Terms & Conditions',
-	},
-	{
-		id: '5',
 		key: 'faqs',
 		name: 'FAQs',
 	},
 	{
-		id: '6',
+		id: '2',
 		key: '/blogs/caring-for-indian-virgin-vietnamese-hair-extensions',
 		name: 'Blogs',
+	},
+	{
+		id: '3',
+		key: 'privacy',
+		name: 'Privacy Policy',
+	},
+	{
+		id: '4',
+		key: 'shipping',
+		name: 'Shipping & Returns',
+	},
+	{
+		id: '5',
+		key: 'terms',
+		name: 'Terms & Conditions',
+	},
+	{
+		id: '6',
+		key: 'contact',
+		name: 'About Us / Contact Us',
 	},
 ]
 
@@ -153,7 +153,7 @@ function LinksComponent({
 	}
 
 	const handleHelp = (txt) => {
-		if (txt.toLowerCase() === 'contact us') {
+		if (txt.toLowerCase() === 'about us / contact us') {
 			setShowContactForm(true)
 			setPrivacyReturns(false)
 			setShowShippingReturns(false)

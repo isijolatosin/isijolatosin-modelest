@@ -1,7 +1,6 @@
 import React from 'react'
 import Slideshow from '../utils/Slideshow'
 import Card from './Card'
-import About from './About'
 import { isInCart } from '../utils/helpers'
 import {
 	addToCartItem,
@@ -268,11 +267,7 @@ function Products({ allProducts, sales }) {
 				<div className="tw-text-neutral-500">Loading data...</div>
 			)}
 			<DealsCard lengthArray={lengthArray} brand="Indian, Virgin, Vietnamese" />
-			<div className="tw-mx-auto tw-w-full bg-blur tw-py-10 tw-mt-10 tw-rounded-lg">
-				<div className="tw-w-[100%] md:tw-w-[95%] tw-mx-auto">
-					<About />
-				</div>
-			</div>
+
 			{singleProducts && (
 				<div className="single tw-fixed tw-z-40 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-0 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white md:tw-pt-5 ">
 					<div className="md:tw-w-[80%] xl:tw-w-[70%] md:tw-mx-auto tw-w-[100%] tw-h-full tw-flex md:tw-flex-row tw-flex-col">

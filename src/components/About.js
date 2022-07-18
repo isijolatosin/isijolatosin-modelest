@@ -2,7 +2,7 @@ const aboutImg = require('../assets/about.jpeg')
 
 function About() {
 	return (
-		<div className="tw-px-10">
+		<div className="tw-px-5 lg:tw-pl-10">
 			<img
 				className="tw-w-64 tw-h-[300px] tw-float-left tw-aspect-[1/1] lg:tw-aspect-[1/2] tw-rounded-lg tw-shadow-lg tw-object-cover tw-object-center tw-mb-0 tw-mr-6 [clip-path:var(--my-shape)] [shape-outside:var(--my-shape)] lg:[--my-shape:polygon(0%_0%,100%_0%,75%_100%,0%_100%)]"
 				src={aboutImg}
@@ -15,7 +15,7 @@ function About() {
 					OFFERING THE BEST HAIR BUNDLES
 				</h3>
 			</div>
-			<p className="tw-text-neutral-50 tw-font-normal">
+			<p className="tw-text-neutral-900 tw-font-normal">
 				ModelEst was created for those who have a flair for hair, those that
 				have to switch it up by length, color and texture. This vision came out
 				of passion for hair and poised appearance. As a woman, I can not keep a
