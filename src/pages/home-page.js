@@ -217,6 +217,54 @@ function HomePage() {
 					</div>
 					<div
 						className={`${
+							searchControl && 'tw-w-[100vw] lg:tw-w-[40vw]'
+						} tw-flex tw-items-center content tw-fixed tw-top-[80px] md:tw-top-[35px] tw-left-[-40px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10`}>
+						<div
+							className={`${
+								searchControl ? 'search bg-blur __search' : 'search bg-blur'
+							}`}>
+							<input
+								type="text"
+								value={inputValue}
+								onChange={(e) => setInputValue(e.target.value)}
+								className={`${
+									searchControl
+										? 'search__input tw-placeholder-neutral-900 tw-text-neutral-900 tw-text-[14px] __search__input placeholder:tw-text-xs'
+										: 'search__input tw-placeholder-neutral-900 tw-text-neutral-900 tw-text-[14px]'
+								}`}
+								aria-label="search"
+								placeholder="Search..."
+							/>
+							<button
+								onClick={handleSubmit}
+								className="search__submit tw-z-10 tw-text-neutral-400"
+								aria-label="submit search">
+								<RiSearch2Fill />
+							</button>
+						</div>
+						{filtered?.length > 0 && (
+							<div
+								onClick={() => {
+									setFiltered([])
+									setSearchError(false)
+								}}
+								className="tw-ml-5 tw-text-neutral-800 tw-tracking-wide tw-font-light tw-text-xs tw-border-[2px] tw-border-neutral-800 tw-rounded-full tw-px-3 tw-bg-neutral-200 hover:tw-bg-neutral-900 hover:tw-text-neutral-200 hover:tw-border-neutral-200 tw-ease-in tw-duration-300 hover:tw-cursor-pointer">
+								<span>Reset</span>
+							</div>
+						)}
+						{filtered?.length === 0 && searchError && (
+							<div
+								className={`${
+									searchError
+										? 'tw-ml-5 tw-tracking-widest tw-text-xs tw-text-red-500 tw-opacity-1'
+										: 'tw-ml-5 tw-tracking-widest tw-text-xs tw-text-red-500 tw-opacity-0 tw-ease-in tw-duration-300'
+								}`}>
+								<span>!!! No Search Result</span>
+							</div>
+						)}
+					</div>
+					<div
+						className={`${
 							showForm
 								? 'tw-right-0 md:tw-right-[8px]'
 								: 'tw-right-[-800px] md:tw-right-[-350px]'
@@ -304,54 +352,7 @@ function HomePage() {
 							</button>
 						</form>
 					</div>
-					<div
-						className={`tw-w-[100%] ${
-							searchControl && 'tw-w-[100vw] lg:tw-w-[40vw]'
-						} tw-flex tw-items-center content tw-fixed tw-top-[80px] md:tw-top-[35px] tw-left-[-40px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10`}>
-						<div
-							className={`${
-								searchControl ? 'search bg-blur __search' : 'search bg-blur'
-							}`}>
-							<input
-								type="text"
-								value={inputValue}
-								onChange={(e) => setInputValue(e.target.value)}
-								className={`${
-									searchControl
-										? 'search__input tw-placeholder-neutral-900 tw-text-neutral-900 tw-text-[14px] __search__input placeholder:tw-text-xs'
-										: 'search__input tw-placeholder-neutral-900 tw-text-neutral-900 tw-text-[14px]'
-								}`}
-								aria-label="search"
-								placeholder="Search..."
-							/>
-							<button
-								onClick={handleSubmit}
-								className="search__submit tw-z-10 tw-text-neutral-400"
-								aria-label="submit search">
-								<RiSearch2Fill />
-							</button>
-						</div>
-						{filtered?.length > 0 && (
-							<div
-								onClick={() => {
-									setFiltered([])
-									setSearchError(false)
-								}}
-								className="tw-ml-5 tw-text-neutral-800 tw-tracking-wide tw-font-light tw-text-xs tw-border-[2px] tw-border-neutral-800 tw-rounded-full tw-px-3 tw-bg-neutral-200 hover:tw-bg-neutral-900 hover:tw-text-neutral-200 hover:tw-border-neutral-200 tw-ease-in tw-duration-300 hover:tw-cursor-pointer">
-								<span>Reset</span>
-							</div>
-						)}
-						{filtered?.length === 0 && searchError && (
-							<div
-								className={`${
-									searchError
-										? 'tw-ml-5 tw-tracking-widest tw-text-xs tw-text-red-500 tw-opacity-1'
-										: 'tw-ml-5 tw-tracking-widest tw-text-xs tw-text-red-500 tw-opacity-0 tw-ease-in tw-duration-300'
-								}`}>
-								<span>!!! No Search Result</span>
-							</div>
-						)}
-					</div>
+
 					{allProducts.length !== 0 ? (
 						<div className="tw-relative tw-flex tw-flex-col tw-items-center">
 							{/* {hideRegionSet && (
