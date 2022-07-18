@@ -306,7 +306,7 @@ function HomePage() {
 					</div>
 					<div
 						className={`tw-w-[100%] ${
-							searchControl && 'tw-w-[100vw] lg:tw-w-[50vw]'
+							searchControl && 'tw-w-[100vw] lg:tw-w-[40vw]'
 						} tw-flex tw-items-center content tw-fixed tw-top-[90px] md:tw-top-[60px] tw-left-[-40px] tw-z-10 tw-ease-in tw-duration-300`}>
 						<div
 							className={`${

@@ -234,8 +234,12 @@ function Products({ allProducts, sales }) {
 
 	return (
 		<div className="tw-mt-[100px] tw-relative tw-flex tw-flex-col tw-items-center ">
-			<div className="tw-fixed tw-top-0 tw-right-0 md:tw-top-[-100px] md:tw-right-[-20px] tw-z-40">
-				<Add2CartPopup singleCart={singleCart} setSingleCart={setSingleCart} />
+			<div className="tw-fixed tw-top-0 tw-right-0 md:tw-top-[-100px] md:tw-right-[-20px] tw-z-50">
+				<Add2CartPopup
+					singleCart={singleCart}
+					setSingleCart={setSingleCart}
+					quantity="1"
+				/>
 			</div>
 			{allProducts ? (
 				<div
@@ -268,7 +272,7 @@ function Products({ allProducts, sales }) {
 				</div>
 			</div>
 			{singleProducts && (
-				<div className="single tw-pt-[50px] tw-fixed tw-z-50 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-0 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
+				<div className="single tw-fixed tw-z-40 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-0 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white md:tw-pt-5 ">
 					<div className="md:tw-w-[80%] xl:tw-w-[70%] md:tw-mx-auto tw-w-[100%] tw-h-full tw-flex md:tw-flex-row tw-flex-col">
 						<div className="tw-relative tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
 							<Slideshow images={singleProducts?.[0]} />
@@ -326,14 +330,15 @@ function Products({ allProducts, sales }) {
 												<span
 													onClick={() => {
 														setLength(size)
+														setError(false)
 													}}
 													className={`tw-flex tw-flex-wrap ${
 														length === size
 															? 'tw-bg-neutral-900 tw-text-white'
-															: 'tw-bg-neutral-200 tw-text-neutral-900'
-													} tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-py-1 tw-px-2 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
+															: 'tw-bg-white tw-text-neutral-900'
+													} tw-rounded-full tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-900 tw-p-2 tw-px-3 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 													key={idx}>
-													{size}inch
+													{size}
 												</span>
 											))}
 										</div>
@@ -351,10 +356,10 @@ function Products({ allProducts, sales }) {
 												className={`tw-flex tw-flex-wrap ${
 													length === size
 														? 'tw-bg-neutral-900 tw-text-white'
-														: 'tw-bg-neutral-200 tw-text-neutral-900'
-												} tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-p-1 tw-px-2 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
+														: 'tw-bg-white tw-text-neutral-900'
+												} tw-rounded-full tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-900 tw-p-2 tw-px-3 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 												key={idx}>
-												{size}inch
+												{size}
 											</span>
 										))}
 									</div>
@@ -365,11 +370,11 @@ function Products({ allProducts, sales }) {
 							{!price_Nosales &&
 								(singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
 								singleProducts?.[0]?.type.toLowerCase() === 'closure' ? (
-									<span className="tw-mt-2 tw-text-xs tw-text-green-700">
+									<span className="tw-text-xs tw-text-green-700">
 										***Select color & tetxure to calculate sales price...***
 									</span>
 								) : (
-									<span className="tw-mt-2 tw-text-xs tw-text-green-700">
+									<span className="tw-text-xs tw-text-green-700">
 										***Select length to calculate sales price...***
 									</span>
 								))}

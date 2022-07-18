@@ -14,7 +14,8 @@ import Reviews from '../components/shared/Reviews'
 import Add2CartPopup from '../components/shared/Add2CartPopup'
 import { useDispatch, useSelector } from 'react-redux'
 
-const DealPage = () => {
+const SingleWig = () => {
+	const allSizes = ['14', '16', '18', '20', '22', '24']
 	const [singleWig, setSingleWig] = React.useState([])
 	const [singleCart, setSingleCart] = React.useState(null)
 	const [error, setError] = React.useState(false)
@@ -28,14 +29,6 @@ const DealPage = () => {
 		.split('/')
 		.filter((x) => x)?.[1]
 		.split('-')?.[1]
-	const lengthArray = [
-		'14inch',
-		'16inch',
-		'18inch',
-		'20inch',
-		'22inch',
-		'24inch',
-	]
 
 	async function fetchProducts() {
 		try {
@@ -56,14 +49,12 @@ const DealPage = () => {
 					image3: item?.image3,
 				}
 				imgArray.push(obj)
-
 				setImageArray(obj)
 			})
 		} catch (error) {
 			console.log(error)
 		}
 	}
-
 	React.useEffect(() => {
 		fetchProducts()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,6 +70,11 @@ const DealPage = () => {
 	const hairLength = _length
 	const hairTexture = singleWig[0]?.texture
 	const quantity = Number(_quantity)
+	const lengths =
+		singleWig[0]?.availablelength.length > 3
+			? singleWig[0]?.availablelength.split(', ')
+			: [singleWig[0]?.availablelength]
+	const lengthArray = [...lengths]
 
 	const wigProduct = {
 		name,
@@ -133,19 +129,28 @@ const DealPage = () => {
 								<RatingFix isReview={true} size={20} color="black" />
 							</div>
 							<span>Bundles</span>
-							<div className="tw-grid tw-grid-cols-1 lg:tw-grid-cols-2 tw-gap-2">
-								{lengthArray.map((item) => (
-									<div
-										onClick={() => {
-											item === '16inch' && setLength(item)
-											item === '16inch' && setError(false)
-										}}
-										className={`tw-text-center hover:tw-cursor-pointer hover:tw-bg-neutral-900 tw-text-white tw-bg-neutral-400 tw-px-5 tw-py-2 tw-ease-in tw-duration-300 tw-rounded-sm tw-max-w-[300px] ${
-											item !== '16inch' && 'tw-line-through'
-										}`}>
-										<span>{item}</span>
-									</div>
-								))}
+							<div className="tw-flex tw-flex-wrap">
+								{allSizes.map(
+									// eslint-disable-next-line array-callback-return
+									(item) =>
+										lengthArray.includes(item) ? (
+											<div
+												onClick={() => {
+													setLength(item)
+													setError(false)
+												}}
+												className={` tw-flex tw-flex-wrap tw-mr-2 tw-mb-2 tw-p-2 tw-px-3 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
+													item === _length && 'tw-bg-neutral-900 tw-text-white'
+												}`}>
+												<span>{item}</span>
+											</div>
+										) : (
+											<div
+												className={`tw-flex tw-flex-wrap tw-mr-2 tw-mb-2 tw-p-2 tw-px-3 tw-border-[1px] tw-rounded-full tw-cursor-not-allowed tw-text-neutral-300`}>
+												<span>{item}</span>
+											</div>
+										)
+								)}
 							</div>
 							<div className="tw-flex tw-items-center">
 								<span className="tw-mr-2">Quantity: </span>
@@ -203,4 +208,4 @@ const DealPage = () => {
 	)
 }
 
-export default DealPage
+export default SingleWig

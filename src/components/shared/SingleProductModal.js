@@ -30,11 +30,11 @@ const SingleProductModal = ({
 	return (
 		<div>
 			{singleProducts && (
-				<div className="single tw-fixed tw-z-50 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-[0px] md:tw-pt-10 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
+				<div className="single tw-fixed tw-z-40 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-[0px] md:tw-pt-10 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
 					<div className="md:tw-w-[80%] xl:tw-w-[70%] md:tw-mx-auto tw-w-[100%] tw-h-full tw-flex md:tw-flex-row tw-flex-col">
-						<div className="tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
+						<div className="tw-w-[90%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
 							<Slideshow images={singleProducts?.[0]} />
-							<div className="tw-w-[90%] tw-mx-auto md:tw-w-[100%]">
+							<div className="">
 								<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
 									{singleProducts?.[0].name}
 								</p>
@@ -83,7 +83,7 @@ const SingleProductModal = ({
 									</div>
 								</div>
 							)}
-							<div className="tw-flex tw-flex-col tw-mb-5 tw-ml-5 md:tw-ml-0 tw-mt-5">
+							<div className="tw-flex tw-flex-col tw-mt-5">
 								<div className="tw-flex tw-flex-wrap">
 									{sizes.map((size, idx) => (
 										<span
@@ -91,13 +91,13 @@ const SingleProductModal = ({
 												setLength(size)
 												setError(false)
 											}}
-											className={`${
+											className={`tw-flex tw-flex-wrap ${
 												length === size
 													? 'tw-bg-neutral-900 tw-text-white'
-													: 'tw-bg-neutral-200 tw-text-neutral-900'
-											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-100 tw-text-[14px] tw-py-1 tw-px-2 hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
+													: 'tw-bg-white tw-text-neutral-900'
+											} tw-rounded-full tw-mr-2 tw-mb-5 tw-border-[1px] tw-border-neutral-900 tw-p-2 tw-px-3 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 											key={idx}>
-											{size}inch
+											{size}
 										</span>
 									))}
 								</div>

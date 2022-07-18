@@ -20,6 +20,7 @@ import {
 function Management() {
 	const database = getDatabase()
 	const [sales, setSales] = React.useState(null)
+	const [dealsLength, setDealsLength] = React.useState(null)
 	const [section, setSection] = React.useState('all-inventory')
 	const [percentSale, setPercentSale] = React.useState(null)
 	const [bundlePercentSale, setBundlePercentSale] = React.useState(null)
@@ -69,6 +70,14 @@ function Management() {
 		}
 		setBundlePercentSale('')
 	}
+	const handleSubmitDealsLength = () => {
+		if (dealsLength !== null || dealsLength !== '') {
+			set(ref(database, 'deals length'), {
+				no: dealsLength,
+			})
+		}
+		setDealsLength('')
+	}
 
 	return (
 		<>
@@ -99,7 +108,7 @@ function Management() {
 									value={percentSale}
 									onChange={(e) => setPercentSale(Number(e.target.value))}
 									placeholder="sales %"
-									className="tw-w-[90%] tw-h-[30px] tw-placeholder-gray-400 focus:tw-outline-none tw-border-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-bg-transparent"
+									className="tw-w-[90%] tw-h-[30px] tw-placeholder-gray-400 focus:tw-outline-none tw-border-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0 tw-bg-transparent"
 								/>
 								<RiSendPlaneLine
 									onClick={handleSubmit}
@@ -107,7 +116,7 @@ function Management() {
 									className="tw-text-violet-700 hover:tw-text-violet-300 tw-ease-in tw-duration-300 tw-w-[10%] tw-mr-2"
 								/>
 							</div>
-							<div className="tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[75%] md:tw-w-[50%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100">
+							<div className="tw-mr-5 tw-mb-2 tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[75%] md:tw-w-[50%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100">
 								<input
 									type="number"
 									name="bndlePercentSale"
@@ -115,10 +124,26 @@ function Management() {
 									value={bundlePercentSale}
 									onChange={(e) => setBundlePercentSale(Number(e.target.value))}
 									placeholder="bundle-deals sales %"
-									className="tw-w-[90%] tw-h-[30px] tw-placeholder-gray-400 focus:tw-outline-none tw-border-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-bg-transparent"
+									className="tw-w-[90%] tw-h-[30px] tw-placeholder-gray-400 focus:tw-outline-none tw-border-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0 tw-bg-transparent"
 								/>
 								<RiSendPlaneLine
 									onClick={handleSubmitBundleDeal}
+									size={20}
+									className="tw-text-violet-700 hover:tw-text-violet-300 tw-ease-in tw-duration-300 tw-w-[10%] tw-mr-2"
+								/>
+							</div>
+							<div className="tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[75%] md:tw-w-[50%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100">
+								<input
+									type="text"
+									name="dealsLength"
+									id="number"
+									value={dealsLength}
+									onChange={(e) => setDealsLength(e.target.value)}
+									placeholder="deals length"
+									className="tw-w-[90%] tw-h-[30px] tw-placeholder-gray-400 focus:tw-outline-none tw-border-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0 tw-bg-transparent"
+								/>
+								<RiSendPlaneLine
+									onClick={handleSubmitDealsLength}
 									size={20}
 									className="tw-text-violet-700 hover:tw-text-violet-300 tw-ease-in tw-duration-300 tw-w-[10%] tw-mr-2"
 								/>

@@ -20,6 +20,8 @@ const DealPage = () => {
 	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12)
 	const [deals, setDeals] = React.useState([])
 	const [singleCart, setSingleCart] = React.useState(null)
+	const [lengthArray, setLengthArray] = React.useState(null)
+	const allSizes = ['14, 16, 18', '16, 18, 20', '18, 20, 22', '20, 22, 24']
 	const [error, setError] = React.useState(false)
 	const [dealsImage, setDealsImage] = React.useState([])
 	const [dealPrice, setDealPrice] = React.useState(null)
@@ -42,21 +44,21 @@ const DealPage = () => {
 	]
 
 	React.useEffect(() => {
-		const starCountRef = ref(database, 'bundle deals')
-		onValue(starCountRef, (snapshot) => {
+		const bundleDealsPercentage = ref(database, 'bundle deals')
+		onValue(bundleDealsPercentage, (snapshot) => {
 			const data = snapshot.val()
 
 			setBundleDealsPercentage(data?.no)
 		})
+		const dealsLength = ref(database, 'deals length')
+		onValue(dealsLength, (snapshot) => {
+			const data = snapshot.val()
+
+			setLengthArray(data?.no.split(' - '))
+		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	const lengthArray = [
-		'14inch, 16inch, & 18inch',
-		'16inch, 18inch, & 20inch',
-		'18inch, 20inch, & 22inch',
-		'20inch, 22inch, & 24inch',
-	]
 	const frntlClsr = window.location.pathname
 		.split('-')
 		?.[window.location.pathname.split('-').length - 1].split('&')?.[
@@ -140,7 +142,7 @@ const DealPage = () => {
 		fetchProducts()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
-	console.log(deals)
+
 	// Adding to cart items
 	const name =
 		deals[0]?.name.toLowerCase().includes('frontal') ||
@@ -211,6 +213,7 @@ const DealPage = () => {
 						<Add2CartPopup
 							singleCart={singleCart}
 							setSingleCart={setSingleCart}
+							quantity={_quantity}
 						/>
 					</div>
 					<div className="tw-pt-[70px] xl:tw-w-[80%] tw-px-5 tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
@@ -226,18 +229,27 @@ const DealPage = () => {
 							</div>
 							<span>Bundles</span>
 							<div className="tw-grid tw-grid-cols-1 lg:tw-grid-cols-2 tw-gap-2">
-								{lengthArray.map((item) => (
-									<div
-										onClick={() => {
-											item === '18inch, 20inch, & 22inch' && setLength(item)
-											item === '18inch, 20inch, & 22inch' && setError(false)
-										}}
-										className={`tw-text-center hover:tw-cursor-pointer hover:tw-bg-neutral-900 tw-text-white tw-bg-neutral-400 tw-px-5 tw-py-2 tw-ease-in tw-duration-300 tw-rounded-sm tw-max-w-[300px] ${
-											item !== '18inch, 20inch, & 22inch' && 'tw-line-through'
-										}`}>
-										<span>{item}</span>
-									</div>
-								))}
+								{allSizes.map(
+									// eslint-disable-next-line array-callback-return
+									(item) =>
+										lengthArray?.includes(item) ? (
+											<div
+												onClick={() => {
+													setLength(item)
+													setError(false)
+												}}
+												className={`tw-text-center tw-mr-2 tw-mb-2 tw-p-2 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
+													item === _length && 'tw-bg-neutral-900 tw-text-white'
+												}`}>
+												<span>{item} - inches</span>
+											</div>
+										) : (
+											<div
+												className={`tw-text-center tw-mr-2 tw-mb-2 tw-p-2 tw-border-[1px] tw-rounded-full tw-cursor-not-allowed tw-text-neutral-300`}>
+												<span>{item} - inches</span>
+											</div>
+										)
+								)}
 							</div>
 							<div className="tw-flex tw-items-center">
 								<span className="tw-mr-2">Quantity: </span>

@@ -28,13 +28,13 @@ function Card({ product, setSingleproducts, scrollToTop, sales }) {
 		<div
 			onMouseOver={handleMouseIn}
 			onMouseOut={() => setClickedID('')}
-			className="tw-w-[100%] tw-h-[300px] md:tw-w-[300px] tw-shadow-lg md:tw-h-[300px] tw-relative tw-rounded-lg">
+			className="tw-h-[300px] tw-w-[300px] tw-shadow-lg md:tw-h-[350px] tw-relative tw-rounded-lg">
 			<img
 				onClick={handleViewImage}
 				id={product._id}
 				src={product?.image}
 				alt={product._id}
-				className=" tw-w-[400px] tw-h-full tw-object-cover hover:tw-cursor-pointer tw-rounded-lg"
+				className=" tw-w-full tw-h-[70%] tw-object-cover hover:tw-cursor-pointer tw-rounded-t-lg"
 			/>
 			<div className="tw-absolute tw-top-0 tw-text-center tw-rounded-t-lg tw-bg-white tw-text-neutral-900 tw-font-bold tw-w-full tw-text-[9px] tw-uppercase tw-tracking-widest">
 				<span>Raw {product?.brand}</span>
@@ -46,25 +46,25 @@ function Card({ product, setSingleproducts, scrollToTop, sales }) {
 					</span>
 				</div>
 			)}
-			<div className="bg-blur tw-text-neutral-800 tw-px-2 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-lg">
+			<div className="tw-bg-white tw-h-[30%] tw-text-neutral-800 tw-px-2 tw-w-full tw-rounded-b-lg">
 				<div className="tw-relative tw-flex tw-flex-row tw-justify-between">
-					<div className="tw-w-full tw-flex tw-flex-row tw-justify-between tw-items-center tw-absolute tw-top-[-24px] tw-right-0 tw-left-0 tw-text-neutral-50 tw-bg-[rgba(0,0,0,0.8)] tw-px-2 tw-py-1 tw-text-xs">
-						{sales !== 0 && product?.sales ? (
-							<>
-								<span className="tw-text-neutral-500 tw-line-through">
-									${product?.price}.00 USD
-								</span>
-								<span className="tw-mr-2">
-									${product?.price - product?.price * (sales / 100)} USD
-								</span>
-							</>
-						) : (
-							<span>${product?.price}.00 USD</span>
-						)}
-					</div>
 					<div className="tw-pt-2 tw-w-full">
 						<p className="tw-text-[14px] tw-font-bold">{product.name}</p>
-						<p className="tw-pt-2 tw-border-t-[1px] tw-border-neutral-700 tw-text-xs tw-text-neutral-900 tw-mb-3">
+						<div className="tw-w-full tw-flex tw-flex-row tw-justify-between tw-items-center  tw-text-neutral-900 tw-py-1 tw-text-xs">
+							{sales !== 0 && product?.sales ? (
+								<>
+									<span className="tw-text-neutral-500 tw-line-through">
+										${product?.price}.00 USD
+									</span>
+									<span className="tw-mr-2 tw-font-bold">
+										${product?.price - product?.price * (sales / 100)} USD
+									</span>
+								</>
+							) : (
+								<span className="tw-font-bold">${product?.price}.00 USD</span>
+							)}
+						</div>
+						<p className="tw-pt-2 tw-border-t-[1px] tw-border-neutral-700 tw-text-[10px] tw-text-neutral-900 tw-mb-3 tw-leading-none">
 							{truncate(product.description, 10)}
 						</p>
 					</div>
