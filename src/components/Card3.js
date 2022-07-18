@@ -1,7 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import { FaOpencart } from 'react-icons/fa'
-import { BsFillCartPlusFill } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux'
 import {
 	addToCartItem,
