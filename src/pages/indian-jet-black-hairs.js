@@ -181,19 +181,21 @@ function IndianJetBlackHair() {
 						/>
 					</div>
 					{show && jetBlackHair && (
-						<div className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-w-full tw-px-2 tw-gap-2 md:tw-gap-5">
-							{jetBlackHair.map((item) => (
-								<div key={item._id}>
-									<Card
-										sales={sales}
-										key={item._id}
-										product={item}
-										setSingleproducts={setSingleproducts}
-										setSingleCart={setSingleCart}
-										scrollToTop={scrollToTop}
-									/>
-								</div>
-							))}
+						<div className="tw-w-full tw-px-2">
+							<div className="tw-grid tw-grid-cols-2 lg:tw-flex lg:tw-flex-wrap tw-items-center tw-justify-center tw-gap-2 md:tw-gap-5">
+								{jetBlackHair.map((item) => (
+									<div key={item._id}>
+										<Card
+											sales={sales}
+											key={item._id}
+											product={item}
+											setSingleproducts={setSingleproducts}
+											setSingleCart={setSingleCart}
+											scrollToTop={scrollToTop}
+										/>
+									</div>
+								))}
+							</div>
 							<Reviews category="jet-black-&-blonde-hair" color="white" />
 						</div>
 					)}

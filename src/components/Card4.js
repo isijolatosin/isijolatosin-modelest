@@ -216,13 +216,13 @@ function Card({
 		<div
 			onMouseOver={handleMouseIn}
 			onMouseOut={() => setClickedID('')}
-			className="tw-w-[100%] tw-h-[400px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-sm">
+			className="tw-w-[100%] tw-h-[300px] lg:tw-h-[400px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-sm">
 			<img
 				onClick={handleViewImage}
 				id={product._id}
 				src={product.image}
 				alt={product._id}
-				className=" tw-w-[350px] tw-h-full tw-object-cover tw-rounded-sm hover:tw-cursor-pointer"
+				className="tw-w-full tw-h-[70%] lg:tw-h-[75%] tw-object-cover tw-rounded-sm hover:tw-cursor-pointer"
 			/>
 			{product?.sales && sales !== 0 && (
 				<span className="tw-absolute tw-top-0 tw-left-0 tw-bg-gray-600 tw-text-white tw-rounded-tl-sm tw-rounded-br-sm tw-text-xs tw-p-[2px] tw-font-light">
@@ -236,9 +236,9 @@ function Card({
 					</span>
 				</div>
 			)}
-			<div className="bg-blur tw-text-neutral-800 tw-px-2 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-lg">
+			<div className="tw-bg-white tw-text-neutral-800 tw-px-2 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-lg">
 				<div className="tw-pt-2 tw-flex tw-justify-between tw-w-full tw-text-[14px]">
-					<p className="tw-font-light">{product.name}</p>
+					<p className="tw-font-bold">{product.name}</p>
 					<div className="tw-pb-2 tw-flex tw-flex-col">
 						{sales !== 0 && product.sales && (
 							<span className="tw-mr-2 tw-font-semibold">
@@ -265,7 +265,7 @@ function Card({
 				</div>
 				<div className="tw-flex tw-items-center tw-justify-between tw-w-full">
 					<select
-						className="tw-flex-[0.5] tw-text-gray-500 tw-mt-1 tw-block tw-w-full tw-mr-2 tw-px-1 tw-py-1 tw-border tw-border-gray-100 tw-rounded-sm tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+						className="tw-flex-[0.5] tw-text-neutral-900 tw-mt-1 tw-block tw-w-full tw-mr-2 tw-px-1 tw-py-1 tw-border tw-border-neutral-900 tw-rounded-full tw-text-xs tw-shadow-sm tw-placeholder-neutral-900 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-neutral-900 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0"
 						onChange={handleOnChange}
 						id="length"
 						value={bundles.length}
@@ -275,7 +275,7 @@ function Card({
 						))}
 					</select>
 					<select
-						className="tw-flex-[0.5] tw-text-gray-500 tw-mt-1 tw-block tw-w-full tw-px-1 tw-py-1 tw-border tw-border-gray-100 tw-rounded-sm tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+						className="tw-flex-[0.5] tw-text-neutral-900 tw-mt-1 tw-block tw-w-full tw-px-1 tw-py-1 tw-border tw-border-neutral-900 tw-rounded-full tw-text-xs tw-shadow-sm tw-placeholder-neutral-900 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-neutral-900 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0"
 						onChange={handleOnChange}
 						id="widthlength"
 						value={bundles.widthlength}
@@ -287,7 +287,7 @@ function Card({
 				</div>
 				<div className="tw-flex tw-items-center tw-justify-between tw-w-full">
 					<select
-						className="tw-text-gray-500 tw-mt-1 tw-mr-2 tw-block tw-w-full tw-px-1 tw-py-1 tw-border tw-border-gray-100 tw-rounded-sm tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-3"
+						className="tw-text-neutral-900 tw-mt-1 tw-mr-2 tw-block tw-w-full tw-px-1 tw-py-1 tw-border tw-border-neutral-900 tw-rounded-full tw-text-xs tw-shadow-sm tw-placeholder-neutral-900 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-neutral-900 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0 tw-mb-3"
 						onChange={handleOnChange}
 						id="color"
 						value={bundles.color}
@@ -297,7 +297,7 @@ function Card({
 						))}
 					</select>
 					<select
-						className="tw-text-gray-500 tw-mt-1 tw-block tw-w-full tw-px-1 tw-py-1 tw-border tw-border-gray-100 tw-rounded-sm tw-text-xs tw-shadow-sm tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-3"
+						className="tw-text-neutral-900 tw-mt-1 tw-block tw-w-full tw-px-1 tw-py-1 tw-border tw-border-neutral-900 tw-rounded-full tw-text-xs tw-shadow-sm tw-placeholder-neutral-900 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-neutral-900 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0 tw-mb-3"
 						onChange={handleOnChange}
 						id="hairType"
 						value={bundles.hairType}
@@ -309,20 +309,18 @@ function Card({
 				</div>
 				{isInCart(singleProduct, cartItems) ? (
 					<div
-						className="tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-sm tw-bg-neutral-900 tw-px-3 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[100%] tw-mx-auto tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mb-5"
+						className="tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-full tw-bg-neutral-900 tw-px-3 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[100%] tw-mx-auto tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mb-2 hover:md:tw-text-neutral-900 hover:md:tw-bg-white "
 						onClick={cartItems.length !== 0 ? IncreaseItem : null}>
 						<div className="tw-flex tw-flex-row tw-items-center">
 							<span className="tw-mr-3">Add More</span>
-							<BsFillCartPlusFill />
 						</div>
 					</div>
 				) : (
 					<div
-						className="tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-sm tw-bg-neutral-900 tw-px-3 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[100%] tw-mx-auto tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mb-5"
+						className="tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-full tw-bg-neutral-900 tw-px-3 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[100%] tw-mx-auto tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mb-2 hover:md:tw-text-neutral-900 hover:md:tw-bg-white "
 						onClick={addToCart}>
 						<div className="tw-flex tw-flex-row tw-items-center">
 							<span className="tw-mr-3">Add to cart</span>
-							<FaOpencart />
 						</div>
 					</div>
 				)}

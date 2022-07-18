@@ -185,7 +185,7 @@ function IndianBundles() {
 					</div>
 					{show && hairBundles && (
 						<div className="tw-w-full tw-px-2">
-							<div className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-2 md:tw-gap-5">
+							<div className="tw-grid tw-grid-cols-2 lg:tw-flex lg:tw-flex-wrap tw-items-center tw-justify-center tw-gap-2 md:tw-gap-5">
 								{hairBundles.map((item) => (
 									<div key={item._id}>
 										<Card
