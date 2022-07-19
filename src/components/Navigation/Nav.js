@@ -43,7 +43,7 @@ function Nav({
 						showContactForm={showContactForm}
 					/>
 				</div>
-				<div className="tw-w-[30%] md:tw-w-[20%] tw-mt-[7px]">
+				<div className="tw-w-[30%] md:tw-w-[20%] tw-mt-[8px]">
 					<NavIcons />
 				</div>
 			</div>
