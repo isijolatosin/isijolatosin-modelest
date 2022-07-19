@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { RiSearch2Fill } from 'react-icons/ri'
-import { AiOutlineArrowUp } from 'react-icons/ai'
+import { MdOutlineKeyboardArrowUp } from 'react-icons/md'
 import { HiChatAlt2 } from 'react-icons/hi'
 import { getDatabase, ref, onValue } from 'firebase/database'
 import { Helmet } from 'react-helmet'
@@ -195,8 +195,8 @@ function HomePage() {
 						onClick={() => window.scrollTo(0, 0)}
 						className={`${
 							toBottom ? 'tw-inline' : 'tw-hidden'
-						} tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-p-3 tw-rounded-[30px] tw-z-40 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 `}>
-						<AiOutlineArrowUp size={25} />
+						} tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-p-2 tw-rounded-[30px] tw-z-40 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 `}>
+						<MdOutlineKeyboardArrowUp size={33} />
 					</div>
 					<div
 						onClick={() => {
