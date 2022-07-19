@@ -75,7 +75,8 @@ const SingleWig = () => {
 			? singleWig[0]?.availablelength.split(', ')
 			: [singleWig[0]?.availablelength]
 	const lengthArray = [...lengths]
-	const color = singleWig[0]?.color
+	const hairColor = singleWig[0]?.color
+	console.log(singleWig[0]?.color)
 	const wigProduct = {
 		name,
 		id,
@@ -85,25 +86,29 @@ const SingleWig = () => {
 		hairTexture,
 		hairLength,
 		quantity,
-		color,
+		hairColor,
 	}
 
 	const addToCart = () => {
 		if (quantity && _length) {
 			dispatch(addToCartItem(wigProduct))
+			setTimeout(() => {
+				setSingleCart(wigProduct)
+			}, 1000)
 		} else {
 			setError(true)
 		}
-		setTimeout(() => {
-			_length && setSingleCart(wigProduct)
-		}, 1000)
 	}
 
 	const IncreaseItem = () => {
-		dispatch(increaseCartItem(wigProduct))
-		setTimeout(() => {
-			setSingleCart(wigProduct)
-		}, 1000)
+		if (quantity && _length) {
+			dispatch(increaseCartItem(wigProduct))
+			setTimeout(() => {
+				setSingleCart(wigProduct)
+			}, 1000)
+		} else {
+			setError(true)
+		}
 	}
 
 	return (

@@ -94,7 +94,7 @@ function Account() {
 								) : (
 									<div className="tw-grid tw-grid-cols-1 tw-gap-x-3 lg:tw-grid-cols-2 2xl:tw-grid-cols-3 ">
 										{cartHist?.map((item) => (
-											<div className="tw-bg-neutral-200 tw-font-light tw-text-sm tw-text-neutral-900 tw-mb-3 tw-rounded-lg">
+											<div className="tw-bg-neutral-200 tw-font-light tw-text-xs tw-text-neutral-900 tw-mb-3 tw-rounded-lg">
 												<div className="tw-flex tw-w-full tw-h-[150px] tw-flex-row tw-items-center tw-justify-between ">
 													<div
 														key={item?.id}
@@ -132,7 +132,7 @@ function Account() {
 														src={item?.image}
 														alt={item?.title}
 														loading="lazy"
-														className=" tw-rounded-lg tw-h-[90%] tw-m-3"
+														className=" tw-rounded-lg tw-w-[30%] md:tw-w-[20%] tw-h-[90%] tw-m-3 tw-object-cover"
 													/>
 												</div>
 												<div className="tw-m-3 tw-border-t-[1px] tw-border-neutral-400 tw-text-xs tw- tw-py-3">
