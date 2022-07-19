@@ -237,7 +237,7 @@ function HomePage() {
 							/>
 							<button
 								onClick={handleSubmit}
-								className="search__submit tw-z-10 tw-text-neutral-400"
+								className="search__submit tw-z-10 tw-text-[#bba371]"
 								aria-label="submit search">
 								<RiSearch2Fill />
 							</button>

@@ -245,12 +245,14 @@ function Card({
 					{isInCart(singleProduct, cartItems) ? (
 						<div
 							className="tw-text-center tw-flex-[0.8] tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-full tw-bg-neutral-900 tw-px-1 tw-py-[6px] tw-items-center tw-justify-center tw-max-w-[110px] tw-text-neutral-50 hover:tw-cursor-pointer hover:md:tw-text-neutral-900 hover:md:tw-bg-white hover:tw-text-neutral-400 tw-ease-in tw-duration-500"
-							onClick={cartItems.length !== 0 ? IncreaseItem : null}></div>
+							onClick={cartItems.length !== 0 ? IncreaseItem : null}>
+							<span className="">Add More</span>
+						</div>
 					) : (
 						<div
 							className="tw-flex-[0.8] tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-full tw-bg-neutral-900 tw-px-1 tw-py-[6px] tw-items-center tw-justify-center tw-max-w-[110px] tw-text-neutral-50 tw-cursor-pointer hover:md:tw-text-neutral-900 hover:md:tw-bg-white tw-ease-in tw-duration-500"
 							onClick={addToCart}>
-							<span className="tw-mr-3">Add to cart</span>
+							<span className="">Add to cart</span>
 						</div>
 					)}
 				</div>

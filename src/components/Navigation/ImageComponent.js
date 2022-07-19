@@ -18,13 +18,13 @@ function ImageComponent() {
 		setShowText(false)
 	}
 	return (
-		<div className="tw-py-1 tw-pl-5 tw-flex tw-flex-row tw-items-center ">
-			<Link className="tw-ml-[-30px]" to="/">
+		<div className="tw-py-1 tw-flex tw-flex-row tw-items-center ">
+			<Link className="tw-ml-[-10px] tw-mt-1" to="/">
 				<img
 					src={logo}
 					loading="lazy"
 					alt=".."
-					className="tw-w-[90px] tw-h-full tw-object-contain tw-rounded-full"
+					className="tw-w-[70px] tw-h-full tw-object-contain tw-rounded-full"
 				/>
 			</Link>
 			{(SUPER_USER1 === user?.email || SUPER_USER2 === user?.email) && (

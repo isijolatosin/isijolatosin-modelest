@@ -63,8 +63,10 @@ function ClosureFrontal() {
 	React.useEffect(() => {
 		setTimeout(() => {
 			fetchProducts()
+		}, 2000)
+		setTimeout(() => {
 			setShow(true)
-		}, 3000)
+		}, 4000)
 	}, [])
 
 	const scrollToTop = function scrollToTop() {
