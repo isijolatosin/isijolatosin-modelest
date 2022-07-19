@@ -11,6 +11,7 @@ function Inventory() {
 		type: '',
 		price: '',
 		length: '',
+		dealLength: '',
 		availablelength: '',
 		description: '',
 	})
@@ -36,6 +37,7 @@ function Inventory() {
 				price: formData.price,
 				length: formData.length,
 				availablelength: formData.availablelength,
+				dealLength: formData.dealLength,
 				description: formData.description,
 				sales: isTrue,
 				image: imageFile,
@@ -53,6 +55,7 @@ function Inventory() {
 			color: '',
 			price: '',
 			length: '',
+			dealLength: '',
 			availablelength: '',
 			description: '',
 		})
@@ -104,13 +107,20 @@ function Inventory() {
 		},
 		{
 			id: '7',
+			name: 'dealLength',
+			type: 'text',
+			value: formData.dealLength,
+			placeholder: 'Bundle Deals Length...',
+		},
+		{
+			id: '8',
 			name: 'availablelength',
 			type: 'text',
 			value: formData.availablelength,
 			placeholder: 'Available Lengths...',
 		},
 		{
-			id: '8',
+			id: '9',
 			name: 'price',
 			type: 'number',
 			value: formData.price,

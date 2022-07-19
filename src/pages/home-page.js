@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 import { RiSearch2Fill } from 'react-icons/ri'
-import { FaArrowUp } from 'react-icons/fa'
-import { RiChat1Fill } from 'react-icons/ri'
+import { AiOutlineArrowUp } from 'react-icons/ai'
+import { HiChatAlt2 } from 'react-icons/hi'
 import { getDatabase, ref, onValue } from 'firebase/database'
 import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
@@ -189,14 +189,14 @@ function HomePage() {
 									sales !== 0
 										? 'md:tw-pt-[75px] tw-pt-[95px]'
 										: 'md:tw-pt-[35px] tw-pt-[50px]'
-							  } md:tw-pb-[50px] lg:tw-w-[100%] 2xl:tw-px-[40px] lg:tw-mx-auto tw-bg-[rgba(255,255,255,0.4)] tw-relative`
+							  } md:tw-pb-[50px] lg:tw-w-[100%] 2xl:tw-px-[40px] lg:tw-mx-auto tw-bg-[rgba(255,255,255,0.1)] tw-relative`
 					}>
 					<div
 						onClick={() => window.scrollTo(0, 0)}
 						className={`${
 							toBottom ? 'tw-inline' : 'tw-hidden'
-						} tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-white tw-p-5 tw-rounded-[30px] tw-z-40 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 `}>
-						<FaArrowUp />
+						} tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-p-3 tw-rounded-[30px] tw-z-40 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 `}>
+						<AiOutlineArrowUp size={25} />
 					</div>
 					<div
 						onClick={() => {
@@ -212,8 +212,8 @@ function HomePage() {
 						}}
 						className={`${
 							chat ? 'tw-inline' : 'tw-hidden'
-						} tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-white tw-p-5 tw-rounded-[30px] tw-z-40 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300`}>
-						<RiChat1Fill />
+						} tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-p-3 tw-rounded-[30px] tw-z-40 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300`}>
+						<HiChatAlt2 size={25} />
 					</div>
 					<div
 						className={`${

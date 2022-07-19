@@ -41,6 +41,7 @@ function AllInventories() {
 			price: Number(singleProduct.price),
 			length: Number(singleProduct.length),
 			availablelength: singleProduct.availablelength,
+			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 		})
@@ -56,6 +57,7 @@ function AllInventories() {
 			price: Number(singleProduct.price),
 			length: Number(singleProduct.length),
 			availablelength: singleProduct.availablelength,
+			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 		})
@@ -71,6 +73,7 @@ function AllInventories() {
 			price: Number(singleProduct.price),
 			length: Number(singleProduct.length),
 			availablelength: singleProduct.availablelength,
+			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 		})
@@ -86,6 +89,7 @@ function AllInventories() {
 			price: Number(singleProduct.price),
 			length: Number(singleProduct.length),
 			availablelength: singleProduct.availablelength,
+			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 		})
@@ -101,6 +105,7 @@ function AllInventories() {
 			price: Number(singleProduct.price),
 			length: Number(singleProduct.length),
 			availablelength: singleProduct.availablelength,
+			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 		})
@@ -116,6 +121,7 @@ function AllInventories() {
 			price: Number(singleProduct.price),
 			length: e.target.value,
 			availablelength: singleProduct.availablelength,
+			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 		})
@@ -131,6 +137,23 @@ function AllInventories() {
 			price: Number(singleProduct.price),
 			length: Number(singleProduct.length),
 			availablelength: e.target.value,
+			dealLength: singleProduct.dealLength,
+			description: singleProduct.description,
+			sales: singleProduct.sales,
+		})
+	}
+	const handleInputDealLen = (e) => {
+		setSingleProduct({
+			id: singleProduct.id,
+			name: singleProduct.name,
+			brand: singleProduct.brand,
+			type: singleProduct.type,
+			color: singleProduct.color,
+			availablecolor: singleProduct.availablecolor,
+			price: Number(singleProduct.price),
+			length: Number(singleProduct.length),
+			availablelength: singleProduct.availablelengthe,
+			dealLength: e.target.value,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 		})
@@ -146,6 +169,7 @@ function AllInventories() {
 			price: e.target.value,
 			length: Number(singleProduct.length),
 			availablelength: singleProduct.availablelength,
+			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 		})
@@ -161,6 +185,7 @@ function AllInventories() {
 			price: Number(singleProduct.price),
 			length: Number(singleProduct.length),
 			availablelength: singleProduct.availablelength,
+			dealLength: singleProduct.dealLength,
 			sales: singleProduct.sales,
 			description: e.target.value,
 		})
@@ -179,6 +204,7 @@ function AllInventories() {
 				price: singleProduct.price,
 				length: singleProduct.length,
 				availablelength: singleProduct.availablelength,
+				dealLength: singleProduct.dealLength,
 				description: singleProduct.description,
 				sales: isTrue,
 				// image: imageFile,
@@ -190,6 +216,7 @@ function AllInventories() {
 				product.color === '' ||
 				product.price === null ||
 				product.length === null ||
+				product.dealLength === null ||
 				product.description === ''
 			) {
 				return setPostError('Missing Credentials')
@@ -233,78 +260,89 @@ function AllInventories() {
 					</span>
 					<form onSubmit={updateSingleProduct}>
 						<div className="tw-flex tw-flex-col tw-items-center">
-							<input
-								type="text"
-								name="title"
-								id="title"
-								value={singleProduct.name}
-								onChange={handleInputName}
-								placeholder="Product Name..."
-								className="tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-							/>
-							<input
-								type="text"
-								name="brand"
-								id="brand"
-								value={singleProduct.brand}
-								onChange={handleInputBrand}
-								placeholder="Product Brand..."
-								className="tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-							/>
-							<input
-								type="text"
-								name="type"
-								id="type"
-								value={singleProduct.type}
-								onChange={handleInputType}
-								placeholder="Product Type..."
-								className="tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-							/>
-							<input
-								type="text"
-								name="color"
-								id="color"
-								value={singleProduct.color}
-								onChange={handleInputColor}
-								placeholder="Product Color..."
-								className="tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-							/>
-							<input
-								type="text"
-								name="availablecolor"
-								id="availablecolor"
-								value={singleProduct.availablecolor}
-								onChange={handleInputAvailableColor}
-								placeholder="Available Color..."
-								className="tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-							/>
-							<input
-								type="number"
-								name="length"
-								id="length"
-								value={singleProduct.length}
-								onChange={handleInputLen}
-								placeholder="Length..."
-								className="tw-rounded tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-							/>
-							<input
-								type="text"
-								name="availablelength"
-								id="availablelength"
-								value={singleProduct.availablelength}
-								onChange={handleInputAvailableLen}
-								placeholder="Available Lengths..."
-								className="tw-rounded tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-							/>
-							<input
-								type="number"
-								name="price"
-								id="price"
-								value={singleProduct.price}
-								onChange={handleInputPrice}
-								placeholder="Price..."
-								className="tw-rounded tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-							/>
+							<div className="lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-grid tw-grid-cols-1 lg:tw-grid-cols-2 tw-gap-x-2">
+								<input
+									type="text"
+									name="title"
+									id="title"
+									value={singleProduct.name}
+									onChange={handleInputName}
+									placeholder="Product Name..."
+									className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								/>
+								<input
+									type="text"
+									name="brand"
+									id="brand"
+									value={singleProduct.brand}
+									onChange={handleInputBrand}
+									placeholder="Product Brand..."
+									className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								/>
+								<input
+									type="text"
+									name="type"
+									id="type"
+									value={singleProduct.type}
+									onChange={handleInputType}
+									placeholder="Product Type..."
+									className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								/>
+								<input
+									type="text"
+									name="color"
+									id="color"
+									value={singleProduct.color}
+									onChange={handleInputColor}
+									placeholder="Product Color..."
+									className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								/>
+								<input
+									type="text"
+									name="availablecolor"
+									id="availablecolor"
+									value={singleProduct.availablecolor}
+									onChange={handleInputAvailableColor}
+									placeholder="Available Color..."
+									className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								/>
+								<input
+									type="number"
+									name="length"
+									id="length"
+									value={singleProduct.length}
+									onChange={handleInputLen}
+									placeholder="Length..."
+									className="tw-rounded tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								/>
+								<input
+									type="text"
+									name="availablelength"
+									id="availablelength"
+									value={singleProduct.availablelength}
+									onChange={handleInputAvailableLen}
+									placeholder="Available Lengths..."
+									className="tw-rounded tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								/>
+								<input
+									type="text"
+									name="dealLength"
+									id="dealLeangth"
+									value={singleProduct.dealLength}
+									onChange={handleInputDealLen}
+									placeholder="Bundle Deal Lengths..."
+									className="tw-rounded tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								/>
+								<input
+									type="number"
+									name="price"
+									id="price"
+									value={singleProduct.price}
+									onChange={handleInputPrice}
+									placeholder="Price..."
+									className="tw-rounded tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								/>
+							</div>
 							<textarea
 								value={singleProduct.description}
 								name="description"

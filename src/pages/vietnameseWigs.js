@@ -38,7 +38,7 @@ function VietnameseWigs() {
 				<title>Vietnamese-wigs</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-w-full tw-bg-[rgba(255,255,255,0.5)] tw-mt-[50px] md:tw-mt-[0px]">
+				<div className="tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-mt-[50px] md:tw-mt-[0px]">
 					{wigs?.length === 0 ? (
 						<div className="tw-w-full tw-flex tw-justify-center tw-pt-[100px] tw-pb-[50px]">
 							<div className="tw-rounded-full progress">

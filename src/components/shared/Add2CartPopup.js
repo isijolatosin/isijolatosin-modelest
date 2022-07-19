@@ -39,7 +39,7 @@ const Add2CartPopup = ({ singleCart, setSingleCart, quantity }) => {
 						/>
 						<div className="tw-flex tw-flex-col tw-text-xs md:tw-text-sm">
 							<span>
-								{singleCart.hairLength.includes('inch')
+								{singleCart.hairLength?.includes('inch')
 									? `${singleCart.hairLength} ${singleCart.name}`
 									: `${singleCart.hairLength} - inches ${singleCart.name}`}
 							</span>

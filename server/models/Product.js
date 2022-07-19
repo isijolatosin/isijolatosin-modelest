@@ -36,6 +36,9 @@ const ProductSchema = new mongoose.Schema({
 	availablelength: {
 		type: String,
 	},
+	dealLength: {
+		type: String,
+	},
 	price: {
 		type: Number,
 		required: [true, 'must provide a price'],

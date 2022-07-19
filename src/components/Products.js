@@ -164,7 +164,9 @@ function Products({ allProducts, sales }) {
 		}
 	}
 
-	const price = priceFunc()
+	const price = singleProducts?.[0]?.type.includes('virgin wig')
+		? singleProducts?.[0]?.price
+		: priceFunc()
 
 	const singleProduct = {
 		name,

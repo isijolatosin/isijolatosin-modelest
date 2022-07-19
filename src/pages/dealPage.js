@@ -20,7 +20,7 @@ const DealPage = () => {
 	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12)
 	const [deals, setDeals] = React.useState([])
 	const [singleCart, setSingleCart] = React.useState(null)
-	const [lengthArray, setLengthArray] = React.useState(null)
+	const [lengthArray, setLengthArray] = React.useState([])
 	const allSizes = ['14, 16, 18', '16, 18, 20', '18, 20, 22', '20, 22, 24']
 	const [error, setError] = React.useState(false)
 	const [dealsImage, setDealsImage] = React.useState([])
@@ -50,12 +50,6 @@ const DealPage = () => {
 
 			setBundleDealsPercentage(data?.no)
 		})
-		const dealsLength = ref(database, 'deals length')
-		onValue(dealsLength, (snapshot) => {
-			const data = snapshot.val()
-
-			setLengthArray(data?.no.split(' - '))
-		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -82,6 +76,11 @@ const DealPage = () => {
 						// eslint-disable-next-line array-callback-return
 						filtered.map((product) => {
 							price += product?.price * 3 + 20 + 30 + 40
+							if (product?.dealLength.split(' - ').length > 1) {
+								setLengthArray(product?.dealLength.split(' - '))
+							} else {
+								setLengthArray(...product?.dealLength.split(' - '))
+							}
 						})
 					}
 				}
@@ -91,6 +90,11 @@ const DealPage = () => {
 						// eslint-disable-next-line array-callback-return
 						filtered.map((product) => {
 							price += product?.price * 3 + 20 + 30 + 40
+							if (product?.dealLength.split(' - ').length > 1) {
+								setLengthArray(product?.dealLength.split(' - '))
+							} else {
+								setLengthArray(...product?.dealLength.split(' - '))
+							}
 						})
 					}
 				}
@@ -187,19 +191,23 @@ const DealPage = () => {
 	const addToCart = () => {
 		if (quantity && _length) {
 			dispatch(addToCartItem(dealsProduct))
+			setTimeout(() => {
+				setSingleCart(dealsProduct)
+			}, 1000)
 		} else {
 			setError(true)
 		}
-		setTimeout(() => {
-			_length && setSingleCart(dealsProduct)
-		}, 1000)
 	}
 
 	const IncreaseItem = () => {
-		dispatch(increaseCartItem(dealsProduct))
-		setTimeout(() => {
-			setSingleCart(dealsProduct)
-		}, 1000)
+		if (quantity && _length) {
+			dispatch(increaseCartItem(dealsProduct))
+			setTimeout(() => {
+				setSingleCart(dealsProduct)
+			}, 1000)
+		} else {
+			setError(true)
+		}
 	}
 
 	return (

@@ -55,7 +55,7 @@ const Cart = () => {
 							<div className="tw-mr-5 tw-font-light tw-text-white">
 								Your Cart is Empty
 							</div>
-							<FaHandPointRight className="tw-text-pink-700 tw-mr-5 tw-text-2xl" />
+							<FaHandPointRight className="tw-text-white tw-mr-5 tw-text-2xl" />
 							<Button handleFunc={() => navigate('/')}>Shop now</Button>
 						</div>
 					) : (

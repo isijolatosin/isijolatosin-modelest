@@ -147,7 +147,7 @@ function App() {
 				element={<VietnameseJetBlackHair />}
 			/>
 			<Route exact path="/user-cart/:userId" element={<Cart />} />
-			<Route exact path="/user-account" element={<Account />} />
+			<Route exact path="/user/:userInfo" element={<Account />} />
 			<Route exact path="*" element={<NotFound />} />
 			<Route exact path="/" element={<HomePage />} />
 		</Routes>

@@ -75,7 +75,7 @@ const SingleWig = () => {
 			? singleWig[0]?.availablelength.split(', ')
 			: [singleWig[0]?.availablelength]
 	const lengthArray = [...lengths]
-
+	const color = singleWig[0]?.color
 	const wigProduct = {
 		name,
 		id,
@@ -85,6 +85,7 @@ const SingleWig = () => {
 		hairTexture,
 		hairLength,
 		quantity,
+		color,
 	}
 
 	const addToCart = () => {

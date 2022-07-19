@@ -215,8 +215,8 @@ function ClosureFrontal() {
 									closureFrontal.length === 0 && !show
 										? 'tw-pt-[230px]'
 										: 'tw-pt-[155px]'
-							  } tw-pb-10 md:tw-pt-[120px] tw-h-full tw-relative tw-bg-[rgba(255,255,255,0.5)] tw-flex tw-flex-col tw-items-center tw-mx-auto`
-							: 'tw-pb-10 tw-pt-[110px] md:tw-pt-20 tw-h-full tw-relative tw-bg-[rgba(255,255,255,0.5)] tw-flex tw-flex-col tw-items-center tw-mx-auto '
+							  } tw-pb-10 md:tw-pt-[120px] tw-h-full tw-relative tw-bg-[rgba(255,255,255,0.1)] tw-flex tw-flex-col tw-items-center tw-mx-auto`
+							: 'tw-pb-10 tw-pt-[110px] md:tw-pt-20 tw-h-full tw-relative tw-bg-[rgba(255,255,255,0.1)] tw-flex tw-flex-col tw-items-center tw-mx-auto '
 					}>
 					<div className="tw-fixed tw-z-50 tw-top-0 md:tw-top-[-95px] tw-right-0 md:tw-right-[-30px]">
 						<Add2CartPopup

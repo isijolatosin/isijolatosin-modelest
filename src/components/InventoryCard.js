@@ -32,6 +32,7 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 				type: product.type,
 				color: product.color,
 				availablecolor: product.availablecolor,
+				dealLength: product.dealLength,
 				length: product.length,
 				availablelength: product.availablelength,
 			})
@@ -63,7 +64,9 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 					{product.availablelength && (
 						<span className="tw-w-[100%]">{`Available Length: ${product.availablelength}"`}</span>
 					)}
-					<span className="tw-w-[100%]">{`Description: ${product.description}`}</span>
+					{product.dealLength && (
+						<span className="tw-w-[100%]">{`Deal length: ${product.dealLength}`}</span>
+					)}
 					<span className="tw-text-red-800">{product.sales && 'onsale'}</span>
 				</div>
 				<div className="tw-flex tw-flex-col tw-justify-between tw-w-[15%] tw-border-l tw-border-neutral-300 tw-pl-[10px] lg:tw-pl-2 xl:tw-pl-[2px]">

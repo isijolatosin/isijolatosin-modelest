@@ -108,7 +108,7 @@ function IndianDeal() {
 				<title>Indian-Hair-Bundle-Deals</title>
 			</Helmet>
 			<Layout sales={bundleDealsPercentage}>
-				<div className="tw-w-full tw-bg-[rgba(255,255,255,0.5)] tw-mt-[50px] md:tw-mt-[0px]">
+				<div className="tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-mt-[50px] md:tw-mt-[0px]">
 					{bodyWaveFrontal === null &&
 					CurlyFrontal === null &&
 					bodyWaveClosure === null &&

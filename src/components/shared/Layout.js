@@ -9,7 +9,7 @@ function Layout({ children, allProducts }) {
 	const [showPrivacyReturns, setPrivacyReturns] = React.useState(false)
 	return (
 		<div>
-			<div className="tw-bg-neutral-400 tw-fixed tw-top-0 tw-left-0 tw-right-0 tw-z-20 tw-max-w-screen ">
+			<div className="tw-bg-neutral-900 tw-text-white tw-fixed tw-top-0 tw-left-0 tw-right-0 tw-z-20 tw-max-w-screen ">
 				<Nav
 					allProducts={allProducts}
 					setShowContactForm={setShowContactForm}

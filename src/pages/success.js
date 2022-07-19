@@ -140,6 +140,7 @@ const Success = () => {
 						length: item?.hairLength,
 						orderNo: orderNo,
 						timestamp: new Date().valueOf(),
+						image: item?.image ? item?.image : '',
 					})
 					.then(() => {
 						console.log(`SUCCESSFULL`)
@@ -163,6 +164,7 @@ const Success = () => {
 						length: item?.hairLength,
 						orderNo: orderNo,
 						timestamp: new Date().valueOf(),
+						image: item?.image ? item?.image : '',
 					})
 					.then(() => {
 						console.log(`SUCCESSFULL`)
