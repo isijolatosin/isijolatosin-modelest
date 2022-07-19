@@ -56,17 +56,17 @@ const vietnameseSubLinks = [
 const bundlesDeals = [
 	{
 		id: '1',
-		name: 'Indian - Hair',
+		name: 'Indian',
 		route: '/indian-bundles-deals',
 	},
 	{
-		id: '3',
-		name: 'Virgin - Hair',
+		id: '2',
+		name: 'Virgin',
 		route: '/virgin-bundles-deals',
 	},
 	{
-		id: '2',
-		name: 'Vietnamese - Hair',
+		id: '3',
+		name: 'Vietnamese',
 		route: '/vietnamese-bundles-deals',
 	},
 ]
@@ -197,15 +197,15 @@ function LinksComponent({
 				onMouseLeave={() => setList1(false)}
 				className="tw-w-full tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
 				<p className="hover:tw-cursor-pointer tw-border-r-[1px] tw-border-[#bba371] tw-px-2 tw-text-center">
-					Indian - hair
+					Indian
 				</p>
 
 				{list1 && (
-					<div className="tw-absolute tw-top-[30px] md:tw-top-4 tw-left-[-12px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+					<div className="tw-absolute tw-top-[20px] md:tw-top-4 tw-left-[-12px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
 						{indianSubLinks.map((item) => (
 							<Link
 								to={item.route}
-								className="tw-shadow-lg md:tw-text-center tw-px-3 tw-rounded-sm  md:tw-w-[190px] tw-w-[180px] tw-bg-neutral-900 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-white hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
+								className="tw-shadow-lg md:tw-text-center tw-px-3 tw-rounded-sm  md:tw-w-[150px] tw-w-[160px] tw-bg-neutral-900 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-white hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
 								key={item.id}>
 								{item.name}
 							</Link>
@@ -219,15 +219,15 @@ function LinksComponent({
 				onMouseLeave={() => setList3(false)}
 				className="tw-w-full tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
 				<p className="tw-text-center hover:tw-cursor-pointer tw-border-r-[1px] tw-border-[#bba371] tw-px-2">
-					Virgin - hair
+					Virgin
 				</p>
 
 				{list3 && (
-					<div className="tw-absolute tw-top-[30px] md:tw-top-4 tw-right-[-50px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+					<div className="tw-absolute tw-top-[20px] md:tw-top-4 tw-right-[-40px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
 						{virginSubLinks.map((item) => (
 							<Link
 								to={item.route}
-								className="tw-text-center tw-px-3 tw-rounded-sm md:tw-w-[190px] tw-w-[180px] tw-bg-neutral-900 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-white hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
+								className="tw-text-center tw-px-3 tw-rounded-sm md:tw-w-[150px] tw-w-[160px] tw-bg-neutral-900 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-white hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
 								key={item.id}>
 								{item.name}
 							</Link>
@@ -241,15 +241,15 @@ function LinksComponent({
 				onMouseLeave={() => setList2(false)}
 				className="tw-w-full tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
 				<p className="tw-text-center hover:tw-cursor-pointer tw-border-r-[1px] tw-border-[#bba371] tw-px-2">
-					Vietnamese - hair
+					Vietnamese
 				</p>
 
 				{list2 && (
-					<div className="tw-absolute tw-top-[30px] md:tw-top-4 tw-left-[-53px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+					<div className="tw-absolute tw-top-[20px] md:tw-top-4 tw-left-[-43px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
 						{vietnameseSubLinks.map((item) => (
 							<Link
 								to={item.route}
-								className="tw-text-center md:tw-text-center tw-px-3 tw-rounded-sm md:tw-w-[190px] tw-w-[180px] tw-bg-neutral-900 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-white hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
+								className="tw-text-center md:tw-text-center tw-px-3 tw-rounded-sm md:tw-w-[150px] tw-w-[160px] tw-bg-neutral-900 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-white hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
 								key={item.id}>
 								{item.name}
 							</Link>
@@ -263,15 +263,15 @@ function LinksComponent({
 				onMouseLeave={() => setList4(false)}
 				className="tw-w-full tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
 				<p className="tw-text-center hover:tw-cursor-pointer tw-border-r-[1px] tw-border-[#bba371] tw-px-2">
-					Bundle - Deals
+					Deals
 				</p>
 
 				{list4 && (
-					<div className="tw-absolute tw-top-[30px] md:tw-top-4 tw-right-[-50px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+					<div className="tw-absolute tw-top-[20px] md:tw-top-4 tw-right-[-40px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
 						{bundlesDeals.map((item) => (
 							<Link
 								to={item.route}
-								className="tw-shadow-lg tw-text-center md:tw-text-center tw-px-3 tw-rounded-sm md:tw-w-[190px] tw-w-[180px] tw-bg-neutral-900 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-white hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
+								className="tw-shadow-lg tw-text-center md:tw-text-center tw-px-3 tw-rounded-sm md:tw-w-[150px] tw-w-[160px] tw-bg-neutral-900 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-white hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
 								key={item.id}>
 								{item.name}
 							</Link>
@@ -284,15 +284,15 @@ function LinksComponent({
 				onMouseLeave={() => setList5(false)}
 				className="tw-w-full tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
 				<p className="tw-text-center hover:tw-cursor-pointer  tw-px-2">
-					Need Help ?
+					Help ?
 				</p>
 
 				{list5 && (
-					<div className="tw-absolute tw-top-[30px] md:tw-top-4 tw-right-[-12px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+					<div className="tw-absolute tw-top-[20px] md:tw-top-4 tw-right-[-12px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
 						{helpLinks.map((item) => (
 							<span
 								onClick={() => handleHelp(item.name)}
-								className="tw-shadow-lg tw-text-right md:tw-text-center tw-px-3 tw-rounded-sm md:tw-w-[190px] tw-w-[180px] tw-bg-neutral-900 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-white hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
+								className="tw-shadow-lg tw-text-right md:tw-text-center tw-px-3 tw-rounded-sm md:tw-w-[150px] tw-w-[160px] tw-bg-neutral-900 tw-mb-[1px] tw-text-[11px] tw-p-5 tw-text-white hover:tw-text-neutral-500 hover:tw-cursor-pointer tw-ease-in-out tw-duration-500 tw-opacity-[0.95]"
 								key={item.id}>
 								{item.name}
 							</span>
