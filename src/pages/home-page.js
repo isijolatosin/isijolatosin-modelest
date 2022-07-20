@@ -11,7 +11,6 @@ import { CgClose } from 'react-icons/cg'
 import { db } from '../firebase'
 
 function HomePage() {
-	// const [hideRegionSet, setHideRegionSet] = React.useState(true)
 	const [inputValue, setInputValue] = React.useState('')
 	const [searchControl, setSearchControl] = React.useState(false)
 	const [chatError, setChatError] = React.useState(false)
@@ -50,9 +49,6 @@ function HomePage() {
 				},
 			} = await axios.get('/api/v1/products')
 
-			// if (products.every((product) => product.sales)) {
-			// 	localStorage.setItem('isSales', true)
-			// }
 			setTimeout(() => {
 				setAllproducts(products.sort((a, b) => a.name.localeCompare(b.type)))
 			}, 3000)
@@ -65,12 +61,10 @@ function HomePage() {
 		fetchProducts()
 	}, [])
 
-	React.useEffect(() => {
-		setTimeout(() => {
-			// setHideRegionSet(false)
-		}, 10000)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	window.addEventListener('scroll', () => {
+		setSearchControl(false)
+		setInputValue('')
+	})
 
 	const handleSubmit = () => {
 		setInputValue('')
@@ -355,21 +349,6 @@ function HomePage() {
 
 					{allProducts.length !== 0 ? (
 						<div className="tw-relative tw-flex tw-flex-col tw-items-center">
-							{/* {hideRegionSet && (
-								<div className="tw-relative tw-mt-20 md:tw-mt-10 tw-flex tw-flex-col tw-items-center">
-									<span className="tw-mb-2 tw-text-sm tw-text-neutral-50 tw-opacity-[0.4]">
-										Set your Country/Region below
-									</span>
-									<div
-										onClick={scrollToTop}
-										className="arrows-wrapper tw-rounded-lg tw-absolute tw-top-[-30px] hover:tw-cursor-pointer">
-										<span className="arrow"></span>
-										<span className="arrow"></span>
-										<span className="arrow"></span>
-									</div>
-								</div>
-							)} */}
-
 							<Products
 								sales={sales}
 								allProducts={filtered?.length < 1 ? allProducts : filtered}
