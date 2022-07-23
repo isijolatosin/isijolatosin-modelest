@@ -86,45 +86,47 @@ function Products({ allProducts, sales }) {
 	}
 
 	const pricePredict = () => {
-		if (singleProducts?.[0]?.type.toLowerCase() === 'Frontal') {
+		if (singleProducts?.[0]?.type.toLowerCase() === 'frontal') {
+			// for frontal
 			if (
-				_color?.includes('Natural black') &&
-				(_hairType?.includes('Bodywave') ||
-					_hairType?.includes('Wavy') ||
-					_hairType?.includes('Curly'))
+				_color?.toLowerCase()?.includes('natural black') &&
+				(_hairType?.toLowerCase()?.includes('bodywave') ||
+					_hairType?.toLowerCase()?.includes('wavy') ||
+					_hairType?.toLowerCase()?.includes('curly'))
 			) {
-				return (_price2 += 10)
+				return (_price2 += 6)
 			} else if (
-				_color?.includes('Natural black') &&
-				_hairType?.includes('Straight')
+				_color?.toLowerCase()?.includes('natural black') &&
+				_hairType?.toLowerCase()?.includes('straight')
 			) {
 				return _price2
 			}
 		} else {
+			// for closure
 			if (
-				_color?.includes('Natural black') &&
-				(_hairType?.includes('Bodywave') ||
-					_hairType?.includes('Wavy') ||
-					_hairType?.includes('Curly'))
+				_color?.toLowerCase()?.includes('natural black') &&
+				(_hairType?.toLowerCase()?.includes('bodywave') ||
+					_hairType?.toLowerCase()?.includes('wavy') ||
+					_hairType?.toLowerCase()?.includes('curly'))
 			) {
 				return (_price += 5)
 			} else if (
-				_color?.includes('Natural black') &&
-				_hairType?.includes('Straight')
+				_color?.toLowerCase()?.includes('natural black') &&
+				_hairType?.toLowerCase()?.includes('straight')
 			) {
 				return _price
 			}
 
 			if (
-				_color?.includes('Blonde613') &&
-				(_hairType?.includes('Bodywave') ||
-					_hairType?.includes('Wavy') ||
-					_hairType?.includes('Curly'))
+				_color?.toLowerCase()?.includes('blonde613') &&
+				(_hairType?.toLowerCase()?.includes('bodywave') ||
+					_hairType?.toLowerCase()?.includes('wavy') ||
+					_hairType?.toLowerCase()?.includes('curly'))
 			) {
 				return (_price += 15)
 			} else if (
-				_color?.includes('Blonde613') &&
-				_hairType?.includes('Straight')
+				_color?.toLowerCase()?.includes('blonde613') &&
+				_hairType?.toLowerCase()?.includes('straight')
 			) {
 				return (_price += 10)
 			}

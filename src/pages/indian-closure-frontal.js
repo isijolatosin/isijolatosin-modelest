@@ -80,6 +80,7 @@ function ClosureFrontal() {
 			: singleProducts?.[0]?.price
 
 	let _price
+	let _price2
 
 	if (length === '14') {
 		_price = cardPrice
@@ -92,47 +93,58 @@ function ClosureFrontal() {
 	} else if (length === '22') {
 		_price = cardPrice + 40
 	}
+	if (length === '14') {
+		_price2 = cardPrice
+	} else if (length === '16') {
+		_price2 = cardPrice + 6
+	} else if (length === '18') {
+		_price2 = cardPrice + 12
+	} else if (length === '20') {
+		_price2 = cardPrice + 18
+	} else if (length === '22') {
+		_price2 = cardPrice + 24
+	}
 
 	const pricePredict = () => {
-		if (singleProducts?.[0]?.type.toLowerCase() === 'Frontal') {
+		if (singleProducts?.[0]?.type.toLowerCase() === 'frontal') {
 			if (
-				_color?.includes('Natural black') &&
-				(_hairType?.includes('Bodywave') ||
-					_hairType?.includes('Wavy') ||
-					_hairType?.includes('Curly'))
+				_color?.toLowerCase()?.includes('natural black') &&
+				(_hairType?.toLowerCase()?.includes('bodywave') ||
+					_hairType?.toLowerCase()?.includes('wavy') ||
+					_hairType?.toLowerCase()?.includes('curly'))
 			) {
-				return (_price += 10)
+				return (_price2 += 6)
 			} else if (
-				_color?.includes('Natural black') &&
-				_hairType?.includes('Straight')
+				_color?.toLowerCase()?.includes('natural black') &&
+				_hairType?.toLowerCase()?.includes('straight')
 			) {
-				return _price
+				return _price2
 			}
 		} else {
 			if (
-				_color?.includes('Natural black') &&
-				(_hairType?.includes('Bodywave') ||
-					_hairType?.includes('Wavy') ||
-					_hairType?.includes('Curly'))
+				_color?.toLowerCase()?.includes('natural black') &&
+				(_hairType?.toLowerCase()?.includes('bodywave') ||
+					_hairType?.toLowerCase()?.includes('wavy') ||
+					_hairType?.toLowerCase()?.includes('curly'))
 			) {
 				return (_price += 5)
 			} else if (
-				_color?.includes('Natural black') &&
-				_hairType?.includes('Straight')
+				_color?.toLowerCase()?.includes('natural black') &&
+				_hairType?.toLowerCase()?.includes('straight')
 			) {
 				return _price
 			}
 
 			if (
-				_color?.includes('Blonde613') &&
-				(_hairType?.includes('Bodywave') ||
-					_hairType?.includes('Wavy') ||
-					_hairType?.includes('Curly'))
+				_color?.toLowerCase()?.includes('blonde613') &&
+				(_hairType?.toLowerCase()?.includes('bodywave') ||
+					_hairType?.toLowerCase()?.includes('wavy') ||
+					_hairType?.toLowerCase()?.includes('curly'))
 			) {
 				return (_price += 15)
 			} else if (
-				_color?.includes('Blonde613') &&
-				_hairType?.includes('Straight')
+				_color?.toLowerCase()?.includes('blonde613') &&
+				_hairType?.toLowerCase()?.includes('straight')
 			) {
 				return (_price += 10)
 			}
