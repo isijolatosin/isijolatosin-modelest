@@ -328,7 +328,7 @@ function HomePage() {
 					</div>
 					<div
 						className={`${
-							searchControl && 'tw-w-[100vw] lg:tw-w-[40%]'
+							searchControl && 'tw-w-[100%] lg:tw-w-[40%]'
 						} tw-flex tw-flex-col content tw-fixed tw-top-[55px] md:tw-top-[24px] tw-left-[-5px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
 						<div
 							className={`${
@@ -363,7 +363,7 @@ function HomePage() {
 							</button>
 						</div>
 						{filtered?.length !== 0 && (
-							<div className="tw-bg-[rgba(255,255,255,0.95)] tw-text-black tw-ml-[1px] tw-w-[79.7%] tw-overflow-y-scroll tw-max-h-[400px] featuredCard2 tw-shadow-lg">
+							<div className="tw-bg-white tw-text-black tw-ml-[1px] tw-w-[79.7%] tw-overflow-y-scroll tw-max-h-[100%] md:tw-max-h-[600px] featuredCard2 tw-shadow-lg">
 								{filtered.map((item) => (
 									<Link to={item?.route} key={item?._id}>
 										<div className="tw-pr-5 tw-py-3 tw-border-b-[1px] tw-w-[90%] tw-mx-auto hover:tw-text-[#bba371] tw-ease-in tw-duration-300">
