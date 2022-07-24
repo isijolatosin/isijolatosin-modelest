@@ -33,7 +33,7 @@ function Card({ product, setSingleproducts, scrollToTop, sales }) {
 				alt={product._id}
 				className=" tw-w-full tw-h-[70%] tw-object-cover hover:tw-cursor-pointer tw-rounded-t-lg"
 			/>
-			<div className="tw-absolute tw-top-0 tw-text-center tw-rounded-t-lg tw-bg-neutral-900 tw-text-[#bba371] tw-font-bold tw-w-full tw-text-[9px] tw-uppercase tw-tracking-widest">
+			<div className="tw-absolute tw-top-0 tw-text-center tw-rounded-t-lg tw-bg-neutral-900 tw-text-[#bba371] tw-font-bold tw-w-full tw-text-[9px] tw-uppercase tw-tracking-widest tw-border-[1px] tw-border-b-0 tw-border-neutral-600">
 				<span>Raw {product?.brand}</span>
 			</div>
 			<div className="tw-bg-white tw-h-[30%] tw-text-neutral-800 tw-px-2 tw-w-full tw-rounded-b-lg">

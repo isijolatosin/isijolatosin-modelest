@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { RiSearch2Fill } from 'react-icons/ri'
-import { MdOutlineKeyboardArrowUp } from 'react-icons/md'
+import { MdOutlineKeyboardArrowUp, MdOutlineClose } from 'react-icons/md'
 import { HiChatAlt2 } from 'react-icons/hi'
 import { getDatabase, ref, onValue } from 'firebase/database'
 import { Helmet } from 'react-helmet'
@@ -9,6 +9,7 @@ import Layout from '../components/shared/Layout'
 import Products from '../components/Products'
 import { db } from '../firebase'
 import ContactForm from '../components/shared/ContactForm'
+import { Link } from 'react-router-dom'
 
 function HomePage() {
 	const [inputValue, setInputValue] = React.useState('')
@@ -117,35 +118,95 @@ function HomePage() {
 		fetchProducts()
 	}, [])
 
-	window.addEventListener('scroll', () => {
-		setSearchControl(false)
-		setInputValue('')
-	})
+	// window.addEventListener('scroll', () => {
+	// 	setSearchControl(false)
+	// 	setInputValue('')
+	// 	setFiltered([])
+	// })
 
-	const handleSubmit = () => {
-		setInputValue('')
-		setSearchControl(!searchControl)
+	const handleChange = (e) => {
+		setInputValue(e)
 
 		if (inputValue) {
 			const returnFiltered = []
 			// eslint-disable-next-line array-callback-return
 			allProducts.filter((product) => {
-				if (product?.name.toLowerCase().includes(inputValue.toLowerCase())) {
-					returnFiltered.push(product)
-				} else if (
-					product?.brand.toLowerCase().includes(inputValue.toLowerCase())
+				if (
+					product?.name.toLowerCase().includes(inputValue.toLowerCase()) ||
+					product?.brand.toLowerCase().includes(inputValue.toLowerCase()) ||
+					product?.type.toLowerCase().includes(inputValue.toLowerCase())
 				) {
-					returnFiltered.push(product)
-				} else {
+					if (
+						product?.name.toLowerCase() === 'body wave' ||
+						product?.name.toLowerCase() === 'natural straight' ||
+						product?.name.toLowerCase() === 'natural wavy' ||
+						product?.name.toLowerCase() === 'natural curly'
+					) {
+						const obj = {
+							name: product?.name,
+							image: product?.image,
+							price: product?.price,
+							route: '/bundles/indian',
+						}
+						returnFiltered.push(obj)
+					}
+					if (
+						product?.name.toLowerCase().includes('body wave jet blk') ||
+						product?.name.toLowerCase().includes('body wave blonde') ||
+						product?.name
+							.toLowerCase()
+							.includes('natural straight blonde 613') ||
+						product?.name.toLowerCase().includes('natural wavy blonde 613') ||
+						product?.name.toLowerCase().includes('natural straight jet blk')
+					) {
+						const obj = {
+							name: product?.name,
+							image: product?.image,
+							price: product?.price,
+							route: '/jet-black-&-blonde/indian',
+						}
+						returnFiltered.push(obj)
+					}
+					if (product?.name.toLowerCase().includes('closure')) {
+						const obj = {
+							name: product?.name,
+							image: product?.image,
+							price: product?.price,
+							route: '/closure-frontal/indian',
+						}
+						returnFiltered.push(obj)
+					}
+					if (product?.name.toLowerCase().includes('frontal')) {
+						const obj = {
+							name: product?.name,
+							image: product?.image,
+							price: product?.price,
+							route: '/closure-frontal/indian',
+						}
+						returnFiltered.push(obj)
+					}
+					if (product?.name.toLowerCase().includes('natural virgin wig')) {
+						const obj = {
+							name: product?.name,
+							image: product?.image,
+							price: product?.price,
+							route: '/virgin-wigs',
+						}
+						returnFiltered.push(obj)
+					}
+				}
+
+				if (returnFiltered.length === 0) {
 					setSearchError(true)
 				}
 			})
 			if (returnFiltered.length > 0) {
-				window.scrollTo(0, 0)
-				setFiltered(returnFiltered)
+				// window.scrollTo(0, 0)
+				setFiltered(returnFiltered.sort((a, b) => a.name.localeCompare(b.name)))
 			}
 		}
 	}
+	console.log(filtered)
 	React.useEffect(() => {
 		if (searchError) {
 			setTimeout(() => {
@@ -267,16 +328,16 @@ function HomePage() {
 					</div>
 					<div
 						className={`${
-							searchControl && 'tw-w-[100vw] lg:tw-w-[40vw]'
-						} tw-flex tw-items-center content tw-fixed tw-top-[55px] md:tw-top-[24px] tw-left-[-40px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10`}>
+							searchControl && 'tw-w-[100vw] lg:tw-w-[40%]'
+						} tw-flex tw-flex-col content tw-fixed tw-top-[55px] md:tw-top-[24px] tw-left-[-5px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
 						<div
 							className={`${
-								searchControl ? 'search bg-blur __search' : 'search bg-blur'
+								searchControl ? '_search bg-blur __search' : '_search bg-blur'
 							}`}>
 							<input
 								type="text"
 								value={inputValue}
-								onChange={(e) => setInputValue(e.target.value)}
+								onChange={(e) => handleChange(e.target.value)}
 								className={`${
 									searchControl
 										? 'search__input tw-placeholder-neutral-900 tw-text-neutral-900 tw-text-[14px] __search__input placeholder:tw-text-xs'
@@ -286,30 +347,32 @@ function HomePage() {
 								placeholder="Search..."
 							/>
 							<button
-								onClick={handleSubmit}
 								className="search__submit tw-z-10 tw-text-[#bba371]"
 								aria-label="submit search">
-								<RiSearch2Fill />
+								{searchControl ? (
+									<MdOutlineClose
+										onClick={() => {
+											setInputValue('')
+											setFiltered([])
+											setSearchControl(false)
+										}}
+									/>
+								) : (
+									<RiSearch2Fill onClick={() => setSearchControl(true)} />
+								)}
 							</button>
 						</div>
-						{filtered?.length > 0 && (
-							<div
-								onClick={() => {
-									setFiltered([])
-									setSearchError(false)
-								}}
-								className="tw-ml-5 tw-text-neutral-800 tw-tracking-wide tw-font-light tw-text-xs tw-border-[2px] tw-border-neutral-800 tw-rounded-full tw-px-3 tw-bg-neutral-200 hover:tw-bg-neutral-900 hover:tw-text-neutral-200 hover:tw-border-neutral-200 tw-ease-in tw-duration-300 hover:tw-cursor-pointer">
-								<span>Reset</span>
-							</div>
-						)}
-						{filtered?.length === 0 && searchError && (
-							<div
-								className={`${
-									searchError
-										? 'tw-ml-5 tw-tracking-widest tw-text-xs tw-text-red-500 tw-opacity-1'
-										: 'tw-ml-5 tw-tracking-widest tw-text-xs tw-text-red-500 tw-opacity-0 tw-ease-in tw-duration-300'
-								}`}>
-								<span>!!! No Search Result</span>
+						{filtered?.length !== 0 && (
+							<div className="tw-bg-[rgba(255,255,255,0.95)] tw-text-black tw-ml-[1px] tw-w-[79.7%] tw-overflow-y-scroll tw-max-h-[400px] featuredCard2 tw-shadow-lg">
+								{filtered.map((item) => (
+									<Link to={item?.route} key={item?._id}>
+										<div className="tw-pr-5 tw-py-3 tw-border-b-[1px] tw-w-[90%] tw-mx-auto hover:tw-text-[#bba371] tw-ease-in tw-duration-300">
+											<span className="tw-text-[13px] md:tw-text-[14px]">
+												{item?.name}
+											</span>
+										</div>
+									</Link>
+								))}
 							</div>
 						)}
 					</div>
@@ -346,7 +409,7 @@ function HomePage() {
 									chatError={chatError}
 									sales={sales}
 									featuredProduct={featuredProduct}
-									allProducts={filtered?.length < 1 ? allProducts : filtered}
+									allProducts={allProducts}
 								/>
 							</div>
 						</div>

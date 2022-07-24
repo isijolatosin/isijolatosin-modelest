@@ -380,13 +380,13 @@ select:focus {
 /* Track */
 .featuredCard::-webkit-scrollbar-track {
 	box-shadow: inset 0 0 5px rgb(212, 212, 212);
-	border-radius: 100px;
+	/* border-radius: 100px; */
 }
 
 /* Handle */
 .featuredCard::-webkit-scrollbar-thumb {
 	background: rgba(219, 219, 219, 1);
-	border-radius: 100px;
+	/* border-radius: 100px; */
 }
 
 /* Handle on hover */
@@ -398,16 +398,10 @@ select:focus {
 	height: 10px;
 }
 
-/* Track */
-/* .featuredCard2::-webkit-scrollbar-track {
-	box-shadow: inset 0 0 5px rgb(212, 212, 212);
-	border-radius: 100px;
-} */
-
 /* Handle */
 .featuredCard2::-webkit-scrollbar-thumb {
-	background: rgba(43, 43, 43, 0.7);
-	border-radius: 100px;
+	/* background: rgba(43, 43, 43, 0.7); */
+	/* border-radius: 100px; */
 }
 
 /* Handle on hover */
@@ -1000,12 +994,12 @@ label input::placeholder {
 	width: 30vw;
 	padding: 1em;
 }
-.search {
-	margin-left: 30px;
+._search {
+	/* margin-left: 30px; */
 	--size: 40px;
-	border: 2px solid rgb(0, 0, 0);
+	border: 1px solid rgb(0, 0, 0);
 	display: flex;
-	border-radius: 100px;
+	/* border-radius: 100px; */
 	overflow: hidden;
 	font-size: 1.25em;
 	position: relative;
