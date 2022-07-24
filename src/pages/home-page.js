@@ -329,7 +329,7 @@ function HomePage() {
 					<div
 						className={`${
 							searchControl && 'tw-w-[100%] lg:tw-w-[40%]'
-						} tw-flex tw-flex-col content tw-fixed tw-top-[55px] md:tw-top-[24px] tw-left-[-17px] md:tw-left-[-6px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
+						} tw-flex tw-flex-col content tw-fixed tw-top-[55px] md:tw-top-[24px] tw-left-[-6px] md:tw-left-[-6px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
 						<div
 							className={`${
 								searchControl ? '_search bg-blur __search' : '_search bg-blur'
@@ -363,7 +363,7 @@ function HomePage() {
 							</button>
 						</div>
 						{filtered?.length !== 0 && (
-							<div className="tw-bg-white tw-text-black tw-ml-[2px] tw-w-[79.7%] tw-overflow-y-scroll tw-max-h-[480px] md:tw-max-h-[600px] featuredCard tw-shadow-lg tw-rounded-b-[5px] tw-border-[1px] tw-border-t-0 tw-border-neutral-900">
+							<div className="tw-bg-white tw-text-black tw-ml-[1px] tw-w-[79.7%] tw-overflow-y-scroll tw-max-h-[480px] md:tw-max-h-[600px] featuredCard tw-shadow-lg tw-rounded-b-[5px] tw-border-[1px] tw-border-t-0 tw-border-neutral-900">
 								{filtered.map((item) => (
 									<Link to={item?.route} key={item?._id}>
 										<div className="tw-flex tw-items-center tw-p-3 tw-border-b-[1px] tw-w-[100%] tw-mx-auto hover:tw-bg-[rgba(215,191,137,0.3)] tw-ease-in tw-duration-300">
