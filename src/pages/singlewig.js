@@ -76,7 +76,7 @@ const SingleWig = () => {
 			: [singleWig[0]?.availablelength]
 	const lengthArray = [...lengths]
 	const hairColor = singleWig[0]?.color
-	console.log(singleWig[0]?.color)
+
 	const wigProduct = {
 		name,
 		id,
@@ -110,6 +110,41 @@ const SingleWig = () => {
 			setError(true)
 		}
 	}
+	const aLength =
+		singleWig[0]?.availablelength.length > 2
+			? singleWig[0]?.availablelength.split(', ')
+			: singleWig[0]?.availablelength
+
+	const desc = [
+		{ key: 'Brand', value: `Raw ${singleWig[0]?.brand} hair` },
+		{
+			key: 'Hair Texture',
+			value: name,
+		},
+		{ key: 'Hair Color', value: singleWig[0]?.color },
+		{ key: 'Material', value: '100% Human Hair' },
+		{ key: 'Density', value: '150% - 200%' },
+		{
+			key: 'Hair Length',
+			value: Array.isArray(aLength)
+				? `Available from ${aLength?.[0]}" - ${
+						aLength?.[aLength.length - 1]
+				  }" inches`
+				: `Available length is ${aLength}" inches`,
+		},
+		{ key: 'Cap Size', value: 'Average Size(Head circumference: 54cm - 58cm' },
+		{
+			key: 'Return policy',
+			value:
+				'We accept 10-days no reason return exchange with hair not been used',
+		},
+		{
+			key: 'Delivery time',
+			value:
+				'We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)',
+		},
+		{ key: 'Can be bleached.dyed', value: 'Yes' },
+	]
 
 	return (
 		<>
@@ -157,6 +192,16 @@ const SingleWig = () => {
 											</div>
 										)
 								)}
+							</div>
+							<div className="tw-grid tw-mt-5 tw-grid-cols-1 md:tw-grid-cols-2 md:tw-gap-x-10">
+								{desc.map((item, idx) => (
+									<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm tw-capitalize">
+										<span className="tw-uppercase tw-text-xs tw-text-red-600 tw-font-bold">
+											{item.key}:{' '}
+										</span>
+										<span>{item.value}</span>
+									</div>
+								))}
 							</div>
 							<div className="tw-flex tw-items-center">
 								<span className="tw-mr-2">Quantity: </span>

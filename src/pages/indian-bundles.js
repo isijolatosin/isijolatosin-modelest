@@ -145,9 +145,7 @@ function IndianBundles() {
 			}" inches`,
 		},
 		{ key: 'Material', value: '100% Human Hair' },
-		{ key: 'Density', value: '150% - 200%' },
 		{ key: 'Cap Size', value: 'Average Size(Head circumference: 54cm - 58cm' },
-		{ key: 'Can be bleached dyed', value: 'Yes' },
 		{
 			key: 'Delivery time',
 			value:
@@ -158,6 +156,7 @@ function IndianBundles() {
 			value:
 				'We accept 10-days no reason return exchange with hair not been used',
 		},
+		{ key: 'Can be bleached dyed', value: 'Yes' },
 	]
 
 	return (

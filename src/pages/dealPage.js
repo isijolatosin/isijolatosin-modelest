@@ -187,6 +187,30 @@ const DealPage = () => {
 		hairLength,
 		quantity,
 	}
+	console.log(deals[0])
+	const desc = [
+		{ key: 'Brand', value: `Raw ${deals[0]?.brand} hair` },
+		{
+			key: 'Hair Texture',
+			value: name,
+		},
+		{ key: 'Hair Color', value: deals[1]?.color },
+
+		{ key: 'Material', value: '100% Human Hair' },
+		{ key: 'Density', value: '150% - 200%' },
+		{ key: 'Cap Size', value: 'Average Size(Head circumference: 54cm - 58cm' },
+		{
+			key: 'Delivery time',
+			value:
+				'We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)',
+		},
+		{
+			key: 'Return policy',
+			value:
+				'We accept 10-days no reason return exchange with hair not been used',
+		},
+		{ key: 'Can be bleached.dyed', value: 'Yes' },
+	]
 
 	const addToCart = () => {
 		if (quantity && _length) {
@@ -258,6 +282,16 @@ const DealPage = () => {
 											</div>
 										)
 								)}
+							</div>
+							<div className="tw-grid tw-mt-5 tw-grid-cols-1 md:tw-grid-cols-2 md:tw-gap-x-10">
+								{desc.map((item, idx) => (
+									<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm tw-capitalize">
+										<span className="tw-uppercase tw-text-xs tw-text-red-600 tw-font-bold">
+											{item.key}:{' '}
+										</span>
+										<span>{item.value}</span>
+									</div>
+								))}
 							</div>
 							<div className="tw-flex tw-items-center">
 								<span className="tw-mr-2">Quantity: </span>

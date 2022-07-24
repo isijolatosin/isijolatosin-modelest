@@ -15,7 +15,6 @@ function Card({
 	scrollToTop,
 	sales,
 }) {
-	const [clickedID, setClickedID] = React.useState('')
 	// const [ID, setID] = React.useState('')
 	const cartItems = useSelector(selectCartItems)
 	const [error, setError] = React.useState(false)
@@ -30,10 +29,6 @@ function Card({
 	const colorArr = product?.availablecolor?.split(', ')
 	const widthlength = product?.widthlength?.split(', ')
 	const hairType = ['Straight', 'Bodywave', 'Wavy', 'Curly']
-
-	function handleMouseIn(event) {
-		setClickedID(event.target.id)
-	}
 
 	const handleOnChange = (e) => {
 		setBundles({ ...bundles, [e.target.name]: e.target.value })
@@ -211,10 +206,7 @@ function Card({
 	}
 
 	return (
-		<div
-			onMouseOver={handleMouseIn}
-			onMouseOut={() => setClickedID('')}
-			className="tw-w-[100%] tw-h-[300px] lg:tw-h-[400px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-sm">
+		<div className="tw-w-[100%] tw-h-[300px] lg:tw-h-[400px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-sm">
 			<img
 				onClick={handleViewImage}
 				id={product._id}
@@ -226,13 +218,6 @@ function Card({
 				<span className="tw-absolute tw-top-0 tw-left-0 tw-bg-gray-600 tw-text-white tw-rounded-tl-sm tw-rounded-br-sm tw-text-xs tw-p-[2px] tw-font-light">
 					on sales
 				</span>
-			)}
-			{clickedID === product._id && (
-				<div className="tw-absolute tw-top-0 tw-right-0 tw-bg-neutral-300 tw-rounded-tr-lg tw-rounded-bl-lg tw-text-xs tw-p-2">
-					<span className="tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-pink-500 tw-to-violet-500">
-						View Image
-					</span>
-				</div>
 			)}
 			<div className="tw-bg-white tw-text-neutral-800 tw-px-2 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-lg">
 				<div className="tw-pt-2 tw-flex tw-justify-between tw-w-full tw-text-[14px]">

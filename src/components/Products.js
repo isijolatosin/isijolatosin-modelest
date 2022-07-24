@@ -228,7 +228,6 @@ function Products({
 			}" inches`,
 		},
 		{ key: 'Material', value: '100% Human Hair' },
-		{ key: 'Density', value: '150% - 200%' },
 		{ key: 'Cap Size', value: 'Average Size(Head circumference: 54cm - 58cm' },
 		{ key: 'Can be bleached.dyed', value: 'Yes' },
 		{
