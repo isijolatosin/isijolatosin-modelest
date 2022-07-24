@@ -7,8 +7,8 @@ import { getDatabase, ref, onValue } from 'firebase/database'
 import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
 import Products from '../components/Products'
-import { CgClose } from 'react-icons/cg'
 import { db } from '../firebase'
+import ContactForm from '../components/shared/ContactForm'
 
 function HomePage() {
 	const [inputValue, setInputValue] = React.useState('')
@@ -29,6 +29,7 @@ function HomePage() {
 		email: '',
 		message: '',
 	})
+	const [featuredProduct, setFeaturedProduct] = React.useState([])
 
 	React.useEffect(() => {
 		const starCountRef = ref(database, 'sales')
@@ -49,7 +50,62 @@ function HomePage() {
 				},
 			} = await axios.get('/api/v1/products')
 
+			const fArray = []
+			// eslint-disable-next-line array-callback-return
+			products.filter((p) => {
+				if (p?.type.toLowerCase() === 'virgin wig') {
+					const obj = {
+						name: 'Virgin Wigs',
+						price: p?.price,
+						brand: p?.brand,
+						color: p?.color,
+						type: p?.type,
+						image: p?.image2,
+						route: '/virgin-wigs',
+					}
+					fArray.push(obj)
+				}
+				if (p?.name.toLowerCase() === 'body wave') {
+					const obj = {
+						name: 'Bundles',
+						price: p?.price,
+						brand: p?.brand,
+						color: p?.color,
+						type: p?.type,
+						image: p?.image2,
+						route: '/bundles/indian',
+					}
+					fArray.push(obj)
+				}
+				if (p?.type.toLowerCase() === 'frontal') {
+					const obj = {
+						name: 'Frontals',
+						price: p?.price,
+						brand: p?.brand,
+						color: p?.color,
+						type: p?.type,
+						image: p?.image2,
+						route: '/closure-frontal/indian',
+					}
+					fArray.push(obj)
+				}
+				if (p?.type.toLowerCase() === 'closure') {
+					const obj = {
+						name: 'Closures',
+						price: p?.price,
+						brand: p?.brand,
+						color: p?.color,
+						type: p?.type,
+						image: p?.image2,
+						route: '/closure-frontal/indian',
+					}
+					fArray.push(obj)
+				}
+			})
+			const reverseFeatured = fArray.reverse()
+
 			setTimeout(() => {
+				setFeaturedProduct(reverseFeatured)
 				setAllproducts(products.sort((a, b) => a.name.localeCompare(b.type)))
 			}, 3000)
 		} catch (error) {
@@ -206,13 +262,13 @@ function HomePage() {
 						}}
 						className={`${
 							chat ? 'tw-inline' : 'tw-hidden'
-						} tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-p-3 tw-rounded-[30px] tw-z-40 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300`}>
+						} md:tw-hidden tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-p-3 tw-rounded-[30px] tw-z-40 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300`}>
 						<HiChatAlt2 size={25} />
 					</div>
 					<div
 						className={`${
 							searchControl && 'tw-w-[100vw] lg:tw-w-[40vw]'
-						} tw-flex tw-items-center content tw-fixed tw-top-[80px] md:tw-top-[35px] tw-left-[-40px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10`}>
+						} tw-flex tw-items-center content tw-fixed tw-top-[55px] md:tw-top-[24px] tw-left-[-40px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10`}>
 						<div
 							className={`${
 								searchControl ? 'search bg-blur __search' : 'search bg-blur'
@@ -263,96 +319,36 @@ function HomePage() {
 								? 'tw-right-0 md:tw-right-[8px]'
 								: 'tw-right-[-800px] md:tw-right-[-350px]'
 						} tw-w-[100%] tw-h-screen tw-px-5 tw-pt-[115px] md:tw-pt-0 md:tw-max-h-[600px] md:tw-w-[350px] tw-fixed tw-z-30 tw-bg-[rgba(255,255,255,0.97)] tw-p-2 tw-rounded-md tw-bottom-0 md:tw-bottom-[50px] tw-text-neutral-900 tw-ease-in tw-duration-300`}>
-						<form onSubmit={SubmitInqury}>
-							<div className="tw-flex tw-justify-end tw-mt-5">
-								<div
-									onClick={() => {
-										setShowForm(false)
-										setChatError(false)
-										setChatSuccess(false)
-										setChatDetail({
-											name: '',
-											title: '',
-											email: '',
-											message: '',
-										})
-									}}
-									className="tw-text-md tw-text-white tw-bg-neutral-900 tw-w-[30px] tw-h-[30px] tw-p-[8px] tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-ease-in tw-duration-300 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900">
-									<CgClose />
-								</div>
-							</div>
-							<p className="tw-text-center tw-leading-5 tw-text-xs tw-my-3 tw-font-bold tw-w-[80%] tw-mx-auto">
-								Please fill out the form below and we will get back to you as
-								soon as possible
-							</p>
-							<div>
-								<input
-									type="text"
-									name="name"
-									id="name"
-									value={chatDetail.name}
-									onChange={handleChangeChat}
-									placeholder="Name"
-									className="tw-bg-transparent tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-text-xs tw-shadow-xl tw-placeholder-neutral-900 placeholder:tw-text-xs focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-1 placeholder:tw-text-neutral-900 tw-font-bold"
-								/>
-							</div>
-							<div>
-								<input
-									type="text"
-									name="title"
-									id="title"
-									value={chatDetail.title}
-									onChange={handleChangeChat}
-									placeholder="Topic"
-									className="tw-bg-transparent tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-text-xs tw-shadow-xl tw-placeholder-neutral-900 placeholder:tw-text-xs focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-1 placeholder:tw-text-neutral-900 tw-font-bold"
-								/>
-							</div>
-							<div>
-								<input
-									type="email"
-									name="email"
-									id="email"
-									value={chatDetail.email}
-									onChange={handleChangeChat}
-									placeholder="Email"
-									className="tw-bg-transparent tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-text-xs tw-shadow-xl tw-placeholder-neutral-900 placeholder:tw-text-xs focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-1 placeholder:tw-text-neutral-900 tw-font-bold"
-								/>
-							</div>
-							<div>
-								<textarea
-									name="message"
-									rows={15}
-									cols={25}
-									value={chatDetail.message}
-									onChange={handleChangeChat}
-									placeholder="Message..."
-									className="tw-bg-transparent tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-text-xs tw-shadow-xl focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-1 placeholder:tw-font-bold placeholder:tw-text-neutral-900 tw-text-neutral-900 tw-font-bold"
-								/>
-							</div>
-							{chatError && (
-								<div className="tw-text-center tw-text-xs tw-mt-2 tw-text-red-700">
-									<span>Please enter required field(s) above</span>
-								</div>
-							)}
-							{chatSuccess && (
-								<div className="tw-text-center tw-text-xs tw-mt-2 tw-text-blue-700">
-									<span>Message Sent!</span>
-								</div>
-							)}
-							<button
-								className="tw-w-full tw-bg-neutral-900 tw-text-white tw-text-center tw-text-xs tw-py-2 tw-mt-3 tw-mb-10 tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900 tw-ease-in tw-duration-300"
-								type="submit">
-								Send message
-							</button>
-						</form>
+						<ContactForm
+							SubmitInqury={SubmitInqury}
+							setShowForm={setShowForm}
+							setChatError={setChatError}
+							setChatSuccess={setChatSuccess}
+							setChatDetail={setChatDetail}
+							chatDetail={chatDetail}
+							handleChangeChat={handleChangeChat}
+							chatSuccess={chatSuccess}
+							chatError={chatError}
+							textColor="tw-text-neutral-900"
+							isCancelBtn={true}
+						/>
 					</div>
-
 					{allProducts.length !== 0 ? (
-						<div className="tw-relative tw-flex tw-flex-col tw-items-center">
-							<Products
-								sales={sales}
-								allProducts={filtered?.length < 1 ? allProducts : filtered}
-							/>
+						<div className="tw-bg-neutral-900 tw-w-[100%]">
+							<div className="tw-mb-6 tw-mt-[75px] md:tw-mt-[60px] tw-w-full tw-px-3 ">
+								<Products
+									SubmitInqury={SubmitInqury}
+									setChatError={setChatError}
+									setChatSuccess={setChatSuccess}
+									chatDetail={chatDetail}
+									handleChangeChat={handleChangeChat}
+									chatSuccess={chatSuccess}
+									chatError={chatError}
+									sales={sales}
+									featuredProduct={featuredProduct}
+									allProducts={filtered?.length < 1 ? allProducts : filtered}
+								/>
+							</div>
 						</div>
 					) : (
 						<div className="tw-py-[100px] tw-flex tw-justify-center">

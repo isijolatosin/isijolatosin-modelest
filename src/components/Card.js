@@ -25,10 +25,7 @@ function Card({ product, setSingleproducts, scrollToTop, sales }) {
 	}
 
 	return (
-		<div
-			// onMouseOver={handleMouseIn}
-			// onMouseOut={() => setClickedID('')}
-			className="tw-h-[300px] tw-w-[300px] tw-shadow-lg md:tw-h-[350px] tw-relative tw-rounded-lg">
+		<div className="tw-h-[300px] tw-w-[250px] md:tw-w-[300px] tw-shadow-lg md:tw-h-[350px] tw-relative tw-rounded-lg">
 			<img
 				onClick={handleViewImage}
 				id={product._id}
@@ -39,13 +36,6 @@ function Card({ product, setSingleproducts, scrollToTop, sales }) {
 			<div className="tw-absolute tw-top-0 tw-text-center tw-rounded-t-lg tw-bg-neutral-900 tw-text-[#bba371] tw-font-bold tw-w-full tw-text-[9px] tw-uppercase tw-tracking-widest">
 				<span>Raw {product?.brand}</span>
 			</div>
-			{/* {clickedID === product._id && (
-				<div className="tw-absolute tw-top-0 tw-right-0 tw-bg-neutral-300 tw-rounded-tr-sm tw-rounded-bl-sm tw-text-xs tw-p-2">
-					<span className="tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-pink-500 tw-to-violet-500">
-						Quick view
-					</span>
-				</div>
-			)} */}
 			<div className="tw-bg-white tw-h-[30%] tw-text-neutral-800 tw-px-2 tw-w-full tw-rounded-b-lg">
 				<div className="tw-relative tw-flex tw-flex-row tw-justify-between">
 					<div className="tw-pt-2 tw-w-full">

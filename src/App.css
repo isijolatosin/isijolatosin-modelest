@@ -372,6 +372,48 @@ select:focus {
 .single::-webkit-scrollbar {
 	display: none;
 }
+/* width height */
+.featuredCard::-webkit-scrollbar {
+	height: 10px;
+}
+
+/* Track */
+.featuredCard::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px rgb(212, 212, 212);
+	border-radius: 100px;
+}
+
+/* Handle */
+.featuredCard::-webkit-scrollbar-thumb {
+	background: rgba(219, 219, 219, 1);
+	border-radius: 100px;
+}
+
+/* Handle on hover */
+.featuredCard::-webkit-scrollbar-thumb:hover {
+	background: rgba(50, 50, 50, 0.4);
+}
+/* width height */
+.featuredCard2::-webkit-scrollbar {
+	height: 10px;
+}
+
+/* Track */
+/* .featuredCard2::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px rgb(212, 212, 212);
+	border-radius: 100px;
+} */
+
+/* Handle */
+.featuredCard2::-webkit-scrollbar-thumb {
+	background: rgba(43, 43, 43, 0.7);
+	border-radius: 100px;
+}
+
+/* Handle on hover */
+.featuredCard2::-webkit-scrollbar-thumb:hover {
+	background: rgba(78, 78, 78, 0.4);
+}
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .image-list,
@@ -1024,6 +1066,44 @@ label input::placeholder {
 	z-index: initial;
 	cursor: initial;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.media-scroller {
+	--spacer: 2rem;
+	--spacer1: 1rem;
+	--spacer2: 0.5rem;
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: 26%;
+	/* padding: 0 var(--spacer1); */
+	overflow-x: scroll;
+	overscroll-behavior-inline: contain;
+	color: white;
+}
+@media (max-width: 1000px) {
+	.media-scroller {
+		grid-auto-columns: 35%;
+	}
+}
+@media (max-width: 640px) {
+	.media-scroller {
+		grid-auto-columns: 55%;
+	}
+}
+
+.media-element {
+	display: grid;
+	grid-template-rows: min-content;
+	gap: var(--spacer2);
+	padding: var(--spacer2);
+	background: rgb(255, 255, 255);
+	border-radius: 10px;
+}
+.media-element > img {
+	border-radius: 10px;
+	inline-size: 100%;
+	aspect-ratio: 12 /9;
+	object-fit: cover;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Arizonia&family=Oswald:wght@200&display=swap');

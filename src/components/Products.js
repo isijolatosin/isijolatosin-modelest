@@ -13,8 +13,21 @@ import Rating from './shared/Rating'
 import Heading from './Heading'
 import { CgClose } from 'react-icons/cg'
 import DealsCard from './shared/DealsCard'
+import FeaturedCard from '../components/shared/FeaturedCard'
+import ContactForm from './shared/ContactForm'
 
-function Products({ allProducts, sales }) {
+function Products({
+	allProducts,
+	sales,
+	featuredProduct,
+	SubmitInqury,
+	setChatError,
+	setChatSuccess,
+	chatDetail,
+	handleChangeChat,
+	chatSuccess,
+	chatError,
+}) {
 	const allSizes = ['14', '16', '18', '20', '22', '24']
 	const [singleProducts, setSingleproducts] = React.useState(null)
 	const [singleCart, setSingleCart] = React.useState(null)
@@ -236,6 +249,7 @@ function Products({ allProducts, sales }) {
 		'18inch, 20inch, & 22inch',
 		'20inch, 22inch, & 24inch',
 	]
+	const productSectionLength = allProducts?.length / 2
 
 	return (
 		<div className="tw-mt-[20px] md:tw-mt-[10px] tw-relative tw-flex tw-flex-col tw-items-center ">
@@ -248,10 +262,10 @@ function Products({ allProducts, sales }) {
 			</div>
 			{allProducts ? (
 				<div
-					className={`tw-grid tw-grid-cols-2 tw-w-full tw-px-2 ${
-						!sales && 'tw-pt-[20px]'
-					} md:tw-w-[100%] md:tw-grid-cols-4 lg:tw-grid-cols-5 2xl:tw-grid-cols-6 3xl:tw-grid-cols-7 tw-gap-2 md:tw-gap-5 `}>
-					{allProducts.map((product) => {
+					className={`featuredCard2 tw-grid tw-grid-flow-col tw-pb-5 tw-overflow-x-scroll tw-w-full ${
+						!sales && 'tw-pt-[8px]'
+					} md:tw-w-[100%] tw-gap-2`}>
+					{allProducts?.slice(0, productSectionLength).map((product) => {
 						return (
 							<div
 								key={product._id}
@@ -271,6 +285,50 @@ function Products({ allProducts, sales }) {
 				<div className="tw-text-neutral-500">Loading data...</div>
 			)}
 			<DealsCard lengthArray={lengthArray} brand="Indian, Virgin, Vietnamese" />
+			<div className="">
+				<FeaturedCard featuredProduct={featuredProduct} />
+			</div>
+			<div className="tw-border-b-[1px] tw-border-neutral-800 tw-w-full">
+				<div className="tw-bg-neutral-900 tw-mt-5 md:tw-w-[50%] tw-w-full tw-mx-auto">
+					<ContactForm
+						SubmitInqury={SubmitInqury}
+						setChatError={setChatError}
+						setChatSuccess={setChatSuccess}
+						chatDetail={chatDetail}
+						handleChangeChat={handleChangeChat}
+						chatSuccess={chatSuccess}
+						chatError={chatError}
+						textColor="tw-text-white"
+						isCancelBtn={false}
+					/>
+				</div>
+			</div>
+			{allProducts ? (
+				<div
+					className={`featuredCard2 tw-grid tw-grid-flow-col tw-pb-5 tw-overflow-x-scroll tw-w-full ${
+						!sales && 'tw-pt-[20px]'
+					} md:tw-w-[100%] tw-gap-2 tw-mt-10 `}>
+					{allProducts
+						?.slice(productSectionLength, allProducts.length)
+						.map((product) => {
+							return (
+								<div
+									key={product._id}
+									className="tw-justify-center tw-items-center tw-flex tw-flex-row">
+									<Card
+										sales={sales}
+										key={product._id}
+										product={product}
+										setSingleproducts={setSingleproducts}
+										scrollToTop={scrollToTop}
+									/>
+								</div>
+							)
+						})}
+				</div>
+			) : (
+				<div className="tw-text-neutral-500">Loading data...</div>
+			)}
 
 			{singleProducts && (
 				<div className="single tw-fixed tw-z-40 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-0 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white md:tw-pt-5 ">

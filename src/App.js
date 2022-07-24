@@ -26,6 +26,7 @@ import VirginWig from './pages/virginWigs'
 import VietnameseWig from './pages/vietnameseWigs'
 import Faqs from './pages/faqs'
 import Blogs from './pages/blogs'
+import AllBundles from './pages/allBundles'
 
 function App() {
 	return (
@@ -45,6 +46,7 @@ function App() {
 			<Route exact path="/canceled" element={<Canceled />} />
 			<Route exact path="/success" element={<Success />} />
 			<Route exact path="/admin-portal" element={<Management />} />
+			<Route exact path="/all-bundles" element={<AllBundles />} />
 			<Route exact path="/bundles/indian" element={<IndianBundles />} />
 			<Route exact path="/bundles/virgin" element={<VirginBundles />} />
 			<Route exact path="/bundles/vietnamese" element={<VietnameseBundles />} />
