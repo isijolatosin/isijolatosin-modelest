@@ -375,18 +375,19 @@ select:focus {
 /* width height */
 .featuredCard::-webkit-scrollbar {
 	height: 10px;
+	width: 9px;
 }
 
 /* Track */
 .featuredCard::-webkit-scrollbar-track {
 	box-shadow: inset 0 0 5px rgb(212, 212, 212);
-	/* border-radius: 100px; */
+	border-radius: 100px;
 }
 
 /* Handle */
 .featuredCard::-webkit-scrollbar-thumb {
 	background: rgba(219, 219, 219, 1);
-	/* border-radius: 100px; */
+	border-radius: 100px;
 }
 
 /* Handle on hover */
@@ -396,12 +397,17 @@ select:focus {
 /* width height */
 .featuredCard2::-webkit-scrollbar {
 	height: 10px;
+	width: 8px;
 }
-
+/* Track */
+/* .featuredCard2::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px rgb(40, 40, 40);
+	border-radius: 100px;
+} */
 /* Handle */
 .featuredCard2::-webkit-scrollbar-thumb {
-	/* background: rgba(43, 43, 43, 0.7); */
-	/* border-radius: 100px; */
+	background: rgba(43, 43, 43, 0.5);
+	border-radius: 100px;
 }
 
 /* Handle on hover */
