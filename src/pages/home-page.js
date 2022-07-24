@@ -331,6 +331,7 @@ function HomePage() {
 							searchControl && 'tw-w-[100%] lg:tw-w-[40%]'
 						} tw-flex tw-flex-col content tw-fixed tw-top-[55px] md:tw-top-[24px] tw-left-[-17px] md:tw-left-[-6px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
 						<div
+							onClick={() => setSearchControl(!searchControl)}
 							className={`${
 								searchControl ? '_search bg-blur __search' : '_search bg-blur'
 							}`}>
