@@ -329,7 +329,7 @@ function HomePage() {
 					<div
 						className={`${
 							searchControl && 'tw-w-[100%] lg:tw-w-[40%]'
-						} tw-flex tw-flex-col content tw-fixed tw-top-[55px] md:tw-top-[24px] tw-left-[-5px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
+						} tw-flex tw-flex-col content tw-fixed tw-top-[55px] md:tw-top-[24px] tw-left-[-17px] md:tw-left-[-6px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
 						<div
 							className={`${
 								searchControl ? '_search bg-blur __search' : '_search bg-blur'
@@ -363,16 +363,38 @@ function HomePage() {
 							</button>
 						</div>
 						{filtered?.length !== 0 && (
-							<div className="tw-bg-white tw-text-black tw-ml-[1px] tw-w-[79.7%] tw-overflow-y-scroll tw-max-h-[100%] md:tw-max-h-[600px] featuredCard2 tw-shadow-lg">
+							<div className="tw-bg-white tw-text-black tw-ml-[2px] tw-w-[79.2%] tw-overflow-y-scroll tw-max-h-[480px] md:tw-max-h-[600px] featuredCard2 tw-shadow-lg">
 								{filtered.map((item) => (
 									<Link to={item?.route} key={item?._id}>
-										<div className="tw-pr-5 tw-py-3 tw-border-b-[1px] tw-w-[90%] tw-mx-auto hover:tw-text-[#bba371] tw-ease-in tw-duration-300">
-											<span className="tw-text-[13px] md:tw-text-[14px]">
-												{item?.name}
-											</span>
+										<div className="tw-flex tw-items-center tw-p-3 tw-border-b-[1px] tw-w-[100%] tw-mx-auto hover:tw-bg-[rgba(215,191,137,0.3)] tw-ease-in tw-duration-300">
+											<div className="tw-mr-3">
+												<img
+													src={item?.image}
+													alt={item?.name}
+													className="tw-object-cover tw-w-[40px] tw-h-[40px] tw-rounded-full"
+												/>
+											</div>
+											<div>
+												<p className="tw-text-[13px] md:tw-text-[14px]">
+													{item?.name}
+												</p>
+												<p className="tw-text-[13px] md:tw-text-[14px]">
+													<span className="tw-text-xs tw-font-light">
+														Starting from
+													</span>{' '}
+													${item?.price}
+												</p>
+											</div>
 										</div>
 									</Link>
 								))}
+								<Link to="/all-bundles">
+									<div className="tw-pr-5 tw-py-3 tw-border-b-[1px] tw-w-[90%] tw-mx-auto">
+										<span className="tw-text-[13px] md:tw-text-[14px] tw-text-[#bba371] hover:tw-text-black tw-ease-in tw-duration-300">
+											View all bundles
+										</span>
+									</div>
+								</Link>
 							</div>
 						)}
 					</div>

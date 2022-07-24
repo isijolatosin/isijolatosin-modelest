@@ -288,7 +288,7 @@ function Products({
 			<div className="">
 				<FeaturedCard featuredProduct={featuredProduct} />
 			</div>
-			<div className="tw-border-b-[1px] tw-border-neutral-800 tw-w-full">
+			<div className="tw-border-b-[1px] tw-border-neutral-800 tw-w-full md:tw-inline tw-hidden">
 				<div className="tw-bg-neutral-900 tw-mt-5 md:tw-w-[50%] tw-w-full tw-mx-auto">
 					<ContactForm
 						SubmitInqury={SubmitInqury}
