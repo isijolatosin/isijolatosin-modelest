@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { RiSearch2Fill } from 'react-icons/ri'
-import { MdOutlineKeyboardArrowUp, MdOutlineClose } from 'react-icons/md'
+import { MdOutlineKeyboardArrowUp } from 'react-icons/md'
 import { HiChatAlt2 } from 'react-icons/hi'
 import { getDatabase, ref, onValue } from 'firebase/database'
 import { Helmet } from 'react-helmet'
@@ -10,9 +9,9 @@ import Products from '../components/Products'
 import { db } from '../firebase'
 import ContactForm from '../components/shared/ContactForm'
 import { Link } from 'react-router-dom'
+import SearchInput from '../components/shared/SearchInput'
 
 function HomePage() {
-	const [inputValue, setInputValue] = React.useState('')
 	const [searchControl, setSearchControl] = React.useState(false)
 	const [chatError, setChatError] = React.useState(false)
 	const [chatSuccess, setChatSuccess] = React.useState(false)
@@ -117,103 +116,6 @@ function HomePage() {
 	React.useEffect(() => {
 		fetchProducts()
 	}, [])
-
-	// window.addEventListener('scroll', () => {
-	// 	setSearchControl(false)
-	// 	setInputValue('')
-	// 	setFiltered([])
-	// })
-
-	const handleChange = (e) => {
-		setInputValue(e)
-
-		if (inputValue) {
-			const returnFiltered = []
-			// eslint-disable-next-line array-callback-return
-			allProducts.filter((product) => {
-				if (
-					product?.name.toLowerCase().includes(inputValue.toLowerCase()) ||
-					product?.brand.toLowerCase().includes(inputValue.toLowerCase()) ||
-					product?.type.toLowerCase().includes(inputValue.toLowerCase())
-				) {
-					if (
-						product?.name.toLowerCase() === 'body wave' ||
-						product?.name.toLowerCase() === 'natural straight' ||
-						product?.name.toLowerCase() === 'natural wavy' ||
-						product?.name.toLowerCase() === 'natural curly'
-					) {
-						const obj = {
-							name: product?.name,
-							image: product?.image,
-							price: product?.price,
-							route: '/bundles/indian',
-						}
-						returnFiltered.push(obj)
-					}
-					if (
-						product?.name.toLowerCase().includes('body wave jet blk') ||
-						product?.name.toLowerCase().includes('body wave blonde') ||
-						product?.name
-							.toLowerCase()
-							.includes('natural straight blonde 613') ||
-						product?.name.toLowerCase().includes('natural wavy blonde 613') ||
-						product?.name.toLowerCase().includes('natural straight jet blk')
-					) {
-						const obj = {
-							name: product?.name,
-							image: product?.image,
-							price: product?.price,
-							route: '/jet-black-&-blonde/indian',
-						}
-						returnFiltered.push(obj)
-					}
-					if (product?.name.toLowerCase().includes('closure')) {
-						const obj = {
-							name: product?.name,
-							image: product?.image,
-							price: product?.price,
-							route: '/closure-frontal/indian',
-						}
-						returnFiltered.push(obj)
-					}
-					if (product?.name.toLowerCase().includes('frontal')) {
-						const obj = {
-							name: product?.name,
-							image: product?.image,
-							price: product?.price,
-							route: '/closure-frontal/indian',
-						}
-						returnFiltered.push(obj)
-					}
-					if (product?.name.toLowerCase().includes('natural virgin wig')) {
-						const obj = {
-							name: product?.name,
-							image: product?.image,
-							price: product?.price,
-							route: '/virgin-wigs',
-						}
-						returnFiltered.push(obj)
-					}
-				}
-
-				if (returnFiltered.length === 0) {
-					setSearchError(true)
-				}
-			})
-			if (returnFiltered.length > 0) {
-				// window.scrollTo(0, 0)
-				setFiltered(returnFiltered.sort((a, b) => a.name.localeCompare(b.name)))
-			}
-		}
-	}
-	console.log(filtered)
-	React.useEffect(() => {
-		if (searchError) {
-			setTimeout(() => {
-				setSearchError(false)
-			}, 5000)
-		}
-	}, [searchError])
 
 	window.onscroll = function (ev) {
 		if (
@@ -330,40 +232,29 @@ function HomePage() {
 						className={`${
 							searchControl && 'tw-w-[100%] lg:tw-w-[40%]'
 						} tw-flex tw-flex-col content tw-fixed tw-top-[55px] md:tw-top-[24px] tw-left-[-6px] md:tw-left-[-6px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
-						<div
-							className={`${
-								searchControl ? '_search bg-blur __search' : '_search bg-blur'
-							}`}>
-							<input
-								type="text"
-								value={inputValue}
-								onChange={(e) => handleChange(e.target.value)}
-								className={`${
-									searchControl
-										? 'search__input tw-placeholder-neutral-900 tw-text-neutral-900 tw-text-[14px] __search__input placeholder:tw-text-xs'
-										: 'search__input tw-placeholder-neutral-900 tw-text-neutral-900 tw-text-[14px]'
-								}`}
-								aria-label="search"
-								placeholder="Search..."
-							/>
-							<button
-								className="search__submit tw-z-10 tw-text-[#bba371]"
-								aria-label="submit search">
-								{searchControl ? (
-									<MdOutlineClose
-										onClick={() => {
-											setInputValue('')
-											setFiltered([])
-											setSearchControl(false)
-										}}
-									/>
-								) : (
-									<RiSearch2Fill onClick={() => setSearchControl(true)} />
-								)}
-							</button>
-						</div>
-						{filtered?.length !== 0 && (
-							<div className="tw-bg-white tw-text-black tw-ml-[1px] tw-w-[79.7%] tw-overflow-y-scroll tw-max-h-[480px] md:tw-max-h-[600px] featuredCard tw-shadow-lg tw-rounded-b-[5px] tw-border-[1px] tw-border-t-0 tw-border-neutral-900">
+						<SearchInput
+							allProducts={allProducts}
+							searchControl={searchControl}
+							setFiltered={setFiltered}
+							setSearchControl={setSearchControl}
+							setSearchError={setSearchError}
+						/>
+						{searchError && (
+							<div className="tw-bg-white tw-text-black tw-ml-[1px] tw-w-[79.7%] featuredCard tw-shadow-lg tw-rounded-b-[5px] tw-border-[1px] tw-border-t-0 tw-border-neutral-900">
+								<p className="tw-text-[13px] md:tw-text-[14px] tw-text-red-700 tw-p-3 tw-pl-5">
+									No Result Found !
+								</p>
+								<Link to="/all-bundles">
+									<div className="tw-pr-5 tw-py-3 tw-border-t-[1px] tw-w-[90%] tw-mx-auto">
+										<span className="tw-text-[13px] md:tw-text-[14px] tw-text-[#bba371] hover:tw-text-black tw-ease-in tw-duration-300">
+											View all bundles
+										</span>
+									</div>
+								</Link>
+							</div>
+						)}
+						{filtered?.length !== 0 && !searchError && (
+							<div className="tw-bg-white tw-text-black tw-ml-[1px] tw-w-[79.7%] tw-overflow-y-scroll tw-max-h-[400px] md:tw-max-h-[600px] featuredCard tw-shadow-lg tw-rounded-b-[5px] tw-border-[1px] tw-border-t-0 tw-border-neutral-900">
 								{filtered.map((item) => (
 									<Link to={item?.route} key={item?._id}>
 										<div className="tw-flex tw-items-center tw-p-3 tw-border-b-[1px] tw-w-[100%] tw-mx-auto hover:tw-bg-[rgba(215,191,137,0.3)] tw-ease-in tw-duration-300">
@@ -403,7 +294,7 @@ function HomePage() {
 							showForm
 								? 'tw-right-0 md:tw-right-[8px]'
 								: 'tw-right-[-800px] md:tw-right-[-350px]'
-						} tw-w-[100%] tw-h-screen tw-px-5 tw-pt-[115px] md:tw-pt-0 md:tw-max-h-[600px] md:tw-w-[350px] tw-fixed tw-z-30 tw-bg-[rgba(255,255,255,0.97)] tw-p-2 tw-rounded-md tw-bottom-0 md:tw-bottom-[50px] tw-text-neutral-900 tw-ease-in tw-duration-300`}>
+						} tw-w-[100%] tw-h-screen tw-px-5 tw-pt-[110px] md:tw-pt-0 md:tw-max-h-[600px] md:tw-w-[350px] tw-fixed tw-z-30 tw-bg-[rgba(255,255,255,0.97)] tw-p-2 tw-bottom-0 md:tw-bottom-[50px] tw-text-neutral-900 tw-ease-in tw-duration-300`}>
 						<ContactForm
 							SubmitInqury={SubmitInqury}
 							setShowForm={setShowForm}

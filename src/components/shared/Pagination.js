@@ -175,8 +175,9 @@ const Pagination = ({ data, contentPerPage, totalContent, setChunkIndex }) => {
 						<MdKeyboardArrowLeft />
 					</button>
 
-					{paginatedCards.map((pagination) => (
+					{paginatedCards.map((pagination, idx) => (
 						<button
+							key={idx}
 							type="button"
 							className={`${
 								currentPage === pagination?.number ? 'active pagNum' : 'pagNum'

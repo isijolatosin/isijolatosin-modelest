@@ -29,6 +29,7 @@ function Products({
 	chatError,
 }) {
 	const allSizes = ['14', '16', '18', '20', '22', '24']
+	const [toggleHeight, setToggleHeight] = React.useState(true)
 	const [singleProducts, setSingleproducts] = React.useState(null)
 	const [singleCart, setSingleCart] = React.useState(null)
 	const [error, setError] = React.useState(false)
@@ -248,7 +249,10 @@ function Products({
 		'18inch, 20inch, & 22inch',
 		'20inch, 22inch, & 24inch',
 	]
-	const productSectionLength = allProducts?.length / 2
+	const productSectionLength =
+		allProducts?.length % 2 === 0
+			? allProducts?.length / 2
+			: allProducts?.length - 1 / 2
 
 	return (
 		<div className="tw-mt-[20px] md:tw-mt-[10px] tw-relative tw-flex tw-flex-col tw-items-center ">
@@ -299,6 +303,9 @@ function Products({
 						chatError={chatError}
 						textColor="tw-text-white"
 						isCancelBtn={false}
+						toggleHeight={toggleHeight}
+						setToggleHeight={setToggleHeight}
+						isFormBtn={true}
 					/>
 				</div>
 			</div>
