@@ -376,7 +376,7 @@ function IndianBundles() {
 									children="All Indian Bundles"
 									isWhite={true}
 									size5={true}
-									isLight={true}
+									isBold={true}
 								/>
 							</div>
 							<div className="tw-w-full tw-px-2">
