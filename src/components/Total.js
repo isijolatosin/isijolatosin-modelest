@@ -8,7 +8,7 @@ const Total = ({ itemCount, total, setRedirect, setPageCancel }) => {
 	// const lonImage = require('../assets/lon-image.jpeg')
 
 	return (
-		<div className="tw-bg-neutral-50 tw-p-5">
+		<div className="tw-bg-white tw-p-5">
 			<StripeCheckout
 				total={total}
 				itemCount={itemCount}

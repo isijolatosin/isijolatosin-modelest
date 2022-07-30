@@ -58,7 +58,7 @@ const CheckoutForm = ({ total, itemCount, setRedirect, setPageCancel }) => {
 	const { user } = useContext(UserContext)
 	const [payPlan, setPlan] = React.useState('')
 	const paymentPlan = [
-		{ id: 1, name: 'Payment Plan' },
+		{ id: 1, name: '...' },
 		{ id: 2, name: 'One-Time' },
 		{ id: 3, name: 'Bi-Weekly' },
 	]
@@ -207,7 +207,7 @@ const CheckoutForm = ({ total, itemCount, setRedirect, setPageCancel }) => {
 	const handleSubmit = async (ev) => {
 		ev.preventDefault()
 
-		if (payPlan === 'Payment Plan') {
+		if (payPlan === '...') {
 			setPaymentPlanWarn(true)
 		}
 
@@ -440,7 +440,7 @@ const CheckoutForm = ({ total, itemCount, setRedirect, setPageCancel }) => {
 							</div>
 						</div>
 						<select
-							className="tw-w-[80%] md:tw-max-w-[200px] tw-text-neutral-500 tw-font-light tw-bg-neutral-50 tw-block tw-px-3 tw-py-2 tw-border-blue-700 tw-rounded-[4px] tw-text-xs tw-border-[1px] tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+							className="tw-shadow-lg tw-w-[80%] md:tw-max-w-[200px] tw-text-neutral-700 tw-font-light tw-bg-[#efefef] tw-block tw-px-4 tw-py-3 tw-border-cyan-50 tw-rounded-[50px] tw-text-xs tw-border-[1px] placeholder:tw-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
 							onChange={handleOnChange}
 							id="payPlan"
 							value={payPlan}
@@ -450,8 +450,8 @@ const CheckoutForm = ({ total, itemCount, setRedirect, setPageCancel }) => {
 							))}
 						</select>
 					</div>
-					<div className="tw-inline md:tw-hidden tw-order-2 tw-absolute tw-top-[57.5%] tw-font-bold tw-text-center tw-w-full">
-						<span>OR</span>
+					<div className="tw-inline md:tw-hidden tw-order-2 tw-absolute tw-top-[54.2%] tw-font-light tw-w-full tw-text-center tw-text-neutral-400">
+						<span className="tw-bg-white tw-px-[1px] tw-text-lg">or</span>
 					</div>
 					<div className="tw-w-full tw-mt-3 md:tw-mt-0 md:tw-w-[50%] tw-order-1 md:tw-order-2 tw-border-b-[1px] md:tw-border-b-0 tw-border-neutral-300 tw-pb-8 md:tw-mb-0 md:tw-pb-0 tw-mb-5 md:tw-mr-8 tw-p-5 md:tw-p-8">
 						<div className=" tw-text-center tw-mb-2">
@@ -472,7 +472,7 @@ const CheckoutForm = ({ total, itemCount, setRedirect, setPageCancel }) => {
 					</div>
 				</div>
 			)}
-			{payPlan !== '' && payPlan !== 'Payment Plan' && (
+			{payPlan !== '' && payPlan !== '...' && (
 				<div className="tw-flex tw-flex-col">
 					{succeeded ? (
 						<article className="tw-text-center tw-mt-2">
@@ -500,14 +500,12 @@ const CheckoutForm = ({ total, itemCount, setRedirect, setPageCancel }) => {
 			)}
 			<form
 				className={
-					payPlan !== '' && payPlan !== 'Payment Plan'
+					payPlan !== '' && payPlan !== '...'
 						? 'tw-block tw-ease-in tw-duration-300 tw-w-full tw-pt-2'
 						: 'tw-hidden tw-ease-in tw-duration-300'
 				}
 				id="payment-form"
-				onSubmit={
-					payPlan === '' || payPlan === 'Payment Plan' ? null : handleSubmit
-				}>
+				onSubmit={payPlan === '' || payPlan === '...' ? null : handleSubmit}>
 				<div className="tw-flex tw-max-w-[95%] tw-mb-1 tw-items-center tw-mx-auto tw-justify-end tw-mr-4 md:tw-mr-6 lg:tw-mr-5 xl:tw-mr-6">
 					<SiMastercard size={20} className="tw-text-yellow-500 tw-mr-3" />
 					<RiVisaLine size={30} className="tw-mr-3 tw-text-blue-900" />
@@ -532,7 +530,7 @@ const CheckoutForm = ({ total, itemCount, setRedirect, setPageCancel }) => {
 						disabled ||
 						succeeded ||
 						payPlan === '' ||
-						payPlan === 'Payment Plan'
+						payPlan === '...'
 					}
 					id="submit">
 					<span
@@ -541,7 +539,7 @@ const CheckoutForm = ({ total, itemCount, setRedirect, setPageCancel }) => {
 							disabled ||
 							succeeded ||
 							payPlan === '' ||
-							payPlan === 'Payment Plan'
+							payPlan === '...'
 								? 'tw-text-neutral-50 tw-font-light'
 								: 'tw-text-orange-500 tw-font-light'
 						}>

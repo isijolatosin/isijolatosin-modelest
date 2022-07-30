@@ -265,14 +265,14 @@ function Products({
 			</div>
 			{allProducts ? (
 				<div
-					className={`featuredCard2 tw-grid tw-grid-flow-col tw-pb-5 tw-overflow-x-scroll tw-w-full ${
+					className={`featuredCard2 tw-grid tw-grid-flow-col tw-pb-5 tw-overflow-x-scroll tw-w-full tw-snap-x tw-snap-mandatory ${
 						!sales && 'tw-pt-[8px]'
 					} md:tw-w-[100%] tw-gap-2`}>
 					{allProducts?.slice(0, productSectionLength).map((product) => {
 						return (
 							<div
 								key={product._id}
-								className="tw-justify-center tw-items-center tw-flex tw-flex-row">
+								className="tw-justify-center tw-items-center tw-flex tw-flex-row tw-snap-center">
 								<Card
 									sales={sales}
 									key={product._id}
@@ -311,7 +311,7 @@ function Products({
 			</div>
 			{allProducts ? (
 				<div
-					className={`featuredCard2 tw-grid tw-grid-flow-col tw-pb-5 tw-overflow-x-scroll tw-w-full ${
+					className={`featuredCard2 tw-grid tw-grid-flow-col tw-pb-5 tw-overflow-x-scroll tw-w-full tw-snap-x tw-snap-mandatory ${
 						!sales && 'tw-pt-[20px]'
 					} md:tw-w-[100%] tw-gap-2 tw-mt-10 `}>
 					{allProducts
@@ -320,7 +320,7 @@ function Products({
 							return (
 								<div
 									key={product._id}
-									className="tw-justify-center tw-items-center tw-flex tw-flex-row">
+									className="tw-justify-center tw-items-center tw-flex tw-flex-row tw-snap-center">
 									<Card
 										sales={sales}
 										key={product._id}

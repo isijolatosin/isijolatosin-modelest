@@ -52,10 +52,10 @@ export default function PayplaCheckoutButton({
 	// }, [totalPrice])
 
 	return (
-		<div id="paypal-button-container">
+		<div id="paypal-button-container" className=" tw-drop-shadow-lg">
 			<PayPalButtons
 				style={{
-					// color: 'gold',
+					color: 'silver',
 					label: 'checkout',
 					shape: 'pill',
 				}}
