@@ -436,11 +436,11 @@ const CheckoutForm = ({ total, itemCount, setRedirect, setPageCancel }) => {
 							<FaCcStripe size={55} />
 							<div className="tw-text-xs tw-font-light tw-mb-2 tw-italic tw-ml-1 tw-mt-4">
 								<span className="tw-font-bold">Pay with stripe</span>
-								<br /> Select payment plan
+								<br /> Select a payment plan
 							</div>
 						</div>
 						<select
-							className="tw-shadow-lg tw-w-[80%] md:tw-max-w-[200px] tw-text-neutral-700 tw-font-light tw-bg-[#efefef] tw-block tw-px-4 tw-py-3 tw-border-cyan-50 tw-rounded-[50px] tw-text-xs tw-border-[1px] placeholder:tw-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+							className="tw-shadow-lg tw-w-[80%] md:tw-max-w-[200px] tw-text-neutral-700 tw-font-light tw-bg-[#efefef] tw-block tw-px-4 tw-py-3 tw-border-blue-500 tw-rounded-[50px] tw-text-xs tw-border-[1px] placeholder:tw-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
 							onChange={handleOnChange}
 							id="payPlan"
 							value={payPlan}
