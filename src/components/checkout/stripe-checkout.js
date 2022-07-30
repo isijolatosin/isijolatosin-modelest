@@ -6,11 +6,16 @@ import CheckoutForm from './CheckoutForm'
 
 const promise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
 
-const StripeCheckout = ({ total, itemCount }) => {
+const StripeCheckout = ({ total, itemCount, setRedirect, setPageCancel }) => {
 	return (
 		<Wrapper>
 			<Elements stripe={promise}>
-				<CheckoutForm total={total} itemCount={itemCount} />
+				<CheckoutForm
+					total={total}
+					itemCount={itemCount}
+					setRedirect={setRedirect}
+					setPageCancel={setPageCancel}
+				/>
 			</Elements>
 		</Wrapper>
 	)

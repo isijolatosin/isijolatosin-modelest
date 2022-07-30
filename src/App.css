@@ -318,7 +318,7 @@ select:focus {
 .user-email-input::placeholder {
 	font-style: italic;
 	font-size: 12px;
-	color: var(--grey-600);
+	color: var(--grey-900);
 }
 .input-error {
 	border-width: 1px;
@@ -406,13 +406,13 @@ select:focus {
 } */
 /* Handle */
 .featuredCard2::-webkit-scrollbar-thumb {
-	background: rgba(43, 43, 43, 0.5);
+	background: rgba(43, 43, 43, 0.8);
 	border-radius: 100px;
 }
 
 /* Handle on hover */
 .featuredCard2::-webkit-scrollbar-thumb:hover {
-	background: rgba(78, 78, 78, 0.4);
+	background: rgba(78, 78, 78, 0.8);
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
@@ -1105,6 +1105,23 @@ label input::placeholder {
 	inline-size: 100%;
 	aspect-ratio: 12 /9;
 	object-fit: cover;
+}
+
+.circular-loader {
+	height: 80px;
+	width: 80px;
+	border-radius: 50%;
+	border: 5px solid #fff;
+	border-top: #000;
+	animation: circular-loader 2s linear infinite;
+}
+@keyframes circular-loader {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Arizonia&family=Oswald:wght@200&display=swap');

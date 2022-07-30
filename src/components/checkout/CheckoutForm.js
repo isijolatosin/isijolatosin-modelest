@@ -11,8 +11,10 @@ import { clearCartItem, selectCartItems } from '../../slices/appSlices'
 import { UserContext } from '../../context/user-context'
 import { SHIPPING_COST } from '../../constant'
 import { ValidateEmail } from '../../utils/ValidateEmail'
+import PaypalCheckoutButton from '../PaypalCheckoutButton'
+import { FaCcStripe } from 'react-icons/fa'
 
-const CheckoutForm = ({ total, itemCount }) => {
+const CheckoutForm = ({ total, itemCount, setRedirect, setPageCancel }) => {
 	const navigate = useNavigate()
 	const stripe = useStripe()
 	const elements = useElements()
@@ -60,7 +62,39 @@ const CheckoutForm = ({ total, itemCount }) => {
 		{ id: 2, name: 'One-Time' },
 		{ id: 3, name: 'Bi-Weekly' },
 	]
+
+	const shipping_fee = Math.floor(shippingCost.cost * 100)
+	const taxPercentage = total * Number(process.env.REACT_APP_TAX_PERCENT)
+	const tax = Math.floor(taxPercentage * 100)
+	const price = Math.floor((total + taxPercentage) * 100)
+	const total_amount = price
+	const totalPrice = Math.floor(total * 100)
+
+	const createPaymentIntent = async () => {
+		try {
+			const { data } = await axios.post(
+				'/.netlify/functions/create-payment-intent',
+				JSON.stringify({ cartItems, shipping_fee, totalPrice, tax })
+			)
+
+			setClientSecret(data.clientSecret.split("'")?.[0])
+		} catch (error) {
+			set_Error(error?.response?.data ? 'Please contact modelEst Admin...' : '')
+		}
+	}
+
+	// React.useEffect(() => {
+	// 	if (shipping_fee !== 0) {
+	// 		createPaymentIntent()
+	// 	}
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, [shipping_fee])
+
 	const handleOnChange = (e) => {
+		if (shipping_fee !== 0) {
+			createPaymentIntent()
+		}
+
 		setPlan(e.target.value)
 	}
 	const inputOnchangeHandler = (e) => {
@@ -164,32 +198,6 @@ const CheckoutForm = ({ total, itemCount }) => {
 			},
 		},
 	}
-	const shipping_fee = Math.floor(shippingCost.cost * 100)
-	const taxPercentage = total * Number(process.env.REACT_APP_TAX_PERCENT)
-	const tax = Math.floor(taxPercentage * 100)
-	const price = Math.floor((total + taxPercentage) * 100)
-	const total_amount = price
-	const totalPrice = Math.floor(total * 100)
-
-	const createPaymentIntent = async () => {
-		try {
-			const { data } = await axios.post(
-				'/.netlify/functions/create-payment-intent',
-				JSON.stringify({ cartItems, shipping_fee, totalPrice, tax })
-			)
-
-			setClientSecret(data.clientSecret.split("'")?.[0])
-		} catch (error) {
-			set_Error(error?.response?.data ? 'Please contact modelEst Admin...' : '')
-		}
-	}
-
-	React.useEffect(() => {
-		if (shipping_fee !== 0) {
-			createPaymentIntent()
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [shipping_fee])
 
 	const handleChange = async (event) => {
 		setDisabled(event.empty)
@@ -323,7 +331,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 						className={
 							error && !ValidateEmail(email)
 								? 'user-email-input input-error'
-								: 'user-email-input tw-text-sm'
+								: 'user-email-input tw-text-sm tw-border-neutral-400'
 						}
 					/>
 				)}
@@ -336,7 +344,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 					className={
 						error && !address.street
 							? 'user-email-input input-error'
-							: 'user-email-input tw-text-sm tw-font-light'
+							: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400'
 					}
 				/>
 				<input
@@ -348,7 +356,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 					className={
 						error && !address.city
 							? 'user-email-input input-error'
-							: 'user-email-input tw-text-sm tw-font-light'
+							: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400'
 					}
 				/>
 				<input
@@ -360,7 +368,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 					className={
 						error && !address.province
 							? 'user-email-input input-error'
-							: 'user-email-input tw-text-sm tw-font-light'
+							: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400'
 					}
 				/>
 				<input
@@ -372,7 +380,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 					className={
 						error && !address.postalcode
 							? 'user-email-input input-error'
-							: 'user-email-input tw-text-sm tw-font-light'
+							: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400'
 					}
 				/>
 				<input
@@ -384,7 +392,7 @@ const CheckoutForm = ({ total, itemCount }) => {
 					className={
 						error && !address.country
 							? 'user-email-input input-error'
-							: 'user-email-input tw-text-sm tw-font-light'
+							: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400'
 					}
 				/>
 			</div>
@@ -422,20 +430,43 @@ const CheckoutForm = ({ total, itemCount }) => {
 				</span>
 			</div>
 			{isProceed && (
-				<div className="tw-flex tw-flex-col tw-items-center tw-my-10 tw-w-[80%] tw-mx-auto">
-					<select
-						className="tw-w-[150px] tw-text-neutral-500 tw-font-light tw-bg-neutral-50 tw-block tw-px-3 tw-py-2 tw-border-gray-200 tw-rounded-[4px] tw-text-xs tw-border-[1px] tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
-						onChange={handleOnChange}
-						id="payPlan"
-						value={payPlan}
-						name="payPlan">
-						{paymentPlan.map((plan) => (
-							<option key={plan.id}>{plan.name}</option>
-						))}
-					</select>
-					<span className="tw-text-sm tw-font-light tw-text-neutral-600 tw-mt-2">
-						Please select payment plan before payment
-					</span>
+				<div className="tw-flex tw-flex-col md:tw-flex-row tw-items-top tw-mt-10 tw-w-[100%]">
+					<div className="tw-flex tw-flex-col tw-items-center md:tw-items-left tw-my-10 tw-w-full md:tw-w-[40%] md:tw-mr-8 tw-mx-auto tw-mt-[20px] tw-border-r-[1px] ">
+						<div className="tw-flex tw-text-blue-600">
+							<FaCcStripe size={55} />
+							<div className="tw-text-xs tw-font-light tw-mb-2 tw-italic tw-ml-1 tw-mt-4">
+								<span className="tw-font-bold">Pay with stripe</span>
+								<br /> Select payment plan
+							</div>
+						</div>
+						<select
+							className="tw-w-[80%] md:tw-w-[230px] tw-text-neutral-500 tw-font-light tw-bg-neutral-50 tw-block tw-px-3 tw-py-2 tw-border-blue-700 tw-rounded-[4px] tw-text-xs tw-border-[1px] tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+							onChange={handleOnChange}
+							id="payPlan"
+							value={payPlan}
+							name="payPlan">
+							{paymentPlan.map((plan) => (
+								<option key={plan.id}>{plan.name}</option>
+							))}
+						</select>
+					</div>
+					<div className="tw-w-full tw-mt-3 md:tw-mt-0 md:tw-w-[50%]">
+						<div className=" tw-text-center tw-mb-2">
+							<span className="tw-text-[14px] tw-font-bold">
+								<span className="tw-text-neutral-400">OR,</span> PAY WITH PAYPAL
+							</span>
+						</div>
+						<div className="tw-w-full">
+							<PaypalCheckoutButton
+								shippingFee={shipping_fee}
+								totalPrice={totalPrice}
+								tax={tax}
+								cartItems={cartItems}
+								setRedirect={setRedirect}
+								setPageCancel={setPageCancel}
+							/>
+						</div>
+					</div>
 				</div>
 			)}
 			{payPlan !== '' && payPlan !== 'Payment Plan' && (
