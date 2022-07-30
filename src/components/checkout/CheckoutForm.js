@@ -430,8 +430,8 @@ const CheckoutForm = ({ total, itemCount, setRedirect, setPageCancel }) => {
 				</span>
 			</div>
 			{isProceed && (
-				<div className="tw-flex tw-flex-col md:tw-flex-row tw-items-top tw-mt-10 tw-w-[100%]">
-					<div className="tw-flex tw-flex-col tw-items-center md:tw-items-left tw-my-10 tw-w-full md:tw-w-[40%] md:tw-mr-8 tw-mx-auto tw-mt-[20px] tw-border-r-[1px] ">
+				<div className="tw-relative tw-flex tw-flex-col md:tw-flex-row tw-items-top tw-mt-10 tw-w-[100%]">
+					<div className="tw-flex tw-flex-col tw-items-center md:tw-items-left tw-my-10 tw-w-full md:tw-w-[40%] md:tw-mr-3 tw-mx-auto tw-mt-[20px] md:tw-border-r-[1px] md:tw-border-neutral-500 tw-order-3 md:tw-order-1">
 						<div className="tw-flex tw-text-blue-600">
 							<FaCcStripe size={55} />
 							<div className="tw-text-xs tw-font-light tw-mb-2 tw-italic tw-ml-1 tw-mt-4">
@@ -440,7 +440,7 @@ const CheckoutForm = ({ total, itemCount, setRedirect, setPageCancel }) => {
 							</div>
 						</div>
 						<select
-							className="tw-w-[80%] md:tw-w-[230px] tw-text-neutral-500 tw-font-light tw-bg-neutral-50 tw-block tw-px-3 tw-py-2 tw-border-blue-700 tw-rounded-[4px] tw-text-xs tw-border-[1px] tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
+							className="tw-w-[80%] md:tw-max-w-[200px] tw-text-neutral-500 tw-font-light tw-bg-neutral-50 tw-block tw-px-3 tw-py-2 tw-border-blue-700 tw-rounded-[4px] tw-text-xs tw-border-[1px] tw-placeholder-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
 							onChange={handleOnChange}
 							id="payPlan"
 							value={payPlan}
@@ -450,10 +450,13 @@ const CheckoutForm = ({ total, itemCount, setRedirect, setPageCancel }) => {
 							))}
 						</select>
 					</div>
-					<div className="tw-w-full tw-mt-3 md:tw-mt-0 md:tw-w-[50%]">
+					<div className="tw-inline md:tw-hidden tw-order-2 tw-absolute tw-top-[57.5%] tw-font-bold tw-text-center tw-w-full">
+						<span>OR</span>
+					</div>
+					<div className="tw-w-full tw-mt-3 md:tw-mt-0 md:tw-w-[50%] tw-order-1 md:tw-order-2 tw-border-b-[1px] md:tw-border-b-0 tw-border-neutral-300 tw-pb-8 md:tw-mb-0 md:tw-pb-0 tw-mb-5 md:tw-mr-8 tw-p-8">
 						<div className=" tw-text-center tw-mb-2">
-							<span className="tw-text-[14px] tw-font-bold">
-								<span className="tw-text-neutral-400">OR,</span> PAY WITH PAYPAL
+							<span className="tw-text-[12px] tw-font-bold">
+								PAY WITH PAYPAL
 							</span>
 						</div>
 						<div className="tw-w-full">
