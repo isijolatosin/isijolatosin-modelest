@@ -10,8 +10,16 @@ exports.handler = async function (event, context) {
 	}
 
 	if (event.body) {
-		const { payment_method, email, balance, shippingFee, tax, cartItems } =
-			JSON.parse(event.body)
+		const {
+			payment_method,
+			email,
+			balance,
+			shippingFee,
+			tax,
+			cartItems,
+			sales,
+			shipMethod,
+		} = JSON.parse(event.body)
 
 		let totalCartPrice = 0
 		// eslint-disable-next-line array-callback-return
@@ -19,10 +27,15 @@ exports.handler = async function (event, context) {
 			totalCartPrice += item?.price * item?.quantity * 100
 		})
 
-		if (totalCartPrice === balance) {
+		const discountedPrice =
+			sales && totalCartPrice - totalCartPrice * (sales / 100)
+
+		if (discountedPrice === balance) {
 			const noOfInstallment = 4
 			const subAmount = Math.floor(
-				(balance + shippingFee + tax) / noOfInstallment
+				shipMethod === 'ship'
+					? (balance + shippingFee + tax) / noOfInstallment
+					: (balance + tax) / noOfInstallment
 			)
 
 			try {

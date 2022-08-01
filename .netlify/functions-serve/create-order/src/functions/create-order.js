@@ -5658,8 +5658,9 @@ var price;
 async function handler(event, context) {
   const data = JSON.parse(event.body);
   const totalFromRedux = data.cartItems.reduce((total, prod) => total + prod.price * prod.quantity, 0);
-  if (totalFromRedux === data.total / 100) {
-    price = (data.total + data.tax + data.ship) / 100;
+  const discountedPrice = data.sales ? totalFromRedux - totalFromRedux * (data.discountRate / 100) : totalFromRedux;
+  if (discountedPrice === data.total / 100) {
+    data.shipMethod === "ship" ? price = (data.total + data.tax + data.ship) / 100 : price = (data.total + data.tax) / 100;
     const order = await createOrder();
     return {
       statusCode: 200,

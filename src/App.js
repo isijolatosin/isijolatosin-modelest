@@ -16,6 +16,8 @@ import IndianJetBlackHair from './pages/indian-jet-black-hairs'
 import VirginJetBlackHair from './pages/virgin-jet-black-hairs'
 import VietnameseJetBlackHair from './pages/vietnamese-jet-black-hairs'
 import Cart from './pages/cart'
+import Checkout from './pages/checkout'
+import Payment from './pages/payment'
 import Account from './pages/account'
 import IndianDeal from './pages/indianDeal'
 import VietnameseDeal from './pages/vietnameseDeal'
@@ -156,6 +158,8 @@ function App() {
 					element={<VietnameseJetBlackHair />}
 				/>
 				<Route exact path="/user-cart/:userId" element={<Cart />} />
+				<Route exact path="/checkout/:userId" element={<Checkout />} />
+				<Route exact path="/payment/:userId" element={<Payment />} />
 				<Route exact path="/user/:userInfo" element={<Account />} />
 				<Route exact path="*" element={<NotFound />} />
 				<Route exact path="/" element={<HomePage />} />

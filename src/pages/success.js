@@ -20,6 +20,8 @@ const Success = () => {
 	const userAddress = localStorage.getItem('address')
 	const [sales, setSales] = React.useState(false)
 	const payload = localStorage.getItem('payload')
+	const shipOption = localStorage.getItem('ship')
+	const paymentName = localStorage.getItem('paymentName')
 	const userEmail = user?.email || localStorage.getItem('altEmail')
 	const database = getDatabase()
 
@@ -72,7 +74,7 @@ const Success = () => {
 			quantity: quantity,
 			discount: '00.00',
 			subtotal: price,
-			shipping: shipping,
+			shipping: shipOption === 'ship' ? shipping : '',
 			tax: tax,
 			total: total,
 			address: userAddress,
@@ -128,7 +130,7 @@ const Success = () => {
 					.doc(`${userEmail}/`)
 					.collection('shoppings')
 					.add({
-						id: item.id,
+						id: item.id + orderNo,
 						title: item.name,
 						description: item.description,
 						quantity: item.quantity,
@@ -141,6 +143,8 @@ const Success = () => {
 						orderNo: orderNo,
 						timestamp: new Date().valueOf(),
 						image: item?.image ? item?.image : '',
+						shipMethod: shipOption,
+						cardHolder: paymentName,
 					})
 					.then(() => {
 						console.log(`SUCCESSFULL`)
@@ -152,7 +156,7 @@ const Success = () => {
 					.doc(`${AUTHORIZED_ID.id_one}/`)
 					.collection('all-purchased')
 					.add({
-						id: item.id,
+						id: item.id + orderNo,
 						title: item.name,
 						description: item.description,
 						quantity: item.quantity,
@@ -165,6 +169,8 @@ const Success = () => {
 						orderNo: orderNo,
 						timestamp: new Date().valueOf(),
 						image: item?.image ? item?.image : '',
+						shipMethod: shipOption,
+						cardHolder: paymentName,
 					})
 					.then(() => {
 						console.log(`SUCCESSFULL`)
@@ -180,6 +186,11 @@ const Success = () => {
 		localStorage.removeItem('payload', '')
 		localStorage.removeItem('address', '')
 		localStorage.removeItem('altEmail', '')
+		localStorage.removeItem('discountPrice', '')
+		localStorage.removeItem('ship', '')
+		localStorage.removeItem('shippingCost', '')
+		localStorage.removeItem('address', '')
+		localStorage.removeItem('paymentName', '')
 		navigate('/')
 	}
 

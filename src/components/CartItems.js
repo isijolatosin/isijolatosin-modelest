@@ -1,8 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { MdAddShoppingCart } from 'react-icons/md'
-import { BsCartDash } from 'react-icons/bs'
-import { GiTrashCan } from 'react-icons/gi'
+import { GrFormClose, GrFormAdd, GrFormSubtract } from 'react-icons/gr'
 import { MdOutlineKeyboardArrowUp } from 'react-icons/md'
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
 import {
@@ -46,16 +44,15 @@ const CartItems = ({ product }) => {
 					alt={name}
 				/>
 			</div>
-			<div className="tw-flex tw-flex-row tw-justify-between tw-items-center tw-w-[100%] tw-pr-5">
+			<div className="tw-flex tw-flex-row tw-justify-between tw-items-center tw-w-[100%]">
 				<div className="tw-text-neutral-600 tw-font-light tw-text-sm">
 					<div className="tw-font-bold">
 						<h4>{name}</h4>
 					</div>
-					<p>{`Price: $${price}`}</p>
+					<p>{`Price: $${price * quantity}`}</p>
 					<p>{`Length: ${hairLength}`}</p>
 					{hairColor && <p>{`Color: ${hairColor}`}</p>}
 					{hairTexture && <p>{`Texture: ${hairTexture}`}</p>}
-					<p>{`Quantity: ${quantity}`}</p>
 					<div className="">
 						{!expand && description?.length >= 100 ? (
 							<span>{description.substring(0, 50)}...</span>
@@ -79,26 +76,29 @@ const CartItems = ({ product }) => {
 						)}
 					</div>
 				</div>
-				<div className="tw-flex tw-flex-col tw-justify-between tw-h-[70%]">
+				<div className="tw-flex tw-flex-col tw-items-center tw-justify-between tw-h-[80%] md:tw-h-[100%] tw-bg-neutral-200 tw-py-3 tw-px-2 tw-rounded-md">
 					<div
-						className="tw-text-2xl tw-text-neutral-300 hover:tw-cursor-pointer hover:tw-text-neutral-900 tw-ease-in tw-duration-300"
+						className=" tw-text-md tw-text-neutral-300 hover:tw-cursor-pointer hover:tw-text-neutral-900 tw-ease-in tw-duration-300"
 						onClick={increaseItem}>
-						<MdAddShoppingCart />
+						<GrFormAdd />
 						{/* <span>Add</span> */}
+					</div>
+					<div>
+						<span className="tw-text-xs">{quantity}</span>
 					</div>
 					{quantity === 1 && (
 						<div
-							className="tw-text-2xl tw-text-neutral-300 hover:tw-cursor-pointer hover:tw-text-neutral-900 tw-ease-in tw-duration-300"
+							className=" tw-text-md tw-text-neutral-300 hover:tw-cursor-pointer hover:tw-text-neutral-900 tw-ease-in tw-duration-300"
 							onClick={removeItem}>
-							<GiTrashCan />
+							<GrFormClose />
 							{/* <span>Delete</span> */}
 						</div>
 					)}
 					{quantity > 1 && (
 						<div
-							className="tw-text-2xl tw-text-neutral-300 hover:tw-cursor-pointer hover:tw-text-neutral-900 tw-ease-in tw-duration-300"
+							className=" tw-text-md tw-text-neutral-300 hover:tw-cursor-pointer hover:tw-text-neutral-900 tw-ease-in tw-duration-300"
 							onClick={decreaseItem}>
-							<BsCartDash />
+							<GrFormSubtract />
 							{/* <span>Remove</span> */}
 						</div>
 					)}

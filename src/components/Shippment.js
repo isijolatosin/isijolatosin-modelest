@@ -89,15 +89,18 @@ function Shippment() {
 						for (const result of results) {
 							data.push({
 								address: result?.data.address,
+								cardHolder: result?.data.cardHolder,
 								color: result?.data.color,
 								customer: result?.data.customer,
 								description: result?.data.description,
 								email: result?.data.email,
 								id: result?.data.id,
+								image: result?.data.image,
 								length: result?.data.length,
 								orderNo: result?.data.orderNo,
 								price: `$${result?.data.price}`,
 								quantity: result?.data.quantity,
+								shipMethod: result?.data.shipMethod,
 								timestamp: new Date(result?.data.timestamp).toDateString(),
 								title: result?.data.title,
 							})

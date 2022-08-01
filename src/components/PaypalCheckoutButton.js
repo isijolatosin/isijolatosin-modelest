@@ -8,6 +8,8 @@ export default function PayplaCheckoutButton({
 	cartItems,
 	setRedirect,
 	setPageCancel,
+	shipMethod,
+	sales,
 }) {
 	// React.useEffect(() => {
 	// 	if (cartItems) {
@@ -68,6 +70,8 @@ export default function PayplaCheckoutButton({
 							tax: tax,
 							ship: shippingFee,
 							cartItems: cartItems,
+							shipMethod: shipMethod,
+							discountRate: 15,
 						}),
 					})
 						.then((response) => {
@@ -84,11 +88,13 @@ export default function PayplaCheckoutButton({
 				}}
 				// Finalize the transaction on the server after payer approval
 				onApprove={function (data, actions) {
-					return actions.order.capture().then(function (details) {
-						setRedirect(true)
-						console.log(
-							'Transaction completed by ' + details.payer.name.given_name
-						)
+					return actions.order.capture().then(function (orderData) {
+						const transaction = orderData.purchase_units[0].payments.captures[0]
+						const name = orderData.payer.name.given_name
+						if (transaction.id) {
+							setRedirect(true)
+						}
+						localStorage.setItem('paymentName', name)
 					})
 				}}
 				onCancel={() => {

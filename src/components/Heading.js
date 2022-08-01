@@ -7,6 +7,7 @@ function Heading({
 	size3,
 	size4,
 	size5,
+	size6,
 	isLead,
 	isWhite,
 	isLight,
@@ -19,7 +20,7 @@ function Heading({
 				size2 && 'tw-text-sm'
 			} ${size3 && 'tw-text-[18px]'} ${size4 && 'tw-text-lg'} ${
 				size5 && 'tw-text-xl'
-			} ${size4 && 'tw-text-2xl'} ${isLead && 'tw-leading-8'} `}>
+			} ${size6 && 'tw-text-2xl'} ${isLead && 'tw-leading-8'} `}>
 			{children}
 		</h1>
 	)

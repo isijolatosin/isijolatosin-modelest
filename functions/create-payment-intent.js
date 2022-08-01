@@ -6,7 +6,8 @@ const stripe = require('stripe')(process.env.REACT_APP_STRIPE_PRIVATE_KEY)
 exports.handler = async function (event, context) {
 	if (event.body) {
 		// eslint-disable-next-line no-unused-vars
-		const { cartItems, shipping_fee, totalPrice, tax } = JSON.parse(event.body)
+		const { cartItems, shipping_fee, totalPrice, tax, sales, shipMethod } =
+			JSON.parse(event.body)
 
 		let totalCartPrice = 0
 		// eslint-disable-next-line array-callback-return
@@ -16,27 +17,59 @@ exports.handler = async function (event, context) {
 
 		const calculateOrderAmount = () => {
 			// Note - Check price compare with mongoDB
-			return shipping_fee + totalPrice + tax
+			let finalPrice
+			if (shipMethod === 'ship') {
+				finalPrice = shipping_fee + totalPrice + tax
+			} else {
+				finalPrice = totalPrice + tax
+			}
+			return finalPrice
 		}
+		const discountedPrice =
+			sales && totalCartPrice - totalCartPrice * (sales / 100)
 
-		if (totalCartPrice === totalPrice) {
-			try {
-				const paymentIntent = await stripe.paymentIntents.create({
-					amount: calculateOrderAmount(),
-					currency: 'usd',
-					automatic_payment_methods: {
-						enabled: true,
-					},
-				})
-				console.log(paymentIntent)
-				return {
-					statusCode: 200,
-					body: JSON.stringify({ clientSecret: paymentIntent.client_secret }),
+		if (sales) {
+			if (discountedPrice === totalPrice) {
+				try {
+					const paymentIntent = await stripe.paymentIntents.create({
+						amount: calculateOrderAmount(),
+						currency: 'usd',
+						automatic_payment_methods: {
+							enabled: true,
+						},
+					})
+
+					return {
+						statusCode: 200,
+						body: JSON.stringify({ clientSecret: paymentIntent.client_secret }),
+					}
+				} catch (error) {
+					return {
+						statusCodes: 500,
+						body: JSON.stringify({ msg: error.message }),
+					}
 				}
-			} catch (error) {
-				return {
-					statusCodes: 500,
-					body: JSON.stringify({ msg: error.message }),
+			}
+		} else {
+			if (totalCartPrice === totalPrice) {
+				try {
+					const paymentIntent = await stripe.paymentIntents.create({
+						amount: calculateOrderAmount(),
+						currency: 'usd',
+						automatic_payment_methods: {
+							enabled: true,
+						},
+					})
+
+					return {
+						statusCode: 200,
+						body: JSON.stringify({ clientSecret: paymentIntent.client_secret }),
+					}
+				} catch (error) {
+					return {
+						statusCodes: 500,
+						body: JSON.stringify({ msg: error.message }),
+					}
 				}
 			}
 		}

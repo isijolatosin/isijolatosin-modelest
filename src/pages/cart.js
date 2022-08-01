@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Helmet } from 'react-helmet'
 import { getDatabase, ref, onValue } from 'firebase/database'
 import { useSelector } from 'react-redux'
@@ -6,22 +6,19 @@ import { useNavigate } from 'react-router-dom'
 import { FaOpencart, FaHandPointRight } from 'react-icons/fa'
 import Layout from '../components/shared/Layout'
 import CartItems from '../components/CartItems'
-import {
-	selectCartItems,
-	selectItemCount,
-	selectTotal,
-} from '../slices/appSlices'
-import Total from '../components/Total'
+import { selectCartItems, selectTotal } from '../slices/appSlices'
 import Button from '../components/shared/Button'
+import { UserContext } from '../context/user-context'
 
 const Cart = () => {
-	const itemCount = useSelector(selectItemCount)
-	const total = useSelector(selectTotal)
+	const { user } = useContext(UserContext)
 	const cartItems = useSelector(selectCartItems)
+	const total = useSelector(selectTotal)
 	const navigate = useNavigate()
 	const [sales, setSales] = React.useState(false)
-	const [redirect, setRedirect] = React.useState(false)
-	const [pageCancel, setPageCancel] = React.useState(false)
+	const [agree, setAgree] = React.useState(false)
+	const [warn, setWarn] = React.useState(false)
+	const [showInfo, setShowInfo] = React.useState(false)
 	const database = getDatabase()
 
 	React.useEffect(() => {
@@ -34,25 +31,19 @@ const Cart = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	if (redirect) {
-		setTimeout(function () {
-			setRedirect(false)
-
-			navigate('/success')
-		}, 5000)
-	}
-	if (pageCancel) {
-		setTimeout(function () {
-			setPageCancel(false)
-
-			navigate('/canceled')
-		}, 5000)
+	function handleCheckout() {
+		if (!agree) {
+			setWarn(true)
+		}
+		if (agree) {
+			navigate(`/checkout/${user?.displayName || 'new-customer'}`)
+		}
 	}
 
 	return (
 		<>
 			<Helmet>
-				<title>Checkout</title>
+				<title>Cart</title>
 			</Helmet>
 			<Layout>
 				<div
@@ -77,50 +68,64 @@ const Cart = () => {
 						</div>
 					) : (
 						<div className="tw-flex tw-flex-col tw-w-full lg:tw-flex-row lg:tw-w-[90%] tw-justify-center tw-items-center lg:tw-items-start">
-							<div className="tw-w-full lg:tw-w-[40%] xl:tw-w-[40%]">
+							<div className="tw-w-full lg:tw-w-[60%]">
 								{cartItems.map((item) => (
 									<CartItems product={item} key={item.id} />
 								))}
 							</div>
-							<div className="tw-w-full lg:tw-ml-5 xl:tw-ml-5 lg:tw-w-[60%] xl:tw-w-[60%]">
-								<Total
-									itemCount={itemCount}
-									total={total}
-									setRedirect={setRedirect}
-									setPageCancel={setPageCancel}
-								/>
+							<div className="tw-bg-white tw-p-3 tw-w-full md:tw-w-[40%] md:tw-ml-2">
+								<p>Subtotal - ${total} USD</p>
+								<p className="tw-text-neutral-600 tw-text-sm">
+									Tax included and Shipping calculated at checkout
+								</p>
+								<div className="tw-flex tw-items-center tw-relative tw-mb-5">
+									<label className="check-container">
+										<input
+											onChange={(e) => {
+												setAgree(e.target.checked)
+												setWarn(false)
+											}}
+											type="checkbox"
+										/>
+										<span
+											className={`${
+												warn && 'tw-border-red-700'
+											} checkmark`}></span>
+									</label>
+									<div>
+										<p
+											className={`${
+												warn ? 'tw-text-red-600' : 'tw-text-neutral-900'
+											} tw-text-sm`}>
+											I have read and agreed with{' '}
+											<button
+												className={`${
+													warn
+														? 'tw-text-red-600 tw-border-b-[1px] tw-border-red-600'
+														: 'tw-text-blue-500 tw-border-b-[1px] tw-border-blue-500'
+												}`}
+												onMouseOver={() => setShowInfo(true)}
+												onMouseLeave={() => setShowInfo(false)}>
+												Terms and Conditions
+											</button>
+										</p>
+									</div>
+									{showInfo && (
+										<div className="tw-absolute tw-max-w-[150px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-br-none md:tw-rounded-br-md md:tw-rounded-bl-none tw-text-white tw-text-center tw-top-[-40px] tw-right-[10px] tw-text-xs">
+											<span>View terms and condition in footer below</span>
+										</div>
+									)}
+								</div>
+								<div className="tw-w-[80%] tw-mx-auto tw-flex tw-items-center">
+									<button
+										onClick={handleCheckout}
+										className="tw-bg-black tw-text-white tw-py-1 tw-px-5 tw-text-center tw-text-xs md:tw-text-sm hover:tw-bg-white hover:tw-text-neutral-900 tw-border tw-border-black tw-ease-in tw-duration-300 tw-w-full">
+										<button>Check out</button>
+									</button>
+								</div>
 							</div>
 						</div>
 					)}
-					<div
-						className={`${
-							redirect || pageCancel
-								? 'tw-opacity-1 tw-inline tw-ease-in tw-duration-300'
-								: 'tw-opacity-0 tw-hidden tw-ease-in tw-duration-300'
-						} tw-bg-[rgba(0,0,0,0.9)] tw-flex tw-flex-col tw-items-center tw-justify-center tw-fixed tw-top-[35%] tw-z-50 tw-ease-in tw-duration-300 tw-w-[70%] tw-h-[40%] md:tw-w-[20%] md:tw-h-[20%]`}>
-						<div className="circular-loader"></div>
-						<div>
-							<span className="tw-text-white tw-italic tw-tracking-widest tw-text-xs tw-font-light">
-								{redirect ? (
-									<div className="tw-mt-2">
-										<span className="tw-text-center tw-text-white tw-italic tw-tracking-widest tw-text-xs tw-font-light">
-											<p className="">Transaction Successfull.</p>
-											<p>Redirecting...</p>
-										</span>
-									</div>
-								) : pageCancel ? (
-									<div className="tw-mt-2">
-										<span className="tw-text-center tw-text-white tw-italic tw-tracking-widest tw-text-xs tw-font-light">
-											<p className="">Transaction Canceled.</p>
-											<p>Redirecting...</p>
-										</span>
-									</div>
-								) : (
-									''
-								)}
-							</span>
-						</div>
-					</div>
 				</div>
 			</Layout>
 		</>
