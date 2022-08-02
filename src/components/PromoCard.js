@@ -48,7 +48,7 @@ const PromoCard = () => {
 						{code}
 					</p>
 					<p className="tw-text-neutral-500 tw-text-xs tw-w-full tw-text-center tw-mt-1">
-						Use code on checkout...
+						Use code at checkout...
 					</p>
 				</div>
 			</div>
