@@ -1,5 +1,4 @@
 import React from 'react'
-import dayjs from 'dayjs'
 import { AUTHORIZED_ID } from '../constant'
 import { db } from '../firebase'
 
