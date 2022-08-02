@@ -1,9 +1,12 @@
 import React from 'react'
+import dayjs from 'dayjs'
 import { AUTHORIZED_ID } from '../constant'
 import { db } from '../firebase'
 
 const PromoCard = () => {
 	const [code, setCode] = React.useState('')
+	const [countTime, setCountTime] = React.useState('')
+	const [countDay, setCountDay] = React.useState('')
 	const generateCode = () => {
 		const genCode = `ModelEst${Math.random().toString(18).slice(2)}`
 		setCode(genCode)
@@ -19,8 +22,42 @@ const PromoCard = () => {
 			.catch((error) => console.log('Error ' + error.message))
 	}
 
+	// Set the date we're counting down to
+	const countDownDate = new Date('Aug 31, 2022 11:59:59').getTime()
+
+	// Update the count down every 1 second
+	const x = setInterval(function () {
+		// Get today's date and time
+		const now = new Date().getTime()
+
+		// Find the distance between now and the count down date
+		const distance = countDownDate - now
+
+		// Time calculations for days, hours, minutes and seconds
+		const days = Math.floor(distance / (1000 * 60 * 60 * 24))
+		const hours = Math.floor(
+			(distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+		)
+		const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+		const seconds = Math.floor((distance % (1000 * 60)) / 1000)
+
+		// Display the result in the element with id="time"
+		const h = hours < 10 ? `0${hours}` : hours
+		const m = minutes < 10 ? `0${minutes}` : minutes
+		const s = seconds < 10 ? `0${seconds}` : seconds
+		setCountTime(h + ' : ' + m + ' : ' + s)
+		// Display the result in the element with id="day"
+		setCountDay(days)
+
+		// If the count down is finished, write some text
+		if (distance < 0) {
+			clearInterval(x)
+			document.getElementById('demo').innerHTML = 'EXPIRED'
+		}
+	}, 1000)
+
 	return (
-		<div className="tw-w-full tw-bg-black tw-h-[350px]">
+		<div className="tw-w-full tw-bg-black tw-h-[450px] md:tw-h-[500px]">
 			<div className="tw-relative">
 				<div className="tw-relative tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-justify-between tw-w-[80%] tw-mx-auto">
 					<div className="font_cursive tw-text-[100px] md:tw-text-[250px] tw-text-white tw-relative tw-flex-[0.9]">
@@ -53,6 +90,23 @@ const PromoCard = () => {
 					<p className="tw-text-neutral-500 tw-text-xs tw-w-full tw-text-center tw-mt-1">
 						Use code at checkout...
 					</p>
+				</div>
+			</div>
+			<div className="md:tw-mt-[-60px] tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-justify-center tw-mt-5">
+				{countDay > 0 && (
+					<div className="tw-border-[4px] tw-border-neutral-900 tw-rounded-full tw-w-[70px] tw-h-[70px] md:tw-w-[100px] md:tw-h-[100px] md:tw-mr-5 md:tw-mt-3">
+						<div className="tw-text-[30px] md:tw-text-[50px] tw-text-white tw-flex tw-items-center tw-justify-center orbitron tw-w-full tw-pt-1">
+							{countDay}
+						</div>
+						<div className="tw-w-full tw-flex tw-items-center tw-justify-center tw-mt-[-13px] md:tw-mt-[-20px]">
+							<span className="tw-text-sm md:tw-text-lg tw-text-white orbitron">
+								{countDay > 1 ? 'days' : 'day'}
+							</span>
+						</div>
+					</div>
+				)}
+				<div className="tw-text-[30px] md:tw-text-[50px] tw-text-white orbitron">
+					{countTime}
 				</div>
 			</div>
 		</div>

@@ -1438,3 +1438,7 @@ p.yellow::-moz-selection {
 .font_cursive2 {
 	font-family: 'Cedarville Cursive', cursive;
 }
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+.orbitron {
+	font-family: 'Orbitron', sans-serif;
+}
