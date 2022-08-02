@@ -1312,16 +1312,45 @@ label input::placeholder {
 @-webkit-keyframes move_eye {
 	from {
 		transform: scale(1);
+		color: rgb(255, 255, 255);
 	}
 	to {
+		color: rgb(255, 0, 0);
 		transform: scale(1.2);
 	}
 }
 @keyframes move_eye {
 	from {
+		color: rgb(255, 255, 255);
 		transform: scale(1);
 	}
 	to {
+		color: rgb(255, 0, 0);
+		transform: scale(1.2);
+	}
+}
+.scaling2 {
+	-webkit-animation: 4s linear 0s infinite alternate move_eye2;
+	animation: 4s linear 0s infinite alternate move_eye2;
+}
+
+@-webkit-keyframes move_eye2 {
+	from {
+		transform: scale(1);
+		color: rgb(255, 255, 255);
+	}
+	to {
+		color: rgb(0, 0, 0);
+		transform: scale(1.2);
+	}
+}
+@keyframes move_eye2 {
+	from {
+		color: rgb(255, 255, 255);
+		transform: scale(1);
+	}
+	to {
+		color: rgb(0, 0, 0);
 		transform: scale(1.2);
 	}
 }
@@ -1334,6 +1363,71 @@ p.yellow::selection {
 p.yellow::-moz-selection {
 	color: black;
 	background: #ca8000;
+}
+
+.box {
+	position: relative;
+	width: 180px;
+	height: 70px;
+	background-color: rgba(0, 0, 0, 0.75);
+	border-radius: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
+.box::before {
+	content: '';
+	position: absolute;
+	width: 200px;
+	height: 200px;
+	background-image: conic-gradient(
+		transparent,
+		transparent,
+		transparent,
+		#00ccff
+	);
+	animation: animate 5s linear infinite;
+	animation-delay: -2.5s;
+	border-radius: 10px;
+}
+.box::after {
+	content: '';
+	position: absolute;
+	width: 200px;
+	height: 200px;
+	background-image: conic-gradient(
+		transparent,
+		transparent,
+		transparent,
+		#ff00d9
+	);
+	animation: animate 5s linear infinite;
+	border-radius: 10px;
+}
+.box span {
+	inset: 1px;
+	background: #0c1022;
+	position: absolute;
+	border-radius: 10px;
+	z-index: 2;
+}
+@keyframes animate {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+.box .content {
+	position: relative;
+	z-index: 3;
+	color: #fff;
+	text-align: center;
+}
+.box .content h2 {
+	font-size: 5em;
+}
+.box .content h5 {
+	font-size: 1.2em;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Arizonia&family=Oswald:wght@200&display=swap');

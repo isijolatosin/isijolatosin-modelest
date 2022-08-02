@@ -34,11 +34,14 @@ const PromoCard = () => {
 							August{' '}
 						</span>
 					</div>
-					<button
+					<div
 						onClick={generateCode}
-						className="md:tw-absolute md:tw-top-[100px] md:tw-right-[40px] tw-relative tw-mt-10 tw-p-4 md:tw-py-2 md:tw-px-5 tw-bg-gradient-to-r tw-from-yellow-900 tw-via-yellow-500 tw-to-yellow-800 tw-text-neutral-900 tw-flex-[0.1] tw-rounded-md hover:tw-text-white tw-ease-in tw-duration-300">
-						Generate code
-					</button>
+						className="box md:tw-absolute md:tw-top-[130px] md:tw-right-[20px] tw-relative tw-cursor-pointer tw-mt-10">
+						<span></span>
+						<div className="content">
+							<h1>Generate Code</h1>
+						</div>
+					</div>
 				</div>
 				<div className="md:tw-absolute tw-bottom-[90px] tw-right-[180px]">
 					<p className="yellow tw-text-white tw-font-bold tw-text-xs tw-w-full tw-text-center tw-mt-7">

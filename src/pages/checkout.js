@@ -42,6 +42,22 @@ const Cart = () => {
 	const [showLoad, setShowLoad] = React.useState(false)
 	const [showInfo, setShowInfo] = React.useState(false)
 	const [resultArry, setResultArray] = React.useState([])
+	const [code, setCode] = React.useState('')
+
+	const generateCode = () => {
+		const genCode = `ModelEst${Math.random().toString(18).slice(2)}`
+		setCode(genCode)
+		db.collection('admin')
+			.doc(`${AUTHORIZED_ID.id_one}/`)
+			.collection('discount-code')
+			.add({
+				code: genCode,
+			})
+			.then(() => {
+				console.log(`SUCCESSFULL ADDED CODE`)
+			})
+			.catch((error) => console.log('Error ' + error.message))
+	}
 
 	React.useEffect(() => {
 		const starCountRef = ref(database, 'sales')
@@ -90,13 +106,20 @@ const Cart = () => {
 	}
 
 	const handleDisount = (e) => {
-		if (error) {
-			setError(false)
-		}
 		setDiscount(e.target.value)
 	}
 
 	const handleApply = () => {
+		if (error) {
+			setTimeout(function () {
+				setError(false)
+			}, 5000)
+		}
+		if (code) {
+			setTimeout(function () {
+				setCode('')
+			}, 3000)
+		}
 		if (resultArry.includes(discount)) {
 			if (discount === '') {
 				setError(true)
@@ -109,6 +132,24 @@ const Cart = () => {
 				}
 				setDiscount('')
 			}
+
+			db.collection('admin')
+				.doc(`${AUTHORIZED_ID.id_one}/`)
+				.collection('discount-code')
+				.onSnapshot((snapshot) => {
+					snapshot.docs.map(
+						// eslint-disable-next-line array-callback-return
+						(doc) => {
+							if (doc.data().code === discount) {
+								db.collection('admin')
+									.doc(`${AUTHORIZED_ID.id_one}/`)
+									.collection('discount-code')
+									.doc(doc.id)
+									.delete()
+							}
+						}
+					)
+				})
 		} else {
 			setError(true)
 		}
@@ -176,21 +217,37 @@ const Cart = () => {
 											</div>
 											{error && (
 												<div className="tw-pb-5 tw-pt-2 ">
-													<p className="tw-text-xs tw-text-red-700 tw-text-center">
-														<span className="tw-font-bold tw-text-sm">
-															Discount code does not exist!
+													<p className="tw-text-[10px] tw-text-red-700 tw-text-center">
+														<span className="tw-font-bold tw-text-xs">
+															Discount Code Not Valid!
 														</span>
 														<br />
-														<span className="tw-text-neutral-700">
-															Please generate a new code on the home page
+														<span className="tw-text-neutral-700 tw-font-light tw-tracking-wider">
+															Please generate a new code
 														</span>
 													</p>
+													<div className="tw-text-[10px] tw-w-full tw-mx-auto tw-flex tw-items-center tw-justify-center tw-mt-3">
+														<button
+															disabled={code}
+															onClick={generateCode}
+															className="tw-bg-neutral-900 tw-text-white tw-p-2 tw-rounded-md hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-ease-in tw-duration-300">
+															Generate code
+														</button>
+													</div>
+													<div>
+														<p className="yellow tw-text-neutral-400 tw-font-bold tw-text-xs tw-w-full tw-text-center tw-mt-4">
+															{code}
+														</p>
+													</div>
 												</div>
 											)}
 										</>
 									)}
 									<div className="tw-relative">
-										<div className="tw-border-t-[1px] tw-border-b-[1px] tw-border-[#b59248] tw-py-5 tw-text-neutral-700">
+										<div
+											className={`${
+												error ? 'tw-border-t-[1px]' : 'tw-border-t-0'
+											} tw-border-b-[1px] tw-border-[#b59248] tw-py-5 tw-text-neutral-700`}>
 											<div className="tw-flex tw-items-center tw-justify-between tw-text-sm">
 												<span>Subtotal</span>
 												{showLoad ? (
@@ -320,13 +377,26 @@ const Cart = () => {
 													<div className="tw-pb-5 tw-pt-2 ">
 														<p className="tw-text-xs tw-text-red-700 tw-text-center">
 															<span className="tw-font-bold tw-text-sm">
-																Discount code does not exist!
+																Discount Code Not Valid!
 															</span>
 															<br />
-															<span className="tw-text-neutral-700">
-																Please generate a new code on the home page
+															<span className="tw-text-neutral-700 tw-font-light tw-tracking-wider">
+																Please generate a new code
 															</span>
 														</p>
+														<div className="tw-text-[10px] tw-w-full tw-mx-auto tw-flex tw-items-center tw-justify-center tw-mt-3">
+															<button
+																disabled={code}
+																onClick={generateCode}
+																className="tw-bg-neutral-900 tw-text-white tw-p-2 tw-rounded-md hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-ease-in tw-duration-300">
+																Generate code
+															</button>
+														</div>
+														<div>
+															<p className="yellow tw-text-white tw-font-bold tw-text-xs tw-w-full tw-text-center tw-mt-4">
+																{code}
+															</p>
+														</div>
 													</div>
 												)}
 											</>
