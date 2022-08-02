@@ -19,6 +19,8 @@ import {
 import { SiHomeassistantcommunitystore } from 'react-icons/si'
 import Heading from '../components/Heading'
 import { BsFillQuestionCircleFill } from 'react-icons/bs'
+import { db } from '../firebase'
+import { AUTHORIZED_ID } from '../constant'
 
 const logo = require('../assets/logo2.png')
 
@@ -39,6 +41,7 @@ const Cart = () => {
 	const [warn, setWarn] = React.useState(false)
 	const [showLoad, setShowLoad] = React.useState(false)
 	const [showInfo, setShowInfo] = React.useState(false)
+	const [resultArry, setResultArray] = React.useState([])
 
 	React.useEffect(() => {
 		const starCountRef = ref(database, 'sales')
@@ -47,6 +50,22 @@ const Cart = () => {
 
 			setSales(data.no)
 		})
+
+		db.collection('admin')
+			.doc(`${AUTHORIZED_ID.id_one}/`)
+			.collection('discount-code')
+			.onSnapshot((snapshot) => {
+				const results = snapshot.docs.map((doc) => ({
+					data: doc.data(),
+				}))
+
+				const resultArry = []
+				for (const result of results) {
+					resultArry.push(result?.data?.code)
+				}
+				setResultArray(resultArry)
+			})
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -76,17 +95,22 @@ const Cart = () => {
 		}
 		setDiscount(e.target.value)
 	}
+
 	const handleApply = () => {
-		if (discount === '') {
-			setError(true)
-		} else {
-			if (sales > 0) {
-				const salesPrice = total * (sales / 100)
-				setDiscountPrice(total - salesPrice)
-				localStorage.setItem('discountPrice', total - salesPrice)
-				setShowLoad(true)
+		if (resultArry.includes(discount)) {
+			if (discount === '') {
+				setError(true)
+			} else {
+				if (sales > 0) {
+					const salesPrice = total * (sales / 100)
+					setDiscountPrice(total - salesPrice)
+					localStorage.setItem('discountPrice', total - salesPrice)
+					setShowLoad(true)
+				}
+				setDiscount('')
 			}
-			setDiscount('')
+		} else {
+			setError(true)
 		}
 	}
 
@@ -130,25 +154,40 @@ const Cart = () => {
 										<CartItemsCheckout product={item} key={item.id} />
 									))}
 									{sales > 0 && (
-										<div className="tw-w-full tw-py-5 tw-flex tw-items-center">
-											<input
-												name="firstname"
-												type="text"
-												value={discount}
-												onChange={handleDisount}
-												placeholder="Discount code"
-												className={`${
-													error && discount === ''
-														? 'tw-border-red-700 tw-border-[1px]'
-														: 'tw-border-neutral-400 tw-border-[1px]'
-												} tw-text-sm tw-font-light tw-rounded-md tw-w-[70%] tw-py-2 placeholder:tw-text-xs `}
-											/>
-											<button
-												className="tw-w-[30%] tw-bg-neutral-900 tw-text-white tw-ml-2 tw-py-[11px] tw-text-xs tw-rounded-md"
-												onClick={handleApply}>
-												Apply
-											</button>
-										</div>
+										<>
+											<div className="tw-w-full tw-pt-5 tw-flex tw-items-center">
+												<input
+													name="firstname"
+													type="text"
+													value={discount}
+													onChange={handleDisount}
+													placeholder="Discount code"
+													className={`${
+														error && discount === ''
+															? 'tw-border-red-700 tw-border-[1px]'
+															: 'tw-border-neutral-400 tw-border-[1px]'
+													} tw-text-sm tw-font-light tw-rounded-md tw-w-[70%] tw-py-2 placeholder:tw-text-xs `}
+												/>
+												<button
+													className="tw-w-[30%] tw-bg-neutral-900 tw-text-white tw-ml-2 tw-py-[11px] tw-text-xs tw-rounded-md"
+													onClick={handleApply}>
+													Apply
+												</button>
+											</div>
+											{error && (
+												<div className="tw-pb-5 tw-pt-2 ">
+													<p className="tw-text-xs tw-text-red-700 tw-text-center">
+														<span className="tw-font-bold tw-text-sm">
+															Discount code does not exist!
+														</span>
+														<br />
+														<span className="tw-text-neutral-700">
+															Please generate a new code on the home page
+														</span>
+													</p>
+												</div>
+											)}
+										</>
 									)}
 									<div className="tw-relative">
 										<div className="tw-border-t-[1px] tw-border-b-[1px] tw-border-[#b59248] tw-py-5 tw-text-neutral-700">
@@ -256,25 +295,42 @@ const Cart = () => {
 										{cartItems.map((item) => (
 											<CartItemsCheckout product={item} key={item.id} />
 										))}
-										<div className="tw-w-full tw-py-5 tw-flex tw-items-center">
-											<input
-												name="firstname"
-												type="text"
-												value={discount}
-												onChange={handleDisount}
-												placeholder="Discount code"
-												className={`${
-													error && discount === ''
-														? 'tw-border-red-700 tw-border-[1px]'
-														: 'tw-border-neutral-400 tw-border-[1px]'
-												} tw-text-sm tw-font-light tw-rounded-md tw-w-[70%] tw-py-2 placeholder:tw-text-xs `}
-											/>
-											<button
-												className="tw-w-[30%] tw-bg-neutral-900 tw-text-white tw-ml-2 tw-py-[11px] tw-text-xs tw-rounded-md"
-												onClick={handleApply}>
-												Apply
-											</button>
-										</div>
+										{sales > 0 && (
+											<>
+												<div className="tw-w-full tw-py-5 tw-flex tw-items-center">
+													<input
+														name="firstname"
+														type="text"
+														value={discount}
+														onChange={handleDisount}
+														placeholder="Discount code"
+														className={`${
+															error && discount === ''
+																? 'tw-border-red-700 tw-border-[1px]'
+																: 'tw-border-neutral-400 tw-border-[1px]'
+														} tw-text-sm tw-font-light tw-rounded-md tw-w-[70%] tw-py-2 placeholder:tw-text-xs `}
+													/>
+													<button
+														className="tw-w-[30%] tw-bg-neutral-900 tw-text-white tw-ml-2 tw-py-[11px] tw-text-xs tw-rounded-md"
+														onClick={handleApply}>
+														Apply
+													</button>
+												</div>
+												{error && (
+													<div className="tw-pb-5 tw-pt-2 ">
+														<p className="tw-text-xs tw-text-red-700 tw-text-center">
+															<span className="tw-font-bold tw-text-sm">
+																Discount code does not exist!
+															</span>
+															<br />
+															<span className="tw-text-neutral-700">
+																Please generate a new code on the home page
+															</span>
+														</p>
+													</div>
+												)}
+											</>
+										)}
 										<div className="tw-relative">
 											<div className="tw-border-t-[1px] tw-border-b-[1px] tw-border-[#b59248] tw-py-5 tw-text-neutral-700 tw-px-3">
 												<div className="tw-flex tw-items-center tw-justify-between tw-text-sm">

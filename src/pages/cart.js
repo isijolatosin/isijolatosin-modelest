@@ -119,7 +119,7 @@ const Cart = () => {
 								<div className="tw-w-[80%] tw-mx-auto tw-flex tw-items-center">
 									<button
 										onClick={handleCheckout}
-										className="tw-bg-black tw-text-white tw-py-1 tw-px-5 tw-text-center tw-text-xs md:tw-text-sm hover:tw-bg-white hover:tw-text-neutral-900 tw-border tw-border-black tw-ease-in tw-duration-300 tw-w-full">
+										className="tw-bg-black tw-text-white tw-py-2 tw-px-5 tw-text-center tw-text-xs md:tw-text-sm hover:tw-bg-white hover:tw-text-neutral-900 tw-border tw-border-black tw-ease-in tw-duration-300 tw-w-full">
 										<button>Check out</button>
 									</button>
 								</div>

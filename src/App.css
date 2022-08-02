@@ -1304,6 +1304,38 @@ label input::placeholder {
 	background: white;
 }
 
+.scaling {
+	-webkit-animation: 4s linear 0s infinite alternate move_eye;
+	animation: 4s linear 0s infinite alternate move_eye;
+}
+
+@-webkit-keyframes move_eye {
+	from {
+		transform: scale(1);
+	}
+	to {
+		transform: scale(1.2);
+	}
+}
+@keyframes move_eye {
+	from {
+		transform: scale(1);
+	}
+	to {
+		transform: scale(1.2);
+	}
+}
+
+/*  Yellow text highlight */
+p.yellow::selection {
+	background: #ca8000;
+	color: black;
+}
+p.yellow::-moz-selection {
+	color: black;
+	background: #ca8000;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Arizonia&family=Oswald:wght@200&display=swap');
 .font_cursive {
 	font-family: 'Arizonia';

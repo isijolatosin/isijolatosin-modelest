@@ -10,6 +10,7 @@ import { db } from '../firebase'
 import ContactForm from '../components/shared/ContactForm'
 import { Link } from 'react-router-dom'
 import SearchInput from '../components/shared/SearchInput'
+import PromoCard from '../components/PromoCard'
 
 function HomePage() {
 	const [searchControl, setSearchControl] = React.useState(false)
@@ -229,9 +230,11 @@ function HomePage() {
 						<HiChatAlt2 size={25} />
 					</div>
 					<div
-						className={`${
-							searchControl && 'tw-w-[100%] lg:tw-w-[40%]'
-						} tw-flex tw-flex-col content tw-fixed tw-top-[55px] md:tw-top-[24px] tw-left-[-6px] md:tw-left-[-6px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
+						className={`${searchControl && 'tw-w-[100%] lg:tw-w-[40%]'} ${
+							sales
+								? 'tw-top-[100px] md:tw-top-[80px]'
+								: 'tw-top-[55px] md:tw-top-[24px]'
+						} tw-flex tw-flex-col content tw-fixed tw-left-[-6px] md:tw-left-[-6px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
 						<SearchInput
 							allProducts={allProducts}
 							searchControl={searchControl}
@@ -311,7 +314,8 @@ function HomePage() {
 					</div>
 					{allProducts.length !== 0 ? (
 						<div className="tw-bg-neutral-900 tw-w-[100%]">
-							<div className="tw-mb-6 tw-mt-[75px] md:tw-mt-[60px] tw-w-full tw-px-3 ">
+							<div className="tw-mb-6 tw-mt-[80px] tw-w-full tw-px-3 ">
+								<PromoCard />
 								<Products
 									SubmitInqury={SubmitInqury}
 									setChatError={setChatError}

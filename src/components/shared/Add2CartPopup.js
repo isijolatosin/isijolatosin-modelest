@@ -19,12 +19,12 @@ const Add2CartPopup = ({ singleCart, setSingleCart, quantity }) => {
 			setWarn(true)
 		}
 		if (agree) {
-			navigate(`/user-cart/${user?.displayName || 'new-customer'}`)
-			setTimeout(() => {
-				setTimeout(function () {
-					window.scrollTo(0, window.innerHeight)
-				}, 500)
-			}, 500)
+			navigate(`/checkout/${user?.displayName || 'new-customer'}`)
+			// setTimeout(() => {
+			// 	setTimeout(function () {
+			// 		window.scrollTo(0, window.innerHeight)
+			// 	}, 500)
+			// }, 500)
 		}
 	}
 
