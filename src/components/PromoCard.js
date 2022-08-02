@@ -1,4 +1,5 @@
 import React from 'react'
+import dayjs from 'dayjs'
 import { AUTHORIZED_ID } from '../constant'
 import { db } from '../firebase'
 
@@ -93,7 +94,7 @@ const PromoCard = () => {
 			</div>
 			<div className="md:tw-mt-[-60px] tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-justify-center tw-mt-5">
 				{countDay > 0 && (
-					<div className="tw-border-[4px] tw-border-neutral-900 tw-rounded-full tw-w-[70px] tw-h-[70px] md:tw-w-[100px] md:tw-h-[100px] md:tw-mr-5 md:tw-mt-3">
+					<div className="tw-border-[4px] tw-border-neutral-800 tw-rounded-full tw-w-[70px] tw-h-[70px] md:tw-w-[100px] md:tw-h-[100px] md:tw-mr-5 md:tw-mt-3">
 						<div className="tw-text-[30px] md:tw-text-[50px] tw-text-white tw-flex tw-items-center tw-justify-center orbitron tw-w-full tw-pt-1">
 							{countDay}
 						</div>
