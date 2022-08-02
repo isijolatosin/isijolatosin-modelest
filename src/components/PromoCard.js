@@ -27,7 +27,7 @@ const PromoCard = () => {
 						<span className="tw-text-[32px] md:tw-text-[60px] tw-absolute tw-rotate-[-7deg] tw-top-[120px] md:tw-top-[155px] tw-left-[110px] md:tw-left-[220px] md:tw-bg-[rgba(255,0,217,0.2)] tw-text-white tw-w-[75%] md:tw-w-[40%] tw-pl-5">
 							Price slash !!!{' '}
 						</span>
-						<span className="tw-text-xl md:tw-text-4xl tw-text-neutral-900 tw-absolute tw-rotate-[-5deg] tw-top-[110px] md:tw-top-[150px] tw-left-[140px] md:tw-left-[220px] tw-bg-[rgba(0,204,255,0.8)] tw-w-[60%] md:tw-w-[40%] tw-pl-5">
+						<span className="tw-text-xl md:tw-text-4xl tw-text-neutral-900 tw-absolute tw-rotate-[-5deg] tw-top-[110px] md:tw-top-[150px] tw-left-[140px] md:tw-left-[220px] tw-bg-[rgba(0,204,255,0.8)] tw-w-[60%] md:tw-w-[25%] tw-pl-5">
 							Back to School{' '}
 						</span>
 						<span className="tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-[#00ccff] tw-to-[#ff00d9]">
