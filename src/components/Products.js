@@ -252,7 +252,7 @@ function Products({
 	const productSectionLength =
 		allProducts?.length % 2 === 0
 			? allProducts?.length / 2
-			: allProducts?.length - 1 / 2
+			: (allProducts?.length - 1) / 2
 
 	return (
 		<div className="tw-mt-[20px] md:tw-mt-[10px] tw-relative tw-flex tw-flex-col tw-items-center ">

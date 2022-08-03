@@ -55,7 +55,7 @@ function HomePage() {
 			const fArray = []
 			// eslint-disable-next-line array-callback-return
 			products.filter((p) => {
-				if (p?.type.toLowerCase() === 'virgin wig') {
+				if (p?.name.toLowerCase() === 'amber') {
 					const obj = {
 						name: 'Virgin Wigs',
 						price: p?.price,
