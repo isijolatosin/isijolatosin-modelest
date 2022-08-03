@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { BsFillHandIndexFill } from 'react-icons/bs'
 import { CgClose } from 'react-icons/cg'
 import { GrCheckmark } from 'react-icons/gr'
 import { useSelector } from 'react-redux'
@@ -92,8 +93,11 @@ const Add2CartPopup = ({ singleCart, setSingleCart, quantity }) => {
 							</p>
 						</div>
 						{showInfo && (
-							<div className="tw-absolute tw-max-w-[150px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-br-none md:tw-rounded-br-md md:tw-rounded-bl-none tw-text-white tw-text-center tw-top-[-40px] tw-right-[10px] tw-text-xs">
-								<span>View terms and condition in footer below</span>
+							<div className="tw-absolute tw-max-w-[150px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-br-none md:tw-rounded-br-md md:tw-rounded-bl-none tw-text-white tw-text-center tw-top-[-40px] tw-right-[10px] tw-text-xs tw-flex tw-items-top">
+								<span className="tw-text-left">
+									Review terms and condition in help tab
+								</span>
+								{/* <BsFillHandIndexFill size={20} /> */}
 							</div>
 						)}
 					</div>

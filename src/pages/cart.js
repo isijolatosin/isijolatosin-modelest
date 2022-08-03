@@ -9,6 +9,7 @@ import CartItems from '../components/CartItems'
 import { selectCartItems, selectTotal } from '../slices/appSlices'
 import Button from '../components/shared/Button'
 import { UserContext } from '../context/user-context'
+import { BsFillHandIndexFill } from 'react-icons/bs'
 
 const Cart = () => {
 	const { user } = useContext(UserContext)
@@ -92,12 +93,14 @@ const Cart = () => {
 												warn && 'tw-border-red-700'
 											} checkmark`}></span>
 									</label>
-									<div>
+									<div className="tw-flex tw-items-center">
 										<p
 											className={`${
 												warn ? 'tw-text-red-600' : 'tw-text-neutral-900'
 											} tw-text-sm`}>
 											I have read and agreed with{' '}
+										</p>
+										<div className="tw-relative tw-ml-2">
 											<button
 												className={`${
 													warn
@@ -108,13 +111,16 @@ const Cart = () => {
 												onMouseLeave={() => setShowInfo(false)}>
 												Terms and Conditions
 											</button>
-										</p>
-									</div>
-									{showInfo && (
-										<div className="tw-absolute tw-max-w-[150px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-br-none md:tw-rounded-br-md md:tw-rounded-bl-none tw-text-white tw-text-center tw-top-[-40px] tw-right-[10px] tw-text-xs">
-											<span>View terms and condition in footer below</span>
+											{showInfo && (
+												<div className="tw-absolute tw-max-w-[150px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-br-none tw-text-white tw-text-center tw-top-[-45px] tw-right-[3px] tw-text-xs tw-flex tw-items-top">
+													<span className="tw-text-left">
+														Review terms and condition in help tab{' '}
+													</span>
+													{/* <BsFillHandIndexFill size={20} /> */}
+												</div>
+											)}
 										</div>
-									)}
+									</div>
 								</div>
 								<div className="tw-w-[80%] tw-mx-auto tw-flex tw-items-center">
 									<button

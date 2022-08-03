@@ -18,7 +18,7 @@ import {
 } from 'react-icons/md'
 import { SiHomeassistantcommunitystore } from 'react-icons/si'
 import Heading from '../components/Heading'
-import { BsFillQuestionCircleFill } from 'react-icons/bs'
+import { BsFillHandIndexFill, BsFillQuestionCircleFill } from 'react-icons/bs'
 import { db } from '../firebase'
 import { AUTHORIZED_ID } from '../constant'
 
@@ -268,10 +268,11 @@ const Cart = () => {
 														className="tw-text-neutral-700 tw-mx-1 hover:tw-cursor-pointer"
 													/>
 													{showInfo && (
-														<div className="tw-absolute tw-w-[170px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-bl-none tw-text-white tw-text-center tw-top-[-50px] tw-left-[84px] tw-font-light tw-text-sm">
-															<span>
-																Check shipping policy in the footer below
+														<div className="tw-absolute tw-w-[170px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-bl-none tw-text-white tw-text-center tw-top-[-50px] tw-left-[74px] tw-font-light tw-text-sm tw-flex tw-items-top">
+															<span className="tw-text-left">
+																Review shipping policy in help tab
 															</span>
+															{/* <BsFillHandIndexFill size={30} /> */}
 														</div>
 													)}
 												</div>
@@ -423,10 +424,11 @@ const Cart = () => {
 															className="tw-text-neutral-700 tw-mx-1 hover:tw-cursor-pointer"
 														/>
 														{showInfo && (
-															<div className="tw-absolute tw-w-[170px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-bl-none tw-text-white tw-text-center tw-top-[-50px] tw-left-[84px]">
-																<span>
-																	Check shipping policy in the footer below
+															<div className="tw-absolute tw-w-[170px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-bl-none tw-text-white tw-text-center tw-top-[-50px] tw-left-[74px] tw-flex tw-items-top">
+																<span className="tw-text-left">
+																	Review shipping policy in help tab
 																</span>
+																{/* <BsFillHandIndexFill size={30} /> */}
 															</div>
 														)}
 													</div>
