@@ -44,8 +44,9 @@ function IndianBundles() {
 			const filtered = products.filter(
 				(product) =>
 					product.color.toLowerCase() === 'natural black' &&
-					product.name.toLowerCase() !== 'closure' &&
-					product.name.toLowerCase() !== 'frontal' &&
+					!product.name.toLowerCase().includes('closure') &&
+					!product.name.toLowerCase().includes('frontal') &&
+					!product.type.toLowerCase().includes('virgin wig') &&
 					!product.brand.toLowerCase().includes('virgin hair') &&
 					!product.brand.toLowerCase().includes('vietnamese hair')
 			)
