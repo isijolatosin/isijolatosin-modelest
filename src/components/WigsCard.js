@@ -1,6 +1,7 @@
 import React from 'react'
 import { MdOutlineInventory, MdMoneyOff } from 'react-icons/md'
 import { GiMoneyStack } from 'react-icons/gi'
+import { VscSymbolRuler } from 'react-icons/vsc'
 import RatingFix from './shared/RatingFix'
 import truncate from '../utils/truncate'
 import { Link } from 'react-router-dom'
@@ -17,6 +18,12 @@ function WigsCard({ product, sales, dealPrice, frontalClosure, texture }) {
 					<GiMoneyStack />
 				</li>
 				<li>
+					<span className="tw-absolute tw-left-[-77px] tw-text-white tw-text-md tw-font-light">
+						<span className="">{product?.length}" inches</span>
+					</span>
+					<VscSymbolRuler />
+				</li>
+				<li>
 					<span
 						className={`${
 							product.sales && sales !== 0
@@ -25,7 +32,7 @@ function WigsCard({ product, sales, dealPrice, frontalClosure, texture }) {
 						} tw-absolute tw-text-xs`}>
 						{product.sales ? 'Sales' : 'Not on Sales'}
 					</span>
-					<MdMoneyOff className={`${!product.sales && 'tw-text-red-800'}`} />
+					<MdMoneyOff className={`${product.sales && 'tw-text-red-800'}`} />
 				</li>
 				<li>
 					<span

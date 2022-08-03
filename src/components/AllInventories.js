@@ -8,11 +8,15 @@ function AllInventories() {
 	const [fetchAllData, setFetchAllData] = React.useState([])
 	const [singleProduct, setSingleProduct] = React.useState()
 	const [postError, setPostError] = React.useState('')
-	const [isTrue, setIsTrue] = React.useState(false)
+	const [isOnSales, setIsOnSales] = React.useState(false)
+	const [isInstock, setIsInstock] = React.useState(false)
 	// const [imageFile, setImageFile] = React.useState('')
 
-	const togglePassword = () => {
-		setIsTrue(!isTrue)
+	const toggleSales = () => {
+		setIsOnSales(!isOnSales)
+	}
+	const toggleInstock = () => {
+		setIsInstock(!isInstock)
 	}
 
 	async function fetchProducts() {
@@ -44,6 +48,7 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
+			instock: singleProduct.instock,
 		})
 	}
 	const handleInputBrand = (e) => {
@@ -60,6 +65,64 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
+			instock: singleProduct.instock,
+		})
+	}
+	const handleInputDensity = (e) => {
+		setSingleProduct({
+			id: singleProduct.id,
+			name: singleProduct.name,
+			brand: singleProduct.brand,
+			density: e.target.value,
+			type: singleProduct.type,
+			color: singleProduct.color,
+			availablecolor: singleProduct.availablecolor,
+			price: Number(singleProduct.price),
+			length: Number(singleProduct.length),
+			availablelength: singleProduct.availablelength,
+			dealLength: singleProduct.dealLength,
+			description: singleProduct.description,
+			sales: singleProduct.sales,
+			instock: singleProduct.instock,
+		})
+	}
+	const handleInputTexture = (e) => {
+		setSingleProduct({
+			id: singleProduct.id,
+			name: singleProduct.name,
+			brand: singleProduct.brand,
+			density: singleProduct.density,
+			texture: e.target.value,
+			type: singleProduct.type,
+			color: singleProduct.color,
+			availablecolor: singleProduct.availablecolor,
+			price: Number(singleProduct.price),
+			length: Number(singleProduct.length),
+			availablelength: singleProduct.availablelength,
+			dealLength: singleProduct.dealLength,
+			description: singleProduct.description,
+			sales: singleProduct.sales,
+			instock: singleProduct.instock,
+		})
+	}
+	const handleInputCapsize = (e) => {
+		setSingleProduct({
+			id: singleProduct.id,
+			name: singleProduct.name,
+			brand: singleProduct.brand,
+			density: singleProduct.density,
+			texture: singleProduct.texture,
+			capsize: e.target.value,
+			type: singleProduct.type,
+			color: singleProduct.color,
+			availablecolor: singleProduct.availablecolor,
+			price: Number(singleProduct.price),
+			length: Number(singleProduct.length),
+			availablelength: singleProduct.availablelength,
+			dealLength: singleProduct.dealLength,
+			description: singleProduct.description,
+			sales: singleProduct.sales,
+			instock: singleProduct.instock,
 		})
 	}
 	const handleInputType = (e) => {
@@ -67,6 +130,9 @@ function AllInventories() {
 			id: singleProduct.id,
 			name: singleProduct.name,
 			brand: singleProduct.brand,
+			density: singleProduct.density,
+			texture: singleProduct.texture,
+			capsize: singleProduct.capsize,
 			type: e.target.value,
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
@@ -83,6 +149,9 @@ function AllInventories() {
 			id: singleProduct.id,
 			name: singleProduct.name,
 			brand: singleProduct.brand,
+			density: singleProduct.density,
+			texture: singleProduct.texture,
+			capsize: singleProduct.capsize,
 			type: singleProduct.type,
 			color: e.target.value,
 			availablecolor: singleProduct.availablecolor,
@@ -99,6 +168,9 @@ function AllInventories() {
 			id: singleProduct.id,
 			name: singleProduct.name,
 			brand: singleProduct.brand,
+			density: singleProduct.density,
+			texture: singleProduct.texture,
+			capsize: singleProduct.capsize,
 			type: singleProduct.type,
 			color: singleProduct.color,
 			availablecolor: e.target.value,
@@ -115,6 +187,9 @@ function AllInventories() {
 			id: singleProduct.id,
 			name: singleProduct.name,
 			brand: singleProduct.brand,
+			density: singleProduct.density,
+			texture: singleProduct.texture,
+			capsize: singleProduct.capsize,
 			type: singleProduct.type,
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
@@ -131,6 +206,9 @@ function AllInventories() {
 			id: singleProduct.id,
 			name: singleProduct.name,
 			brand: singleProduct.brand,
+			density: singleProduct.density,
+			texture: singleProduct.texture,
+			capsize: singleProduct.capsize,
 			type: singleProduct.type,
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
@@ -147,6 +225,9 @@ function AllInventories() {
 			id: singleProduct.id,
 			name: singleProduct.name,
 			brand: singleProduct.brand,
+			density: singleProduct.density,
+			texture: singleProduct.texture,
+			capsize: singleProduct.capsize,
 			type: singleProduct.type,
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
@@ -163,6 +244,9 @@ function AllInventories() {
 			id: singleProduct.id,
 			name: singleProduct.name,
 			brand: singleProduct.brand,
+			density: singleProduct.density,
+			texture: singleProduct.texture,
+			capsize: singleProduct.capsize,
 			type: singleProduct.type,
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
@@ -179,6 +263,9 @@ function AllInventories() {
 			id: singleProduct.id,
 			name: singleProduct.name,
 			brand: singleProduct.brand,
+			density: singleProduct.density,
+			texture: singleProduct.texture,
+			capsize: singleProduct.capsize,
 			type: singleProduct.type,
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
@@ -198,6 +285,9 @@ function AllInventories() {
 			const product = {
 				name: singleProduct.name,
 				brand: singleProduct.brand,
+				density: singleProduct.density,
+				texture: singleProduct.texture,
+				capsize: singleProduct.capsize,
 				type: singleProduct.type,
 				color: singleProduct.color,
 				availablecolor: singleProduct.availablecolor,
@@ -206,17 +296,20 @@ function AllInventories() {
 				availablelength: singleProduct.availablelength,
 				dealLength: singleProduct.dealLength,
 				description: singleProduct.description,
-				sales: isTrue,
+				sales: isOnSales,
+				instock: isInstock,
 				// image: imageFile,
 			}
 			if (
 				product.name === '' ||
 				product.brand === '' ||
+				product.density === '' ||
+				product.texture === '' ||
+				product.capsize === '' ||
 				product.type === '' ||
 				product.color === '' ||
 				product.price === null ||
 				product.length === null ||
-				product.dealLength === null ||
 				product.description === ''
 			) {
 				return setPostError('Missing Credentials')
@@ -277,6 +370,33 @@ function AllInventories() {
 									value={singleProduct.brand}
 									onChange={handleInputBrand}
 									placeholder="Product Brand..."
+									className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								/>
+								<input
+									type="text"
+									name="density"
+									id="density"
+									value={singleProduct.density}
+									onChange={handleInputDensity}
+									placeholder="Product Density..."
+									className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								/>
+								<input
+									type="text"
+									name="texture"
+									id="texture"
+									value={singleProduct.texture}
+									onChange={handleInputTexture}
+									placeholder="Product Texture..."
+									className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								/>
+								<input
+									type="text"
+									name="capsize"
+									id="capsize"
+									value={singleProduct.capsize}
+									onChange={handleInputCapsize}
+									placeholder="Product Capsize..."
 									className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
 								/>
 								<input
@@ -352,20 +472,37 @@ function AllInventories() {
 								placeholder="Description..."
 								className="tw-rounded tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
 							/>
-							<div className="tw-rounded tw-flex tw-flex-row tw-items-center tw-mt-5 tw-shadow-xl tw-p-2">
-								<label className="tw-mr-3 tw-text-gray-500 tw-text-sm">
-									Sales
-								</label>
-								<input
-									type="checkbox"
-									checked={isTrue}
-									className={
-										isTrue
-											? 'tw-ml-2 tw-rounded-full tw-bg-violet-400'
-											: 'tw-ml-2 tw-rounded-full tw-bg-none tw-border-violet-200'
-									}
-									onChange={togglePassword}
-								/>
+							<div className="tw-flex tw-items-center">
+								<div className="tw-rounded tw-flex tw-flex-row tw-items-center tw-mt-5 tw-shadow-xl tw-p-2">
+									<label className="tw-mr-3 tw-text-gray-500 tw-text-sm">
+										Sales
+									</label>
+									<input
+										type="checkbox"
+										checked={isOnSales}
+										className={
+											isOnSales
+												? 'tw-ml-2 tw-rounded-full tw-bg-violet-400'
+												: 'tw-ml-2 tw-rounded-full tw-bg-none tw-border-violet-200'
+										}
+										onChange={toggleSales}
+									/>
+								</div>
+								<div className="tw-rounded tw-flex tw-flex-row tw-items-center tw-mt-5 tw-shadow-xl tw-p-2">
+									<label className="tw-mr-3 tw-text-gray-500 tw-text-sm">
+										Instock
+									</label>
+									<input
+										type="checkbox"
+										checked={isInstock}
+										className={
+											isInstock
+												? 'tw-ml-2 tw-rounded-full tw-bg-violet-400'
+												: 'tw-ml-2 tw-rounded-full tw-bg-none tw-border-violet-200'
+										}
+										onChange={toggleInstock}
+									/>
+								</div>
 							</div>
 							{postError && (
 								<span className="tw-text-xs tw-text-red-700 tw-mt-5">{`Error: ${postError}`}</span>

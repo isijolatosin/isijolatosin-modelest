@@ -12,6 +12,7 @@ function IndianDeal() {
 		React.useState(null)
 	const [dealPriceBodyWaveClosure, setDealPriceBodyWaveClosure] =
 		React.useState(null)
+	const [sales, setSales] = React.useState(null)
 
 	const [dealPriceCurlyFrontal, setDealPriceCurlyFrontal] = React.useState(null)
 	const [dealPriceCurlyClosure, setDealPriceCurlyClosure] = React.useState(null)
@@ -20,6 +21,16 @@ function IndianDeal() {
 	const [bodyWaveClosure, setBodyWaveClosure] = React.useState(null)
 	const [CurlyClosure, setCurlyClosure] = React.useState(null)
 	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12)
+
+	React.useEffect(() => {
+		const starCountRef = ref(database, 'sales')
+		onValue(starCountRef, (snapshot) => {
+			const data = snapshot.val()
+
+			setSales(data.no)
+		})
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	async function fetchProducts() {
 		try {
@@ -108,7 +119,12 @@ function IndianDeal() {
 				<title>Indian-Hair-Bundle-Deals</title>
 			</Helmet>
 			<Layout sales={bundleDealsPercentage}>
-				<div className="tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-mt-[50px] md:tw-mt-[0px]">
+				<div
+					className={`${
+						sales
+							? 'tw-pt-[30px] md:tw-pt-[50px]'
+							: 'tw-pt-[50px] md:tw-pt-[0px]'
+					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-mt-[50px] md:tw-mt-[0px]`}>
 					{bodyWaveFrontal === null &&
 					CurlyFrontal === null &&
 					bodyWaveClosure === null &&

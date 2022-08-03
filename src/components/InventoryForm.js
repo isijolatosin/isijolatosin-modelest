@@ -5,8 +5,10 @@ function InventoryForm({
 	inputTypes,
 	handleformDataChange,
 	formData,
-	isTrue,
-	togglePassword,
+	isOnSales,
+	isInstock,
+	toggleSales,
+	toggleInstock,
 	postError,
 	buttonText,
 	uploadFile,
@@ -50,18 +52,35 @@ function InventoryForm({
 						className="tw-block tw-w-full tw-text-sm tw-text-gray-500 file:tw-mr-4 file:tw-py-1 file:tw-px-4 file:tw-rounded file:tw-border-0 file:tw-text-sm file:tw-bg-gray-200 file:tw-text-violet-700 hover:file:tw-bg-violet-100 tw-ease-in tw-duration-300"
 					/>
 				</div>
-				<div className="tw-rounded tw-flex tw-flex-row tw-items-center tw-mt-5 tw-shadow-xl tw-p-2">
-					<label className="tw-mr-3 tw-text-gray-500 tw-text-sm">Sales</label>
-					<input
-						type="checkbox"
-						checked={isTrue}
-						className={
-							isTrue
-								? 'tw-ml-2 tw-rounded-full tw-bg-violet-400'
-								: 'tw-ml-2 tw-rounded-full tw-bg-none tw-border-violet-200'
-						}
-						onChange={togglePassword}
-					/>
+				<div className="tw-flex tw-items-center">
+					<div className="tw-rounded tw-flex tw-flex-row tw-items-center tw-mt-5 tw-shadow-xl tw-p-2 tw-mr-2">
+						<label className="tw-mr-3 tw-text-gray-500 tw-text-sm">Sales</label>
+						<input
+							type="checkbox"
+							checked={isOnSales}
+							className={
+								isOnSales
+									? 'tw-ml-2 tw-rounded-full tw-bg-violet-400'
+									: 'tw-ml-2 tw-rounded-full tw-bg-none tw-border-violet-200'
+							}
+							onChange={toggleSales}
+						/>
+					</div>
+					<div className="tw-rounded tw-flex tw-flex-row tw-items-center tw-mt-5 tw-shadow-xl tw-p-2 tw-ml-2">
+						<label className="tw-mr-3 tw-text-gray-500 tw-text-sm">
+							Instock
+						</label>
+						<input
+							type="checkbox"
+							checked={isInstock}
+							className={
+								isInstock
+									? 'tw-ml-2 tw-rounded-full tw-bg-violet-400'
+									: 'tw-ml-2 tw-rounded-full tw-bg-none tw-border-violet-200'
+							}
+							onChange={toggleInstock}
+						/>
+					</div>
 				</div>
 				{postError && (
 					<span className="tw-text-xs tw-text-red-700 tw-mt-5">{`Error: ${postError}`}</span>

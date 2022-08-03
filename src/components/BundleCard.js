@@ -4,16 +4,24 @@ import { GiMoneyStack } from 'react-icons/gi'
 import RatingFix from './shared/RatingFix'
 import truncate from '../utils/truncate'
 import { Link } from 'react-router-dom'
+import { VscSymbolRuler } from 'react-icons/vsc'
 
 function BundleCard({ product, sales, dealPrice, frontalClosure, texture }) {
 	return (
 		<div className="card tw-drop-shadow-xl">
 			<ul className="ul">
 				<li>
-					<span className="tw-absolute tw-left-[-95px] tw-text-white tw-text-md tw-font-bold">
+					<span className="tw-absolute tw-left-[-93px] tw-text-white tw-text-md tw-font-bold">
 						<span className="tw-text-xs tw-font-light">From</span> ${dealPrice}
 					</span>
 					<GiMoneyStack />
+				</li>
+				<li>
+					<span className="tw-absolute tw-left-[-115px] tw-text-white tw-text-md tw-font-bold">
+						<span className="tw-text-xs tw-font-light">From</span>{' '}
+						{product.length}" inches
+					</span>
+					<VscSymbolRuler />
 				</li>
 				<li>
 					<span
@@ -24,13 +32,13 @@ function BundleCard({ product, sales, dealPrice, frontalClosure, texture }) {
 						} tw-absolute tw-text-xs`}>
 						{product.sales ? 'Sales' : 'Not on Sales'}
 					</span>
-					<MdMoneyOff className={`${!product.sales && 'tw-text-red-800'}`} />
+					<MdMoneyOff className={`${product.sales && 'tw-text-red-800'}`} />
 				</li>
 				<li>
 					<span
 						className={`${
 							product?.instock
-								? 'tw-text-white  tw-left-[-45px]'
+								? 'tw-text-white  tw-left-[-42px]'
 								: 'tw-text-white tw-left-[-65px]'
 						} tw-absolute tw-text-xs`}>
 						{product.instock ? 'Instock' : 'Not Instock'}

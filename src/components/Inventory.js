@@ -3,7 +3,8 @@ import axios from 'axios'
 import InventoryForm from './InventoryForm'
 
 function Inventory() {
-	const [isTrue, setIsTrue] = React.useState(false)
+	const [isOnSales, setIsOnSales] = React.useState(false)
+	const [isInstock, setIsInstock] = React.useState(false)
 	const [postError, setPostError] = React.useState('')
 	const [formData, setFormData] = React.useState({
 		title: '',
@@ -26,8 +27,11 @@ function Inventory() {
 		setFormData({ ...formData, [e.target.name]: e.target.value })
 	}
 
-	const togglePassword = () => {
-		setIsTrue(!isTrue)
+	const toggleSales = () => {
+		setIsOnSales(!isOnSales)
+	}
+	const toggleInstock = () => {
+		setIsInstock(!isInstock)
 	}
 
 	const handleSubmit = async (e) => {
@@ -48,7 +52,8 @@ function Inventory() {
 				availablecolor: formData.availablecolor,
 				dealLength: formData.dealLength,
 				description: formData.description,
-				sales: isTrue,
+				sales: isOnSales,
+				instock: isInstock,
 				image: imageFile,
 			}
 
@@ -73,7 +78,7 @@ function Inventory() {
 			availablelength: '',
 			description: '',
 		})
-		setIsTrue(false)
+		setIsOnSales(false)
 	}
 
 	const inputTypes = [
@@ -190,8 +195,10 @@ function Inventory() {
 			inputTypes={inputTypes}
 			handleformDataChange={handleformDataChange}
 			formData={formData}
-			isTrue={isTrue}
-			togglePassword={togglePassword}
+			isOnSales={isOnSales}
+			isInstock={isInstock}
+			toggleSales={toggleSales}
+			toggleInstock={toggleInstock}
 			postError={postError}
 			buttonText="Add to Inventory"
 			uploadFile={uploadFile}
