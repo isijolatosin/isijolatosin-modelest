@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import { BsFillHandIndexFill } from 'react-icons/bs'
 import { CgClose } from 'react-icons/cg'
 import { GrCheckmark } from 'react-icons/gr'
 import { useSelector } from 'react-redux'
@@ -97,7 +96,6 @@ const Add2CartPopup = ({ singleCart, setSingleCart, quantity }) => {
 								<span className="tw-text-left">
 									Review terms and condition in help tab
 								</span>
-								{/* <BsFillHandIndexFill size={20} /> */}
 							</div>
 						)}
 					</div>

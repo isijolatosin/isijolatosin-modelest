@@ -9,7 +9,6 @@ import CartItems from '../components/CartItems'
 import { selectCartItems, selectTotal } from '../slices/appSlices'
 import Button from '../components/shared/Button'
 import { UserContext } from '../context/user-context'
-import { BsFillHandIndexFill } from 'react-icons/bs'
 
 const Cart = () => {
 	const { user } = useContext(UserContext)
@@ -100,7 +99,7 @@ const Cart = () => {
 											} tw-text-sm`}>
 											I have read and agreed with{' '}
 										</p>
-										<div className="tw-relative tw-ml-2">
+										<div className="tw-relative tw-ml-2 tw-text-xs">
 											<button
 												className={`${
 													warn
@@ -112,11 +111,10 @@ const Cart = () => {
 												Terms and Conditions
 											</button>
 											{showInfo && (
-												<div className="tw-absolute tw-max-w-[150px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-br-none tw-text-white tw-text-center tw-top-[-45px] tw-right-[3px] tw-text-xs tw-flex tw-items-top">
-													<span className="tw-text-left">
+												<div className="tw-absolute tw-max-w-[150px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-br-none tw-text-white tw-text-center tw-top-[-45px] tw-right-[3px] tw-flex tw-items-top">
+													<span className="tw-text-left tw-text-[10px] tw-tracking-wiser tw-font-light">
 														Review terms and condition in help tab{' '}
 													</span>
-													{/* <BsFillHandIndexFill size={20} /> */}
 												</div>
 											)}
 										</div>

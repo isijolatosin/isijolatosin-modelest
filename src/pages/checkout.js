@@ -18,7 +18,7 @@ import {
 } from 'react-icons/md'
 import { SiHomeassistantcommunitystore } from 'react-icons/si'
 import Heading from '../components/Heading'
-import { BsFillHandIndexFill, BsFillQuestionCircleFill } from 'react-icons/bs'
+import { BsFillQuestionCircleFill } from 'react-icons/bs'
 import { db } from '../firebase'
 import { AUTHORIZED_ID } from '../constant'
 
@@ -272,7 +272,6 @@ const Cart = () => {
 															<span className="tw-text-left">
 																Review shipping policy in help tab
 															</span>
-															{/* <BsFillHandIndexFill size={30} /> */}
 														</div>
 													)}
 												</div>
