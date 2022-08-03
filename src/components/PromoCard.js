@@ -2,7 +2,7 @@ import React from 'react'
 import { AUTHORIZED_ID } from '../constant'
 import { db } from '../firebase'
 
-const PromoCard = () => {
+const PromoCard = ({ setExpired }) => {
 	const [code, setCode] = React.useState('')
 	const [countTime, setCountTime] = React.useState('')
 	const [countDay, setCountDay] = React.useState('')
@@ -40,18 +40,17 @@ const PromoCard = () => {
 		const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
 		const seconds = Math.floor((distance % (1000 * 60)) / 1000)
 
-		// Display the result in the element with id="time"
 		const h = hours < 10 ? `0${hours}` : hours
 		const m = minutes < 10 ? `0${minutes}` : minutes
 		const s = seconds < 10 ? `0${seconds}` : seconds
 		setCountTime(h + ' : ' + m + ' : ' + s)
-		// Display the result in the element with id="day"
+
 		setCountDay(days)
 
 		// If the count down is finished, write some text
-		if (distance < 0) {
+		if (distance < 0 || distance === 0) {
 			clearInterval(x)
-			document.getElementById('demo').innerHTML = 'EXPIRED'
+			setExpired(true)
 		}
 	}, 1000)
 
@@ -94,17 +93,24 @@ const PromoCard = () => {
 			<div className="md:tw-mt-[-60px] tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-justify-center tw-mt-5">
 				{countDay > 0 && (
 					<div className="tw-border-[4px] tw-border-neutral-800 tw-rounded-full tw-w-[70px] tw-h-[70px] md:tw-w-[100px] md:tw-h-[100px] md:tw-mr-5 md:tw-mt-3">
-						<div className="tw-text-[30px] md:tw-text-[50px] tw-text-white tw-flex tw-items-center tw-justify-center orbitron tw-w-full tw-pt-1">
-							{countDay}
-						</div>
-						<div className="tw-w-full tw-flex tw-items-center tw-justify-center tw-mt-[-13px] md:tw-mt-[-20px]">
-							<span className="tw-text-sm md:tw-text-lg tw-text-white orbitron">
-								{countDay > 1 ? 'days' : 'day'}
-							</span>
-						</div>
+						<>
+							<div className="tw-text-[30px] md:tw-text-[50px] tw-text-white tw-flex tw-items-center tw-justify-center orbitron tw-w-full tw-pt-1">
+								{countDay}
+							</div>
+							<div className="tw-w-full tw-flex tw-items-center tw-justify-center tw-mt-[-13px] md:tw-mt-[-20px]">
+								<span className="tw-text-sm md:tw-text-lg tw-text-white orbitron">
+									{countDay > 1 ? 'days' : 'day'}
+								</span>
+							</div>
+						</>
 					</div>
 				)}
-				<div className="tw-text-[30px] md:tw-text-[50px] tw-text-white orbitron">
+				<div
+					className={`${
+						countDay < 1
+							? 'tw-text-red-700 tw-w-full tw-text-center'
+							: 'tw-text-white'
+					} tw-text-[30px] md:tw-text-[50px] orbitron`}>
 					{countTime}
 				</div>
 			</div>

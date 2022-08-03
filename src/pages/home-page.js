@@ -20,6 +20,7 @@ function HomePage() {
 	const [chat, setChat] = React.useState(true)
 	const [showForm, setShowForm] = React.useState(false)
 	const [searchError, setSearchError] = React.useState(false)
+	const [expired, setExpired] = React.useState(false)
 	const [allProducts, setAllproducts] = React.useState([])
 	const [filtered, setFiltered] = React.useState([])
 	const [sales, setSales] = React.useState(null)
@@ -315,7 +316,7 @@ function HomePage() {
 					{allProducts.length !== 0 ? (
 						<div className="tw-bg-neutral-900 tw-w-[100%]">
 							<div className="tw-mb-6 tw-mt-[80px] tw-w-full tw-px-3 ">
-								<PromoCard />
+								{!expired && <PromoCard setExpired={setExpired} />}
 								<Products
 									SubmitInqury={SubmitInqury}
 									setChatError={setChatError}
