@@ -13,9 +13,12 @@ import {
 import Reviews from '../components/shared/Reviews'
 import Add2CartPopup from '../components/shared/Add2CartPopup'
 import { useDispatch, useSelector } from 'react-redux'
+import { getDatabase, ref, onValue } from 'firebase/database'
+
+const paypal = require('../../src/assets/paypal.png')
+const stripe = require('../../src/assets/stripe.png')
 
 const SingleWig = () => {
-	const allSizes = ['14', '16', '18', '20', '22', '24']
 	const [singleWig, setSingleWig] = React.useState([])
 	const [singleCart, setSingleCart] = React.useState(null)
 	const [error, setError] = React.useState(false)
@@ -25,10 +28,22 @@ const SingleWig = () => {
 	const dispatch = useDispatch()
 	const cartItems = useSelector(selectCartItems)
 	const category = window.location.pathname.split('/').filter((x) => x)?.[0]
+	const database = getDatabase()
+	const [sales, setSales] = React.useState(null)
 	const wigId = window.location.pathname
 		.split('/')
 		.filter((x) => x)?.[1]
 		.split('-')?.[1]
+
+	React.useEffect(() => {
+		const starCountRef = ref(database, 'sales')
+		onValue(starCountRef, (snapshot) => {
+			const data = snapshot.val()
+
+			setSales(data.no)
+		})
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	async function fetchProducts() {
 		try {
@@ -44,9 +59,9 @@ const SingleWig = () => {
 			filtered.map((item) => {
 				const obj = {
 					image: item?.image,
-					image1: item?.image1,
-					image2: item?.image2,
-					image3: item?.image3,
+					image1: item?.image2,
+					image2: item?.image3,
+					image3: item?.image4,
 				}
 				imgArray.push(obj)
 				setImageArray(obj)
@@ -70,11 +85,18 @@ const SingleWig = () => {
 	const hairLength = _length
 	const hairTexture = singleWig[0]?.texture
 	const quantity = Number(_quantity)
-	const lengths =
+	const avLengths =
 		singleWig[0]?.availablelength.length > 3
 			? singleWig[0]?.availablelength.split(', ')
 			: [singleWig[0]?.availablelength]
+	const lengths =
+		singleWig[0]?.length.length > 3
+			? singleWig[0]?.availablelength.split(', ')
+			: [String(singleWig[0]?.length)]
+
 	const lengthArray = [...lengths]
+	const allSizes = [...avLengths]
+
 	const hairColor = singleWig[0]?.color
 
 	const wigProduct = {
@@ -119,11 +141,11 @@ const SingleWig = () => {
 		{ key: 'Brand', value: `Raw ${singleWig[0]?.brand} hair` },
 		{
 			key: 'Hair Texture',
-			value: name,
+			value: singleWig[0]?.texture,
 		},
 		{ key: 'Hair Color', value: singleWig[0]?.color },
 		{ key: 'Material', value: '100% Human Hair' },
-		{ key: 'Density', value: '150% - 200%' },
+		{ key: 'Density', value: `${singleWig[0]?.density}%` },
 		{
 			key: 'Hair Length',
 			value: Array.isArray(aLength)
@@ -132,7 +154,11 @@ const SingleWig = () => {
 				  }" inches`
 				: `Available length is ${aLength}" inches`,
 		},
-		{ key: 'Cap Size', value: 'Average Size(Head circumference: 54cm - 58cm' },
+		{
+			key: 'Cap Size',
+			value:
+				singleWig[0]?.capsize || 'Average Size(Head circumference: 54cm - 58cm',
+		},
 		{
 			key: 'Return policy',
 			value:
@@ -152,7 +178,10 @@ const SingleWig = () => {
 				<title>{`${name}-Hair-Bundle-Deals`}</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-w-full tw-bg-neutral-100 tw-flex tw-flex-col tw-items-center">
+				<div
+					className={`${
+						sales ? 'tw-pt-[70px] md:tw-pt-[50px]' : 'tw-pt-0'
+					} tw-w-full tw-bg-neutral-100 tw-flex tw-flex-col tw-items-center`}>
 					<div className="tw-fixed tw-z-20 tw-top-0 md:tw-top-[-95px] tw-right-0">
 						<Add2CartPopup
 							singleCart={singleCart}
@@ -222,10 +251,25 @@ const SingleWig = () => {
 									${price * Number(_quantity)}:00
 								</span>
 							</div>
-							<span className="tw-text-sm">
-								or 4 interest-free payments of ${price / 4} with{' '}
-								<span className="tw-text-blue-500">Stripe payment</span>
-							</span>
+							<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
+								Pay in 4 interest-free payments of ${price / 4} with{' '}
+								<img
+									src={stripe}
+									alt="paypal"
+									className="tw-w-[45px] tw-ml-[2px]"
+								/>
+							</p>
+							<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
+								or 4 interest-free payment of ${price / 4} with{' '}
+								<img
+									src={paypal}
+									alt="paypal"
+									className="tw-w-[45px] tw-mx-1"
+								/>
+							</p>
+							<p className="tw-text-xs tw-text-blue-700">
+								Available @ checkout
+							</p>
 							{error && (
 								<div>
 									<p className="tw-text-left tw-mb-2 tw-mt-5 tw-text-red-600 tw-text-xs">

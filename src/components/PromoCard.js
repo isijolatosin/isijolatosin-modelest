@@ -1,5 +1,4 @@
 import React from 'react'
-import dayjs from 'dayjs'
 import { AUTHORIZED_ID } from '../constant'
 import { db } from '../firebase'
 
@@ -83,7 +82,7 @@ const PromoCard = () => {
 						</div>
 					</div>
 				</div>
-				<div className="md:tw-absolute tw-bottom-[90px] tw-right-[180px]">
+				<div className="md:tw-absolute tw-bottom-[90px] tw-right-[225px]">
 					<p className="yellow tw-text-white tw-font-bold tw-text-xs tw-w-full tw-text-center tw-mt-7">
 						{code}
 					</p>

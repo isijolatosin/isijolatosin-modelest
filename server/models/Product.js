@@ -49,10 +49,20 @@ const ProductSchema = new mongoose.Schema({
 		required: [true, 'must provide description'],
 		trim: true,
 	},
+	density: {
+		type: String,
+		default: false,
+	},
+	texture: {
+		type: String,
+		default: false,
+	},
+	capsize: {
+		type: String,
+		default: false,
+	},
 	image: {
 		type: String,
-		// required: [true, 'must provide image url'],
-		// trim: true,
 	},
 	sales: {
 		type: Boolean,

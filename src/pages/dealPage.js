@@ -15,6 +15,9 @@ import Reviews from '../components/shared/Reviews'
 import Add2CartPopup from '../components/shared/Add2CartPopup'
 import { useDispatch, useSelector } from 'react-redux'
 
+const paypal = require('../../src/assets/paypal.png')
+const stripe = require('../../src/assets/stripe.png')
+
 const DealPage = () => {
 	const database = getDatabase()
 	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12)
@@ -29,6 +32,7 @@ const DealPage = () => {
 	const [_length, setLength] = React.useState(null)
 	const dispatch = useDispatch()
 	const cartItems = useSelector(selectCartItems)
+	const [sales, setSales] = React.useState(null)
 	const category = window.location.pathname
 		.split('/')
 		.filter((x) => x)
@@ -42,6 +46,15 @@ const DealPage = () => {
 				'-'
 			).length - 1
 	]
+	React.useEffect(() => {
+		const starCountRef = ref(database, 'sales')
+		onValue(starCountRef, (snapshot) => {
+			const data = snapshot.val()
+
+			setSales(data.no)
+		})
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	React.useEffect(() => {
 		const bundleDealsPercentage = ref(database, 'bundle deals')
@@ -197,19 +210,18 @@ const DealPage = () => {
 		{ key: 'Hair Color', value: deals[1]?.color },
 
 		{ key: 'Material', value: '100% Human Hair' },
+		{ key: 'Can be bleached.dyed', value: 'Yes' },
 		{ key: 'Density', value: '150% - 200%' },
-		{ key: 'Cap Size', value: 'Average Size(Head circumference: 54cm - 58cm' },
-		{
-			key: 'Delivery time',
-			value:
-				'We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)',
-		},
 		{
 			key: 'Return policy',
 			value:
 				'We accept 10-days no reason return exchange with hair not been used',
 		},
-		{ key: 'Can be bleached.dyed', value: 'Yes' },
+		{
+			key: 'Delivery time',
+			value:
+				'We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)',
+		},
 	]
 
 	const addToCart = () => {
@@ -240,7 +252,10 @@ const DealPage = () => {
 				<title>{`${name}-Hair-Bundle-Deals`}</title>
 			</Helmet>
 			<Layout sales={bundleDealsPercentage}>
-				<div className="tw-w-full tw-bg-white tw-flex tw-flex-col tw-items-center">
+				<div
+					className={`${
+						sales ? 'tw-pt-[70px] md:tw-pt-[50px]' : 'tw-pt-0'
+					} tw-w-full tw-bg-white tw-flex tw-flex-col tw-items-center`}>
 					<div className="tw-fixed tw-z-20 tw-top-0 md:tw-top-[-95px] tw-right-0">
 						<Add2CartPopup
 							singleCart={singleCart}
@@ -312,10 +327,25 @@ const DealPage = () => {
 									${(dealPrice * _quantity).toFixed(2)}
 								</span>
 							</div>
-							<span className="tw-text-sm">
-								or 4 interest-free payments of ${dealPrice / 4} with{' '}
-								<span className="tw-text-blue-500">Stripe payment</span>
-							</span>
+							<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
+								Pay in 4 interest-free payments of ${price / 4} with{' '}
+								<img
+									src={stripe}
+									alt="paypal"
+									className="tw-w-[45px] tw-ml-[2px]"
+								/>
+							</p>
+							<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
+								or 4 interest-free payment of ${price / 4} with{' '}
+								<img
+									src={paypal}
+									alt="paypal"
+									className="tw-w-[45px] tw-mx-1"
+								/>
+							</p>
+							<p className="tw-text-xs tw-text-blue-700">
+								Available @ checkout
+							</p>
 							{error && (
 								<div>
 									<p className="tw-text-left tw-mb-2 tw-mt-5 tw-text-red-600 tw-text-xs">

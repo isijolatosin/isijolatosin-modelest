@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 function WigsCard({ product, sales, dealPrice, frontalClosure, texture }) {
 	return (
-		<div className="card tw-drop-shadow-xl">
+		<div className="card tw-drop-shadow-xl md:tw-mx-2 md:tw-mb-0 tw-mb-3">
 			<ul className="ul">
 				<li>
 					<span className="tw-absolute tw-left-[-95px] tw-text-white tw-text-md tw-font-bold">

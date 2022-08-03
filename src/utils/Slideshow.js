@@ -8,15 +8,15 @@ const Slideshow = ({ images, iconSize }) => {
 			id: 1,
 		},
 		{
-			image: (images.image2 && images.image2) || (images?.[1] && images?.[1]),
+			image: (images.image1 && images.image1) || (images?.[1] && images?.[1]),
 			id: 2,
 		},
 		{
-			image: (images.image3 && images.image3) || (images?.[2] && images?.[2]),
+			image: (images.image2 && images.image2) || (images?.[2] && images?.[2]),
 			id: 3,
 		},
 		{
-			image: (images.image4 && images.image4) || (images?.[3] && images?.[3]),
+			image: (images.image3 && images.image3) || (images?.[3] && images?.[3]),
 			id: 4,
 		},
 	].filter((x) => x.image)

@@ -842,8 +842,8 @@ label input::placeholder {
 	transition: background 0.5s ease;
 }
 .card {
-	width: 400px;
-	height: 500px;
+	width: 350px;
+	height: 450px;
 	background: #000;
 	overflow: hidden;
 	position: relative;
