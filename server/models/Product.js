@@ -29,7 +29,7 @@ const ProductSchema = new mongoose.Schema({
 		type: String,
 	},
 	length: {
-		type: Number,
+		type: String,
 		required: [true, 'must provide a length'],
 		trim: true,
 	},

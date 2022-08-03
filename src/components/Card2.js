@@ -87,7 +87,7 @@ function Card({
 
 	// Adding to cart items
 	const { name, _id, image, color, description } = product
-	const price = product.sales ? salesAmount : cardPrice
+	const price = product.sales && sales ? salesAmount : cardPrice
 	const hairLength = bundles.length
 	const hairColor = color
 

@@ -91,12 +91,11 @@ const SingleWig = () => {
 			: [singleWig[0]?.availablelength]
 	const lengths =
 		singleWig[0]?.length.length > 3
-			? singleWig[0]?.availablelength.split(', ')
+			? singleWig[0]?.length.split(', ')
 			: [String(singleWig[0]?.length)]
 
 	const lengthArray = [...lengths]
 	const allSizes = [...avLengths]
-
 	const hairColor = singleWig[0]?.color
 
 	const wigProduct = {

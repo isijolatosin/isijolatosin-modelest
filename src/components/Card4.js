@@ -110,18 +110,21 @@ function Card({
 	const pricePredict = () => {
 		if (product.type.toLowerCase() === 'frontal') {
 			if (
-				bundles.color.includes('Natural black') &&
-				(bundles.hairType.includes('Bodywave') ||
-					bundles.hairType.includes('Wavy') ||
-					bundles.hairType.includes('Curly'))
+				bundles.color.toLowerCase()?.includes('natural black') &&
+				(bundles.hairType.toLowerCase()?.includes('bodywave') ||
+					bundles.hairType.toLowerCase()?.includes('wavy') ||
+					bundles.hairType.toLowerCase()?.includes('curly'))
 			) {
-				cardPrice2 += 10
-				salesAmount2 += 10
+				if (sales !== 0 && product?.sales) {
+					return (salesAmount2 += 10)
+				} else {
+					return (cardPrice2 += 10)
+				}
 			} else if (
-				bundles.color.includes('Natural black') &&
-				bundles.hairType.includes('Straight')
+				bundles.color.toLowerCase()?.includes('natural black') &&
+				bundles.hairType.toLowerCase()?.includes('straight')
 			) {
-				if (sales !== 0) {
+				if (sales !== 0 && product?.sales) {
 					return salesAmount2
 				} else {
 					return cardPrice2
@@ -129,21 +132,21 @@ function Card({
 			}
 		} else {
 			if (
-				bundles.color.includes('Natural black') &&
-				(bundles.hairType.includes('Bodywave') ||
-					bundles.hairType.includes('Wavy') ||
-					bundles.hairType.includes('Curly'))
+				bundles.color.toLowerCase()?.includes('natural black') &&
+				(bundles.hairType.toLowerCase()?.includes('bodywave') ||
+					bundles.hairType.toLowerCase()?.includes('wavy') ||
+					bundles.hairType.toLowerCase()?.includes('curly'))
 			) {
-				if (sales !== 0) {
+				if (sales !== 0 && product?.sales) {
 					return (salesAmount1 += 5)
 				} else {
 					return (cardPrice1 += 5)
 				}
 			} else if (
-				bundles.color.includes('Natural black') &&
-				bundles.hairType.includes('Straight')
+				bundles.color.toLowerCase()?.includes('natural black') &&
+				bundles.hairType.toLowerCase()?.includes('straight')
 			) {
-				if (sales !== 0) {
+				if (sales !== 0 && product?.sales) {
 					return salesAmount1
 				} else {
 					return cardPrice1
@@ -151,21 +154,21 @@ function Card({
 			}
 
 			if (
-				bundles.color.includes('Blonde613') &&
-				(bundles.hairType.includes('Bodywave') ||
-					bundles.hairType.includes('Wavy') ||
-					bundles.hairType.includes('Curly'))
+				bundles.color.toLowerCase()?.includes('blonde613') &&
+				(bundles.hairType.toLowerCase()?.includes('bodywave') ||
+					bundles.hairType.toLowerCase()?.includes('wavy') ||
+					bundles.hairType.toLowerCase()?.includes('curly'))
 			) {
-				if (sales !== 0) {
+				if (sales !== 0 && product?.sales) {
 					return (salesAmount1 += 15)
 				} else {
 					return (cardPrice1 += 15)
 				}
 			} else if (
-				bundles.color.includes('Blonde613') &&
-				bundles.hairType.includes('Straight')
+				bundles.color.toLowerCase()?.includes('blonde613') &&
+				bundles.hairType.toLowerCase()?.includes('straight')
 			) {
-				if (sales !== 0) {
+				if (sales !== 0 && product?.sales) {
 					return (salesAmount1 += 10)
 				} else {
 					return (cardPrice1 += 10)

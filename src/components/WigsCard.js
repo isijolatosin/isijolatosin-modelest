@@ -7,6 +7,9 @@ import truncate from '../utils/truncate'
 import { Link } from 'react-router-dom'
 
 function WigsCard({ product, sales, dealPrice, frontalClosure, texture }) {
+	const lengthSplit = product?.length.split(', ')
+	const lengthSplitFirst = product?.length.split(', ')[0]
+	const lengthSplitEnd = product?.length.split(', ')[lengthSplit.length - 1]
 	return (
 		<div className="card tw-drop-shadow-xl md:tw-mx-2 md:tw-mb-0 tw-mb-3">
 			<ul className="ul">
@@ -18,8 +21,19 @@ function WigsCard({ product, sales, dealPrice, frontalClosure, texture }) {
 					<GiMoneyStack />
 				</li>
 				<li>
-					<span className="tw-absolute tw-left-[-77px] tw-text-white tw-text-md tw-font-light">
-						<span className="">{product?.length}" inches</span>
+					<span
+						className={`tw-absolute ${
+							product?.length.length > 2
+								? 'tw-left-[-110px]'
+								: 'tw-left-[-77px]'
+						} tw-text-white tw-text-md tw-font-light`}>
+						<span className="">
+							{product?.length.length > 2
+								? `${lengthSplitFirst} -
+								  ${lengthSplitEnd}`
+								: product?.length}
+							" inches
+						</span>
 					</span>
 					<VscSymbolRuler />
 				</li>

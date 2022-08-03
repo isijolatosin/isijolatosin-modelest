@@ -132,10 +132,10 @@ function Card({
 	const { name, _id, image, color, description } = product
 	const price =
 		product.color === 'blonde613'
-			? product.sales
+			? product.sales && sales
 				? salesAmount2
 				: cardPrice2
-			: product.sales
+			: product.sales && sales
 			? salesAmount1
 			: cardPrice1
 	const hairLength = bundles.length
