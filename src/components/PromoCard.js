@@ -58,7 +58,7 @@ const PromoCard = ({ setExpired }) => {
 		<div className="tw-w-full tw-bg-black tw-h-[450px] md:tw-h-[500px]">
 			<div className="tw-relative">
 				<div className="tw-relative tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-justify-between tw-w-[80%] tw-mx-auto">
-					<div className="font_cursive tw-text-[100px] md:tw-text-[250px] tw-text-white tw-relative tw-flex-[0.9]">
+					<div className="font_cursive tw-text-[100px] md:tw-text-[250px] tw-text-white tw-relative tw-flex-[0.9] tw-mr-10 md:tw-mr-0">
 						<span className="tw-text-[32px] md:tw-text-[60px] tw-absolute tw-rotate-[-7deg] tw-top-[120px] md:tw-top-[155px] tw-left-[110px] md:tw-left-[220px] md:tw-bg-[rgba(255,0,217,0.2)] tw-text-white tw-w-[75%] md:tw-w-[40%] tw-pl-5">
 							Price slash !!!{' '}
 						</span>
