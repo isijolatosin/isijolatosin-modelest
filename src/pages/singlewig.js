@@ -2,7 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
 import axios from 'axios'
-import Slideshow from '../utils/Slideshow'
+import Slideshow2 from '../utils/Slideshow2'
 import RatingFix from '../components/shared/RatingFix'
 import { isInCart } from '../utils/helpers'
 import {
@@ -14,6 +14,16 @@ import Reviews from '../components/shared/Reviews'
 import Add2CartPopup from '../components/shared/Add2CartPopup'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDatabase, ref, onValue } from 'firebase/database'
+import {
+	closureVirginWigPricing,
+	frontalVirginWigPricing,
+	wigTextureType1,
+	wigTextureTypeIncreaseValue1,
+	wigTextureType2,
+	wigTextureTypeIncreaseValue2,
+} from '../constant'
+import { BsFillArrowLeftCircleFill } from 'react-icons/bs'
+import { Link } from 'react-router-dom'
 
 const paypal = require('../../src/assets/paypal.png')
 const stripe = require('../../src/assets/stripe.png')
@@ -30,6 +40,9 @@ const SingleWig = () => {
 	const category = window.location.pathname.split('/').filter((x) => x)?.[0]
 	const database = getDatabase()
 	const [sales, setSales] = React.useState(null)
+	const [textureType1, setTextureType1] = React.useState('')
+	const [textureType2, setTextureType2] = React.useState('')
+	const [noTexture, setNoTexture] = React.useState('')
 	const wigId = window.location.pathname
 		.split('/')
 		.filter((x) => x)?.[1]
@@ -59,9 +72,9 @@ const SingleWig = () => {
 			filtered.map((item) => {
 				const obj = {
 					image: item?.image,
-					image1: item?.image2,
-					image2: item?.image3,
-					image3: item?.image4,
+					image2: item?.image2,
+					image3: item?.image3,
+					image4: item?.image4,
 				}
 				imgArray.push(obj)
 				setImageArray(obj)
@@ -75,13 +88,72 @@ const SingleWig = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
+	// Price for virgin wigs
+	function wigFuncClosure() {
+		let a
+		// eslint-disable-next-line array-callback-return
+		closureVirginWigPricing.map((p) => {
+			if (_length === p?.length) {
+				if (textureType1) {
+					if (wigTextureType1.includes(textureType1)) {
+						a = p?.price + wigTextureTypeIncreaseValue1
+					} else {
+						a = p?.price
+					}
+				} else if (textureType2) {
+					if (wigTextureType2.includes(textureType2)) {
+						a = p?.price + wigTextureTypeIncreaseValue2
+					} else {
+						a = p?.price
+					}
+				} else if (noTexture) {
+					a = p?.price
+				} else {
+					a = p?.price
+				}
+			}
+		})
+		return a
+	}
+
+	function wigFuncFrontal() {
+		let a
+		// eslint-disable-next-line array-callback-return
+		frontalVirginWigPricing.map((p) => {
+			if (_length === p?.length) {
+				if (textureType1) {
+					if (wigTextureType1.includes(textureType1)) {
+						a = p?.price + wigTextureTypeIncreaseValue1
+					} else {
+						a = p?.price
+					}
+				} else if (textureType2) {
+					if (wigTextureType2.includes(textureType2)) {
+						a = p?.price + wigTextureTypeIncreaseValue2
+					} else {
+						a = p?.price
+					}
+				} else if (noTexture) {
+					a = p?.price
+				} else {
+					a = p?.price
+				}
+			}
+		})
+		return a
+	}
+	const vWPrice1 = wigFuncFrontal()
+	const vWPrice2 = wigFuncClosure()
 	// Adding to cart items
 	const name = singleWig[0]?.name
-
 	const id = singleWig[0]?._id
 	const image = imageArray?.image
 	const description = singleWig[0]?.description
-	const price = singleWig[0]?.price
+	const price = name?.toLowerCase().includes('-closure')
+		? vWPrice2
+		: name?.toLowerCase().includes('-frontal')
+		? vWPrice1
+		: singleWig[0]?.price
 	const hairLength = _length
 	const hairTexture = singleWig[0]?.texture
 	const quantity = Number(_quantity)
@@ -180,7 +252,7 @@ const SingleWig = () => {
 				<div
 					className={`${
 						sales ? 'tw-pt-[70px] md:tw-pt-[50px]' : 'tw-pt-0'
-					} tw-w-full tw-bg-neutral-100 tw-flex tw-flex-col tw-items-center`}>
+					} tw-w-full tw-bg-neutral-100 tw-flex tw-flex-col tw-items-center tw-relative`}>
 					<div className="tw-fixed tw-z-20 tw-top-0 md:tw-top-[-95px] tw-right-0">
 						<Add2CartPopup
 							singleCart={singleCart}
@@ -188,16 +260,77 @@ const SingleWig = () => {
 							quantity={_quantity}
 						/>
 					</div>
-					<div className="tw-pt-[70px] xl:tw-w-[80%] tw-px-5 tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
+					<div className="tw-mt-[70px] xl:tw-w-[80%] tw-px-5 tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
 						<div className="">
-							<Slideshow images={imageArray} iconSize={40} />
+							<Slideshow2 images={imageArray} iconSize={40} />
 						</div>
 						<div className="">
-							<h1 className="tw-text-xl md:tw-text-3xl tw-uppercase">{name}</h1>
+							<div className="tw-flex tw-justify-between tw-items-center">
+								<h1 className="tw-text-xl md:tw-text-3xl tw-uppercase">
+									{name}
+								</h1>
+								<div className="tw-text-[#bba371]">
+									<Link to="/virgin-wigs">
+										<BsFillArrowLeftCircleFill
+											size={35}
+											className="hover:tw-text-neutral-400 tw-ease-in tw-duration-300"
+										/>{' '}
+										{/* <span>Back to wig collections</span> */}
+									</Link>
+								</div>
+							</div>
 							<div className="tw-mb-5">
 								<RatingFix isReview={true} size={20} color="black" />
 							</div>
-							<span>Bundles</span>
+							<div className="tw-flex tw-flex-wrap tw-mt-3 tw-mb-5 tw-capitalize">
+								<div>
+									<span
+										onClick={() => {
+											setNoTexture('no texture')
+											setTextureType2('')
+											setTextureType1('')
+										}}
+										className={`${
+											noTexture
+												? 'tw-bg-neutral-900 tw-text-white'
+												: 'tw-bg-neutral-200 tw-text-neutral-900'
+										} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
+										no texture
+									</span>
+								</div>
+								{wigTextureType1.map((type1, idx) => (
+									<span
+										key={idx}
+										onClick={() => {
+											setTextureType1(type1)
+											setTextureType2('')
+											setNoTexture('')
+										}}
+										className={`${
+											type1 === textureType1
+												? 'tw-bg-neutral-900 tw-text-white'
+												: 'tw-bg-neutral-200 tw-text-neutral-900'
+										} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
+										{type1}
+									</span>
+								))}
+								{wigTextureType2.map((type2, idx) => (
+									<span
+										key={idx}
+										onClick={() => {
+											setTextureType2(type2)
+											setTextureType1('')
+											setNoTexture('')
+										}}
+										className={`${
+											type2 === textureType2
+												? 'tw-bg-neutral-900 tw-text-white'
+												: 'tw-bg-neutral-200 tw-text-neutral-900'
+										} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
+										{type2}
+									</span>
+								))}
+							</div>
 							<div className="tw-flex tw-flex-wrap">
 								{allSizes.map(
 									// eslint-disable-next-line array-callback-return
@@ -245,9 +378,15 @@ const SingleWig = () => {
 									/>
 								</div>
 							</div>
+							{!price && (
+								<span className="tw-text-xs tw-text-green-700">
+									*** Select length & tetxure to calculate price... ***
+								</span>
+							)}
 							<div className="tw-mb-1">
 								<span className="tw-text-3xl">
-									${price * Number(_quantity)}:00
+									${price * Number(_quantity) || '***'}
+									:00
 								</span>
 							</div>
 							<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">

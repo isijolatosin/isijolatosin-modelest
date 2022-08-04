@@ -122,11 +122,7 @@ const Add2CartPopup = ({ singleCart, setSingleCart, quantity }) => {
 						</div>
 						<button
 							onClick={() => {
-								if (agree) {
-									setSingleCart(null)
-								} else {
-									setWarn(true)
-								}
+								setSingleCart(null)
 							}}
 							size={25}
 							className="tw-w-full tw-text-center tw-text-blue-500 tw-text-xs tw-mt-5 tw-pb-1 hover:tw-cursor-pointer hover:tw-text-neutral-600 tw-ease-in tw-duration-300">

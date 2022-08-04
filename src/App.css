@@ -763,13 +763,23 @@ label input::placeholder {
 }
 .image {
 	border-radius: 10px;
-	max-width: 400px;
+	max-width: 330px;
 	object-fit: cover;
+}
+.image2 {
+	border-radius: 10px;
+	max-width: 560px;
+	object-fit: cover;
+}
+@media (max-width: 768px) {
+	.image2 {
+		max-width: 330px;
+	}
 }
 .right-arrow {
 	position: absolute;
 	top: 45%;
-	font-size: 1.5rem;
+	font-size: 1.8rem;
 	color: red;
 	z-index: 10;
 	cursor: pointer;
@@ -778,22 +788,32 @@ label input::placeholder {
 .left-arrow {
 	position: absolute;
 	top: 45%;
-	font-size: 1.5rem;
+	font-size: 1.8rem;
 	color: red;
 	z-index: 10;
 	cursor: pointer;
 	user-select: none;
 }
 .slide {
-	opacity: 0;
-	transition-duration: 1s ease;
+	opacity: 1;
+	transition-duration: 2s ease;
 	transform: scale(0.8);
 }
-.slide.active {
-	opacity: 1;
-	transition-duration: 1s;
+.slider .active {
 	transform: scale(1);
+	animation: slide-animate 1s ease;
 }
+@keyframes slide-animate {
+	0% {
+		opacity: 0;
+		transform: scale(0.8);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
 .pagWrapper {
 	display: flex;
 	flex-direction: row;
@@ -1405,17 +1425,17 @@ p.yellow::-moz-selection {
 	animation: animate 5s linear infinite;
 	border-radius: 10px;
 }
+@keyframes animate {
+	100% {
+		transform: rotate(360deg);
+	}
+}
 .box span {
 	inset: 1px;
 	background: #0c1022;
 	position: absolute;
 	border-radius: 10px;
 	z-index: 2;
-}
-@keyframes animate {
-	100% {
-		transform: rotate(360deg);
-	}
 }
 .box .content {
 	position: relative;

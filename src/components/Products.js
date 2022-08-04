@@ -15,6 +15,14 @@ import { CgClose } from 'react-icons/cg'
 import DealsCard from './shared/DealsCard'
 import FeaturedCard from '../components/shared/FeaturedCard'
 import ContactForm from './shared/ContactForm'
+import {
+	closureVirginWigPricing,
+	frontalVirginWigPricing,
+	wigTextureType1,
+	wigTextureTypeIncreaseValue1,
+	wigTextureType2,
+	wigTextureTypeIncreaseValue2,
+} from '../constant'
 
 function Products({
 	allProducts,
@@ -32,8 +40,11 @@ function Products({
 	const [toggleHeight, setToggleHeight] = React.useState(true)
 	const [singleProducts, setSingleproducts] = React.useState(null)
 	const [singleCart, setSingleCart] = React.useState(null)
+	const [textureType1, setTextureType1] = React.useState('')
+	const [textureType2, setTextureType2] = React.useState('')
+	const [noTexture, setNoTexture] = React.useState('')
 	const [error, setError] = React.useState(false)
-	const [length, setLength] = React.useState('14')
+	const [length, setLength] = React.useState('')
 	const [_color, setColor] = React.useState(null)
 	const [_hairType, sethairType] = React.useState(null)
 	const dispatch = useDispatch()
@@ -49,7 +60,8 @@ function Products({
 		window.scrollTo(0, 0)
 	}
 
-	const sizes = singleProducts?.[0].availablelength.split(', ')
+	const avesizes = singleProducts?.[0].availablelength.split(', ')
+	const sizes = singleProducts?.[0].length.split(', ')
 
 	let cardPrice =
 		sales !== 0 && singleProducts?.[0]?.sales
@@ -147,6 +159,65 @@ function Products({
 		}
 	}
 
+	// Price for virgin wigs
+	function wigFuncClosure() {
+		let a
+		// eslint-disable-next-line array-callback-return
+		closureVirginWigPricing.map((p) => {
+			if (length === p?.length) {
+				if (textureType1) {
+					if (wigTextureType1.includes(textureType1)) {
+						a = p?.price + wigTextureTypeIncreaseValue1
+					} else {
+						a = p?.price
+					}
+				} else if (textureType2) {
+					if (wigTextureType2.includes(textureType2)) {
+						a = p?.price + wigTextureTypeIncreaseValue2
+					} else {
+						a = p?.price
+					}
+				} else if (noTexture) {
+					a = p?.price
+				} else {
+					a = p?.price
+				}
+			}
+		})
+		return a
+	}
+
+	function wigFuncFrontal() {
+		let a
+		// eslint-disable-next-line array-callback-return
+		frontalVirginWigPricing.map((p) => {
+			if (length === p?.length) {
+				if (textureType1) {
+					if (wigTextureType1.includes(textureType1)) {
+						a = p?.price + wigTextureTypeIncreaseValue1
+					} else {
+						a = p?.price
+					}
+				} else if (textureType2) {
+					if (wigTextureType2.includes(textureType2)) {
+						a = p?.price + wigTextureTypeIncreaseValue2
+					} else {
+						a = p?.price
+					}
+				} else if (noTexture) {
+					a = p?.price
+				} else {
+					a = p?.price
+				}
+			}
+		})
+		return a
+	}
+	const vWPrice = singleProducts?.[0].name.toLowerCase().includes('-closure')
+		? wigFuncClosure()
+		: singleProducts?.[0].name.toLowerCase().includes('-frontal')
+		? wigFuncFrontal()
+		: ''
 	const f_cPrice = pricePredict()
 
 	// Adding to cart items
@@ -157,9 +228,11 @@ function Products({
 	const description = singleProducts?.[0] && singleProducts?.[0]?.description
 	const width = singleProducts?.[0] && singleProducts?.[0]?.widthlength
 	const price_Nosales =
-		singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
-		singleProducts?.[0]?.type.toLowerCase() === 'closure'
+		singleProducts?.[0]?.type.toLowerCase().includes('frontal') ||
+		singleProducts?.[0]?.type.toLowerCase().includes('closure')
 			? f_cPrice
+			: singleProducts?.[0]?.type.toLowerCase().includes('virgin wig')
+			? vWPrice
 			: _price
 
 	const hairLength = length
@@ -181,7 +254,7 @@ function Products({
 	}
 
 	const price = singleProducts?.[0]?.type.includes('virgin wig')
-		? singleProducts?.[0]?.price
+		? vWPrice
 		: priceFunc()
 
 	const singleProduct = {
@@ -224,8 +297,8 @@ function Products({
 		{ key: 'Hair Color', value: color },
 		{
 			key: 'Hair Length',
-			value: `Available from ${sizes?.[0]}" - ${
-				sizes?.[sizes.length - 1]
+			value: `Available from ${avesizes?.[0]}" - ${
+				avesizes?.[avesizes.length - 1]
 			}" inches`,
 		},
 		{ key: 'Material', value: '100% Human Hair' },
@@ -349,8 +422,8 @@ function Products({
 									Description: {singleProducts?.[0].description}
 								</p>
 							</div>
-							{singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
-							singleProducts?.[0]?.type.toLowerCase() === 'closure' ? (
+							{singleProducts?.[0]?.name.toLowerCase() === 'frontal' ||
+							singleProducts?.[0]?.name.toLowerCase() === 'closure' ? (
 								<div className="tw-ml-5  md:tw-ml-0 tw-mt-5">
 									<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
 										<div className="tw-flex tw-flex-wrap">
@@ -391,7 +464,7 @@ function Products({
 									</div>
 									<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
 										<div className="tw-flex tw-flex-wrap">
-											{sizes.map((size, idx) => (
+											{avesizes.map((size, idx) => (
 												<span
 													onClick={() => {
 														setLength(size)
@@ -409,13 +482,92 @@ function Products({
 										</div>
 									</div>
 								</div>
+							) : singleProducts?.[0]?.type
+									.toLowerCase()
+									.includes('virgin wig') ? (
+								<div className="tw-ml-5 md:tw-ml-0 tw-mt-5">
+									<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
+										<div className="tw-flex tw-flex-wrap tw-border-y-[1px] tw-py-3">
+											{avesizes.map((size, idx) => (
+												<span
+													onClick={() => {
+														if (sizes.includes(size)) {
+															setLength(size)
+															setError(false)
+														}
+													}}
+													className={`tw-flex tw-flex-wrap ${
+														length === size
+															? 'tw-bg-neutral-900 tw-text-white'
+															: 'tw-bg-white'
+													} ${
+														sizes.includes(size)
+															? 'tw-border-neutral-900 tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white'
+															: 'tw-cursor-not-allowed tw-border-neutral-200 tw-text-neutral-300'
+													} tw-rounded-full tw-mr-2 tw-border-[1px] tw-p-2 tw-px-3 tw-text-[14px] tw-ease-in tw-duration-300`}
+													key={idx}>
+													{size}
+												</span>
+											))}
+										</div>
+										<div className="tw-flex tw-flex-wrap tw-mt-3 tw-capitalize">
+											<div>
+												<span
+													onClick={() => {
+														setNoTexture('no texture')
+														setTextureType2('')
+														setTextureType1('')
+													}}
+													className={`${
+														noTexture
+															? 'tw-bg-neutral-900 tw-text-white'
+															: 'tw-bg-neutral-200 tw-text-neutral-900'
+													} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
+													no texture
+												</span>
+											</div>
+											{wigTextureType1.map((type1, idx) => (
+												<span
+													key={idx}
+													onClick={() => {
+														setTextureType1(type1)
+														setTextureType2('')
+														setNoTexture('')
+													}}
+													className={`${
+														type1 === textureType1
+															? 'tw-bg-neutral-900 tw-text-white'
+															: 'tw-bg-neutral-200 tw-text-neutral-900'
+													} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
+													{type1}
+												</span>
+											))}
+											{wigTextureType2.map((type2, idx) => (
+												<span
+													key={idx}
+													onClick={() => {
+														setTextureType2(type2)
+														setTextureType1('')
+														setNoTexture('')
+													}}
+													className={`${
+														type2 === textureType2
+															? 'tw-bg-neutral-900 tw-text-white'
+															: 'tw-bg-neutral-200 tw-text-neutral-900'
+													} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
+													{type2}
+												</span>
+											))}
+										</div>
+									</div>
+								</div>
 							) : (
 								<div className="tw-flex tw-flex-col tw-ml-5 tw-mt-5 md:tw-ml-0">
 									<div className="tw-flex tw-flex-wrap">
 										{allSizes.map(
 											// eslint-disable-next-line array-callback-return
 											(item) =>
-												sizes.includes(item) ? (
+												avesizes.includes(item) ? (
 													<div
 														onClick={() => {
 															setLength(item)
@@ -443,39 +595,39 @@ function Products({
 								(singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
 								singleProducts?.[0]?.type.toLowerCase() === 'closure' ? (
 									<span className="tw-text-xs tw-text-green-700">
-										***Select color & tetxure to calculate sales price...***
+										*** Select color & tetxure to calculate price... ***
 									</span>
 								) : (
 									<span className="tw-text-xs tw-text-green-700">
-										***Select length to calculate sales price...***
+										*** Select length to calculate price... ***
 									</span>
 								))}
 							<p className="tw-font-medium tw-text-2xl tw-mb-[10px]">
 								Price:{' '}
-								<span
-									className={
-										sales !== 0 &&
-										singleProducts?.[0].sales &&
-										'tw-mr-3 tw-line-through tw-text-neutral-400 tw-border-r-[1px] tw-border-neutral-500 tw-pr-3'
-									}>
-									$
-									{sales !== 0 &&
-										singleProducts?.[0].sales &&
-										`$${
-											price_Nosales
-												? price_Nosales +
-												  singleProducts?.[0].price * (sales / 100)
-												: singleProducts?.[0].price +
-												  singleProducts?.[0].price * (sales / 100)
-										}${' '}
-										USD${' '}`}
-									{singleProducts?.[0]?.type.includes('virgin wig')
-										? singleProducts?.[0]?.price
-										: price_Nosales
-										? price_Nosales
-										: ' ***'}
-								</span>{' '}
-								USD
+								{!singleProducts?.[0]?.type.includes('virgin wig') && (
+									<span
+										className={
+											sales !== 0 &&
+											singleProducts?.[0].sales &&
+											'tw-mr-3 tw-line-through tw-text-neutral-400 tw-border-r-[1px] tw-border-neutral-500 tw-pr-3'
+										}>
+										$
+										{sales !== 0 &&
+											singleProducts?.[0].sales &&
+											`${
+												price_Nosales
+													? price_Nosales +
+													  singleProducts?.[0].price * (sales / 100)
+													: singleProducts?.[0].price +
+													  singleProducts?.[0].price * (sales / 100)
+											}${' '}`}
+									</span>
+								)}
+								{singleProducts?.[0]?.type.includes('virgin wig')
+									? `$${vWPrice ? vWPrice : '***'}${' '}`
+									: price_Nosales
+									? price_Nosales
+									: ' ***'}
 							</p>
 							<div className="tw-text-sm tw-font-light">
 								<div>
@@ -562,7 +714,10 @@ function Products({
 									setSingleproducts(null)
 									setColor(null)
 									sethairType(null)
-									setLength('14')
+									setLength('')
+									setTextureType1('')
+									setTextureType2('')
+									setNoTexture('')
 								}}
 								className="tw-text-2xl tw-text-white tw-bg-neutral-900 tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-absolute tw-top-[20px] tw-right-[20px] tw-ease-in tw-duration-300 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900">
 								<CgClose />
