@@ -2,7 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
 import axios from 'axios'
-import Slideshow2 from '../utils/Slideshow2'
+import Slideshow from '../utils/Slideshow'
 import RatingFix from '../components/shared/RatingFix'
 import { isInCart } from '../utils/helpers'
 import {
@@ -24,6 +24,7 @@ import {
 } from '../constant'
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
+import Heading from '../components/Heading'
 
 const paypal = require('../../src/assets/paypal.png')
 const stripe = require('../../src/assets/stripe.png')
@@ -261,8 +262,93 @@ const SingleWig = () => {
 						/>
 					</div>
 					<div className="tw-mt-[70px] xl:tw-w-[80%] tw-px-5 tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
-						<div className="">
-							<Slideshow2 images={imageArray} iconSize={40} />
+						<div>
+							<div className="">
+								<Slideshow images={imageArray} iconSize={40} />
+							</div>
+							<div className="tw-w-[100%] xl:tw-w-[80%] tw-mx-auto">
+								<div className="tw-w-[90%] tw-mx-auto md:tw-w-[100%]">
+									<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
+										{singleWig?.[0]?.name}
+									</p>
+									<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-mt-0">
+										Description: {singleWig?.[0]?.description}
+									</p>
+								</div>
+								<div className="tw-flex tw-flex-wrap tw-mt-3 tw-mb-5 tw-capitalize">
+									<div>
+										<span
+											onClick={() => {
+												setNoTexture('no texture')
+												setTextureType2('')
+												setTextureType1('')
+											}}
+											className={`${
+												noTexture
+													? 'tw-bg-neutral-900 tw-text-white'
+													: 'tw-bg-neutral-200 tw-text-neutral-900'
+											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
+											no texture
+										</span>
+									</div>
+									{wigTextureType1.map((type1, idx) => (
+										<span
+											key={idx}
+											onClick={() => {
+												setTextureType1(type1)
+												setTextureType2('')
+												setNoTexture('')
+											}}
+											className={`${
+												type1 === textureType1
+													? 'tw-bg-neutral-900 tw-text-white'
+													: 'tw-bg-neutral-200 tw-text-neutral-900'
+											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
+											{type1}
+										</span>
+									))}
+									{wigTextureType2.map((type2, idx) => (
+										<span
+											key={idx}
+											onClick={() => {
+												setTextureType2(type2)
+												setTextureType1('')
+												setNoTexture('')
+											}}
+											className={`${
+												type2 === textureType2
+													? 'tw-bg-neutral-900 tw-text-white'
+													: 'tw-bg-neutral-200 tw-text-neutral-900'
+											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
+											{type2}
+										</span>
+									))}
+								</div>
+								<div className="tw-flex tw-flex-wrap">
+									{allSizes.map(
+										// eslint-disable-next-line array-callback-return
+										(item) =>
+											lengthArray.includes(item) ? (
+												<div
+													onClick={() => {
+														setLength(item)
+														setError(false)
+													}}
+													className={` tw-flex tw-flex-wrap tw-mr-2 tw-mb-2 tw-p-2 tw-px-3 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
+														item === _length &&
+														'tw-bg-neutral-900 tw-text-white'
+													}`}>
+													<span>{item}</span>
+												</div>
+											) : (
+												<div
+													className={`tw-flex tw-flex-wrap tw-mr-2 tw-mb-2 tw-p-2 tw-px-3 tw-border-[1px] tw-rounded-full tw-cursor-not-allowed tw-text-neutral-300`}>
+													<span>{item}</span>
+												</div>
+											)
+									)}
+								</div>
+							</div>
 						</div>
 						<div className="">
 							<div className="tw-flex tw-justify-between tw-items-center">
@@ -282,78 +368,7 @@ const SingleWig = () => {
 							<div className="tw-mb-5">
 								<RatingFix isReview={true} size={20} color="black" />
 							</div>
-							<div className="tw-flex tw-flex-wrap tw-mt-3 tw-mb-5 tw-capitalize">
-								<div>
-									<span
-										onClick={() => {
-											setNoTexture('no texture')
-											setTextureType2('')
-											setTextureType1('')
-										}}
-										className={`${
-											noTexture
-												? 'tw-bg-neutral-900 tw-text-white'
-												: 'tw-bg-neutral-200 tw-text-neutral-900'
-										} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
-										no texture
-									</span>
-								</div>
-								{wigTextureType1.map((type1, idx) => (
-									<span
-										key={idx}
-										onClick={() => {
-											setTextureType1(type1)
-											setTextureType2('')
-											setNoTexture('')
-										}}
-										className={`${
-											type1 === textureType1
-												? 'tw-bg-neutral-900 tw-text-white'
-												: 'tw-bg-neutral-200 tw-text-neutral-900'
-										} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
-										{type1}
-									</span>
-								))}
-								{wigTextureType2.map((type2, idx) => (
-									<span
-										key={idx}
-										onClick={() => {
-											setTextureType2(type2)
-											setTextureType1('')
-											setNoTexture('')
-										}}
-										className={`${
-											type2 === textureType2
-												? 'tw-bg-neutral-900 tw-text-white'
-												: 'tw-bg-neutral-200 tw-text-neutral-900'
-										} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
-										{type2}
-									</span>
-								))}
-							</div>
-							<div className="tw-flex tw-flex-wrap">
-								{allSizes.map(
-									// eslint-disable-next-line array-callback-return
-									(item) =>
-										lengthArray.includes(item) ? (
-											<div
-												onClick={() => {
-													setLength(item)
-													setError(false)
-												}}
-												className={` tw-flex tw-flex-wrap tw-mr-2 tw-mb-2 tw-p-2 tw-px-3 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
-													item === _length && 'tw-bg-neutral-900 tw-text-white'
-												}`}>
-												<span>{item}</span>
-											</div>
-										) : (
-											<div
-												className={`tw-flex tw-flex-wrap tw-mr-2 tw-mb-2 tw-p-2 tw-px-3 tw-border-[1px] tw-rounded-full tw-cursor-not-allowed tw-text-neutral-300`}>
-												<span>{item}</span>
-											</div>
-										)
-								)}
-							</div>
+
 							<div className="tw-grid tw-mt-5 tw-grid-cols-1 md:tw-grid-cols-2 md:tw-gap-x-10">
 								{desc.map((item, idx) => (
 									<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm tw-capitalize">
@@ -362,6 +377,20 @@ const SingleWig = () => {
 										</span>
 										<span>{item.value}</span>
 									</div>
+								))}
+							</div>
+							{singleWig?.[0]?.maintenance && (
+								<div className="tw-mt-10 tw-mb-2">
+									<Heading children="Maintenance" isBold={false} />
+								</div>
+							)}
+							<div>
+								{singleWig?.[0]?.maintenance?.map((item, idx) => (
+									<li
+										key={idx}
+										className="tw-text-sm tw-italic tw-text-neutral-500 tw-font-light tw-mb-2">
+										{item}
+									</li>
 								))}
 							</div>
 							<div className="tw-flex tw-items-center">
@@ -390,7 +419,8 @@ const SingleWig = () => {
 								</span>
 							</div>
 							<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
-								Pay in 4 interest-free payments of ${price / 4} with{' '}
+								Pay in 4 interest-free payments of ${price ? price / 4 : '$$$'}{' '}
+								with{' '}
 								<img
 									src={stripe}
 									alt="paypal"
@@ -398,7 +428,7 @@ const SingleWig = () => {
 								/>
 							</p>
 							<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
-								or 4 interest-free payment of ${price / 4} with{' '}
+								or 4 interest-free payment of ${price ? price / 4 : '$$$'} with{' '}
 								<img
 									src={paypal}
 									alt="paypal"
