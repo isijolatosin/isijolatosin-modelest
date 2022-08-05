@@ -5,6 +5,9 @@ import Slideshow from '../../utils/Slideshow'
 import Heading from '../Heading'
 import Rating from './Rating'
 
+const paypal = require('../../assets/paypal.png')
+const stripe = require('../../assets/stripe.png')
+
 const SingleProductModal = ({
 	price,
 	singleProducts,
@@ -38,6 +41,10 @@ const SingleProductModal = ({
 								<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
 									{singleProducts?.[0].name}
 								</p>
+								<div className="tw-flex tw-items-center tw-mb-5">
+									<span className="tw-mr-2">Review: </span>
+									<Rating isNum={true} />
+								</div>
 								<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-mt-0">
 									Description: {singleProducts?.[0].description}
 								</p>
@@ -83,8 +90,8 @@ const SingleProductModal = ({
 									</div>
 								</div>
 							)}
-							<div className="tw-flex tw-flex-col tw-mt-5">
-								<div className="tw-flex tw-flex-wrap">
+							<div className="tw-flex tw-flex-col tw-mt-5 tw-mb-2 tw-border-y-[1px] tw-py-3">
+								<div className="tw-flex tw-flex-wrap tw-gap-2">
 									{sizes.map((size, idx) => (
 										<span
 											onClick={() => {
@@ -95,7 +102,7 @@ const SingleProductModal = ({
 												length === size
 													? 'tw-bg-neutral-900 tw-text-white'
 													: 'tw-bg-white tw-text-neutral-900'
-											} tw-rounded-full tw-mr-2 tw-mb-5 tw-border-[1px] tw-border-neutral-900 tw-p-2 tw-px-3 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
+											} tw-rounded-full tw-mr-2 tw-border-[1px] tw-border-neutral-900 tw-p-2 tw-px-3 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 											key={idx}>
 											{size}
 										</span>
@@ -146,10 +153,6 @@ const SingleProductModal = ({
 										Length: <span>{length}" inches</span>
 									</div>
 								</div>
-								<div className="tw-flex tw-items-center">
-									<span className="tw-mr-2">Review: </span>
-									<Rating isNum={true} />
-								</div>
 							</div>
 							{singleProducts?.[0]?.sales && (
 								<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-my-1 tw-text-red-600">
@@ -157,6 +160,57 @@ const SingleProductModal = ({
 									<span className="tw-text-xs">OFF</span>
 								</p>
 							)}
+							<div className="tw-my-3">
+								<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
+									Pay in 4 interest-free payments of $
+									{price ? price / 4 : '$$$'} with{' '}
+									<img
+										src={stripe}
+										alt="paypal"
+										className="tw-w-[45px] tw-ml-[2px]"
+									/>
+								</p>
+								<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
+									or 4 interest-free payment of ${price ? price / 4 : '$$$'}{' '}
+									with{' '}
+									<img
+										src={paypal}
+										alt="paypal"
+										className="tw-w-[45px] tw-mx-1"
+									/>
+								</p>
+								<p className="tw-text-xs tw-text-blue-700">
+									Available @ checkout
+								</p>
+							</div>
+							<div>
+								{error && (
+									<div>
+										<p className="tw-text-center tw-mb-2 tw-text-red-600 tw-text-xs">
+											{singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
+											singleProducts?.[0]?.type.toLowerCase() === 'closure'
+												? `Please provide color, texture and length for ${singleProducts?.[0].name}`
+												: `Please provide length for ${singleProducts?.[0].name}`}
+										</p>
+									</div>
+								)}
+								{isInCart(singleProduct, cartItems) ? (
+									<div
+										className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300"
+										onClick={cartItems.length !== 0 ? IncreaseItem : null}>
+										<span>
+											Add more of {singleProducts?.[0].name} {color} {hairType}{' '}
+											- {length}"
+										</span>
+									</div>
+								) : (
+									<div
+										className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300"
+										onClick={addToCart}>
+										<span>Add to cart</span>
+									</div>
+								)}
+							</div>
 							<div className="tw-my-5 tw-border-t-[1px] tw-border-red-700 tw-py-5 tw-overflow-scroll single tw-h-[70%]">
 								<div className="tw-mb-5">
 									<Heading children="Product Details" isBold={false} />
@@ -185,41 +239,17 @@ const SingleProductModal = ({
 								))}
 							</div>
 
-							{error && (
-								<div>
-									<p className="tw-text-center tw-mb-2 tw-text-red-600 tw-text-xs">
-										{singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
-										singleProducts?.[0]?.type.toLowerCase() === 'closure'
-											? `Please provide color, texture and length for ${singleProducts?.[0].name}`
-											: `Please provide length for ${singleProducts?.[0].name}`}
-									</p>
-								</div>
-							)}
-							{isInCart(singleProduct, cartItems) ? (
+							<div className="tw-fixed tw-top-3 tw-z-40 tw-right-3">
 								<div
-									className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 tw-mb-40"
-									onClick={cartItems.length !== 0 ? IncreaseItem : null}>
-									<span>
-										Add more of {singleProducts?.[0].name} {color} {hairType} -{' '}
-										{length}"
-									</span>
+									onClick={() => {
+										setSingleproducts(null)
+										setColor(null)
+										sethairType(null)
+										setLength('14')
+									}}
+									className="tw-text-2xl tw-text-white tw-bg-neutral-900 tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-absolute tw-top-[20px] tw-right-[20px] tw-ease-in tw-duration-300 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900">
+									<CgClose />
 								</div>
-							) : (
-								<div
-									className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 tw-mb-40"
-									onClick={addToCart}>
-									<span>Add to cart</span>
-								</div>
-							)}
-							<div
-								onClick={() => {
-									setSingleproducts(null)
-									setColor(null)
-									sethairType(null)
-									setLength('14')
-								}}
-								className="tw-text-2xl tw-text-white tw-bg-neutral-900 tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-absolute tw-top-[20px] tw-right-[20px] tw-ease-in tw-duration-300 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900">
-								<CgClose />
 							</div>
 						</div>
 					</div>

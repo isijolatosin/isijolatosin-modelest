@@ -365,6 +365,14 @@ select:focus {
 } */
 
 /* Hide scrollbar for Chrome, Safari and Opera */
+.general-scrollbar-hide::-webkit-scrollbar,
+.single::-webkit-scrollbar {
+	display: none;
+}
+.general-scrollbar-hide::-webkit-scrollbar,
+.single::-webkit-scrollbar {
+	display: none;
+}
 .image-list::-webkit-scrollbar,
 .single::-webkit-scrollbar {
 	display: none;
@@ -780,7 +788,7 @@ label input::placeholder {
 	position: absolute;
 	top: 45%;
 	font-size: 1.8rem;
-	color: red;
+	color: #946a0f;
 	z-index: 10;
 	cursor: pointer;
 	user-select: none;
@@ -789,7 +797,7 @@ label input::placeholder {
 	position: absolute;
 	top: 45%;
 	font-size: 1.8rem;
-	color: red;
+	color: #946a0f;
 	z-index: 10;
 	cursor: pointer;
 	user-select: none;

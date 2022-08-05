@@ -24,6 +24,9 @@ import {
 	wigTextureTypeIncreaseValue2,
 } from '../constant'
 
+const paypal = require('../assets/paypal.png')
+const stripe = require('../assets/stripe.png')
+
 function Products({
 	allProducts,
 	sales,
@@ -305,14 +308,14 @@ function Products({
 		{ key: 'Cap Size', value: 'Average Size(Head circumference: 54cm - 58cm' },
 		{ key: 'Can be bleached.dyed', value: 'Yes' },
 		{
-			key: 'Delivery time',
-			value:
-				'We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)',
-		},
-		{
 			key: 'Return policy',
 			value:
 				'We accept 10-days no reason return exchange with hair not been used',
+		},
+		{
+			key: 'Delivery time',
+			value:
+				'We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)',
 		},
 	]
 
@@ -411,13 +414,17 @@ function Products({
 
 			{singleProducts && (
 				<div className="single tw-fixed tw-z-40 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-0 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white md:tw-pt-5 ">
-					<div className="md:tw-w-[80%] xl:tw-w-[70%] md:tw-mx-auto tw-w-[100%] tw-h-full tw-flex md:tw-flex-row tw-flex-col">
+					<div className="general-scrollbar-hide md:tw-mx-auto tw-w-[100%] md:tw-w-[90%] tw-h-full tw-flex md:tw-flex-row tw-flex-col tw-overflow-scroll">
 						<div className="tw-relative tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
 							<Slideshow images={singleProducts?.[0]} />
 							<div className="tw-w-[90%] tw-mx-auto md:tw-w-[100%]">
 								<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
 									{singleProducts?.[0].name}
 								</p>
+								<div className="tw-flex tw-items-center tw-mb-5">
+									<span className="tw-mr-2">Review: </span>
+									<Rating isNum={true} color2="[#bba371]" />
+								</div>
 								<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-mt-0">
 									Description: {singleProducts?.[0].description}
 								</p>
@@ -425,7 +432,26 @@ function Products({
 							{singleProducts?.[0]?.name.toLowerCase() === 'frontal' ||
 							singleProducts?.[0]?.name.toLowerCase() === 'closure' ? (
 								<div className="tw-ml-5  md:tw-ml-0 tw-mt-5">
-									<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
+									<div className="tw-flex tw-flex-col tw-border-y-[1px] tw-py-3">
+										<div className="tw-flex tw-flex-wrap tw-gap-2">
+											{avesizes.map((size, idx) => (
+												<span
+													onClick={() => {
+														setLength(size)
+														setError(false)
+													}}
+													className={`tw-flex tw-flex-wrap ${
+														length === size
+															? 'tw-bg-neutral-900 tw-text-white'
+															: 'tw-bg-white tw-text-neutral-900'
+													} tw-rounded-full tw-mr-2 tw-border-[1px] tw-border-neutral-900 tw-p-2 tw-px-3 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
+													key={idx}>
+													{size}
+												</span>
+											))}
+										</div>
+									</div>
+									<div className="tw-flex tw-flex-col tw-border-b-[1px] tw-py-3">
 										<div className="tw-flex tw-flex-wrap">
 											{_hairColor.map((colr, idx) => (
 												<span
@@ -444,7 +470,7 @@ function Products({
 											))}
 										</div>
 									</div>
-									<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
+									<div className="tw-flex tw-flex-col tw-border-b-[1px] tw-py-3">
 										<div className="tw-flex tw-flex-wrap">
 											{texture.map((tex, idx) => (
 												<span
@@ -462,32 +488,13 @@ function Products({
 											))}
 										</div>
 									</div>
-									<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
-										<div className="tw-flex tw-flex-wrap">
-											{avesizes.map((size, idx) => (
-												<span
-													onClick={() => {
-														setLength(size)
-														setError(false)
-													}}
-													className={`tw-flex tw-flex-wrap ${
-														length === size
-															? 'tw-bg-neutral-900 tw-text-white'
-															: 'tw-bg-white tw-text-neutral-900'
-													} tw-rounded-full tw-mr-2 tw-mb-2 tw-border-[1px] tw-border-neutral-900 tw-p-2 tw-px-3 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
-													key={idx}>
-													{size}
-												</span>
-											))}
-										</div>
-									</div>
 								</div>
 							) : singleProducts?.[0]?.type
 									.toLowerCase()
 									.includes('virgin wig') ? (
 								<div className="tw-ml-5 md:tw-ml-0 tw-mt-5">
 									<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
-										<div className="tw-flex tw-flex-wrap tw-border-y-[1px] tw-py-3">
+										<div className="tw-flex tw-flex-wrap tw-border-y-[1px] tw-py-3 tw-gap-2">
 											{avesizes.map((size, idx) => (
 												<span
 													onClick={() => {
@@ -562,8 +569,8 @@ function Products({
 									</div>
 								</div>
 							) : (
-								<div className="tw-flex tw-flex-col tw-ml-5 tw-mt-5 md:tw-ml-0">
-									<div className="tw-flex tw-flex-wrap">
+								<div className="tw-flex tw-flex-col tw-ml-5 tw-mt-5 md:tw-ml-0 tw-border-y-[1px] tw-py-3">
+									<div className="tw-flex tw-flex-wrap tw-gap-2">
 										{allSizes.map(
 											// eslint-disable-next-line array-callback-return
 											(item) =>
@@ -573,7 +580,7 @@ function Products({
 															setLength(item)
 															setError(false)
 														}}
-														className={` tw-flex tw-flex-wrap tw-mr-2 tw-mb-2 tw-p-2 tw-px-3 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
+														className={` tw-flex tw-flex-wrap tw-mr-2 tw-p-2 tw-px-3 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
 															item === length &&
 															'tw-bg-neutral-900 tw-text-white'
 														}`}>
@@ -581,7 +588,7 @@ function Products({
 													</div>
 												) : (
 													<div
-														className={`tw-flex tw-flex-wrap tw-mr-2 tw-mb-2 tw-p-2 tw-px-3 tw-border-[1px] tw-rounded-full tw-cursor-not-allowed tw-text-neutral-300`}>
+														className={`tw-flex tw-flex-wrap tw-mr-2 tw-p-2 tw-px-3 tw-border-[1px] tw-rounded-full tw-cursor-not-allowed tw-text-neutral-300`}>
 														<span>{item}</span>
 													</div>
 												)
@@ -590,15 +597,15 @@ function Products({
 								</div>
 							)}
 						</div>
-						<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 tw-mt-10 md:tw-mt-0">
+						<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 ">
 							{!price_Nosales &&
 								(singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
 								singleProducts?.[0]?.type.toLowerCase() === 'closure' ? (
-									<span className="tw-text-xs tw-text-green-700">
+									<span className="tw-text-xs tw-my-3 tw-text-green-700">
 										*** Select color & tetxure to calculate price... ***
 									</span>
 								) : (
-									<span className="tw-text-xs tw-text-green-700">
+									<span className="tw-text-xs tw-my-3 tw-text-green-700">
 										*** Select length to calculate price... ***
 									</span>
 								))}
@@ -640,21 +647,75 @@ function Products({
 									Length: <span>{length}" inches</span>
 								</div>
 							</div>
-							<div className="tw-flex tw-items-center">
-								<span className="tw-mr-2">Review: </span>
-								<Rating isNum={true} />
-							</div>
+
 							{singleProducts?.[0]?.sales && (
 								<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-my-1 tw-text-red-600">
 									Sales: {sales && `${sales}%`}{' '}
 									<span className="tw-text-xs">OFF</span>
 								</p>
 							)}
+							<div className="tw-my-3">
+								<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
+									Pay in 4 interest-free payments of $
+									{price ? price / 4 : '$$$'} with{' '}
+									<img
+										src={stripe}
+										alt="paypal"
+										className="tw-w-[45px] tw-ml-[2px]"
+									/>
+								</p>
+								<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
+									or 4 interest-free payment of ${price ? price / 4 : '$$$'}{' '}
+									with{' '}
+									<img
+										src={paypal}
+										alt="paypal"
+										className="tw-w-[45px] tw-mx-1"
+									/>
+								</p>
+								<p className="tw-text-xs tw-text-blue-700">
+									Available @ checkout
+								</p>
+							</div>
+							<div className="tw-mt-5">
+								{error && (
+									<div>
+										<p className="tw-text-center tw-mb-2 tw-text-red-600 tw-text-xs">
+											{singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
+											singleProducts?.[0]?.type.toLowerCase() === 'closure'
+												? `Please provide color, texture and length for ${singleProducts?.[0].name}`
+												: `Please provide length for ${singleProducts?.[0].name}`}
+										</p>
+									</div>
+								)}
+								{isInCart(singleProduct, cartItems) ? (
+									<div
+										className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:md:tw-text-neutral-900 hover:md:tw-bg-white tw-cursor-pointer tw-ease-in tw-duration-300"
+										onClick={cartItems.length !== 0 ? IncreaseItem : null}>
+										{singleProducts?.[0].type.toLowerCase() === 'frontal' ||
+										singleProducts?.[0].type.toLowerCase() === 'closure' ? (
+											<span>
+												Add more of {_hairType} {_color} - {length}"
+											</span>
+										) : (
+											<span>
+												Add more of {singleProducts?.[0].name} - {length}"
+											</span>
+										)}
+									</div>
+								) : (
+									<div
+										className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:md:tw-text-neutral-900 hover:md:tw-bg-white tw-cursor-pointer tw-ease-in tw-duration-300"
+										onClick={addToCart}>
+										<span>Add to cart</span>
+									</div>
+								)}
+							</div>
 							<div className="tw-my-5 tw-border-t-[1px] tw-border-red-700 tw-py-5 tw-overflow-scroll single tw-h-[70%]">
 								<div className="tw-mb-5">
 									<Heading children="Product Details" isBold={false} />
 								</div>
-								<div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 md:tw-gap-x-10">
+								<div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 md:tw-gap-x-10">
 									{desc.map((item, idx) => (
 										<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm tw-capitalize">
 											<span className="tw-uppercase tw-text-xs tw-text-red-600 tw-font-bold">
@@ -665,7 +726,7 @@ function Products({
 									))}
 								</div>
 								{singleProducts?.[0]?.maintenance && (
-									<div className="tw-mt-10 tw-mb-2">
+									<div className="tw-mt-5 tw-mb-2">
 										<Heading children="Maintenance" isBold={false} />
 									</div>
 								)}
@@ -677,50 +738,21 @@ function Products({
 									</li>
 								))}
 							</div>
-							{error && (
-								<div>
-									<p className="tw-text-center tw-mb-2 tw-text-red-600 tw-text-xs">
-										{singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
-										singleProducts?.[0]?.type.toLowerCase() === 'closure'
-											? `Please provide color, texture and length for ${singleProducts?.[0].name}`
-											: `Please provide length for ${singleProducts?.[0].name}`}
-									</p>
-								</div>
-							)}
-							{isInCart(singleProduct, cartItems) ? (
+
+							<div className="tw-fixed tw-top-3 tw-z-40 tw-right-3">
 								<div
-									className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 tw-mb-40"
-									onClick={cartItems.length !== 0 ? IncreaseItem : null}>
-									{singleProducts?.[0].type.toLowerCase() === 'frontal' ||
-									singleProducts?.[0].type.toLowerCase() === 'closure' ? (
-										<span>
-											Add more of {_hairType} {_color} - {length}"
-										</span>
-									) : (
-										<span>
-											Add more of {singleProducts?.[0].name} - {length}"
-										</span>
-									)}
+									onClick={() => {
+										setSingleproducts(null)
+										setColor(null)
+										sethairType(null)
+										setLength('')
+										setTextureType1('')
+										setTextureType2('')
+										setNoTexture('')
+									}}
+									className="tw-text-2xl tw-text-white tw-bg-neutral-900 tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-absolute tw-top-[20px] tw-right-[20px] tw-ease-in tw-duration-300 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900">
+									<CgClose />
 								</div>
-							) : (
-								<div
-									className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 tw-mb-40"
-									onClick={addToCart}>
-									<span>Add to cart</span>
-								</div>
-							)}
-							<div
-								onClick={() => {
-									setSingleproducts(null)
-									setColor(null)
-									sethairType(null)
-									setLength('')
-									setTextureType1('')
-									setTextureType2('')
-									setNoTexture('')
-								}}
-								className="tw-text-2xl tw-text-white tw-bg-neutral-900 tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-absolute tw-top-[20px] tw-right-[20px] tw-ease-in tw-duration-300 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900">
-								<CgClose />
 							</div>
 						</div>
 					</div>

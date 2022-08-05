@@ -14,6 +14,7 @@ import {
 import Reviews from '../components/shared/Reviews'
 import Add2CartPopup from '../components/shared/Add2CartPopup'
 import { useDispatch, useSelector } from 'react-redux'
+import Heading from '../components/Heading'
 
 const paypal = require('../../src/assets/paypal.png')
 const stripe = require('../../src/assets/stripe.png')
@@ -298,16 +299,7 @@ const DealPage = () => {
 										)
 								)}
 							</div>
-							<div className="tw-grid tw-mt-5 tw-grid-cols-1 md:tw-grid-cols-2 md:tw-gap-x-10">
-								{desc.map((item, idx) => (
-									<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm tw-capitalize">
-										<span className="tw-uppercase tw-text-xs tw-text-red-600 tw-font-bold">
-											{item.key}:{' '}
-										</span>
-										<span>{item.value}</span>
-									</div>
-								))}
-							</div>
+
 							<div className="tw-flex tw-items-center">
 								<span className="tw-mr-2">Quantity: </span>
 								<div>
@@ -370,8 +362,34 @@ const DealPage = () => {
 									<span>Add to cart</span>
 								</div>
 							)}
+							<div className="tw-mt-10">
+								<Heading children="Product details" />
+							</div>
+							<div className="tw-grid tw-mt-5 tw-grid-cols-1 md:tw-grid-cols-2 xl:tw-grid-cols-3 md:tw-gap-x-10">
+								{desc.map((item, idx) => (
+									<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm tw-capitalize">
+										<span className="tw-uppercase tw-text-xs tw-text-red-600 tw-font-bold">
+											{item.key}:{' '}
+										</span>
+										<span>{item.value}</span>
+									</div>
+								))}
+							</div>
+							<div className="tw-mt-10">
+								<Heading children="Maintenance" />
+							</div>
+							<div className="tw-grid tw-mt-5 tw-grid-cols-1 md:tw-grid-cols-2 md:tw-gap-x-10">
+								{deals[0]?.maintenance.map((item, idx) => (
+									<li
+										key={idx}
+										className="tw-text-sm tw-italic tw-text-neutral-500 tw-font-light tw-mb-2">
+										{item}
+									</li>
+								))}
+							</div>
 						</div>
 					</div>
+
 					<Reviews category={category} />
 				</div>
 			</Layout>

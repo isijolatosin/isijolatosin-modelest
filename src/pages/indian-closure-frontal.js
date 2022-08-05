@@ -174,7 +174,7 @@ function ClosureFrontal() {
 	}
 
 	const addToCart = () => {
-		if (typeof price === 'number' && length) {
+		if (typeof price === 'number' && length && _color && _hairType) {
 			dispatch(addToCartItem(singleProduct))
 			setTimeout(() => {
 				setSingleCart(singleProduct)

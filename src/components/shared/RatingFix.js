@@ -2,7 +2,7 @@ import React from 'react'
 import { AiFillStar } from 'react-icons/ai'
 import generateRandom from '../../utils/RandomGen'
 
-const RatingFix = ({ isNum, isReview, size, color }) => {
+const RatingFix = ({ isNum, isReview, size, color, color2 }) => {
 	const MAX_RATING = 5
 	const MIN_RATING = 5
 	const [rating] = React.useState(
@@ -14,7 +14,11 @@ const RatingFix = ({ isNum, isReview, size, color }) => {
 			{Array(rating)
 				.fill()
 				.map((_, i) => (
-					<AiFillStar className={`tw-text-${color}-800`} size={size} key={i} />
+					<AiFillStar
+						className={`tw-text-${color}-800 tw-text-${color2}`}
+						size={size}
+						key={i}
+					/>
 				))}
 			{isNum && <span className="tw-ml-1">{rating + deci}</span>}
 			{generateRandom(100, 200)} reviews

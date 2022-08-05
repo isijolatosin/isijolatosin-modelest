@@ -263,19 +263,57 @@ const SingleWig = () => {
 					</div>
 					<div className="tw-mt-[70px] xl:tw-w-[80%] tw-px-5 tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
 						<div>
+							<div className="tw-fixed tw-z-10 tw-right-5 md:tw-right-20 tw-top-[170px]">
+								<div className="tw-text-neutral-900  tw-mb-3">
+									<Link to="/virgin-wigs">
+										<BsFillArrowLeftCircleFill
+											size={35}
+											className="hover:md:tw-text-neutral-50 hover:tw-drop-shadow-lg tw-ease-in tw-duration-300"
+										/>{' '}
+									</Link>
+								</div>
+							</div>
 							<div className="">
 								<Slideshow images={imageArray} iconSize={40} />
 							</div>
 							<div className="tw-w-[100%] xl:tw-w-[80%] tw-mx-auto">
-								<div className="tw-w-[90%] tw-mx-auto md:tw-w-[100%]">
+								<div className="tw-w-[100%] tw-mx-auto">
 									<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
 										{singleWig?.[0]?.name}
 									</p>
-									<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-mt-0">
+									<div className="tw-mb-5">
+										<RatingFix isReview={true} size={20} color2="[#bba371]" />
+									</div>
+									<p className="tw-font-medium tw-text-sm tw-mb-8 tw-mt-0">
 										Description: {singleWig?.[0]?.description}
 									</p>
 								</div>
-								<div className="tw-flex tw-flex-wrap tw-mt-3 tw-mb-5 tw-capitalize">
+
+								<div className="tw-flex tw-flex-wrap tw-gap-x-1 tw-gap-y-3 tw-border-y-[1px] tw-py-3">
+									{allSizes.map(
+										// eslint-disable-next-line array-callback-return
+										(item) =>
+											lengthArray.includes(item) ? (
+												<div
+													onClick={() => {
+														setLength(item)
+														setError(false)
+													}}
+													className={` tw-flex tw-flex-wrap tw-mr-2 tw-p-2 tw-px-3 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
+														item === _length &&
+														'tw-bg-neutral-900 tw-text-white'
+													}`}>
+													<span>{item}</span>
+												</div>
+											) : (
+												<div
+													className={`tw-flex tw-flex-wrap tw-mr-2 tw-p-2 tw-px-3 tw-border-[1px] tw-rounded-full tw-cursor-not-allowed tw-text-neutral-300`}>
+													<span>{item}</span>
+												</div>
+											)
+									)}
+								</div>
+								<div className="tw-flex tw-flex-wrap tw-mt-3 tw-mb-5 tw-capitalize tw-border-b-[1px]">
 									<div>
 										<span
 											onClick={() => {
@@ -324,51 +362,81 @@ const SingleWig = () => {
 										</span>
 									))}
 								</div>
-								<div className="tw-flex tw-flex-wrap">
-									{allSizes.map(
-										// eslint-disable-next-line array-callback-return
-										(item) =>
-											lengthArray.includes(item) ? (
-												<div
-													onClick={() => {
-														setLength(item)
-														setError(false)
-													}}
-													className={` tw-flex tw-flex-wrap tw-mr-2 tw-mb-2 tw-p-2 tw-px-3 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
-														item === _length &&
-														'tw-bg-neutral-900 tw-text-white'
-													}`}>
-													<span>{item}</span>
-												</div>
-											) : (
-												<div
-													className={`tw-flex tw-flex-wrap tw-mr-2 tw-mb-2 tw-p-2 tw-px-3 tw-border-[1px] tw-rounded-full tw-cursor-not-allowed tw-text-neutral-300`}>
-													<span>{item}</span>
-												</div>
-											)
+								<div className="tw-inline-block md:tw-hidden">
+									<div className="tw-flex tw-items-center">
+										<span className="tw-mr-2">Quantity: </span>
+										<div>
+											<input
+												type="number"
+												name="quantity"
+												id="quantity"
+												value={_quantity}
+												onChange={(e) => setQuantity(e.target.value)}
+												placeholder="Quantity"
+												className="tw-mt-5 tw-block tw-w-[50px] tw-px-3 tw-py-2 tw-border tw-border-neutral-100 tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5"
+											/>
+										</div>
+									</div>
+									{!price && (
+										<span className="tw-text-xs tw-text-green-700">
+											*** Select length & tetxure to calculate price... ***
+										</span>
+									)}
+									<div className="tw-mb-1">
+										<span className="tw-text-3xl">
+											${price * Number(_quantity) || '***'}
+											:00
+										</span>
+									</div>
+									<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
+										Pay in 4 interest-free payments of $
+										{price ? price / 4 : '$$$'} with{' '}
+										<img
+											src={stripe}
+											alt="paypal"
+											className="tw-w-[45px] tw-ml-[2px]"
+										/>
+									</p>
+									<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
+										or 4 interest-free payment of ${price ? price / 4 : '$$$'}{' '}
+										with{' '}
+										<img
+											src={paypal}
+											alt="paypal"
+											className="tw-w-[45px] tw-mx-1"
+										/>
+									</p>
+									<p className="tw-text-xs tw-text-blue-700">
+										Available @ checkout
+									</p>
+									{error && (
+										<div>
+											<p className="tw-text-left tw-mb-2 tw-mt-5 tw-text-red-600 tw-text-xs">
+												Please provide length and quantity for your order
+											</p>
+										</div>
+									)}
+									{isInCart(wigProduct, cartItems) ? (
+										<div
+											className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
+												!error && 'tw-mt-5'
+											}`}
+											onClick={cartItems.length !== 0 ? IncreaseItem : null}>
+											<span>Add more</span>
+										</div>
+									) : (
+										<div
+											className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
+												!error && 'tw-mt-5'
+											}`}
+											onClick={addToCart}>
+											<span>Add to cart</span>
+										</div>
 									)}
 								</div>
 							</div>
 						</div>
 						<div className="">
-							<div className="tw-flex tw-justify-between tw-items-center">
-								<h1 className="tw-text-xl md:tw-text-3xl tw-uppercase">
-									{name}
-								</h1>
-								<div className="tw-text-[#bba371]">
-									<Link to="/virgin-wigs">
-										<BsFillArrowLeftCircleFill
-											size={35}
-											className="hover:tw-text-neutral-400 tw-ease-in tw-duration-300"
-										/>{' '}
-										{/* <span>Back to wig collections</span> */}
-									</Link>
-								</div>
-							</div>
-							<div className="tw-mb-5">
-								<RatingFix isReview={true} size={20} color="black" />
-							</div>
-
 							<div className="tw-grid tw-mt-5 tw-grid-cols-1 md:tw-grid-cols-2 md:tw-gap-x-10">
 								{desc.map((item, idx) => (
 									<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm tw-capitalize">
@@ -393,75 +461,78 @@ const SingleWig = () => {
 									</li>
 								))}
 							</div>
-							<div className="tw-flex tw-items-center">
-								<span className="tw-mr-2">Quantity: </span>
-								<div>
-									<input
-										type="number"
-										name="quantity"
-										id="quantity"
-										value={_quantity}
-										onChange={(e) => setQuantity(e.target.value)}
-										placeholder="Quantity"
-										className="tw-mt-5 tw-block tw-w-[50px] tw-px-3 tw-py-2 tw-border tw-border-neutral-100 tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5"
+							<div className="tw-hidden md:tw-inline-block">
+								<div className="tw-flex tw-items-center">
+									<span className="tw-mr-2">Quantity: </span>
+									<div>
+										<input
+											type="number"
+											name="quantity"
+											id="quantity"
+											value={_quantity}
+											onChange={(e) => setQuantity(e.target.value)}
+											placeholder="Quantity"
+											className="tw-mt-5 tw-block tw-w-[50px] tw-px-3 tw-py-2 tw-border tw-border-neutral-100 tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5"
+										/>
+									</div>
+								</div>
+								{!price && (
+									<span className="tw-text-xs tw-text-green-700">
+										*** Select length & tetxure to calculate price... ***
+									</span>
+								)}
+								<div className="tw-mb-1">
+									<span className="tw-text-3xl">
+										${price * Number(_quantity) || '***'}
+										:00
+									</span>
+								</div>
+								<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
+									Pay in 4 interest-free payments of $
+									{price ? price / 4 : '$$$'} with{' '}
+									<img
+										src={stripe}
+										alt="paypal"
+										className="tw-w-[45px] tw-ml-[2px]"
 									/>
-								</div>
+								</p>
+								<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
+									or 4 interest-free payment of ${price ? price / 4 : '$$$'}{' '}
+									with{' '}
+									<img
+										src={paypal}
+										alt="paypal"
+										className="tw-w-[45px] tw-mx-1"
+									/>
+								</p>
+								<p className="tw-text-xs tw-text-blue-700">
+									Available @ checkout
+								</p>
+								{error && (
+									<div>
+										<p className="tw-text-left tw-mb-2 tw-mt-5 tw-text-red-600 tw-text-xs">
+											Please provide length and quantity for your order
+										</p>
+									</div>
+								)}
+								{isInCart(wigProduct, cartItems) ? (
+									<div
+										className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[50%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
+											!error && 'tw-mt-5'
+										}`}
+										onClick={cartItems.length !== 0 ? IncreaseItem : null}>
+										<span>Add more</span>
+									</div>
+								) : (
+									<div
+										className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[50%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
+											!error && 'tw-mt-5'
+										}`}
+										onClick={addToCart}>
+										<span>Add to cart</span>
+									</div>
+								)}
 							</div>
-							{!price && (
-								<span className="tw-text-xs tw-text-green-700">
-									*** Select length & tetxure to calculate price... ***
-								</span>
-							)}
-							<div className="tw-mb-1">
-								<span className="tw-text-3xl">
-									${price * Number(_quantity) || '***'}
-									:00
-								</span>
-							</div>
-							<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
-								Pay in 4 interest-free payments of ${price ? price / 4 : '$$$'}{' '}
-								with{' '}
-								<img
-									src={stripe}
-									alt="paypal"
-									className="tw-w-[45px] tw-ml-[2px]"
-								/>
-							</p>
-							<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
-								or 4 interest-free payment of ${price ? price / 4 : '$$$'} with{' '}
-								<img
-									src={paypal}
-									alt="paypal"
-									className="tw-w-[45px] tw-mx-1"
-								/>
-							</p>
-							<p className="tw-text-xs tw-text-blue-700">
-								Available @ checkout
-							</p>
-							{error && (
-								<div>
-									<p className="tw-text-left tw-mb-2 tw-mt-5 tw-text-red-600 tw-text-xs">
-										Please provide length and quantity for your order
-									</p>
-								</div>
-							)}
-							{isInCart(wigProduct, cartItems) ? (
-								<div
-									className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[50%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
-										!error && 'tw-mt-5'
-									}`}
-									onClick={cartItems.length !== 0 ? IncreaseItem : null}>
-									<span>Add more</span>
-								</div>
-							) : (
-								<div
-									className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[50%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
-										!error && 'tw-mt-5'
-									}`}
-									onClick={addToCart}>
-									<span>Add to cart</span>
-								</div>
-							)}
 						</div>
 					</div>
 					<Reviews category={category} />
