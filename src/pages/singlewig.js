@@ -392,6 +392,24 @@ const SingleWig = () => {
 											:00
 										</span>
 									</div>
+									<div className="tw-text-sm tw-font-light tw-my-3">
+										<div>
+											Color: <span>{singleWig?.[0]?.color}</span>
+										</div>
+										<div>
+											Texture:{' '}
+											<span>
+												{textureType1 ||
+													textureType2 ||
+													straight ||
+													singleWig?.[0]?.texture ||
+													'***'}
+											</span>
+										</div>
+										<div>
+											Length: <span>{_length}" inches</span>
+										</div>
+									</div>
 									<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
 										Pay in 4 interest-free payments of $
 										{price ? price / 4 : '$$$'} with{' '}
@@ -490,6 +508,24 @@ const SingleWig = () => {
 										${price * Number(_quantity) || '***'}
 										:00
 									</span>
+								</div>
+								<div className="tw-text-sm tw-font-light tw-my-3">
+									<div>
+										Color: <span>{singleWig?.[0]?.color}</span>
+									</div>
+									<div>
+										Texture:{' '}
+										<span>
+											{textureType1 ||
+												textureType2 ||
+												straight ||
+												singleWig?.[0]?.texture ||
+												'***'}
+										</span>
+									</div>
+									<div>
+										Length: <span>{_length}" inches</span>
+									</div>
 								</div>
 								<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
 									Pay in 4 interest-free payments of $

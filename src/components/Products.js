@@ -649,11 +649,11 @@ function Products({
 								<div>
 									Texture:{' '}
 									<span>
-										{singleProducts?.[0]?.texture ||
-											_hairType ||
+										{_hairType ||
 											textureType1 ||
 											textureType2 ||
 											straight ||
+											singleProducts?.[0]?.texture ||
 											'***'}
 									</span>
 								</div>
