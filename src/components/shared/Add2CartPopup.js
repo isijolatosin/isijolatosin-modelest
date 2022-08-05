@@ -20,11 +20,6 @@ const Add2CartPopup = ({ singleCart, setSingleCart, quantity }) => {
 		}
 		if (agree) {
 			navigate(`/checkout/${user?.displayName || 'new-customer'}`)
-			// setTimeout(() => {
-			// 	setTimeout(function () {
-			// 		window.scrollTo(0, window.innerHeight)
-			// 	}, 500)
-			// }, 500)
 		}
 	}
 

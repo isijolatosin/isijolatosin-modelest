@@ -258,12 +258,15 @@ const CheckoutForm = ({ total, setRedirect, setPageCancel, sales }) => {
 						<article className="tw-flex tw-justify-between tw-text-[12px] tw-p-1 tw-mt-1 tw-max-w-[100%] tw-text-white">
 							<span className="tw-underline tw-flex-[0.4]">
 								Hello, {user && user?.displayName}, your total is $
-								{((total_amount + shipping_fee) / 100).toFixed(2)} - (tax &
-								shipping inclusive)
+								{((total_amount + shipping_fee) / 100).toFixed(2)} -{' '}
+								<span className="tw-text-neutral-400">
+									(tax
+									{shipMethod === 'pick up' ? '' : ' & shipping'} inclusive)
+								</span>
 							</span>
 							{total_amount <
 								Number(process.env.REACT_APP_INSTALLMENT_START_PRICE) && (
-								<span className="tw-text-blue-700 tw-flex-[0.4]">
+								<span className="tw-text-blue-400 tw-flex-[0.4]">
 									You are only elligible for one-time payment
 								</span>
 							)}

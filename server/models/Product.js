@@ -51,15 +51,12 @@ const ProductSchema = new mongoose.Schema({
 	},
 	density: {
 		type: String,
-		default: false,
 	},
 	texture: {
 		type: String,
-		default: false,
 	},
 	capsize: {
 		type: String,
-		default: false,
 	},
 	image: {
 		type: String,

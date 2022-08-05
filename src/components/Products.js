@@ -647,7 +647,15 @@ function Products({
 									Color: <span>{_color ? _color : '***'}</span>
 								</div>
 								<div>
-									Texture: <span>{_hairType ? _hairType : '***'}</span>
+									Texture:{' '}
+									<span>
+										{singleProducts?.[0]?.texture ||
+											_hairType ||
+											textureType1 ||
+											textureType2 ||
+											straight ||
+											'***'}
+									</span>
 								</div>
 								<div>
 									Length: <span>{length}" inches</span>
