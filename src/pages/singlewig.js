@@ -43,7 +43,7 @@ const SingleWig = () => {
 	const [sales, setSales] = React.useState(null)
 	const [textureType1, setTextureType1] = React.useState('')
 	const [textureType2, setTextureType2] = React.useState('')
-	const [noTexture, setNoTexture] = React.useState('')
+	const [straight, setStraight] = React.useState('')
 	const wigId = window.location.pathname
 		.split('/')
 		.filter((x) => x)?.[1]
@@ -107,7 +107,7 @@ const SingleWig = () => {
 					} else {
 						a = p?.price
 					}
-				} else if (noTexture) {
+				} else if (straight) {
 					a = p?.price
 				} else {
 					a = p?.price
@@ -134,7 +134,7 @@ const SingleWig = () => {
 					} else {
 						a = p?.price
 					}
-				} else if (noTexture) {
+				} else if (straight) {
 					a = p?.price
 				} else {
 					a = p?.price
@@ -156,7 +156,11 @@ const SingleWig = () => {
 		? vWPrice1
 		: singleWig[0]?.price
 	const hairLength = _length
-	const hairTexture = singleWig[0]?.texture
+	const hairTexture =
+		(textureType1 && textureType1) ||
+		(textureType2 && textureType2) ||
+		(straight && straight) ||
+		singleWig[0]?.texture
 	const quantity = Number(_quantity)
 	const avLengths =
 		singleWig[0]?.availablelength.length > 3
@@ -317,16 +321,16 @@ const SingleWig = () => {
 									<div>
 										<span
 											onClick={() => {
-												setNoTexture('no texture')
+												setStraight('straight')
 												setTextureType2('')
 												setTextureType1('')
 											}}
 											className={`${
-												noTexture
+												straight
 													? 'tw-bg-neutral-900 tw-text-white'
 													: 'tw-bg-neutral-200 tw-text-neutral-900'
 											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
-											no texture
+											Straight
 										</span>
 									</div>
 									{wigTextureType1.map((type1, idx) => (
@@ -335,7 +339,7 @@ const SingleWig = () => {
 											onClick={() => {
 												setTextureType1(type1)
 												setTextureType2('')
-												setNoTexture('')
+												setStraight('')
 											}}
 											className={`${
 												type1 === textureType1
@@ -351,7 +355,7 @@ const SingleWig = () => {
 											onClick={() => {
 												setTextureType2(type2)
 												setTextureType1('')
-												setNoTexture('')
+												setStraight('')
 											}}
 											className={`${
 												type2 === textureType2

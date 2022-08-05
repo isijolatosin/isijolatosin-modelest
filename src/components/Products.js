@@ -45,7 +45,7 @@ function Products({
 	const [singleCart, setSingleCart] = React.useState(null)
 	const [textureType1, setTextureType1] = React.useState('')
 	const [textureType2, setTextureType2] = React.useState('')
-	const [noTexture, setNoTexture] = React.useState('')
+	const [straight, setStraight] = React.useState('')
 	const [error, setError] = React.useState(false)
 	const [length, setLength] = React.useState('')
 	const [_color, setColor] = React.useState(null)
@@ -180,7 +180,7 @@ function Products({
 					} else {
 						a = p?.price
 					}
-				} else if (noTexture) {
+				} else if (straight) {
 					a = p?.price
 				} else {
 					a = p?.price
@@ -207,7 +207,7 @@ function Products({
 					} else {
 						a = p?.price
 					}
-				} else if (noTexture) {
+				} else if (straight) {
 					a = p?.price
 				} else {
 					a = p?.price
@@ -240,7 +240,13 @@ function Products({
 
 	const hairLength = length
 	const hairColor = _color || color
-	const hairTexture = _hairType && _hairType
+	const hairTexture =
+		(_hairType && _hairType) ||
+		(textureType1 && textureType1) ||
+		(textureType2 && textureType2) ||
+		(straight && straight) ||
+		singleProducts?.[0]?.texture
+
 	const priceFunc = () => {
 		if (singleProducts?.[0]?.sales) {
 			if (
@@ -521,16 +527,16 @@ function Products({
 											<div>
 												<span
 													onClick={() => {
-														setNoTexture('no texture')
+														setStraight('straight')
 														setTextureType2('')
 														setTextureType1('')
 													}}
 													className={`${
-														noTexture
+														straight
 															? 'tw-bg-neutral-900 tw-text-white'
 															: 'tw-bg-neutral-200 tw-text-neutral-900'
 													} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
-													no texture
+													straight
 												</span>
 											</div>
 											{wigTextureType1.map((type1, idx) => (
@@ -539,7 +545,7 @@ function Products({
 													onClick={() => {
 														setTextureType1(type1)
 														setTextureType2('')
-														setNoTexture('')
+														setStraight('')
 													}}
 													className={`${
 														type1 === textureType1
@@ -555,7 +561,7 @@ function Products({
 													onClick={() => {
 														setTextureType2(type2)
 														setTextureType1('')
-														setNoTexture('')
+														setStraight('')
 													}}
 													className={`${
 														type2 === textureType2
@@ -748,7 +754,7 @@ function Products({
 										setLength('')
 										setTextureType1('')
 										setTextureType2('')
-										setNoTexture('')
+										setStraight('')
 									}}
 									className="tw-text-2xl tw-text-white tw-bg-neutral-900 tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-absolute tw-top-[20px] tw-right-[20px] tw-ease-in tw-duration-300 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900">
 									<CgClose />

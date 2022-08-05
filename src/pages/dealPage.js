@@ -201,7 +201,7 @@ const DealPage = () => {
 		hairLength,
 		quantity,
 	}
-	console.log(deals[0])
+
 	const desc = [
 		{ key: 'Brand', value: `Raw ${deals[0]?.brand} hair` },
 		{
