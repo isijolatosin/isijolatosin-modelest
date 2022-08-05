@@ -392,7 +392,7 @@ const SingleWig = () => {
 											:00
 										</span>
 									</div>
-									<div className="tw-text-sm tw-font-light tw-my-3">
+									<div className="tw-text-sm tw-font-light tw-text-neutral-500 tw-italic tw-my-3">
 										<div>
 											Color: <span>{singleWig?.[0]?.color}</span>
 										</div>
@@ -509,7 +509,7 @@ const SingleWig = () => {
 										:00
 									</span>
 								</div>
-								<div className="tw-text-sm tw-font-light tw-my-3">
+								<div className="tw-text-xs tw-text-neutral-500 tw-italic tw-font-light tw-my-3">
 									<div>
 										Color: <span>{singleWig?.[0]?.color}</span>
 									</div>

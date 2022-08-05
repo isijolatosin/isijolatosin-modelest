@@ -642,9 +642,16 @@ function Products({
 									? price_Nosales
 									: ' ***'}
 							</p>
-							<div className="tw-text-sm tw-font-light">
+							<div className="tw-text-sm tw-font-light tw-text-neutral-500 tw-italic">
 								<div>
-									Color: <span>{_color ? _color : '***'}</span>
+									Color:{' '}
+									<span>
+										{_color
+											? _color
+											: singleProducts?.[0]?.color
+											? singleProducts?.[0]?.color
+											: '***'}
+									</span>
 								</div>
 								<div>
 									Texture:{' '}
