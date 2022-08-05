@@ -49,7 +49,7 @@ export const frontalVirginWigPricing = [
 ]
 export const wigTextureType1 = [
 	'body wave',
-	'deep wave',
+	'deep loose',
 	'loose wave',
 	'loose curly',
 	'curly',
