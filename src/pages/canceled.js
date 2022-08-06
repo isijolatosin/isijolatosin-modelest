@@ -9,6 +9,13 @@ const Canceled = () => {
 
 	React.useEffect(() => {
 		setSales(localStorage.getItem('isSales'))
+
+		localStorage.removeItem('discountPrice')
+		localStorage.removeItem('ship')
+		localStorage.removeItem('address')
+		localStorage.removeItem('altEmail')
+		localStorage.removeItem('shippingCost')
+		localStorage.removeItem('payload')
 	}, [])
 	return (
 		<Layout>
