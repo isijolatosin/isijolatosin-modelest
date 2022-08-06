@@ -5653,7 +5653,7 @@ function fixResponseChunkedTransferBadEnding(request, errorCallback) {
 require_main().config();
 var CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
 var APP_SECRET = process.env.PAYPAL_CLIENT_SECRET;
-var base = "https://api-m.paypal.com";
+var base = "https://api-m.sandbox.paypal.com";
 async function handler(event, context) {
   const data = JSON.parse(event.body);
   const response = await capturePayment(data.id);
