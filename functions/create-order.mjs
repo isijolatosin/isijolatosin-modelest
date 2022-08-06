@@ -4,7 +4,7 @@ require('dotenv').config()
 
 const CLIENT_ID = process.env.PAYPAL_CLIENT_ID
 const APP_SECRET = process.env.PAYPAL_CLIENT_SECRET
-const base = 'https://api-m.sandbox.paypal.com'
+const base = 'https://api-m.paypal.com'
 // const base = process.env.BASE_URL || 'https://api-m.paypal.com'
 
 let price
