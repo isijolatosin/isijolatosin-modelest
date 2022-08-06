@@ -12,7 +12,13 @@ import PaypalCheckoutButton from '../PaypalCheckoutButton'
 import { FaCcStripe } from 'react-icons/fa'
 import { selectCartItems } from '../../slices/appSlices'
 
-const CheckoutForm = ({ total, setRedirect, setPageCancel, sales }) => {
+const CheckoutForm = ({
+	total,
+	setRedirect,
+	setPageCancel,
+	sales,
+	discountPrice,
+}) => {
 	const navigate = useNavigate()
 	const stripe = useStripe()
 	const elements = useElements()
@@ -240,6 +246,7 @@ const CheckoutForm = ({ total, setRedirect, setPageCancel, sales }) => {
 							setRedirect={setRedirect}
 							setPageCancel={setPageCancel}
 							shipMethod={shipMethod}
+							discountPrice={discountPrice}
 							sales={sales}
 						/>
 					</div>

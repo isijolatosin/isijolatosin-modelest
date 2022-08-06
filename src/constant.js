@@ -22,6 +22,8 @@ export const AUTHORIZED_ID = {
 	id_two: 'tisijola7@gmail.com',
 }
 
+export const DISCOUNT_PERCENTAGE = 15
+
 export const googleSearch = 'https://www.google.com/maps/search/'
 export const location = 'springview ct. Glen Burnie. Baltimore. Maryland. USA'
 

@@ -11,6 +11,7 @@ const StripeCheckout = ({
 	itemCount,
 	setRedirect,
 	setPageCancel,
+	discountPrice,
 	sales,
 }) => {
 	return (
@@ -21,6 +22,7 @@ const StripeCheckout = ({
 					itemCount={itemCount}
 					setRedirect={setRedirect}
 					setPageCancel={setPageCancel}
+					discountPrice={discountPrice}
 					sales={sales}
 				/>
 			</Elements>

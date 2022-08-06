@@ -33,7 +33,7 @@ const Cart = () => {
 	const [redirect, setRedirect] = React.useState(false)
 	const [showSum, setShowSum] = React.useState(false)
 	const [pageCancel, setPageCancel] = React.useState(false)
-	const discountPrice = localStorage.getItem('discountPrice')
+	const discountPrice = Number(localStorage.getItem('discountPrice'))
 	const database = getDatabase()
 	const [showLoad, setShowLoad] = React.useState(false)
 	const [showInfo, setShowInfo] = React.useState(false)
@@ -101,9 +101,11 @@ const Cart = () => {
 											<div className="tw-flex tw-items-center tw-justify-between tw-text-sm">
 												<div>
 													<span>Subtotal</span>
-													<span className="tw-text-xs tw-text-neutral-500 tw-ml-2">
-														(discount add)
-													</span>
+													{discountPrice && (
+														<span className="tw-text-xs tw-text-neutral-500 tw-ml-2">
+															(discount add)
+														</span>
+													)}
 												</div>
 												{showLoad ? (
 													<div className="circular-loader-small"></div>
@@ -219,9 +221,11 @@ const Cart = () => {
 												<div className="tw-flex tw-items-center tw-justify-between tw-text-sm">
 													<div>
 														<span>Subtotal</span>
-														<span className="tw-text-xs tw-text-neutral-500 tw-ml-2">
-															(discount add)
-														</span>
+														{discountPrice && (
+															<span className="tw-text-xs tw-text-neutral-500 tw-ml-2">
+																(discount add)
+															</span>
+														)}
 													</div>
 													{showLoad ? (
 														<div className="circular-loader-small"></div>
@@ -274,6 +278,7 @@ const Cart = () => {
 											total={discountPrice ? discountPrice : total}
 											setRedirect={setRedirect}
 											setPageCancel={setPageCancel}
+											discountPrice={discountPrice}
 											sales={sales}
 										/>
 									</div>

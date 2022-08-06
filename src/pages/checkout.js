@@ -60,6 +60,12 @@ const Cart = () => {
 	}
 
 	React.useEffect(() => {
+		localStorage.removeItem('discountPrice')
+		localStorage.removeItem('ship')
+		localStorage.removeItem('address')
+		localStorage.removeItem('altEmail')
+		localStorage.removeItem('shippingCost')
+
 		const starCountRef = ref(database, 'sales')
 		onValue(starCountRef, (snapshot) => {
 			const data = snapshot.val()
@@ -127,6 +133,7 @@ const Cart = () => {
 				if (sales > 0) {
 					const salesPrice = total * (sales / 100)
 					setDiscountPrice(total - salesPrice)
+
 					localStorage.setItem('discountPrice', total - salesPrice)
 					setShowLoad(true)
 				}
@@ -343,11 +350,7 @@ const Cart = () => {
 
 									<div
 										className={`${
-											showSum
-												? `tw-h-[${
-														cartItems.length * 70
-												  }px] tw-opacity-1 tw-py-5`
-												: 'tw-h-0 tw-opacity-0'
+											showSum ? `tw-opacity-1 tw-py-5` : 'tw-h-0 tw-opacity-0'
 										} tw-ease-in tw-duration-300 lg:tw-hidden tw-block tw-w-full lg:tw-w-[30%] tw-p-1 md:tw-px-10 md:tw-py-5 tw-bg-[#bba371] `}>
 										{cartItems.map((item) => (
 											<CartItemsCheckout product={item} key={item.id} />

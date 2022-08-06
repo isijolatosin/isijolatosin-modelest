@@ -16,8 +16,8 @@ export async function handler(event, context) {
 		0
 	)
 
-	const discountedPrice = data.sales
-		? totalFromRedux - totalFromRedux * (data.discountRate / 100)
+	const discountedPrice = data.discountPercentage
+		? totalFromRedux - totalFromRedux * (data.discountPercentage / 100)
 		: totalFromRedux
 
 	if (discountedPrice === data.total / 100) {
