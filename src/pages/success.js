@@ -17,7 +17,13 @@ const Success = () => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const cartItems = useSelector(selectCartItems)
-	const userAddress = localStorage.getItem('address')
+	const userAddss = localStorage.getItem('address')
+	const addressFromPP = JSON.parse(localStorage.getItem('addressFromPaypal'))
+
+	const addressFromPaypal = `${addressFromPP.address_line_1}, ${addressFromPP.admin_area_2}, ${addressFromPP.admin_area_1}. ${addressFromPP.country_code}. Postal_code: ${addressFromPP.postal_code}`
+
+	const userAddress = addressFromPaypal ? addressFromPaypal : userAddss
+
 	const [sales, setSales] = React.useState(false)
 	const payload = localStorage.getItem('payload')
 	const shipOption = localStorage.getItem('ship')
@@ -44,17 +50,16 @@ const Success = () => {
 	// eslint-disable-next-line array-callback-return
 	cartItems.map((item) => {
 		nameArray.push(
-			`${item.quantity} ${item.name} - ${item.hairLength}inches ..... $${item.price}`
+			`${item.quantity} ${item.name} - ${item.hairLength}inches ..... $${
+				Number(localStorage.getItem('discountPrice')) || item.price
+			}`
 		)
 		quantity += item.quantity
 		id.push(`${item.id}-${item.name}`)
-		price += item.price * item.quantity
+		price +=
+			Number(localStorage.getItem('discountPrice')) ||
+			item.price * item.quantity
 	})
-
-	// const daysFromNow = (n) => {
-	// 	let d = new Date()
-	// 	return Math.floor(d.setDate(d.getDate() + n) / 1000)
-	// }
 
 	React.useEffect(() => {
 		// Send a purchase mail to client
@@ -97,29 +102,6 @@ const Success = () => {
 			SendClientSuccessfulPurchaseEmail()
 		}, 1000)
 
-		// FUTURE EMAIL TO CUSTOMER
-		// 		const futureMessage = {
-		// 			name: (user && user?.displayName) || userEmail,
-		// 			message:
-		// 				'Your order is currently being processed. Once order has been shipped, a tracking number with a courier name will be sent to your email. Thank you for being our valued customer',
-		// 			client: userEmail,
-		// 		}
-		// 		const SendFutureEmail = () => {
-		// 			emailjs
-		// 				.send(
-		// 					'service_czeioxp',
-		// 					'template_kxtdmr3',
-		// 					futureMessage,
-		// 					'user_VORMh20QoM0GcnDrVoVnj'
-		// 				)
-		// 				.then((res) => {})
-		// 				.catch((err) => console.log(err))
-		// 		}
-		//
-		// 		if (new Date() === new Date(daysFromNow(1) * 1000)) {
-		// 			SendFutureEmail()
-		// 		}
-
 		userEmail &&
 			cartItems.length !== 0 &&
 			payload &&
@@ -134,7 +116,7 @@ const Success = () => {
 						title: item.name,
 						description: item.description,
 						quantity: item.quantity,
-						price: item.price,
+						price: price,
 						address: userAddress,
 						customer: (user && user?.displayName) || userEmail,
 						email: userEmail,
@@ -160,7 +142,7 @@ const Success = () => {
 						title: item.name,
 						description: item.description,
 						quantity: item.quantity,
-						price: item.price,
+						price: price,
 						address: userAddress,
 						customer: (user && user?.displayName) || userEmail,
 						email: userEmail,
@@ -183,14 +165,16 @@ const Success = () => {
 
 	const handleBackToShopping = () => {
 		dispatch(clearCartItem())
-		localStorage.removeItem('payload', '')
-		localStorage.removeItem('address', '')
-		localStorage.removeItem('altEmail', '')
-		localStorage.removeItem('discountPrice', '')
-		localStorage.removeItem('ship', '')
-		localStorage.removeItem('shippingCost', '')
-		localStorage.removeItem('address', '')
-		localStorage.removeItem('paymentName', '')
+		localStorage.removeItem('payload')
+		localStorage.removeItem('address')
+		localStorage.removeItem('altEmail')
+		localStorage.removeItem('discountPrice')
+		localStorage.removeItem('ship')
+		localStorage.removeItem('shippingCost')
+		localStorage.removeItem('address')
+		localStorage.removeItem('paymentName')
+		localStorage.removeItem('discountPrice')
+		localStorage.removeItem('addressFromPaypal')
 		navigate('/')
 	}
 

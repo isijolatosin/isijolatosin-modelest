@@ -5689,8 +5689,7 @@ async function createOrder() {
       ]
     })
   });
-  const data = await response.json();
-  return data;
+  return handleResponse(response);
 }
 async function generateAccessToken() {
   const auth = Buffer.from(CLIENT_ID + ":" + APP_SECRET).toString("base64");
@@ -5701,8 +5700,15 @@ async function generateAccessToken() {
       Authorization: `Basic ${auth}`
     }
   });
-  const data = await response.json();
-  return data.access_token;
+  const jsonData = await handleResponse(response);
+  return jsonData.access_token;
+}
+async function handleResponse(response) {
+  if (response.status === 200 || response.status === 201) {
+    return response.json();
+  }
+  const errorMessage = await response.text();
+  throw new Error(errorMessage);
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

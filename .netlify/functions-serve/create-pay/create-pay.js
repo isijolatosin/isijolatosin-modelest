@@ -1,0 +1,1 @@
+module.exports = require('./src/functions/create-pay.js')

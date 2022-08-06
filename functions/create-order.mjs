@@ -34,10 +34,6 @@ export async function handler(event, context) {
 	}
 }
 
-//////////////////////
-// PayPal API helpers
-//////////////////////
-
 // use the orders api to create an order
 async function createOrder() {
 	const accessToken = await generateAccessToken()
@@ -60,24 +56,8 @@ async function createOrder() {
 			],
 		}),
 	})
-	const data = await response.json()
-	return data
+	return handleResponse(response)
 }
-
-// use the orders api to capture payment for an order
-// async function capturePayment(orderId) {
-// 	const accessToken = await generateAccessToken()
-// 	const url = `${base}/v2/checkout/orders/${orderId}/capture`
-// 	const response = await fetch(url, {
-// 		method: 'post',
-// 		headers: {
-// 			'Content-Type': 'application/json',
-// 			Authorization: `Bearer ${accessToken}`,
-// 		},
-// 	})
-// 	const data = await response.json()
-// 	return data
-// }
 
 // generate an access token using client id and app secret
 async function generateAccessToken() {
@@ -89,6 +69,15 @@ async function generateAccessToken() {
 			Authorization: `Basic ${auth}`,
 		},
 	})
-	const data = await response.json()
-	return data.access_token
+	const jsonData = await handleResponse(response)
+	return jsonData.access_token
+}
+
+async function handleResponse(response) {
+	if (response.status === 200 || response.status === 201) {
+		return response.json()
+	}
+
+	const errorMessage = await response.text()
+	throw new Error(errorMessage)
 }
