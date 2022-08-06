@@ -5,7 +5,11 @@ import { getDatabase, ref, onValue } from 'firebase/database'
 import { useNavigate } from 'react-router-dom'
 import { GoAlert } from 'react-icons/go'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearCartItem, selectCartItems } from '../slices/appSlices'
+import {
+	clearCartItem,
+	selectCartItems,
+	selectTotal,
+} from '../slices/appSlices'
 import { db } from '../firebase'
 import Layout from '../components/shared/Layout'
 import { UserContext } from '../context/user-context'
@@ -16,11 +20,15 @@ const Success = () => {
 	const { user } = useContext(UserContext)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
+	const total = useSelector(selectTotal)
 	const cartItems = useSelector(selectCartItems)
 	const userAddss = localStorage.getItem('address')
+	const discountPrice = total - Number(localStorage.getItem('discountPrice'))
 	const addressFromPP = JSON.parse(localStorage.getItem('addressFromPaypal'))
 
-	const addressFromPaypal = `${addressFromPP.address_line_1}, ${addressFromPP.admin_area_2}, ${addressFromPP.admin_area_1}. ${addressFromPP.country_code}. Postal_code: ${addressFromPP.postal_code}`
+	const addressFromPaypal =
+		addressFromPP &&
+		`${addressFromPP.address_line_1}, ${addressFromPP.admin_area_2}, ${addressFromPP.admin_area_1}. ${addressFromPP.country_code}. Postal_code: ${addressFromPP.postal_code}`
 
 	const userAddress = addressFromPaypal ? addressFromPaypal : userAddss
 
@@ -77,7 +85,7 @@ const Success = () => {
 			product: nameArray.join(', '),
 			price: price,
 			quantity: quantity,
-			discount: '00.00',
+			discount: discountPrice || '00.00',
 			subtotal: price,
 			shipping: shipOption === 'ship' ? shipping : '',
 			tax: tax,
