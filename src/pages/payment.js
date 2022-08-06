@@ -207,11 +207,7 @@ const Cart = () => {
 
 									<div
 										className={`${
-											showSum
-												? `tw-h-[${
-														cartItems.length * 70
-												  }px] tw-opacity-1 tw-py-5`
-												: 'tw-h-0 tw-opacity-0'
+											showSum ? `tw-opacity-1 tw-py-5` : 'tw-h-0 tw-opacity-0'
 										} tw-ease-in tw-duration-300 lg:tw-hidden tw-block tw-w-full lg:tw-w-[30%] tw-p-1 md:tw-px-10 md:tw-py-5 tw-bg-[#bba371] `}>
 										{cartItems.map((item) => (
 											<CartItemsCheckout product={item} key={item.id} />
