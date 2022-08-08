@@ -47,7 +47,7 @@ const Slideshow = ({ images, iconSize }) => {
 					onClick={nextSlide}
 				/>
 			)}
-			<div className="slider tw-w-[100%] tw-mb-10">
+			<div className="slider tw-w-[100%] tw-mb-10 tw-flex tw-flex-col">
 				{imageArray.map((item, idx) => (
 					<div key={idx} className={idx === current ? 'slide active' : 'slide'}>
 						{idx === current && (
@@ -60,6 +60,23 @@ const Slideshow = ({ images, iconSize }) => {
 						)}
 					</div>
 				))}
+				<div className="tw-flex tw-items-center tw-justify-center tw-flex-wrap tw-p-4 tw-bg-neutral-100 tw-overflow-hidden">
+					{imageArray.map((item, idx) => (
+						<div
+							onClick={() => setCurrent(idx)}
+							key={idx}
+							className={`${
+								idx === current &&
+								'tw-border-[3px] tw-border-t-neutral-50 tw-border-b-neutral-300 tw-border-r-neutral-300 tw-border-l-neutral-200'
+							} tw-mx-2 tw-ease-in tw-duration-300 hover:md:tw-opacity-[0.3] md:tw-cursor-pointer `}>
+							<img
+								src={item.image}
+								alt={item.id}
+								className="tw-w-[50px] tw-h-[50px] tw-object-cover"
+							/>
+						</div>
+					))}
+				</div>
 			</div>
 		</div>
 	)
