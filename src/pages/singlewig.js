@@ -256,8 +256,8 @@ const SingleWig = () => {
 			<Layout>
 				<div
 					className={`${
-						sales ? 'tw-pt-[70px] md:tw-pt-[50px]' : 'tw-pt-0'
-					} tw-w-full tw-bg-neutral-100 tw-flex tw-flex-col tw-items-center tw-relative`}>
+						sales ? 'tw-pt-[58px] md:tw-pt-[50px]' : 'tw-pt-0'
+					} tw-w-full tw-bg-white tw-flex tw-flex-col tw-items-center tw-relative`}>
 					<div className="tw-fixed tw-z-20 tw-top-0 md:tw-top-[-95px] tw-right-0">
 						<Add2CartPopup
 							singleCart={singleCart}
@@ -265,7 +265,7 @@ const SingleWig = () => {
 							quantity={_quantity}
 						/>
 					</div>
-					<div className="tw-mt-[70px] xl:tw-w-[80%] tw-px-5 tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
+					<div className="tw-mt-[70px] xl:tw-w-[80%] tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
 						<div>
 							<div className="tw-fixed tw-z-10 tw-right-5 md:tw-right-20 tw-top-[170px]">
 								<div className="tw-text-neutral-900  tw-mb-3">
@@ -278,9 +278,9 @@ const SingleWig = () => {
 								</div>
 							</div>
 							<div className="">
-								<Slideshow images={imageArray} iconSize={40} />
+								<Slideshow images={imageArray} iconSize={25} />
 							</div>
-							<div className="tw-w-[100%] xl:tw-w-[80%] tw-mx-auto">
+							<div className="tw-w-[90%] xl:tw-w-[80%] tw-mx-auto">
 								<div className="tw-w-[100%] tw-mx-auto">
 									<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
 										{singleWig?.[0]?.name}
@@ -458,7 +458,7 @@ const SingleWig = () => {
 								</div>
 							</div>
 						</div>
-						<div className="">
+						<div className="tw-w-[90%] tw-mx-auto">
 							<div className="tw-grid tw-mt-5 tw-grid-cols-1 md:tw-grid-cols-2 md:tw-gap-x-10">
 								{desc.map((item, idx) => (
 									<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm tw-capitalize">

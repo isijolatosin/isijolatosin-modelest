@@ -32,7 +32,7 @@ const Slideshow = ({ images, iconSize }) => {
 	}
 
 	return (
-		<div className="tw-relative">
+		<div className="tw-relative tw-w-[100%] xl:tw-w-[70%] tw-mx-auto">
 			{imageArray?.length > 1 && (
 				<MdArrowBackIosNew
 					size={iconSize}
@@ -47,12 +47,22 @@ const Slideshow = ({ images, iconSize }) => {
 					onClick={nextSlide}
 				/>
 			)}
-			<div className="slider tw-w-[100%] tw-mb-10 tw-flex tw-flex-col">
+			<div className="slider tw-w-[100%] tw-h-[630px] lg:tw-h-[700px] tw-mb-10 tw-flex tw-flex-col">
 				{imageArray?.map((item, idx) => (
-					<div key={idx} className={idx === current ? 'slide active' : 'slide'}>
+					<div
+						key={idx}
+						className={
+							idx === current
+								? 'slide active tw-w-full tw-h-full'
+								: 'slide tw-w-full'
+						}>
 						{idx === current && (
 							<div className="image">
-								<img src={item?.image} alt={item?.id} />
+								<img
+									src={item?.image}
+									alt={item?.id}
+									className="tw-w-full tw-object-cover tw-object-bottom"
+								/>
 								<span className="tw-absolute tw-text-gray-600 tw-right-6 tw-bottom-4 tw-italic tw-text-[10px]">
 									modelEst...
 								</span>

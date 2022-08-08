@@ -35,9 +35,9 @@ const SingleProductModal = ({
 			{singleProducts && (
 				<div className="single tw-fixed tw-z-40 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-[0px] md:tw-pt-10 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
 					<div className="md:tw-w-[80%] xl:tw-w-[70%] md:tw-mx-auto tw-w-[100%] tw-h-full tw-flex md:tw-flex-row tw-flex-col">
-						<div className="tw-w-[90%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
-							<Slideshow images={singleProducts?.[0]} />
-							<div className="">
+						<div className="tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
+							<Slideshow images={singleProducts?.[0]} iconSize={25} />
+							<div className="tw-w-[90%] tw-mx-auto">
 								<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
 									{singleProducts?.[0].name}
 								</p>
@@ -50,7 +50,7 @@ const SingleProductModal = ({
 								</p>
 							</div>
 							{_hairColor && (
-								<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5 tw-mt-5">
+								<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5 tw-mt-5 tw-w-[90%] tw-mx-auto">
 									<div className="tw-flex tw-flex-wrap">
 										{_hairColor.map((colr, idx) => (
 											<span
@@ -71,7 +71,7 @@ const SingleProductModal = ({
 								</div>
 							)}
 							{texture && (
-								<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
+								<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5 tw-w-[90%] tw-mx-auto">
 									<div className="tw-flex tw-flex-wrap">
 										{texture.map((tex, idx) => (
 											<span
@@ -90,7 +90,7 @@ const SingleProductModal = ({
 									</div>
 								</div>
 							)}
-							<div className="tw-flex tw-flex-col tw-mt-5 tw-mb-2 tw-border-y-[1px] tw-py-3">
+							<div className="tw-flex tw-flex-col tw-mt-5 tw-mb-2 tw-border-y-[1px] tw-py-3 tw-w-[90%] tw-mx-auto">
 								<div className="tw-flex tw-flex-wrap tw-gap-2">
 									{sizes.map((size, idx) => (
 										<span

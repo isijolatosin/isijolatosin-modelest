@@ -266,7 +266,7 @@ const DealPage = () => {
 					</div>
 					<div className="tw-pt-[70px] xl:tw-w-[80%] tw-px-5 tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
 						<div className="">
-							<Slideshow images={dealsImage} iconSize={40} />
+							<Slideshow images={dealsImage} iconSize={25} />
 						</div>
 						<div className="">
 							<h1 className="tw-text-xl md:tw-text-3xl tw-uppercase">

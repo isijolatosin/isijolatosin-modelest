@@ -768,25 +768,25 @@ label input::placeholder {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	max-height: 630px;
+}
+.slide {
+	opacity: 1;
+	transition-duration: 2s ease;
+	transform: scale(0.8);
+	overflow: hidden;
 }
 .image {
 	border-radius: 10px;
-	max-width: 330px;
-	object-fit: cover;
+	max-height: 420px;
 }
 .image2 {
 	border-radius: 10px;
-	max-width: 560px;
-	object-fit: cover;
-}
-@media (max-width: 768px) {
-	.image2 {
-		max-width: 330px;
-	}
+	max-height: 420px;
 }
 .right-arrow {
 	position: absolute;
-	top: 45%;
+	top: 40%;
 	font-size: 1.8rem;
 	color: #946a0f;
 	z-index: 10;
@@ -795,18 +795,14 @@ label input::placeholder {
 }
 .left-arrow {
 	position: absolute;
-	top: 45%;
+	top: 40%;
 	font-size: 1.8rem;
 	color: #946a0f;
 	z-index: 10;
 	cursor: pointer;
 	user-select: none;
 }
-.slide {
-	opacity: 1;
-	transition-duration: 2s ease;
-	transform: scale(0.8);
-}
+
 .slider .active {
 	transform: scale(1);
 	animation: slide-animate 1s ease;

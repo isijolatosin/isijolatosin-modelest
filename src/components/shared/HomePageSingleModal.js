@@ -330,7 +330,7 @@ const HomePageSingleModal = ({
 		<div className="single tw-fixed tw-z-40 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-0 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white md:tw-pt-5 ">
 			<div className="general-scrollbar-hide md:tw-mx-auto tw-w-[100%] md:tw-w-[90%] tw-h-full tw-flex md:tw-flex-row tw-flex-col tw-overflow-scroll">
 				<div className="tw-relative tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
-					<Slideshow images={singleProducts?.[0]} />
+					<Slideshow images={singleProducts?.[0]} iconSize={25} />
 					<div className="tw-w-[90%] tw-mx-auto md:tw-w-[100%]">
 						<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
 							{singleProducts?.[0]?.name}
