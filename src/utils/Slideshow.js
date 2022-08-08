@@ -66,8 +66,7 @@ const Slideshow = ({ images, iconSize }) => {
 							onClick={() => setCurrent(idx)}
 							key={idx}
 							className={`${
-								idx === current &&
-								'tw-border-[3px] tw-border-t-neutral-50 tw-border-b-neutral-300 tw-border-r-neutral-300 tw-border-l-neutral-200'
+								idx === current && 'tw-border-[1px] tw-p-2 tw-border-[#bba371]'
 							} tw-mx-2 tw-ease-in tw-duration-300 hover:md:tw-opacity-[0.3] md:tw-cursor-pointer `}>
 							<img
 								src={item?.image}
