@@ -18,6 +18,8 @@ function Products({
 	chatDetail,
 	handleChangeChat,
 	chatSuccess,
+	similarProductsFrontal,
+	similarProductsClosure,
 	chatError,
 }) {
 	const [toggleHeight, setToggleHeight] = React.useState(true)
@@ -125,6 +127,8 @@ function Products({
 				<HomePageSingleModal
 					singleProducts={singleProducts}
 					setSingleproducts={setSingleproducts}
+					similarProductsClosure={similarProductsClosure}
+					similarProductsFrontal={similarProductsFrontal}
 					sales={sales}
 				/>
 			)}

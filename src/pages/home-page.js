@@ -24,6 +24,11 @@ function HomePage() {
 	const [allProducts, setAllproducts] = React.useState([])
 	const [filtered, setFiltered] = React.useState([])
 	const [sales, setSales] = React.useState(null)
+	const [similarProductsClosure, setSimilarProductsClosure] =
+		React.useState(null)
+	const [similarProductsFrontal, setSimilarProductsFrontal] =
+		React.useState(null)
+
 	const database = getDatabase()
 	const [chatDetail, setChatDetail] = React.useState({
 		name: '',
@@ -51,6 +56,25 @@ function HomePage() {
 					//  curUser
 				},
 			} = await axios.get('/api/v1/products')
+
+			const array1 = []
+			const array2 = []
+			// eslint-disable-next-line array-callback-return
+			products.filter((prod) => {
+				if (prod?.brand?.toLowerCase().includes('virgin hair')) {
+					if (prod?.name?.toLowerCase().includes('-closure')) {
+						array1.push(prod)
+					}
+				}
+				setSimilarProductsClosure(array1)
+
+				if (prod?.brand?.toLowerCase().includes('virgin hair')) {
+					if (prod?.name?.toLowerCase().includes('-frontal')) {
+						array2.push(prod)
+					}
+				}
+				setSimilarProductsFrontal(array2)
+			})
 
 			const fArray = []
 			// eslint-disable-next-line array-callback-return
@@ -328,6 +352,8 @@ function HomePage() {
 									sales={sales}
 									featuredProduct={featuredProduct}
 									allProducts={allProducts}
+									similarProductsClosure={similarProductsClosure}
+									similarProductsFrontal={similarProductsFrontal}
 								/>
 							</div>
 						</div>

@@ -26,8 +26,22 @@ const HomePageSingleModal = ({
 	singleProducts,
 	setSingleCart,
 	setSingleproducts,
+	similarProductsFrontal,
+	similarProductsClosure,
 	sales,
 }) => {
+	const similarProducts = singleProducts[0]?.name
+		.toLowerCase()
+		.includes('-closure')
+		? similarProductsClosure
+		: singleProducts[0]?.name.toLowerCase().includes('-frontal')
+		? similarProductsFrontal
+		: []
+
+	const similarProductsFiltered = similarProducts.filter(
+		(p) => p._id !== singleProducts[0]?._id
+	)
+
 	const allSizes = ['14', '16', '18', '20', '22', '24']
 	const cartItems = useSelector(selectCartItems)
 	const [error, setError] = React.useState(false)
@@ -53,8 +67,8 @@ const HomePageSingleModal = ({
 			: ['Natural black', 'Blonde613']
 	const texture = ['Straight', 'Bodywave', 'Curly', 'Wavy']
 
-	const avesizes = singleProducts?.[0].availablelength.split(', ')
-	const sizes = singleProducts?.[0].length.split(', ')
+	const avesizes = singleProducts?.[0]?.availablelength.split(', ')
+	const sizes = singleProducts?.[0]?.length.split(', ')
 
 	const hairLength = length
 	const hairColor = _color || color
@@ -216,9 +230,9 @@ const HomePageSingleModal = ({
 		return a
 	}
 
-	const vWPrice = singleProducts?.[0].name.toLowerCase().includes('-closure')
+	const vWPrice = singleProducts?.[0]?.name.toLowerCase().includes('-closure')
 		? wigFuncClosure()
-		: singleProducts?.[0].name.toLowerCase().includes('-frontal')
+		: singleProducts?.[0]?.name.toLowerCase().includes('-frontal')
 		? wigFuncFrontal()
 		: ''
 	const f_cPrice = pricePredict()
@@ -319,14 +333,14 @@ const HomePageSingleModal = ({
 					<Slideshow images={singleProducts?.[0]} />
 					<div className="tw-w-[90%] tw-mx-auto md:tw-w-[100%]">
 						<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
-							{singleProducts?.[0].name}
+							{singleProducts?.[0]?.name}
 						</p>
 						<div className="tw-flex tw-items-center tw-mb-5">
 							<span className="tw-mr-2">Review: </span>
 							<Rating isNum={true} color2="[#bba371]" />
 						</div>
 						<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-mt-0">
-							Description: {singleProducts?.[0].description}
+							Description: {singleProducts?.[0]?.description}
 						</p>
 					</div>
 					{singleProducts?.[0]?.name.toLowerCase() === 'frontal' ||
@@ -472,7 +486,7 @@ const HomePageSingleModal = ({
 								{allSizes.map(
 									// eslint-disable-next-line array-callback-return
 									(item) =>
-										avesizes.includes(item) ? (
+										avesizes?.includes(item) ? (
 											<div
 												onClick={() => {
 													setLength(item)
@@ -512,18 +526,18 @@ const HomePageSingleModal = ({
 							<span
 								className={
 									sales !== 0 &&
-									singleProducts?.[0].sales &&
+									singleProducts?.[0]?.sales &&
 									'tw-mr-3 tw-line-through tw-text-neutral-400 tw-border-r-[1px] tw-border-neutral-500 tw-pr-3'
 								}>
 								$
 								{sales !== 0 &&
-									singleProducts?.[0].sales &&
+									singleProducts?.[0]?.sales &&
 									`${
 										price_Nosales
 											? price_Nosales +
-											  singleProducts?.[0].price * (sales / 100)
-											: singleProducts?.[0].price +
-											  singleProducts?.[0].price * (sales / 100)
+											  singleProducts?.[0]?.price * (sales / 100)
+											: singleProducts?.[0]?.price +
+											  singleProducts?.[0]?.price * (sales / 100)
 									}${' '}`}
 							</span>
 						)}
@@ -588,8 +602,8 @@ const HomePageSingleModal = ({
 								<p className="tw-text-center tw-mb-2 tw-text-red-600 tw-text-xs">
 									{singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
 									singleProducts?.[0]?.type.toLowerCase() === 'closure'
-										? `Please provide color, texture and length for ${singleProducts?.[0].name}`
-										: `Please provide length for ${singleProducts?.[0].name}`}
+										? `Please provide color, texture and length for ${singleProducts?.[0]?.name}`
+										: `Please provide length for ${singleProducts?.[0]?.name}`}
 								</p>
 							</div>
 						)}
@@ -597,14 +611,14 @@ const HomePageSingleModal = ({
 							<div
 								className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:md:tw-text-neutral-900 hover:md:tw-bg-white tw-cursor-pointer tw-ease-in tw-duration-300"
 								onClick={cartItems.length !== 0 ? IncreaseItem : null}>
-								{singleProducts?.[0].type.toLowerCase() === 'frontal' ||
-								singleProducts?.[0].type.toLowerCase() === 'closure' ? (
+								{singleProducts?.[0]?.type.toLowerCase() === 'frontal' ||
+								singleProducts?.[0]?.type.toLowerCase() === 'closure' ? (
 									<span>
 										Add more of {_hairType} {_color} - {length}"
 									</span>
 								) : (
 									<span>
-										Add more of {singleProducts?.[0].name} - {length}"
+										Add more of {singleProducts?.[0]?.name} - {length}"
 									</span>
 								)}
 							</div>
@@ -615,6 +629,21 @@ const HomePageSingleModal = ({
 								<span>Add to cart</span>
 							</div>
 						)}
+					</div>
+					<div className=" tw-flex tw-flex-wrap">
+						{similarProductsFiltered &&
+							similarProductsFiltered.map((product) => (
+								<div className="tw-relative tw-my-5 tw-w-[80px] tw-h-[85px] tw-rounded-md">
+									<img
+										className="tw-w-full tw-h-full tw-object-cover tw-rounded-md"
+										src={product.image}
+										alt={product.name}
+									/>
+									<p className="tw-text-[10px] tw-absolute tw-bottom-0 tw-bg-[rgba(255,255,255,0.8)] tw-text-black tw-text-center tw-w-full tw-rounded-b-md">
+										{product.name}
+									</p>
+								</div>
+							))}
 					</div>
 					<div className="tw-my-5 tw-border-t-[1px] tw-border-red-700 tw-py-5 tw-overflow-scroll single tw-h-[70%]">
 						<div className="tw-mb-5">

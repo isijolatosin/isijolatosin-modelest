@@ -4,25 +4,25 @@ import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md'
 const Slideshow = ({ images, iconSize }) => {
 	const imageArray = [
 		{
-			image: (images.image && images.image) || (images?.[0] && images?.[0]),
+			image: (images?.image && images?.image) || (images?.[0] && images?.[0]),
 			id: 1,
 		},
 		{
-			image: (images.image2 && images.image2) || (images?.[1] && images?.[1]),
+			image: (images?.image2 && images?.image2) || (images?.[1] && images?.[1]),
 			id: 2,
 		},
 		{
-			image: (images.image3 && images.image3) || (images?.[2] && images?.[2]),
+			image: (images?.image3 && images?.image3) || (images?.[2] && images?.[2]),
 			id: 3,
 		},
 		{
-			image: (images.image4 && images.image4) || (images?.[3] && images?.[3]),
+			image: (images?.image4 && images?.image4) || (images?.[3] && images?.[3]),
 			id: 4,
 		},
-	].filter((x) => x.image)
+	].filter((x) => x?.image)
 
 	const [current, setCurrent] = React.useState(0)
-	const length = imageArray.length
+	const length = imageArray?.length
 
 	const nextSlide = () => {
 		setCurrent(current === length - 1 ? 0 : current + 1)
@@ -33,14 +33,14 @@ const Slideshow = ({ images, iconSize }) => {
 
 	return (
 		<div className="tw-relative">
-			{imageArray.length > 1 && (
+			{imageArray?.length > 1 && (
 				<MdArrowBackIosNew
 					size={iconSize}
 					className="left-arrow tw-left-3"
 					onClick={prevSlide}
 				/>
 			)}
-			{imageArray.length > 1 && (
+			{imageArray?.length > 1 && (
 				<MdArrowForwardIos
 					size={iconSize}
 					className="right-arrow tw-right-3"
@@ -48,11 +48,11 @@ const Slideshow = ({ images, iconSize }) => {
 				/>
 			)}
 			<div className="slider tw-w-[100%] tw-mb-10 tw-flex tw-flex-col">
-				{imageArray.map((item, idx) => (
+				{imageArray?.map((item, idx) => (
 					<div key={idx} className={idx === current ? 'slide active' : 'slide'}>
 						{idx === current && (
 							<div className="image">
-								<img src={item.image} alt={item.id} />
+								<img src={item?.image} alt={item?.id} />
 								<span className="tw-absolute tw-text-gray-600 tw-right-6 tw-bottom-4 tw-italic tw-text-[10px]">
 									modelEst...
 								</span>
@@ -61,7 +61,7 @@ const Slideshow = ({ images, iconSize }) => {
 					</div>
 				))}
 				<div className="tw-flex tw-items-center tw-justify-center tw-flex-wrap tw-p-4 tw-bg-neutral-100 tw-overflow-hidden">
-					{imageArray.map((item, idx) => (
+					{imageArray?.map((item, idx) => (
 						<div
 							onClick={() => setCurrent(idx)}
 							key={idx}
@@ -70,8 +70,8 @@ const Slideshow = ({ images, iconSize }) => {
 								'tw-border-[3px] tw-border-t-neutral-50 tw-border-b-neutral-300 tw-border-r-neutral-300 tw-border-l-neutral-200'
 							} tw-mx-2 tw-ease-in tw-duration-300 hover:md:tw-opacity-[0.3] md:tw-cursor-pointer `}>
 							<img
-								src={item.image}
-								alt={item.id}
+								src={item?.image}
+								alt={item?.id}
 								className="tw-w-[50px] tw-h-[50px] tw-object-cover"
 							/>
 						</div>
