@@ -630,21 +630,35 @@ const HomePageSingleModal = ({
 							</div>
 						)}
 					</div>
-					<div className=" tw-flex tw-flex-wrap">
-						{similarProductsFiltered &&
-							similarProductsFiltered.map((product) => (
-								<div className="tw-relative tw-my-5 tw-w-[80px] tw-h-[85px] tw-rounded-md">
-									<img
-										className="tw-w-full tw-h-full tw-object-cover tw-rounded-md"
-										src={product.image}
-										alt={product.name}
-									/>
-									<p className="tw-text-[10px] tw-absolute tw-bottom-0 tw-bg-[rgba(255,255,255,0.8)] tw-text-black tw-text-center tw-w-full tw-rounded-b-md">
-										{product.name}
-									</p>
-								</div>
-							))}
-					</div>
+					{similarProductsFiltered.length !== 0 && (
+						<>
+							<div className="tw-mt-5 tw-mb-2">
+								<Heading
+									children={
+										similarProductsFiltered.length > 1
+											? 'Similar products'
+											: 'Similar product'
+									}
+									isBold={false}
+								/>
+							</div>
+							<div className=" tw-flex tw-flex-wrap">
+								{similarProductsFiltered.map((product) => (
+									<div className="tw-relative tw-mb-5 tw-w-[80px] tw-h-[85px] tw-rounded-md">
+										<img
+											className="tw-w-full tw-h-full tw-object-cover tw-rounded-md"
+											src={product.image}
+											alt={product.name}
+										/>
+										<p className="tw-text-[10px] tw-absolute tw-bottom-0 tw-bg-[rgba(255,255,255,0.8)] tw-text-black tw-text-center tw-w-full tw-rounded-b-md">
+											{product.name}
+										</p>
+									</div>
+								))}
+							</div>
+						</>
+					)}
+
 					<div className="tw-my-5 tw-border-t-[1px] tw-border-red-700 tw-py-5 tw-overflow-scroll single tw-h-[70%]">
 						<div className="tw-mb-5">
 							<Heading children="Product Details" isBold={false} />
