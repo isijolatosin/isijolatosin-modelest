@@ -56,7 +56,7 @@ exports.handler = async function (event, context) {
 				const client_secret =
 					subscription.latest_invoice.payment_intent.client_secret
 				return {
-					// statusCode: 200,
+					statusCode: 200,
 					body: JSON.stringify({
 						client_secret: client_secret,
 					}),
@@ -64,7 +64,7 @@ exports.handler = async function (event, context) {
 			} catch (error) {
 				console.log(error)
 				return {
-					// statusCodes: 500,
+					statusCode: 500,
 					body: JSON.stringify({ msg: error.message }),
 				}
 			}
