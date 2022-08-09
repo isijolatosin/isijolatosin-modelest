@@ -141,7 +141,7 @@ const CheckoutForm = ({
 			// recurring payment
 			else if (payPlan.includes('Bi-Weekly')) {
 				if (
-					total_amount > Number(process.env.REACT_APP_INSTALLMENT_START_PRICE)
+					total_amount >= Number(process.env.REACT_APP_INSTALLMENT_START_PRICE)
 				) {
 					setProcessing(true)
 					const result = await stripe.createPaymentMethod({

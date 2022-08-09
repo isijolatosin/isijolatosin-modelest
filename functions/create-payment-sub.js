@@ -56,13 +56,11 @@ exports.handler = async function (event, context) {
 				const status = subscription.latest_invoice.payment_intent.status
 				const client_secret =
 					subscription.latest_invoice.payment_intent.client_secret
-
-				console.log(status)
 				return {
 					statusCode: 200,
 					body: JSON.stringify({
 						client_secret: client_secret,
-						status: status,
+						status: status === 'succeeded' && 200,
 					}),
 				}
 			} catch (error) {
