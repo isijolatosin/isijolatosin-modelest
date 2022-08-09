@@ -11,6 +11,7 @@ import { UserContext } from '../../context/user-context'
 import PaypalCheckoutButton from '../PaypalCheckoutButton'
 import { FaCcStripe } from 'react-icons/fa'
 import { selectCartItems } from '../../slices/appSlices'
+import { installmentStartPrice } from '../../constant'
 
 const CheckoutForm = ({
 	total,
@@ -82,7 +83,7 @@ const CheckoutForm = ({
 			setPaymentPlanWarn(true)
 		}
 
-		if (total_amount > Number(process.env.REACT_APP_INSTALLMENT_START_PRICE)) {
+		if (total_amount >= installmentStartPrice) {
 			if (payPlan.includes('One-Time')) {
 				// One time payment
 				setProcessing(true)
@@ -141,7 +142,8 @@ const CheckoutForm = ({
 			// recurring payment
 			else if (payPlan.includes('Bi-Weekly')) {
 				if (
-					total_amount >= Number(process.env.REACT_APP_INSTALLMENT_START_PRICE)
+					total_amount >= installmentStartPrice
+					// total_amount >= Number(process.env.REACT_APP_INSTALLMENT_START_PRICE)
 				) {
 					setProcessing(true)
 					const result = await stripe.createPaymentMethod({
