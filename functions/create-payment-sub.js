@@ -21,16 +21,14 @@ exports.handler = async function (event, context) {
 			shipMethod,
 		} = JSON.parse(event.body)
 
-		let totalCartPrice = 0
-		// eslint-disable-next-line array-callback-return
-		cartItems.map((item) => {
-			totalCartPrice += item?.price * item?.quantity * 100
-		})
+		const totalCartPrice =
+			cartItems.reduce((total, prod) => total + prod.price * prod.quantity, 0) *
+			100
 
 		const discountedPrice =
 			sales && totalCartPrice - totalCartPrice * (sales / 100)
 
-		if (discountedPrice === balance) {
+		if (discountedPrice === balance || totalCartPrice === balance) {
 			const noOfInstallment = 4
 			const subAmount = Math.floor(
 				shipMethod === 'ship'
@@ -74,7 +72,8 @@ exports.handler = async function (event, context) {
 					body: JSON.stringify({ msg: error.message }),
 				}
 			}
+		} else {
+			return { statusCode: 200, body: 'Please Create Payment Intent' }
 		}
 	}
-	return { statusCode: 200, body: 'Please Create Payment Intent' }
 }

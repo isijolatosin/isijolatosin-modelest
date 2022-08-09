@@ -31,7 +31,7 @@ const CheckoutForm = ({
 	const [_error, set_Error] = React.useState(null)
 	const [processing, setProcessing] = React.useState('')
 	const [disabled, setDisabled] = React.useState(true)
-	const [clientSecret, setClientSecret] = React.useState('')
+	// const [clientSecret, setClientSecret] = React.useState('')
 	const { user } = useContext(UserContext)
 	const [payPlan, setPlan] = React.useState('')
 	const paymentPlan = [
@@ -48,29 +48,7 @@ const CheckoutForm = ({
 	const total_amount = price
 	const totalPrice = Math.floor(Number(total) * 100)
 
-	const createPaymentIntent = async () => {
-		try {
-			const { data } = await axios.post(
-				'/.netlify/functions/create-payment-intent',
-				JSON.stringify({
-					cartItems,
-					shipping_fee,
-					totalPrice,
-					tax,
-					sales,
-					shipMethod,
-				})
-			)
-
-			setClientSecret(data.clientSecret.split("'")?.[0])
-		} catch (error) {
-			set_Error(error?.response?.data ? 'Please contact modelEst Admin...' : '')
-		}
-	}
-
 	const handleOnChange = (e) => {
-		createPaymentIntent()
-
 		setPlan(e.target.value)
 	}
 
@@ -104,104 +82,184 @@ const CheckoutForm = ({
 			setPaymentPlanWarn(true)
 		}
 
-		if (payPlan.includes('One-Time')) {
-			// One time payment
-			setProcessing(true)
-
-			if (clientSecret) {
-				const payload = await stripe.confirmCardPayment(clientSecret, {
-					payment_method: {
-						card: elements.getElement(CardElement),
-						billing_details: {
-							email: user?.email || email,
-						},
-					},
-				})
-
-				localStorage.setItem('payload', payload?.paymentIntent?.client_secret)
-
-				if (payload.error) {
-					set_Error(`Payment failed ${payload.error.message}`)
-					setProcessing(false)
-					setTimeout(() => {
-						navigate('/canceled')
-					}, 5000)
-				} else {
-					set_Error(null)
-					setProcessing(false)
-					setSucceeded(true)
-					payload?.paymentIntent?.client_secret &&
-						setTimeout(() => {
-							navigate('/success')
-						}, 5000)
-				}
-			}
-		}
-		// recurring payment
-		else {
-			if (
-				total_amount > Number(process.env.REACT_APP_INSTALLMENT_START_PRICE)
-			) {
+		if (total_amount > Number(process.env.REACT_APP_INSTALLMENT_START_PRICE)) {
+			if (payPlan.includes('One-Time')) {
+				// One time payment
 				setProcessing(true)
-				const result = await stripe.createPaymentMethod({
-					type: 'card',
-					card: elements.getElement(CardElement),
-					billing_details: {
-						email: user?.email || email,
-					},
-				})
 
-				if (result.error) {
-					console.log(result.error)
-					set_Error(`Payment failed ${result.error.message}`)
-					setProcessing(false)
-					setTimeout(() => {
-						navigate('/canceled')
-					}, 5000)
-				} else {
-					const res = await axios.post(
-						'/.netlify/functions/create-payment-sub',
-						{
-							payment_method: result.paymentMethod.id,
-							email: user?.email || email,
-							balance: totalPrice,
-							shippingFee: shipping_fee,
-							tax: tax,
-							cartItems: cartItems,
-							shipMethod: shipMethod,
-							sales: sales,
-						}
+				let clientSecret
+
+				try {
+					const { data } = await axios.post(
+						'/.netlify/functions/create-payment-intent',
+						JSON.stringify({
+							cartItems,
+							shipping_fee,
+							totalPrice,
+							tax,
+							sales,
+							shipMethod,
+						})
 					)
 
-					const { client_secret, status } = res.data
+					clientSecret = data.clientSecret.split("'")?.[0]
+				} catch (error) {
+					set_Error(
+						error?.response?.data ? 'Please contact modelEst Admin...' : ''
+					)
+				}
 
-					if (status === 'requires_action') {
-						stripe.confirmCardPayment(client_secret).then(function (result) {
-							if (result.error) {
-								console.log(result.error)
-								set_Error(`Payment failed ${result.error.message}`)
-								setProcessing(false)
-								setTimeout(() => {
-									navigate('/canceled')
-								}, 5000)
-							} else {
-								set_Error(null)
-								setProcessing(false)
-								setSucceeded(true)
-								localStorage.setItem('payload', client_secret)
-								setTimeout(() => {
-									navigate('/success')
-								}, 5000)
-							}
-						})
+				if (clientSecret) {
+					const payload = await stripe.confirmCardPayment(clientSecret, {
+						payment_method: {
+							card: elements.getElement(CardElement),
+							billing_details: {
+								email: user?.email || email,
+							},
+						},
+					})
+
+					localStorage.setItem('payload', payload?.paymentIntent?.client_secret)
+
+					if (payload.error) {
+						set_Error(`Payment failed ${payload.error.message}`)
+						setProcessing(false)
+						setTimeout(() => {
+							navigate('/canceled')
+						}, 5000)
 					} else {
 						set_Error(null)
 						setProcessing(false)
 						setSucceeded(true)
-						localStorage.setItem('payload', client_secret)
+						payload?.paymentIntent?.client_secret &&
+							setTimeout(() => {
+								navigate('/success')
+							}, 5000)
+					}
+				}
+			}
+			// recurring payment
+			else if (payPlan.includes('Bi-Weekly')) {
+				if (
+					total_amount > Number(process.env.REACT_APP_INSTALLMENT_START_PRICE)
+				) {
+					setProcessing(true)
+					const result = await stripe.createPaymentMethod({
+						type: 'card',
+						card: elements.getElement(CardElement),
+						billing_details: {
+							email: user?.email || email,
+						},
+					})
+
+					if (result.error) {
+						console.log(result.error)
+						set_Error(`Payment failed ${result.error.message}`)
+						setProcessing(false)
 						setTimeout(() => {
-							navigate('/success')
+							navigate('/canceled')
 						}, 5000)
+					} else {
+						const res = await axios.post(
+							'/.netlify/functions/create-payment-sub',
+							JSON.stringify({
+								payment_method: result.paymentMethod.id,
+								email: user?.email || email,
+								balance: totalPrice,
+								shippingFee: shipping_fee,
+								tax: tax,
+								cartItems: cartItems,
+								shipMethod: shipMethod,
+								sales: sales,
+							})
+						)
+
+						const { client_secret, status } = res.data
+
+						if (status === 'requires_action') {
+							stripe.confirmCardPayment(client_secret).then(function (result) {
+								if (result.error) {
+									console.log(result.error)
+									set_Error(`Payment failed ${result.error.message}`)
+									setProcessing(false)
+									setTimeout(() => {
+										navigate('/canceled')
+									}, 5000)
+								} else {
+									set_Error(null)
+									setProcessing(false)
+									setSucceeded(true)
+									localStorage.setItem('payload', client_secret)
+									setTimeout(() => {
+										navigate('/success')
+									}, 5000)
+								}
+							})
+						} else {
+							set_Error(null)
+							setProcessing(false)
+							setSucceeded(true)
+							localStorage.setItem('payload', client_secret)
+							setTimeout(() => {
+								navigate('/success')
+							}, 5000)
+						}
+					}
+				}
+			}
+		} else {
+			if (payPlan.includes('One-Time')) {
+				// One time payment
+				setProcessing(true)
+
+				let clientSecret
+
+				try {
+					const { data } = await axios.post(
+						'/.netlify/functions/create-payment-intent',
+						JSON.stringify({
+							cartItems,
+							shipping_fee,
+							totalPrice,
+							tax,
+							sales,
+							shipMethod,
+						})
+					)
+
+					clientSecret = data.clientSecret.split("'")?.[0]
+				} catch (error) {
+					set_Error(
+						error?.response?.data ? 'Please contact modelEst Admin...' : ''
+					)
+				}
+
+				if (clientSecret) {
+					const payload = await stripe.confirmCardPayment(clientSecret, {
+						payment_method: {
+							card: elements.getElement(CardElement),
+							billing_details: {
+								email: user?.email || email,
+							},
+						},
+					})
+
+					localStorage.setItem('payload', payload?.paymentIntent?.client_secret)
+
+					if (payload.error) {
+						set_Error(`Payment failed ${payload.error.message}`)
+						setProcessing(false)
+						setTimeout(() => {
+							navigate('/canceled')
+						}, 5000)
+					} else {
+						set_Error(null)
+						setProcessing(false)
+						setSucceeded(true)
+						payload?.paymentIntent?.client_secret &&
+							setTimeout(() => {
+								navigate('/success')
+							}, 5000)
 					}
 				}
 			}
@@ -288,7 +346,15 @@ const CheckoutForm = ({
 						: 'tw-hidden tw-ease-in tw-duration-300'
 				}
 				id="payment-form"
-				onSubmit={payPlan === '' || payPlan === '...' ? null : handleSubmit}>
+				onSubmit={
+					payPlan === '' ||
+					payPlan === '...' ||
+					(total_amount <
+						Number(process.env.REACT_APP_INSTALLMENT_START_PRICE) &&
+						payPlan === 'Bi-Weekly')
+						? null
+						: handleSubmit
+				}>
 				<div className="tw-flex tw-max-w-[95%] tw-mb-1 tw-items-center tw-mx-auto tw-justify-end tw-mr-4 md:tw-mr-6 lg:tw-mr-5 xl:tw-mr-6">
 					<SiMastercard size={20} className="tw-text-yellow-500 tw-mr-3" />
 					<RiVisaLine size={30} className="tw-mr-3 tw-text-blue-900" />

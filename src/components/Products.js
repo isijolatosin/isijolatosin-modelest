@@ -130,6 +130,7 @@ function Products({
 					similarProductsClosure={similarProductsClosure}
 					similarProductsFrontal={similarProductsFrontal}
 					sales={sales}
+					setSingleCart={setSingleCart}
 				/>
 			)}
 		</div>

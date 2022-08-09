@@ -9,11 +9,9 @@ exports.handler = async function (event, context) {
 		const { cartItems, shipping_fee, totalPrice, tax, sales, shipMethod } =
 			JSON.parse(event.body)
 
-		let totalCartPrice = 0
-		// eslint-disable-next-line array-callback-return
-		cartItems.map((item) => {
-			totalCartPrice += item?.price * item?.quantity * 100
-		})
+		const totalCartPrice =
+			cartItems.reduce((total, prod) => total + prod.price * prod.quantity, 0) *
+			100
 
 		const calculateOrderAmount = () => {
 			// Note - Check price compare with mongoDB
@@ -28,51 +26,28 @@ exports.handler = async function (event, context) {
 		const discountedPrice =
 			sales && totalCartPrice - totalCartPrice * (sales / 100)
 
-		if (sales) {
-			if (discountedPrice === totalPrice) {
-				try {
-					const paymentIntent = await stripe.paymentIntents.create({
-						amount: calculateOrderAmount(),
-						currency: 'usd',
-						automatic_payment_methods: {
-							enabled: true,
-						},
-					})
+		if (discountedPrice === totalPrice || totalCartPrice === totalPrice) {
+			try {
+				const paymentIntent = await stripe.paymentIntents.create({
+					amount: calculateOrderAmount(),
+					currency: 'usd',
+					automatic_payment_methods: {
+						enabled: true,
+					},
+				})
 
-					return {
-						statusCode: 200,
-						body: JSON.stringify({ clientSecret: paymentIntent.client_secret }),
-					}
-				} catch (error) {
-					return {
-						statusCodes: 500,
-						body: JSON.stringify({ msg: error.message }),
-					}
+				return {
+					statusCode: 200,
+					body: JSON.stringify({ clientSecret: paymentIntent.client_secret }),
+				}
+			} catch (error) {
+				return {
+					statusCodes: 500,
+					body: JSON.stringify({ msg: error.message }),
 				}
 			}
 		} else {
-			if (totalCartPrice === totalPrice) {
-				try {
-					const paymentIntent = await stripe.paymentIntents.create({
-						amount: calculateOrderAmount(),
-						currency: 'usd',
-						automatic_payment_methods: {
-							enabled: true,
-						},
-					})
-
-					return {
-						statusCode: 200,
-						body: JSON.stringify({ clientSecret: paymentIntent.client_secret }),
-					}
-				} catch (error) {
-					return {
-						statusCodes: 500,
-						body: JSON.stringify({ msg: error.message }),
-					}
-				}
-			}
+			return { statusCode: 200, body: 'Please Create Payment Intent' }
 		}
 	}
-	return { statusCode: 200, body: 'Please Create Payment Intent' }
 }
