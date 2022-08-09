@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import { GoAlert } from 'react-icons/go'
 import { SiMastercard } from 'react-icons/si'
+import { GiShoppingCart } from 'react-icons/gi'
 import { RiVisaLine } from 'react-icons/ri'
 import { SiAmericanexpress } from 'react-icons/si'
 import { UserContext } from '../../context/user-context'
@@ -31,14 +32,8 @@ const CheckoutForm = ({
 	const [_error, set_Error] = React.useState(null)
 	const [processing, setProcessing] = React.useState('')
 	const [disabled, setDisabled] = React.useState(true)
-	// const [clientSecret, setClientSecret] = React.useState('')
 	const { user } = useContext(UserContext)
 	const [paywithStripe, setPaywithStripe] = React.useState(false)
-	// const paymentPlan = [
-	// 	{ id: 1, name: '...' },
-	// 	{ id: 2, name: 'One-Time' },
-	// { id: 3, name: 'Bi-Weekly' },
-	// ]
 
 	const shipping_fee = Math.floor(shippingCost?.cost * 100)
 	const taxPercentage =
@@ -138,156 +133,22 @@ const CheckoutForm = ({
 				}
 			}
 		}
-		// recurring payment
-		// 		else if (payPlan.includes('Bi-Weekly')) {
-		// 			if (
-		// 				total_amount >= installmentStartPrice
-		// 				// total_amount >= Number(process.env.REACT_APP_INSTALLMENT_START_PRICE)
-		// 			) {
-		// 				setProcessing(true)
-		// 				const result = await stripe.createPaymentMethod({
-		// 					type: 'card',
-		// 					card: elements.getElement(CardElement),
-		// 					billing_details: {
-		// 						email: user?.email || email,
-		// 					},
-		// 				})
-		//
-		// 				if (result.error) {
-		// 					console.log(result.error)
-		// 					set_Error(`Payment failed ${result.error.message}`)
-		// 					setProcessing(false)
-		// 					setTimeout(() => {
-		// 						navigate('/canceled')
-		// 					}, 5000)
-		// 				} else {
-		// 					const res = await axios.post(
-		// 						'/.netlify/functions/create-payment-sub',
-		// 						JSON.stringify({
-		// 							payment_method: result.paymentMethod.id,
-		// 							email: user?.email || email,
-		// 							balance: totalPrice,
-		// 							shippingFee: shipping_fee,
-		// 							tax: tax,
-		// 							cartItems: cartItems,
-		// 							shipMethod: shipMethod,
-		// 							sales: sales,
-		// 						})
-		// 					)
-		//
-		// 					const { client_secret, status } = res.data
-		//
-		// 					if (status === 'requires_action') {
-		// 						stripe.confirmCardPayment(client_secret).then(function (result) {
-		// 							if (result.error) {
-		// 								console.log(result.error)
-		// 								set_Error(`Payment failed ${result.error.message}`)
-		// 								setProcessing(false)
-		// 								setTimeout(() => {
-		// 									navigate('/canceled')
-		// 								}, 5000)
-		// 							} else {
-		// 								set_Error(null)
-		// 								setProcessing(false)
-		// 								setSucceeded(true)
-		// 								localStorage.setItem('payload', client_secret)
-		// 								setTimeout(() => {
-		// 									navigate('/success')
-		// 								}, 5000)
-		// 							}
-		// 						})
-		// 					} else {
-		// 						set_Error(null)
-		// 						setProcessing(false)
-		// 						setSucceeded(true)
-		// 						localStorage.setItem('payload', client_secret)
-		// 						setTimeout(() => {
-		// 							navigate('/success')
-		// 						}, 5000)
-		// 					}
-		// 				}
-		// 			}
-		// 		}
-		// 		} else {
-		// 			if (payPlan.includes('One-Time')) {
-		// 				// One time payment
-		// 				setProcessing(true)
-		//
-		// 				let clientSecret
-		//
-		// 				try {
-		// 					const { data } = await axios.post(
-		// 						'/.netlify/functions/create-payment-intent',
-		// 						JSON.stringify({
-		// 							cartItems,
-		// 							shipping_fee,
-		// 							totalPrice,
-		// 							tax,
-		// 							sales,
-		// 							shipMethod,
-		// 						})
-		// 					)
-		//
-		// 					clientSecret = data.clientSecret.split("'")?.[0]
-		// 				} catch (error) {
-		// 					set_Error(
-		// 						error?.response?.data ? 'Please contact modelEst Admin...' : ''
-		// 					)
-		// 				}
-		//
-		// 				if (clientSecret) {
-		// 					const payload = await stripe.confirmCardPayment(clientSecret, {
-		// 						payment_method: {
-		// 							card: elements.getElement(CardElement),
-		// 							billing_details: {
-		// 								email: user?.email || email,
-		// 							},
-		// 						},
-		// 					})
-		//
-		// 					localStorage.setItem('payload', payload?.paymentIntent?.client_secret)
-		//
-		// 					if (payload.error) {
-		// 						set_Error(`Payment failed ${payload.error.message}`)
-		// 						setProcessing(false)
-		// 						setTimeout(() => {
-		// 							navigate('/canceled')
-		// 						}, 5000)
-		// 					} else {
-		// 						set_Error(null)
-		// 						setProcessing(false)
-		// 						setSucceeded(true)
-		// 						payload?.paymentIntent?.client_secret &&
-		// 							setTimeout(() => {
-		// 								navigate('/success')
-		// 							}, 5000)
-		// 					}
-		// 				}
-		// 			}
-		// 		}
 	}
 
 	return (
 		<div>
 			<div className="tw-relative tw-flex tw-flex-col md:tw-flex-row tw-items-top tw-w-[100%] tw-bg-white">
 				<div className="tw-flex tw-flex-col tw-items-center md:tw-items-left tw-my-10 tw-w-full md:tw-w-[40%] md:tw-mr-3 tw-mx-auto tw-mt-[20px] md:tw-border-r-[1px] md:tw-border-neutral-500 tw-order-3 md:tw-order-1">
-					<div className="tw-flex tw-text-blue-600">
+					<div className="tw-flex tw-items-center tw-text-blue-600">
 						<FaCcStripe size={55} />
 						<div className="tw-text-xs tw-font-light tw-mb-2 tw-italic tw-ml-1 tw-mt-4">
 							<span className="tw-font-bold">Pay with stripe</span>
-							<br /> Select a payment plan
+							<div className="tw-flex tw-items-end tw-mt-[-5px]">
+								<span className="tw-mr-1"> Stripe checkout</span>
+								<GiShoppingCart size={20} />
+							</div>
 						</div>
 					</div>
-					{/* <select
-						className="tw-shadow-lg tw-w-[80%] md:tw-max-w-[300px] tw-text-neutral-700 tw-font-light tw-bg-[#efefef] tw-block tw-px-4 tw-py-3 tw-border-blue-500 tw-rounded-[50px] tw-text-xs tw-border-[1px] placeholder:tw-gray-200 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0"
-						onChange={handlePayWithStripe}
-						id="payPlan"
-						value={payPlan}
-						name="payPlan">
-						{paymentPlan.map((plan) => (
-							<option key={plan.id}>{plan.name}</option>
-						))}
-					</select> */}
 					<div
 						onClick={handlePayWithStripe}
 						className="tw-bg-neutral-800 tw-text-white tw-text-xs tw-mt-5 tw-px-10 tw-py-3 tw-rounded-[50px] hover:md:tw-bg-neutral-100 tw-ease-in tw-duration-300 hover:md:tw-text-neutral-900">
@@ -335,12 +196,6 @@ const CheckoutForm = ({
 									{shipMethod === 'pick up' ? '' : ' & shipping'} inclusive)
 								</span>
 							</span>
-							{/* {total_amount <
-								Number(process.env.REACT_APP_INSTALLMENT_START_PRICE) && (
-								<span className="tw-text-blue-400 tw-flex-[0.4]">
-									You are only elligible for one-time payment
-								</span>
-							)} */}
 						</article>
 					)}
 				</div>
@@ -352,16 +207,7 @@ const CheckoutForm = ({
 						: 'tw-hidden tw-ease-in tw-duration-300'
 				}
 				id="payment-form"
-				onSubmit={handleSubmit}
-				// onSubmit={
-				// 	payPlan === '' ||
-				// 	payPlan === '...' ||
-				// 	(total_amount <
-				// 		Number(process.env.REACT_APP_INSTALLMENT_START_PRICE) &&
-				// 		payPlan === 'Bi-Weekly')
-				// 		? null
-				// 		: handleSubmit}
-			>
+				onSubmit={handleSubmit}>
 				<div className="tw-flex tw-max-w-[95%] tw-mb-1 tw-items-center tw-mx-auto tw-justify-end tw-mr-4 md:tw-mr-6 lg:tw-mr-5 xl:tw-mr-6">
 					<SiMastercard size={20} className="tw-text-yellow-500 tw-mr-3" />
 					<RiVisaLine size={30} className="tw-mr-3 tw-text-blue-900" />
@@ -401,7 +247,6 @@ const CheckoutForm = ({
 				{_error && (
 					<div
 						className="card-error tw-flex tw-items-center tw-justify-center tw-text-xs tw-text-red-700 "
-						// className="tw-flex tw-items-center tw-text-red-700 tw-text-xs tw-justify-center tw-mt-5"
 						role="alert">
 						<GoAlert className="tw-mr-2" />
 						{_error}

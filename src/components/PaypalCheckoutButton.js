@@ -16,6 +16,7 @@ export default function PayplaCheckoutButton({
 	React.useEffect(() => {
 		localStorage.removeItem('payload')
 	}, [])
+	const [order_id, setOrder_id] = React.useState(null)
 	return (
 		<div id="paypal-button-container" className=" tw-drop-shadow-lg">
 			<PayPalButtons
@@ -42,6 +43,7 @@ export default function PayplaCheckoutButton({
 							return response.json().then((json) => Promise.reject(json))
 						})
 						.then(({ id }) => {
+							setOrder_id(id)
 							localStorage.setItem('payload', id)
 							return id
 						})
@@ -52,40 +54,44 @@ export default function PayplaCheckoutButton({
 				// Finalize the transaction on the server after payer approval
 				onApprove={function (data, actions) {
 					const orderId = localStorage.getItem('payload')
-					return fetch('/.netlify/functions/create-pay', {
-						method: 'post',
-						body: JSON.stringify({
-							id: orderId,
-						}),
-					})
-						.then((response) => {
-							if (response.ok) return response.json()
-							return response.json().then((json) => Promise.reject(json))
+					if (order_id || orderId) {
+						return fetch('/.netlify/functions/create-pay', {
+							method: 'post',
+							body: JSON.stringify({
+								id: order_id || orderId,
+							}),
 						})
-						.then(({ response }) => {
-							const tansactionId =
-								response.purchase_units[0].payments.captures[0].id
+							.then((response) => {
+								if (response.ok) return response.json()
+								return response.json().then((json) => Promise.reject(json))
+							})
+							.then(({ response }) => {
+								const tansactionId =
+									response.purchase_units[0].payments.captures[0].id
 
-							if (tansactionId) {
-								const paypalShippingAddress =
-									response.purchase_units[0].shipping.address
+								if (tansactionId) {
+									const paypalShippingAddress =
+										response.purchase_units[0].shipping.address
 
-								const customerName =
-									response.purchase_units[0].shipping.name.full_name
+									const customerName =
+										response.purchase_units[0].shipping.name.full_name
 
-								localStorage.setItem(
-									'addressFromPaypal',
-									JSON.stringify(paypalShippingAddress)
-								)
+									localStorage.setItem(
+										'addressFromPaypal',
+										JSON.stringify(paypalShippingAddress)
+									)
 
-								localStorage.setItem('paymentName', customerName)
+									localStorage.setItem('paymentName', customerName)
 
-								setRedirect(true)
-							}
-						})
-						.catch((e) => {
-							console.log(e.error)
-						})
+									setRedirect(true)
+								}
+							})
+							.catch((e) => {
+								console.log(e.error)
+							})
+					} else {
+						console.log('Order id not found!')
+					}
 				}}
 				onCancel={() => {
 					setPageCancel(true)
