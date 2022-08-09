@@ -11,7 +11,6 @@ import { UserContext } from '../../context/user-context'
 import PaypalCheckoutButton from '../PaypalCheckoutButton'
 import { FaCcStripe } from 'react-icons/fa'
 import { selectCartItems } from '../../slices/appSlices'
-import { installmentStartPrice } from '../../constant'
 
 const CheckoutForm = ({
 	total,
@@ -35,11 +34,11 @@ const CheckoutForm = ({
 	// const [clientSecret, setClientSecret] = React.useState('')
 	const { user } = useContext(UserContext)
 	const [paywithStripe, setPaywithStripe] = React.useState(false)
-	const paymentPlan = [
-		{ id: 1, name: '...' },
-		{ id: 2, name: 'One-Time' },
-		// { id: 3, name: 'Bi-Weekly' },
-	]
+	// const paymentPlan = [
+	// 	{ id: 1, name: '...' },
+	// 	{ id: 2, name: 'One-Time' },
+	// { id: 3, name: 'Bi-Weekly' },
+	// ]
 
 	const shipping_fee = Math.floor(shippingCost?.cost * 100)
 	const taxPercentage =
