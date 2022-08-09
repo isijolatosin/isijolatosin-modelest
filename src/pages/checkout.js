@@ -333,7 +333,14 @@ const Cart = () => {
 									<div className="tw-block lg:tw-hidden tw-text-[#bba371] tw-mb-5 tw-border-t-[1px] tw-border-neutral-800 tw-pt-5">
 										<div className="tw-flex tw-items-center">
 											<FaOpencart className="tw-mr-2" size={25} />
-											<span>{showSum ? 'Hide' : 'Show'} order summary </span>
+											<span>
+												{showSum ? 'Hide' : 'Show'} order summary /{' '}
+												{sales && (
+													<span className="tw-text-white tw-font-light">
+														Discount code
+													</span>
+												)}{' '}
+											</span>
 											{showSum ? (
 												<MdOutlineKeyboardArrowUp
 													size={25}
