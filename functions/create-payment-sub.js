@@ -69,7 +69,7 @@ exports.handler = async function (event, context) {
 				}
 			}
 		} else {
-			return { statusCode: 200, body: 'Please Create Payment Intent' }
+			return { statusCode: 500, body: 'Please Create Payment Intent' }
 		}
 	}
 }
