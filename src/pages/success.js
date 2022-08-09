@@ -23,7 +23,9 @@ const Success = () => {
 	const total = useSelector(selectTotal)
 	const cartItems = useSelector(selectCartItems)
 	const userAddss = localStorage.getItem('address')
-	const discountPrice = total - Number(localStorage.getItem('discountPrice'))
+	const discountPrice =
+		Number(localStorage.getItem('discountPrice')) &&
+		total - Number(localStorage.getItem('discountPrice'))
 	const addressFromPP = JSON.parse(localStorage.getItem('addressFromPaypal'))
 
 	const addressFromPaypal =
@@ -53,7 +55,7 @@ const Success = () => {
 	let nameArray = []
 	let quantity = 0
 	let id = []
-	let price = 0
+	let price
 
 	// eslint-disable-next-line array-callback-return
 	cartItems.map((item) => {
@@ -64,19 +66,22 @@ const Success = () => {
 		)
 		quantity += item.quantity
 		id.push(`${item.id}-${item.name}`)
-		price +=
-			Number(localStorage.getItem('discountPrice')) ||
-			item.price * item.quantity
+		price = Number(localStorage.getItem('discountPrice'))
+			? Number(localStorage.getItem('discountPrice'))
+			: item.price * item.quantity
 	})
 
+	console.log(discountPrice)
 	React.useEffect(() => {
 		// Send a purchase mail to client
 		const a = userAddress.split(' ')
 		const cntry = a[a.length - 1]
 		const tax = Number((price * 0.06).toFixed(2))
 		const shipping = cntry === 'usa' ? 9 : 20
-		const total = Number((price + tax + shipping).toFixed(2))
-
+		const total =
+			localStorage.getItem('ship') === 'ship'
+				? Number((price + tax + shipping).toFixed(2))
+				: Number((price + tax).toFixed(2))
 		const messageParams = {
 			name: (user && user?.displayName) || userEmail,
 			id: id.join(', '),
