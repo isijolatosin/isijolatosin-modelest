@@ -53,14 +53,12 @@ exports.handler = async function (event, context) {
 					items: [{ plan: 'price_1KdiVMLTIkVkSAcp6fej2hu8' }],
 					expand: ['latest_invoice.payment_intent'],
 				})
-				const status = subscription.latest_invoice.payment_intent.status
 				const client_secret =
 					subscription.latest_invoice.payment_intent.client_secret
 				return {
 					statusCode: 200,
 					body: JSON.stringify({
 						client_secret: client_secret,
-						status: status === 'succeeded' && 200,
 					}),
 				}
 			} catch (error) {
