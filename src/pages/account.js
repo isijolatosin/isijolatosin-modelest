@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { Helmet } from 'react-helmet'
+import { getDatabase, ref, onValue } from 'firebase/database'
 import Heading from '../components/Heading'
 import Layout from '../components/shared/Layout'
 import { UserContext } from '../context/user-context'
@@ -8,12 +9,24 @@ import { db } from '../firebase'
 function Account() {
 	const [isLoading, setIsLoading] = React.useState(true)
 	const { user } = useContext(UserContext)
+	const [sales, setSales] = React.useState(false)
+	const database = getDatabase()
 	const [cartHist, setCartHist] = React.useState([])
 	if (isLoading) {
 		setTimeout(() => {
 			setIsLoading(false)
 		}, 5000)
 	}
+
+	React.useEffect(() => {
+		const starCountRef = ref(database, 'sales')
+		onValue(starCountRef, (snapshot) => {
+			const data = snapshot.val()
+
+			setSales(data.no)
+		})
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	React.useEffect(() => {
 		// getting address and details for shipping
@@ -61,7 +74,10 @@ function Account() {
 				<title>Account</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-py-[110px] md:tw-py-[100px] tw-px-5 tw-bg-gray-300 tw-flex tw-flex-col tw-items-center">
+				<div
+					className={`${
+						sales ? 'tw-pt-[150px]' : 'tw-pt-[110px] md:tw-pt-[100px]'
+					} tw-pb-[110px] md:tw-pb-[100px] tw-px-5 tw-bg-gray-300 tw-flex tw-flex-col tw-items-center`}>
 					<div className="tw-w-full lg:tw-w-[95%]">
 						<div className="tw-bg-neutral-50 tw-p-2 tw-rounded-sm tw-mb-1">
 							<h1 className="tw-font-light tw-text-xs">
