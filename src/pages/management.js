@@ -4,7 +4,7 @@ import { getDatabase, ref, onValue, set } from 'firebase/database'
 import Heading from '../components/Heading'
 import Inventory from '../components/Inventory'
 import Layout from '../components/shared/Layout'
-import Shippment from '../components/Shippment'
+import Shipment from '../components/Shipment'
 import { BsFillArrowUpSquareFill } from 'react-icons/bs'
 import { RiChat1Line } from 'react-icons/ri'
 import { RiSendPlaneLine } from 'react-icons/ri'
@@ -47,7 +47,7 @@ function Management() {
 			return <Inventory />
 		}
 		if (section === 'shipping') {
-			return <Shippment />
+			return <Shipment />
 		}
 		if (section === 'inquiry') {
 			return <Inqury />
@@ -79,10 +79,10 @@ function Management() {
 				<div
 					className={
 						sales
-							? 'tw-mt-[100px] lg:tw-mt-[100px] tw-pt-20 md:tw-pt-10 tw-flex tw-flex-col tw-w-[100vw] tw-items-center tw-bg-neutral-200'
-							: 'tw-mt-[60px] tw-pt-20 md:tw-pt-10 tw-flex tw-flex-col tw-w-[100vw] tw-items-center tw-bg-neutral-200'
+							? 'tw-mt-[100px] lg:tw-mt-[100px] tw-pt-20 md:tw-pt-10 tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-bg-neutral-200'
+							: 'tw-mt-[60px] tw-pt-20 md:tw-pt-10 tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-bg-neutral-200'
 					}>
-					<div className="tw-flex tw-flex-col md:tw-flex-row md:tw-items-center tw-justify-between tw-w-[95%] md:tw-w-[85%]">
+					<div className="tw-flex tw-flex-col md:tw-flex-row md:tw-items-center tw-justify-between tw-w-[95%] md:tw-w-[95%]">
 						<div className="tw-mb-2 md:tw-mb-0">
 							<Heading
 								children="Management portal"
@@ -91,7 +91,7 @@ function Management() {
 							/>
 						</div>
 						<div className="tw-flex tw-flex-col md:tw-flex-row">
-							<div className="tw-mr-5 tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[50%] md:tw-w-[30%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100 tw-mb-2 md:tw-mb-0">
+							<div className="tw-mr-5 tw-mb-2 tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[75%] md:tw-w-[50%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100">
 								<input
 									type="number"
 									name="percentSale"
@@ -107,7 +107,7 @@ function Management() {
 									className="tw-text-violet-700 hover:tw-text-violet-300 tw-ease-in tw-duration-300 tw-w-[10%] tw-mr-2"
 								/>
 							</div>
-							<div className="tw-mr-5 tw-mb-2 tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[75%] md:tw-w-[50%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100">
+							<div className="tw-mb-2 tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[75%] md:tw-w-[50%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100">
 								<input
 									type="number"
 									name="bndlePercentSale"

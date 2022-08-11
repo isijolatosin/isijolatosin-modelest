@@ -2,7 +2,7 @@ import React from 'react'
 import { AUTHORIZED_ID } from '../constant'
 import { db } from '../firebase'
 
-const PromoCard = ({ setExpired }) => {
+const PromoCard = ({ setExpired, sales }) => {
 	const [code, setCode] = React.useState('')
 	const [countTime, setCountTime] = React.useState('')
 	const [countDay, setCountDay] = React.useState('')
@@ -55,42 +55,83 @@ const PromoCard = ({ setExpired }) => {
 	}, 1000)
 
 	return (
-		<div className="tw-w-full tw-bg-black tw-h-[450px] md:tw-h-[500px]">
+		<div className="tw-w-full tw-bg-black tw-h-[500px] tw-relative">
 			<div className="tw-relative">
-				<div className="tw-relative tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-justify-between tw-w-[80%] tw-mx-auto">
-					<div className="font_cursive tw-text-[100px] md:tw-text-[250px] tw-text-white tw-relative tw-flex-[0.9] tw-mr-10 md:tw-mr-0">
-						<span className="tw-text-[32px] md:tw-text-[60px] tw-absolute tw-rotate-[-7deg] tw-top-[120px] md:tw-top-[155px] tw-left-[110px] md:tw-left-[220px] md:tw-bg-[rgba(255,0,217,0.2)] tw-text-white tw-w-[75%] md:tw-w-[40%] tw-pl-5">
+				<div className="tw-relative tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-justify-between tw-w-[95%] lg:tw-w-[80%] xl:tw-w-[70%] tw-mx-auto">
+					<div className="font_cursive tw-flex-[0.7] tw-text-white tw-relative md:tw-mr-10">
+						<span className="tw-text-[52px] md:tw-text-[45px] lg:tw-text-[55px] tw-absolute tw-rotate-[-7deg] tw-top-[125px] md:tw-top-[165px] tw-left-[110px] md:tw-left-[200px] md:tw-bg-[rgba(255,0,217,0.2)] tw-text-white tw-w-[75%] md:tw-w-[60%] tw-pl-5">
 							Price slash !!!{' '}
 						</span>
-						<span className="tw-text-xl md:tw-text-4xl tw-text-neutral-900 tw-absolute tw-rotate-[-5deg] tw-top-[110px] md:tw-top-[150px] tw-left-[140px] md:tw-left-[220px] tw-bg-[rgba(0,204,255,0.8)] tw-w-[60%] md:tw-w-[25%] tw-pl-5">
+						<span className="tw-text-3xl md:tw-text-4xl tw-text-neutral-900 tw-absolute tw-rotate-[-5deg] tw-top-[120px] md:tw-top-[150px] tw-left-[140px] md:tw-left-[220px] tw-bg-[rgba(0,204,255,0.8)] tw-w-[60%] md:tw-w-[50%] tw-pl-5">
 							Back to School{' '}
 						</span>
-						<span className="tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-[#00ccff] tw-to-[#ff00d9]">
+						<span className="tw-text-[150px] lg:tw-text-[200px] xl:tw-text-[250px] tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-[#00ccff] tw-to-[#ff00d9]">
 							August{' '}
 						</span>
-						{/* <span className="tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-black tw-via-yellow-600 tw-to-yellow-700">
-							August{' '}
-						</span> */}
 					</div>
-					<div
-						onClick={generateCode}
-						className="box md:tw-absolute md:tw-top-[130px] md:tw-right-[20px] tw-relative tw-cursor-pointer tw-mt-10">
-						<span></span>
-						<div className="content">
-							<h1>Generate Code</h1>
+					<div className=" tw-flex-[0.3]">
+						<div className="md:tw-hidden tw-flex tw-justify-between tw-w-full tw-mt-[-25px]">
+							<div className=" tw-text-white tw-mt-1 tw-mr-10 orbitron">
+								<p className="tw-font-light tw-text-[15px]">SAVE UP TO </p>
+								<div className="tw-flex tw-mt-[-25px]">
+									<p className="tw-text-[55px] tw-text-red-700">{sales}%</p>
+								</div>
+							</div>
+							<div>
+								<div
+									onClick={generateCode}
+									className="box md:tw-absolute md:tw-top-[130px] md:tw-right-[20px] tw-relative tw-cursor-pointer">
+									<span></span>
+									<div className="content">
+										<h1>Generate Code</h1>
+									</div>
+								</div>
+								<div className="tw-ml-[-40px]">
+									<p className="yellow tw-text-white tw-font-bold tw-text-xs tw-w-full tw-text-center tw-mt-7">
+										{code}
+									</p>
+									<p className="tw-text-neutral-500 tw-text-xs tw-w-full tw-text-center tw-mt-1">
+										Use code at checkout...
+									</p>
+								</div>
+							</div>
+						</div>
+						<div className="tw-hidden md:tw-flex tw-flex-col tw-items-center tw-justify-center">
+							<div className=" tw-text-white tw-mr-10 tw-mt-[70px] orbitron">
+								<p className="tw-font-light tw-text-[50px]">SAVE </p>
+								<div className="tw-flex tw-mt-[-40px]">
+									<div className="tw-mt-[17px] tw-text-[35px]">
+										<p className="tw-text-[33px]">UP</p>
+										<p className="tw-mt-[-24px]">TO</p>
+									</div>
+									<p className="tw-text-[72px] tw-text-red-700 tw-ml-1">
+										{sales}%
+									</p>
+								</div>
+							</div>
+
+							<div
+								onClick={generateCode}
+								className="box md:tw-right-[20px] tw-relative tw-cursor-pointer">
+								<span></span>
+								<div className="content">
+									<h1>Generate Code</h1>
+								</div>
+							</div>
+							<div className="tw-ml-[-40px]">
+								<p className="yellow tw-text-white tw-font-bold tw-text-xs tw-w-full tw-text-center tw-mt-7">
+									{code}
+								</p>
+								<p className="tw-text-neutral-500 tw-text-xs tw-w-full tw-text-center tw-mt-1">
+									Use code at checkout...
+								</p>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div className="md:tw-absolute tw-bottom-[90px] tw-right-[225px]">
-					<p className="yellow tw-text-white tw-font-bold tw-text-xs tw-w-full tw-text-center tw-mt-7">
-						{code}
-					</p>
-					<p className="tw-text-neutral-500 tw-text-xs tw-w-full tw-text-center tw-mt-1">
-						Use code at checkout...
-					</p>
-				</div>
 			</div>
-			<div className="md:tw-mt-[-60px] tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-justify-center tw-mt-5">
+
+			<div className="tw-mt-[40px] md:tw-mt-0 tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-justify-center ">
 				{countDay > 0 && (
 					<div className="tw-border-[4px] tw-border-neutral-800 tw-rounded-full tw-w-[70px] tw-h-[70px] md:tw-w-[100px] md:tw-h-[100px] md:tw-mr-5 md:tw-mt-3">
 						<>

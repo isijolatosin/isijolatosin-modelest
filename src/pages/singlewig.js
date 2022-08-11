@@ -41,9 +41,6 @@ const SingleWig = () => {
 	const category = window.location.pathname.split('/').filter((x) => x)?.[0]
 	const database = getDatabase()
 	const [sales, setSales] = React.useState(null)
-	// const [textureType1, setTextureType1] = React.useState('')
-	// const [textureType2, setTextureType2] = React.useState('')
-	// const [straight, setStraight] = React.useState('')
 	const wigId = window.location.pathname
 		.split('/')
 		.filter((x) => x)?.[1]
@@ -313,55 +310,6 @@ const SingleWig = () => {
 											)
 									)}
 								</div>
-								{/* <div className="tw-flex tw-flex-wrap tw-mt-3 tw-mb-5 tw-capitalize tw-border-b-[1px]"> */}
-								{/* <div>
-										<span
-											onClick={() => {
-												setStraight('straight')
-												setTextureType2('')
-												setTextureType1('')
-											}}
-											className={`${
-												straight
-													? 'tw-bg-neutral-900 tw-text-white'
-													: 'tw-bg-neutral-200 tw-text-neutral-900'
-											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
-											Straight
-										</span>
-									</div> */}
-								{/* {wigTextureType1.map((type1, idx) => (
-										<span
-											key={idx}
-											onClick={() => {
-												setTextureType1(type1)
-												setTextureType2('')
-												setStraight('')
-											}}
-											className={`${
-												type1 === textureType1
-													? 'tw-bg-neutral-900 tw-text-white'
-													: 'tw-bg-neutral-200 tw-text-neutral-900'
-											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
-											{type1}
-										</span>
-									))}
-									{wigTextureType2.map((type2, idx) => (
-										<span
-											key={idx}
-											onClick={() => {
-												setTextureType2(type2)
-												setTextureType1('')
-												setStraight('')
-											}}
-											className={`${
-												type2 === textureType2
-													? 'tw-bg-neutral-900 tw-text-white'
-													: 'tw-bg-neutral-200 tw-text-neutral-900'
-											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
-											{type2}
-										</span>
-									))} */}
-								{/* </div> */}
 								<div className="tw-inline-block md:tw-hidden">
 									<div className="tw-flex tw-items-center">
 										<span className="tw-mr-2">Quantity: </span>
@@ -379,7 +327,7 @@ const SingleWig = () => {
 									</div>
 									{!price && (
 										<span className="tw-text-xs tw-text-green-700">
-											*** Select length & tetxure to calculate price... ***
+											*** Select length to calculate price... ***
 										</span>
 									)}
 									<div className="tw-mb-1">
@@ -489,7 +437,7 @@ const SingleWig = () => {
 								</div>
 								{!price && (
 									<span className="tw-text-xs tw-text-green-700">
-										*** Select length & tetxure to calculate price... ***
+										*** Select length to calculate price... ***
 									</span>
 								)}
 								<div className="tw-mb-1">

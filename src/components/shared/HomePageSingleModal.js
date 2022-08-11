@@ -45,9 +45,6 @@ const HomePageSingleModal = ({
 	const allSizes = ['14', '16', '18', '20', '22', '24']
 	const cartItems = useSelector(selectCartItems)
 	const [error, setError] = React.useState(false)
-	const [textureType1, setTextureType1] = React.useState('')
-	const [textureType2, setTextureType2] = React.useState('')
-	const [straight, setStraight] = React.useState('')
 
 	const [length, setLength] = React.useState('')
 	const [_color, setColor] = React.useState(null)
@@ -72,12 +69,7 @@ const HomePageSingleModal = ({
 
 	const hairLength = length
 	const hairColor = _color || color
-	const hairTexture =
-		(_hairType && _hairType) ||
-		(textureType1 && textureType1) ||
-		(textureType2 && textureType2) ||
-		(straight && straight) ||
-		singleProducts?.[0]?.texture
+	const hairTexture = _hairType || singleProducts?.[0]?.texture
 
 	let cardPrice =
 		sales !== 0 && singleProducts?.[0]?.sales
@@ -197,7 +189,9 @@ const HomePageSingleModal = ({
 					} else {
 						a = p?.price
 					}
-				} else if (straight) {
+				} else if (
+					singleProducts[0]?.texture.toLowerCase().includes('straight')
+				) {
 					a = p?.price
 				} else {
 					a = p?.price
@@ -439,55 +433,6 @@ const HomePageSingleModal = ({
 										</span>
 									))}
 								</div>
-								<div className="tw-flex tw-flex-wrap tw-mt-3 tw-capitalize">
-									<div>
-										<span
-											onClick={() => {
-												setStraight('straight')
-												setTextureType2('')
-												setTextureType1('')
-											}}
-											className={`${
-												straight
-													? 'tw-bg-neutral-900 tw-text-white'
-													: 'tw-bg-neutral-200 tw-text-neutral-900'
-											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
-											straight
-										</span>
-									</div>
-									{wigTextureType1.map((type1, idx) => (
-										<span
-											key={idx}
-											onClick={() => {
-												setTextureType1(type1)
-												setTextureType2('')
-												setStraight('')
-											}}
-											className={`${
-												type1 === textureType1
-													? 'tw-bg-neutral-900 tw-text-white'
-													: 'tw-bg-neutral-200 tw-text-neutral-900'
-											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
-											{type1}
-										</span>
-									))}
-									{wigTextureType2.map((type2, idx) => (
-										<span
-											key={idx}
-											onClick={() => {
-												setTextureType2(type2)
-												setTextureType1('')
-												setStraight('')
-											}}
-											className={`${
-												type2 === textureType2
-													? 'tw-bg-neutral-900 tw-text-white'
-													: 'tw-bg-neutral-200 tw-text-neutral-900'
-											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
-											{type2}
-										</span>
-									))}
-								</div>
 							</div>
 						</div>
 					) : (
@@ -570,14 +515,7 @@ const HomePageSingleModal = ({
 						</div>
 						<div>
 							Texture:{' '}
-							<span>
-								{_hairType ||
-									textureType1 ||
-									textureType2 ||
-									straight ||
-									singleProducts?.[0]?.texture ||
-									'***'}
-							</span>
+							<span>{_hairType || singleProducts?.[0]?.texture || '***'}</span>
 						</div>
 						<div>
 							Length: <span>{length}" inches</span>
@@ -704,9 +642,6 @@ const HomePageSingleModal = ({
 								setColor(null)
 								sethairType(null)
 								setLength('')
-								setTextureType1('')
-								setTextureType2('')
-								setStraight('')
 							}}
 							className="tw-text-2xl tw-text-white tw-bg-neutral-900 tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-absolute tw-top-[20px] tw-right-[20px] tw-ease-in tw-duration-300 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900">
 							<CgClose />

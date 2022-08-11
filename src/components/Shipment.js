@@ -260,7 +260,7 @@ function Shippment() {
 							)
 						) : (
 							<>
-								<div className="tw-max-w-[90%] md:tw-px-[50px] md:tw-max-w-[80%] lg:tw-max-w-[100%] md:tw-overflow-x-auto">
+								<div className="tw-w-[100%] tw-flex tw-items-center tw-mx-auto md:tw-overflow-x-auto tw-pb-5 featuredCard2">
 									<table>
 										<thead>
 											<tr className="table-head-row">
