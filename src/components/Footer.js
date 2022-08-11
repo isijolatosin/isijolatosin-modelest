@@ -2,13 +2,15 @@ import React from 'react'
 import { AiOutlineInstagram } from 'react-icons/ai'
 import { FaTiktok } from 'react-icons/fa'
 import { SiMastercard } from 'react-icons/si'
-import { SiTreyarch } from 'react-icons/si'
+import { TiSocialLinkedin } from 'react-icons/ti'
 import { RiVisaLine } from 'react-icons/ri'
 import { SiAmericanexpress } from 'react-icons/si'
 import { countries } from '../country'
 import { Link } from 'react-router-dom'
 import Heading from './Heading'
 import About from './About'
+
+const ty = require('../assets/ty.jpeg')
 
 function Footer({
 	showContactForm,
@@ -235,7 +237,7 @@ function Footer({
 							))}
 						</ul>
 						<div className="tw-border-neutral-100 tw-w-full tw-flex tw-flex-col tw-mt-5 tw-mb-5 tw-pb-5 tw-pt-5 md:tw-items-center">
-							<span className="tw-text-xs tw-font-light tw-tracking-widest tw-text-black tw-mb-1">
+							<span className="tw-text-xs tw-font-light tw-tracking-widest tw-text-white tw-mb-1">
 								Country/region
 							</span>
 							<select
@@ -904,56 +906,6 @@ function Footer({
 							<br />
 							<br />
 							<br />
-							{/* <p className="tw-font-normal">SECTION 7 - OPTIONAL TOOLS</p>
-						<br />
-						We may provide you with access to third-party tools over which we
-						neither monitor nor have any control nor input.
-						<br />
-						<br />
-						You acknowledge and agree that we provide access to such tools ”as
-						is” and “as available” without any warranties, representations or
-						conditions of any kind and without any endorsement. We shall have no
-						liability whatsoever arising from or relating to your use of
-						optional third-party tools.
-						<br />
-						<br />
-						Any use by you of optional tools offered through the site is
-						entirely at your own risk and discretion and you should ensure that
-						you are familiar with and approve of the terms on which tools are
-						provided by the relevant third-party provider(s).
-						<br />
-						<br />
-						We may also, in the future, offer new services and/or features
-						through the website (including, the release of new tools and
-						resources). Such new features and/or services shall also be subject
-						to these Terms of Service.
-						<br />
-						<br />
-						<br /> */}
-							{/* <p className="tw-font-normal">SECTION 8 - THIRD-PARTY LINKS</p>
-						<br />
-						Certain content, products and services available via our Service may
-						include materials from third-parties.
-						<br />
-						<br />
-						Third-party links on this site may direct you to third-party
-						websites that are not affiliated with us. We are not responsible for
-						examining or evaluating the content or accuracy and we do not
-						warrant and will not have any liability or responsibility for any
-						third-party materials or websites, or for any other materials,
-						products, or services of third-parties.
-						<br />
-						<br />
-						We are not liable for any harm or damages related to the purchase or
-						use of goods, services, resources, content, or any other
-						transactions made in connection with any third-party websites.
-						Please review carefully the third-party's policies and practices and
-						make sure you understand them before you engage in any transaction.
-						Complaints, claims, concerns, or questions regarding third-party
-						products should be directed to the third-party.
-						<br />
-						<br />
-						<br /> */}
 							<p className="tw-font-normal">
 								SECTION 7 - USER COMMENTS, FEEDBACK AND OTHER SUBMISSIONS
 							</p>
@@ -1205,7 +1157,7 @@ function Footer({
 			</div>
 			<div className="tw-bg-white tw-text-neutral-900 tw-flex tw-flex-col tw-items-center md:tw-flex-row tw-justify-between md:tw-px-20 tw-py-5 ">
 				<div>
-					<div className="tw-flex tw-text-xs tw-text-neutral-500 tw-font-light">
+					<div className="tw-flex tw-items-center tw-text-xs tw-text-neutral-500 tw-font-light">
 						<div className="tw-pr-1 tw-border-r-2 tw-border-r-neutral-800 md:tw-flex">
 							<p className="">
 								&copy; {new Date().getUTCFullYear()} <span>modelEst</span>
@@ -1215,14 +1167,28 @@ function Footer({
 						<div className="md:tw-flex tw-ml-1">
 							<p className="tw-flex tw-items-center">
 								<span>Design by</span>{' '}
-								<span className="rose-gold tw-ml-1">
+								<div className="tw-border-[1px] tw-border-neutral-400 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-ml-1 tw-p-1">
 									<a
-										href="https://www.linkedin.com/in/oluwatosin-isijola-33333ba8/"
+										href="https://isijolaoluwatosin.netlify.app/"
 										target="_blank"
 										rel="noopener noreferrer">
-										<SiTreyarch size={15} />
+										<img
+											src={ty}
+											alt=""
+											className="tw-rounded-full tw-w-[15px] tw-h-[15px] tw-object-cover hover:md:tw-w-[25px] hover:md:tw-h-[25px] tw-ease-in tw-duration-300"
+										/>
 									</a>
-								</span>
+								</div>
+								<a
+									target="_blank"
+									rel="noopener noreferrer"
+									href="https://www.linkedin.com/in/oluwatosin-isijola-33333ba8/"
+									className="tw-border-[1px] tw-border-neutral-400 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-ml-1 tw-px-[4px] tw-pt-[3px] tw-pb-[4.5px]">
+									<TiSocialLinkedin
+										size={15}
+										className="hover:md:tw-w-[24px] hover:md:tw-h-[24px] tw-text-blue-500 tw-ease-in tw-duration-300"
+									/>
+								</a>
 							</p>
 						</div>
 					</div>
