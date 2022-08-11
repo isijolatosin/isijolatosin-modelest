@@ -181,14 +181,18 @@ const HomePageSingleModal = ({
 		// eslint-disable-next-line array-callback-return
 		closureVirginWigPricing.map((p) => {
 			if (length === p?.length) {
-				if (textureType1) {
-					if (wigTextureType1.includes(textureType1)) {
+				if (singleProducts[0]?.texture) {
+					if (
+						wigTextureType1.includes(singleProducts[0]?.texture?.toLowerCase())
+					) {
 						a = p?.price + wigTextureTypeIncreaseValue1
 					} else {
 						a = p?.price
 					}
-				} else if (textureType2) {
-					if (wigTextureType2.includes(textureType2)) {
+				} else if (singleProducts[0]?.texture) {
+					if (
+						wigTextureType2.includes(singleProducts[0]?.texture?.toLowerCase())
+					) {
 						a = p?.price + wigTextureTypeIncreaseValue2
 					} else {
 						a = p?.price
@@ -208,19 +212,25 @@ const HomePageSingleModal = ({
 		// eslint-disable-next-line array-callback-return
 		frontalVirginWigPricing.map((p) => {
 			if (length === p?.length) {
-				if (textureType1) {
-					if (wigTextureType1.includes(textureType1)) {
+				if (singleProducts[0]?.texture) {
+					if (
+						wigTextureType1.includes(singleProducts[0]?.texture?.toLowerCase())
+					) {
 						a = p?.price + wigTextureTypeIncreaseValue1
 					} else {
 						a = p?.price
 					}
-				} else if (textureType2) {
-					if (wigTextureType2.includes(textureType2)) {
+				} else if (singleProducts[0]?.texture) {
+					if (
+						wigTextureType2.includes(singleProducts[0]?.texture?.toLowerCase())
+					) {
 						a = p?.price + wigTextureTypeIncreaseValue2
 					} else {
 						a = p?.price
 					}
-				} else if (straight) {
+				} else if (
+					singleProducts[0]?.texture?.toLowerCase().includes('straight')
+				) {
 					a = p?.price
 				} else {
 					a = p?.price

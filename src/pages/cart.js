@@ -76,7 +76,7 @@ const Cart = () => {
 							<div className="tw-bg-white tw-p-3 tw-w-full md:tw-w-[40%] md:tw-ml-2">
 								<p>Subtotal - ${total} USD</p>
 								<p className="tw-text-neutral-600 tw-text-sm">
-									Tax included and Shipping calculated at checkout
+									Tax and shipping cost calculated at checkout
 								</p>
 								<div className="tw-flex tw-items-center tw-relative tw-mb-5">
 									<label className="check-container">
@@ -124,7 +124,7 @@ const Cart = () => {
 									<button
 										onClick={handleCheckout}
 										className="tw-bg-black tw-text-white tw-py-2 tw-px-5 tw-text-center tw-text-xs md:tw-text-sm hover:tw-bg-white hover:tw-text-neutral-900 tw-border tw-border-black tw-ease-in tw-duration-300 tw-w-full">
-										<button>Check out</button>
+										<button>Proceed to check out</button>
 									</button>
 								</div>
 							</div>

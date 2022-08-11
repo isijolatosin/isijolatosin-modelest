@@ -15,6 +15,7 @@ import { selectCartItems } from '../../slices/appSlices'
 
 const CheckoutForm = ({
 	total,
+	itemCount,
 	setRedirect,
 	setPageCancel,
 	sales,
@@ -24,24 +25,38 @@ const CheckoutForm = ({
 	const stripe = useStripe()
 	const elements = useElements()
 	const cartItems = useSelector(selectCartItems)
-	const email = localStorage.getItem('altEmail')
+	const email =
+		localStorage.getItem('altEmail') && localStorage.getItem('altEmail')
 	const shippingCost = JSON.parse(localStorage.getItem('shippingCost'))
 	const shipMethod = localStorage.getItem('ship')
 	const [succeeded, setSucceeded] = React.useState(false)
-	const [paymentPlanWarn, setPaymentPlanWarn] = React.useState(false)
+	const [paymentWarn, setPaymentWarn] = React.useState(false)
 	const [_error, set_Error] = React.useState(null)
 	const [processing, setProcessing] = React.useState('')
 	const [disabled, setDisabled] = React.useState(true)
 	const { user } = useContext(UserContext)
 	const [paywithStripe, setPaywithStripe] = React.useState(false)
 
-	const shipping_fee = Math.floor(shippingCost?.cost * 100)
-	const taxPercentage =
-		Number(total) * Number(process.env.REACT_APP_TAX_PERCENT)
-	const tax = Math.floor(taxPercentage * 100)
-	const price = Math.floor((Number(total) + taxPercentage) * 100)
-	const total_amount = price
-	const totalPrice = Math.floor(Number(total) * 100)
+	const shipCostInCent = Number((shippingCost?.cost * 100).toFixed(2))
+	const shipCostInDollar = shipCostInCent / 100
+	const taxInDollar = Number(
+		(Number(total) * Number(process.env.REACT_APP_TAX_PERCENT)).toFixed(2)
+	)
+	const taxInCent = taxInDollar * 100
+	const priceInDollar = total
+	const priceInCent = total * 100
+	const finalPriceToPay = discountPrice
+		? discountPrice + shipCostInDollar
+		: shipCostInDollar + priceInDollar + taxInDollar
+	localStorage.setItem('finalPriceToPay', finalPriceToPay)
+	localStorage.setItem(
+		'finalPriceToPayObject',
+		JSON.stringify({
+			priceInDollar: priceInDollar,
+			shipCostInDollar: shipCostInDollar,
+			taxInDollar: taxInDollar,
+		})
+	)
 
 	const handlePayWithStripe = () => {
 		setPaywithStripe(true)
@@ -74,7 +89,7 @@ const CheckoutForm = ({
 		ev.preventDefault()
 
 		if (!paywithStripe) {
-			setPaymentPlanWarn(true)
+			setPaymentWarn(true)
 		}
 
 		// if (total_amount >= installmentStartPrice) {
@@ -89,11 +104,12 @@ const CheckoutForm = ({
 					'/.netlify/functions/create-payment-intent',
 					JSON.stringify({
 						cartItems,
-						shipping_fee,
-						totalPrice,
-						tax,
+						shipCostInCent,
+						priceInCent,
+						taxInCent,
 						sales,
 						shipMethod,
+						itemCount,
 					})
 				)
 
@@ -158,21 +174,22 @@ const CheckoutForm = ({
 				<div className="tw-inline md:tw-hidden tw-order-2 tw-absolute tw-top-[54.2%] tw-font-light tw-w-full tw-text-center tw-text-neutral-400">
 					<span className="tw-bg-white tw-px-[1px] tw-text-lg">or</span>
 				</div>
-				<div className="tw-w-full tw-mt-3 md:tw-mt-0 md:tw-w-[50%] tw-order-1 md:tw-order-2 tw-border-b-[1px] md:tw-border-b-0 tw-border-neutral-300 tw-pb-8 md:tw-mb-0 md:tw-pb-0 tw-mb-5 md:tw-mr-8 tw-p-5 md:tw-p-8">
+				<div className="tw-w-full tw-mt-3 md:tw-mt-0 md:tw-w-[50%] tw-order-1 md:tw-order-2 tw-border-b-[1px] md:tw-border-b-0 tw-border-neutral-300 tw-pb-8 md:tw-mb-0 md:tw-pb-0 tw-mb-5  tw-p-5 md:tw-p-8">
 					<div className=" tw-text-center tw-mb-2">
 						<span className="tw-text-[12px] tw-font-bold">PAY WITH PAYPAL</span>
 					</div>
 					<div className="tw-w-full">
 						<PaypalCheckoutButton
-							shippingFee={shipping_fee}
-							totalPrice={totalPrice}
-							tax={tax}
-							cartItems={cartItems}
-							setRedirect={setRedirect}
-							setPageCancel={setPageCancel}
-							shipMethod={shipMethod}
-							discountPrice={discountPrice}
 							sales={sales}
+							tax={taxInDollar}
+							price={priceInDollar}
+							cartItems={cartItems}
+							itemCount={itemCount}
+							shipMethod={shipMethod}
+							setRedirect={setRedirect}
+							shipCost={shipCostInDollar}
+							setPageCancel={setPageCancel}
+							discountPrice={discountPrice}
 						/>
 					</div>
 				</div>
@@ -190,7 +207,10 @@ const CheckoutForm = ({
 						<article className="tw-flex tw-justify-between tw-text-[12px] tw-p-1 tw-mt-1 tw-max-w-[100%] tw-text-white">
 							<span className="tw-underline tw-flex-[0.4]">
 								Hello, {user && user?.displayName}, your total is $
-								{((total_amount + shipping_fee) / 100).toFixed(2)} -{' '}
+								{discountPrice
+									? discountPrice + shipCostInDollar
+									: shipCostInDollar + priceInDollar + taxInDollar}{' '}
+								-{' '}
 								<span className="tw-text-neutral-400">
 									(tax
 									{shipMethod === 'pick up' ? '' : ' & shipping'} inclusive)
@@ -238,7 +258,7 @@ const CheckoutForm = ({
 						{processing ? <div className="spinner" id="spinner"></div> : 'Pay'}
 					</span>
 				</button>
-				{paymentPlanWarn && (
+				{paymentWarn && (
 					<span className="tw-text-red-700 tw-text-xs tw-flex tw-items-center tw-justify-center tw-mt-2 tw-capitalize">
 						<GoAlert className="tw-mr-2" />
 						Please set your payment plan

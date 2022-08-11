@@ -159,7 +159,7 @@ function App() {
 				/>
 				<Route exact path="/user-cart/:userId" element={<Cart />} />
 				<Route exact path="/checkout/:userId" element={<Checkout />} />
-				<Route exact path="/payment/:userId" element={<Payment />} />
+				<Route exact path="/payment" element={<Payment />} />
 				<Route exact path="/user/:userInfo" element={<Account />} />
 				<Route exact path="*" element={<NotFound />} />
 				<Route exact path="/" element={<HomePage />} />

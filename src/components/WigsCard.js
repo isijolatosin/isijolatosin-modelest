@@ -11,7 +11,7 @@ function WigsCard({ product, sales, dealPrice, frontalClosure, texture }) {
 	const lengthSplitFirst = product?.length.split(', ')[0]
 	const lengthSplitEnd = product?.length.split(', ')[lengthSplit.length - 1]
 	return (
-		<div className="card tw-drop-shadow-xl md:tw-mx-2 md:tw-mb-0 tw-mb-3">
+		<div className="card tw-drop-shadow-xl tw-mx-1 tw-mb-3">
 			<ul className="ul">
 				<li>
 					<span className="tw-absolute tw-left-[-95px] tw-text-white tw-text-md tw-font-bold">

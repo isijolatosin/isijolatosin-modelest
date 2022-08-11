@@ -6,10 +6,16 @@ const stripe = require('stripe')(process.env.REACT_APP_STRIPE_PRIVATE_KEY)
 exports.handler = async function (event, context) {
 	if (event.body) {
 		// eslint-disable-next-line no-unused-vars
-		const { cartItems, shipping_fee, totalPrice, tax, sales, shipMethod } =
-			JSON.parse(event.body)
+		const {
+			cartItems,
+			shipCostInCent,
+			priceInCent,
+			taxInCent,
+			sales,
+			shipMethod,
+		} = JSON.parse(event.body)
 
-		const totalCartPrice =
+		const totalCartPriceInCent =
 			cartItems.reduce((total, prod) => total + prod.price * prod.quantity, 0) *
 			100
 
@@ -17,16 +23,19 @@ exports.handler = async function (event, context) {
 			// Note - Check price compare with mongoDB
 			let finalPrice
 			if (shipMethod === 'ship') {
-				finalPrice = shipping_fee + totalPrice + tax
+				finalPrice = shipCostInCent + priceInCent + taxInCent
 			} else {
-				finalPrice = totalPrice + tax
+				finalPrice = priceInCent + taxInCent
 			}
 			return finalPrice
 		}
 		const discountedPrice =
-			sales && totalCartPrice - totalCartPrice * (sales / 100)
+			sales && totalCartPriceInCent - totalCartPriceInCent * (sales / 100)
 
-		if (discountedPrice === totalPrice || totalCartPrice === totalPrice) {
+		if (
+			discountedPrice === priceInCent ||
+			totalCartPriceInCent === priceInCent
+		) {
 			try {
 				const paymentIntent = await stripe.paymentIntents.create({
 					amount: calculateOrderAmount(),

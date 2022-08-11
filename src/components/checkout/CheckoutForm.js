@@ -87,7 +87,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 					address?.country)
 			) {
 				localStorage.setItem('address', shippingAd)
-				localStorage.setItem('altEmail', email)
+				email && localStorage.setItem('altEmail', email)
 				setAddress({
 					street: '',
 					firstname: '',
@@ -124,7 +124,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 					)
 			})
 			setEmail('')
-			navigate(`/payment/${user?.displayName}`)
+			navigate('/payment')
 		}
 	}
 

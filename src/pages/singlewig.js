@@ -41,9 +41,9 @@ const SingleWig = () => {
 	const category = window.location.pathname.split('/').filter((x) => x)?.[0]
 	const database = getDatabase()
 	const [sales, setSales] = React.useState(null)
-	const [textureType1, setTextureType1] = React.useState('')
-	const [textureType2, setTextureType2] = React.useState('')
-	const [straight, setStraight] = React.useState('')
+	// const [textureType1, setTextureType1] = React.useState('')
+	// const [textureType2, setTextureType2] = React.useState('')
+	// const [straight, setStraight] = React.useState('')
 	const wigId = window.location.pathname
 		.split('/')
 		.filter((x) => x)?.[1]
@@ -95,19 +95,19 @@ const SingleWig = () => {
 		// eslint-disable-next-line array-callback-return
 		closureVirginWigPricing.map((p) => {
 			if (_length === p?.length) {
-				if (textureType1) {
-					if (wigTextureType1.includes(textureType1)) {
+				if (singleWig[0]?.texture) {
+					if (wigTextureType1.includes(singleWig[0]?.texture?.toLowerCase())) {
 						a = p?.price + wigTextureTypeIncreaseValue1
 					} else {
 						a = p?.price
 					}
-				} else if (textureType2) {
-					if (wigTextureType2.includes(textureType2)) {
+				} else if (singleWig[0]?.texture) {
+					if (wigTextureType2.includes(singleWig[0]?.texture?.toLowerCase())) {
 						a = p?.price + wigTextureTypeIncreaseValue2
 					} else {
 						a = p?.price
 					}
-				} else if (straight) {
+				} else if (singleWig[0]?.texture === 'straight') {
 					a = p?.price
 				} else {
 					a = p?.price
@@ -122,19 +122,19 @@ const SingleWig = () => {
 		// eslint-disable-next-line array-callback-return
 		frontalVirginWigPricing.map((p) => {
 			if (_length === p?.length) {
-				if (textureType1) {
-					if (wigTextureType1.includes(textureType1)) {
+				if (singleWig[0]?.texture) {
+					if (wigTextureType1.includes(singleWig[0]?.texture?.toLowerCase())) {
 						a = p?.price + wigTextureTypeIncreaseValue1
 					} else {
 						a = p?.price
 					}
-				} else if (textureType2) {
-					if (wigTextureType2.includes(textureType2)) {
+				} else if (singleWig[0]?.texture) {
+					if (wigTextureType2.includes(singleWig[0]?.texture?.toLowerCase())) {
 						a = p?.price + wigTextureTypeIncreaseValue2
 					} else {
 						a = p?.price
 					}
-				} else if (straight) {
+				} else if (singleWig[0]?.texture?.toLowerCase().includes('straight')) {
 					a = p?.price
 				} else {
 					a = p?.price
@@ -156,11 +156,7 @@ const SingleWig = () => {
 		? vWPrice1
 		: singleWig[0]?.price
 	const hairLength = _length
-	const hairTexture =
-		(textureType1 && textureType1) ||
-		(textureType2 && textureType2) ||
-		(straight && straight) ||
-		singleWig[0]?.texture
+	const hairTexture = singleWig[0]?.texture
 	const quantity = Number(_quantity)
 	const avLengths =
 		singleWig[0]?.availablelength.length > 3
@@ -221,7 +217,7 @@ const SingleWig = () => {
 		},
 		{ key: 'Hair Color', value: singleWig[0]?.color },
 		{ key: 'Material', value: '100% Human Hair' },
-		{ key: 'Density', value: `${singleWig[0]?.density}%` },
+		{ key: 'Density', value: `${singleWig[0]?.density}` },
 		{
 			key: 'Hair Length',
 			value: Array.isArray(aLength)
@@ -317,8 +313,8 @@ const SingleWig = () => {
 											)
 									)}
 								</div>
-								<div className="tw-flex tw-flex-wrap tw-mt-3 tw-mb-5 tw-capitalize tw-border-b-[1px]">
-									<div>
+								{/* <div className="tw-flex tw-flex-wrap tw-mt-3 tw-mb-5 tw-capitalize tw-border-b-[1px]"> */}
+								{/* <div>
 										<span
 											onClick={() => {
 												setStraight('straight')
@@ -332,8 +328,8 @@ const SingleWig = () => {
 											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
 											Straight
 										</span>
-									</div>
-									{wigTextureType1.map((type1, idx) => (
+									</div> */}
+								{/* {wigTextureType1.map((type1, idx) => (
 										<span
 											key={idx}
 											onClick={() => {
@@ -364,8 +360,8 @@ const SingleWig = () => {
 											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 tw-mb-2`}>
 											{type2}
 										</span>
-									))}
-								</div>
+									))} */}
+								{/* </div> */}
 								<div className="tw-inline-block md:tw-hidden">
 									<div className="tw-flex tw-items-center">
 										<span className="tw-mr-2">Quantity: </span>
@@ -397,14 +393,7 @@ const SingleWig = () => {
 											Color: <span>{singleWig?.[0]?.color}</span>
 										</div>
 										<div>
-											Texture:{' '}
-											<span>
-												{textureType1 ||
-													textureType2 ||
-													straight ||
-													singleWig?.[0]?.texture ||
-													'***'}
-											</span>
+											Texture: <span>{singleWig?.[0]?.texture || '***'}</span>
 										</div>
 										<div>
 											Length: <span>{_length}" inches</span>
@@ -514,14 +503,7 @@ const SingleWig = () => {
 										Color: <span>{singleWig?.[0]?.color}</span>
 									</div>
 									<div>
-										Texture:{' '}
-										<span>
-											{textureType1 ||
-												textureType2 ||
-												straight ||
-												singleWig?.[0]?.texture ||
-												'***'}
-										</span>
+										Texture: <span>{singleWig?.[0]?.texture || '***'}</span>
 									</div>
 									<div>
 										Length: <span>{_length}" inches</span>

@@ -65,6 +65,9 @@ const Cart = () => {
 		localStorage.removeItem('address')
 		localStorage.removeItem('altEmail')
 		localStorage.removeItem('shippingCost')
+		localStorage.removeItem('payload')
+		localStorage.removeItem('finalPriceToPayObject')
+		localStorage.removeItem('finalPriceToPay')
 
 		const starCountRef = ref(database, 'sales')
 		onValue(starCountRef, (snapshot) => {

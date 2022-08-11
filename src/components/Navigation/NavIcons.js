@@ -14,6 +14,7 @@ import { BsFillPersonFill } from 'react-icons/bs'
 function NavIcons() {
 	const { user } = useContext(UserContext)
 	const itemCount = useSelector(selectItemCount)
+	const [showCountCard, setShowCountCard] = React.useState(false)
 	const navigate = useNavigate()
 
 	const handleSignOut = () => {
@@ -31,6 +32,8 @@ function NavIcons() {
 				</Link>
 			)}
 			<div
+				onMouseOver={() => setShowCountCard(true)}
+				onMouseOut={() => setShowCountCard(false)}
 				onClick={() =>
 					navigate(`/user-cart/${user?.displayName || 'new-customer'}`)
 				}
@@ -47,15 +50,23 @@ function NavIcons() {
 						{itemCount}
 					</span>
 				)}
+				{showCountCard && (
+					<div className="tw-hidden md:tw-inline">
+						<div className="tw-absolute tw-text-xs tw-w-[150px] tw-bg-neutral-900 tw-p-2 tw-text-[#bba371] tw-rounded-sm tw-text-center tw-left-[-56px] tw-top-[40px] tw-border-[1px] tw-border-[#bba371]">
+							<span>
+								You have {itemCount} {itemCount > 1 ? 'items' : 'item'} in your
+								cart
+							</span>
+						</div>
+						<div className="tw-absolute tw-w-[15px] tw-rotate-45 tw-h-[15px] tw-left-[12px] tw-bg-neutral-900 tw-border-t-[1px] tw-border-l-[1px] tw-border-[#bba371] "></div>
+					</div>
+				)}
 			</div>
 			{user && (
 				<div className="tw-flex tw-ml-[20px] tw-flex-col tw-justify-center tw-items-center hover:tw-bg-neutral-800 tw-cursor-pointer tw-rounded-full tw-p-2 tw-relative tw-ease-in tw-duration-300">
 					<div className="tw-text-[#bba371] tw-text-xl">
 						<FiLogOut size={25} onClick={handleSignOut} />
 					</div>
-					{/* <span className="tw-text-[7px] tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-black tw-via-yellow-600 tw-to-yellow-700 tw-uppercase">
-						sign out
-					</span> */}
 				</div>
 			)}
 			{!user && (
@@ -64,9 +75,6 @@ function NavIcons() {
 						<div className="tw-text-[#bba371] tw-text-xl">
 							<FiLogIn size={25} onClick={() => navigate('/login')} />
 						</div>
-						{/* <span className="tw-text-[7px] tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-black tw-via-yellow-600 tw-to-yellow-700 tw-uppercase">
-							sign in
-						</span> */}
 					</div>
 					<div className="tw-flex tw-flex-col tw-justify-center tw-items-center hover:tw-bg-neutral-800 tw-cursor-pointer tw-rounded-full tw-p-2 tw-relative tw-ease-in tw-duration-300 ">
 						<div className="tw-text-[#bba371] tw-text-xl">
@@ -75,9 +83,6 @@ function NavIcons() {
 								onClick={() => navigate('/register')}
 							/>
 						</div>
-						{/* <span className="tw-text-[7px] tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-black tw-via-yellow-600 tw-to-yellow-700 tw-uppercase">
-							sign up
-						</span> */}
 					</div>
 				</div>
 			)}

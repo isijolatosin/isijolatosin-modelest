@@ -5657,10 +5657,19 @@ var base = process.env.BASE_URL || "https://api-m.paypal.com";
 var price;
 async function handler(event, context) {
   const data = JSON.parse(event.body);
-  const totalFromRedux = data.cartItems.reduce((total, prod) => total + prod.price * prod.quantity, 0);
-  const discountedPrice = data.discountPercentage ? totalFromRedux - totalFromRedux * (data.discountPercentage / 100) : totalFromRedux;
-  if (discountedPrice === data.total / 100) {
-    data.shipMethod === "ship" ? price = (data.total + data.tax + data.ship) / 100 : price = (data.total + data.tax) / 100;
+  const {
+    priceCost,
+    taxCost,
+    shipCost,
+    cartItems,
+    shipMethod,
+    discountPrice,
+    discountPercentage
+  } = data;
+  const totalFromRedux = cartItems.reduce((total, prod) => total + prod.price * prod.quantity, 0);
+  const discountedPrice = discountPrice && discountPercentage && totalFromRedux - totalFromRedux * (discountPercentage / 100);
+  if (discountedPrice === priceCost || totalFromRedux === priceCost) {
+    shipMethod === "ship" ? price = priceCost + taxCost + shipCost : price = priceCost + taxCost;
     const order = await createOrder();
     return {
       statusCode: 200,

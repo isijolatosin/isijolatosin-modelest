@@ -11,7 +11,7 @@ export const BOOKINGS = 'bookings'
 // export const FREE_SHIPPING_AMOUNT = 200
 export const CURRENCY = 'usd'
 // export const TAX_PERCENT = 0.06
-export const installmentStartPrice = 10
+// export const installmentStartPrice = 10
 // export const installmentStartPrice = 49900
 
 // Back end url
@@ -52,7 +52,7 @@ export const frontalVirginWigPricing = [
 ]
 export const wigTextureType1 = [
 	'body wave',
-	'deep loose',
+	'deep wave',
 	'loose wave',
 	'loose curly',
 	'curly',

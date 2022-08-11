@@ -3,15 +3,16 @@ import { PayPalButtons } from '@paypal/react-paypal-js'
 import { DISCOUNT_PERCENTAGE } from '../constant'
 
 export default function PayplaCheckoutButton({
-	shippingFee,
-	totalPrice,
+	price,
 	tax,
+	shipCost,
 	cartItems,
 	setRedirect,
 	setPageCancel,
 	shipMethod,
 	discountPrice,
 	sales,
+	itemCount,
 }) {
 	React.useEffect(() => {
 		localStorage.removeItem('payload')
@@ -30,12 +31,14 @@ export default function PayplaCheckoutButton({
 					return fetch('/.netlify/functions/create-order', {
 						method: 'post',
 						body: JSON.stringify({
-							total: totalPrice,
-							tax: tax,
-							ship: shippingFee,
+							priceCost: discountPrice ? discountPrice : price,
+							discountPrice,
+							taxCost: tax,
+							shipCost: shipCost,
 							cartItems: cartItems,
 							shipMethod: shipMethod,
-							discountPercentage: discountPrice && DISCOUNT_PERCENTAGE,
+							discountPercentage: sales && DISCOUNT_PERCENTAGE,
+							itemCount,
 						}),
 					})
 						.then((response) => {

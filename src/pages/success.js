@@ -20,23 +20,30 @@ const Success = () => {
 	const { user } = useContext(UserContext)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
-	const total = useSelector(selectTotal)
 	const cartItems = useSelector(selectCartItems)
+	const totalPriceFromCart = useSelector(selectTotal)
+	const [sales, setSales] = React.useState(false)
 	const userAddss = localStorage.getItem('address')
-	const discountPrice =
-		Number(localStorage.getItem('discountPrice')) &&
-		total - Number(localStorage.getItem('discountPrice'))
+	const finalPriceToPay = Number(localStorage.getItem('finalPriceToPay'))
+	const finalPriceToPayObject = JSON.parse(
+		localStorage.getItem('finalPriceToPayObject')
+	)
+	const finalTax = finalPriceToPayObject?.taxInDollar
+	const finalShipCost = finalPriceToPayObject?.shipCostInDollar
+	const PriceInDollar = finalPriceToPayObject?.priceInDollar
+	const discountPrice = Number(localStorage.getItem('discountPrice'))
+	const discountedAmount = Number(
+		(totalPriceFromCart - discountPrice).toFixed(2)
+	)
 	const addressFromPP = JSON.parse(localStorage.getItem('addressFromPaypal'))
 
 	const addressFromPaypal =
 		addressFromPP &&
 		`${addressFromPP.address_line_1}, ${addressFromPP.admin_area_2}, ${addressFromPP.admin_area_1}. ${addressFromPP.country_code}. Postal_code: ${addressFromPP.postal_code}`
-
 	const userAddress = addressFromPaypal ? addressFromPaypal : userAddss
 
-	const [sales, setSales] = React.useState(false)
 	const payload = localStorage.getItem('payload')
-	const shipOption = localStorage.getItem('ship')
+	const shipMethod = localStorage.getItem('ship')
 	const paymentName = localStorage.getItem('paymentName')
 	const userEmail = user?.email || localStorage.getItem('altEmail')
 	const database = getDatabase()
@@ -55,46 +62,32 @@ const Success = () => {
 	let nameArray = []
 	let quantity = 0
 	let id = []
-	let price
 
 	// eslint-disable-next-line array-callback-return
 	cartItems.map((item) => {
 		nameArray.push(
-			`${item.quantity} ${item.name} - ${item.hairLength}inches ..... $${
-				Number(localStorage.getItem('discountPrice')) || item.price
-			}`
+			`${item.quantity} ${item.name} - ${item.hairLength}inches ..... $${item.price}`
 		)
 		quantity += item.quantity
 		id.push(`${item.id}-${item.name}`)
-		price = Number(localStorage.getItem('discountPrice'))
-			? Number(localStorage.getItem('discountPrice'))
-			: item.price * item.quantity
 	})
 
-	console.log(discountPrice)
 	React.useEffect(() => {
 		// Send a purchase mail to client
-		const a = userAddress.split(' ')
-		const cntry = a[a.length - 1]
-		const tax = Number((price * 0.06).toFixed(2))
-		const shipping = cntry === 'usa' ? 9 : 20
-		const total =
-			localStorage.getItem('ship') === 'ship'
-				? Number((price + tax + shipping).toFixed(2))
-				: Number((price + tax).toFixed(2))
 		const messageParams = {
 			name: (user && user?.displayName) || userEmail,
 			id: id.join(', '),
 			orderNo: orderNo,
 			date: new Date().toDateString(),
 			product: nameArray.join(', '),
-			price: price,
+			price: PriceInDollar,
 			quantity: quantity,
-			discount: discountPrice || '00.00',
-			subtotal: price,
-			shipping: shipOption === 'ship' ? shipping : '',
-			tax: tax,
-			total: total,
+			discount: (discountPrice && discountedAmount) || '00.00',
+			subtotal: PriceInDollar,
+			shipping: shipMethod === 'ship' ? finalShipCost : '0',
+			shipMethod: shipMethod,
+			tax: finalTax,
+			total: finalPriceToPay,
 			address: userAddress,
 			client: userEmail,
 		}
@@ -129,7 +122,7 @@ const Success = () => {
 						title: item.name,
 						description: item.description,
 						quantity: item.quantity,
-						price: price,
+						price: finalPriceToPay,
 						address: userAddress,
 						customer: (user && user?.displayName) || userEmail,
 						email: userEmail,
@@ -138,7 +131,7 @@ const Success = () => {
 						orderNo: orderNo,
 						timestamp: new Date().valueOf(),
 						image: item?.image ? item?.image : '',
-						shipMethod: shipOption,
+						shipMethod: shipMethod,
 						cardHolder: paymentName,
 					})
 					.then(() => {
@@ -155,7 +148,7 @@ const Success = () => {
 						title: item.name,
 						description: item.description,
 						quantity: item.quantity,
-						price: price,
+						price: finalPriceToPay,
 						address: userAddress,
 						customer: (user && user?.displayName) || userEmail,
 						email: userEmail,
@@ -164,7 +157,7 @@ const Success = () => {
 						orderNo: orderNo,
 						timestamp: new Date().valueOf(),
 						image: item?.image ? item?.image : '',
-						shipMethod: shipOption,
+						shipMethod: shipMethod,
 						cardHolder: paymentName,
 					})
 					.then(() => {
@@ -188,6 +181,8 @@ const Success = () => {
 		localStorage.removeItem('paymentName')
 		localStorage.removeItem('discountPrice')
 		localStorage.removeItem('addressFromPaypal')
+		localStorage.removeItem('finalPriceToPay')
+		localStorage.removeItem('finalPriceToPayObject')
 		navigate('/')
 	}
 
