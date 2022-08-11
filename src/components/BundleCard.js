@@ -60,7 +60,7 @@ function BundleCard({ product, sales, dealPrice, frontalClosure, texture }) {
 				</div>
 				<h2 className="tw-text-sm tw-font-bold tw-uppercase">
 					{product.name} -{' '}
-					<span className="tw-text-red-700">3 Bundle Deal</span>
+					<span className="tw-text-[#bba371]">3 Bundle Deal</span>
 				</h2>
 				<div className="tw-flex tw-items-center">
 					<RatingFix isNum={false} />
