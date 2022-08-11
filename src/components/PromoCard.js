@@ -59,18 +59,18 @@ const PromoCard = ({ setExpired, sales }) => {
 			<div className="tw-relative">
 				<div className="tw-relative tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-justify-between tw-w-[95%] lg:tw-w-[80%] xl:tw-w-[70%] tw-mx-auto">
 					<div className="font_cursive tw-flex-[0.7] tw-text-white tw-relative md:tw-mr-10">
-						<span className="tw-text-[52px] md:tw-text-[45px] lg:tw-text-[55px] tw-absolute tw-rotate-[-7deg] tw-top-[125px] md:tw-top-[165px] tw-left-[110px] md:tw-left-[200px] md:tw-bg-[rgba(255,0,217,0.2)] tw-text-white tw-w-[75%] md:tw-w-[60%] tw-pl-5">
+						<span className="tw-text-[52px] md:tw-text-[45px] lg:tw-text-[55px] tw-absolute tw-rotate-[-7deg] tw-top-[110px] md:tw-top-[115px] tw-left-[40px] md:tw-left-[200px] md:tw-bg-[rgba(255,0,217,0.2)] tw-text-white tw-w-[85%] md:tw-w-[60%] tw-pl-5">
 							Price slash !!!{' '}
 						</span>
-						<span className="tw-text-3xl md:tw-text-4xl tw-text-neutral-900 tw-absolute tw-rotate-[-5deg] tw-top-[120px] md:tw-top-[150px] tw-left-[140px] md:tw-left-[220px] tw-bg-[rgba(0,204,255,0.8)] tw-w-[60%] md:tw-w-[50%] tw-pl-5">
+						<span className="tw-text-3xl md:tw-text-4xl tw-text-neutral-900 tw-absolute tw-rotate-[-5deg] tw-top-[110px] md:tw-top-[100px] tw-left-[80px] md:tw-left-[220px] tw-bg-[rgba(0,204,255,0.8)] tw-w-[60%] md:tw-w-[50%] tw-pl-5">
 							Back to School{' '}
 						</span>
-						<span className="tw-text-[150px] lg:tw-text-[200px] xl:tw-text-[250px] tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-[#00ccff] tw-to-[#ff00d9]">
+						<span className="tw-text-[120px] lg:tw-text-[200px] xl:tw-text-[250px] tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-[#00ccff] tw-to-[#ff00d9]">
 							August{' '}
 						</span>
 					</div>
 					<div className=" tw-flex-[0.3]">
-						<div className="md:tw-hidden tw-flex tw-justify-between tw-w-full tw-mt-[-25px]">
+						<div className="md:tw-hidden tw-flex tw-justify-between tw-w-full tw-mt-[10px]">
 							<div className=" tw-text-white tw-mt-1 tw-mr-10 orbitron">
 								<p className="tw-font-light tw-text-[15px]">SAVE UP TO </p>
 								<div className="tw-flex tw-mt-[-25px]">
