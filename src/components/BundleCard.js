@@ -8,7 +8,7 @@ import { VscSymbolRuler } from 'react-icons/vsc'
 
 function BundleCard({ product, sales, dealPrice, frontalClosure, texture }) {
 	return (
-		<div className="card tw-drop-shadow-xl">
+		<div className="card tw-drop-shadow-xl tw-mx-1 tw-mb-3">
 			<ul className="ul">
 				<li>
 					<span className="tw-absolute tw-left-[-93px] tw-text-white tw-text-md tw-font-bold">
@@ -55,11 +55,12 @@ function BundleCard({ product, sales, dealPrice, frontalClosure, texture }) {
 				className="tw-w-full md:tw-w-[400px] tw-object-cover"
 			/>
 			<div className="con-text tw-bg-[rgba(255,255,255,0.95)]">
+				<div className="tw-text-[10px] tw-mb-[-5px] tw-font-bold tw-uppercase tw-text-[#bba371]">
+					<h1>{frontalClosure}</h1>
+				</div>
 				<h2 className="tw-text-sm tw-font-bold tw-uppercase">
-					{product.name} & {frontalClosure}{' '}
-					<span className="tw-text-[12px] tw-text-red-700">
-						- 3 Bundle Deal
-					</span>
+					{product.name} -{' '}
+					<span className="tw-text-red-700">3 Bundle Deal</span>
 				</h2>
 				<div className="tw-flex tw-items-center">
 					<RatingFix isNum={false} />

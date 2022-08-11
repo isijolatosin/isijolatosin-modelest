@@ -69,8 +69,11 @@ function WigsCard({ product, sales, dealPrice, frontalClosure, texture }) {
 				className="tw-w-full md:tw-w-[400px] tw-object-cover"
 			/>
 			<div className="con-text tw-bg-[rgba(255,255,255,0.95)] tw-w-full">
-				<h2 className="tw-text-[14px] tw-font-bold tw-uppercase">
-					{product.name}
+				<h2 className="tw-text-[10px] tw-font-bold tw-uppercase tw-text-[#bba371] tw-mb-[-7px]">
+					{product.name.split('-')[1]}
+				</h2>
+				<h2 className="tw-text-[18px] tw-font-bold tw-uppercase">
+					{product.name.split('-')[0]}
 				</h2>
 				<div className="tw-flex tw-items-center">
 					<RatingFix isNum={false} />

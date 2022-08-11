@@ -228,7 +228,7 @@ function HomePage() {
 									sales !== 0
 										? 'md:tw-pt-[75px] tw-pt-[95px]'
 										: 'md:tw-pt-[35px] tw-pt-[50px]'
-							  } md:tw-pb-[50px] lg:tw-w-[100%] 2xl:tw-px-[40px] lg:tw-mx-auto tw-bg-[rgba(255,255,255,0.1)] tw-relative`
+							  } md:tw-pb-[50px] lg:tw-w-[100%] lg:tw-mx-auto tw-bg-[rgba(255,255,255,0.1)] tw-relative`
 					}>
 					<div
 						onClick={() => window.scrollTo(0, 0)}
