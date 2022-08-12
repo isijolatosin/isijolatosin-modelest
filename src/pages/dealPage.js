@@ -1,6 +1,5 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import { getDatabase, ref, onValue } from 'firebase/database'
 import Layout from '../components/shared/Layout'
 import axios from 'axios'
 import Slideshow from '../utils/Slideshow'
@@ -15,12 +14,15 @@ import Reviews from '../components/shared/Reviews'
 import Add2CartPopup from '../components/shared/Add2CartPopup'
 import { useDispatch, useSelector } from 'react-redux'
 import Heading from '../components/Heading'
+import {
+	fetchBundlePercentage,
+	fetchSalesPercentage,
+} from '../utils/salesPercentageNuumber'
 
 const paypal = require('../../src/assets/paypal.png')
 const stripe = require('../../src/assets/stripe.png')
 
 const DealPage = () => {
-	const database = getDatabase()
 	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12)
 	const [deals, setDeals] = React.useState([])
 	const [singleCart, setSingleCart] = React.useState(null)
@@ -48,22 +50,8 @@ const DealPage = () => {
 			).length - 1
 	]
 	React.useEffect(() => {
-		const starCountRef = ref(database, 'sales')
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-
-			setSales(data.no)
-		})
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
-
-	React.useEffect(() => {
-		const bundleDealsPercentage = ref(database, 'bundle deals')
-		onValue(bundleDealsPercentage, (snapshot) => {
-			const data = snapshot.val()
-
-			setBundleDealsPercentage(data?.no)
-		})
+		setSales(fetchSalesPercentage())
+		setBundleDealsPercentage(fetchBundlePercentage())
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 

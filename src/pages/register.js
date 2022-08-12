@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Layout from '../components/shared/Layout'
 import { auth, createUserProfileDocument } from '../firebase'
 import Button from '../components/shared/Button'
+import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
 
 const Register = () => {
 	const navigate = useNavigate()
@@ -14,22 +15,12 @@ const Register = () => {
 		password: '',
 		error: null,
 	})
+	const [sales, setSales] = React.useState(null)
 
-	// const validate = (values) => {
-	// 	const errors = {}
-	// 	if (!values.email) {
-	// 		errors.email = 'Required'
-	// 	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-	// 		errors.email = 'Invalid email Address'
-	// 	}
-	// 	if (!values.name) {
-	// 		errors.name = 'Required'
-	// 	}
-	// 	if (!values.password) {
-	// 		errors.password = 'Required'
-	// 	}
-	// 	return errors
-	// }
+	React.useEffect(() => {
+		setSales(fetchSalesPercentage())
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	const handleChangeAuthUser = (e) => {
 		setAuthUser({ ...authUser, [e.target.name]: e.target.value })
@@ -60,12 +51,15 @@ const Register = () => {
 				<title>Sign Up</title>
 			</Helmet>
 			<Layout>
-				<section className="home tw-flex tw-flex-col tw-items-center tw-pt-[150px] lg:tw-pt-[150px]">
+				<section
+					className={`${
+						sales ? 'tw-pt-[180px]' : 'tw-pt-[50px] md:tw-pt-[0px]'
+					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10 home`}>
 					<div className="tw-text-center">
 						<h1 className="tw-text-2xl tw-font-bold tw-text-neutral-50">
 							Sign Up
 						</h1>
-						<p className="tw-w-[55%] tw-mx-auto tw-my-10 tw-text-neutral-50">
+						<p className="tw-w-[55%] tw-mx-auto tw-my-10 tw-text-neutral-50 tw-font-light">
 							By creating account with us, you consent to receiving newsletters
 							or promotions from{' '}
 							<Link to="/">
@@ -130,7 +124,7 @@ const Register = () => {
 						</form>
 					</article>
 					<div>
-						<p className="tw-text-neutral-300 tw-font-light">
+						<p className="tw-text-neutral-300 tw-font-light tw-text-center">
 							Already have an account with us?{' '}
 							<Link to="/login">
 								<button className="tw-text-pink-800 tw-mb-10">Login</button>

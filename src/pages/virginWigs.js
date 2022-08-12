@@ -7,9 +7,9 @@ import { getDatabase, ref, onValue } from 'firebase/database'
 
 function VirginWigs() {
 	const [wigs, setWigs] = React.useState([])
-	const [sales, setSales] = React.useState(null)
 	const database = getDatabase()
 
+	const [sales, setSales] = React.useState(null)
 	React.useEffect(() => {
 		const starCountRef = ref(database, 'sales')
 		onValue(starCountRef, (snapshot) => {

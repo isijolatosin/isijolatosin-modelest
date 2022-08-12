@@ -2,7 +2,6 @@ import React from 'react'
 import axios from 'axios'
 import { MdOutlineKeyboardArrowUp } from 'react-icons/md'
 import { HiChatAlt2 } from 'react-icons/hi'
-import { getDatabase, ref, onValue } from 'firebase/database'
 import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
 import Products from '../components/Products'
@@ -11,6 +10,7 @@ import ContactForm from '../components/shared/ContactForm'
 import { Link } from 'react-router-dom'
 import SearchInput from '../components/shared/SearchInput'
 import PromoCard from '../components/PromoCard'
+import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
 
 function HomePage() {
 	const [searchControl, setSearchControl] = React.useState(false)
@@ -28,8 +28,6 @@ function HomePage() {
 		React.useState(null)
 	const [similarProductsFrontal, setSimilarProductsFrontal] =
 		React.useState(null)
-
-	const database = getDatabase()
 	const [chatDetail, setChatDetail] = React.useState({
 		name: '',
 		title: '',
@@ -39,12 +37,7 @@ function HomePage() {
 	const [featuredProduct, setFeaturedProduct] = React.useState([])
 
 	React.useEffect(() => {
-		const starCountRef = ref(database, 'sales')
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-
-			setSales(data.no)
-		})
+		setSales(fetchSalesPercentage())
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 

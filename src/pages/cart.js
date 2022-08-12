@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { Helmet } from 'react-helmet'
-import { getDatabase, ref, onValue } from 'firebase/database'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { FaOpencart, FaHandPointRight } from 'react-icons/fa'
@@ -9,6 +8,7 @@ import CartItems from '../components/CartItems'
 import { selectCartItems, selectTotal } from '../slices/appSlices'
 import Button from '../components/shared/Button'
 import { UserContext } from '../context/user-context'
+import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
 
 const Cart = () => {
 	const { user } = useContext(UserContext)
@@ -19,15 +19,9 @@ const Cart = () => {
 	const [agree, setAgree] = React.useState(false)
 	const [warn, setWarn] = React.useState(false)
 	const [showInfo, setShowInfo] = React.useState(false)
-	const database = getDatabase()
 
 	React.useEffect(() => {
-		const starCountRef = ref(database, 'sales')
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-
-			setSales(data.no)
-		})
+		setSales(fetchSalesPercentage())
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 

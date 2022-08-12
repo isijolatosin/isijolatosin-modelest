@@ -13,7 +13,6 @@ import {
 import Reviews from '../components/shared/Reviews'
 import Add2CartPopup from '../components/shared/Add2CartPopup'
 import { useDispatch, useSelector } from 'react-redux'
-import { getDatabase, ref, onValue } from 'firebase/database'
 import {
 	closureVirginWigPricing,
 	frontalVirginWigPricing,
@@ -25,6 +24,7 @@ import {
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import Heading from '../components/Heading'
+import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
 
 const paypal = require('../../src/assets/paypal.png')
 const stripe = require('../../src/assets/stripe.png')
@@ -39,7 +39,6 @@ const SingleWig = () => {
 	const dispatch = useDispatch()
 	const cartItems = useSelector(selectCartItems)
 	const category = window.location.pathname.split('/').filter((x) => x)?.[0]
-	const database = getDatabase()
 	const [sales, setSales] = React.useState(null)
 	const wigId = window.location.pathname
 		.split('/')
@@ -47,12 +46,7 @@ const SingleWig = () => {
 		.split('-')?.[1]
 
 	React.useEffect(() => {
-		const starCountRef = ref(database, 'sales')
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-
-			setSales(data.no)
-		})
+		setSales(fetchSalesPercentage())
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 

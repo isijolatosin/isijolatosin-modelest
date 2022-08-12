@@ -1,16 +1,15 @@
 import React, { useContext } from 'react'
 import { Helmet } from 'react-helmet'
-import { getDatabase, ref, onValue } from 'firebase/database'
 import Heading from '../components/Heading'
 import Layout from '../components/shared/Layout'
 import { UserContext } from '../context/user-context'
 import { db } from '../firebase'
+import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
 
 function Account() {
 	const [isLoading, setIsLoading] = React.useState(true)
 	const { user } = useContext(UserContext)
 	const [sales, setSales] = React.useState(false)
-	const database = getDatabase()
 	const [cartHist, setCartHist] = React.useState([])
 	if (isLoading) {
 		setTimeout(() => {
@@ -19,12 +18,7 @@ function Account() {
 	}
 
 	React.useEffect(() => {
-		const starCountRef = ref(database, 'sales')
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-
-			setSales(data.no)
-		})
+		setSales(fetchSalesPercentage())
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 

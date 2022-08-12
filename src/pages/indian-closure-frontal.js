@@ -1,7 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
-import { getDatabase, ref, onValue } from 'firebase/database'
 import Card from '../components/Card4'
 import axios from 'axios'
 import {
@@ -13,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Add2CartPopup from '../components/shared/Add2CartPopup'
 import SingleProductModal from '../components/shared/SingleProductModal'
 import Reviews from '../components/shared/Reviews'
+import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
 
 function ClosureFrontal() {
 	const [singleProducts, setSingleproducts] = React.useState(null)
@@ -26,7 +26,6 @@ function ClosureFrontal() {
 	const [singleCart, setSingleCart] = React.useState(null)
 	const cartItems = useSelector(selectCartItems)
 	const dispatch = useDispatch()
-	const database = getDatabase()
 
 	const _hairColor =
 		singleProducts?.[0]?.type.toLowerCase() === 'frontal'
@@ -35,12 +34,7 @@ function ClosureFrontal() {
 	const texture = ['Straight', 'Bodywave', 'Curly', 'Wavy']
 
 	React.useEffect(() => {
-		const starCountRef = ref(database, 'sales')
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-
-			setSales(data?.no)
-		})
+		setSales(fetchSalesPercentage())
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 

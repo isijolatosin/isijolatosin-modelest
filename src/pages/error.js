@@ -5,9 +5,17 @@ import { AiOutlineRollback } from 'react-icons/ai'
 import Button from '../components/shared/Button'
 import Layout from '../components/shared/Layout'
 import CursorText from '../components/shared/CursorText'
+import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
 
 function NotFound() {
 	const [showText, setShowText] = React.useState(false)
+
+	const [sales, setSales] = React.useState(null)
+	React.useEffect(() => {
+		setSales(fetchSalesPercentage())
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
 	const handleShow = () => {
 		!showText && setShowText(true)
 	}
@@ -20,21 +28,28 @@ function NotFound() {
 				<title>Error Page</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-flex tw-flex-col tw-items-center tw-my-[100px] tw-rounded-lg tw-w-[90%] md:tw-w-[60%] xl:tw-w-[40%] tw-p-10 tw-text-center tw-mx-auto tw-shadow-2xl tw-bg-neutral-200">
-					<h1 className="tw-text-3xl tw-font-bold tw-text-red-900">404</h1>
-					<p className="tw-text-neutral-600 tw-mt-2 tw-font-light">
-						The page you are about to access does not exist
-					</p>
-					<div
-						onMouseOver={handleShow}
-						onMouseOut={handleHide}
-						className="tw-flex tw-flex-col tw-mt-6 tw-relative">
-						<Link to="/">
-							<Button>
-								<AiOutlineRollback className="tw-text-lg" />
-							</Button>
-						</Link>
-						<CursorText showText={showText}>Back to Home</CursorText>
+				<div
+					className={`${
+						sales
+							? 'tw-pt-[140px] md:tw-pt-[110px]'
+							: 'tw-pt-[50px] md:tw-pt-[0px]'
+					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10`}>
+					<div className="tw-flex tw-flex-col tw-items-center tw-my-[100px] tw-rounded-lg tw-w-[90%] md:tw-w-[60%] xl:tw-w-[40%] tw-p-10 tw-text-center tw-mx-auto tw-shadow-2xl tw-bg-neutral-200">
+						<h1 className="tw-text-3xl tw-font-bold tw-text-red-900">404</h1>
+						<p className="tw-text-neutral-600 tw-mt-2 tw-font-light">
+							The page you are about to access does not exist
+						</p>
+						<div
+							onMouseOver={handleShow}
+							onMouseOut={handleHide}
+							className="tw-flex tw-flex-col tw-mt-6 tw-relative">
+							<Link to="/">
+								<Button>
+									<AiOutlineRollback className="tw-text-lg" />
+								</Button>
+							</Link>
+							<CursorText showText={showText}>Back to Home</CursorText>
+						</div>
 					</div>
 				</div>
 			</Layout>

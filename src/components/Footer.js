@@ -62,52 +62,67 @@ function Footer({
 	const indian = [
 		{
 			id: '1',
-			name: 'Bundles (Indian)',
-			route: '/indian-bundles',
+			name: 'Bundles',
+			route: '/bundles/indian',
 		},
 		{
 			id: '2',
-			name: 'Closure / Frontal (Indian)',
-			route: '/indian-closure-frontal',
+			name: 'Closure / Frontal',
+			route: '/closure-frontal/indian',
 		},
 		{
 			id: '3',
-			name: 'Jet Black / Blonde (Indian)',
-			route: '/indian-jet-black-&-blonde',
+			name: 'Jet Black / Blonde',
+			route: '/jet-black-&-blonde/indian',
+		},
+		{
+			id: '4',
+			name: 'Indian Deals',
+			route: '/indian-bundles-deals',
 		},
 	]
 	const vietnamese = [
 		{
 			id: '1',
-			name: 'Bundles (Vietnamese)',
-			// route: '/vietnamese-bundles',
+			name: 'wigs',
+			route: '/vietnamese-wigs',
 		},
 		{
 			id: '2',
-			name: 'Closure / Frontal (Vietnamese)',
-			// route: '/vietnamese-closure-frontal',
+			name: 'Bundles',
+			route: '/bundles/vietnamese',
 		},
 		{
 			id: '3',
-			name: 'Jet Black / Blonde (Vietnamese)',
-			// route: '/vietnamese-jet-black-&-blonde',
+			name: 'Closure / Frontal',
+			route: '/closure-frontal/vietnamese',
+		},
+		{
+			id: '4',
+			name: 'Vietnamese Deals',
+			route: '/vietnamese-bundles-deals',
 		},
 	]
 	const Virgin = [
 		{
 			id: '1',
-			name: 'Bundles (Virgin)',
-			// route: '/virgin-bundles',
+			name: 'wigs',
+			route: '/virgin-wigs',
 		},
 		{
 			id: '2',
-			name: 'Closure / Frontal (Virgin)',
-			// route: '/virgin-closure-frontal',
+			name: 'Bundles',
+			route: '/bundles/virgin',
 		},
 		{
 			id: '3',
-			name: 'Jet Black / Blonde (Virgin)',
-			// route: '/virgin-jet-black-&-blonde-hair',
+			name: 'Closure / Frontal',
+			route: '/closure-frontal/virgin',
+		},
+		{
+			id: '4',
+			name: 'Virgin Deals',
+			route: '/Virgin-bundles-deals',
 		},
 	]
 
@@ -144,7 +159,15 @@ function Footer({
 				<div className="xl:tw-w-[60%] tw-w-full md:tw-w-[90%] tw-px-5 md:tw-px-10 tw-flex tw-flex-col md:tw-flex-row md:tw-justify-between tw-mb-5">
 					<div className="tw-w-full tw-grid tw-grid-cols-2 tw-gap-2 md:tw-mr-10 md:tw-border-r-[1px] md:tw-border-neutral-800 md:tw-pr-20 tw-mb-10">
 						<div className="tw-mb-5">
-							<h1 className="tw-text-xs tw-font-bold  tw-mb-2">Indian Hair</h1>
+							<div className="tw-mb-2">
+								<Heading
+									children="Indian Hair"
+									isWhite={true}
+									isBold={true}
+									size1={true}
+									isUndeline={true}
+								/>
+							</div>
 							<ul className="tw-flex tw-flex-col tw-justify-center tw-text-xs tw-font-light tw-mb-1">
 								{indian.map((ind) => (
 									<Link
@@ -157,46 +180,59 @@ function Footer({
 							</ul>
 						</div>
 						<div className="tw-mb-5">
-							<h1 className="tw-text-xs tw-font-bold  tw-mb-2">
-								Vietnamese Hair
-							</h1>
+							<div className="tw-mb-2">
+								<Heading
+									children="Vietnamese Hair"
+									isWhite={true}
+									isBold={true}
+									size1={true}
+									isUndeline={true}
+								/>
+							</div>
+
 							<ul className="tw-flex tw-flex-col tw-justify-center tw-text-xs tw-font-light tw-mb-1">
 								{vietnamese.map((veit) => (
 									<Link
 										key={veit.id}
-										to="/"
-										// onClick={() => navigate(`/${veit.route}`)}
+										to={veit.route}
 										className="hover:tw-cursor-pointer hover:tw-underline tw-mb-1 ">
-										{veit.name}{' '}
-										<span className="tw-text-[10px] tw-font-bold">
-											- coming soon...
-										</span>
+										{veit.name}
 									</Link>
 								))}
 							</ul>
 						</div>
 						<div className="tw-mb-5">
-							<h1 className="tw-text-xs tw-font-bold  tw-mb-2">Virgin Hair</h1>
+							<div className="tw-mb-2">
+								<Heading
+									children="Virgin Hair"
+									isWhite={true}
+									isBold={true}
+									size1={true}
+									isUndeline={true}
+								/>
+							</div>
 							<ul className="tw-flex tw-flex-col tw-justify-center tw-text-xs tw-font-light tw-mb-1">
 								{Virgin.map((virg) => (
 									<Link
 										key={virg.id}
-										to="/"
-										// onClick={() => navigate(`/${virg.route}`)}
+										to={virg.route}
 										className="hover:tw-cursor-pointer hover:tw-underline tw-mb-1 ">
-										{virg.name}{' '}
-										<span className="tw-text-[10px] tw-font-bold">
-											- coming soon...
-										</span>
+										{virg.name}
 									</Link>
 								))}
 							</ul>
 						</div>
 					</div>
 					<div>
-						<h1 className="tw-text-xs tw-font-bold  tw-mb-2">
-							Customer Service
-						</h1>
+						<div className="tw-mb-2">
+							<Heading
+								children="Customer Service"
+								isWhite={true}
+								isBold={true}
+								size1={true}
+								isUndeline={true}
+							/>
+						</div>
 						<ul className="tw-flex tw-flex-col tw-justify-center tw-text-xs tw-font-light tw-mb-1">
 							{links.map((link) => (
 								<li

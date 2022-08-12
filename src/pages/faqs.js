@@ -3,9 +3,15 @@ import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import Heading from '../components/Heading'
 import Layout from '../components/shared/Layout'
+import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
 
 function Faqs() {
 	const [show, setShow] = React.useState(false)
+	const [sales, setSales] = React.useState(null)
+
+	React.useEffect(() => {
+		setSales(fetchSalesPercentage())
+	}, [])
 	const faqs = [
 		{
 			id: '1',
@@ -75,85 +81,100 @@ function Faqs() {
 				<title>Faqs</title>
 			</Helmet>
 			<Layout>
-				{!show && (
-					<div className="tw-bg-neutral-300 tw-py-[100px] tw-flex tw-justify-center">
-						<div className="tw-rounded-full progress">
-							<div className="inner"></div>
+				<div
+					className={`${
+						sales
+							? 'tw-pt-[70px] md:tw-pt-[70px]'
+							: 'tw-pt-[50px] md:tw-pt-[0px]'
+					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10`}>
+					{!show && (
+						<div className="tw-bg-neutral-300 tw-py-[100px] tw-flex tw-justify-center">
+							<div className="tw-rounded-full progress">
+								<div className="inner"></div>
+							</div>
 						</div>
-					</div>
-				)}
-				{show && (
-					<div className="tw-bg-neutral-50 tw-text-neutral-700">
-						<div className="tw-pb-[100px] tw-pt-[120px] md:tw-pt-[80px] tw-px-5 tw-flex tw-flex-col tw-items-left tw-text-sm tw-w-[100%] md:tw-w-[80%] lg:tw-w-[70%] tw-mx-auto">
-							<p className="tw-mb-5">
-								Virgin Hair are natural human hair that still maintains its
-								natural state. No chemical changes, no color, has not been
-								processed, and all cuticles are intact. All hair sold by
-								modelEst Hair Company is virgin hair.
-							</p>
-							{faqs.slice(0, 4).map((faq) => (
-								<div key={faq.id}>
-									<div className="tw-my-2">
-										<Heading children={faq.title} isBold={true} size1={true} />
+					)}
+					{show && (
+						<div className="tw-bg-neutral-50 tw-text-neutral-700">
+							<div className="tw-pb-[100px] tw-pt-[120px] md:tw-pt-[80px] tw-px-5 tw-flex tw-flex-col tw-items-left tw-text-sm tw-w-[100%] md:tw-w-[80%] lg:tw-w-[70%] tw-mx-auto">
+								<p className="tw-mb-5">
+									Virgin Hair are natural human hair that still maintains its
+									natural state. No chemical changes, no color, has not been
+									processed, and all cuticles are intact. All hair sold by
+									modelEst Hair Company is virgin hair.
+								</p>
+								{faqs.slice(0, 4).map((faq) => (
+									<div key={faq.id}>
+										<div className="tw-my-2">
+											<Heading
+												children={faq.title}
+												isBold={true}
+												size1={true}
+											/>
+										</div>
+										<div className="tw-mb-6 tw-font-light">
+											<span>{faq.value}</span>
+										</div>
 									</div>
-									<div className="tw-mb-6 tw-font-light">
-										<span>{faq.value}</span>
-									</div>
+								))}
+								<div className="tw-my-2">
+									<Heading
+										children="HOW DO I SEAL MY WEFTS?"
+										isBold={true}
+										size1={true}
+									/>
 								</div>
-							))}
-							<div className="tw-my-2">
-								<Heading
-									children="HOW DO I SEAL MY WEFTS?"
-									isBold={true}
-									size1={true}
-								/>
-							</div>
-							<div className="tw-mb-6 tw-font-light">
-								<span>
-									Our weft sealer is available for purchase{' '}
-									<Link to="/" className="tw-text-red-600 tw-font-normal">
-										here
-									</Link>
-									. To watch “How To” video or read about the sealer,{' '}
-									<Link
-										to="/blogs/caring-for-indian-virgin-vietnamese-hair-extensions"
-										className="tw-text-red-600 tw-font-normal">
-										click here
-									</Link>
-								</span>
-							</div>
-							<div className="tw-my-2">
-								<Heading
-									children="HOW LONG DOES THIS HAIR LAST?"
-									isBold={true}
-									size1={true}
-								/>
-							</div>
-							<div className="tw-mb-6 tw-font-light">
-								<span>
-									Our raw and virgin hair can last up to 3 years or more with
-									proper care and maintenance. Learn more about caring for your
-									Virgin, Indian and Vietnamese hair extensions{' '}
-									<Link
-										to="/blogs/caring-for-indian-virgin-vietnamese-hair-extensions"
-										className="tw-text-red-600 tw-font-normal">
-										here...
-									</Link>
-								</span>
-							</div>
-							{faqs.slice(4, faqs.length).map((faq) => (
-								<div key={faq.id}>
-									<div className="tw-my-2">
-										<Heading children={faq.title} isBold={true} size1={true} />
-									</div>
-									<div className="tw-mb-6 tw-font-light">
-										<span>{faq.value}</span>
-									</div>
+								<div className="tw-mb-6 tw-font-light">
+									<span>
+										Our weft sealer is available for purchase{' '}
+										<Link to="/" className="tw-text-red-600 tw-font-normal">
+											here
+										</Link>
+										. To watch “How To” video or read about the sealer,{' '}
+										<Link
+											to="/blogs/caring-for-indian-virgin-vietnamese-hair-extensions"
+											className="tw-text-red-600 tw-font-normal">
+											click here
+										</Link>
+									</span>
 								</div>
-							))}
+								<div className="tw-my-2">
+									<Heading
+										children="HOW LONG DOES THIS HAIR LAST?"
+										isBold={true}
+										size1={true}
+									/>
+								</div>
+								<div className="tw-mb-6 tw-font-light">
+									<span>
+										Our raw and virgin hair can last up to 3 years or more with
+										proper care and maintenance. Learn more about caring for
+										your Virgin, Indian and Vietnamese hair extensions{' '}
+										<Link
+											to="/blogs/caring-for-indian-virgin-vietnamese-hair-extensions"
+											className="tw-text-red-600 tw-font-normal">
+											here...
+										</Link>
+									</span>
+								</div>
+								{faqs.slice(4, faqs.length).map((faq) => (
+									<div key={faq.id}>
+										<div className="tw-my-2">
+											<Heading
+												children={faq.title}
+												isBold={true}
+												size1={true}
+											/>
+										</div>
+										<div className="tw-mb-6 tw-font-light">
+											<span>{faq.value}</span>
+										</div>
+									</div>
+								))}
+							</div>
 						</div>
-					</div>
-				)}
+					)}
+				</div>
 			</Layout>
 		</>
 	)

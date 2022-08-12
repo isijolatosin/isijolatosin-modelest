@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom'
 import Layout from '../components/shared/Layout'
 import Button from '../components/shared/Button'
 import Heading from '../components/Heading'
+import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
 
 const Canceled = () => {
 	const [sales, setSales] = React.useState(false)
 
 	React.useEffect(() => {
-		setSales(localStorage.getItem('isSales'))
+		setSales(fetchSalesPercentage())
 
 		localStorage.removeItem('discountPrice')
 		localStorage.removeItem('ship')

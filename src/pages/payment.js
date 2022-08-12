@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { Helmet } from 'react-helmet'
-import { getDatabase, ref, onValue } from 'firebase/database'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaOpencart, FaHandPointRight } from 'react-icons/fa'
@@ -20,6 +19,7 @@ import {
 	MdOutlineKeyboardArrowUp,
 } from 'react-icons/md'
 import { BsFillQuestionCircleFill } from 'react-icons/bs'
+import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
 
 const logo = require('../assets/logo2.png')
 
@@ -34,17 +34,11 @@ const Cart = () => {
 	const [showSum, setShowSum] = React.useState(false)
 	const [pageCancel, setPageCancel] = React.useState(false)
 	const discountPrice = Number(localStorage.getItem('discountPrice'))
-	const database = getDatabase()
 	const [showLoad, setShowLoad] = React.useState(false)
 	const [showInfo, setShowInfo] = React.useState(false)
 
 	React.useEffect(() => {
-		const starCountRef = ref(database, 'sales')
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-
-			setSales(data.no)
-		})
+		setSales(fetchSalesPercentage())
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 

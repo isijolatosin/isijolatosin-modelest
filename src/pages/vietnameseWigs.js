@@ -3,9 +3,16 @@ import axios from 'axios'
 import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
 import WigsCard from '../components/WigsCard'
+import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
 
 function VietnameseWigs() {
 	const [wigs, setWigs] = React.useState(null)
+
+	const [sales, setSales] = React.useState(null)
+	React.useEffect(() => {
+		setSales(fetchSalesPercentage())
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	async function fetchProducts() {
 		try {
@@ -38,7 +45,12 @@ function VietnameseWigs() {
 				<title>Vietnamese-wigs</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-mt-[50px] md:tw-mt-[0px]">
+				<div
+					className={`${
+						sales
+							? 'tw-pt-[140px] md:tw-pt-[110px]'
+							: 'tw-pt-[50px] md:tw-pt-[0px]'
+					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10`}>
 					{wigs?.length === 0 ? (
 						<div className="tw-w-full tw-flex tw-justify-center tw-pt-[100px] tw-pb-[50px]">
 							<div className="tw-rounded-full progress">

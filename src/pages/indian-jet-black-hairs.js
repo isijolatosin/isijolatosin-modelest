@@ -1,7 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import axios from 'axios'
-import { getDatabase, ref, onValue } from 'firebase/database'
 import Layout from '../components/shared/Layout'
 import Card from '../components/Card3'
 import {
@@ -13,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Add2CartPopup from '../components/shared/Add2CartPopup'
 import SingleProductModal from '../components/shared/SingleProductModal'
 import Reviews from '../components/shared/Reviews'
+import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
 
 function IndianJetBlackHair() {
 	const [singleProducts, setSingleproducts] = React.useState(null)
@@ -24,15 +24,9 @@ function IndianJetBlackHair() {
 	const cartItems = useSelector(selectCartItems)
 	const [singleCart, setSingleCart] = React.useState(null)
 	const dispatch = useDispatch()
-	const database = getDatabase()
 
 	React.useEffect(() => {
-		const starCountRef = ref(database, 'sales')
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-
-			setSales(data?.no)
-		})
+		setSales(fetchSalesPercentage())
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 

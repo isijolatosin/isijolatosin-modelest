@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { Helmet } from 'react-helmet'
 import emailjs from 'emailjs-com'
-import { getDatabase, ref, onValue } from 'firebase/database'
 import { useNavigate } from 'react-router-dom'
 import { GoAlert } from 'react-icons/go'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,6 +14,7 @@ import Layout from '../components/shared/Layout'
 import { UserContext } from '../context/user-context'
 import Button from '../components/shared/Button'
 import { AUTHORIZED_ID } from '../constant'
+import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
 
 const Success = () => {
 	const { user } = useContext(UserContext)
@@ -46,15 +46,9 @@ const Success = () => {
 	const shipMethod = localStorage.getItem('ship')
 	const paymentName = localStorage.getItem('paymentName')
 	const userEmail = user?.email || localStorage.getItem('altEmail')
-	const database = getDatabase()
 
 	React.useEffect(() => {
-		const starCountRef = ref(database, 'sales')
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-
-			setSales(data.no)
-		})
+		setSales(fetchSalesPercentage())
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 	const orderNo = `ModelEst${Math.random().toString(36).slice(2)}`

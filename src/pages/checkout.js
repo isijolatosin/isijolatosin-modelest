@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { Helmet } from 'react-helmet'
-import { getDatabase, ref, onValue } from 'firebase/database'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaOpencart, FaHandPointRight } from 'react-icons/fa'
@@ -21,6 +20,7 @@ import Heading from '../components/Heading'
 import { BsFillQuestionCircleFill } from 'react-icons/bs'
 import { db } from '../firebase'
 import { AUTHORIZED_ID } from '../constant'
+import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
 
 const logo = require('../assets/logo2.png')
 
@@ -36,7 +36,6 @@ const Cart = () => {
 	const [error, setError] = React.useState(false)
 	const [discount, setDiscount] = React.useState('')
 	const [discountPrice, setDiscountPrice] = React.useState('')
-	const database = getDatabase()
 	const [shippingMethod, setShippingMethod] = React.useState('')
 	const [warn, setWarn] = React.useState(false)
 	const [showLoad, setShowLoad] = React.useState(false)
@@ -69,12 +68,7 @@ const Cart = () => {
 		localStorage.removeItem('finalPriceToPayObject')
 		localStorage.removeItem('finalPriceToPay')
 
-		const starCountRef = ref(database, 'sales')
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-
-			setSales(data.no)
-		})
+		setSales(fetchSalesPercentage())
 
 		db.collection('admin')
 			.doc(`${AUTHORIZED_ID.id_one}/`)

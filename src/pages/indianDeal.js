@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
 import { getDatabase, ref, onValue } from 'firebase/database'
 import BundleCard from '../components/BundleCard'
+import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
 
 function IndianDeal() {
 	// const { user } = useContext(UserContext)
@@ -23,12 +24,7 @@ function IndianDeal() {
 	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12)
 
 	React.useEffect(() => {
-		const starCountRef = ref(database, 'sales')
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-
-			setSales(data.no)
-		})
+		setSales(fetchSalesPercentage())
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 

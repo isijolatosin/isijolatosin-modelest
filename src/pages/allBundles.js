@@ -1,7 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import axios from 'axios'
-import { getDatabase, ref, onValue } from 'firebase/database'
 import Layout from '../components/shared/Layout'
 import Card from '../components/Card2'
 import {
@@ -17,6 +16,7 @@ import SearchInput from '../components/shared/SearchInput'
 import { Link } from 'react-router-dom'
 import { RiSendPlaneFill } from 'react-icons/ri'
 import Heading from '../components/Heading'
+import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
 
 function IndianBundles() {
 	const [hairBundles, setHairBundles] = React.useState([])
@@ -38,7 +38,6 @@ function IndianBundles() {
 	})
 	const cartItems = useSelector(selectCartItems)
 	const dispatch = useDispatch()
-	const database = getDatabase()
 
 	async function fetchProducts() {
 		try {
@@ -56,12 +55,7 @@ function IndianBundles() {
 	}
 
 	React.useEffect(() => {
-		const starCountRef = ref(database, 'sales')
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-
-			setSales(data?.no)
-		})
+		setSales(fetchSalesPercentage())
 
 		window.scrollTo(0, 0)
 		setTimeout(() => {
