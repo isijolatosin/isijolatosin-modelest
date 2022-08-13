@@ -19,7 +19,6 @@ const Cart = () => {
 	const [agree, setAgree] = React.useState(false)
 	const [warn, setWarn] = React.useState(false)
 	const [showInfo, setShowInfo] = React.useState(false)
-
 	React.useEffect(() => {
 		setSales(fetchSalesPercentage())
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -68,7 +67,7 @@ const Cart = () => {
 								))}
 							</div>
 							<div className="tw-bg-white tw-p-3 tw-w-full md:tw-w-[40%] md:tw-ml-2">
-								<p>Subtotal - ${total} USD</p>
+								<p>Subtotal - ${Number(total.toFixed(2))} USD</p>
 								<p className="tw-text-neutral-600 tw-text-sm">
 									Tax and shipping cost calculated at checkout
 								</p>

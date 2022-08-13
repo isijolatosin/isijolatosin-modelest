@@ -25,9 +25,7 @@ import { BsFillArrowLeftCircleFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import Heading from '../components/Heading'
 import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
-
-const paypal = require('../../src/assets/paypal.png')
-const stripe = require('../../src/assets/stripe.png')
+import PaymentOptions from '../components/shared/PaymentOptions'
 
 const SingleWig = () => {
 	const [singleWig, setSingleWig] = React.useState([])
@@ -252,7 +250,7 @@ const SingleWig = () => {
 							quantity={_quantity}
 						/>
 					</div>
-					<div className="tw-mt-[70px] xl:tw-w-[80%] tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
+					<div className="tw-mt-[70px] tw-w-full md:tw-w-[95%] tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
 						<div>
 							<div className="tw-fixed tw-z-10 tw-right-5 md:tw-right-20 tw-top-[170px]">
 								<div className="tw-text-neutral-900  tw-mb-3">
@@ -341,27 +339,7 @@ const SingleWig = () => {
 											Length: <span>{_length}" inches</span>
 										</div>
 									</div>
-									<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
-										Pay in 4 interest-free payments of $
-										{price ? price / 4 : '$$$'} with{' '}
-										<img
-											src={stripe}
-											alt="paypal"
-											className="tw-w-[45px] tw-ml-[2px]"
-										/>
-									</p>
-									<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
-										or 4 interest-free payment of ${price ? price / 4 : '$$$'}{' '}
-										with{' '}
-										<img
-											src={paypal}
-											alt="paypal"
-											className="tw-w-[45px] tw-mx-1"
-										/>
-									</p>
-									<p className="tw-text-xs tw-text-blue-700">
-										Available @ checkout
-									</p>
+									<PaymentOptions price={price} />
 									{error && (
 										<div>
 											<p className="tw-text-left tw-mb-2 tw-mt-5 tw-text-red-600 tw-text-xs">
@@ -451,27 +429,7 @@ const SingleWig = () => {
 										Length: <span>{_length}" inches</span>
 									</div>
 								</div>
-								<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
-									Pay in 4 interest-free payments of $
-									{price ? price / 4 : '$$$'} with{' '}
-									<img
-										src={stripe}
-										alt="paypal"
-										className="tw-w-[45px] tw-ml-[2px]"
-									/>
-								</p>
-								<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
-									or 4 interest-free payment of ${price ? price / 4 : '$$$'}{' '}
-									with{' '}
-									<img
-										src={paypal}
-										alt="paypal"
-										className="tw-w-[45px] tw-mx-1"
-									/>
-								</p>
-								<p className="tw-text-xs tw-text-blue-700">
-									Available @ checkout
-								</p>
+								<PaymentOptions price={price} />
 								{error && (
 									<div>
 										<p className="tw-text-left tw-mb-2 tw-mt-5 tw-text-red-600 tw-text-xs">

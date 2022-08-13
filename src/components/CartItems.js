@@ -25,6 +25,7 @@ const CartItems = ({ product }) => {
 	const dispatch = useDispatch()
 
 	const prdct = { name, id, image, price, hairLength, hairColor, description }
+
 	const increaseItem = () => {
 		dispatch(increaseCartItem(prdct))
 	}
@@ -49,7 +50,7 @@ const CartItems = ({ product }) => {
 					<div className="tw-font-bold">
 						<h4>{name}</h4>
 					</div>
-					<p>{`Price: $${price * quantity}`}</p>
+					<p>{`Price: $${Number((price * quantity).toFixed(2))}`}</p>
 					<p>{`Length: ${hairLength}`}</p>
 					{hairColor && <p>{`Color: ${hairColor}`}</p>}
 					{hairTexture && <p>{`Texture: ${hairTexture}`}</p>}

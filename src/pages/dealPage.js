@@ -18,9 +18,9 @@ import {
 	fetchBundlePercentage,
 	fetchSalesPercentage,
 } from '../utils/salesPercentageNuumber'
-
-const paypal = require('../../src/assets/paypal.png')
-const stripe = require('../../src/assets/stripe.png')
+import { BsFillArrowLeftCircleFill } from 'react-icons/bs'
+import { Link } from 'react-router-dom'
+import PaymentOptions from '../components/shared/PaymentOptions'
 
 const DealPage = () => {
 	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12)
@@ -111,10 +111,11 @@ const DealPage = () => {
 						price += product?.price + 10
 					}
 				}
-				const discnt = Number(
-					(price * (bundleDealsPercentage / 100)).toFixed(2)
-				)
-				setDealPrice((price - discnt).toFixed(2))
+				const discnt =
+					bundleDealsPercentage &&
+					Number((price * (bundleDealsPercentage / 100)).toFixed(2))
+
+				setDealPrice(discnt ? Number((price - discnt).toFixed(2)) : price)
 			})
 
 			setDeals(filtered.sort((a, b) => a.name.localeCompare(b.name)))
@@ -243,7 +244,7 @@ const DealPage = () => {
 			<Layout sales={bundleDealsPercentage}>
 				<div
 					className={`${
-						sales ? 'tw-pt-[70px] md:tw-pt-[50px]' : 'tw-pt-0'
+						sales ? 'tw-pt-[55px] md:tw-pt-[50px]' : 'tw-pt-0'
 					} tw-w-full tw-bg-white tw-flex tw-flex-col tw-items-center`}>
 					<div className="tw-fixed tw-z-20 tw-top-0 md:tw-top-[-95px] tw-right-0">
 						<Add2CartPopup
@@ -252,11 +253,21 @@ const DealPage = () => {
 							quantity={_quantity}
 						/>
 					</div>
-					<div className="tw-pt-[70px] xl:tw-w-[80%] tw-px-5 tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
+					<div className="tw-pt-[70px] xl:tw-w-[80%] tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
+						<div className="tw-fixed tw-z-10 tw-right-5 md:tw-right-20 tw-top-[170px]">
+							<div className="tw-text-neutral-900  tw-mb-3">
+								<Link to="/indian-bundles-deals">
+									<BsFillArrowLeftCircleFill
+										size={35}
+										className="hover:md:tw-text-neutral-50 hover:tw-drop-shadow-lg tw-ease-in tw-duration-300"
+									/>{' '}
+								</Link>
+							</div>
+						</div>
 						<div className="">
 							<Slideshow images={dealsImage} iconSize={25} />
 						</div>
-						<div className="">
+						<div className="tw-px-5">
 							<h1 className="tw-text-xl md:tw-text-3xl tw-uppercase">
 								{name} & {frntlClsr} - 3 Bundle Deal
 							</h1>
@@ -303,29 +314,9 @@ const DealPage = () => {
 								</div>
 							</div>
 							<div className="tw-mb-1">
-								<span className="tw-text-3xl">
-									${(dealPrice * _quantity).toFixed(2)}
-								</span>
+								<span className="tw-text-3xl">${dealPrice * _quantity}</span>
 							</div>
-							<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
-								Pay in 4 interest-free payments of ${price / 4} with{' '}
-								<img
-									src={stripe}
-									alt="paypal"
-									className="tw-w-[45px] tw-ml-[2px]"
-								/>
-							</p>
-							<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
-								or 4 interest-free payment of ${price / 4} with{' '}
-								<img
-									src={paypal}
-									alt="paypal"
-									className="tw-w-[45px] tw-mx-1"
-								/>
-							</p>
-							<p className="tw-text-xs tw-text-blue-700">
-								Available @ checkout
-							</p>
+							<PaymentOptions price={price} />
 							{error && (
 								<div>
 									<p className="tw-text-left tw-mb-2 tw-mt-5 tw-text-red-600 tw-text-xs">

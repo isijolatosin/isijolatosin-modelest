@@ -18,9 +18,7 @@ import {
 	wigTextureType2,
 	wigTextureTypeIncreaseValue2,
 } from '../../constant'
-
-const paypal = require('../../assets/paypal.png')
-const stripe = require('../../assets/stripe.png')
+import PaymentOptions from './PaymentOptions'
 
 const HomePageSingleModal = ({
 	singleProducts,
@@ -528,22 +526,7 @@ const HomePageSingleModal = ({
 							<span className="tw-text-xs">OFF</span>
 						</p>
 					)}
-					<div className="tw-my-3">
-						<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
-							Pay in 4 interest-free payments of ${price ? price / 4 : '$$$'}{' '}
-							with{' '}
-							<img
-								src={stripe}
-								alt="paypal"
-								className="tw-w-[45px] tw-ml-[2px]"
-							/>
-						</p>
-						<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
-							or 4 interest-free payment of ${price ? price / 4 : '$$$'} with{' '}
-							<img src={paypal} alt="paypal" className="tw-w-[45px] tw-mx-1" />
-						</p>
-						<p className="tw-text-xs tw-text-blue-700">Available @ checkout</p>
-					</div>
+					<PaymentOptions price={price} />
 					<div className="tw-mt-5">
 						{error && (
 							<div>

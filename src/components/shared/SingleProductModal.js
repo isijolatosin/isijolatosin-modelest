@@ -3,10 +3,8 @@ import { CgClose } from 'react-icons/cg'
 import { isInCart } from '../../utils/helpers'
 import Slideshow from '../../utils/Slideshow'
 import Heading from '../Heading'
+import PaymentOptions from './PaymentOptions'
 import Rating from './Rating'
-
-const paypal = require('../../assets/paypal.png')
-const stripe = require('../../assets/stripe.png')
 
 const SingleProductModal = ({
 	price,
@@ -33,8 +31,8 @@ const SingleProductModal = ({
 	return (
 		<div>
 			{singleProducts && (
-				<div className="single tw-fixed tw-z-40 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-[0px] md:tw-pt-10 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
-					<div className="md:tw-w-[80%] xl:tw-w-[70%] md:tw-mx-auto tw-w-[100%] tw-h-full tw-flex md:tw-flex-row tw-flex-col">
+				<div className="single tw-fixed tw-z-40 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-[0px] md:tw-pt-16 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
+					<div className="md:tw-w-[95%] md:tw-mx-auto tw-w-[100%] tw-h-full tw-flex md:tw-flex-row tw-flex-col">
 						<div className="tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
 							<Slideshow images={singleProducts?.[0]} iconSize={25} />
 							<div className="tw-w-[90%] tw-mx-auto">
@@ -160,29 +158,7 @@ const SingleProductModal = ({
 									<span className="tw-text-xs">OFF</span>
 								</p>
 							)}
-							<div className="tw-my-3">
-								<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
-									Pay in 4 interest-free payments of $
-									{price ? price / 4 : '$$$'} with{' '}
-									<img
-										src={stripe}
-										alt="paypal"
-										className="tw-w-[45px] tw-ml-[2px]"
-									/>
-								</p>
-								<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
-									or 4 interest-free payment of ${price ? price / 4 : '$$$'}{' '}
-									with{' '}
-									<img
-										src={paypal}
-										alt="paypal"
-										className="tw-w-[45px] tw-mx-1"
-									/>
-								</p>
-								<p className="tw-text-xs tw-text-blue-700">
-									Available @ checkout
-								</p>
-							</div>
+							<PaymentOptions price={price} />
 							<div>
 								{error && (
 									<div>
