@@ -10,7 +10,7 @@ import ContactForm from '../components/shared/ContactForm'
 import { Link } from 'react-router-dom'
 import SearchInput from '../components/shared/SearchInput'
 import PromoCard from '../components/PromoCard'
-import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
+import { getDatabase, ref, onValue } from 'firebase/database'
 
 function HomePage() {
 	const [searchControl, setSearchControl] = React.useState(false)
@@ -36,8 +36,13 @@ function HomePage() {
 	})
 	const [featuredProduct, setFeaturedProduct] = React.useState([])
 
+	const database = getDatabase()
 	React.useEffect(() => {
-		setSales(fetchSalesPercentage())
+		const starCountRef = ref(database, 'sales')
+		onValue(starCountRef, (snapshot) => {
+			const data = snapshot.val()
+			setSales(data.no)
+		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 

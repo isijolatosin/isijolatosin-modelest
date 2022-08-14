@@ -2,13 +2,14 @@ import React from 'react'
 import axios from 'axios'
 import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
-import { getDatabase, ref, onValue } from 'firebase/database'
 import BundleCard from '../components/BundleCard'
-import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
+import {
+	fetchBundlePercentage,
+	fetchSalesPercentage,
+} from '../utils/salesPercentageNumber'
 
 function IndianDeal() {
 	// const { user } = useContext(UserContext)
-	const database = getDatabase()
 	const [dealPriceBodyWaveFrontal, setDealPriceBodyWaveFrontal] =
 		React.useState(null)
 	const [dealPriceBodyWaveClosure, setDealPriceBodyWaveClosure] =
@@ -25,6 +26,7 @@ function IndianDeal() {
 
 	React.useEffect(() => {
 		setSales(fetchSalesPercentage())
+		setBundleDealsPercentage(fetchBundlePercentage())
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -96,16 +98,9 @@ function IndianDeal() {
 	}
 
 	React.useEffect(() => {
-		const starCountRef = ref(database, 'bundle deals')
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-
-			setBundleDealsPercentage(data.no)
-		})
 		setTimeout(() => {
 			fetchProducts()
 		}, 3000)
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
