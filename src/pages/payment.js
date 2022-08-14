@@ -19,7 +19,7 @@ import {
 	MdOutlineKeyboardArrowUp,
 } from 'react-icons/md'
 import { BsFillQuestionCircleFill } from 'react-icons/bs'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 import { BsCreditCard } from 'react-icons/bs'
 import Heading from '../components/Heading'
 import { RiVisaLine } from 'react-icons/ri'

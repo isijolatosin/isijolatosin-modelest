@@ -5,7 +5,7 @@ import Layout from '../components/shared/Layout'
 import {
 	fetchBundlePercentage,
 	fetchSalesPercentage,
-} from '../utils/salesPercentageNuumber'
+} from '../utils/salesPercentageNumber'
 // import { UserContext } from '../context/user-context'
 
 function VirginDeal() {

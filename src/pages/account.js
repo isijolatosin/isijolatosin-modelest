@@ -4,7 +4,7 @@ import Heading from '../components/Heading'
 import Layout from '../components/shared/Layout'
 import { UserContext } from '../context/user-context'
 import { db } from '../firebase'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 
 function Account() {
 	const [isLoading, setIsLoading] = React.useState(true)

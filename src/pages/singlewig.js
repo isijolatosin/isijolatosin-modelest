@@ -24,7 +24,7 @@ import {
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import Heading from '../components/Heading'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 import PaymentOptions from '../components/shared/PaymentOptions'
 
 const SingleWig = () => {

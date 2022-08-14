@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Layout from '../components/shared/Layout'
 import Button from '../components/shared/Button'
 import Heading from '../components/Heading'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 
 const Canceled = () => {
 	const [sales, setSales] = React.useState(false)

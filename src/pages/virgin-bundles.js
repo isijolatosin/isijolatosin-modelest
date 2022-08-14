@@ -2,7 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 // import { getDatabase, ref, onValue } from 'firebase/database'
 import Layout from '../components/shared/Layout'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 // import { UserContext } from '../context/user-context'
 
 function VirginBundles() {

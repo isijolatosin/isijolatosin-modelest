@@ -5,7 +5,7 @@ import Layout from '../components/shared/Layout'
 import {
 	fetchSalesPercentage,
 	fetchBundlePercentage,
-} from '../utils/salesPercentageNuumber'
+} from '../utils/salesPercentageNumber'
 // import { UserContext } from '../context/user-context'
 
 function VietnameseBundles() {

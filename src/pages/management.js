@@ -16,7 +16,7 @@ import {
 	MdOutlineInventory,
 	MdOutlineLocalShipping,
 } from 'react-icons/md'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 
 function Management() {
 	const database = getDatabase()

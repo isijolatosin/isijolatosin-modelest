@@ -14,7 +14,7 @@ import Layout from '../components/shared/Layout'
 import { UserContext } from '../context/user-context'
 import Button from '../components/shared/Button'
 import { AUTHORIZED_ID } from '../constant'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 
 const Success = () => {
 	const { user } = useContext(UserContext)

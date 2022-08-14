@@ -8,7 +8,7 @@ import CartItems from '../components/CartItems'
 import { selectCartItems, selectTotal } from '../slices/appSlices'
 import Button from '../components/shared/Button'
 import { UserContext } from '../context/user-context'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 
 const Cart = () => {
 	const { user } = useContext(UserContext)

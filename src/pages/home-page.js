@@ -10,7 +10,7 @@ import ContactForm from '../components/shared/ContactForm'
 import { Link } from 'react-router-dom'
 import SearchInput from '../components/shared/SearchInput'
 import PromoCard from '../components/PromoCard'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 
 function HomePage() {
 	const [searchControl, setSearchControl] = React.useState(false)

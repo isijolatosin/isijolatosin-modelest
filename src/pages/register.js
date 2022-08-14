@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Layout from '../components/shared/Layout'
 import { auth, createUserProfileDocument } from '../firebase'
 import Button from '../components/shared/Button'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 
 const Register = () => {
 	const navigate = useNavigate()

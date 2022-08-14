@@ -5,7 +5,7 @@ import { AiOutlineRollback } from 'react-icons/ai'
 import Button from '../components/shared/Button'
 import Layout from '../components/shared/Layout'
 import CursorText from '../components/shared/CursorText'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 
 function NotFound() {
 	const [showText, setShowText] = React.useState(false)

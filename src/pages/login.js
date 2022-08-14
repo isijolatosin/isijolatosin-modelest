@@ -5,7 +5,7 @@ import Layout from '../components/shared/Layout'
 import { auth } from '../firebase'
 import Button from '../components/shared/Button'
 import { Helmet } from 'react-helmet'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 
 const Login = () => {
 	const navigate = useNavigate()

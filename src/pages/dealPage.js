@@ -17,7 +17,7 @@ import Heading from '../components/Heading'
 import {
 	fetchBundlePercentage,
 	fetchSalesPercentage,
-} from '../utils/salesPercentageNuumber'
+} from '../utils/salesPercentageNumber'
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import PaymentOptions from '../components/shared/PaymentOptions'

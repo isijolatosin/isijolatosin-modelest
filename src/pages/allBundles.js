@@ -16,7 +16,7 @@ import SearchInput from '../components/shared/SearchInput'
 import { Link } from 'react-router-dom'
 import { RiSendPlaneFill } from 'react-icons/ri'
 import Heading from '../components/Heading'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 
 function IndianBundles() {
 	const [hairBundles, setHairBundles] = React.useState([])

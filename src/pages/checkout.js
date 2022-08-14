@@ -20,7 +20,7 @@ import Heading from '../components/Heading'
 import { BsFillQuestionCircleFill } from 'react-icons/bs'
 import { db } from '../firebase'
 import { AUTHORIZED_ID } from '../constant'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 
 const logo = require('../assets/logo2.png')
 

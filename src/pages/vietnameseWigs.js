@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
 import WigsCard from '../components/WigsCard'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 
 function VietnameseWigs() {
 	const [wigs, setWigs] = React.useState(null)

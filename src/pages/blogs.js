@@ -2,7 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import Heading from '../components/Heading'
 import Layout from '../components/shared/Layout'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 
 function Blogs() {
 	const [show, setShow] = React.useState(false)

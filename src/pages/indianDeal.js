@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet'
 import Layout from '../components/shared/Layout'
 import { getDatabase, ref, onValue } from 'firebase/database'
 import BundleCard from '../components/BundleCard'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 
 function IndianDeal() {
 	// const { user } = useContext(UserContext)

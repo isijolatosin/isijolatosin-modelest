@@ -1,8 +1,8 @@
 import React from 'react'
+import { getDatabase, ref, onValue } from 'firebase/database'
 import ImageComponent from './ImageComponent'
 import LinksComponent from './LinksComponent'
 import NavIcons from './NavIcons'
-import { fetchSalesPercentage } from '../../utils/salesPercentageNuumber'
 
 function Nav({
 	setShowContactForm,
@@ -12,10 +12,16 @@ function Nav({
 	showContactForm,
 }) {
 	const [sales, setSales] = React.useState(null)
+	const database = getDatabase()
+	const starCountRef = ref(database, 'sales')
 	React.useEffect(() => {
-		setSales(fetchSalesPercentage())
+		onValue(starCountRef, (snapshot) => {
+			const data = snapshot.val()
+
+			setSales(data?.no)
+		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, [starCountRef])
 
 	return (
 		<div>

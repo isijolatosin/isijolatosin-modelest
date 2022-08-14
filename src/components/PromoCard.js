@@ -1,7 +1,7 @@
 import React from 'react'
 import { AUTHORIZED_ID } from '../constant'
 import { db } from '../firebase'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 
 const PromoCard = ({ setExpired }) => {
 	const [code, setCode] = React.useState('')

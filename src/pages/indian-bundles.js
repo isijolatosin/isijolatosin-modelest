@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Add2CartPopup from '../components/shared/Add2CartPopup'
 import SingleProductModal from '../components/shared/SingleProductModal'
 import Reviews from '../components/shared/Reviews'
-import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 
 function IndianBundles() {
 	const [hairBundles, setHairBundles] = React.useState([])
