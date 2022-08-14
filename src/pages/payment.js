@@ -20,8 +20,15 @@ import {
 } from 'react-icons/md'
 import { BsFillQuestionCircleFill } from 'react-icons/bs'
 import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
+import { BsCreditCard } from 'react-icons/bs'
+import Heading from '../components/Heading'
+import { RiVisaLine } from 'react-icons/ri'
 
 const logo = require('../assets/logo2.png')
+const paypal = require('../assets/paypal.png')
+const mastercard = require('../assets/mastercard.png')
+const mastercard2 = require('../assets/mastercard2.png')
+const americanExpress = require('../assets/american-express.png')
 
 const Cart = () => {
 	const { user } = useContext(UserContext)
@@ -34,9 +41,38 @@ const Cart = () => {
 	const [showSum, setShowSum] = React.useState(false)
 	const [pageCancel, setPageCancel] = React.useState(false)
 	const discountPrice = Number(localStorage.getItem('discountPrice'))
+	const userNameAndPhone = localStorage.getItem('user name and phone')
+	const orderNo = localStorage.getItem('order no')
+	const shippingObj = JSON.parse(localStorage.getItem('shippingCost'))
+	const shipMethod = localStorage.getItem('ship')
+	const userPostalAddress = localStorage
+		.getItem('address')
+		.split(' Phone-no')[0]
 	const [showLoad, setShowLoad] = React.useState(false)
 	const [showInfo, setShowInfo] = React.useState(false)
-
+	const [selectShippingOption, setSelectShippingOption] = React.useState(false)
+	const [showPaypalPayment, setShowPaypalPayment] = React.useState(false)
+	const [showCardPayment, setShowCardPayment] = React.useState(false)
+	const [warn, setWarn] = React.useState(false)
+	const shipPrice =
+		shipMethod === 'ship' ? `USD $${shippingObj.cost}:00` : 'PICK UP'
+	const taxPrice = Number(
+		(total * Number(process.env.REACT_APP_TAX_PERCENT)).toFixed(2)
+	)
+	let estimatedTotalPrice
+	if (shipMethod === 'ship') {
+		if (discountPrice) {
+			estimatedTotalPrice = discountPrice + shippingObj.cost + taxPrice
+		} else {
+			estimatedTotalPrice = total + shippingObj.cost + taxPrice
+		}
+	} else {
+		if (discountPrice) {
+			estimatedTotalPrice = discountPrice + taxPrice
+		} else {
+			estimatedTotalPrice = total + taxPrice
+		}
+	}
 	React.useEffect(() => {
 		setSales(fetchSalesPercentage())
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -62,6 +98,29 @@ const Cart = () => {
 		}, 5000)
 	}
 
+	const handleShipMethod = (method, event) => {
+		if (event) {
+			setWarn(false)
+			setSelectShippingOption(method)
+		}
+	}
+	const placeOrder = function () {
+		if (selectShippingOption) {
+			if (selectShippingOption === 'paypal') {
+				setWarn(false)
+				setShowPaypalPayment(true)
+				setShowCardPayment(false)
+			} else if (selectShippingOption === 'card') {
+				setWarn(false)
+				setShowCardPayment(true)
+				setShowPaypalPayment(false)
+			}
+		} else {
+			setWarn(true)
+		}
+		setSelectShippingOption('')
+	}
+
 	return (
 		<>
 			<Helmet>
@@ -71,7 +130,7 @@ const Cart = () => {
 				<div
 					className={
 						sales
-							? 'tw-pt-[120px] tw-bg-neutral-200 md:tw-pt-[90px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center home tw-relative'
+							? 'tw-pt-[125px] tw-bg-neutral-200 md:tw-pt-[105px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center home tw-relative'
 							: 'tw-bg-neutral-200 tw-pt-[90px] md:tw-pt-[60px] tw-pb-[20px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center home tw-relative'
 					}>
 					{cartItems.length === 0 ? (
@@ -89,48 +148,58 @@ const Cart = () => {
 									{cartItems.map((item) => (
 										<CartItemsCheckout product={item} key={item.id} />
 									))}
-
 									<div className="tw-relative">
-										<div className="tw-border-b-[1px] tw-border-[#b59248] tw-py-5 tw-text-neutral-700">
-											<div className="tw-flex tw-items-center tw-justify-between tw-text-sm">
-												<div>
-													<span>Subtotal</span>
-													{discountPrice && (
-														<span className="tw-text-xs tw-text-neutral-500 tw-ml-2">
-															(discount add)
-														</span>
-													)}
-												</div>
-												{showLoad ? (
-													<div className="circular-loader-small"></div>
-												) : (
-													<span className="tw-text-[16px]">
-														${discountPrice ? discountPrice : total}
-													</span>
-												)}
-											</div>
-											<div className="tw-flex tw-items-center tw-justify-between tw-text-sm">
-												<div className="tw-relative tw-flex tw-items-center">
-													<span>Shipping</span>
-													<BsFillQuestionCircleFill
-														size={17}
-														onMouseOver={() => setShowInfo(true)}
-														onMouseLeave={() => setShowInfo(false)}
-														className="tw-text-neutral-700 tw-mx-1 hover:tw-cursor-pointer"
+										<div className="tw-p-3 tw-text-xs tw-font-light tw-border-t-[1px] tw-border-b-[1px] tw-border-[#b59248] tw-mt-3">
+											<div className=" tw-border-b-[1px] tw-border-[#b59248] tw-pb-3">
+												<div className="tw-w-[65%] tw-capitalize">
+													<Heading
+														children="Billing Address"
+														isLight={true}
+														size1={true}
+														isBold={true}
 													/>
-													{showInfo && (
-														<div className="tw-absolute tw-w-[170px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-bl-none tw-text-white tw-text-center tw-top-[-50px] tw-left-[84px]">
-															<span>
-																Check shipping policy in the footer below
-															</span>
-														</div>
-													)}
+													<p>{userNameAndPhone}</p>
+													<p>{userPostalAddress}</p>
 												</div>
-												<span>Calculated at next step</span>
+											</div>
+											<div className="tw-py-3">
+												<div className="tw-flex tw-justify-between tw-items-center tw-mb-2">
+													<p>Order Number:</p>
+													<p>{orderNo}</p>
+												</div>
+												<div className="tw-flex tw-justify-between tw-items-center tw-mb-2">
+													<p>Subtotal:</p>
+													<p>USD ${discountPrice ? discountPrice : total}</p>
+												</div>
+												<div className="tw-flex tw-justify-between tw-items-center tw-mb-2">
+													<div className="tw-flex tw-items-center tw-relative">
+														<p>Shipping fee</p>
+														<BsFillQuestionCircleFill
+															size={15}
+															onMouseOver={() => setShowInfo(true)}
+															onMouseLeave={() => setShowInfo(false)}
+															className="tw-text-neutral-700 tw-mx-1 hover:tw-cursor-pointer"
+														/>
+														{showInfo && (
+															<div className="tw-absolute tw-w-[170px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-bl-none tw-text-white tw-text-center tw-top-[-45px] tw-left-[84px]">
+																<span>Check shipping policy in help tab</span>
+															</div>
+														)}
+													</div>
+													<p>{shipPrice}</p>
+												</div>
+												<div className="tw-flex tw-justify-between tw-items-center tw-mb-2">
+													<p>Taxes included:</p>
+													<p>USD ${taxPrice}</p>
+												</div>
+												<div className="tw-flex tw-justify-between tw-items-center">
+													<p>Discount:</p>
+													<p>USD ${discountPrice ? discountPrice : '0.00'}</p>
+												</div>
 											</div>
 										</div>
-										<div className="tw-flex tw-items-center tw-justify-between tw-text-sm tw-pt-5">
-											<span className="tw-text-[16px]">Total</span>
+										<div className="tw-flex tw-items-center tw-justify-between tw-text-sm tw-pt-5 tw-px-3 ">
+											<span className="tw-text-[16px]">Total:</span>
 											<div className="tw-flex tw-items-center">
 												<span className="tw-text-[12px] tw-mr-2 tw-text-neutral-700">
 													USD
@@ -139,7 +208,7 @@ const Cart = () => {
 													<div className="circular-loader-small"></div>
 												) : (
 													<span className="tw-text-[20px]">
-														${discountPrice ? discountPrice : total}
+														${estimatedTotalPrice}
 													</span>
 												)}
 											</div>
@@ -198,7 +267,6 @@ const Cart = () => {
 											)}
 										</div>
 									</div>
-
 									<div
 										className={`${
 											showSum ? `tw-opacity-1 tw-py-5` : 'tw-h-0 tw-opacity-0'
@@ -207,46 +275,57 @@ const Cart = () => {
 											<CartItemsCheckout product={item} key={item.id} />
 										))}
 										<div className="tw-relative">
-											<div className="tw-border-t-[1px] tw-border-b-[1px] tw-border-[#b59248] tw-py-5 tw-text-neutral-700 tw-px-3">
-												<div className="tw-flex tw-items-center tw-justify-between tw-text-sm">
-													<div>
-														<span>Subtotal</span>
-														{discountPrice && (
-															<span className="tw-text-xs tw-text-neutral-500 tw-ml-2">
-																(discount add)
-															</span>
-														)}
-													</div>
-													{showLoad ? (
-														<div className="circular-loader-small"></div>
-													) : (
-														<span className="tw-text-[16px]">
-															${discountPrice ? discountPrice : total}
-														</span>
-													)}
-												</div>
-												<div className="tw-flex tw-items-center tw-justify-between tw-text-sm ">
-													<div className="tw-relative tw-flex tw-items-center">
-														<span>Shipping</span>
-														<BsFillQuestionCircleFill
-															size={15}
-															onMouseOver={() => setShowInfo(true)}
-															onMouseLeave={() => setShowInfo(false)}
-															className="tw-text-neutral-700 tw-mx-1 hover:tw-cursor-pointer"
+											<div className="tw-p-3 tw-text-xs tw-font-light tw-border-t-[1px] tw-border-b-[1px] tw-border-[#b59248] tw-mt-3">
+												<div className=" tw-border-b-[1px] tw-border-[#b59248] tw-pb-3">
+													<div className="tw-w-[65%] tw-capitalize">
+														<Heading
+															children="Billing Address"
+															isLight={true}
+															size1={true}
+															isBold={true}
 														/>
-														{showInfo && (
-															<div className="tw-absolute tw-w-[170px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-bl-none tw-text-white tw-text-center tw-top-[-50px] tw-left-[84px]">
-																<span>
-																	Check shipping policy in the footer below
-																</span>
-															</div>
-														)}
+														<p>{userNameAndPhone}</p>
+														<p>{userPostalAddress}</p>
 													</div>
-													<span>Calculated at next step</span>
+												</div>
+												<div className="tw-py-3">
+													<div className="tw-flex tw-justify-between tw-items-center tw-mb-2">
+														<p>Order Number:</p>
+														<p>{orderNo}</p>
+													</div>
+													<div className="tw-flex tw-justify-between tw-items-center tw-mb-2">
+														<p>Subtotal:</p>
+														<p>USD ${discountPrice ? discountPrice : total}</p>
+													</div>
+													<div className="tw-flex tw-justify-between tw-items-center tw-mb-2">
+														<div className="tw-flex tw-items-center tw-relative">
+															<p>Shipping fee</p>
+															<BsFillQuestionCircleFill
+																size={15}
+																onMouseOver={() => setShowInfo(true)}
+																onMouseLeave={() => setShowInfo(false)}
+																className="tw-text-neutral-700 tw-mx-1 hover:tw-cursor-pointer"
+															/>
+															{showInfo && (
+																<div className="tw-absolute tw-w-[170px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-bl-none tw-text-white tw-text-center tw-top-[-45px] tw-left-[84px]">
+																	<span>Check shipping policy in help tab</span>
+																</div>
+															)}
+														</div>
+														<p>{shipPrice}</p>
+													</div>
+													<div className="tw-flex tw-justify-between tw-items-center tw-mb-2">
+														<p>Taxes included:</p>
+														<p>USD ${taxPrice}</p>
+													</div>
+													<div className="tw-flex tw-justify-between tw-items-center">
+														<p>Discount:</p>
+														<p>USD ${discountPrice ? discountPrice : '0.00'}</p>
+													</div>
 												</div>
 											</div>
-											<div className="tw-flex tw-items-center tw-justify-between tw-text-sm tw-pt-5 tw-px-3">
-												<span className="tw-text-[16px]">Total</span>
+											<div className="tw-flex tw-items-center tw-justify-between tw-text-sm tw-pt-5 tw-px-3 ">
+												<span className="tw-text-[16px]">Total:</span>
 												<div className="tw-flex tw-items-center">
 													<span className="tw-text-[12px] tw-mr-2 tw-text-neutral-700">
 														USD
@@ -255,22 +334,139 @@ const Cart = () => {
 														<div className="circular-loader-small"></div>
 													) : (
 														<span className="tw-text-[20px]">
-															${discountPrice ? discountPrice : total}
+															${estimatedTotalPrice}
 														</span>
 													)}
 												</div>
 											</div>
 										</div>
 									</div>
-									<div className="tw-w-full">
-										<StripeCheckout
-											itemCount={itemCount}
-											total={discountPrice ? discountPrice : total}
-											setRedirect={setRedirect}
-											setPageCancel={setPageCancel}
-											discountPrice={discountPrice}
-											sales={sales}
-										/>
+									<div className="tw-bg-white">
+										<div className="tw-mb-10 tw-border-b-[1px]">
+											<div className="tw-mt-5 tw-mb-2 tw-flex tw-items-center tw-justify-between tw-p-3 tw-border-b-[1px]">
+												<Heading
+													children="Payment Method"
+													isBlack={true}
+													isLight={true}
+												/>
+												{warn && (
+													<span className="tw-text-red-500 tw-ml-5 tw-text-sm tw-mr-2">
+														Choose your payment method
+													</span>
+												)}
+											</div>
+											<div className="tw-flex tw-flex-col md:tw-flex-row md:tw-items-center tw-justify-between">
+												<div className="tw-w-full md:tw-w-[60%] tw-border-b-[1px] md:tw-border-b-0">
+													<div className="tw-px-5 tw-flex tw-items-center tw-border-b-[1px]">
+														<label className="radio-container tw-mr-2 tw-mt-[-10px]">
+															<input
+																onClick={(e) =>
+																	handleShipMethod('paypal', e.target.checked)
+																}
+																type="radio"
+																name="radio"
+																// checked
+															/>
+															<span
+																className={`checkmark-radio ${
+																	warn && 'tw-border-red-500 tw-border-[1px]'
+																}`}></span>
+														</label>
+
+														<div
+															className={`tw-flex tw-items-center ${
+																warn ? 'tw-text-red-500' : 'tw-text-black'
+															}`}>
+															<img
+																src={paypal}
+																alt="paypal"
+																className="tw-w-[45px] tw-border-[1px] tw-border-neutral-700 tw-p-2 tw-rounded-[3px]"
+															/>
+															<span className="tw-text-[12px] tw-m-3 tw-font-light tw-tracking-wider">
+																Pay with PayPal
+															</span>
+														</div>
+													</div>
+													<div className="tw-px-5 tw-flex tw-items-top">
+														<label className="radio-container tw-mr-2 tw-mt-[10px]">
+															<input
+																onClick={(e) =>
+																	handleShipMethod('card', e.target.checked)
+																}
+																type="radio"
+																name="radio"
+															/>
+															<span
+																className={`checkmark-radio ${
+																	warn && 'tw-border-red-500 tw-border-[1px]'
+																}`}></span>
+														</label>
+														<div
+															className={`tw-flex tw-items-start ${
+																warn ? 'tw-text-red-500' : 'tw-text-black'
+															} tw-flex tw-flex-col`}>
+															<div className="tw-flex tw-items-center">
+																<BsCreditCard size={35} color="black" />
+																<span className="tw-text-[12px] tw-m-3 tw-font-light tw-tracking-wider">
+																	Credit / Debit Card
+																</span>
+															</div>
+															<div className="tw-flex tw-max-w-[95%] tw-mb-1 tw-items-center tw-mx-auto tw-justify-end tw-mr-4 md:tw-mr-6 lg:tw-mr-5 xl:tw-mr-6 tw-mt-[-8px]">
+																<img
+																	src={mastercard}
+																	alt="mastercard"
+																	className="tw-w-[30px] tw-p-2 tw-rounded-[3px]"
+																/>
+																<img
+																	src={mastercard2}
+																	alt="mastercard2"
+																	className="tw-w-[30px] tw-p-2 tw-rounded-[3px]"
+																/>
+																<RiVisaLine
+																	size={25}
+																	className="tw-mr-2 tw-mt-[-2px] tw-text-blue-900"
+																/>
+																<div className="tw-relative tw-mt-[-2px] tw-flex tw-items-center tw-mr-2">
+																	<RiVisaLine
+																		size={25}
+																		className="tw-text-blue-800"
+																	/>
+																	<span className="tw-absolute tw-bottom-[1px] tw-right-[1px] tw-text-[5px] tw-italic">
+																		DEBIT
+																	</span>
+																</div>
+																<img
+																	src={americanExpress}
+																	alt="americanExpress"
+																	className="tw-w-[30px]"
+																/>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div
+													onClick={placeOrder}
+													className="tw-flex tw-items-center tw-w-full tw-my-10 md:tw-my-0 md:tw-w-[40%]">
+													<button className="tw-bg-neutral-800 tw-text-white tw-text-xs tw-px-5 tw-py-2 hover:md:tw-bg-neutral-100 hover:md:tw-text-neutral-900 tw-ease-in tw-duration-300 tw-w-[80%] md:tw-w-[50%] tw-mx-auto tw-rounded-[30px]">
+														PLACE ORDER
+													</button>
+												</div>
+											</div>
+										</div>
+										{(showPaypalPayment || showCardPayment) && (
+											<div className="tw-w-full">
+												<StripeCheckout
+													itemCount={itemCount}
+													total={discountPrice ? discountPrice : total}
+													setRedirect={setRedirect}
+													setPageCancel={setPageCancel}
+													discountPrice={discountPrice}
+													sales={sales}
+													showPaypalPayment={showPaypalPayment}
+													showCardPayment={showCardPayment}
+												/>
+											</div>
+										)}
 									</div>
 								</div>
 							</div>

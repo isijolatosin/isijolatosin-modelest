@@ -13,17 +13,21 @@ const StripeCheckout = ({
 	setPageCancel,
 	discountPrice,
 	sales,
+	showPaypalPayment,
+	showCardPayment,
 }) => {
 	return (
 		<Wrapper>
 			<Elements stripe={promise}>
 				<CheckoutForm2
 					total={total}
+					sales={sales}
 					itemCount={itemCount}
 					setRedirect={setRedirect}
 					setPageCancel={setPageCancel}
 					discountPrice={discountPrice}
-					sales={sales}
+					showCardPayment={showCardPayment}
+					showPaypalPayment={showPaypalPayment}
 				/>
 			</Elements>
 		</Wrapper>

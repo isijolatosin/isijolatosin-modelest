@@ -8,7 +8,7 @@ const PaymentOptions = ({ price }) => {
 		<div className="tw-my-3">
 			<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">
 				Pay with Credit / Debit Card{' '}
-				<img src={stripe} alt="paypal" className="tw-w-[45px] tw-ml-[2px]" /> /{' '}
+				<img src={stripe} alt="stripe" className="tw-w-[45px] tw-ml-[2px]" /> /{' '}
 				<img src={paypal} alt="paypal" className="tw-w-[45px] tw-mx-1" />
 			</p>
 			<p className="tw-text-xs tw-flex tw-items-center tw-text-neutral-600">

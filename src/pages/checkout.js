@@ -67,6 +67,8 @@ const Cart = () => {
 		localStorage.removeItem('payload')
 		localStorage.removeItem('finalPriceToPayObject')
 		localStorage.removeItem('finalPriceToPay')
+		localStorage.removeItem('order no')
+		localStorage.removeItem('user name and phone')
 
 		setSales(fetchSalesPercentage())
 
@@ -180,7 +182,7 @@ const Cart = () => {
 				<div
 					className={
 						sales
-							? 'tw-pt-[120px] tw-bg-neutral-200 md:tw-pt-[90px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center home tw-relative'
+							? 'tw-pt-[125px] tw-bg-neutral-200 md:tw-pt-[105px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center home tw-relative'
 							: 'tw-bg-neutral-200 tw-pt-[90px] md:tw-pt-[60px] tw-pb-[20px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center home tw-relative'
 					}>
 					{cartItems.length === 0 ? (
@@ -323,7 +325,7 @@ const Cart = () => {
 											</span>
 											<MdKeyboardArrowRight size={23} />
 										</Link>
-										<Link to={`/payment/${user?.displayName}`}>
+										<Link to={`/payment`}>
 											<span>Payment</span>
 										</Link>
 									</div>

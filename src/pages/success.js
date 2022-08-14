@@ -45,13 +45,13 @@ const Success = () => {
 	const payload = localStorage.getItem('payload')
 	const shipMethod = localStorage.getItem('ship')
 	const paymentName = localStorage.getItem('paymentName')
+	const orderNo = localStorage.getItem('order no')
 	const userEmail = user?.email || localStorage.getItem('altEmail')
 
 	React.useEffect(() => {
 		setSales(fetchSalesPercentage())
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
-	const orderNo = `ModelEst${Math.random().toString(36).slice(2)}`
 
 	let nameArray = []
 	let quantity = 0

@@ -42,6 +42,8 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 		if (shippingMethod === '') {
 			setWarn(true)
 		} else {
+			const orderNo = `ModelEst${Math.random().toString(36).slice(2)}`
+			const userNameAndPhone = `${address.firstname} ${address.lastname} ${address.phonenumber}`
 			const shippingAd = `${address.street}, ${
 				address.apartment && address.apartment
 			}, ${address.city}. ${address.province}. ${address.postalcode}. ${
@@ -87,6 +89,8 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 					address?.country)
 			) {
 				localStorage.setItem('address', shippingAd)
+				localStorage.setItem('order no', orderNo)
+				localStorage.setItem('user name and phone', userNameAndPhone)
 				email && localStorage.setItem('altEmail', email)
 				setAddress({
 					street: '',

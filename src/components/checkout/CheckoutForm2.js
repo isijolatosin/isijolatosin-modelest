@@ -5,21 +5,25 @@ import { useSelector } from 'react-redux'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import { GoAlert } from 'react-icons/go'
 import { SiMastercard } from 'react-icons/si'
-import { GiShoppingCart } from 'react-icons/gi'
 import { RiVisaLine } from 'react-icons/ri'
 import { SiAmericanexpress } from 'react-icons/si'
 import { UserContext } from '../../context/user-context'
 import PaypalCheckoutButton from '../PaypalCheckoutButton'
-import { FaCcStripe } from 'react-icons/fa'
 import { selectCartItems } from '../../slices/appSlices'
 
+const mastercard = require('../../assets/mastercard.png')
+const mastercard2 = require('../../assets/mastercard2.png')
+const americanExpress = require('../../assets/american-express.png')
+
 const CheckoutForm = ({
+	sales,
 	total,
 	itemCount,
 	setRedirect,
 	setPageCancel,
-	sales,
 	discountPrice,
+	showCardPayment,
+	showPaypalPayment,
 }) => {
 	const navigate = useNavigate()
 	const stripe = useStripe()
@@ -154,45 +158,65 @@ const CheckoutForm = ({
 	return (
 		<div>
 			<div className="tw-relative tw-flex tw-flex-col md:tw-flex-row tw-items-top tw-w-[100%] tw-bg-white">
-				<div className="tw-flex tw-flex-col tw-items-center md:tw-items-left tw-my-10 tw-w-full md:tw-w-[40%] md:tw-mr-3 tw-mx-auto tw-mt-[20px] md:tw-border-r-[1px] md:tw-border-neutral-500 tw-order-3 md:tw-order-1">
-					<div className="tw-flex tw-items-center tw-text-blue-600">
-						<FaCcStripe size={55} />
-						<div className="tw-text-xs tw-font-light tw-mb-2 tw-italic tw-ml-1 tw-mt-4">
-							<span className="tw-font-bold">Pay with stripe</span>
-							<div className="tw-flex tw-items-end tw-mt-[-5px]">
-								<span className="tw-mr-1"> Stripe checkout</span>
-								<GiShoppingCart size={20} />
+				{showCardPayment && (
+					<div className="tw-w-[80%] md:tw-w-[50%] tw-flex tw-flex-col tw-items-center tw-my-10 tw-mx-auto">
+						<div className="tw-flex tw-max-w-[95%] tw-mb-1 tw-items-center tw-mx-auto tw-justify-center tw-mt-[-8px]">
+							<img
+								src={mastercard}
+								alt="mastercard"
+								className="tw-w-[55px] tw-p-2 tw-rounded-[3px]"
+							/>
+							<img
+								src={mastercard2}
+								alt="mastercard2"
+								className="tw-w-[55px] tw-p-2 tw-rounded-[3px]"
+							/>
+							<RiVisaLine
+								size={55}
+								className="tw-mr-3 tw-ml-1 tw-text-blue-900 tw-mt-[-10px]"
+							/>
+							<div className="tw-relative tw-flex tw-items-center tw-mr-4 tw-mt-[-10px]">
+								<RiVisaLine size={55} className="tw-text-blue-800" />
+								<span className="tw-absolute tw-bottom-[2px] tw-right-[1px] tw-text-[13px] tw-italic">
+									DEBIT
+								</span>
 							</div>
+							<img
+								src={americanExpress}
+								alt="americanExpress"
+								className="tw-w-[55px] tw-mt-[-8px]"
+							/>
+						</div>
+						<div
+							onClick={handlePayWithStripe}
+							className="tw-w-full tw-text-center tw-bg-neutral-800 tw-text-white tw-text-xs tw-mt-2 tw-px-10 tw-py-3 tw-rounded-[50px] hover:md:tw-bg-neutral-100 tw-ease-in tw-duration-300 hover:md:tw-text-neutral-900">
+							<button>PROCEED TO PAYMENT</button>
 						</div>
 					</div>
-					<div
-						onClick={handlePayWithStripe}
-						className="tw-bg-neutral-800 tw-text-white tw-text-xs tw-mt-5 tw-px-10 tw-py-3 tw-rounded-[50px] hover:md:tw-bg-neutral-100 tw-ease-in tw-duration-300 hover:md:tw-text-neutral-900">
-						<button>Pay with Stripe</button>
+				)}
+				{showPaypalPayment && (
+					<div className="tw-w-full md:tw-w-[50%] tw-mx-auto tw-pb-8 tw-mb-5 tw-p-5 md:tw-p-0">
+						<div className=" tw-text-center tw-mb-2">
+							<span className="tw-text-[12px] tw-font-bold">
+								PAY WITH PAYPAL
+							</span>
+						</div>
+						<div className="tw-w-full">
+							<PaypalCheckoutButton
+								sales={sales}
+								tax={taxInDollar}
+								price={priceInDollar}
+								cartItems={cartItems}
+								itemCount={itemCount}
+								shipMethod={shipMethod}
+								setRedirect={setRedirect}
+								shipCost={shipCostInDollar}
+								setPageCancel={setPageCancel}
+								discountPrice={discountPrice}
+							/>
+						</div>
 					</div>
-				</div>
-				<div className="tw-inline md:tw-hidden tw-order-2 tw-absolute tw-top-[54.2%] tw-font-light tw-w-full tw-text-center tw-text-neutral-400">
-					<span className="tw-bg-white tw-px-[1px] tw-text-lg">or</span>
-				</div>
-				<div className="tw-w-full tw-mt-3 md:tw-mt-0 md:tw-w-[50%] tw-order-1 md:tw-order-2 tw-border-b-[1px] md:tw-border-b-0 tw-border-neutral-300 tw-pb-8 md:tw-mb-0 md:tw-pb-0 tw-mb-5  tw-p-5 md:tw-p-8">
-					<div className=" tw-text-center tw-mb-2">
-						<span className="tw-text-[12px] tw-font-bold">PAY WITH PAYPAL</span>
-					</div>
-					<div className="tw-w-full">
-						<PaypalCheckoutButton
-							sales={sales}
-							tax={taxInDollar}
-							price={priceInDollar}
-							cartItems={cartItems}
-							itemCount={itemCount}
-							shipMethod={shipMethod}
-							setRedirect={setRedirect}
-							shipCost={shipCostInDollar}
-							setPageCancel={setPageCancel}
-							discountPrice={discountPrice}
-						/>
-					</div>
-				</div>
+				)}
 			</div>
 			{paywithStripe && (
 				<div className="tw-flex tw-flex-col">
@@ -204,12 +228,16 @@ const CheckoutForm = ({
 							</h4>
 						</article>
 					) : (
-						<article className="tw-flex tw-justify-between tw-text-[12px] tw-p-1 tw-mt-1 tw-max-w-[100%] tw-text-white">
-							<span className="tw-underline tw-flex-[0.4]">
+						<article className="tw-flex tw-items-center tw-text-[12px] tw-p-1 tw-mt-1 tw-max-w-[100%] tw-text-black tw-mx-auto">
+							<span className="tw-underline">
 								Hello, {user && user?.displayName}, your total is $
-								{discountPrice
-									? discountPrice + shipCostInDollar
-									: shipCostInDollar + priceInDollar + taxInDollar}{' '}
+								{shipMethod === 'ship'
+									? discountPrice
+										? discountPrice + shipCostInDollar + taxInDollar
+										: shipCostInDollar + priceInDollar + taxInDollar
+									: discountPrice
+									? discountPrice + taxInDollar
+									: priceInDollar + taxInDollar}{' '}
 								-{' '}
 								<span className="tw-text-neutral-400">
 									(tax
