@@ -333,9 +333,7 @@ function HomePage() {
 					{allProducts.length !== 0 ? (
 						<div className="tw-bg-neutral-900 tw-w-[100%]">
 							<div className="tw-mb-6 tw-mt-[80px] tw-w-full tw-px-3 ">
-								{!expired && (
-									<PromoCard setExpired={setExpired} sales={sales} />
-								)}
+								{!expired && <PromoCard setExpired={setExpired} />}
 								<Products
 									SubmitInqury={SubmitInqury}
 									setChatError={setChatError}

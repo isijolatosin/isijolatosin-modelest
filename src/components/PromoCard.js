@@ -1,11 +1,18 @@
 import React from 'react'
 import { AUTHORIZED_ID } from '../constant'
 import { db } from '../firebase'
+import { fetchSalesPercentage } from '../utils/salesPercentageNuumber'
 
-const PromoCard = ({ setExpired, sales }) => {
+const PromoCard = ({ setExpired }) => {
 	const [code, setCode] = React.useState('')
 	const [countTime, setCountTime] = React.useState('')
 	const [countDay, setCountDay] = React.useState('')
+	const [sales, setSales] = React.useState(null)
+
+	React.useEffect(() => {
+		setSales(fetchSalesPercentage())
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 	const generateCode = () => {
 		const genCode = `ModelEst${Math.random().toString(18).slice(2)}`
 		setCode(genCode)
