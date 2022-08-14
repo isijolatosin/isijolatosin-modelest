@@ -40,6 +40,7 @@ const Cart = () => {
 	const [warn, setWarn] = React.useState(false)
 	const [showLoad, setShowLoad] = React.useState(false)
 	const [showInfo, setShowInfo] = React.useState(false)
+	const [pickupNote, setPickupNote] = React.useState(false)
 	const [resultArry, setResultArray] = React.useState([])
 	const [code, setCode] = React.useState('')
 
@@ -521,12 +522,30 @@ const Cart = () => {
 											</div>
 										</div>
 									</div>
-									<div className="tw-mb-2">
+									<div className="tw-text-xs tw-mb-2 tw-flex tw-items-center tw-relative">
 										<Heading
 											children="Shipping Address"
 											isWhite={true}
 											size5={true}
 										/>
+										{shippingMethod === 'pick up' && (
+											<>
+												<BsFillQuestionCircleFill
+													size={20}
+													onMouseOver={() => setPickupNote(true)}
+													onMouseLeave={() => setPickupNote(false)}
+													className="tw-text-white tw-mx-3 hover:tw-cursor-pointer"
+												/>
+												{pickupNote && (
+													<div className="tw-absolute tw-max-w-[200px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-bl-none tw-text-white tw-text-center tw-top-[-45px] tw-left-[185px] tw-border-[1px] tw-border-[#bba371]">
+														<span>
+															Shipping information maybe needed to complete
+															order
+														</span>
+													</div>
+												)}
+											</>
+										)}
 									</div>
 									<div className="tw-w-full">
 										<Total shippingMethod={shippingMethod} setWarn={setWarn} />

@@ -49,9 +49,15 @@ const CheckoutForm = ({
 	const taxInCent = taxInDollar * 100
 	const priceInDollar = total
 	const priceInCent = total * 100
-	const finalPriceToPay = discountPrice
-		? discountPrice + shipCostInDollar
-		: shipCostInDollar + priceInDollar + taxInDollar
+	const finalPriceToPay =
+		shipMethod === 'ship'
+			? discountPrice
+				? discountPrice + shipCostInDollar + taxInDollar
+				: shipCostInDollar + priceInDollar + taxInDollar
+			: discountPrice
+			? discountPrice + taxInDollar
+			: priceInDollar + taxInDollar
+
 	localStorage.setItem('finalPriceToPay', finalPriceToPay)
 	localStorage.setItem(
 		'finalPriceToPayObject',

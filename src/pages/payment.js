@@ -56,9 +56,12 @@ const Cart = () => {
 	const [warn, setWarn] = React.useState(false)
 	const shipPrice =
 		shipMethod === 'ship' ? `USD $${shippingObj.cost}:00` : 'PICK UP'
-	const taxPrice = Number(
-		(total * Number(process.env.REACT_APP_TAX_PERCENT)).toFixed(2)
-	)
+	const taxPrice = discountPrice
+		? Number(
+				(discountPrice * Number(process.env.REACT_APP_TAX_PERCENT)).toFixed(2)
+		  )
+		: Number((total * Number(process.env.REACT_APP_TAX_PERCENT)).toFixed(2))
+
 	let estimatedTotalPrice
 	if (shipMethod === 'ship') {
 		if (discountPrice) {
@@ -194,7 +197,12 @@ const Cart = () => {
 												</div>
 												<div className="tw-flex tw-justify-between tw-items-center">
 													<p>Discount:</p>
-													<p>USD ${discountPrice ? discountPrice : '0.00'}</p>
+													<p>
+														USD $
+														{discountPrice
+															? `${total - discountPrice}:00`
+															: '0.00'}
+													</p>
 												</div>
 											</div>
 										</div>
