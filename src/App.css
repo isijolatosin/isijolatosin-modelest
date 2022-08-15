@@ -1041,14 +1041,15 @@ label input::placeholder {
 	align-items: center;
 	justify-content: center;
 	margin-left: auto;
-	background: rgb(0, 0, 0);
-	border: 0;
+	background: rgb(218, 218, 218);
+	/* border: 0; */
 	cursor: pointer;
 	/* border-radius: 50%; */
 	transition: background 200ms ease-out;
 	width: var(--size);
 	height: var(--size);
-	color: rgb(255, 255, 255);
+	color: #000000;
+	border-left: 1px solid black;
 }
 /* @keyframes bttn {
 	0% {

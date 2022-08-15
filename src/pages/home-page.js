@@ -24,6 +24,7 @@ function HomePage() {
 	const [allProducts, setAllproducts] = React.useState([])
 	const [filtered, setFiltered] = React.useState([])
 	const [sales, setSales] = React.useState(null)
+	const [inputValue, setInputValue] = React.useState('')
 	const [similarProductsClosure, setSimilarProductsClosure] =
 		React.useState(null)
 	const [similarProductsFrontal, setSimilarProductsFrontal] =
@@ -264,6 +265,8 @@ function HomePage() {
 							setFiltered={setFiltered}
 							setSearchControl={setSearchControl}
 							setSearchError={setSearchError}
+							inputValue={inputValue}
+							setInputValue={setInputValue}
 						/>
 						{searchError && (
 							<div className="tw-bg-white tw-text-black  tw-w-[80%] featuredCard tw-shadow-lg tw-rounded-b-[5px] tw-border-[1px] tw-border-t-0 tw-border-neutral-900">
@@ -272,7 +275,7 @@ function HomePage() {
 								</p>
 							</div>
 						)}
-						{filtered?.length !== 0 && (
+						{filtered?.length !== 0 && inputValue && (
 							<div className="tw-bg-white tw-text-black  tw-w-[80%] tw-overflow-y-scroll tw-max-h-[400px] md:tw-max-h-[600px] featuredCard tw-shadow-lg tw-rounded-b-[5px] tw-border-[1px] tw-border-t-0 tw-border-neutral-900">
 								{filtered.map((item) => (
 									<Link to={item?.route} key={item?._id}>

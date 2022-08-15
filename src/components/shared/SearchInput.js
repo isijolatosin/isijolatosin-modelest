@@ -8,14 +8,15 @@ const SearchInput = ({
 	setFiltered,
 	setSearchControl,
 	setSearchError,
+	inputValue,
+	setInputValue,
 }) => {
-	const [inputValue, setInputValue] = React.useState('')
 	const handleChange = (e) => {
 		setInputValue(e)
 
 		if (inputValue) {
-			setSearchError(false)
 			const returnFiltered = []
+			setSearchError(false)
 			// eslint-disable-next-line array-callback-return
 			allProducts.filter((product) => {
 				if (
@@ -96,9 +97,7 @@ const SearchInput = ({
 				aria-label="search"
 				placeholder="Search..."
 			/>
-			<button
-				className="search__submit tw-z-10 tw-text-[#bba371]"
-				aria-label="submit search">
+			<button className="search__submit tw-z-10" aria-label="submit search">
 				{searchControl ? (
 					<MdOutlineClose
 						onClick={() => {
