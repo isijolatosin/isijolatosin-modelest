@@ -255,7 +255,7 @@ function HomePage() {
 					<div
 						className={`${searchControl && 'tw-w-[100%] lg:tw-w-[40%]'} ${
 							sales
-								? 'tw-top-[100px] md:tw-top-[80px]'
+								? 'tw-top-[100px] md:tw-top-[76px]'
 								: 'tw-top-[55px] md:tw-top-[24px]'
 						} tw-flex tw-flex-col content tw-fixed tw-left-[-6px] md:tw-left-[-6px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
 						<SearchInput
@@ -266,21 +266,14 @@ function HomePage() {
 							setSearchError={setSearchError}
 						/>
 						{searchError && (
-							<div className="tw-bg-white tw-text-black tw-ml-[1px] tw-w-[79.7%] featuredCard tw-shadow-lg tw-rounded-b-[5px] tw-border-[1px] tw-border-t-0 tw-border-neutral-900">
+							<div className="tw-bg-white tw-text-black  tw-w-[80%] featuredCard tw-shadow-lg tw-rounded-b-[5px] tw-border-[1px] tw-border-t-0 tw-border-neutral-900">
 								<p className="tw-text-[13px] md:tw-text-[14px] tw-text-red-700 tw-p-3 tw-pl-5">
 									No Result Found !
 								</p>
-								<Link to="/all-bundles">
-									<div className="tw-pr-5 tw-py-3 tw-border-t-[1px] tw-w-[90%] tw-mx-auto">
-										<span className="tw-text-[13px] md:tw-text-[14px] tw-text-[#bba371] hover:tw-text-black tw-ease-in tw-duration-300">
-											View all bundles
-										</span>
-									</div>
-								</Link>
 							</div>
 						)}
-						{filtered?.length !== 0 && !searchError && (
-							<div className="tw-bg-white tw-text-black tw-ml-[1px] tw-w-[79.7%] tw-overflow-y-scroll tw-max-h-[400px] md:tw-max-h-[600px] featuredCard tw-shadow-lg tw-rounded-b-[5px] tw-border-[1px] tw-border-t-0 tw-border-neutral-900">
+						{filtered?.length !== 0 && (
+							<div className="tw-bg-white tw-text-black  tw-w-[80%] tw-overflow-y-scroll tw-max-h-[400px] md:tw-max-h-[600px] featuredCard tw-shadow-lg tw-rounded-b-[5px] tw-border-[1px] tw-border-t-0 tw-border-neutral-900">
 								{filtered.map((item) => (
 									<Link to={item?.route} key={item?._id}>
 										<div className="tw-flex tw-items-center tw-p-3 tw-border-b-[1px] tw-w-[100%] tw-mx-auto hover:tw-bg-[rgba(215,191,137,0.3)] tw-ease-in tw-duration-300">
