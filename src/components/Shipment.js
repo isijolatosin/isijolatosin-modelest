@@ -282,8 +282,10 @@ function Shippment() {
 																	? 'table-items align-left'
 																	: 'table-items'
 															} ${
-																String(itm).includes('https://') && 'tw-text-xs'
-															} tw-max-w-[200px] tw-overflow-auto slimBar tw-px-2 tw-relative`}
+																String(itm).includes('https://')
+																	? 'tw-text-xs tw-px-1'
+																	: ' tw-px-2'
+															} tw-max-w-[200px] tw-overflow-auto slimBar tw-relative`}
 															key={index}>
 															{String(itm).includes('https://') && (
 																<img
