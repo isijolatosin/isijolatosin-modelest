@@ -18,6 +18,7 @@ function HomePage() {
 	const [chatSuccess, setChatSuccess] = React.useState(false)
 	const [toBottom, setToBottom] = React.useState(false)
 	const [chat, setChat] = React.useState(true)
+	const [showPopInfo, setShowPopInfo] = React.useState(false)
 	const [showForm, setShowForm] = React.useState(false)
 	const [searchError, setSearchError] = React.useState(false)
 	const [expired, setExpired] = React.useState(false)
@@ -140,7 +141,16 @@ function HomePage() {
 
 	React.useEffect(() => {
 		fetchProducts()
+
+		setTimeout(() => {
+			setShowPopInfo(true)
+		}, 10000)
 	}, [])
+	if (showPopInfo) {
+		setTimeout(() => {
+			setShowPopInfo(false)
+		}, 15000)
+	}
 
 	window.onscroll = function (ev) {
 		if (
@@ -237,21 +247,34 @@ function HomePage() {
 						<MdOutlineKeyboardArrowUp size={33} />
 					</div>
 					<div
-						onClick={() => {
-							setShowForm(!showForm)
-							setChatError(false)
-							setChatSuccess(false)
-							setChatDetail({
-								name: '',
-								title: '',
-								email: '',
-								message: '',
-							})
-						}}
 						className={`${
 							chat ? 'tw-inline' : 'tw-hidden'
-						} md:tw-hidden tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-p-3 tw-rounded-[30px] tw-z-40 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300`}>
-						<HiChatAlt2 size={25} />
+						} md:tw-hidden tw-fixed tw-bottom-[25px] tw-right-[10px] tw-z-40`}>
+						<div
+							className={`${
+								showPopInfo
+									? 'tw-opacity-1 tw-right-[40px]'
+									: 'tw-opacity-0 tw-right-[-400px]'
+							} tw-absolute tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-border-[#bba371] tw-border-[1px] tw-w-[300px] tw-top-[-70px] tw-px-5 tw-py-3 tw-text-center tw-rounded-full tw-rounded-br-lg tw-ease-in tw-duration-500`}>
+							For customized order placing and special inquiries, chat with
+							modelEst
+						</div>
+
+						<div
+							onClick={() => {
+								setShowForm(!showForm)
+								setChatError(false)
+								setChatSuccess(false)
+								setChatDetail({
+									name: '',
+									title: '',
+									email: '',
+									message: '',
+								})
+							}}
+							className="tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-rounded-[30px] tw-p-3 tw-cursor-pointer tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300">
+							<HiChatAlt2 size={25} />
+						</div>
 					</div>
 					<div
 						className={`${searchControl && 'tw-w-[100%] lg:tw-w-[40%]'} ${
