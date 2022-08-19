@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import SearchInput from '../components/shared/SearchInput'
 import PromoCard from '../components/PromoCard'
 import { getDatabase, ref, onValue } from 'firebase/database'
+import { AiOutlineCloseCircle } from 'react-icons/ai'
 
 function HomePage() {
 	const [searchControl, setSearchControl] = React.useState(false)
@@ -146,6 +147,7 @@ function HomePage() {
 			setShowPopInfo(true)
 		}, 10000)
 	}, [])
+
 	if (showPopInfo) {
 		setTimeout(() => {
 			setShowPopInfo(false)
@@ -248,33 +250,34 @@ function HomePage() {
 					</div>
 					<div
 						className={`${
+							showPopInfo
+								? 'tw-opacity-1 tw-right-[50px]'
+								: 'tw-opacity-0 tw-right-[-400px]'
+						} tw-fixed tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-border-[#bba371] tw-border-[1px] tw-w-[300px] tw-bottom-[70px] tw-px-5 tw-py-3 tw-text-center tw-rounded-full tw-rounded-br-lg tw-ease-in tw-duration-500 tw-z-50`}>
+						For customized order placing and special inquiries, chat with
+						modelEst
+						<div
+							onClick={() => setShowPopInfo(false)}
+							className="tw-absolute tw-top-0 tw-right-[-10px] tw-z-40">
+							<AiOutlineCloseCircle />
+						</div>
+					</div>
+					<div
+						onClick={() => {
+							setShowForm(!showForm)
+							setChatError(false)
+							setChatSuccess(false)
+							setChatDetail({
+								name: '',
+								title: '',
+								email: '',
+								message: '',
+							})
+						}}
+						className={`${
 							chat ? 'tw-inline' : 'tw-hidden'
-						} md:tw-hidden tw-fixed tw-bottom-[25px] tw-right-[10px] tw-z-40`}>
-						<div
-							className={`${
-								showPopInfo
-									? 'tw-opacity-1 tw-right-[40px]'
-									: 'tw-opacity-0 tw-right-[-400px]'
-							} tw-absolute tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-border-[#bba371] tw-border-[1px] tw-w-[300px] tw-top-[-70px] tw-px-5 tw-py-3 tw-text-center tw-rounded-full tw-rounded-br-lg tw-ease-in tw-duration-500`}>
-							For customized order placing and special inquiries, chat with
-							modelEst
-						</div>
-
-						<div
-							onClick={() => {
-								setShowForm(!showForm)
-								setChatError(false)
-								setChatSuccess(false)
-								setChatDetail({
-									name: '',
-									title: '',
-									email: '',
-									message: '',
-								})
-							}}
-							className="tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-rounded-[30px] tw-p-3 tw-cursor-pointer tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300">
-							<HiChatAlt2 size={25} />
-						</div>
+						} md:tw-hidden tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-p-3 tw-rounded-[30px] tw-z-40 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300`}>
+						<HiChatAlt2 size={25} />
 					</div>
 					<div
 						className={`${searchControl && 'tw-w-[100%] lg:tw-w-[40%]'} ${
