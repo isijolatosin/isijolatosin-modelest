@@ -349,8 +349,8 @@ const Cart = () => {
 											</div>
 										</div>
 									</div>
-									<div className="tw-bg-white">
-										<div className="tw-mb-10 tw-border-b-[1px]">
+									<div className="tw-bg-white ">
+										<div className="tw-mb-10 tw-border-b-[1px] tw-z-40">
 											<div className="tw-mt-5 tw-mb-2 tw-flex tw-items-center tw-justify-between tw-p-3 tw-border-b-[1px]">
 												<Heading
 													children="Payment Method"
@@ -454,7 +454,7 @@ const Cart = () => {
 												</div>
 												<div
 													onClick={placeOrder}
-													className="tw-flex tw-items-center tw-w-full tw-my-10 md:tw-my-0 md:tw-w-[40%]">
+													className="tw-z-40 tw-flex tw-items-center tw-w-full tw-my-10 md:tw-my-0 md:tw-w-[40%]">
 													<button className="tw-bg-neutral-800 tw-text-white tw-text-xs tw-px-5 tw-py-2 hover:md:tw-bg-neutral-100 hover:md:tw-text-neutral-900 tw-ease-in tw-duration-300 tw-w-[80%] md:tw-w-[50%] tw-mx-auto tw-rounded-[30px]">
 														PLACE ORDER
 													</button>

@@ -386,6 +386,9 @@ select:focus {
 	height: 10px;
 	width: 9px;
 }
+.slimBar::-webkit-scrollbar {
+	height: 5px;
+}
 
 /* Track */
 .featuredCard::-webkit-scrollbar-track {
@@ -398,6 +401,10 @@ select:focus {
 	background: rgba(219, 219, 219, 1);
 	border-radius: 100px;
 }
+.slimBar::-webkit-scrollbar-thumb {
+	background: rgba(50, 50, 50, 0.4);
+	border-radius: 100px;
+}
 
 /* Handle on hover */
 .featuredCard::-webkit-scrollbar-thumb:hover {
@@ -408,12 +415,7 @@ select:focus {
 	height: 10px;
 	width: 8px;
 }
-/* Track */
-/* .featuredCard2::-webkit-scrollbar-track {
-	box-shadow: inset 0 0 5px rgb(40, 40, 40);
-	border-radius: 100px;
-} */
-/* Handle */
+/* Handle on hover */
 .featuredCard2::-webkit-scrollbar-thumb {
 	background: rgba(43, 43, 43, 0.8);
 	border-radius: 100px;
@@ -537,10 +539,9 @@ label input::placeholder {
 	background-color: whitesmoke;
 }
 .table-items {
-	border: 1px solid var(--grey-200);
-	padding: 15px;
-	width: 100vw;
-	text-align: center;
+	border: 1px solid var(--grey-400);
+	text-align: top;
+	font-size: 14px;
 	color: var(--grey-800);
 }
 .align-left {

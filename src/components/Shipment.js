@@ -271,7 +271,7 @@ function Shippment() {
 												))}
 											</tr>
 										</thead>
-										<tbody>
+										<tbody className="tw-relative">
 											{shippingInfo?.shippingData?.map((item, idx) => (
 												<tr className="table-item-row" key={idx}>
 													{Object?.values(item)?.map((itm, index) => (
@@ -281,32 +281,43 @@ function Shippment() {
 																itm?.length >= 100
 																	? 'table-items align-left'
 																	: 'table-items'
-															}`}
+															} ${
+																String(itm).includes('https://') && 'tw-text-xs'
+															} tw-max-w-[200px] tw-overflow-auto slimBar tw-px-2 tw-relative`}
 															key={index}>
-															{typeof itm === 'string'
+															{String(itm).includes('https://') && (
+																<img
+																	src={itm}
+																	alt={itm}
+																	className="tw-object-cover tw-pl-0 tw-max-w-[200px] tw-w-[200px] tw-h-[100px]"
+																/>
+															)}
+															{typeof itm === 'string' &&
+															!String(itm).includes('https://')
 																? itm?.length >= 100
 																	? readMore && matchIdx === item?.id
 																		? itm
 																		: `${itm.substring(0, 30)}...`
 																	: itm
 																: itm}
-															{itm?.length >= 100 && (
-																<>
-																	<span onClick={() => toggleRead(item?.id)}>
-																		{readMore && matchIdx === item?.id ? (
-																			<>
-																				<span>Read Less</span>{' '}
-																				<MdOutlineKeyboardArrowUp />
-																			</>
-																		) : (
-																			<>
-																				<span>Read More</span>{' '}
-																				<MdOutlineKeyboardArrowDown />
-																			</>
-																		)}
-																	</span>
-																</>
-															)}
+															{itm?.length >= 100 &&
+																!String(itm).includes('https://') && (
+																	<>
+																		<span onClick={() => toggleRead(item?.id)}>
+																			{readMore && matchIdx === item?.id ? (
+																				<>
+																					<span>Read Less</span>{' '}
+																					<MdOutlineKeyboardArrowUp />
+																				</>
+																			) : (
+																				<>
+																					<span>Read More</span>{' '}
+																					<MdOutlineKeyboardArrowDown />
+																				</>
+																			)}
+																		</span>
+																	</>
+																)}
 														</td>
 													))}
 													<div className="tw-absolute tw-right-0 tw-h-[125px] tw-flex tw-flex-row ">
