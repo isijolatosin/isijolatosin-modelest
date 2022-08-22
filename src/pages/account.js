@@ -39,11 +39,8 @@ function Account() {
 						let data = []
 						for (const result of results) {
 							data.push({
-								// address: result?.data.address,
 								color: result?.data.color,
-								// customer: result?.data.customer,
 								description: result?.data.description,
-								// email: result?.data.email,
 								id: result?.data.id,
 								length: result?.data.length,
 								orderNo: result?.data.orderNo,

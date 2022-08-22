@@ -249,7 +249,6 @@ function HomePage() {
 						<MdOutlineKeyboardArrowUp size={33} />
 					</div>
 					<div
-						// className="tw-opacity-1 tw-right-[50px] tw-fixed tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-border-[#bba371] tw-border-[1px] tw-w-[300px] tw-bottom-[70px] tw-px-5 tw-py-3 tw-text-center tw-rounded-full tw-rounded-br-lg tw-ease-in tw-duration-500 tw-z-20"
 						className={`${
 							showPopInfo
 								? 'tw-opacity-1 tw-right-[50px]'

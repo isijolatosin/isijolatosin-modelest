@@ -101,7 +101,7 @@ const Cart = () => {
 		}, 5000)
 	}
 
-	const handleShipMethod = (method, event) => {
+	const handlePayMethod = (method, event) => {
 		if (event) {
 			setWarn(false)
 			setSelectShippingOption(method)
@@ -118,6 +118,7 @@ const Cart = () => {
 				setShowCardPayment(true)
 				setShowPaypalPayment(false)
 			}
+			localStorage.setItem('payMethod', selectShippingOption)
 		} else {
 			setWarn(true)
 		}
@@ -369,7 +370,7 @@ const Cart = () => {
 														<label className="radio-container tw-mr-2 tw-mt-[-10px]">
 															<input
 																onClick={(e) =>
-																	handleShipMethod('paypal', e.target.checked)
+																	handlePayMethod('paypal', e.target.checked)
 																}
 																type="radio"
 																name="radio"
@@ -399,7 +400,7 @@ const Cart = () => {
 														<label className="radio-container tw-mr-2 tw-mt-[10px]">
 															<input
 																onClick={(e) =>
-																	handleShipMethod('card', e.target.checked)
+																	handlePayMethod('card', e.target.checked)
 																}
 																type="radio"
 																name="radio"

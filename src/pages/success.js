@@ -45,6 +45,7 @@ const Success = () => {
 	const payload = localStorage.getItem('payload')
 	const shipMethod = localStorage.getItem('ship')
 	const paymentName = localStorage.getItem('paymentName')
+	const payMethod = localStorage.getItem('payMethod')
 	const orderNo = localStorage.getItem('order no')
 	const userEmail = user?.email || localStorage.getItem('altEmail')
 
@@ -66,6 +67,12 @@ const Success = () => {
 		id.push(`${item.id}-${item.name}`)
 	})
 
+	const myCurrentDate = new Date()
+	const timestampA = myCurrentDate.setDate(myCurrentDate.getDate() + 14)
+	const timestampB = myCurrentDate.setDate(myCurrentDate.getDate() + 21)
+	var futureDate1 = new Date(timestampA).toDateString()
+	var futureDate2 = new Date(timestampB).toDateString()
+
 	React.useEffect(() => {
 		// Send a purchase mail to client
 		const messageParams = {
@@ -84,6 +91,8 @@ const Success = () => {
 			total: finalPriceToPay,
 			address: userAddress,
 			client: userEmail,
+			payMethod: payMethod,
+			estShipTime: `${futureDate1} - ${futureDate2}`,
 		}
 
 		const SendClientSuccessfulPurchaseEmail = () => {
@@ -171,12 +180,13 @@ const Success = () => {
 		localStorage.removeItem('discountPrice')
 		localStorage.removeItem('ship')
 		localStorage.removeItem('shippingCost')
-		localStorage.removeItem('address')
 		localStorage.removeItem('paymentName')
-		localStorage.removeItem('discountPrice')
 		localStorage.removeItem('addressFromPaypal')
 		localStorage.removeItem('finalPriceToPay')
 		localStorage.removeItem('finalPriceToPayObject')
+		localStorage.removeItem('user name and phone')
+		localStorage.removeItem('order no')
+		localStorage.removeItem('payMethod')
 		navigate('/')
 	}
 

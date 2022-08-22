@@ -26,6 +26,7 @@ import { Link } from 'react-router-dom'
 import Heading from '../components/Heading'
 import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 import PaymentOptions from '../components/shared/PaymentOptions'
+import { constructWigPrice } from '../utils/constructWigPrice'
 
 const SingleWig = () => {
 	const [singleWig, setSingleWig] = React.useState([])
@@ -79,61 +80,24 @@ const SingleWig = () => {
 	}, [])
 
 	// Price for virgin wigs
-	function wigFuncClosure() {
-		let a
-		// eslint-disable-next-line array-callback-return
-		closureVirginWigPricing.map((p) => {
-			if (_length === p?.length) {
-				if (singleWig[0]?.texture) {
-					if (wigTextureType1.includes(singleWig[0]?.texture?.toLowerCase())) {
-						a = p?.price + wigTextureTypeIncreaseValue1
-					} else {
-						a = p?.price
-					}
-				} else if (singleWig[0]?.texture) {
-					if (wigTextureType2.includes(singleWig[0]?.texture?.toLowerCase())) {
-						a = p?.price + wigTextureTypeIncreaseValue2
-					} else {
-						a = p?.price
-					}
-				} else if (singleWig[0]?.texture === 'straight') {
-					a = p?.price
-				} else {
-					a = p?.price
-				}
-			}
-		})
-		return a
-	}
-
-	function wigFuncFrontal() {
-		let a
-		// eslint-disable-next-line array-callback-return
-		frontalVirginWigPricing.map((p) => {
-			if (_length === p?.length) {
-				if (singleWig[0]?.texture) {
-					if (wigTextureType1.includes(singleWig[0]?.texture?.toLowerCase())) {
-						a = p?.price + wigTextureTypeIncreaseValue1
-					} else {
-						a = p?.price
-					}
-				} else if (singleWig[0]?.texture) {
-					if (wigTextureType2.includes(singleWig[0]?.texture?.toLowerCase())) {
-						a = p?.price + wigTextureTypeIncreaseValue2
-					} else {
-						a = p?.price
-					}
-				} else if (singleWig[0]?.texture?.toLowerCase().includes('straight')) {
-					a = p?.price
-				} else {
-					a = p?.price
-				}
-			}
-		})
-		return a
-	}
-	const vWPrice1 = wigFuncFrontal()
-	const vWPrice2 = wigFuncClosure()
+	const vWPrice1 = constructWigPrice(
+		_length,
+		frontalVirginWigPricing,
+		singleWig,
+		wigTextureType1,
+		wigTextureType2,
+		wigTextureTypeIncreaseValue1,
+		wigTextureTypeIncreaseValue2
+	)
+	const vWPrice2 = constructWigPrice(
+		_length,
+		closureVirginWigPricing,
+		singleWig,
+		wigTextureType1,
+		wigTextureType2,
+		wigTextureTypeIncreaseValue1,
+		wigTextureTypeIncreaseValue2
+	)
 	// Adding to cart items
 	const name = singleWig[0]?.name
 	const id = singleWig[0]?._id
