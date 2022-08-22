@@ -69,7 +69,7 @@ const Success = () => {
 
 	const myCurrentDate = new Date()
 	const timestampA = myCurrentDate.setDate(myCurrentDate.getDate() + 14)
-	const timestampB = myCurrentDate.setDate(myCurrentDate.getDate() + 21)
+	const timestampB = myCurrentDate.setDate(myCurrentDate.getDate() + 7)
 	var futureDate1 = new Date(timestampA).toDateString()
 	var futureDate2 = new Date(timestampB).toDateString()
 

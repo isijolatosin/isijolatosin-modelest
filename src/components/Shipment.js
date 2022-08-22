@@ -181,7 +181,7 @@ function Shippment() {
 		}
 	}
 
-	// 5DAYS after purchase EMAIL TO CUSTOMER
+	// 5DAYS after purchase EMAIL TO CUSTOMER MANUAL TRIGGER
 	const SendFutureEmail = (email, customer, color, title, quantity) => {
 		const futureMessage = {
 			name: customer,
@@ -206,6 +206,23 @@ function Shippment() {
 			setEmailSent(false)
 		}, 5000)
 	}
+
+	// 5DAYS after purchase EMAIL TO CUSTOMER AUTOMATED
+	// eslint-disable-next-line array-callback-return
+	shippingInfo?.shippingData?.map((item) => {
+		const itemTimestamp = new Date(item?.timestamp).getTime()
+		const future5days = new Date(item?.timestamp).getTime() + 1 * 60 * 60 * 1000
+
+		if (itemTimestamp === future5days) {
+			SendFutureEmail(
+				item?.email,
+				item?.customer,
+				item?.color,
+				item?.title,
+				item?.quantity
+			)
+		}
+	})
 
 	return (
 		<div className="tw-flex tw-flex-col tw-items-center tw-my-5">
