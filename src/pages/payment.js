@@ -200,9 +200,7 @@ const Cart = () => {
 													<p>Discount:</p>
 													<p>
 														USD $
-														{discountPrice
-															? `${total - discountPrice}:00`
-															: '0.00'}
+														{discountPrice ? total - discountPrice : '0.00'}
 													</p>
 												</div>
 											</div>
@@ -329,7 +327,10 @@ const Cart = () => {
 													</div>
 													<div className="tw-flex tw-justify-between tw-items-center">
 														<p>Discount:</p>
-														<p>USD ${discountPrice ? discountPrice : '0.00'}</p>
+														<p>
+															USD $
+															{discountPrice ? total - discountPrice : '0.00'}
+														</p>
 													</div>
 												</div>
 											</div>
