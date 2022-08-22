@@ -5,8 +5,9 @@ const FeaturedCard = ({ featuredProduct }) => {
 	return (
 		<div className="tw-border-t-[1px] tw-text-neutral-900 tw-w-full tw-bg-white md:tw-pb-20">
 			<div className="featuredCard media-scroller tw-gap-3 tw-py-10 tw-w-[95%] tw-mx-auto tw-snap-x tw-snap-mandatory">
-				{featuredProduct.map((item) => (
+				{featuredProduct.map((item, idx) => (
 					<Link
+						key={idx}
 						to={
 							item?.name.toLowerCase().includes('bundles')
 								? `/all-bundles`

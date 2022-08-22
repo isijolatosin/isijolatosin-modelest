@@ -255,14 +255,14 @@ function HomePage() {
 								: 'tw-opacity-0 tw-right-[-400px]'
 						} ${
 							chat ? 'tw-inline' : 'tw-hidden'
-						} tw-fixed tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-border-[#bba371] tw-border-[1px] tw-w-[200px] tw-bottom-[70px] tw-px-5 tw-py-3 tw-text-center tw-text-xs tw-rounded-full tw-rounded-br-lg tw-ease-in tw-duration-500 tw-from-zinc-1000 tw-z-20`}>
+						} tw-fixed tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-border-[#bba371] tw-border-[1px] tw-w-[200px] tw-bottom-[70px] tw-px-5 tw-py-3 tw-text-center tw-text-xs tw-rounded-xl tw-rounded-br-none tw-ease-in tw-duration-500 tw-from-zinc-1000 tw-z-20`}>
 						<span>
-							For customized order placing and special inquiries, chat with
-							modelEst
+							For customized order placing and special inquiries, send modelEst
+							a message and we'll get back to you ASAP!
 						</span>
 						<div
 							onClick={() => setShowPopInfo(false)}
-							className="tw-absolute tw-top-0 tw-right-[-10px] tw-z-20">
+							className="tw-absolute tw-top-0 tw-right-[-15px] tw-z-20">
 							<AiOutlineCloseCircle />
 						</div>
 					</div>

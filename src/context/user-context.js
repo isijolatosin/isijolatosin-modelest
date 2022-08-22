@@ -6,6 +6,7 @@ export const UserContext = React.createContext()
 const UserContextProvider = ({ children }) => {
 	const [user, setUser] = React.useState(null)
 	const [loading, setLoading] = React.useState(true)
+	const [changeInfo, setChangeInfo] = React.useState(false)
 
 	React.useEffect(() => {
 		const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
@@ -16,21 +17,43 @@ const UserContextProvider = ({ children }) => {
 						id: snapShot.id,
 						...snapShot.data(),
 					})
-					setLoading(false)
+					setTimeout(() => {
+						setLoading(false)
+					}, 5000)
 				})
 			} else {
-				setUser(userAuth)
-				setLoading(false)
+				setTimeout(() => {
+					setLoading(false)
+					setUser(userAuth)
+				}, 5000)
 			}
 		})
 		return () => unsubscribeFromAuth()
 	}, [])
 
+	if (!user) {
+		setTimeout(() => {
+			setChangeInfo(true)
+		}, 3000)
+	}
+
 	const userContext = { user, loading }
 	if (loading) {
 		return (
-			<div className="tw-text-gray-600 tw-flex tw-flex-col tw-items-center tw-mt-[50px]">
-				Loading...
+			<div className="tw-py-[100px] tw-flex tw-justify-center">
+				{user ? (
+					<div className="tw-text-gray-600 tw-flex tw-flex-col tw-items-center tw-mt-[10px]">
+						Authenticating User...
+					</div>
+				) : (
+					<div className="tw-text-gray-600 tw-flex tw-flex-col tw-items-center tw-mt-[10px]">
+						{changeInfo ? 'No User Detected!' : 'Authenticating User...'}
+					</div>
+				)}
+
+				<div className="tw-rounded-full progress">
+					<div className="inner"></div>
+				</div>
 			</div>
 		)
 	}
