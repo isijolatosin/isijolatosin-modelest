@@ -253,9 +253,7 @@ function HomePage() {
 							showPopInfo
 								? 'tw-opacity-1 tw-right-[50px]'
 								: 'tw-opacity-0 tw-right-[-400px]'
-						} ${
-							chat ? 'tw-inline' : 'tw-hidden'
-						} tw-fixed tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-border-[#bba371] tw-border-[1px] tw-w-[200px] tw-bottom-[70px] tw-px-5 tw-py-3 tw-text-center tw-text-xs tw-rounded-xl tw-rounded-br-none tw-ease-in tw-duration-500 tw-from-zinc-1000 tw-z-20`}>
+						} tw-inline md:tw-hidden tw-fixed tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-border-[#bba371] tw-border-[1px] tw-w-[200px] tw-bottom-[70px] tw-px-5 tw-py-3 tw-text-center tw-text-xs tw-rounded-xl tw-rounded-br-none tw-ease-in tw-duration-500 tw-from-zinc-1000 tw-z-20`}>
 						<span>
 							For customized order placing and special inquiries, send modelEst
 							a message and we'll get back to you ASAP!
