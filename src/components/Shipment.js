@@ -213,8 +213,9 @@ function Shippment() {
 	// 		// const itemTimestamp = new Date(item?.timestamp).getTime()
 	// 		const currentTime = new Date().getDate()
 	// 		const future5days = new Date(item?.timestamp).getDate() + 5
+	// 		const diff = future5days - currentTime
 	//
-	// 		if (currentTime === future5days) {
+	// 		if (diff === 0) {
 	// 			SendFutureEmail(
 	// 				item?.email,
 	// 				item?.customer,

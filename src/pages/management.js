@@ -76,7 +76,7 @@ function Management() {
 					className={
 						sales
 							? 'tw-pt-[150px] tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-bg-neutral-200'
-							: 'tw-pt-[100px] tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-bg-neutral-200'
+							: 'tw-pt-[110px] tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-bg-neutral-200'
 					}>
 					<div className="tw-flex tw-flex-col md:tw-flex-row md:tw-items-center tw-justify-between tw-w-[95%] md:tw-w-[95%]">
 						<div className="tw-mb-2 md:tw-mb-0">
