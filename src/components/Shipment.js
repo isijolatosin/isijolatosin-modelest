@@ -207,25 +207,6 @@ function Shippment() {
 		}, 5000)
 	}
 
-	// 5DAYS after purchase EMAIL TO CUSTOMER AUTOMATED
-	// eslint-disable-next-line array-callback-return
-	// 	shippingInfo?.shippingData?.map((item) => {
-	// 		// const itemTimestamp = new Date(item?.timestamp).getTime()
-	// 		const currentTime = new Date().getDate()
-	// 		const future5days = new Date(item?.timestamp).getDate() + 5
-	// 		const diff = future5days - currentTime
-	//
-	// 		if (diff === 0) {
-	// 			SendFutureEmail(
-	// 				item?.email,
-	// 				item?.customer,
-	// 				item?.color,
-	// 				item?.title,
-	// 				item?.quantity
-	// 			)
-	// 		}
-	// 	})
-
 	return (
 		<div className="tw-flex tw-flex-col tw-items-center tw-my-5">
 			<Heading children="Shipment" isBold={true} size2={true} />
@@ -291,138 +272,155 @@ function Shippment() {
 											</tr>
 										</thead>
 										<tbody className="tw-relative">
-											{shippingInfo?.shippingData?.map((item, idx) => (
-												<tr className="table-item-row" key={idx}>
-													{Object?.values(item)?.map((itm, index) => (
-														<td
-															onMouseOver={() => handleShipText(item?.id)}
-															className={`${
-																itm?.length >= 100
-																	? 'table-items align-left'
-																	: 'table-items'
-															} ${
-																String(itm).includes('https://')
-																	? 'tw-text-xs tw-px-1'
-																	: ' tw-px-2'
-															} tw-max-w-[200px] tw-overflow-auto slimBar tw-relative`}
-															key={index}>
-															{String(itm).includes('https://') && (
-																<img
-																	src={itm}
-																	alt={itm}
-																	className="tw-object-cover tw-pl-0 tw-max-w-[200px] tw-w-[200px] tw-h-[100px]"
-																/>
-															)}
-															{typeof itm === 'string' &&
-															!String(itm).includes('https://')
-																? itm?.length >= 100
-																	? readMore && matchIdx === item?.id
-																		? itm
-																		: `${itm.substring(0, 30)}...`
-																	: itm
-																: itm}
-															{itm?.length >= 100 &&
-																!String(itm).includes('https://') && (
-																	<>
-																		<span onClick={() => toggleRead(item?.id)}>
-																			{readMore && matchIdx === item?.id ? (
-																				<>
-																					<span>Read Less</span>{' '}
-																					<MdOutlineKeyboardArrowUp />
-																				</>
-																			) : (
-																				<>
-																					<span>Read More</span>{' '}
-																					<MdOutlineKeyboardArrowDown />
-																				</>
-																			)}
-																		</span>
-																	</>
+											{shippingInfo?.shippingData?.map((item, idx) => {
+												const currentTime = new Date().getDate()
+												const future5days =
+													new Date(item?.timestamp).getDate() + 6
+												const diff = future5days - currentTime
+
+												return (
+													<tr
+														className={`${
+															diff <= 1 ? 'tw-bg-red-200' : 'tw-bg-white'
+														} table-item-row`}
+														key={idx}>
+														{Object?.values(item)?.map((itm, index) => (
+															<td
+																onMouseOver={() => handleShipText(item?.id)}
+																className={`${
+																	itm?.length >= 100
+																		? 'table-items align-left'
+																		: 'table-items'
+																} ${
+																	String(itm).includes('https://')
+																		? 'tw-text-xs tw-px-1'
+																		: ' tw-px-2'
+																} tw-max-w-[200px] tw-overflow-auto slimBar tw-relative`}
+																key={index}>
+																{String(itm).includes('https://') && (
+																	<img
+																		src={itm}
+																		alt={itm}
+																		className="tw-object-cover tw-pl-0 tw-max-w-[200px] tw-w-[200px] tw-h-[100px]"
+																	/>
 																)}
-														</td>
-													))}
-													<div className="tw-absolute tw-right-0 tw-h-[125px] tw-flex tw-flex-row ">
-														{modal &&
-															matchIdx === item?.id &&
-															custmr === item?.customer && (
-																<div className="been-shipped tw-px-10">
-																	<div className="tw-mt-[30px] tw-text-xs ">
-																		Has this product been shipped ? <br />
-																		<span className="been-shipped-textsm tw-text-green-700 tw-text-sm">
-																			Click YES to add tracking number
-																		</span>
-																	</div>
-																	<div className="tw-flex tw-flex-row tw-justify-center">
-																		<button
-																			className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-green-700"
-																			onClick={() => {
-																				setId(item?.id)
-																				setClientShippingEmail(item?.email)
-																				setClientShippingName(item?.customer)
-																				setShowTrackingInput(true)
-																				scrollToTop()
-																			}}>
-																			<GiCheckMark className="tw-mr-1" />
-																			Yes
-																		</button>
-																		<button
-																			className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-red-800"
-																			onClick={() => {
-																				setShowTrackingInput(false)
-																				setModal(false)
-																			}}>
-																			<MdClose size={20} className="tw-mr-1" />
-																			No
-																		</button>
-																	</div>
-																</div>
-															)}
-														{showShipText && compareID === item?.id && (
-															<div className="tw-absolute tw-right-[-7px] tw-flex tw-flex-row tw-items-center tw-justify-center tw-text-xs tw-font-bold tw-p-2 tw-text-violet-900">
-																<div
-																	className="hover:tw-cursor-pointer tw-relative tw-px-3 tw-py-1 tw-rounded-[3px] tw-mr-[1px] tw-bg-violet-500"
-																	onClick={() =>
-																		toggleModal(item?.id, item?.customer)
-																	}>
-																	<FaShippingFast size={30} />
-																</div>
-																<div className="tw-flex tw-items-center">
-																	<div className="hover:tw-cursor-pointer tw-pl-3 tw-bg-violet-500 tw-px-3 tw-py-1 tw-rounded-[3px] tw-mr-[1px]">
-																		<GoMailRead
-																			onClick={() =>
-																				setShowSendIcon(!showSendIcon)
-																			}
-																			size={30}
-																		/>
-																	</div>
-																	{showSendIcon && (
-																		<div className="hover:tw-cursor-pointer tw-bg-violet-500 tw-text-white tw-px-3 tw-py-[9.3px] tw-rounded-[3px]">
-																			<SiMinutemailer
-																				onClick={() =>
-																					SendFutureEmail(
-																						item?.email,
-																						item?.customer,
-																						item?.color,
-																						item?.title,
-																						item?.quantity
-																					)
-																				}
-																				size={20}
-																			/>
+																{typeof itm === 'string' &&
+																!String(itm).includes('https://')
+																	? itm?.length >= 100
+																		? readMore && matchIdx === item?.id
+																			? itm
+																			: `${itm.substring(0, 30)}...`
+																		: itm
+																	: itm}
+																{itm?.length >= 100 &&
+																	!String(itm).includes('https://') && (
+																		<>
+																			<span
+																				onClick={() => toggleRead(item?.id)}>
+																				{readMore && matchIdx === item?.id ? (
+																					<>
+																						<span>Read Less</span>{' '}
+																						<MdOutlineKeyboardArrowUp />
+																					</>
+																				) : (
+																					<>
+																						<span>Read More</span>{' '}
+																						<MdOutlineKeyboardArrowDown />
+																					</>
+																				)}
+																			</span>
+																		</>
+																	)}
+															</td>
+														))}
+														<div className="tw-absolute tw-right-0 tw-h-[125px] tw-flex tw-flex-row ">
+															{modal &&
+																matchIdx === item?.id &&
+																custmr === item?.customer && (
+																	<div className="been-shipped tw-px-10">
+																		<div className="tw-mt-[30px] tw-text-xs ">
+																			Has this product been shipped ? <br />
+																			<span className="been-shipped-textsm tw-text-green-700 tw-text-sm">
+																				Click YES to add tracking number
+																			</span>
 																		</div>
+																		<div className="tw-flex tw-flex-row tw-justify-center">
+																			<button
+																				className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-green-700"
+																				onClick={() => {
+																					setId(item?.id)
+																					setClientShippingEmail(item?.email)
+																					setClientShippingName(item?.customer)
+																					setShowTrackingInput(true)
+																					scrollToTop()
+																				}}>
+																				<GiCheckMark className="tw-mr-1" />
+																				Yes
+																			</button>
+																			<button
+																				className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-red-800"
+																				onClick={() => {
+																					setShowTrackingInput(false)
+																					setModal(false)
+																				}}>
+																				<MdClose
+																					size={20}
+																					className="tw-mr-1"
+																				/>
+																				No
+																			</button>
+																		</div>
+																	</div>
+																)}
+															{showShipText && compareID === item?.id && (
+																<div className="tw-absolute tw-right-[-7px] tw-flex tw-flex-row tw-items-center tw-justify-center tw-text-xs tw-font-bold tw-p-2 tw-text-violet-900">
+																	<div
+																		className="hover:tw-cursor-pointer tw-relative tw-px-3 tw-py-1 tw-rounded-[3px] tw-mr-[1px] tw-bg-violet-500"
+																		onClick={() =>
+																			toggleModal(item?.id, item?.customer)
+																		}>
+																		<FaShippingFast size={30} />
+																	</div>
+																	<div className="tw-flex tw-items-center">
+																		{diff >= 1 && (
+																			<div className="hover:tw-cursor-pointer tw-pl-3 tw-bg-violet-500 tw-px-3 tw-py-1 tw-rounded-[3px] tw-mr-[1px]">
+																				<GoMailRead
+																					onClick={() =>
+																						setShowSendIcon(!showSendIcon)
+																					}
+																					size={30}
+																				/>
+																			</div>
+																		)}
+																		{showSendIcon && diff >= 1 && (
+																			<div className="hover:tw-cursor-pointer tw-bg-violet-500 tw-text-white tw-px-3 tw-py-[9.3px] tw-rounded-[3px]">
+																				<SiMinutemailer
+																					onClick={() =>
+																						SendFutureEmail(
+																							item?.email,
+																							item?.customer,
+																							item?.color,
+																							item?.title,
+																							item?.quantity
+																						)
+																					}
+																					size={20}
+																				/>
+																			</div>
+																		)}
+																	</div>
+
+																	{emailSent && (
+																		<span className="tw-absolute tw-bottom-[4%] tw-w-[60%] tw-text-center bg-blur3 tw-p-1 tw-right-[8px] tw-mb-3 tw-text-white tw-font-light tw-text-[12px] tw-tracking-widest">
+																			Email sent!
+																		</span>
 																	)}
 																</div>
-
-																{emailSent && (
-																	<span className="tw-absolute tw-bottom-[4%] tw-w-[60%] tw-text-center bg-blur3 tw-p-1 tw-right-[8px] tw-mb-3 tw-text-white tw-font-light tw-text-[12px] tw-tracking-widest">
-																		Email sent!
-																	</span>
-																)}
-															</div>
-														)}
-													</div>
-												</tr>
-											))}
+															)}
+														</div>
+													</tr>
+												)
+											})}
 										</tbody>
 									</table>
 								</div>

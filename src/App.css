@@ -536,28 +536,27 @@ label input::placeholder {
 }
 .table-item-row {
 	position: relative;
-	background-color: whitesmoke;
 }
 .table-items {
 	border: 1px solid var(--grey-400);
 	text-align: top;
 	font-size: 14px;
-	color: var(--grey-800);
 }
 .align-left {
 	text-align: left;
 }
 .table-items span {
 	display: flex;
+	align-items: center;
 	justify-content: flex-end;
-	color: var(--grey-1100);
+	color: var(--primary-600);
 	font-weight: 500;
-	font-size: 12px;
+	font-size: 10px;
 	cursor: pointer;
 	text-transform: uppercase;
 }
 .table-items span:hover {
-	color: var(--primary-600);
+	color: var(--primary-800);
 }
 .table-items svg {
 	display: inline;
