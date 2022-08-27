@@ -740,7 +740,7 @@ label input::placeholder {
 			rgba(0, 0, 0, 0.85),
 			rgba(0, 0, 0, 0.85)
 		),
-		url('https://res.cloudinary.com/dhdccvkyt/image/upload/v1653721553/modelest-upload/about2_wsiqfc.jpg');
+		url('https://res.cloudinary.com/dhdccvkyt/image/upload/v1653721553/modelest-upload/general/about2_wsiqfc.jpg');
 }
 
 .slider {
@@ -1417,6 +1417,28 @@ p.yellow::-moz-selection {
 }
 .box .content h5 {
 	font-size: 1.2em;
+}
+
+/* banner images */
+.swiper {
+	padding-top: 30px;
+	margin-bottom: 30px;
+}
+
+.swiper-slide {
+	background-position: center;
+	background-size: cover;
+	-webkit-box-reflect: below 1px
+		linear-gradient(transparent, transparent, rgba(0, 0, 0, 0.1));
+}
+
+.swiper-slide img {
+	display: block;
+	margin: 0 auto;
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+	border-radius: 5px;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Arizonia&family=Oswald:wght@200&display=swap');

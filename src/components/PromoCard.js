@@ -55,14 +55,20 @@ const PromoCard = ({ setExpired }) => {
 		setCountDay(days)
 
 		// If the count down is finished, write some text
-		if (distance < 0 || distance === 0) {
+		if (
+			(days === 0 && hours === 0 && minutes === 0 && seconds === 0) ||
+			(days < 0 && hours < 0 && minutes < 0 && seconds < 0)
+		) {
 			clearInterval(x)
 			setExpired(true)
 		}
 	}, 1000)
 
 	return (
-		<div className="tw-w-full tw-bg-black tw-h-[500px] tw-relative">
+		<div
+			className={`${
+				countDay === 0 ? 'tw-h-[400px]' : 'tw-h-[500px]'
+			} tw-w-full tw-bg-black md:tw-h-[500px] tw-relative`}>
 			<div className="tw-relative">
 				<div className="tw-relative tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-justify-between tw-w-[95%] lg:tw-w-[80%] xl:tw-w-[70%] tw-mx-auto">
 					<div className="font_cursive tw-flex-[0.7] tw-text-white tw-relative md:tw-mr-10">

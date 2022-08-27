@@ -12,6 +12,8 @@ import SearchInput from '../components/shared/SearchInput'
 import PromoCard from '../components/PromoCard'
 import { getDatabase, ref, onValue } from 'firebase/database'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
+import { cloudinaryBaseUrl } from '../constant'
+import PictureSlide from '../components/shared/PictureSlide'
 
 function HomePage() {
 	const [searchControl, setSearchControl] = React.useState(false)
@@ -24,6 +26,7 @@ function HomePage() {
 	const [searchError, setSearchError] = React.useState(false)
 	const [expired, setExpired] = React.useState(false)
 	const [allProducts, setAllproducts] = React.useState([])
+	const [allWigsCloudinaryImg, setAllWigsCloudinaryImg] = React.useState([])
 	const [filtered, setFiltered] = React.useState([])
 	const [sales, setSales] = React.useState(null)
 	const [inputValue, setInputValue] = React.useState('')
@@ -140,8 +143,29 @@ function HomePage() {
 		}
 	}
 
+	const fetchCloudinaryImages = async () => {
+		const {
+			data: { resources },
+		} = await axios.get(
+			'https://res.cloudinary.com/dhdccvkyt/image/list/wigcollections.json'
+		)
+
+		const images = []
+		// eslint-disable-next-line array-callback-return
+		resources.map((img) => {
+			const public_id = img?.public_id
+			let version = img?.version
+			let format = img?.format
+
+			images.push(`${cloudinaryBaseUrl}${version}/${public_id}.${format}`)
+		})
+
+		setAllWigsCloudinaryImg(images)
+	}
+
 	React.useEffect(() => {
 		fetchProducts()
+		fetchCloudinaryImages()
 
 		setTimeout(() => {
 			setShowPopInfo(true)
@@ -363,7 +387,18 @@ function HomePage() {
 					{allProducts.length !== 0 ? (
 						<div className="tw-bg-neutral-900 tw-w-[100%]">
 							<div className="tw-mb-6 tw-mt-[80px] tw-w-full tw-px-3 ">
-								{!expired && <PromoCard setExpired={setExpired} />}
+								{!expired ? (
+									<PromoCard setExpired={setExpired} />
+								) : (
+									<div className="tw-relative">
+										<PictureSlide images={allWigsCloudinaryImg} />
+										<div className="tw-absolute tw-text-white tw-bottom-[30%] md:tw-bottom-[20%] tw-text-center tw-w-full font_cursive tw-text-5xl lg:tw-text-8xl tw-z-10">
+											<p className="tw-font-light tw-text-[rgba(215,191,137,0.3)]">
+												Luxury in it finest
+											</p>
+										</div>
+									</div>
+								)}
 								<Products
 									SubmitInqury={SubmitInqury}
 									setChatError={setChatError}

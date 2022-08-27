@@ -69,7 +69,7 @@ const ContactForm = ({
 						value={chatDetail?.name}
 						onChange={handleChangeChat}
 						placeholder="Name"
-						className={`tw-bg-transparent tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-text-xs tw-shadow-xl placeholder:tw-text-xs focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-1 placeholder:${textColor} tw-font-bold ${textColor}`}
+						className={`tw-bg-transparent tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-text-xs tw-shadow-xl placeholder:tw-text-xs focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-1 placeholder:${textColor} tw-font-bold ${textColor} tw-rounded-tl-[10px] tw-rounded-tr-[10px]`}
 					/>
 				</div>
 				<div>
@@ -102,11 +102,11 @@ const ContactForm = ({
 						value={chatDetail.message}
 						onChange={handleChangeChat}
 						placeholder="Message..."
-						className={`tw-bg-transparent tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-text-xs tw-shadow-xl focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-1 placeholder:tw-font-bold placeholder:${textColor} ${textColor} tw-font-bold`}
+						className={`tw-bg-transparent tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-text-xs tw-shadow-xl focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-1 placeholder:tw-font-bold placeholder:${textColor} ${textColor} tw-font-bold tw-rounded-bl-[10px] tw-rounded-br-[10px]`}
 					/>
 				</div>
 				{chatError && (
-					<div className="tw-text-center tw-text-xs tw-mt-2 tw-text-red-700">
+					<div className="tw-text-xs tw-ml-3 tw-mt-2 tw-text-red-700">
 						<span>Please enter required field(s) above</span>
 					</div>
 				)}
@@ -116,7 +116,7 @@ const ContactForm = ({
 					</div>
 				)}
 				<button
-					className="tw-w-full tw-bg-neutral-900 tw-text-white tw-text-center tw-text-xs tw-py-2 tw-mt-3 tw-mb-10 tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900 tw-ease-in tw-duration-300"
+					className="tw-w-fit tw-px-3 tw-bg-neutral-900 tw-text-white tw-text-center tw-text-xs tw-py-2 tw-mt-3 tw-mb-10 tw-rounded-[3px] tw-cursor-pointer hover:tw-bg-white hover:tw-text-neutral-900 tw-ease-in tw-duration-300"
 					type="submit">
 					Send message
 				</button>
