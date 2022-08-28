@@ -19,6 +19,7 @@ function Inventory() {
 		dealLength: '',
 		availablelength: '',
 		price: '',
+		video: '',
 		description: '',
 	})
 	const [imageFile, setImageFile] = React.useState('')
@@ -47,6 +48,7 @@ function Inventory() {
 				type: formData.type,
 				color: formData.color,
 				price: formData.price,
+				video: formData.video,
 				length: formData.length,
 				availablelength: formData.availablelength,
 				availablecolor: formData.availablecolor,
@@ -73,6 +75,7 @@ function Inventory() {
 			color: '',
 			availablecolor: '',
 			price: '',
+			video: '',
 			length: '',
 			dealLength: '',
 			availablelength: '',
@@ -165,6 +168,13 @@ function Inventory() {
 			type: 'number',
 			value: formData.price,
 			placeholder: 'Price CA($)...',
+		},
+		{
+			id: '12',
+			name: 'video',
+			type: 'text',
+			value: formData.video,
+			placeholder: 'Product video url...',
 		},
 	]
 

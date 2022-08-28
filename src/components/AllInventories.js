@@ -46,6 +46,7 @@ function AllInventories() {
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
 			price: Number(singleProduct.price),
+			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
 			dealLength: singleProduct.dealLength,
@@ -66,6 +67,7 @@ function AllInventories() {
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
 			price: Number(singleProduct.price),
+			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
 			dealLength: singleProduct.dealLength,
@@ -86,6 +88,7 @@ function AllInventories() {
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
 			price: Number(singleProduct.price),
+			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
 			dealLength: singleProduct.dealLength,
@@ -106,6 +109,7 @@ function AllInventories() {
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
 			price: Number(singleProduct.price),
+			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
 			dealLength: singleProduct.dealLength,
@@ -126,6 +130,7 @@ function AllInventories() {
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
 			price: Number(singleProduct.price),
+			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
 			dealLength: singleProduct.dealLength,
@@ -146,6 +151,7 @@ function AllInventories() {
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
 			price: Number(singleProduct.price),
+			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
 			dealLength: singleProduct.dealLength,
@@ -165,6 +171,7 @@ function AllInventories() {
 			color: e.target.value,
 			availablecolor: singleProduct.availablecolor,
 			price: Number(singleProduct.price),
+			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
 			dealLength: singleProduct.dealLength,
@@ -184,6 +191,7 @@ function AllInventories() {
 			color: singleProduct.color,
 			availablecolor: e.target.value,
 			price: Number(singleProduct.price),
+			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
 			dealLength: singleProduct.dealLength,
@@ -203,6 +211,7 @@ function AllInventories() {
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
 			price: Number(singleProduct.price),
+			video: singleProduct.video,
 			length: e.target.value,
 			availablelength: singleProduct.availablelength,
 			dealLength: singleProduct.dealLength,
@@ -222,6 +231,7 @@ function AllInventories() {
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
 			price: Number(singleProduct.price),
+			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: e.target.value,
 			dealLength: singleProduct.dealLength,
@@ -241,6 +251,7 @@ function AllInventories() {
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
 			price: Number(singleProduct.price),
+			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelengthe,
 			dealLength: e.target.value,
@@ -260,6 +271,27 @@ function AllInventories() {
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
 			price: e.target.value,
+			video: singleProduct.video,
+			length: singleProduct.length,
+			availablelength: singleProduct.availablelength,
+			dealLength: singleProduct.dealLength,
+			description: singleProduct.description,
+			sales: singleProduct.sales,
+		})
+	}
+	const handleInputVideo = (e) => {
+		setSingleProduct({
+			id: singleProduct.id,
+			name: singleProduct.name,
+			brand: singleProduct.brand,
+			density: singleProduct.density,
+			texture: singleProduct.texture,
+			capsize: singleProduct.capsize,
+			type: singleProduct.type,
+			color: singleProduct.color,
+			availablecolor: singleProduct.availablecolor,
+			price: Number(singleProduct.price),
+			video: e.target.value,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
 			dealLength: singleProduct.dealLength,
@@ -279,6 +311,7 @@ function AllInventories() {
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
 			price: Number(singleProduct.price),
+			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
 			dealLength: singleProduct.dealLength,
@@ -301,6 +334,7 @@ function AllInventories() {
 				color: singleProduct.color,
 				availablecolor: singleProduct.availablecolor,
 				price: Number(singleProduct.price),
+				video: singleProduct.video,
 				length: singleProduct.length,
 				availablelength: singleProduct.availablelength,
 				dealLength: singleProduct.dealLength,
@@ -465,6 +499,15 @@ function AllInventories() {
 									value={singleProduct.price}
 									onChange={handleInputPrice}
 									placeholder="Price..."
+									className="tw-rounded tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+								/>
+								<input
+									type="text"
+									name="video"
+									id="video"
+									value={singleProduct.video}
+									onChange={handleInputVideo}
+									placeholder="Product video url..."
 									className="tw-rounded tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
 								/>
 							</div>

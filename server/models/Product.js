@@ -49,6 +49,9 @@ const ProductSchema = new mongoose.Schema({
 		required: [true, 'must provide description'],
 		trim: true,
 	},
+	video: {
+		type: String,
+	},
 	density: {
 		type: String,
 	},

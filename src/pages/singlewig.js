@@ -227,7 +227,12 @@ const SingleWig = () => {
 								</div>
 							</div>
 							<div className="">
-								<Slideshow images={imageArray} iconSize={25} />
+								<Slideshow
+									images={singleWig[0]}
+									// images={imageArray}
+									iconSize={25}
+									video={singleWig[0]?.video}
+								/>
 							</div>
 							<div className="tw-w-[90%] xl:tw-w-[80%] tw-mx-auto">
 								<div className="tw-w-[100%] tw-mx-auto">

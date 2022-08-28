@@ -30,6 +30,7 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 				texture: product.texture,
 				capsize: product.capsize,
 				price: product.price,
+				video: product.video,
 				description: product.description,
 				sales: product.sales,
 				instock: product.instock,
