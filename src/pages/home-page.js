@@ -24,7 +24,7 @@ function HomePage() {
 	const [showPopInfo, setShowPopInfo] = React.useState(false)
 	const [showForm, setShowForm] = React.useState(false)
 	const [searchError, setSearchError] = React.useState(false)
-	const [expired, setExpired] = React.useState(true)
+	const [expired, setExpired] = React.useState(false)
 	const [allProducts, setAllproducts] = React.useState([])
 	const [allWigsCloudinaryImg, setAllWigsCloudinaryImg] = React.useState([])
 	const [filtered, setFiltered] = React.useState([])
