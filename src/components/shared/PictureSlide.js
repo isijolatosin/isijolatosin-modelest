@@ -26,11 +26,11 @@ const PictureSlide = ({ images }) => {
 			}}
 			// pagination={true}
 			modules={[Autoplay, EffectCoverflow, Pagination]}
-			className="swiper tw-w-[100%] tw-h-[90vh] lg:tw-w-[70%] md:tw-h-[80vh] tw-pt-[10px] md:tw-pt-[50px] tw-pb-[30px]">
+			className="swiper tw-w-[100%] tw-h-[90vh] lg:tw-w-[70%] md:tw-h-[80vh] tw-pt-[50px] tw-pb-[30px]">
 			{images.map((image, idx) => (
 				<SwiperSlide
 					key={idx}
-					className="swiper-slide tw-w-[300px] tw-h-[450px] md:tw-h-[400px]">
+					className="swiper-slide tw-w-[300px] tw-h-[500px] md:tw-h-[400px]">
 					<img src={image} alt="" />
 				</SwiperSlide>
 			))}
