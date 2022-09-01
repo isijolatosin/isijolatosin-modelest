@@ -57,7 +57,7 @@ function VirginWigs() {
 					className={`${
 						sales
 							? 'tw-pt-[140px] md:tw-pt-[110px]'
-							: 'tw-pt-[95px] md:tw-pt-[0px]'
+							: 'tw-pt-[95px] md:tw-pt-[60px]'
 					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10`}>
 					{wigs?.length === 0 ? (
 						<div className="tw-w-full tw-flex tw-justify-center tw-pt-[100px] tw-pb-[50px]">
