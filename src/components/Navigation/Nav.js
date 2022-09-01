@@ -49,7 +49,7 @@ function Nav({
 					<NavIcons />
 				</div>
 			</div>
-			<div className="tw-in-line tw-px-3 md:tw-hidden tw-flex-0.8 tw-bg-[rgba(59,59,59,0.12)] tw-drop-shadow-lg tw tw-py-2 tw-text-white">
+			<div className="tw-in-line tw-px-3 md:tw-hidden tw-flex-0.8 tw-bg-[rgba(59,59,59,0.2)] tw-drop-shadow-lg tw tw-py-2 tw-text-white">
 				<LinksComponent
 					setShowContactForm={setShowContactForm}
 					setShowTerms={setShowTerms}
