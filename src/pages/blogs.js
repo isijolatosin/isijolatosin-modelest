@@ -24,12 +24,10 @@ function Blogs() {
 			<Layout>
 				<div
 					className={`${
-						sales
-							? 'tw-pt-[70px] md:tw-pt-[70px]'
-							: 'tw-pt-[50px] md:tw-pt-[0px]'
+						sales ? 'tw-pt-[70px] md:tw-pt-[70px]' : 'tw-pt-[60px]'
 					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10`}>
 					{!show && (
-						<div className="tw-bg-neutral-300 tw-py-[100px] tw-flex tw-justify-center">
+						<div className="tw-bg-neutral-300 tw-pt-[50px] tw-flex tw-justify-center">
 							<div className="tw-rounded-full progress">
 								<div className="inner"></div>
 							</div>
@@ -37,7 +35,7 @@ function Blogs() {
 					)}
 					{show && (
 						<div className="tw-bg-neutral-50 tw-text-neutral-700">
-							<div className="tw-pb-[100px] tw-pt-[120px] md:tw-pt-[80px] tw-px-5 tw-flex tw-flex-col tw-items-left tw-text-sm tw-w-[100%] md:tw-w-[80%] lg:tw-w-[70%] tw-mx-auto">
+							<div className="tw-pb-[100px] tw-pt-[60px] tw-px-5 tw-flex tw-flex-col tw-items-left tw-text-sm tw-w-[100%] md:tw-w-[80%] lg:tw-w-[70%] tw-mx-auto">
 								<div className="tw-mb-10">
 									<Heading
 										isBold={true}

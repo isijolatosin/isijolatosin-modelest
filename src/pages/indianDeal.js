@@ -120,7 +120,7 @@ function IndianDeal() {
 					CurlyFrontal === null &&
 					bodyWaveClosure === null &&
 					CurlyClosure === null ? (
-						<div className="tw-w-full tw-flex tw-justify-center tw-pt-[100px] tw-pb-[50px]">
+						<div className="tw-w-full tw-flex tw-justify-center tw-pt-[50px]">
 							<div className="tw-rounded-full progress">
 								<div className="inner"></div>
 							</div>
