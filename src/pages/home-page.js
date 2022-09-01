@@ -9,7 +9,7 @@ import { db } from '../firebase'
 import ContactForm from '../components/shared/ContactForm'
 import { Link } from 'react-router-dom'
 import SearchInput from '../components/shared/SearchInput'
-import PromoCard from '../components/PromoCard'
+// import PromoCard from '../components/PromoCard'
 import { getDatabase, ref, onValue } from 'firebase/database'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { cloudinaryBaseUrl } from '../constant'
@@ -24,7 +24,7 @@ function HomePage() {
 	const [showPopInfo, setShowPopInfo] = React.useState(false)
 	const [showForm, setShowForm] = React.useState(false)
 	const [searchError, setSearchError] = React.useState(false)
-	const [expired, setExpired] = React.useState(false)
+	// const [expired, setExpired] = React.useState(false)
 	const [allProducts, setAllproducts] = React.useState([])
 	const [allWigsCloudinaryImg, setAllWigsCloudinaryImg] = React.useState([])
 	const [filtered, setFiltered] = React.useState([])
@@ -244,7 +244,6 @@ function HomePage() {
 			}, 1000)
 		}
 	}
-
 	return (
 		<div className="relative home ">
 			<Helmet>
@@ -309,9 +308,9 @@ function HomePage() {
 					<div
 						className={`${searchControl && 'tw-w-[100%] lg:tw-w-[40%]'} ${
 							sales
-								? 'tw-top-[100px] md:tw-top-[76px]'
-								: 'tw-top-[55px] md:tw-top-[24px]'
-						} tw-flex tw-flex-col content tw-fixed tw-left-[-6px] md:tw-left-[-6px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
+								? 'tw-top-[101px] md:tw-top-[76px]'
+								: 'tw-top-[56px] md:tw-top-[24px]'
+						} tw-flex tw-flex-col content tw-fixed tw-left-[-16px] md:tw-left-[-16px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
 						<SearchInput
 							allProducts={allProducts}
 							searchControl={searchControl}
@@ -387,18 +386,17 @@ function HomePage() {
 					{allProducts.length !== 0 ? (
 						<div className="tw-bg-neutral-900 tw-w-[100%]">
 							<div className="tw-mb-6 tw-mt-[80px] tw-w-full tw-px-3 ">
-								{!expired ? (
-									<PromoCard setExpired={setExpired} />
-								) : (
-									<div className="tw-relative">
+								<div className="tw-relative">
+									<div className="tw-w-full tw-flex tw-items-center">
 										<PictureSlide images={allWigsCloudinaryImg} />
-										<div className="tw-absolute tw-text-white tw-bottom-[21%] md:tw-bottom-[20%] tw-text-center tw-w-full font_cursive tw-text-3xl md:tw-text-5xl lg:tw-text-8xl tw-z-10">
-											<p className="tw-font-light tw-text-[rgba(215,191,137,0.3)]">
-												Luxury in it finest
-											</p>
-										</div>
 									</div>
-								)}
+									<div className="tw-absolute tw-text-white tw-bottom-[21%] md:tw-bottom-[20%] tw-text-center tw-w-full font_cursive tw-text-2xl md:tw-text-6xl tw-z-10">
+										<p className="tw-font-light tw-text-[rgba(215,191,137,0.7)] md:tw-text-[rgba(215,191,137,0.2)]">
+											Your please, our luxuries...
+										</p>
+									</div>
+								</div>
+								{/* {!expired && <PromoCard setExpired={setExpired} />} */}
 								<Products
 									SubmitInqury={SubmitInqury}
 									setChatError={setChatError}
