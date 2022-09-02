@@ -169,13 +169,13 @@ function HomePage() {
 
 		setTimeout(() => {
 			setShowPopInfo(true)
-		}, 10000)
+		}, 5000)
 	}, [])
 
 	if (showPopInfo) {
 		setTimeout(() => {
 			setShowPopInfo(false)
-		}, 15000)
+		}, 10000)
 	}
 
 	window.onscroll = function (ev) {
@@ -392,7 +392,7 @@ function HomePage() {
 									</div>
 									<div className="tw-absolute tw-text-white tw-bottom-[10%] md:tw-bottom-[20%] tw-text-center tw-w-full font_cursive tw-text-2xl md:tw-text-6xl tw-z-10">
 										<p className="tw-font-light tw-text-[rgba(215,191,137,0.7)] md:tw-text-[rgba(215,191,137,0.2)]">
-											Your please, our luxuries...
+											Your please, our luxury...
 										</p>
 									</div>
 								</div>
