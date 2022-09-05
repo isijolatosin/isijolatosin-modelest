@@ -38,9 +38,7 @@ function VietnameseDeal() {
 			<Layout>
 				<div
 					className={`${
-						sales
-							? 'tw-pt-[160px] md:tw-pt-[150px]'
-							: 'tw-pt-[95px] md:tw-pt-[0px]'
+						sales ? 'tw-pt-[160px] md:tw-pt-[150px]' : 'tw-pt-[95px]'
 					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10 home tw-text-white tw-text-center`}>
 					Vietnamese hair Bundle Deals coming soon. We got you covered...
 					{bundleDeals}

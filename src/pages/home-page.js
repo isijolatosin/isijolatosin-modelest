@@ -393,7 +393,7 @@ function HomePage() {
 									<div className="tw-w-full tw-flex tw-items-center">
 										<PictureSlide images={allWigsCloudinaryImg} />
 									</div>
-									<div className="tw-absolute tw-text-white tw-bottom-[10%] md:tw-bottom-[20%] tw-text-center tw-w-full font_cursive tw-text-2xl md:tw-text-6xl tw-z-10">
+									<div className="tw-absolute tw-text-white tw-bottom-[10%] md:tw-bottom-[20%] tw-text-center tw-w-full font_cursive tw-text-2xl md:tw-text-6xl tw-z-1">
 										<p className="tw-font-light tw-text-[rgba(215,191,137,0.7)] md:tw-text-[rgba(215,191,137,0.2)]">
 											Your please, our luxury...
 										</p>

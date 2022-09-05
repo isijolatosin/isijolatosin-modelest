@@ -742,6 +742,18 @@ label input::placeholder {
 		),
 		url('https://res.cloudinary.com/dhdccvkyt/image/upload/v1653721553/modelest-upload/general/about2_wsiqfc.jpg');
 }
+.logo {
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+	background-image: linear-gradient(
+			0deg,
+			rgba(0, 0, 0, 0.85),
+			rgba(0, 0, 0, 0.85)
+		),
+		url('https://res.cloudinary.com/dhdccvkyt/image/upload/v1662354918/modelest-upload/general/logo2_iusqsn.png');
+}
 
 .slider {
 	position: relative;

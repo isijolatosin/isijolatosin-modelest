@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import HomePage from './pages/home-page'
 import Register from './pages/register'
+import Ambassador from './pages/ambassadorReg'
 import Login from './pages/login'
 import NotFound from './pages/error'
 import Canceled from './pages/canceled'
@@ -40,6 +41,11 @@ function App() {
 			option={{ 'client-id': process.env.REACT_APP_PAYPAL_CLIENT_ID }}>
 			<Routes>
 				<Route exact path="/register" element={<Register />} />
+				<Route
+					exact
+					path="/ambassadors-registration"
+					element={<Ambassador />}
+				/>
 				<Route exact path="/login" element={<Login />} />
 				<Route exact path="/canceled" element={<Canceled />} />
 				<Route exact path="/success" element={<Success />} />

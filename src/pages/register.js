@@ -53,7 +53,7 @@ const Register = () => {
 			<Layout>
 				<section
 					className={`${
-						sales ? 'tw-pt-[180px]' : 'tw-pt-[50px] md:tw-pt-[0px]'
+						sales ? 'tw-pt-[180px]' : 'tw-pt-[100px]'
 					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10 home`}>
 					<div className="tw-text-center">
 						<h1 className="tw-text-2xl tw-font-bold tw-text-neutral-50">

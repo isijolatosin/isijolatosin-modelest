@@ -64,7 +64,7 @@ const Login = () => {
 			<Layout>
 				<main
 					className={`${
-						sales ? 'tw-pt-[80px]' : 'tw-pt-[50px] md:tw-pt-[0px]'
+						sales ? 'tw-pt-[80px]' : ''
 					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10 home`}>
 					<section className="tw-flex tw-flex-col tw-items-center tw-pt-[150px] lg:tw-pt-[100px]">
 						<div className="tw-text-center">
