@@ -126,7 +126,7 @@ const Ambassador = () => {
 						</div>
 						<Link
 							to="/"
-							className="tw-absolute tw-top-[-35px] tw-left-[15px] tw-flex tw-items-center tw-text-[#bba371]">
+							className="tw-absolute tw-top-[-60px] md:tw-top-[-100px] tw-left-[15px] tw-flex tw-items-center tw-text-[#bba371]">
 							<RiHomeLine size={25} />
 							<p className="tw-ml-1 tw-text-xs">Home</p>
 						</Link>
@@ -274,7 +274,7 @@ const Ambassador = () => {
 							)}
 							<div className="tw-flex tw-flex-row tw-my-10 tw-justify-center">
 								<Button onClick={handleSubmit} type="submit" isShadow={true}>
-									Create Account
+									Lock In
 								</Button>
 							</div>
 						</form>
@@ -291,7 +291,7 @@ const Ambassador = () => {
 
 					<div>
 						<p className="tw-text-neutral-300 tw-font-light tw-text-center  tw-text-xs ">
-							Already have an Ambassador?{' '}
+							Already Locked In?{' '}
 							<Link to="/">
 								<button className="tw-text-[#bba371] tw-font-thin tw-mb-10">
 									go to home page
