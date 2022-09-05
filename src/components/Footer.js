@@ -82,11 +82,11 @@ function Footer({
 		},
 	]
 	const vietnamese = [
-		{
-			id: '1',
-			name: 'wigs',
-			route: '/vietnamese-wigs',
-		},
+		// {
+		// 	id: '1',
+		// 	name: 'wigs',
+		// 	route: '/vietnamese-wigs',
+		// },
 		{
 			id: '2',
 			name: 'Bundles',

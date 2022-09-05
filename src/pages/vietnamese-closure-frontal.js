@@ -40,7 +40,7 @@ function VietnameseClosureFrontal() {
 					className={`${
 						sales
 							? 'tw-pt-[160px] md:tw-pt-[150px]'
-							: 'tw-pt-[50px] md:tw-pt-[0px]'
+							: 'tw-pt-[95px] md:tw-pt-[0px]'
 					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10 home tw-text-white tw-text-center`}>
 					{name} coming soon. We got you covered...
 				</div>

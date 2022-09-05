@@ -37,11 +37,11 @@ const virginSubLinks = [
 	},
 ]
 const vietnameseSubLinks = [
-	{
-		id: '3',
-		name: 'Wigs',
-		route: '/vietnamese-wigs/',
-	},
+	// {
+	// 	id: '3',
+	// 	name: 'Wigs',
+	// 	route: '/vietnamese-wigs/',
+	// },
 	{
 		id: '1',
 		name: 'Bundles',

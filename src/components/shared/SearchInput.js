@@ -19,18 +19,7 @@ const SearchInput = ({
 			setSearchError(false)
 			// eslint-disable-next-line array-callback-return
 			allProducts.filter((product) => {
-				if (
-					product?.texture?.toLowerCase().includes(inputValue.toLowerCase())
-				) {
-					if (product?.name?.toLowerCase().includes(inputValue.toLowerCase())) {
-						const obj = {
-							name: product?.name,
-							image: product?.image,
-							price: product?.price,
-							route: '/all-bundles',
-						}
-						returnFiltered.push(obj)
-					}
+				if (product?.brand?.toLowerCase().includes(inputValue.toLowerCase())) {
 					if (product?.type?.toLowerCase().includes('virgin wig')) {
 						const obj = {
 							name: product?.name,
@@ -40,12 +29,16 @@ const SearchInput = ({
 						}
 						returnFiltered.push(obj)
 					}
-				}
-				if (
-					product?.type?.toLowerCase().includes(inputValue.toLowerCase()) ||
-					product?.name?.toLowerCase().includes(inputValue.toLowerCase())
-				) {
-					if (product?.type?.toLowerCase().includes(inputValue.toLowerCase())) {
+					if (product?.type?.toLowerCase().includes('hair bundle')) {
+						const obj = {
+							name: product?.name,
+							image: product?.image,
+							price: product?.price,
+							route: '/all-bundles',
+						}
+						returnFiltered.push(obj)
+					}
+					if (product?.type?.toLowerCase().includes('frontal')) {
 						const obj = {
 							name: product?.name,
 							image: product?.image,
@@ -54,16 +47,51 @@ const SearchInput = ({
 						}
 						returnFiltered.push(obj)
 					}
-					if (
-						product?.name
-							?.toLowerCase()
-							.includes(`-${inputValue.toLowerCase()}`)
-					) {
+					if (product?.type?.toLowerCase().includes('closure')) {
+						const obj = {
+							name: product?.name,
+							image: product?.image,
+							price: product?.price,
+							route: '/closure-frontal/indian',
+						}
+						returnFiltered.push(obj)
+					}
+				}
+
+				if (product?.name?.toLowerCase().includes(inputValue.toLowerCase())) {
+					if (product?.type?.toLowerCase().includes('virgin wig')) {
 						const obj = {
 							name: product?.name,
 							image: product?.image,
 							price: product?.price,
 							route: '/virgin-wigs',
+						}
+						returnFiltered.push(obj)
+					}
+					if (product?.type?.toLowerCase().includes('hair bundle')) {
+						const obj = {
+							name: product?.name,
+							image: product?.image,
+							price: product?.price,
+							route: '/all-bundles',
+						}
+						returnFiltered.push(obj)
+					}
+					if (product?.type?.toLowerCase().includes('frontal')) {
+						const obj = {
+							name: product?.name,
+							image: product?.image,
+							price: product?.price,
+							route: '/closure-frontal/indian',
+						}
+						returnFiltered.push(obj)
+					}
+					if (product?.type?.toLowerCase().includes('closure')) {
+						const obj = {
+							name: product?.name,
+							image: product?.image,
+							price: product?.price,
+							route: '/closure-frontal/indian',
 						}
 						returnFiltered.push(obj)
 					}
@@ -83,7 +111,9 @@ const SearchInput = ({
 	return (
 		<div
 			className={`${
-				searchControl ? '_search tw-bg-white __search' : '_search tw-bg-white'
+				searchControl
+					? '_search tw-bg-white __search'
+					: '_search tw-bg-white tw-rounded-r-[30px]'
 			}`}>
 			<input
 				type="text"

@@ -17,6 +17,7 @@ import PictureSlide from '../components/shared/PictureSlide'
 
 function HomePage() {
 	const [searchControl, setSearchControl] = React.useState(false)
+	const [close, setClose] = React.useState(false)
 	const [chatError, setChatError] = React.useState(false)
 	const [chatSuccess, setChatSuccess] = React.useState(false)
 	const [toBottom, setToBottom] = React.useState(false)
@@ -314,8 +315,10 @@ function HomePage() {
 						<SearchInput
 							allProducts={allProducts}
 							searchControl={searchControl}
+							close={close}
 							setFiltered={setFiltered}
 							setSearchControl={setSearchControl}
+							setClose={setClose}
 							setSearchError={setSearchError}
 							inputValue={inputValue}
 							setInputValue={setInputValue}

@@ -1006,8 +1006,8 @@ label input::placeholder {
 	padding: 1em;
 }
 ._search {
-	border-top-right-radius: 30px;
-	border-bottom-right-radius: 30px;
+	/* border-top-right-radius: 30px; */
+	/* border-bottom-right-radius: 30px; */
 	/* margin-left: 30px; */
 	--size: 40px;
 	border: 1px solid rgb(0, 0, 0);
