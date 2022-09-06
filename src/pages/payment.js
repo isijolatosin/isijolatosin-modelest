@@ -136,34 +136,34 @@ const Cart = () => {
 			setWarn(false)
 			setSelectShippingOption(method)
 		}
-	}
-	const placeOrder = function () {
-		if (referral) {
-			if (error) {
-				setError(false)
-			}
-			if (selectShippingOption) {
-				if (selectShippingOption === 'paypal') {
-					setWarn(false)
-					setShowPaypalPayment(true)
-					setShowCardPayment(false)
-				} else if (selectShippingOption === 'card') {
-					setWarn(false)
-					setShowCardPayment(true)
-					setShowPaypalPayment(false)
-				}
-				localStorage.setItem('payMethod', selectShippingOption)
-			} else {
-				setWarn(true)
-			}
-			setSelectShippingOption('')
-			setReferral('')
-		} else {
+		if (!referral) {
 			setError(true)
 		}
 	}
 
+	const placeOrder = function () {
+		if (error) {
+			setError(false)
+		}
+		if (selectShippingOption) {
+			if (selectShippingOption === 'paypal') {
+				setWarn(false)
+				setShowPaypalPayment(true)
+				setShowCardPayment(false)
+			} else if (selectShippingOption === 'card') {
+				setWarn(false)
+				setShowCardPayment(true)
+				setShowPaypalPayment(false)
+			}
+			localStorage.setItem('payMethod', selectShippingOption)
+		} else {
+			setWarn(true)
+		}
+		setSelectShippingOption('')
+	}
+
 	const handleReferral = () => {
+		setReferral('')
 		localStorage.setItem('referral', referral)
 		setError(false)
 	}
@@ -620,10 +620,10 @@ const Cart = () => {
 														PLACE ORDER
 													</button>
 													{error && (
-														<div className="tw-text-red-700">
-															<p className="tw-text-xs">
+														<div className="tw-text-neutral-900">
+															<p className="tw-text-[10px]">
 																Please enter your referral code in order
-																summary!
+																summary! (optional)
 															</p>
 														</div>
 													)}
