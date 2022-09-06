@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/static/css/main.76115545.css",
+    "main.js": "/static/js/main.8f2ba363.js",
+    "static/js/787.b423ba4d.chunk.js": "/static/js/787.b423ba4d.chunk.js",
+    "static/media/about.jpeg": "/static/media/about.e20df7052b964d2c8b25.jpeg",
+    "static/media/ty.jpeg": "/static/media/ty.70cc3cb4048498cecf07.jpeg",
+    "static/media/logo2.png": "/static/media/logo2.592e79a61c06b8c1b9a7.png",
+    "static/media/american-express.png": "/static/media/american-express.78713d2fbfd0d6b6fba3.png",
+    "static/media/mastercard2.png": "/static/media/mastercard2.4b040047b8b58c3251d8.png",
+    "static/media/paypal.png": "/static/media/paypal.ec5b67b208c705db5ec8.png",
+    "static/media/stripe.png": "/static/media/stripe.3ef1d9a5d1c67927de2a.png",
+    "static/media/mastercard.png": "/static/media/mastercard.a77eb151ba04d8d7fdad.png",
+    "index.html": "/index.html",
+    "main.76115545.css.map": "/static/css/main.76115545.css.map",
+    "main.8f2ba363.js.map": "/static/js/main.8f2ba363.js.map",
+    "787.b423ba4d.chunk.js.map": "/static/js/787.b423ba4d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.76115545.css",
+    "static/js/main.8f2ba363.js"
+  ]
+}
