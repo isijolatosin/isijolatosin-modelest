@@ -45,12 +45,12 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 			setWarn(true)
 		} else {
 			const orderNo = `ModelEst${Math.random().toString(36).slice(2)}`
-			const userNameAndPhone = `${address.firstname} ${address.lastname} ${address.phonenumber}`
+			const userName = `${address.firstname} ${address.lastname}`
 			const shippingAd = `${address.street}, ${
 				address.apartment && address.apartment
 			}, ${address.city}. ${address.province}. ${address.postalcode}. ${
 				address.country
-			}. Phone-no: ${address.phonenumber}`
+			}`
 
 			if (
 				!user ||
@@ -92,8 +92,9 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 			) {
 				localStorage.setItem('country', address.country)
 				localStorage.setItem('address', shippingAd)
+				localStorage.setItem('phone', address.phonenumber)
 				localStorage.setItem('order no', orderNo)
-				localStorage.setItem('user name and phone', userNameAndPhone)
+				localStorage.setItem('username', userName)
 				email && localStorage.setItem('altEmail', email)
 				setAddress({
 					street: '',

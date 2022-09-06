@@ -45,14 +45,13 @@ const Cart = () => {
 	const [showSum, setShowSum] = React.useState(false)
 	const [pageCancel, setPageCancel] = React.useState(false)
 	const discountPrice = Number(localStorage.getItem('discountPrice'))
-	const userNameAndPhone = localStorage.getItem('user name and phone')
+	const userName = localStorage.getItem('username')
+	const phone = localStorage.getItem('phone')
 	const country = localStorage.getItem('country')
 	const orderNo = localStorage.getItem('order no')
 	const shippingObj = JSON.parse(localStorage.getItem('shippingCost'))
 	const shipMethod = localStorage.getItem('ship')
-	const userPostalAddress = localStorage
-		.getItem('address')
-		.split(' Phone-no')[0]
+	const userPostalAddress = localStorage.getItem('address')
 	const [showLoad, setShowLoad] = React.useState(false)
 	const [showInfo, setShowInfo] = React.useState(false)
 	const [selectShippingOption, setSelectShippingOption] = React.useState(false)
@@ -136,7 +135,7 @@ const Cart = () => {
 			setWarn(false)
 			setSelectShippingOption(method)
 		}
-		if (!referral) {
+		if (!localStorage.getItem('referral')) {
 			setError(true)
 		}
 	}
@@ -205,7 +204,9 @@ const Cart = () => {
 														size1={true}
 														isBold={true}
 													/>
-													<p>{userNameAndPhone}</p>
+													<p>
+														{userName} - {phone}
+													</p>
 													<p>{userPostalAddress}</p>
 												</div>
 											</div>
@@ -393,7 +394,9 @@ const Cart = () => {
 															size1={true}
 															isBold={true}
 														/>
-														<p>{userNameAndPhone}</p>
+														<p>
+															{userName} - {phone}
+														</p>
 														<p>{userPostalAddress}</p>
 													</div>
 												</div>

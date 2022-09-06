@@ -69,10 +69,11 @@ const Cart = () => {
 		localStorage.removeItem('finalPriceToPayObject')
 		localStorage.removeItem('finalPriceToPay')
 		localStorage.removeItem('order no')
-		localStorage.removeItem('user name and phone')
+		localStorage.removeItem('username')
 		localStorage.removeItem('payMethod')
 		localStorage.removeItem('country')
 		localStorage.removeItem('referral')
+		localStorage.removeItem('phone')
 
 		setSales(fetchSalesPercentage())
 

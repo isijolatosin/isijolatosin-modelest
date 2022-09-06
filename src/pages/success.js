@@ -187,11 +187,12 @@ const Success = () => {
 		localStorage.removeItem('addressFromPaypal')
 		localStorage.removeItem('finalPriceToPay')
 		localStorage.removeItem('finalPriceToPayObject')
-		localStorage.removeItem('user name and phone')
+		localStorage.removeItem('username')
 		localStorage.removeItem('order no')
 		localStorage.removeItem('payMethod')
 		localStorage.removeItem('country')
 		localStorage.removeItem('referral')
+		localStorage.removeItem('phone')
 		navigate('/')
 	}
 
