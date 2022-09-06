@@ -135,7 +135,7 @@ const Cart = () => {
 			setWarn(false)
 			setSelectShippingOption(method)
 		}
-		if (!localStorage.getItem('referral')) {
+		if (!localStorage.getItem('referral') && country === 'nigeria') {
 			setError(true)
 		}
 	}
