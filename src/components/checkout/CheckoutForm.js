@@ -160,7 +160,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 							error && !address.country
 								? 'user-email-input tw-border-red-700'
 								: 'tw-border-neutral-400'
-						} user-email-input tw-font-light tw-border-[1px] tw-rounded-[6px] tw-mb-[10px] tw-py-[9px] tw-text-sm focus:border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400 tw-capitalize`}
+						} user-email-input tw-font-light tw-border-[1px] tw-rounded-[6px] tw-mb-[10px] tw-py-[9px] tw-text-sm focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400 tw-capitalize`}
 						onChange={inputOnchangeHandler}
 						id="country"
 						value={address.country}
@@ -183,7 +183,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 						className={
 							error && !address.firstname
 								? 'user-email-input tw-border-red-700'
-								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
+								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
 						}
 					/>
 					<input
@@ -195,7 +195,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 						className={
 							error && !address.lastname
 								? 'user-email-input tw-border-red-700'
-								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
+								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
 						}
 					/>
 				</div>
@@ -208,7 +208,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 					className={
 						error && !address.street
 							? 'user-email-input tw-border-red-700'
-							: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
+							: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
 					}
 				/>
 				<input
@@ -220,7 +220,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 					className={
 						error && !address.apartment
 							? 'user-email-input tw-border-red-700'
-							: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
+							: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
 					}
 				/>
 				<div className="tw-grid tw-grid-cols-3 tw-gap-x-[7px]">
@@ -233,7 +233,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 						className={
 							error && !address.city
 								? 'user-email-input tw-border-red-700'
-								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
+								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
 						}
 					/>
 					<input
@@ -245,7 +245,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 						className={
 							error && !address.province
 								? 'user-email-input tw-border-red-700'
-								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
+								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
 						}
 					/>
 					<input
@@ -257,7 +257,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 						className={
 							error && !address.postalcode
 								? 'user-email-input tw-border-red-700'
-								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400 '
+								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400 '
 						}
 					/>
 				</div>
