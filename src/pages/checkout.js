@@ -71,6 +71,8 @@ const Cart = () => {
 		localStorage.removeItem('order no')
 		localStorage.removeItem('user name and phone')
 		localStorage.removeItem('payMethod')
+		localStorage.removeItem('country')
+		localStorage.removeItem('referral')
 
 		setSales(fetchSalesPercentage())
 
@@ -206,7 +208,7 @@ const Cart = () => {
 										<>
 											<div className="tw-w-full tw-pt-5 tw-flex tw-items-center">
 												<input
-													name="firstname"
+													name="discount"
 													type="text"
 													value={discount}
 													onChange={handleDisount}
@@ -367,7 +369,7 @@ const Cart = () => {
 											<>
 												<div className="tw-w-full tw-py-5 tw-flex tw-items-center">
 													<input
-														name="firstname"
+														name="discount"
 														type="text"
 														value={discount}
 														onChange={handleDisount}

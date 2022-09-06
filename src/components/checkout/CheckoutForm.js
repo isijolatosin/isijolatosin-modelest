@@ -4,6 +4,7 @@ import { SHIPPING_COST } from '../../constant'
 import { ValidateEmail } from '../../utils/ValidateEmail'
 import { BsFillQuestionCircleFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
+// import { countries } from '../../country'
 
 const CheckoutForm = ({ shippingMethod, setWarn }) => {
 	const navigate = useNavigate()
@@ -28,6 +29,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 		{ id: 1, name: 'canada' },
 		{ id: 2, name: 'united kingdom' },
 		{ id: 3, name: 'united states' },
+		{ id: 4, name: 'nigeria' },
 	]
 
 	const inputOnchangeHandler = (e) => {
@@ -88,6 +90,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 					address.phonenumber &&
 					address?.country)
 			) {
+				localStorage.setItem('country', address.country)
 				localStorage.setItem('address', shippingAd)
 				localStorage.setItem('order no', orderNo)
 				localStorage.setItem('user name and phone', userNameAndPhone)
@@ -157,19 +160,17 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 							error && !address.country
 								? 'user-email-input tw-border-red-700'
 								: 'tw-border-neutral-400'
-						} user-email-input tw-font-light tw-border-[1px] tw-rounded-[6px] tw-mb-[10px] tw-py-[9px] tw-text-sm`}
+						} user-email-input tw-font-light tw-border-[1px] tw-rounded-[6px] tw-mb-[10px] tw-py-[9px] tw-text-sm focus:border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400 tw-capitalize`}
 						onChange={inputOnchangeHandler}
 						id="country"
 						value={address.country}
 						name="country">
 						{countries.map((plan) => (
-							<>
-								{/* <option value="" disabled selected hidden>
-								Country...
-							</option> */}
-								<option key={plan.id}>{plan.name}</option>
-							</>
+							<option key={plan.id}>{plan.name}</option>
 						))}
+						{/* {countries.map((item, idx) => (
+							<option key={idx}>{item.countryName}</option>
+						))} */}
 					</select>
 				</div>
 				<div className="tw-grid tw-grid-cols-2 tw-gap-x-[7px]">
@@ -182,7 +183,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 						className={
 							error && !address.firstname
 								? 'user-email-input tw-border-red-700'
-								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400'
+								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
 						}
 					/>
 					<input
@@ -194,7 +195,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 						className={
 							error && !address.lastname
 								? 'user-email-input tw-border-red-700'
-								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400'
+								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
 						}
 					/>
 				</div>
@@ -207,7 +208,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 					className={
 						error && !address.street
 							? 'user-email-input tw-border-red-700'
-							: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400'
+							: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
 					}
 				/>
 				<input
@@ -219,7 +220,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 					className={
 						error && !address.apartment
 							? 'user-email-input tw-border-red-700'
-							: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400'
+							: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
 					}
 				/>
 				<div className="tw-grid tw-grid-cols-3 tw-gap-x-[7px]">
@@ -232,7 +233,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 						className={
 							error && !address.city
 								? 'user-email-input tw-border-red-700'
-								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400'
+								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
 						}
 					/>
 					<input
@@ -244,7 +245,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 						className={
 							error && !address.province
 								? 'user-email-input tw-border-red-700'
-								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400'
+								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
 						}
 					/>
 					<input
@@ -256,7 +257,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 						className={
 							error && !address.postalcode
 								? 'user-email-input tw-border-red-700'
-								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400'
+								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400 '
 						}
 					/>
 				</div>
@@ -272,7 +273,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 						value={address.phonenumber}
 						onChange={inputOnchangeHandler}
 						placeholder="Phone"
-						className={`tw-mb-0 tw-border-0 focus:tw-border-neutral-400 focus:tw-ring-1 focus:tw-ring-neutral-400 placeholder:tw-text-[12px] tw-text-sm tw-font-light tw-w-full`}
+						className={`tw-bg-transparent tw-mb-0 tw-border-0 focus:tw-border-neutral-400 focus:tw-rounded-l-[6px] focus:tw-ring-1 focus:tw-ring-neutral-400 placeholder:tw-text-[12px] tw-text-sm tw-font-light tw-w-full`}
 					/>
 					<BsFillQuestionCircleFill
 						size={20}

@@ -100,6 +100,7 @@ function Shippment() {
 								orderNo: result?.data.orderNo,
 								price: `$${result?.data.price}`,
 								quantity: result?.data.quantity,
+								referral: result?.data.referral,
 								shipMethod: result?.data.shipMethod,
 								timestamp: new Date(result?.data.timestamp).toDateString(),
 								title: result?.data.title,

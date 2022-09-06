@@ -281,7 +281,7 @@ const Ambassador = () => {
 					</article>
 					<div
 						className={`tw-flex tw-flex-col tw-items-center tw-text-white tw-mb-5 tw-ease-in tw-duration-500 ${
-							ambCode ? 'tw-opacity-1' : 'tw-opacity-0'
+							ambCode ? 'tw-opacity-1 tw-scale-100' : 'tw-opacity-0 tw-scale-50'
 						}`}>
 						<p className="tw-text-xs">Your personal sales code is</p>
 						<p className="yellow tw-bg-white tw-text-neutral-900  tw-px-20 tw-w-fit tw-flex">

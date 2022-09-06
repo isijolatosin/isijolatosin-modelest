@@ -23,6 +23,8 @@ import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
 import { BsCreditCard } from 'react-icons/bs'
 import Heading from '../components/Heading'
 import { RiVisaLine } from 'react-icons/ri'
+import { BASE_CURRENCY_CONVERTER_URL } from '../constant'
+import { FiSend } from 'react-icons/fi'
 
 const logo = require('../assets/logo2.png')
 const paypal = require('../assets/paypal.png')
@@ -37,11 +39,14 @@ const Cart = () => {
 	const cartItems = useSelector(selectCartItems)
 	const navigate = useNavigate()
 	const [sales, setSales] = React.useState(false)
+	const [referral, setReferral] = React.useState('')
+	const [error, setError] = React.useState(false)
 	const [redirect, setRedirect] = React.useState(false)
 	const [showSum, setShowSum] = React.useState(false)
 	const [pageCancel, setPageCancel] = React.useState(false)
 	const discountPrice = Number(localStorage.getItem('discountPrice'))
 	const userNameAndPhone = localStorage.getItem('user name and phone')
+	const country = localStorage.getItem('country')
 	const orderNo = localStorage.getItem('order no')
 	const shippingObj = JSON.parse(localStorage.getItem('shippingCost'))
 	const shipMethod = localStorage.getItem('ship')
@@ -54,6 +59,9 @@ const Cart = () => {
 	const [showPaypalPayment, setShowPaypalPayment] = React.useState(false)
 	const [showCardPayment, setShowCardPayment] = React.useState(false)
 	const [warn, setWarn] = React.useState(false)
+	const [estimatedTotalPriceNaira, setestimatedTotalPriceNaira] =
+		React.useState('')
+	const [exchangeRate, setExchangeRate] = React.useState('')
 	const shipPrice =
 		shipMethod === 'ship' ? `USD $${shippingObj.cost}:00` : 'PICK UP'
 	const taxPrice = discountPrice
@@ -78,6 +86,28 @@ const Cart = () => {
 	}
 	React.useEffect(() => {
 		setSales(fetchSalesPercentage())
+
+		const myHeaders = new Headers()
+		myHeaders.append('apikey', process.env.REACT_APP_EXCHANGE_RATE_DATA_API_KEY)
+
+		const requestOptions = {
+			method: 'GET',
+			redirect: 'follow',
+			headers: myHeaders,
+		}
+
+		country === 'nigeria' &&
+			fetch(
+				`${BASE_CURRENCY_CONVERTER_URL}to=ngn&from=usd&amount=${estimatedTotalPrice}`,
+				requestOptions
+			)
+				.then((response) => response.json())
+				.then((result) => {
+					setestimatedTotalPriceNaira(result.result.toFixed(2))
+					setExchangeRate(result.info.rate.toFixed(2))
+				})
+				.catch((error) => console.log('error', error))
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -108,21 +138,34 @@ const Cart = () => {
 		}
 	}
 	const placeOrder = function () {
-		if (selectShippingOption) {
-			if (selectShippingOption === 'paypal') {
-				setWarn(false)
-				setShowPaypalPayment(true)
-				setShowCardPayment(false)
-			} else if (selectShippingOption === 'card') {
-				setWarn(false)
-				setShowCardPayment(true)
-				setShowPaypalPayment(false)
+		if (referral) {
+			if (error) {
+				setError(false)
 			}
-			localStorage.setItem('payMethod', selectShippingOption)
+			if (selectShippingOption) {
+				if (selectShippingOption === 'paypal') {
+					setWarn(false)
+					setShowPaypalPayment(true)
+					setShowCardPayment(false)
+				} else if (selectShippingOption === 'card') {
+					setWarn(false)
+					setShowCardPayment(true)
+					setShowPaypalPayment(false)
+				}
+				localStorage.setItem('payMethod', selectShippingOption)
+			} else {
+				setWarn(true)
+			}
+			setSelectShippingOption('')
+			setReferral('')
 		} else {
-			setWarn(true)
+			setError(true)
 		}
-		setSelectShippingOption('')
+	}
+
+	const handleReferral = () => {
+		localStorage.setItem('referral', referral)
+		setError(false)
 	}
 
 	return (
@@ -205,21 +248,80 @@ const Cart = () => {
 												</div>
 											</div>
 										</div>
-										<div className="tw-flex tw-items-center tw-justify-between tw-text-sm tw-pt-5 tw-px-3 ">
+										<div className="tw-flex tw-items-center tw-justify-between tw-text-sm tw-py-5 tw-px-3">
 											<span className="tw-text-[16px]">Total:</span>
-											<div className="tw-flex tw-items-center">
-												<span className="tw-text-[12px] tw-mr-2 tw-text-neutral-700">
-													USD
-												</span>
-												{showLoad ? (
-													<div className="circular-loader-small"></div>
-												) : (
-													<span className="tw-text-[20px]">
-														${estimatedTotalPrice}
+											<div className="tw-flex tw-flex-col">
+												<div className="tw-flex tw-items-center">
+													<span className="tw-text-[12px] tw-mr-2 tw-text-neutral-700">
+														USD
 													</span>
-												)}
+													{showLoad ? (
+														<div className="circular-loader-small"></div>
+													) : (
+														<span className="tw-text-[20px]">
+															${estimatedTotalPrice}
+														</span>
+													)}
+												</div>
 											</div>
 										</div>
+										{country === 'nigeria' && (
+											<div className="tw-border-y-[1px] tw-border-[#b59248] tw-p-3  tw-w-full">
+												<div className="tw-flex-[0'5] tw-mb-5">
+													<Heading
+														children="Conversion"
+														isLight={true}
+														size1={true}
+														isBold={true}
+													/>
+													<div className="tw-flex tw-items-center tw-text-neutral-600 tw-font-thin tw-mt-[-3px]">
+														<p className="tw-text-[10px] tw-mr-2">Rate: </p>
+														<p className="tw-text-[12px]">#{exchangeRate}</p>
+													</div>
+													<div className="tw-flex tw-items-center tw-text-neutral-600 tw-font-thin tw-mt-[-5px]">
+														<span className="tw-text-[10px] tw-mr-2">
+															NAIRA:{' '}
+														</span>
+														{showLoad ? (
+															<div className="circular-loader-small"></div>
+														) : (
+															<span className="tw-text-[12px]">
+																#{estimatedTotalPriceNaira}
+															</span>
+														)}
+													</div>
+												</div>
+												<div className="tw-flex-[0'5] tw-w-fit">
+													<p className="tw-text-xs">Enter referral code</p>
+													<div className="tw-flex tw-items-center">
+														<input
+															name="referral"
+															type="text"
+															value={referral}
+															onChange={(e) => setReferral(e.target.value)}
+															placeholder="referral code"
+															className={`${
+																error && referral === ''
+																	? 'tw-border-red-700 tw-border-[1px]'
+																	: 'tw-border-[1px] tw-border-[#bba371]'
+															} tw-text-sm tw-font-light tw-bg-transparent tw-py-1 placeholder:tw-text-xs focus:tw-ring-0`}
+														/>
+														<button
+															onClick={handleReferral}
+															className="tw-text-[#bba371] tw-pl-2">
+															<FiSend size={20} />
+														</button>
+													</div>
+													{error && (
+														<div className="tw-text-red-700">
+															<p className="tw-text-xs">
+																Please enter your referral code!
+															</p>
+														</div>
+													)}
+												</div>
+											</div>
+										)}
 									</div>
 								</div>
 								<div className="tw-w-full lg:tw-w-[70%] tw-px-3 md:tw-pr-0 md:tw-pl-5">
@@ -349,6 +451,63 @@ const Cart = () => {
 													)}
 												</div>
 											</div>
+											{country === 'nigeria' && (
+												<div className="tw-border-t-[1px] tw-border-[#b59248] tw-p-3 tw-flex tw-justify-between tw-w-full">
+													<div>
+														<Heading
+															children="Conversion"
+															isLight={true}
+															size1={true}
+															isBold={true}
+														/>
+														<div className="tw-flex tw-items-center tw-text-neutral-600 tw-font-thin tw-mt-[-3px]">
+															<p className="tw-text-[10px] tw-mr-2">Rate: </p>
+															<p className="tw-text-[12px]">#{exchangeRate}</p>
+														</div>
+														<div className="tw-flex tw-items-center tw-text-neutral-600 tw-font-thin tw-mt-[-5px]">
+															<span className="tw-text-[10px] tw-mr-2">
+																NAIRA:{' '}
+															</span>
+															{showLoad ? (
+																<div className="circular-loader-small"></div>
+															) : (
+																<span className="tw-text-[12px]">
+																	#{estimatedTotalPriceNaira}
+																</span>
+															)}
+														</div>
+													</div>
+													<div className="tw-flex-[0'5] tw-w-fit">
+														<p className="tw-text-xs">Enter referral code</p>
+														<div className="tw-flex tw-items-center">
+															<input
+																name="referral"
+																type="text"
+																value={referral}
+																onChange={(e) => setReferral(e.target.value)}
+																placeholder="referral code"
+																className={`${
+																	error && referral === ''
+																		? 'tw-border-red-700 tw-border-[1px]'
+																		: 'tw-border-[1px] tw-border-[#5a400a]'
+																} tw-text-sm tw-font-light tw-bg-transparent tw-py-1 placeholder:tw-text-xs focus:tw-ring-0`}
+															/>
+															<button
+																onClick={handleReferral}
+																className="tw-text-[#5a400a] tw-pl-2">
+																<FiSend size={20} />
+															</button>
+														</div>
+														{error && (
+															<div className="tw-text-red-700">
+																<p className="tw-text-xs">
+																	Please enter your referral code!
+																</p>
+															</div>
+														)}
+													</div>
+												</div>
+											)}
 										</div>
 									</div>
 									<div className="tw-bg-white ">
@@ -456,10 +615,18 @@ const Cart = () => {
 												</div>
 												<div
 													onClick={placeOrder}
-													className="tw-z-40 tw-flex tw-items-center tw-w-full tw-my-10 md:tw-my-0 md:tw-w-[40%]">
+													className="tw-z-40 tw-flex tw-flex-col tw-items-center tw-w-full tw-my-10 md:tw-my-0 md:tw-w-[40%]">
 													<button className="tw-bg-neutral-800 tw-text-white tw-text-xs tw-px-5 tw-py-2 hover:md:tw-bg-neutral-100 hover:md:tw-text-neutral-900 tw-ease-in tw-duration-300 tw-w-[80%] md:tw-w-[50%] tw-mx-auto tw-rounded-[30px]">
 														PLACE ORDER
 													</button>
+													{error && (
+														<div className="tw-text-red-700">
+															<p className="tw-text-xs">
+																Please enter your referral code in order
+																summary!
+															</p>
+														</div>
+													)}
 												</div>
 											</div>
 										</div>

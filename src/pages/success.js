@@ -24,6 +24,8 @@ const Success = () => {
 	const totalPriceFromCart = useSelector(selectTotal)
 	const [sales, setSales] = React.useState(false)
 	const userAddss = localStorage.getItem('address')
+	const country = localStorage.getItem('country')
+	const referral = localStorage.getItem('referral')
 	const finalPriceToPay = Number(localStorage.getItem('finalPriceToPay'))
 	const finalPriceToPayObject = JSON.parse(
 		localStorage.getItem('finalPriceToPayObject')
@@ -136,6 +138,7 @@ const Success = () => {
 						image: item?.image ? item?.image : '',
 						shipMethod: shipMethod,
 						cardHolder: paymentName,
+						referral: referral,
 					})
 					.then(() => {
 						console.log(`SUCCESSFULL`)
@@ -162,6 +165,7 @@ const Success = () => {
 						image: item?.image ? item?.image : '',
 						shipMethod: shipMethod,
 						cardHolder: paymentName,
+						referral: referral,
 					})
 					.then(() => {
 						console.log(`SUCCESSFULL`)
@@ -187,6 +191,8 @@ const Success = () => {
 		localStorage.removeItem('user name and phone')
 		localStorage.removeItem('order no')
 		localStorage.removeItem('payMethod')
+		localStorage.removeItem('country')
+		localStorage.removeItem('referral')
 		navigate('/')
 	}
 

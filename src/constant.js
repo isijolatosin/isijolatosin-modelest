@@ -4,6 +4,7 @@ export const SHIPPING_COST = {
 	canada: 20,
 	usa: 10,
 	london: 20,
+	nigeria: 50,
 }
 export const CANADA = 'canada'
 export const USERS = 'users'
@@ -25,6 +26,8 @@ export const AUTHORIZED_ID = {
 
 export const DISCOUNT_PERCENTAGE = 15
 
+export const BASE_CURRENCY_CONVERTER_URL =
+	'https://api.apilayer.com/exchangerates_data/convert?'
 export const googleSearch = 'https://www.google.com/maps/search/'
 export const location = 'springview ct. Glen Burnie. Baltimore. Maryland. USA'
 
