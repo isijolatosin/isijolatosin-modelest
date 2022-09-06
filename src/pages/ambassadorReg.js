@@ -116,10 +116,7 @@ const Ambassador = () => {
 						sales ? 'tw-pt-[180px]' : 'tw-pt-[130px]'
 					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10 logo`}>
 					<div className="tw-text-center tw-relative">
-						{/* <h1 className="tw-text-xl tw-font-thin tw-text-neutral-50 tw-mt-5 md:tw-mt-0 ">
-							Sign up as modelEst influencer
-						</h1> */}
-						<div className="tw-w-[55%] tw-mx-auto tw-my-10 tw-text-neutral-50 tw-font-thin">
+						<div className="tw-w-[55%] tw-mx-auto tw-my-10 tw-text-neutral-50 tw-font-light">
 							<Link to="/">
 								<span className="tw-text-[#bba371]">modelEst.</span>
 							</Link>

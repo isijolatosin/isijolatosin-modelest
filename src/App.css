@@ -1,6 +1,18 @@
 /* @import url("https://fonts.googleapis.com/css?family=Montserrat:400|Inconsolata:400"); */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Display:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arizonia&family=Oswald:wght@200&display=swap');
+.font_cursive {
+	font-family: 'Arizonia';
+}
+@import url('https://fonts.googleapis.com/css2?family=Smooch&display=swap');
+.font_cursive2 {
+	font-family: 'Cedarville Cursive', cursive;
+}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+.orbitron {
+	font-family: 'Orbitron', sans-serif;
+}
 
 :root {
 	/* COLORS  */
@@ -1452,17 +1464,4 @@ p.yellow::-moz-selection {
 	width: 100%;
 	object-fit: cover;
 	border-radius: 5px;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Arizonia&family=Oswald:wght@200&display=swap');
-.font_cursive {
-	font-family: 'Arizonia';
-}
-@import url('https://fonts.googleapis.com/css2?family=Smooch&display=swap');
-.font_cursive2 {
-	font-family: 'Cedarville Cursive', cursive;
-}
-@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
-.orbitron {
-	font-family: 'Orbitron', sans-serif;
 }
