@@ -86,19 +86,20 @@ const Slideshow = ({ images, iconSize, video }) => {
 							/>
 						</div>
 					))}
-					{images?.type?.includes('wig') && (
-						<a
-							href={video && video}
-							target="_blank"
-							rel="noreferrer"
-							className={`${
-								video
-									? 'tw-text-[#bba371] tw-border-[#bba371] hover:md:tw-text-neutral-300 hover:md:tw-border-neutral-300 '
-									: 'tw-text-neutral-300 tw-border-neutral-300'
-							} tw-w-[35px] tw-h-[35px] tw-flex tw-items-center tw-justify-center tw-rounded-full tw-border-[1px] tw-ease-in tw-duration-300 tw-ml-3`}>
-							<BsFillPlayFill size={25} className="tw-w-[70%] tw-h-[70%]" />
-						</a>
-					)}
+					{images?.name?.toLowerCase() !== 'frontal' &&
+						images?.name?.toLowerCase() !== 'closure' && (
+							<a
+								href={video && video}
+								target="_blank"
+								rel="noreferrer"
+								className={`${
+									video
+										? 'tw-text-[#bba371] tw-border-[#bba371] hover:md:tw-text-neutral-300 hover:md:tw-border-neutral-300 '
+										: 'tw-text-neutral-300 tw-border-neutral-300'
+								} tw-w-[35px] tw-h-[35px] tw-flex tw-items-center tw-justify-center tw-rounded-full tw-border-[1px] tw-ease-in tw-duration-300 tw-ml-3`}>
+								<BsFillPlayFill size={25} className="tw-w-[70%] tw-h-[70%]" />
+							</a>
+						)}
 				</div>
 			</div>
 		</div>

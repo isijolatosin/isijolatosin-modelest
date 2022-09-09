@@ -216,7 +216,7 @@ const SingleWig = () => {
 					</div>
 					<div className="tw-mt-[70px] tw-w-full md:tw-w-[95%] tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
 						<div>
-							<div className="tw-fixed tw-z-10 tw-right-5 md:tw-right-20 tw-top-[170px]">
+							<div className="tw-fixed tw-z-10 tw-right-5 md:tw-right-20 tw-top-[120px]">
 								<div className="tw-text-neutral-900  tw-mb-3">
 									<Link to="/virgin-wigs">
 										<BsFillArrowLeftCircleFill
