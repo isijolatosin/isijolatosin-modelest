@@ -43,7 +43,17 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 	const handleSubmitAddress = () => {
 		if (shippingMethod === '') {
 			setWarn(true)
-		} else {
+		} else if (
+			(user || email) &&
+			address.country &&
+			address.firstname &&
+			address.lastname &&
+			address.street &&
+			address.city &&
+			address.province &&
+			address.postalcode &&
+			address.phonenumber
+		) {
 			const orderNo = `ModelEst${Math.random().toString(36).slice(2)}`
 			const userName = `${address.firstname} ${address.lastname}`
 			const shippingAd = `${address.street}, ${
@@ -133,6 +143,8 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 			})
 			setEmail('')
 			navigate('/payment')
+		} else {
+			setError(true)
 		}
 	}
 
