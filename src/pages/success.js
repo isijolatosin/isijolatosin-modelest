@@ -148,7 +148,7 @@ const Success = () => {
 		}
 
 		setTimeout(() => {
-			// SendClientSuccessfulPurchaseEmail()
+			SendClientSuccessfulPurchaseEmail()
 		}, 1000)
 
 		userEmail &&
