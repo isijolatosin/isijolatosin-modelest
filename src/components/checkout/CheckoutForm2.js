@@ -24,6 +24,8 @@ const CheckoutForm = ({
 	discountPrice,
 	showCardPayment,
 	showPaypalPayment,
+	setSucceeded,
+	succeeded,
 }) => {
 	const navigate = useNavigate()
 	const stripe = useStripe()
@@ -33,7 +35,7 @@ const CheckoutForm = ({
 		localStorage.getItem('altEmail') && localStorage.getItem('altEmail')
 	const shippingCost = JSON.parse(localStorage.getItem('shippingCost'))
 	const shipMethod = localStorage.getItem('ship')
-	const [succeeded, setSucceeded] = React.useState(false)
+	// const [succeeded, setSucceeded] = React.useState(false)
 	const [paymentWarn, setPaymentWarn] = React.useState(false)
 	const [_error, set_Error] = React.useState(null)
 	const [processing, setProcessing] = React.useState('')
@@ -195,8 +197,8 @@ const CheckoutForm = ({
 						</div>
 						<div
 							onClick={handlePayWithStripe}
-							className="tw-w-full tw-text-center tw-bg-neutral-800 tw-text-white tw-text-xs tw-mt-2 tw-px-10 tw-py-3 tw-rounded-[50px] hover:md:tw-bg-neutral-100 tw-ease-in tw-duration-300 hover:md:tw-text-neutral-900">
-							<button>PROCEED TO PAYMENT</button>
+							className="tw-w-full tw-text-center tw-bg-neutral-800 tw-text-white tw-text-xs tw-mt-2 tw-px-10 tw-py-3 tw-rounded-[50px] hover:md:tw-bg-neutral-100 tw-ease-in tw-duration-300 hover:md:tw-text-neutral-900 tw-cursor-pointer">
+							<span>PROCEED TO PAYMENT</span>
 						</div>
 					</div>
 				)}

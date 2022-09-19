@@ -15,6 +15,8 @@ const StripeCheckout = ({
 	sales,
 	showPaypalPayment,
 	showCardPayment,
+	setSucceeded,
+	succeeded,
 }) => {
 	return (
 		<Wrapper>
@@ -24,6 +26,8 @@ const StripeCheckout = ({
 					sales={sales}
 					itemCount={itemCount}
 					setRedirect={setRedirect}
+					setSucceeded={setSucceeded}
+					succeeded={succeeded}
 					setPageCancel={setPageCancel}
 					discountPrice={discountPrice}
 					showCardPayment={showCardPayment}

@@ -58,6 +58,7 @@ const Cart = () => {
 	const [showPaypalPayment, setShowPaypalPayment] = React.useState(false)
 	const [showCardPayment, setShowCardPayment] = React.useState(false)
 	const [warn, setWarn] = React.useState(false)
+	const [succeeded, setSucceeded] = React.useState(false)
 	const [estimatedTotalPriceNaira, setestimatedTotalPriceNaira] =
 		React.useState('')
 	const [exchangeRate, setExchangeRate] = React.useState('')
@@ -170,7 +171,7 @@ const Cart = () => {
 	return (
 		<>
 			<Helmet>
-				<title>Checkout</title>
+				<title>Payment</title>
 			</Helmet>
 			<Layout>
 				<div
@@ -333,7 +334,7 @@ const Cart = () => {
 										<Link
 											to={`/user-cart/${user?.displayName}`}
 											className="tw-flex tw-items-center tw-mr-2">
-											<span className="tw-mr-2 tw-text-[#bba371]">Cart</span>
+											<span className="tw-mr-2 tw-text-white">Cart</span>
 											<MdKeyboardArrowRight size={23} />
 										</Link>
 										<Link
@@ -342,8 +343,8 @@ const Cart = () => {
 											<span
 												className={`${
 													window.location.pathname.includes('checkout')
-														? 'tw-text-white tw-font-bold'
-														: 'tw-text-neutral-400'
+														? 'tw-text-[#bba371] tw-font-bold'
+														: 'tw-text-white'
 												} tw-mr-2`}>
 												Information
 											</span>
@@ -353,14 +354,17 @@ const Cart = () => {
 											<span
 												className={`${
 													window.location.pathname.includes('payment')
-														? 'tw-text-white tw-font-bold'
-														: 'tw-text-neutral-400'
+														? 'tw-text-[#bba371] tw-font-bold'
+														: 'tw-text-white'
 												}`}>
 												Payment
 											</span>
 										</Link>
 									</div>
-									<div className="tw-block lg:tw-hidden tw-text-[#bba371] tw-mb-5 tw-border-t-[1px] tw-border-neutral-800 tw-pt-5">
+									<div
+										className={`tw-block lg:tw-hidden tw-text-[#bba371] tw-border-t-[1px] tw-border-neutral-800 tw-pt-5 ${
+											showSum && 'tw-mb-5'
+										}`}>
 										<div className="tw-flex tw-items-center">
 											<FaOpencart className="tw-mr-2" size={25} />
 											<span>{showSum ? 'Hide' : 'Show'} order summary </span>
@@ -639,6 +643,8 @@ const Cart = () => {
 													itemCount={itemCount}
 													total={discountPrice ? discountPrice : total}
 													setRedirect={setRedirect}
+													setSucceeded={setSucceeded}
+													succeeded={succeeded}
 													setPageCancel={setPageCancel}
 													discountPrice={discountPrice}
 													sales={sales}
@@ -654,25 +660,29 @@ const Cart = () => {
 					)}
 					<div
 						className={`${
-							redirect || pageCancel
+							redirect || succeeded || pageCancel
 								? 'tw-opacity-1 tw-inline tw-ease-in tw-duration-300'
 								: 'tw-opacity-0 tw-hidden tw-ease-in tw-duration-300'
-						} tw-bg-[rgba(0,0,0,0.9)] tw-flex tw-flex-col tw-items-center tw-justify-center tw-fixed tw-top-[35%] tw-z-50 tw-ease-in tw-duration-300 tw-w-[70%] tw-h-[40%] md:tw-w-[20%] md:tw-h-[20%]`}>
-						<div className="circular-loader"></div>
+						} tw-bg-[rgba(255,255,255,0.9)] tw-flex tw-flex-col tw-items-center tw-justify-center tw-fixed tw-top-[35%] md:tw-top-[15%] tw-z-50 tw-ease-in tw-duration-300 tw-w-[100%] tw-h-[40%] md:tw-w-[70%] md:tw-h-[60%]`}>
+						<div className="circular-loader-payment"></div>
 						<div>
-							<span className="tw-text-white tw-italic tw-tracking-widest tw-text-xs tw-font-light">
-								{redirect ? (
+							<span className="tw-text-green-700 tw-text-md">
+								{redirect || succeeded ? (
 									<div className="tw-mt-2">
-										<span className="tw-text-center tw-text-white tw-italic tw-tracking-widest tw-text-xs tw-font-light">
+										<span className="tw-text-center">
 											<p className="">Transaction Successfull.</p>
-											<p>Redirecting...</p>
+											<p className="tw-italic tw-text-[10px] tw-tracking-wide">
+												Redirecting...
+											</p>
 										</span>
 									</div>
 								) : pageCancel ? (
 									<div className="tw-mt-2">
-										<span className="tw-text-center tw-text-white tw-italic tw-tracking-widest tw-text-xs tw-font-light">
-											<p className="">Transaction Canceled.</p>
-											<p>Redirecting...</p>
+										<span className="tw-text-center">
+											<p className="tw-font-bold">Transaction Canceled.</p>
+											<p className="tw-italic tw-text-[10px] tw-tracking-wide">
+												Redirecting...
+											</p>
 										</span>
 									</div>
 								) : (

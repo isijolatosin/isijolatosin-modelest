@@ -1138,6 +1138,14 @@ label input::placeholder {
 	border-top: #000;
 	animation: circular-loader 2s linear infinite;
 }
+.circular-loader-payment {
+	height: 80px;
+	width: 80px;
+	border-radius: 50%;
+	border: 1px solid #000;
+	border-top: #000;
+	animation: circular-loader 2s linear infinite;
+}
 @keyframes circular-loader {
 	from {
 		transform: rotate(0deg);

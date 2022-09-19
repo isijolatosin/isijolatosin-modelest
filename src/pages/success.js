@@ -12,9 +12,13 @@ import {
 import { db } from '../firebase'
 import Layout from '../components/shared/Layout'
 import { UserContext } from '../context/user-context'
-import Button from '../components/shared/Button'
 import { AUTHORIZED_ID } from '../constant'
 import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
+import { AiOutlineCheckCircle } from 'react-icons/ai'
+import Heading from '../components/Heading'
+import OrderSum from '../components/shared/OrderSum'
+
+const logo = require('../assets/logo2.png')
 
 const Success = () => {
 	const { user } = useContext(UserContext)
@@ -25,6 +29,17 @@ const Success = () => {
 	const [sales, setSales] = React.useState(false)
 	const userAddss = localStorage.getItem('address')
 	const referral = localStorage.getItem('referral')
+	const username = localStorage.getItem('username')
+	const [showSum, setShowSum] = React.useState(false)
+	const userphone =
+		localStorage.getItem('phone').length === 10
+			? `(${localStorage.getItem('phone').slice(0, 3)}) ${localStorage
+					.getItem('phone')
+					.slice(3, 6)}-${localStorage
+					.getItem('phone')
+					.slice(6, localStorage.getItem('phone').length)}`
+			: localStorage.getItem('phone')
+	const shippingCost = JSON.parse(localStorage.getItem('shippingCost'))
 	const finalPriceToPay = Number(localStorage.getItem('finalPriceToPay'))
 	const finalPriceToPayObject = JSON.parse(
 		localStorage.getItem('finalPriceToPayObject')
@@ -32,10 +47,8 @@ const Success = () => {
 	const finalTax = finalPriceToPayObject?.taxInDollar
 	const finalShipCost = finalPriceToPayObject?.shipCostInDollar
 	const PriceInDollar = finalPriceToPayObject?.priceInDollar
-	const discountPrice = Number(localStorage.getItem('discountPrice'))
-	const discountedAmount = Number(
-		(totalPriceFromCart - discountPrice).toFixed(2)
-	)
+	// const discountPrice = Number(localStorage.getItem('discountPrice'))
+
 	const addressFromPP = JSON.parse(localStorage.getItem('addressFromPaypal'))
 
 	const addressFromPaypal =
@@ -49,9 +62,35 @@ const Success = () => {
 	const payMethod = localStorage.getItem('payMethod')
 	const orderNo = localStorage.getItem('order no')
 	const userEmail = user?.email || localStorage.getItem('altEmail')
+	const [showLoad, setShowLoad] = React.useState(false)
+	const [discount, setDiscount] = React.useState('')
+	const [error, setError] = React.useState(false)
+	const [code, setCode] = React.useState('')
+	const [showInfo, setShowInfo] = React.useState(false)
+	const [resultArry, setResultArray] = React.useState([])
+	const [discountPrice, setDiscountPrice] = React.useState('')
+	const discountedAmount = Number(
+		(totalPriceFromCart - discountPrice).toFixed(2)
+	)
 
 	React.useEffect(() => {
 		setSales(fetchSalesPercentage())
+
+		db.collection('admin')
+			.doc(`${AUTHORIZED_ID.id_one}/`)
+			.collection('discount-code')
+			.onSnapshot((snapshot) => {
+				const results = snapshot.docs.map((doc) => ({
+					data: doc.data(),
+				}))
+
+				const resultArry = []
+				for (const result of results) {
+					resultArry.push(result?.data?.code)
+				}
+				setResultArray(resultArry)
+			})
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -109,7 +148,7 @@ const Success = () => {
 		}
 
 		setTimeout(() => {
-			SendClientSuccessfulPurchaseEmail()
+			// SendClientSuccessfulPurchaseEmail()
 		}, 1000)
 
 		userEmail &&
@@ -195,7 +234,76 @@ const Success = () => {
 		localStorage.removeItem('phone')
 		navigate('/')
 	}
+	const customerName = username
+		? `Thank you ${username}`
+		: user
+		? `Thank you ${user?.displayName}`
+		: 'Thank you!'
 
+	const handleDisount = (e) => {
+		setDiscount(e.target.value)
+	}
+	const handleApply = () => {
+		if (error) {
+			setTimeout(function () {
+				setError(false)
+			}, 5000)
+		}
+		if (code) {
+			setTimeout(function () {
+				setCode('')
+			}, 3000)
+		}
+		if (resultArry.includes(discount)) {
+			if (discount === '') {
+				setError(true)
+			} else {
+				if (sales > 0) {
+					const salesPrice = totalPriceFromCart * (sales / 100)
+					setDiscountPrice(totalPriceFromCart - salesPrice)
+
+					localStorage.setItem('discountPrice', totalPriceFromCart - salesPrice)
+					setShowLoad(true)
+				}
+				setDiscount('')
+			}
+
+			db.collection('admin')
+				.doc(`${AUTHORIZED_ID.id_one}/`)
+				.collection('discount-code')
+				.onSnapshot((snapshot) => {
+					snapshot.docs.map(
+						// eslint-disable-next-line array-callback-return
+						(doc) => {
+							if (doc.data().code === discount) {
+								db.collection('admin')
+									.doc(`${AUTHORIZED_ID.id_one}/`)
+									.collection('discount-code')
+									.doc(doc.id)
+									.delete()
+							}
+						}
+					)
+				})
+		} else {
+			setError(true)
+		}
+	}
+	const generateCode = () => {
+		const genCode = `ModelEst${Math.random().toString(18).slice(2)}`
+		setCode(genCode)
+		db.collection('admin')
+			.doc(`${AUTHORIZED_ID.id_one}/`)
+			.collection('discount-code')
+			.add({
+				code: genCode,
+			})
+			.then(() => {
+				console.log(`SUCCESSFULL ADDED CODE`)
+			})
+			.catch((error) => console.log('Error ' + error.message))
+	}
+	console.log(showSum)
 	return (
 		<>
 			<Helmet>
@@ -206,25 +314,121 @@ const Success = () => {
 					<div
 						className={
 							sales
-								? 'tw-pt-[230px] tw-bg-neutral-200 lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
-								: 'tw-pt-[150px] tw-bg-neutral-200 lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center'
+								? 'tw-pt-[230px] md:tw-pt-[100px] tw-flex tw-flex-col tw-items-left tw-text-neutral-600 tw-font-thin home'
+								: 'tw-pt-[80px] md:tw-pt-[50px] tw-flex tw-flex-col tw-items-left tw-text-neutral-600 tw-font-thin home'
 						}>
-						<h1 className="tw-text-md tw-text-neutral-600 tw-uppercase tw-mb-1">
-							{user ? `Hey ${user?.displayName}` : 'Hey!'}
-						</h1>
-						<h1 className="tw-text-xl tw-uppercase">
-							Thank you for your purchase
-						</h1>
-						<div className="tw-mt-10 tw-text-neutral-600 tw-font-light tw-text-center">
-							<span>
-								We are currently processing your order and will send you a
-								confirmation email shortly
-							</span>
+						<div className="tw-w-full tw-flex tw-justify-center tw-mx-auto">
+							<img src={logo} alt="" className="tw-w-[100px]" />
 						</div>
-						<div className="tw-my-10">
-							<Button handleFunc={handleBackToShopping}>
-								Continue Shopping
-							</Button>
+						<div className="tw-border-t-[1px] tw-border-b-[1px] tw-border-[#bba371] tw-w-full tw-mt-[-15px]">
+							<OrderSum
+								showSum={showSum}
+								sales={sales}
+								setShowSum={setShowSum}
+								isBorder={false}
+								showLoad={showLoad}
+								cartItems={cartItems}
+								discount={discount}
+								handleDisount={handleDisount}
+								error={error}
+								handleApply={handleApply}
+								generateCode={generateCode}
+								code={code}
+								discountPrice={discountPrice}
+								total={totalPriceFromCart}
+								setShowInfo={setShowInfo}
+								showInfo={showInfo}
+								isSuccess={true}
+							/>
+						</div>
+						<div className={`tw-px-5 tw-pt-5 tw-bg-neutral-200`}>
+							<div className="tw-w-full lg:tw-w-[60%] xl:tw-w-[50%] tw-mx-auto">
+								<div className="tw-text-md 0 tw-mb-1 tw-flex tw-items-center">
+									<AiOutlineCheckCircle className="tw-mr-1" color="green" />{' '}
+									<Heading children={customerName} size3={true} />
+								</div>
+								<p className="tw-text-xs">{`Order: ${orderNo}`}</p>
+								<div className="tw-mt-5 tw-font-light tw-text-xs tw-border-[1px] tw-border-neutral-300 tw-rounded-[6px] tw-p-3">
+									<Heading
+										children="Your order is confirmed"
+										size2={true}
+										isBold2={true}
+									/>
+									<p>You'll receive an email when your order is ready.</p>
+								</div>
+								<div className="tw-mt-3 tw-font-light tw-text-xs tw-border-[1px] tw-border-neutral-300 tw-rounded-[6px] tw-p-3">
+									<div className="tw-mb-5">
+										<Heading
+											children="Customer information"
+											size2={true}
+											isBold2={true}
+										/>
+									</div>
+									<div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-2">
+										<div className="tw-mb-5">
+											<Heading
+												children="Contact information"
+												size1={true}
+												isBold2={true}
+											/>
+											<p className="tw-text-[10px]">{user?.email}</p>
+										</div>
+										<div className="tw-mb-5">
+											<Heading
+												children="Payment method"
+												size1={true}
+												isBold2={true}
+											/>
+											<p className="tw-text-[10px]">
+												{payMethod} - ${finalPriceToPay}
+											</p>
+										</div>
+										<div className="tw-mb-5">
+											<Heading
+												children="Shipping address"
+												size1={true}
+												isBold2={true}
+											/>
+											<p className="tw-text-[10px]">{username}</p>
+											<p className="tw-text-[10px] tw-w-[35%]">{userAddss}</p>
+											<p className="tw-text-[10px] tw-w-[35%]">
+												{shippingCost['country'] === 'usa'
+													? `+1 ${userphone}`
+													: userphone}
+											</p>
+										</div>
+										<div className="tw-mb-5">
+											<Heading
+												children="Billing address"
+												size1={true}
+												isBold2={true}
+											/>
+											<p className="tw-text-[10px]">{username}</p>
+											<p className="tw-text-[10px] tw-w-[35%]">{userAddss}</p>
+											<p className="tw-text-[10px] tw-w-[35%]">
+												{shippingCost['country'] === 'usa'
+													? `+1 ${userphone}`
+													: userphone}
+											</p>
+										</div>
+										<div className="tw-mb-5">
+											<Heading
+												children="Shipping method"
+												size1={true}
+												isBold2={true}
+											/>
+											<p className="tw-text-[10px]">
+												{shipMethod === 'ship'
+													? 'Standard Shipping'
+													: 'Pick up'}
+											</p>
+										</div>
+									</div>
+								</div>
+								<div className="tw-my-10 tw-w-[100%] tw-bg-neutral-900 tw-text-center tw-text-xs tw-text-white tw-py-4 tw-cursor-pointer tw-rounded-[6px] md:hover:tw-bg-neutral-300 md:hover:tw-text-neutral-900 tw-ease-in tw-duration-300">
+									<span onClick={handleBackToShopping}>Continue shopping</span>
+								</div>
+							</div>
 						</div>
 					</div>
 				) : (

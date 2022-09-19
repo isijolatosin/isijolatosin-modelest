@@ -2,25 +2,21 @@ import React, { useContext } from 'react'
 import { Helmet } from 'react-helmet'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { FaOpencart, FaHandPointRight } from 'react-icons/fa'
+import { FaHandPointRight } from 'react-icons/fa'
 import Layout from '../components/shared/Layout'
 import CartItemsCheckout from '../components/CartItemsCheckout'
 import { selectCartItems, selectTotal } from '../slices/appSlices'
 import Total from '../components/Total'
 import Button from '../components/shared/Button'
 import { UserContext } from '../context/user-context'
-import {
-	MdKeyboardArrowRight,
-	MdOutlineKeyboardArrowDown,
-	MdOutlineKeyboardArrowUp,
-	MdOutlineLocalShipping,
-} from 'react-icons/md'
+import { MdKeyboardArrowRight, MdOutlineLocalShipping } from 'react-icons/md'
 import { SiHomeassistantcommunitystore } from 'react-icons/si'
 import Heading from '../components/Heading'
 import { BsFillQuestionCircleFill } from 'react-icons/bs'
 import { db } from '../firebase'
 import { AUTHORIZED_ID } from '../constant'
 import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
+import OrderSum from '../components/shared/OrderSum'
 
 const logo = require('../assets/logo2.png')
 
@@ -31,7 +27,7 @@ const Cart = () => {
 	const navigate = useNavigate()
 	const [sales, setSales] = React.useState(false)
 	const [redirect, setRedirect] = React.useState(false)
-	const [showSum, setShowSum] = React.useState(false)
+
 	const [pageCancel, setPageCancel] = React.useState(false)
 	const [error, setError] = React.useState(false)
 	const [discount, setDiscount] = React.useState('')
@@ -314,7 +310,7 @@ const Cart = () => {
 										<Link
 											to={`/user-cart/${user?.displayName}`}
 											className="tw-flex tw-items-center tw-mr-2">
-											<span className="tw-mr-2 tw-text-[#bba371]">Cart</span>
+											<span className="tw-mr-2 tw-text-white">Cart</span>
 											<MdKeyboardArrowRight size={23} />
 										</Link>
 										<Link
@@ -323,148 +319,32 @@ const Cart = () => {
 											<span
 												className={`${
 													window.location.pathname.includes('checkout')
-														? 'tw-text-white tw-font-bold'
-														: 'tw-text-neutral-400'
+														? 'tw-text-[#bba371] tw-font-bold'
+														: 'tw-text-white'
 												} tw-mr-2`}>
 												Information
 											</span>
 											<MdKeyboardArrowRight size={23} />
 										</Link>
 										<Link to={`/payment`}>
-											<span>Payment</span>
+											<span className="tw-mr-2 tw-text-white">Payment</span>
 										</Link>
 									</div>
-									<div className="tw-block lg:tw-hidden tw-text-[#bba371] tw-mb-5 tw-border-t-[1px] tw-border-neutral-800 tw-pt-5">
-										<div className="tw-flex tw-items-center">
-											<FaOpencart className="tw-mr-2" size={25} />
-											<span>
-												{showSum ? 'Hide' : 'Show'} order summary /{' '}
-												{sales && (
-													<span className="tw-text-white tw-font-light">
-														Discount code
-													</span>
-												)}{' '}
-											</span>
-											{showSum ? (
-												<MdOutlineKeyboardArrowUp
-													size={25}
-													onClick={() => setShowSum(false)}
-												/>
-											) : (
-												<MdOutlineKeyboardArrowDown
-													size={25}
-													onClick={() => setShowSum(true)}
-												/>
-											)}
-										</div>
-									</div>
-
-									<div
-										className={`${
-											showSum ? `tw-opacity-1 tw-py-5` : 'tw-h-0 tw-opacity-0'
-										} tw-ease-in tw-duration-300 lg:tw-hidden tw-block tw-w-full lg:tw-w-[30%] tw-p-1 md:tw-px-10 md:tw-py-5 tw-bg-[#bba371] `}>
-										{cartItems.map((item) => (
-											<CartItemsCheckout product={item} key={item.id} />
-										))}
-										{sales > 0 && (
-											<>
-												<div className="tw-w-full tw-py-5 tw-flex tw-items-center">
-													<input
-														name="discount"
-														type="text"
-														value={discount}
-														onChange={handleDisount}
-														placeholder="Discount code"
-														className={`${
-															error && discount === ''
-																? 'tw-border-red-700 tw-border-[1px]'
-																: 'tw-border-neutral-400 tw-border-[1px]'
-														} tw-text-sm tw-font-light tw-rounded-md tw-w-[70%] tw-py-2 placeholder:tw-text-xs `}
-													/>
-													<button
-														className="tw-w-[30%] tw-bg-neutral-900 tw-text-white tw-ml-2 tw-py-[11px] tw-text-xs tw-rounded-md"
-														onClick={handleApply}>
-														Apply
-													</button>
-												</div>
-												{error && (
-													<div className="tw-pb-5 tw-pt-2 ">
-														<p className="tw-text-xs tw-text-red-700 tw-text-center">
-															<span className="tw-font-bold tw-text-sm">
-																Discount Code Not Valid!
-															</span>
-															<br />
-															<span className="tw-text-neutral-700 tw-font-light tw-tracking-wider">
-																Please generate a new code
-															</span>
-														</p>
-														<div className="tw-text-[10px] tw-w-full tw-mx-auto tw-flex tw-items-center tw-justify-center tw-mt-3">
-															<button
-																disabled={code}
-																onClick={generateCode}
-																className="tw-bg-neutral-900 tw-text-white tw-p-2 tw-rounded-md hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-ease-in tw-duration-300">
-																Generate code
-															</button>
-														</div>
-														<div>
-															<p className="yellow tw-text-white tw-font-bold tw-text-xs tw-w-full tw-text-center tw-mt-4">
-																{code}
-															</p>
-														</div>
-													</div>
-												)}
-											</>
-										)}
-										<div className="tw-relative">
-											<div className="tw-border-t-[1px] tw-border-b-[1px] tw-border-[#b59248] tw-py-5 tw-text-neutral-700 tw-px-3">
-												<div className="tw-flex tw-items-center tw-justify-between tw-text-sm">
-													<span>Subtotal</span>
-													{showLoad ? (
-														<div className="circular-loader-small"></div>
-													) : (
-														<span className="tw-text-[16px]">
-															${discountPrice ? discountPrice : total}
-														</span>
-													)}
-												</div>
-												<div className="tw-flex tw-items-center tw-justify-between tw-text-sm ">
-													<div className="tw-relative tw-flex tw-items-center">
-														<span>Shipping</span>
-														<BsFillQuestionCircleFill
-															size={15}
-															onMouseOver={() => setShowInfo(true)}
-															onMouseLeave={() => setShowInfo(false)}
-															className="tw-text-neutral-700 tw-mx-1 hover:tw-cursor-pointer"
-														/>
-														{showInfo && (
-															<div className="tw-absolute tw-w-[170px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-bl-none tw-text-white tw-text-center tw-top-[-50px] tw-left-[74px] tw-flex tw-items-top">
-																<span className="tw-text-left">
-																	Review shipping policy in help tab
-																</span>
-																{/* <BsFillHandIndexFill size={30} /> */}
-															</div>
-														)}
-													</div>
-													<span>Calculated at next step</span>
-												</div>
-											</div>
-											<div className="tw-flex tw-items-center tw-justify-between tw-text-sm tw-pt-5 tw-px-3">
-												<span className="tw-text-[16px]">Total</span>
-												<div className="tw-flex tw-items-center">
-													<span className="tw-text-[12px] tw-mr-2 tw-text-neutral-700">
-														USD
-													</span>
-													{showLoad ? (
-														<div className="circular-loader-small"></div>
-													) : (
-														<span className="tw-text-[20px]">
-															${discountPrice ? discountPrice : total}
-														</span>
-													)}
-												</div>
-											</div>
-										</div>
-									</div>
+									<OrderSum
+										sales={sales}
+										showLoad={showLoad}
+										cartItems={cartItems}
+										discount={discount}
+										handleDisount={handleDisount}
+										error={error}
+										handleApply={handleApply}
+										generateCode={generateCode}
+										code={code}
+										discountPrice={discountPrice}
+										total={total}
+										setShowInfo={setShowInfo}
+										showInfo={showInfo}
+									/>
 
 									<div className="tw-mt-5 tw-mb-2 tw-flex tw-items-center tw-justify-between">
 										<Heading

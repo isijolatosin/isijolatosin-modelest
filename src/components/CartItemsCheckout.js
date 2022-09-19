@@ -1,10 +1,11 @@
 import React from 'react'
 
-const CartItemsCheckout = ({ product }) => {
+const CartItemsCheckout = ({ product, isSuccess }) => {
 	const { name, image, price, quantity } = product
 
 	return (
-		<div className="tw-flex tw-flex-row tw-rounded-lg tw-w-full lg:tw-border-[1px] lg:tw-border-neutral-200 tw-mb-1">
+		<div
+			className={`tw-flex tw-flex-row tw-rounded-lg tw-w-full lg:tw-border-[1px] lg:tw-border-neutral-200 tw-mb-1 tw-px-2 lg:tw-px-0`}>
 			<div className="tw-mr-5">
 				<img
 					className="tw-w-[100px] tw-h-[50px] tw-object-cover tw-rounded-l-lg tw-shadow-lg"

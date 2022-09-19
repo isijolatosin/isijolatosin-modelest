@@ -8,6 +8,7 @@
 		"@paypal/checkout-server-sdk": "^1.0.3",
 		"@paypal/paypal-js": "^5.1.0",
 		"@paypal/react-paypal-js": "^7.8.1",
+		"@prisma/client": "^4.3.1",
 		"@reduxjs/toolkit": "^1.6.2",
 		"@stripe/react-stripe-js": "^1.6.0",
 		"@stripe/stripe-js": "^1.21.1",
@@ -61,8 +62,7 @@
 		"build": "react-scripts build",
 		"eject": "react-scripts eject",
 		"start": "react-scripts start",
-		"test": "react-scripts test",
-		"nodemon": "nodemon app.js"
+		"test": "react-scripts test"
 	},
 	"eslintConfig": {
 		"extends": [
