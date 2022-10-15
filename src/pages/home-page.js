@@ -111,10 +111,7 @@ function HomePage() {
 	const fetchCloudinaryImages = async () => {
 		const {
 			data: { resources },
-		} = await axios.get(
-			"https://res.cloudinary.com/dhdccvkyt/image/list/wigcollections.json"
-		);
-		// } = await axios.get(process.env.REACT_APP_CLOUDINARY_WIGS);
+		} = await axios.get(process.env.REACT_APP_CLOUDINARY_WIGS);
 
 		const images = [];
 		// eslint-disable-next-line array-callback-return
