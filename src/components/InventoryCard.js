@@ -52,7 +52,7 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 				<img
 					alt=""
 					loading="lazy"
-					src={product.image}
+					src={product.images[0]}
 					className="tw-w-[100px] tw-h-[100px] tw-object-cover tw-rounded tw-mr-5"
 				/>
 			</div>
