@@ -20,11 +20,11 @@ function InventoryForm({
 	return (
 		<form onSubmit={handleSubmit}>
 			<div className="tw-flex tw-flex-col tw-items-center tw-w-[100%] tw-mx-auto">
-				<div className="tw-flex tw-flex-wrap tw-mb-5">
+				<div className="tw-grid tw-grid-cols-2 md:tw-grid-cols-3 tw-ml-3 md:tw-ml-0 ">
 					{categories.map((category) => (
 						<div
 							key={category?.id}
-							className="tw-bg-violet-50 tw-rounded-full tw-px-10 tw-py-2 tw-mr-3 tw-mb-2">
+							className="tw-bg-violet-50 tw-rounded-md tw-px-5 tw-py-2 tw-mr-3 tw-mb-2">
 							<p className="tw-text-violet-700 tw-text-xs">{category?.name}</p>
 							<p className="tw-text-violet-400 tw-font-thin tw-text-xs">
 								{category?.id}
