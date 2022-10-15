@@ -1,184 +1,184 @@
-import React from 'react'
-import { Helmet } from 'react-helmet'
-import Layout from '../components/shared/Layout'
-import axios from 'axios'
-import Slideshow from '../utils/Slideshow'
-import RatingFix from '../components/shared/RatingFix'
-import { isInCart } from '../utils/helpers'
+import React from "react";
+import { Helmet } from "react-helmet";
+import Layout from "../components/shared/Layout";
+import axios from "axios";
+import Slideshow from "../utils/Slideshow";
+import RatingFix from "../components/shared/RatingFix";
+import { isInCart } from "../utils/helpers";
 import {
 	addToCartItem,
 	increaseCartItem,
 	selectCartItems,
-} from '../slices/appSlices'
-import Reviews from '../components/shared/Reviews'
-import Add2CartPopup from '../components/shared/Add2CartPopup'
-import { useDispatch, useSelector } from 'react-redux'
-import Heading from '../components/Heading'
+} from "../slices/appSlices";
+import Reviews from "../components/shared/Reviews";
+import Add2CartPopup from "../components/shared/Add2CartPopup";
+import { useDispatch, useSelector } from "react-redux";
+import Heading from "../components/Heading";
 import {
 	fetchBundlePercentage,
 	fetchSalesPercentage,
-} from '../utils/salesPercentageNumber'
-import { BsFillArrowLeftCircleFill } from 'react-icons/bs'
-import { Link } from 'react-router-dom'
-import PaymentOptions from '../components/shared/PaymentOptions'
+} from "../utils/salesPercentageNumber";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import PaymentOptions from "../components/shared/PaymentOptions";
 
 const DealPage = () => {
-	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12)
-	const [deals, setDeals] = React.useState([])
-	const [singleCart, setSingleCart] = React.useState(null)
-	const [lengthArray, setLengthArray] = React.useState([])
-	const allSizes = ['14, 16, 18', '16, 18, 20', '18, 20, 22', '20, 22, 24']
-	const [error, setError] = React.useState(false)
-	const [dealsImage, setDealsImage] = React.useState([])
-	const [dealPrice, setDealPrice] = React.useState(null)
-	const [_quantity, setQuantity] = React.useState(1)
-	const [_length, setLength] = React.useState(null)
-	const dispatch = useDispatch()
-	const cartItems = useSelector(selectCartItems)
-	const [sales, setSales] = React.useState(null)
+	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12);
+	const [deals, setDeals] = React.useState([]);
+	const [singleCart, setSingleCart] = React.useState(null);
+	const [lengthArray, setLengthArray] = React.useState([]);
+	const allSizes = ["14, 16, 18", "16, 18, 20", "18, 20, 22", "20, 22, 24"];
+	const [error, setError] = React.useState(false);
+	const [dealsImage, setDealsImage] = React.useState([]);
+	const [dealPrice, setDealPrice] = React.useState(null);
+	const [_quantity, setQuantity] = React.useState(1);
+	const [_length, setLength] = React.useState(null);
+	const dispatch = useDispatch();
+	const cartItems = useSelector(selectCartItems);
+	const [sales, setSales] = React.useState(null);
 	const category = window.location.pathname
-		.split('/')
+		.split("/")
 		.filter((x) => x)
-		?.[window.location.pathname.split('/').filter((x) => x).length - 1].split(
-			'-'
+		?.[window.location.pathname.split("/").filter((x) => x).length - 1].split(
+			"-"
 		)?.[
 		window.location.pathname
-			.split('/')
+			.split("/")
 			.filter((x) => x)
-			?.[window.location.pathname.split('/').filter((x) => x).length - 1].split(
-				'-'
+			?.[window.location.pathname.split("/").filter((x) => x).length - 1].split(
+				"-"
 			).length - 1
-	]
+	];
 	React.useEffect(() => {
-		setSales(fetchSalesPercentage())
-		setBundleDealsPercentage(fetchBundlePercentage())
+		setSales(fetchSalesPercentage());
+		setBundleDealsPercentage(fetchBundlePercentage());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, []);
 
 	const frntlClsr = window.location.pathname
-		.split('-')
-		?.[window.location.pathname.split('-').length - 1].split('&')?.[
+		.split("-")
+		?.[window.location.pathname.split("-").length - 1].split("&")?.[
 		(window.location.pathname
-			.split('-')
-			?.[window.location.pathname.split('-').length - 1].split('&')).length - 1
-	]
+			.split("-")
+			?.[window.location.pathname.split("-").length - 1].split("&")).length - 1
+	];
 
 	async function fetchProducts() {
 		try {
 			const {
 				data: { products },
-			} = await axios.get('/api/v1/products')
-			const filtered = []
-			let price = 0
+			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
+			const filtered = [];
+			let price = 0;
 			// eslint-disable-next-line array-callback-return
 			products.filter((product) => {
-				if (window.location.pathname.includes('bodywave')) {
-					if (product.name.toLowerCase() === 'body wave') {
-						filtered.push(product)
+				if (window.location.pathname.includes("bodywave")) {
+					if (product.name.toLowerCase() === "body wave") {
+						filtered.push(product);
 						// eslint-disable-next-line array-callback-return
 						filtered.map((product) => {
-							price += product?.price * 3 + 20 + 30 + 40
-							if (product?.dealLength.split(' - ').length > 1) {
-								setLengthArray(product?.dealLength.split(' - '))
+							price += product?.price * 3 + 20 + 30 + 40;
+							if (product?.dealLength.split(" - ").length > 1) {
+								setLengthArray(product?.dealLength.split(" - "));
 							} else {
-								setLengthArray(...product?.dealLength.split(' - '))
+								setLengthArray(...product?.dealLength.split(" - "));
 							}
-						})
+						});
 					}
 				}
-				if (window.location.pathname.includes('naturalcurly')) {
-					if (product.name.toLowerCase() === 'natural curly') {
-						filtered.push(product)
+				if (window.location.pathname.includes("naturalcurly")) {
+					if (product.name.toLowerCase() === "natural curly") {
+						filtered.push(product);
 						// eslint-disable-next-line array-callback-return
 						filtered.map((product) => {
-							price += product?.price * 3 + 20 + 30 + 40
-							if (product?.dealLength.split(' - ').length > 1) {
-								setLengthArray(product?.dealLength.split(' - '))
+							price += product?.price * 3 + 20 + 30 + 40;
+							if (product?.dealLength.split(" - ").length > 1) {
+								setLengthArray(product?.dealLength.split(" - "));
 							} else {
-								setLengthArray(...product?.dealLength.split(' - '))
+								setLengthArray(...product?.dealLength.split(" - "));
 							}
-						})
+						});
 					}
 				}
-				if (window.location.pathname.includes('frontal')) {
-					if (product.type.toLowerCase() === 'frontal') {
-						filtered.push(product)
-						price += product?.price + 20
+				if (window.location.pathname.includes("frontal")) {
+					if (product.type.toLowerCase() === "frontal") {
+						filtered.push(product);
+						price += product?.price + 20;
 					}
-				} else if (window.location.pathname.includes('closure')) {
-					if (product.type.toLowerCase() === 'closure') {
-						filtered.push(product)
-						price += product?.price + 10
+				} else if (window.location.pathname.includes("closure")) {
+					if (product.type.toLowerCase() === "closure") {
+						filtered.push(product);
+						price += product?.price + 10;
 					}
 				}
 				const discnt =
 					bundleDealsPercentage &&
-					Number((price * (bundleDealsPercentage / 100)).toFixed(2))
+					Number((price * (bundleDealsPercentage / 100)).toFixed(2));
 
-				setDealPrice(discnt ? Number((price - discnt).toFixed(2)) : price)
-			})
+				setDealPrice(discnt ? Number((price - discnt).toFixed(2)) : price);
+			});
 
-			setDeals(filtered.sort((a, b) => a.name.localeCompare(b.name)))
-			const imgs = []
+			setDeals(filtered.sort((a, b) => a.name.localeCompare(b.name)));
+			const imgs = [];
 			filtered
 				.sort((a, b) => a.name.localeCompare(b.name))
 				// eslint-disable-next-line array-callback-return
 				.map((deal) => {
 					const imgObj = [
 						{
-							image: deal?.image,
-							image2: deal?.image2 && deal?.image2,
+							image: deal?.images[0],
+							image2: deal?.images[1],
 						},
-					]
-					imgs.push(...imgObj)
-				})
-			const imgSpread = []
+					];
+					imgs.push(...imgObj);
+				});
+			const imgSpread = [];
 			// eslint-disable-next-line array-callback-return
 			imgs.map((item) => {
-				imgSpread.push(item.image)
-				imgSpread.push(item.image2)
-			})
-			const rever = imgSpread.filter((x) => x).reverse()
-			setDealsImage(rever)
+				imgSpread.push(item.image);
+				imgSpread.push(item.image2);
+			});
+			const rever = imgSpread.filter((x) => x).reverse();
+			setDealsImage(rever);
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
 	}
 
 	React.useEffect(() => {
-		fetchProducts()
+		fetchProducts();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, []);
 
 	// Adding to cart items
 	const name =
-		deals[0]?.name.toLowerCase().includes('frontal') ||
-		deals?.[0]?.name.toLowerCase().includes('closure')
+		deals[0]?.name.toLowerCase().includes("frontal") ||
+		deals?.[0]?.name.toLowerCase().includes("closure")
 			? deals[1]?.name
-			: deals[0]?.name
+			: deals[0]?.name;
 	const id =
-		deals[0]?.name.toLowerCase().includes('frontal') ||
-		deals?.[0]?.name.toLowerCase().includes('closure')
+		deals[0]?.name.toLowerCase().includes("frontal") ||
+		deals?.[0]?.name.toLowerCase().includes("closure")
 			? deals?.[1]?._id
-			: deals?.[0]?._id
+			: deals?.[0]?._id;
 	const image =
-		deals[0]?.name.toLowerCase().includes('frontal') ||
-		deals?.[0]?.name.toLowerCase().includes('closure')
-			? deals?.[1]?.image
-			: deals?.[0]?.image
+		deals[0]?.name.toLowerCase().includes("frontal") ||
+		deals?.[0]?.name.toLowerCase().includes("closure")
+			? deals?.[1]?.images[0]
+			: deals?.[0]?.images[0];
 	const description =
-		deals[0]?.name.toLowerCase().includes('frontal') ||
-		deals?.[0]?.name.toLowerCase().includes('closure')
+		deals[0]?.name.toLowerCase().includes("frontal") ||
+		deals?.[0]?.name.toLowerCase().includes("closure")
 			? deals?.[1]?.description
-			: deals?.[0]?.description
-	const price = dealPrice
-	const hairLength = _length
+			: deals?.[0]?.description;
+	const price = dealPrice;
+	const hairLength = _length;
 	const hairTexture =
-		deals[0]?.name.toLowerCase().includes('frontal') ||
-		deals?.[0]?.name.toLowerCase().includes('closure')
+		deals[0]?.name.toLowerCase().includes("frontal") ||
+		deals?.[0]?.name.toLowerCase().includes("closure")
 			? deals?.[1]?.name
-			: deals?.[0]?.name
-	const quantity = Number(_quantity)
+			: deals?.[0]?.name;
+	const quantity = Number(_quantity);
 
 	const dealsProduct = {
 		name,
@@ -189,52 +189,52 @@ const DealPage = () => {
 		hairTexture,
 		hairLength,
 		quantity,
-	}
+	};
 
 	const desc = [
-		{ key: 'Brand', value: `Raw ${deals[0]?.brand} hair` },
+		{ key: "Brand", value: `Raw ${deals[0]?.brand} hair` },
 		{
-			key: 'Hair Texture',
+			key: "Hair Texture",
 			value: name,
 		},
-		{ key: 'Hair Color', value: deals[1]?.color },
+		{ key: "Hair Color", value: deals[1]?.color },
 
-		{ key: 'Material', value: '100% Human Hair' },
-		{ key: 'Can be bleached.dyed', value: 'Yes' },
-		{ key: 'Density', value: '150% - 200%' },
+		{ key: "Material", value: "100% Human Hair" },
+		{ key: "Can be bleached.dyed", value: "Yes" },
+		{ key: "Density", value: "150% - 200%" },
 		{
-			key: 'Return policy',
+			key: "Return policy",
 			value:
-				'We accept 10-days no reason return exchange with hair not been used',
+				"We accept 10-days no reason return exchange with hair not been used",
 		},
 		{
-			key: 'Delivery time',
+			key: "Delivery time",
 			value:
-				'We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)',
+				"We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)",
 		},
-	]
+	];
 
 	const addToCart = () => {
 		if (quantity && _length) {
-			dispatch(addToCartItem(dealsProduct))
+			dispatch(addToCartItem(dealsProduct));
 			setTimeout(() => {
-				setSingleCart(dealsProduct)
-			}, 1000)
+				setSingleCart(dealsProduct);
+			}, 1000);
 		} else {
-			setError(true)
+			setError(true);
 		}
-	}
+	};
 
 	const IncreaseItem = () => {
 		if (quantity && _length) {
-			dispatch(increaseCartItem(dealsProduct))
+			dispatch(increaseCartItem(dealsProduct));
 			setTimeout(() => {
-				setSingleCart(dealsProduct)
-			}, 1000)
+				setSingleCart(dealsProduct);
+			}, 1000);
 		} else {
-			setError(true)
+			setError(true);
 		}
-	}
+	};
 
 	return (
 		<>
@@ -244,7 +244,7 @@ const DealPage = () => {
 			<Layout sales={bundleDealsPercentage}>
 				<div
 					className={`${
-						sales ? 'tw-pt-[55px] md:tw-pt-[50px]' : 'tw-pt-0'
+						sales ? "tw-pt-[55px] md:tw-pt-[50px]" : "tw-pt-0"
 					} tw-w-full tw-bg-white tw-flex tw-flex-col tw-items-center`}>
 					<div className="tw-fixed tw-z-20 tw-top-0 md:tw-top-[-95px] tw-right-0">
 						<Add2CartPopup
@@ -260,7 +260,7 @@ const DealPage = () => {
 									<BsFillArrowLeftCircleFill
 										size={35}
 										className="hover:md:tw-text-neutral-50 hover:tw-drop-shadow-lg tw-ease-in tw-duration-300"
-									/>{' '}
+									/>{" "}
 								</Link>
 							</div>
 						</div>
@@ -282,11 +282,11 @@ const DealPage = () => {
 										lengthArray?.includes(item) ? (
 											<div
 												onClick={() => {
-													setLength(item)
-													setError(false)
+													setLength(item);
+													setError(false);
 												}}
 												className={`tw-text-center tw-mr-2 tw-mb-2 tw-p-2 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
-													item === _length && 'tw-bg-neutral-900 tw-text-white'
+													item === _length && "tw-bg-neutral-900 tw-text-white"
 												}`}>
 												<span>{item} - inches</span>
 											</div>
@@ -327,7 +327,7 @@ const DealPage = () => {
 							{isInCart(dealsProduct, cartItems) ? (
 								<div
 									className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[50%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
-										!error && 'tw-mt-5'
+										!error && "tw-mt-5"
 									}`}
 									onClick={cartItems.length !== 0 ? IncreaseItem : null}>
 									<span>Add more</span>
@@ -335,7 +335,7 @@ const DealPage = () => {
 							) : (
 								<div
 									className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[50%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
-										!error && 'tw-mt-5'
+										!error && "tw-mt-5"
 									}`}
 									onClick={addToCart}>
 									<span>Add to cart</span>
@@ -348,7 +348,7 @@ const DealPage = () => {
 								{desc.map((item, idx) => (
 									<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm tw-capitalize">
 										<span className="tw-uppercase tw-text-xs tw-text-red-600 tw-font-bold">
-											{item.key}:{' '}
+											{item.key}:{" "}
 										</span>
 										<span>{item.value}</span>
 									</div>
@@ -373,7 +373,7 @@ const DealPage = () => {
 				</div>
 			</Layout>
 		</>
-	)
-}
+	);
+};
 
-export default DealPage
+export default DealPage;

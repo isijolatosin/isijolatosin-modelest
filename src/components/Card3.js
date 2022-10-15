@@ -1,12 +1,12 @@
-import React from 'react'
-import axios from 'axios'
-import { useDispatch, useSelector } from 'react-redux'
+import React from "react";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import {
 	addToCartItem,
 	increaseCartItem,
 	selectCartItems,
-} from '../slices/appSlices'
-import { isInCart } from '../utils/helpers'
+} from "../slices/appSlices";
+import { isInCart } from "../utils/helpers";
 
 function Card({
 	product,
@@ -15,131 +15,131 @@ function Card({
 	scrollToTop,
 	sales,
 }) {
-	const cartItems = useSelector(selectCartItems)
-	const [error, setError] = React.useState(false)
-	const dispatch = useDispatch()
+	const cartItems = useSelector(selectCartItems);
+	const [error, setError] = React.useState(false);
+	const dispatch = useDispatch();
 	const [bundles, setBundles] = React.useState({
 		length: null,
-		quantity: '',
-	})
-	const lengthArr = product.availablelength.split(',')
+		quantity: "",
+	});
+	const lengthArr = product.availablelength.split(",");
 
 	async function handleViewImage(event) {
 		try {
 			const {
 				data: { products },
-			} = await axios.get('/api/v1/products')
+			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
 			const result = products.filter(
 				(product) => product._id === event.target.id
-			)
-			setSingleproducts(result)
+			);
+			setSingleproducts(result);
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
 
-		scrollToTop()
+		scrollToTop();
 	}
 
-	let salesAmount1 = Number(product.price - product.price * (sales / 100))
-	let cardPrice1 = product.price
+	let salesAmount1 = Number(product.price - product.price * (sales / 100));
+	let cardPrice1 = product.price;
 
 	//  Actual Price
-	if (bundles.length === '14') {
-		cardPrice1 = product.price
-	} else if (bundles.length === '16') {
-		cardPrice1 = product.price + 10
-	} else if (bundles.length === '18') {
-		cardPrice1 = product.price + 20
-	} else if (bundles.length === '20') {
-		cardPrice1 = product.price + 30
-	} else if (bundles.length === '22') {
-		cardPrice1 = product.price + 40
-	} else if (bundles.length === '24') {
-		cardPrice1 = product.price + 50
-	} else if (bundles.length === '26') {
-		cardPrice1 = product.price + 60
-	} else if (bundles.length === '28') {
-		cardPrice1 = product.price + 70
-	} else if (bundles.length === '30') {
-		cardPrice1 = product.price + 80
+	if (bundles.length === "14") {
+		cardPrice1 = product.price;
+	} else if (bundles.length === "16") {
+		cardPrice1 = product.price + 10;
+	} else if (bundles.length === "18") {
+		cardPrice1 = product.price + 20;
+	} else if (bundles.length === "20") {
+		cardPrice1 = product.price + 30;
+	} else if (bundles.length === "22") {
+		cardPrice1 = product.price + 40;
+	} else if (bundles.length === "24") {
+		cardPrice1 = product.price + 50;
+	} else if (bundles.length === "26") {
+		cardPrice1 = product.price + 60;
+	} else if (bundles.length === "28") {
+		cardPrice1 = product.price + 70;
+	} else if (bundles.length === "30") {
+		cardPrice1 = product.price + 80;
 	}
 	//  Sales Price
-	if (bundles.length === '14') {
-		salesAmount1 = product.price - product.price * (sales / 100)
-	} else if (bundles.length === '16') {
-		salesAmount1 = salesAmount1 + 10
-	} else if (bundles.length === '18') {
-		salesAmount1 = salesAmount1 + 20
-	} else if (bundles.length === '20') {
-		salesAmount1 = salesAmount1 + 30
-	} else if (bundles.length === '22') {
-		salesAmount1 = salesAmount1 + 40
-	} else if (bundles.length === '24') {
-		salesAmount1 = salesAmount1 + 50
-	} else if (bundles.length === '26') {
-		salesAmount1 = salesAmount1 + 60
-	} else if (bundles.length === '28') {
-		salesAmount1 = salesAmount1 + 70
-	} else if (bundles.length === '30') {
-		salesAmount1 = salesAmount1 + 80
+	if (bundles.length === "14") {
+		salesAmount1 = product.price - product.price * (sales / 100);
+	} else if (bundles.length === "16") {
+		salesAmount1 = salesAmount1 + 10;
+	} else if (bundles.length === "18") {
+		salesAmount1 = salesAmount1 + 20;
+	} else if (bundles.length === "20") {
+		salesAmount1 = salesAmount1 + 30;
+	} else if (bundles.length === "22") {
+		salesAmount1 = salesAmount1 + 40;
+	} else if (bundles.length === "24") {
+		salesAmount1 = salesAmount1 + 50;
+	} else if (bundles.length === "26") {
+		salesAmount1 = salesAmount1 + 60;
+	} else if (bundles.length === "28") {
+		salesAmount1 = salesAmount1 + 70;
+	} else if (bundles.length === "30") {
+		salesAmount1 = salesAmount1 + 80;
 	}
 
-	let salesAmount2 = Number(product.price - product.price * (sales / 100))
-	let cardPrice2 = product.price
+	let salesAmount2 = Number(product.price - product.price * (sales / 100));
+	let cardPrice2 = product.price;
 
 	//  Actual price
-	if (bundles.length === '14') {
-		cardPrice2 = product.price
-	} else if (bundles.length === '16') {
-		cardPrice2 = product.price + 10
-	} else if (bundles.length === '18') {
-		cardPrice2 = product.price + 20
-	} else if (bundles.length === '20') {
-		cardPrice2 = product.price + 30
-	} else if (bundles.length === '22') {
-		cardPrice2 = product.price + 40
-	} else if (bundles.length === '24') {
-		cardPrice2 = product.price + 50
-	} else if (bundles.length === '26') {
-		cardPrice2 = product.price + 60
-	} else if (bundles.length === '28') {
-		cardPrice2 = product.price + 70
-	} else if (bundles.length === '30') {
-		cardPrice2 = product.price + 80
+	if (bundles.length === "14") {
+		cardPrice2 = product.price;
+	} else if (bundles.length === "16") {
+		cardPrice2 = product.price + 10;
+	} else if (bundles.length === "18") {
+		cardPrice2 = product.price + 20;
+	} else if (bundles.length === "20") {
+		cardPrice2 = product.price + 30;
+	} else if (bundles.length === "22") {
+		cardPrice2 = product.price + 40;
+	} else if (bundles.length === "24") {
+		cardPrice2 = product.price + 50;
+	} else if (bundles.length === "26") {
+		cardPrice2 = product.price + 60;
+	} else if (bundles.length === "28") {
+		cardPrice2 = product.price + 70;
+	} else if (bundles.length === "30") {
+		cardPrice2 = product.price + 80;
 	}
 	// Sales Price
-	if (bundles.length === '14') {
-		salesAmount2 = product.price - product.price * (sales / 100)
-	} else if (bundles.length === '16') {
-		salesAmount2 = salesAmount2 + 10
-	} else if (bundles.length === '18') {
-		salesAmount2 = salesAmount2 + 20
-	} else if (bundles.length === '20') {
-		salesAmount2 = salesAmount2 + 30
-	} else if (bundles.length === '22') {
-		salesAmount2 = salesAmount2 + 40
-	} else if (bundles.length === '24') {
-		salesAmount2 = salesAmount2 + 50
-	} else if (bundles.length === '26') {
-		salesAmount2 = salesAmount2 + 60
-	} else if (bundles.length === '28') {
-		salesAmount2 = salesAmount2 + 70
-	} else if (bundles.length === '30') {
-		salesAmount2 = salesAmount2 + 80
+	if (bundles.length === "14") {
+		salesAmount2 = product.price - product.price * (sales / 100);
+	} else if (bundles.length === "16") {
+		salesAmount2 = salesAmount2 + 10;
+	} else if (bundles.length === "18") {
+		salesAmount2 = salesAmount2 + 20;
+	} else if (bundles.length === "20") {
+		salesAmount2 = salesAmount2 + 30;
+	} else if (bundles.length === "22") {
+		salesAmount2 = salesAmount2 + 40;
+	} else if (bundles.length === "24") {
+		salesAmount2 = salesAmount2 + 50;
+	} else if (bundles.length === "26") {
+		salesAmount2 = salesAmount2 + 60;
+	} else if (bundles.length === "28") {
+		salesAmount2 = salesAmount2 + 70;
+	} else if (bundles.length === "30") {
+		salesAmount2 = salesAmount2 + 80;
 	}
 
 	// Adding to cart items
-	const { name, _id, image, color, description } = product
+	const { name, _id, image, color, description } = product;
 	const price =
-		product.color === 'blonde613'
+		product.color === "blonde613"
 			? product.sales && sales
 				? salesAmount2
 				: cardPrice2
 			: product.sales && sales
 			? salesAmount1
-			: cardPrice1
-	const hairLength = bundles.length
-	const hairColor = color
+			: cardPrice1;
+	const hairLength = bundles.length;
+	const hairColor = color;
 
 	const singleProduct = {
 		name,
@@ -149,36 +149,36 @@ function Card({
 		price,
 		hairLength,
 		description,
-	}
+	};
 	const addToCart = () => {
 		if (bundles?.length) {
-			dispatch(addToCartItem(singleProduct))
+			dispatch(addToCartItem(singleProduct));
 			setTimeout(() => {
-				setSingleCart(singleProduct)
-			}, 1000)
+				setSingleCart(singleProduct);
+			}, 1000);
 		} else {
-			setError(true)
+			setError(true);
 		}
-	}
+	};
 
 	const IncreaseItem = () => {
-		dispatch(increaseCartItem(singleProduct))
+		dispatch(increaseCartItem(singleProduct));
 		setTimeout(() => {
-			setSingleCart(singleProduct)
-		}, 1000)
-	}
+			setSingleCart(singleProduct);
+		}, 1000);
+	};
 
 	const handleOnChange = (e) => {
-		setBundles({ ...bundles, [e.target.name]: e.target.value })
-		setError(false)
-	}
+		setBundles({ ...bundles, [e.target.name]: e.target.value });
+		setError(false);
+	};
 
 	return (
 		<div className="tw-w-[100%] tw-h-[300px] lg:tw-h-[400px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-sm">
 			<img
 				onClick={handleViewImage}
 				id={product._id}
-				src={product.image}
+				src={product.images[0]}
 				alt={product._id}
 				className="tw-w-full tw-h-[70%] lg:tw-h-[75%] tw-object-cover tw-rounded-sm tw-cursor-pointer"
 			/>
@@ -195,7 +195,7 @@ function Card({
 							{sales !== 0 && product.sales && (
 								<span className="tw-mr-1 tw-font-semibold">
 									$
-									{product.color === 'blonde613'
+									{product.color === "blonde613"
 										? salesAmount2.toFixed(2)
 										: salesAmount1.toFixed(2)}
 								</span>
@@ -203,11 +203,11 @@ function Card({
 							<span
 								className={
 									sales !== 0 && product.sales
-										? 'tw-line-through tw-font-light tw-text-[11px]'
-										: 'tw-font-semibold'
+										? "tw-line-through tw-font-light tw-text-[11px]"
+										: "tw-font-semibold"
 								}>
 								$
-								{product.color === 'blonde613'
+								{product.color === "blonde613"
 									? cardPrice2.toFixed(2)
 									: cardPrice1.toFixed(2)}
 							</span>
@@ -250,7 +250,7 @@ function Card({
 				)}
 			</div>
 		</div>
-	)
+	);
 }
 
-export default Card
+export default Card;

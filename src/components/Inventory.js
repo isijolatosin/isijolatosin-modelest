@@ -1,42 +1,33 @@
-import React from 'react'
-import axios from 'axios'
-import InventoryForm from './InventoryForm'
+/* eslint-disable array-callback-return */
+import React from "react";
+import axios from "axios";
+import InventoryForm from "./InventoryForm";
 
-function Inventory() {
-	const [isOnSales, setIsOnSales] = React.useState(false)
-	const [isInstock, setIsInstock] = React.useState(false)
-	const [postError, setPostError] = React.useState('')
-	const [formData, setFormData] = React.useState({
-		title: '',
-		brand: '',
-		density: '',
-		texture: '',
-		capsize: '',
-		type: '',
-		color: '',
-		availablecolor: '',
-		length: '',
-		dealLength: '',
-		availablelength: '',
-		price: '',
-		video: '',
-		description: '',
-	})
-	const [imageFile, setImageFile] = React.useState('')
+function Inventory({ categories }) {
+	const [isOnSales, setIsOnSales] = React.useState(false);
+	const [isInstock, setIsInstock] = React.useState(false);
+	const [isFeatured, setIsFeatured] = React.useState(false);
+	const [postError, setPostError] = React.useState("");
+	const [formData, setFormData] = React.useState({});
+	const [imageFile, setImageFile] = React.useState("");
+	const [imagesFile, setImagesFile] = React.useState([]);
 
 	const handleformDataChange = (e) => {
-		setFormData({ ...formData, [e.target.name]: e.target.value })
-	}
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+	};
 
 	const toggleSales = () => {
-		setIsOnSales(!isOnSales)
-	}
+		setIsOnSales(!isOnSales);
+	};
 	const toggleInstock = () => {
-		setIsInstock(!isInstock)
-	}
+		setIsInstock(!isInstock);
+	};
+	const toggleIsFeatured = () => {
+		setIsFeatured(!isFeatured);
+	};
 
 	const handleSubmit = async (e) => {
-		e.preventDefault()
+		e.preventDefault();
 
 		try {
 			const product = {
@@ -56,148 +47,195 @@ function Inventory() {
 				description: formData.description,
 				sales: isOnSales,
 				instock: isInstock,
+				isFeatured: isFeatured,
 				image: imageFile,
-			}
-
-			await axios.post('/api/v1/products', product)
+				images: imagesFile,
+				category: formData.category,
+			};
+			await axios.post(`${process.env.REACT_APP_BASE_ROUTE}/products`, product);
 		} catch (error) {
-			setPostError(error.message)
-			console.log(error)
+			setPostError(error.message);
+			console.log(error);
 		}
 
 		setFormData({
-			title: '',
-			brand: '',
-			density: '',
-			texture: '',
-			capsize: '',
-			type: '',
-			color: '',
-			availablecolor: '',
-			price: '',
-			video: '',
-			length: '',
-			dealLength: '',
-			availablelength: '',
-			description: '',
-		})
-		setIsOnSales(false)
-	}
+			title: "",
+			brand: "",
+			density: "",
+			texture: "",
+			capsize: "",
+			type: "",
+			color: "",
+			price: "",
+			video: "",
+			length: "",
+			dealLength: "",
+			availablelength: "",
+			availablecolor: "",
+			description: "",
+			category: "",
+		});
+		setIsOnSales(false);
+		setIsInstock(false);
+		setIsFeatured(false);
+	};
 
 	const inputTypes = [
 		{
-			id: '1',
-			name: 'title',
-			type: 'text',
+			id: "1",
+			name: "title",
+			type: "text",
 			value: formData.title,
-			placeholder: 'Product Name...',
+			placeholder: "Product Name...",
 		},
 		{
-			id: '2',
-			name: 'brand',
-			type: 'text',
+			id: "2",
+			name: "brand",
+			type: "text",
 			value: formData.brand,
-			placeholder: 'Product Brand...',
+			placeholder: "Product Brand...",
 		},
 		{
-			id: '3',
-			name: 'density',
-			type: 'text',
+			id: "3",
+			name: "density",
+			type: "text",
 			value: formData.density,
-			placeholder: 'Product Density...',
+			placeholder: "Product Density...",
 		},
 		{
-			id: '4',
-			name: 'texture',
-			type: 'text',
+			id: "4",
+			name: "texture",
+			type: "text",
 			value: formData.texture,
-			placeholder: 'Product Texture...',
+			placeholder: "Product Texture...",
 		},
 		{
-			id: '5',
-			name: 'capsize',
-			type: 'text',
+			id: "5",
+			name: "capsize",
+			type: "text",
 			value: formData.capsize,
-			placeholder: 'Product Capsize...',
+			placeholder: "Product Capsize...",
 		},
 		{
-			id: '6',
-			name: 'type',
-			type: 'text',
+			id: "6",
+			name: "type",
+			type: "text",
 			value: formData.type,
-			placeholder: 'Product Type...',
+			placeholder: "Product Type...",
 		},
 		{
-			id: '7',
-			name: 'color',
-			type: 'text',
+			id: "7",
+			name: "color",
+			type: "text",
 			value: formData.color,
-			placeholder: 'Product Color...',
+			placeholder: "Product Color...",
 		},
 		{
-			id: '8',
-			name: 'availablecolor',
-			type: 'text',
+			id: "8",
+			name: "availablecolor",
+			type: "text",
 			value: formData.availablecolor,
-			placeholder: 'Available Color...',
+			placeholder: "Available Color...",
 		},
 		{
-			id: '9',
-			name: 'length',
-			type: 'number',
+			id: "9",
+			name: "length",
+			type: "number",
 			value: formData.length,
-			placeholder: 'Length...',
+			placeholder: "Length...",
 		},
 		{
-			id: '10',
-			name: 'dealLength',
-			type: 'text',
+			id: "10",
+			name: "dealLength",
+			type: "text",
 			value: formData.dealLength,
-			placeholder: 'Bundle Deals Length...',
+			placeholder: "Bundle Deals Length...",
 		},
 		{
-			id: '11',
-			name: 'availablelength',
-			type: 'text',
+			id: "11",
+			name: "availablelength",
+			type: "text",
 			value: formData.availablelength,
-			placeholder: 'Available Lengths...',
+			placeholder: "Available Lengths...",
 		},
 		{
-			id: '12',
-			name: 'price',
-			type: 'number',
+			id: "12",
+			name: "price",
+			type: "number",
 			value: formData.price,
-			placeholder: 'Price CA($)...',
+			placeholder: "Price CA($)...",
 		},
 		{
-			id: '12',
-			name: 'video',
-			type: 'text',
+			id: "13",
+			name: "video",
+			type: "text",
 			value: formData.video,
-			placeholder: 'Product video url...',
+			placeholder: "Product video url...",
 		},
-	]
+		{
+			id: "14",
+			name: "category",
+			type: "text",
+			value: formData.category,
+			placeholder: "Use category Id...",
+		},
+	];
 
 	const uploadFile = async (e) => {
-		const imageFile = e.target.files[0]
-		const formData = new FormData()
-		formData.append('image', imageFile)
+		// turn 'e' to an array
+		const imageFile = e.target.files[0];
+		const formData = new FormData();
+		formData.append("image", imageFile);
 		try {
 			const {
 				data: {
 					image: { src },
 				},
-			} = await axios.post('/api/v1/products/uploads', formData, {
-				headers: {
-					'Content-Type': 'multipart/form-data',
-				},
-			})
+			} = await axios.post(
+				`${process.env.REACT_APP_BASE_ROUTE}/products/uploadSingle`,
+				formData,
+				{
+					headers: {
+						"Content-Type": "multipart/form-data",
+					},
+				}
+			);
 
-			setImageFile(src)
+			setImageFile(src);
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-	}
+	};
+	const uploadMultipleFile = async (e) => {
+		// turn 'e' to an array
+		var formData = new FormData();
+		const files = e.target.files;
+		for (var i = 0; i < files.length; i++) {
+			formData.append("image", files[i]);
+		}
+
+		try {
+			const {
+				data: { response },
+			} = await axios.post(
+				`${process.env.REACT_APP_BASE_ROUTE}/products/uploadMultiple`,
+				formData,
+				{
+					headers: {
+						"Content-Type": "multipart/form-data",
+					},
+				}
+			);
+
+			const array = [];
+			response.map((image) => {
+				array.push(image?.src);
+			});
+			setImagesFile(array);
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
 
 	return (
 		<InventoryForm
@@ -212,8 +250,12 @@ function Inventory() {
 			postError={postError}
 			buttonText="Add to Inventory"
 			uploadFile={uploadFile}
+			uploadMultipleFile={uploadMultipleFile}
+			toggleIsFeatured={toggleIsFeatured}
+			isFeatured={isFeatured}
+			categories={categories}
 		/>
-	)
+	);
 }
 
-export default Inventory
+export default Inventory;

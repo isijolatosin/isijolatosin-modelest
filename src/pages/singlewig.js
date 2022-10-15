@@ -1,18 +1,18 @@
-import React from 'react'
-import { Helmet } from 'react-helmet'
-import Layout from '../components/shared/Layout'
-import axios from 'axios'
-import Slideshow from '../utils/Slideshow'
-import RatingFix from '../components/shared/RatingFix'
-import { isInCart } from '../utils/helpers'
+import React from "react";
+import { Helmet } from "react-helmet";
+import Layout from "../components/shared/Layout";
+import axios from "axios";
+import Slideshow from "../utils/Slideshow";
+import RatingFix from "../components/shared/RatingFix";
+import { isInCart } from "../utils/helpers";
 import {
 	addToCartItem,
 	increaseCartItem,
 	selectCartItems,
-} from '../slices/appSlices'
-import Reviews from '../components/shared/Reviews'
-import Add2CartPopup from '../components/shared/Add2CartPopup'
-import { useDispatch, useSelector } from 'react-redux'
+} from "../slices/appSlices";
+import Reviews from "../components/shared/Reviews";
+import Add2CartPopup from "../components/shared/Add2CartPopup";
+import { useDispatch, useSelector } from "react-redux";
 import {
 	closureVirginWigPricing,
 	frontalVirginWigPricing,
@@ -20,64 +20,64 @@ import {
 	wigTextureTypeIncreaseValue1,
 	wigTextureType2,
 	wigTextureTypeIncreaseValue2,
-} from '../constant'
-import { BsFillArrowLeftCircleFill } from 'react-icons/bs'
-import { Link } from 'react-router-dom'
-import Heading from '../components/Heading'
-import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
-import PaymentOptions from '../components/shared/PaymentOptions'
-import { constructWigPrice } from '../utils/constructWigPrice'
+} from "../constant";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import Heading from "../components/Heading";
+import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
+import PaymentOptions from "../components/shared/PaymentOptions";
+import { constructWigPrice } from "../utils/constructWigPrice";
 
 const SingleWig = () => {
-	const [singleWig, setSingleWig] = React.useState([])
-	const [singleCart, setSingleCart] = React.useState(null)
-	const [error, setError] = React.useState(false)
-	const [imageArray, setImageArray] = React.useState([])
-	const [_quantity, setQuantity] = React.useState(1)
-	const [_length, setLength] = React.useState(null)
-	const dispatch = useDispatch()
-	const cartItems = useSelector(selectCartItems)
-	const category = window.location.pathname.split('/').filter((x) => x)?.[0]
-	const [sales, setSales] = React.useState(null)
+	const [singleWig, setSingleWig] = React.useState([]);
+	const [singleCart, setSingleCart] = React.useState(null);
+	const [error, setError] = React.useState(false);
+	// const [imageArray, setImageArray] = React.useState([]);
+	const [_quantity, setQuantity] = React.useState(1);
+	const [_length, setLength] = React.useState(null);
+	const dispatch = useDispatch();
+	const cartItems = useSelector(selectCartItems);
+	const category = window.location.pathname.split("/").filter((x) => x)?.[0];
+	const [sales, setSales] = React.useState(null);
 	const wigId = window.location.pathname
-		.split('/')
+		.split("/")
 		.filter((x) => x)?.[1]
-		.split('-')?.[1]
+		.split("-")?.[1];
 
 	React.useEffect(() => {
-		setSales(fetchSalesPercentage())
+		setSales(fetchSalesPercentage());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, []);
 
 	async function fetchProducts() {
 		try {
 			const {
 				data: { products },
-			} = await axios.get('/api/v1/products')
-			const filtered = products.filter((product) => product._id === wigId)
+			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
+			const filtered = products.filter((product) => product._id === wigId);
 
-			setSingleWig(filtered.sort((a, b) => a.name.localeCompare(b.name)))
+			setSingleWig(filtered.sort((a, b) => a.name.localeCompare(b.name)));
 
-			const imgArray = []
+			// const imgArray = [];
 			// eslint-disable-next-line array-callback-return
-			filtered.map((item) => {
-				const obj = {
-					image: item?.image,
-					image2: item?.image2,
-					image3: item?.image3,
-					image4: item?.image4,
-				}
-				imgArray.push(obj)
-				setImageArray(obj)
-			})
+			// filtered.map((item) => {
+			// 	const obj = {
+			// 		image: item?.image,
+			// 		image2: item?.image2,
+			// 		image3: item?.image3,
+			// 		image4: item?.image4,
+			// 	};
+			// 	imgArray.push(obj);
+			// 	setImageArray(obj);
+			// });
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
 	}
 	React.useEffect(() => {
-		fetchProducts()
+		fetchProducts();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, []);
 
 	// Price for virgin wigs
 	const vWPrice1 = constructWigPrice(
@@ -88,7 +88,7 @@ const SingleWig = () => {
 		wigTextureType2,
 		wigTextureTypeIncreaseValue1,
 		wigTextureTypeIncreaseValue2
-	)
+	);
 	const vWPrice2 = constructWigPrice(
 		_length,
 		closureVirginWigPricing,
@@ -97,32 +97,32 @@ const SingleWig = () => {
 		wigTextureType2,
 		wigTextureTypeIncreaseValue1,
 		wigTextureTypeIncreaseValue2
-	)
+	);
 	// Adding to cart items
-	const name = singleWig[0]?.name
-	const id = singleWig[0]?._id
-	const image = imageArray?.image
-	const description = singleWig[0]?.description
-	const price = name?.toLowerCase().includes('-closure')
+	const name = singleWig[0]?.name;
+	const id = singleWig[0]?._id;
+	const image = singleWig[0]?.images[0];
+	const description = singleWig[0]?.description;
+	const price = name?.toLowerCase().includes("-closure")
 		? vWPrice2
-		: name?.toLowerCase().includes('-frontal')
+		: name?.toLowerCase().includes("-frontal")
 		? vWPrice1
-		: singleWig[0]?.price
-	const hairLength = _length
-	const hairTexture = singleWig[0]?.texture
-	const quantity = Number(_quantity)
+		: singleWig[0]?.price;
+	const hairLength = _length;
+	const hairTexture = singleWig[0]?.texture;
+	const quantity = Number(_quantity);
 	const avLengths =
 		singleWig[0]?.availablelength.length > 3
-			? singleWig[0]?.availablelength.split(', ')
-			: [singleWig[0]?.availablelength]
+			? singleWig[0]?.availablelength.split(", ")
+			: [singleWig[0]?.availablelength];
 	const lengths =
 		singleWig[0]?.length.length > 3
-			? singleWig[0]?.length.split(', ')
-			: [String(singleWig[0]?.length)]
+			? singleWig[0]?.length.split(", ")
+			: [String(singleWig[0]?.length)];
 
-	const lengthArray = [...lengths]
-	const allSizes = [...avLengths]
-	const hairColor = singleWig[0]?.color
+	const lengthArray = [...lengths];
+	const allSizes = [...avLengths];
+	const hairColor = singleWig[0]?.color;
 
 	const wigProduct = {
 		name,
@@ -134,45 +134,45 @@ const SingleWig = () => {
 		hairLength,
 		quantity,
 		hairColor,
-	}
+	};
 
 	const addToCart = () => {
 		if (quantity && _length) {
-			dispatch(addToCartItem(wigProduct))
+			dispatch(addToCartItem(wigProduct));
 			setTimeout(() => {
-				setSingleCart(wigProduct)
-			}, 1000)
+				setSingleCart(wigProduct);
+			}, 1000);
 		} else {
-			setError(true)
+			setError(true);
 		}
-	}
+	};
 
 	const IncreaseItem = () => {
 		if (quantity && _length) {
-			dispatch(increaseCartItem(wigProduct))
+			dispatch(increaseCartItem(wigProduct));
 			setTimeout(() => {
-				setSingleCart(wigProduct)
-			}, 1000)
+				setSingleCart(wigProduct);
+			}, 1000);
 		} else {
-			setError(true)
+			setError(true);
 		}
-	}
+	};
 	const aLength =
 		singleWig[0]?.availablelength.length > 2
-			? singleWig[0]?.availablelength.split(', ')
-			: singleWig[0]?.availablelength
+			? singleWig[0]?.availablelength.split(", ")
+			: singleWig[0]?.availablelength;
 
 	const desc = [
-		{ key: 'Brand', value: `Raw ${singleWig[0]?.brand} hair` },
+		{ key: "Brand", value: `Raw ${singleWig[0]?.brand} hair` },
 		{
-			key: 'Hair Texture',
+			key: "Hair Texture",
 			value: singleWig[0]?.texture,
 		},
-		{ key: 'Hair Color', value: singleWig[0]?.color },
-		{ key: 'Material', value: '100% Human Hair' },
-		{ key: 'Density', value: `${singleWig[0]?.density}` },
+		{ key: "Hair Color", value: singleWig[0]?.color },
+		{ key: "Material", value: "100% Human Hair" },
+		{ key: "Density", value: `${singleWig[0]?.density}` },
 		{
-			key: 'Hair Length',
+			key: "Hair Length",
 			value: Array.isArray(aLength)
 				? `Available from ${aLength?.[0]}" - ${
 						aLength?.[aLength.length - 1]
@@ -180,22 +180,22 @@ const SingleWig = () => {
 				: `Available length is ${aLength}" inches`,
 		},
 		{
-			key: 'Cap Size',
+			key: "Cap Size",
 			value:
-				singleWig[0]?.capsize || 'Average Size(Head circumference: 54cm - 58cm',
+				singleWig[0]?.capsize || "Average Size(Head circumference: 54cm - 58cm",
 		},
 		{
-			key: 'Return policy',
+			key: "Return policy",
 			value:
-				'We accept 10-days no reason return exchange with hair not been used',
+				"We accept 10-days no reason return exchange with hair not been used",
 		},
 		{
-			key: 'Delivery time',
+			key: "Delivery time",
 			value:
-				'We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)',
+				"We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)",
 		},
-		{ key: 'Can be bleached.dyed', value: 'Yes' },
-	]
+		{ key: "Can be bleached.dyed", value: "Yes" },
+	];
 
 	return (
 		<>
@@ -205,7 +205,7 @@ const SingleWig = () => {
 			<Layout>
 				<div
 					className={`${
-						sales ? 'tw-pt-[58px] md:tw-pt-[50px]' : 'tw-pt-0'
+						sales ? "tw-pt-[58px] md:tw-pt-[50px]" : "tw-pt-0"
 					} tw-w-full tw-bg-white tw-flex tw-flex-col tw-items-center tw-relative`}>
 					<div className="tw-fixed tw-z-20 tw-top-0 md:tw-top-[-95px] tw-right-0">
 						<Add2CartPopup
@@ -222,13 +222,13 @@ const SingleWig = () => {
 										<BsFillArrowLeftCircleFill
 											size={35}
 											className="hover:md:tw-text-neutral-50 hover:tw-drop-shadow-lg tw-ease-in tw-duration-300"
-										/>{' '}
+										/>{" "}
 									</Link>
 								</div>
 							</div>
 							<div className="">
 								<Slideshow
-									images={singleWig[0]}
+									images={singleWig[0]?.images}
 									// images={imageArray}
 									iconSize={25}
 									video={singleWig[0]?.video}
@@ -254,12 +254,12 @@ const SingleWig = () => {
 											lengthArray.includes(item) ? (
 												<div
 													onClick={() => {
-														setLength(item)
-														setError(false)
+														setLength(item);
+														setError(false);
 													}}
 													className={` tw-flex tw-flex-wrap tw-mr-2 tw-p-2 tw-px-3 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
 														item === _length &&
-														'tw-bg-neutral-900 tw-text-white'
+														"tw-bg-neutral-900 tw-text-white"
 													}`}>
 													<span>{item}</span>
 												</div>
@@ -293,7 +293,7 @@ const SingleWig = () => {
 									)}
 									<div className="tw-mb-1">
 										<span className="tw-text-3xl">
-											${price * Number(_quantity) || '***'}
+											${price * Number(_quantity) || "***"}
 											:00
 										</span>
 									</div>
@@ -302,7 +302,7 @@ const SingleWig = () => {
 											Color: <span>{singleWig?.[0]?.color}</span>
 										</div>
 										<div>
-											Texture: <span>{singleWig?.[0]?.texture || '***'}</span>
+											Texture: <span>{singleWig?.[0]?.texture || "***"}</span>
 										</div>
 										<div>
 											Length: <span>{_length}" inches</span>
@@ -319,7 +319,7 @@ const SingleWig = () => {
 									{isInCart(wigProduct, cartItems) ? (
 										<div
 											className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
-												!error && 'tw-mt-5'
+												!error && "tw-mt-5"
 											}`}
 											onClick={cartItems.length !== 0 ? IncreaseItem : null}>
 											<span>Add more</span>
@@ -327,7 +327,7 @@ const SingleWig = () => {
 									) : (
 										<div
 											className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
-												!error && 'tw-mt-5'
+												!error && "tw-mt-5"
 											}`}
 											onClick={addToCart}>
 											<span>Add to cart</span>
@@ -341,7 +341,7 @@ const SingleWig = () => {
 								{desc.map((item, idx) => (
 									<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm tw-capitalize">
 										<span className="tw-uppercase tw-text-xs tw-text-red-600 tw-font-bold">
-											{item.key}:{' '}
+											{item.key}:{" "}
 										</span>
 										<span>{item.value}</span>
 									</div>
@@ -383,7 +383,7 @@ const SingleWig = () => {
 								)}
 								<div className="tw-mb-1">
 									<span className="tw-text-3xl">
-										${price * Number(_quantity) || '***'}
+										${price * Number(_quantity) || "***"}
 										:00
 									</span>
 								</div>
@@ -392,7 +392,7 @@ const SingleWig = () => {
 										Color: <span>{singleWig?.[0]?.color}</span>
 									</div>
 									<div>
-										Texture: <span>{singleWig?.[0]?.texture || '***'}</span>
+										Texture: <span>{singleWig?.[0]?.texture || "***"}</span>
 									</div>
 									<div>
 										Length: <span>{_length}" inches</span>
@@ -409,7 +409,7 @@ const SingleWig = () => {
 								{isInCart(wigProduct, cartItems) ? (
 									<div
 										className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[50%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
-											!error && 'tw-mt-5'
+											!error && "tw-mt-5"
 										}`}
 										onClick={cartItems.length !== 0 ? IncreaseItem : null}>
 										<span>Add more</span>
@@ -417,7 +417,7 @@ const SingleWig = () => {
 								) : (
 									<div
 										className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[50%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
-											!error && 'tw-mt-5'
+											!error && "tw-mt-5"
 										}`}
 										onClick={addToCart}>
 										<span>Add to cart</span>
@@ -430,7 +430,7 @@ const SingleWig = () => {
 				</div>
 			</Layout>
 		</>
-	)
-}
+	);
+};
 
-export default SingleWig
+export default SingleWig;

@@ -1,57 +1,57 @@
-import React from 'react'
-import axios from 'axios'
-import { MdOutlineKeyboardArrowUp } from 'react-icons/md'
-import { HiChatAlt2 } from 'react-icons/hi'
-import { Helmet } from 'react-helmet'
-import Layout from '../components/shared/Layout'
-import Products from '../components/Products'
-import { db } from '../firebase'
-import ContactForm from '../components/shared/ContactForm'
-import { Link } from 'react-router-dom'
-import SearchInput from '../components/shared/SearchInput'
+import React from "react";
+import axios from "axios";
+import { MdOutlineKeyboardArrowUp } from "react-icons/md";
+import { HiChatAlt2 } from "react-icons/hi";
+import { Helmet } from "react-helmet";
+import Layout from "../components/shared/Layout";
+import Products from "../components/Products";
+import { db } from "../firebase";
+import ContactForm from "../components/shared/ContactForm";
+import { Link } from "react-router-dom";
+import SearchInput from "../components/shared/SearchInput";
 // import PromoCard from '../components/PromoCard'
-import { getDatabase, ref, onValue } from 'firebase/database'
-import { AiOutlineCloseCircle } from 'react-icons/ai'
-import { cloudinaryBaseUrl } from '../constant'
-import PictureSlide from '../components/shared/PictureSlide'
+import { getDatabase, ref, onValue } from "firebase/database";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { cloudinaryBaseUrl } from "../constant";
+import PictureSlide from "../components/shared/PictureSlide";
 
 function HomePage() {
-	const [searchControl, setSearchControl] = React.useState(false)
-	const [close, setClose] = React.useState(false)
-	const [chatError, setChatError] = React.useState(false)
-	const [chatSuccess, setChatSuccess] = React.useState(false)
-	const [toBottom, setToBottom] = React.useState(false)
-	const [chat, setChat] = React.useState(true)
-	const [showPopInfo, setShowPopInfo] = React.useState(false)
-	const [showForm, setShowForm] = React.useState(false)
-	const [searchError, setSearchError] = React.useState(false)
+	const [searchControl, setSearchControl] = React.useState(false);
+	const [close, setClose] = React.useState(false);
+	const [chatError, setChatError] = React.useState(false);
+	const [chatSuccess, setChatSuccess] = React.useState(false);
+	const [toBottom, setToBottom] = React.useState(false);
+	const [chat, setChat] = React.useState(true);
+	const [showPopInfo, setShowPopInfo] = React.useState(false);
+	const [showForm, setShowForm] = React.useState(false);
+	const [searchError, setSearchError] = React.useState(false);
 	// const [expired, setExpired] = React.useState(false)
-	const [allProducts, setAllproducts] = React.useState([])
-	const [allWigsCloudinaryImg, setAllWigsCloudinaryImg] = React.useState([])
-	const [filtered, setFiltered] = React.useState([])
-	const [sales, setSales] = React.useState(null)
-	const [inputValue, setInputValue] = React.useState('')
+	const [allProducts, setAllproducts] = React.useState([]);
+	const [allWigsCloudinaryImg, setAllWigsCloudinaryImg] = React.useState([]);
+	const [filtered, setFiltered] = React.useState([]);
+	const [sales, setSales] = React.useState(null);
+	const [inputValue, setInputValue] = React.useState("");
 	const [similarProductsClosure, setSimilarProductsClosure] =
-		React.useState(null)
+		React.useState(null);
 	const [similarProductsFrontal, setSimilarProductsFrontal] =
-		React.useState(null)
+		React.useState(null);
 	const [chatDetail, setChatDetail] = React.useState({
-		name: '',
-		title: '',
-		email: '',
-		message: '',
-	})
-	const [featuredProduct, setFeaturedProduct] = React.useState([])
+		name: "",
+		title: "",
+		email: "",
+		message: "",
+	});
+	const [featuredProduct, setFeaturedProduct] = React.useState([]);
 
-	const database = getDatabase()
+	const database = getDatabase();
 	React.useEffect(() => {
-		const starCountRef = ref(database, 'sales')
+		const starCountRef = ref(database, "sales");
 		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-			setSales(data.no)
-		})
+			const data = snapshot.val();
+			setSales(data.no);
+		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, []);
 
 	async function fetchProducts() {
 		try {
@@ -60,123 +60,85 @@ function HomePage() {
 					products,
 					//  curUser
 				},
-			} = await axios.get('/api/v1/products')
+			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
 
-			const array1 = []
-			const array2 = []
+			const array1 = [];
+			const array2 = [];
 			// eslint-disable-next-line array-callback-return
 			products.filter((prod) => {
-				if (prod?.brand?.toLowerCase().includes('virgin hair')) {
-					if (prod?.name?.toLowerCase().includes('-closure')) {
-						array1.push(prod)
+				if (prod?.brand?.toLowerCase().includes("virgin hair")) {
+					if (prod?.name?.toLowerCase().includes("-closure")) {
+						array1.push(prod);
 					}
 				}
-				setSimilarProductsClosure(array1)
+				setSimilarProductsClosure(array1);
 
-				if (prod?.brand?.toLowerCase().includes('virgin hair')) {
-					if (prod?.name?.toLowerCase().includes('-frontal')) {
-						array2.push(prod)
+				if (prod?.brand?.toLowerCase().includes("virgin hair")) {
+					if (prod?.name?.toLowerCase().includes("-frontal")) {
+						array2.push(prod);
 					}
 				}
-				setSimilarProductsFrontal(array2)
-			})
+				setSimilarProductsFrontal(array2);
+			});
 
-			const fArray = []
+			const fArray = [];
 			// eslint-disable-next-line array-callback-return
 			products.filter((p) => {
-				if (p?.name.toLowerCase().includes('amber')) {
+				if (p?.isFeatured) {
 					const obj = {
-						name: 'Virgin Wigs',
+						name: p?.name,
 						price: p?.price,
 						brand: p?.brand,
 						color: p?.color,
 						type: p?.type,
-						image: p?.image2,
-						route: '/virgin-wigs',
-					}
-					fArray.push(obj)
+						image: p?.images[0],
+						route: `/${p?.route}`,
+					};
+					fArray.push(obj);
 				}
-				if (p?.name.toLowerCase() === 'body wave') {
-					const obj = {
-						name: 'Bundles',
-						price: p?.price,
-						brand: p?.brand,
-						color: p?.color,
-						type: p?.type,
-						image: p?.image2,
-						route: '/bundles/indian',
-					}
-					fArray.push(obj)
-				}
-				if (p?.type.toLowerCase() === 'frontal') {
-					const obj = {
-						name: 'Frontals',
-						price: p?.price,
-						brand: p?.brand,
-						color: p?.color,
-						type: p?.type,
-						image: p?.image2,
-						route: '/closure-frontal/indian',
-					}
-					fArray.push(obj)
-				}
-				if (p?.type.toLowerCase() === 'closure') {
-					const obj = {
-						name: 'Closures',
-						price: p?.price,
-						brand: p?.brand,
-						color: p?.color,
-						type: p?.type,
-						image: p?.image2,
-						route: '/closure-frontal/indian',
-					}
-					fArray.push(obj)
-				}
-			})
-			const reverseFeatured = fArray.reverse()
+			});
+			const reverseFeatured = fArray.reverse();
 
 			setTimeout(() => {
-				setFeaturedProduct(reverseFeatured)
-				setAllproducts(products.sort((a, b) => a.name.localeCompare(b.type)))
-			}, 3000)
+				setFeaturedProduct(reverseFeatured);
+				setAllproducts(products.sort((a, b) => a.name.localeCompare(b.type)));
+			}, 2000);
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
 	}
 
 	const fetchCloudinaryImages = async () => {
 		const {
 			data: { resources },
-		} = await axios.get(
-			'https://res.cloudinary.com/dhdccvkyt/image/list/wigcollections.json'
-		)
+		} = await axios.get(process.env.REACT_APP_CLOUDINARY_WIGS);
 
-		const images = []
+		const images = [];
 		// eslint-disable-next-line array-callback-return
 		resources.map((img) => {
-			const public_id = img?.public_id
-			let version = img?.version
-			let format = img?.format
+			const public_id = img?.public_id;
+			let version = img?.version;
+			let format = img?.format;
 
-			images.push(`${cloudinaryBaseUrl}${version}/${public_id}.${format}`)
-		})
+			images.push(`${cloudinaryBaseUrl}${version}/${public_id}.${format}`);
+		});
 
-		setAllWigsCloudinaryImg(images)
-	}
+		setAllWigsCloudinaryImg(images);
+	};
 
 	React.useEffect(() => {
-		fetchProducts()
-		fetchCloudinaryImages()
+		fetchProducts();
+		fetchCloudinaryImages();
 
 		setTimeout(() => {
-			setShowPopInfo(true)
-		}, 5000)
-	}, [])
+			setShowPopInfo(true);
+		}, 5000);
+	}, []);
 
 	if (showPopInfo) {
 		setTimeout(() => {
-			setShowPopInfo(false)
-		}, 10000)
+			setShowPopInfo(false);
+		}, 10000);
 	}
 
 	window.onscroll = function (ev) {
@@ -184,43 +146,43 @@ function HomePage() {
 			window.innerHeight + window.scrollY >=
 			document.body.offsetHeight - (window.innerHeight + window.scrollY)
 		) {
-			setToBottom(true)
-			setChat(false)
+			setToBottom(true);
+			setChat(false);
 		} else {
-			setToBottom(false)
-			setChat(true)
+			setToBottom(false);
+			setChat(true);
 		}
-	}
+	};
 	const handleChangeChat = (e) => {
-		setChatError(false)
-		setChatDetail({ ...chatDetail, [e.target.name]: e.target.value })
-	}
+		setChatError(false);
+		setChatDetail({ ...chatDetail, [e.target.name]: e.target.value });
+	};
 
 	const SubmitInqury = (e) => {
-		e.preventDefault()
+		e.preventDefault();
 
 		if (
-			chatDetail.name === '' ||
-			chatDetail.title === '' ||
-			chatDetail.email === '' ||
-			chatDetail.message === ''
+			chatDetail.name === "" ||
+			chatDetail.title === "" ||
+			chatDetail.email === "" ||
+			chatDetail.message === ""
 		) {
-			setChatError(true)
+			setChatError(true);
 		}
 		if (
-			chatDetail.name === '' &&
-			chatDetail.title === '' &&
-			chatDetail.email === '' &&
-			chatDetail.message === ''
+			chatDetail.name === "" &&
+			chatDetail.title === "" &&
+			chatDetail.email === "" &&
+			chatDetail.message === ""
 		) {
-			setChatError(true)
+			setChatError(true);
 		} else if (
-			chatDetail.name !== '' &&
-			chatDetail.title !== '' &&
-			chatDetail.email !== '' &&
-			chatDetail.message !== ''
+			chatDetail.name !== "" &&
+			chatDetail.title !== "" &&
+			chatDetail.email !== "" &&
+			chatDetail.message !== ""
 		) {
-			db.collection('customer-inqury')
+			db.collection("customer-inqury")
 				.add({
 					id: `ModelEst${Math.random().toString(36).slice(2)}`,
 					name: chatDetail.name,
@@ -230,21 +192,21 @@ function HomePage() {
 					timestamp: new Date().valueOf(),
 				})
 				.then(() => {
-					console.log(`SUCCESSFULL`)
+					console.log(`SUCCESSFULL`);
 				})
-				.catch((error) => console.log('Error ' + error.message))
+				.catch((error) => console.log("Error " + error.message));
 
 			setChatDetail({
-				name: '',
-				title: '',
-				email: '',
-				message: '',
-			})
+				name: "",
+				title: "",
+				email: "",
+				message: "",
+			});
 			setTimeout(() => {
-				setChatSuccess(true)
-			}, 1000)
+				setChatSuccess(true);
+			}, 1000);
 		}
-	}
+	};
 	return (
 		<div className="relative home ">
 			<Helmet>
@@ -255,28 +217,28 @@ function HomePage() {
 					className={
 						allProducts.every((product) => product.sales)
 							? `tw-flex tw-flex-col tw-items-center ${
-									allProducts.length === 0 ? 'tw-pt-[60px]' : 'tw-pt-[120px]'
+									allProducts.length === 0 ? "tw-pt-[60px]" : "tw-pt-[120px]"
 							  } tw-pb-10 md:tw-py-[50px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
 							: ` tw-flex tw-flex-col tw-items-center ${
-									allProducts.length === 0 && 'tw-pt-[230px]'
+									allProducts.length === 0 && "tw-pt-[230px]"
 							  } ${
 									sales !== 0
-										? 'md:tw-pt-[75px] tw-pt-[95px]'
-										: 'md:tw-pt-[35px] tw-pt-[50px]'
+										? "md:tw-pt-[75px] tw-pt-[95px]"
+										: "md:tw-pt-[35px] tw-pt-[50px]"
 							  } md:tw-pb-[50px] lg:tw-w-[100%] lg:tw-mx-auto tw-bg-[rgba(255,255,255,0.1)] tw-relative`
 					}>
 					<div
 						onClick={() => window.scrollTo(0, 0)}
 						className={`${
-							toBottom ? 'tw-inline' : 'tw-hidden'
+							toBottom ? "tw-inline" : "tw-hidden"
 						} tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-p-2 tw-rounded-[30px] tw-z-20 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 `}>
 						<MdOutlineKeyboardArrowUp size={33} />
 					</div>
 					<div
 						className={`${
 							showPopInfo
-								? 'tw-opacity-1 tw-right-[50px]'
-								: 'tw-opacity-0 tw-right-[-400px]'
+								? "tw-opacity-1 tw-right-[50px]"
+								: "tw-opacity-0 tw-right-[-400px]"
 						} tw-inline md:tw-hidden tw-fixed tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-border-[#bba371] tw-border-[1px] tw-w-[200px] tw-bottom-[70px] tw-px-5 tw-py-3 tw-text-center tw-text-xs tw-rounded-xl tw-rounded-br-none tw-ease-in tw-duration-500 tw-from-zinc-1000 tw-z-20`}>
 						<span>
 							For customized order placing and special inquiries, send modelEst
@@ -290,27 +252,27 @@ function HomePage() {
 					</div>
 					<div
 						onClick={() => {
-							setShowForm(!showForm)
-							setChatError(false)
-							setChatSuccess(false)
-							setShowPopInfo(false)
+							setShowForm(!showForm);
+							setChatError(false);
+							setChatSuccess(false);
+							setShowPopInfo(false);
 							setChatDetail({
-								name: '',
-								title: '',
-								email: '',
-								message: '',
-							})
+								name: "",
+								title: "",
+								email: "",
+								message: "",
+							});
 						}}
 						className={`${
-							chat ? 'tw-inline' : 'tw-hidden'
+							chat ? "tw-inline" : "tw-hidden"
 						} md:tw-hidden tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-p-3 tw-rounded-[30px] tw-z-20 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300`}>
 						<HiChatAlt2 size={25} />
 					</div>
 					<div
-						className={`${searchControl && 'tw-w-[100%] lg:tw-w-[40%]'} ${
+						className={`${searchControl && "tw-w-[100%] lg:tw-w-[40%]"} ${
 							sales
-								? 'tw-top-[101px] md:tw-top-[76px]'
-								: 'tw-top-[56px] md:tw-top-[24px]'
+								? "tw-top-[101px] md:tw-top-[76px]"
+								: "tw-top-[56px] md:tw-top-[24px]"
 						} tw-flex tw-flex-col content tw-fixed tw-left-[-16px] md:tw-left-[-16px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
 						<SearchInput
 							allProducts={allProducts}
@@ -349,7 +311,7 @@ function HomePage() {
 												<p className="tw-text-[13px] md:tw-text-[14px]">
 													<span className="tw-text-xs tw-font-light">
 														Starting from
-													</span>{' '}
+													</span>{" "}
 													${item?.price}
 												</p>
 											</div>
@@ -369,8 +331,8 @@ function HomePage() {
 					<div
 						className={`${
 							showForm
-								? 'tw-right-0 md:tw-right-[8px]'
-								: 'tw-right-[-800px] md:tw-right-[-350px]'
+								? "tw-right-0 md:tw-right-[8px]"
+								: "tw-right-[-800px] md:tw-right-[-350px]"
 						} tw-w-[100%] tw-h-screen tw-px-5 tw-pt-[110px] md:tw-pt-0 md:tw-max-h-[600px] md:tw-w-[350px] tw-fixed tw-z-30 tw-bg-[rgba(255,255,255,0.97)] tw-p-2 tw-bottom-0 md:tw-bottom-[50px] tw-text-neutral-900 tw-ease-in tw-duration-300`}>
 						<ContactForm
 							SubmitInqury={SubmitInqury}
@@ -426,7 +388,7 @@ function HomePage() {
 				</div>
 			</Layout>
 		</div>
-	)
+	);
 }
 
-export default HomePage
+export default HomePage;

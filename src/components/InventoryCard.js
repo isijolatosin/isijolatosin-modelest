@@ -1,26 +1,26 @@
-import React from 'react'
-import axios from 'axios'
-import { MdDeleteOutline } from 'react-icons/md'
-import { MdOutlineEditNote } from 'react-icons/md'
+import React from "react";
+import axios from "axios";
+import { MdDeleteOutline } from "react-icons/md";
+import { MdOutlineEditNote } from "react-icons/md";
 
 function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 	async function deleteSingleProduct() {
-		const id = product._id
+		const id = product._id;
 		try {
-			await axios.delete(`/api/v1/products/${id}`)
+			await axios.delete(`${process.env.REACT_APP_BASE_ROUTE}/products/${id}`);
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
 
-		fetchProducts()
+		fetchProducts();
 	}
 
 	async function getSingleProduct() {
-		const id = product._id
+		const id = product._id;
 		try {
 			const {
 				data: { product },
-			} = await axios.get(`/api/v1/products/${id}`)
+			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products/${id}`);
 
 			setSingleProduct({
 				id: product._id,
@@ -40,9 +40,9 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 				dealLength: product.dealLength,
 				length: product.length,
 				availablelength: product.availablelength,
-			})
+			});
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
 	}
 
@@ -72,7 +72,7 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 					{product.dealLength && (
 						<span className="tw-w-[100%]">{`Deal length: ${product.dealLength}`}</span>
 					)}
-					<span className="tw-text-red-800">{product.sales && 'onsale'}</span>
+					<span className="tw-text-red-800">{product.sales && "onsale"}</span>
 				</div>
 				<div className="tw-flex tw-flex-col tw-justify-between tw-w-[15%] tw-border-l tw-border-neutral-300 tw-pl-[10px] lg:tw-pl-2 xl:tw-pl-[2px]">
 					<MdDeleteOutline
@@ -88,7 +88,7 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 				</div>
 			</div>
 		</div>
-	)
+	);
 }
 
-export default InventoryCard
+export default InventoryCard;

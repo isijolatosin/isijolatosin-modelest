@@ -1,27 +1,21 @@
-import React from 'react'
-import axios from 'axios'
-import truncate from '../utils/truncate'
+import React from "react";
+import axios from "axios";
+import truncate from "../utils/truncate";
 
 function Card({ product, setSingleproducts, scrollToTop, sales }) {
-	// const [clickedID, setClickedID] = React.useState('')
-
-	// function handleMouseIn(event) {
-	// 	setClickedID(event.target.id)
-	// }
-
 	async function handleViewImage(event) {
 		try {
 			const {
 				data: { products },
-			} = await axios.get('/api/v1/products')
+			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
 			const result = products.filter(
 				(product) => product._id === event.target.id
-			)
-			setSingleproducts(result)
+			);
+			setSingleproducts(result);
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-		scrollToTop()
+		scrollToTop();
 	}
 
 	return (
@@ -29,7 +23,7 @@ function Card({ product, setSingleproducts, scrollToTop, sales }) {
 			<img
 				onClick={handleViewImage}
 				id={product._id}
-				src={product?.image}
+				src={product?.images[0]}
 				alt={product._id}
 				className=" tw-w-full tw-h-[70%] tw-object-cover hover:tw-cursor-pointer tw-rounded-t-lg"
 			/>
@@ -61,7 +55,7 @@ function Card({ product, setSingleproducts, scrollToTop, sales }) {
 				</div>
 			</div>
 		</div>
-	)
+	);
 }
 
-export default Card
+export default Card;

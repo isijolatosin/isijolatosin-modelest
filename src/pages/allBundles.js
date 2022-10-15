@@ -1,113 +1,113 @@
-import React from 'react'
-import { Helmet } from 'react-helmet'
-import axios from 'axios'
-import Layout from '../components/shared/Layout'
-import Card from '../components/Card2'
+import React from "react";
+import { Helmet } from "react-helmet";
+import axios from "axios";
+import Layout from "../components/shared/Layout";
+import Card from "../components/Card2";
 import {
 	addToCartItem,
 	increaseCartItem,
 	selectCartItems,
-} from '../slices/appSlices'
-import { useDispatch, useSelector } from 'react-redux'
-import Add2CartPopup from '../components/shared/Add2CartPopup'
-import SingleProductModal from '../components/shared/SingleProductModal'
-import Reviews from '../components/shared/Reviews'
-import SearchInput from '../components/shared/SearchInput'
-import { Link } from 'react-router-dom'
-import { RiSendPlaneFill } from 'react-icons/ri'
-import Heading from '../components/Heading'
-import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
+} from "../slices/appSlices";
+import { useDispatch, useSelector } from "react-redux";
+import Add2CartPopup from "../components/shared/Add2CartPopup";
+import SingleProductModal from "../components/shared/SingleProductModal";
+import Reviews from "../components/shared/Reviews";
+import SearchInput from "../components/shared/SearchInput";
+import { Link } from "react-router-dom";
+import { RiSendPlaneFill } from "react-icons/ri";
+import Heading from "../components/Heading";
+import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
 
 function IndianBundles() {
-	const [hairBundles, setHairBundles] = React.useState([])
+	const [hairBundles, setHairBundles] = React.useState([]);
 	const [hairBundlesByPriceLow2High, setHairBundlesByPriceLow2High] =
-		React.useState([])
-	const [searchFiltered, setSearchFiltered] = React.useState([])
-	const [searchError, setSearchError] = React.useState(false)
-	const [searchControl, setSearchControl] = React.useState(false)
-	const [singleProducts, setSingleproducts] = React.useState(null)
-	const [singleCart, setSingleCart] = React.useState(null)
-	const [show, setShow] = React.useState(false)
-	const [error, setError] = React.useState(false)
-	const [sales, setSales] = React.useState(null)
-	const [length, setLength] = React.useState('14')
-	const [priceFilter, setPriceFilter] = React.useState('')
+		React.useState([]);
+	const [searchFiltered, setSearchFiltered] = React.useState([]);
+	const [searchError, setSearchError] = React.useState(false);
+	const [searchControl, setSearchControl] = React.useState(false);
+	const [singleProducts, setSingleproducts] = React.useState(null);
+	const [singleCart, setSingleCart] = React.useState(null);
+	const [show, setShow] = React.useState(false);
+	const [error, setError] = React.useState(false);
+	const [sales, setSales] = React.useState(null);
+	const [length, setLength] = React.useState("14");
+	const [priceFilter, setPriceFilter] = React.useState("");
 	const [priceRangeFilter, setPriceRangeFilter] = React.useState({
-		from: '',
-		to: '',
-	})
-	const cartItems = useSelector(selectCartItems)
-	const dispatch = useDispatch()
+		from: "",
+		to: "",
+	});
+	const cartItems = useSelector(selectCartItems);
+	const dispatch = useDispatch();
 
 	async function fetchProducts() {
 		try {
 			const {
 				data: { products },
-			} = await axios.get('/api/v1/products')
+			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
 
 			const filtered = products.filter((product) =>
-				product.type.toLowerCase().includes('hair bundles')
-			)
-			setHairBundles(filtered.sort((a, b) => a.name.localeCompare(b.name)))
+				product.type.toLowerCase().includes("hair bundles")
+			);
+			setHairBundles(filtered.sort((a, b) => a.name.localeCompare(b.name)));
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
 	}
 
 	React.useEffect(() => {
-		setSales(fetchSalesPercentage())
+		setSales(fetchSalesPercentage());
 
-		window.scrollTo(0, 0)
+		window.scrollTo(0, 0);
 		setTimeout(() => {
-			fetchProducts()
-			setShow(true)
-		}, 3000)
+			fetchProducts();
+			setShow(true);
+		}, 3000);
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, []);
 
 	const scrollToTop = function scrollToTop() {
-		window.scrollTo(0, 0)
-	}
-	const sizes = singleProducts?.[0].availablelength.split(', ')
+		window.scrollTo(0, 0);
+	};
+	const sizes = singleProducts?.[0].availablelength.split(", ");
 
 	let cardPrice =
 		sales !== 0 && singleProducts?.[0]?.sales
 			? singleProducts?.[0]?.price - singleProducts?.[0]?.price * (sales / 100)
-			: singleProducts?.[0]?.price
+			: singleProducts?.[0]?.price;
 
-	let _price
+	let _price;
 
-	if (length === '14') {
-		_price = cardPrice
-	} else if (length === '16') {
-		_price = cardPrice + 10
-	} else if (length === '18') {
-		_price = cardPrice + 20
-	} else if (length === '20') {
-		_price = cardPrice + 30
-	} else if (length === '22') {
-		_price = cardPrice + 40
-	} else if (length === '24') {
-		_price = cardPrice + 50
-	} else if (length === '26') {
-		_price = cardPrice + 60
-	} else if (length === '28') {
-		_price = cardPrice + 70
-	} else if (length === '30') {
-		_price = cardPrice + 80
+	if (length === "14") {
+		_price = cardPrice;
+	} else if (length === "16") {
+		_price = cardPrice + 10;
+	} else if (length === "18") {
+		_price = cardPrice + 20;
+	} else if (length === "20") {
+		_price = cardPrice + 30;
+	} else if (length === "22") {
+		_price = cardPrice + 40;
+	} else if (length === "24") {
+		_price = cardPrice + 50;
+	} else if (length === "26") {
+		_price = cardPrice + 60;
+	} else if (length === "28") {
+		_price = cardPrice + 70;
+	} else if (length === "30") {
+		_price = cardPrice + 80;
 	}
 
 	// Adding to cart items
-	const name = singleProducts?.[0] && singleProducts?.[0]?.name
-	const id = singleProducts?.[0] && singleProducts?.[0]?._id
-	const image = singleProducts?.[0] && singleProducts?.[0]?.image
-	const color = singleProducts?.[0] && singleProducts?.[0]?.color
-	const description = singleProducts?.[0] && singleProducts?.[0]?.description
-	const hairLength = length
-	const hairColor = color
-	const hairTexture = singleProducts?.[0] && singleProducts?.[0]?.name
-	const price = Number(_price)
+	const name = singleProducts?.[0] && singleProducts?.[0]?.name;
+	const id = singleProducts?.[0] && singleProducts?.[0]?._id;
+	const image = singleProducts?.[0] && singleProducts?.[0]?.image;
+	const color = singleProducts?.[0] && singleProducts?.[0]?.color;
+	const description = singleProducts?.[0] && singleProducts?.[0]?.description;
+	const hairLength = length;
+	const hairColor = color;
+	const hairTexture = singleProducts?.[0] && singleProducts?.[0]?.name;
+	const price = Number(_price);
 
 	const singleProduct = {
 		name,
@@ -118,114 +118,116 @@ function IndianBundles() {
 		hairLength,
 		description,
 		hairTexture,
-	}
+	};
 
 	const addToCart = () => {
 		if (length) {
-			dispatch(addToCartItem(singleProduct))
+			dispatch(addToCartItem(singleProduct));
 			setTimeout(() => {
-				setSingleCart(singleProduct)
-			}, 1000)
+				setSingleCart(singleProduct);
+			}, 1000);
 		} else {
-			setError(true)
+			setError(true);
 		}
-	}
+	};
 
 	const IncreaseItem = () => {
-		dispatch(increaseCartItem(singleProduct))
+		dispatch(increaseCartItem(singleProduct));
 		setTimeout(() => {
-			setSingleCart(singleProduct)
-		}, 1000)
-	}
+			setSingleCart(singleProduct);
+		}, 1000);
+	};
 
 	const desc = [
-		{ key: 'Brand', value: `raw ${singleProducts?.[0]?.brand} hair` },
-		{ key: 'Hair Texture', value: name },
-		{ key: 'Hair Color', value: color },
+		{ key: "Brand", value: `raw ${singleProducts?.[0]?.brand} hair` },
+		{ key: "Hair Texture", value: name },
+		{ key: "Hair Color", value: color },
 		{
-			key: 'Hair Length',
+			key: "Hair Length",
 			value: `Available from ${sizes?.[0]}" - ${
 				sizes?.[sizes.length - 1]
 			}" inches`,
 		},
-		{ key: 'Material', value: '100% Human Hair' },
-		{ key: 'Density', value: '150% - 200%' },
-		{ key: 'Cap Size', value: 'Average Size(Head circumference: 54cm - 58cm' },
-		{ key: 'Can be bleached dyed', value: 'Yes' },
+		{ key: "Material", value: "100% Human Hair" },
+		{ key: "Density", value: "150% - 200%" },
+		{ key: "Cap Size", value: "Average Size(Head circumference: 54cm - 58cm" },
+		{ key: "Can be bleached dyed", value: "Yes" },
 		{
-			key: 'Delivery time',
+			key: "Delivery time",
 			value:
-				'We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)',
+				"We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)",
 		},
 		{
-			key: 'Return policy',
+			key: "Return policy",
 			value:
-				'We accept 10-days no reason return exchange with hair not been used',
+				"We accept 10-days no reason return exchange with hair not been used",
 		},
-	]
+	];
 	const priceList = [
-		'Select Sort Direction',
-		'price from low - high',
-		'price from high - low',
-	]
+		"Select Sort Direction",
+		"price from low - high",
+		"price from high - low",
+	];
 
 	const handleOnChange = (e) => {
-		setPriceFilter(e.target.value)
+		setPriceFilter(e.target.value);
 
-		if (e.target.value === '' || e.target.value === 'Select Sort Direction')
+		if (e.target.value === "" || e.target.value === "Select Sort Direction")
 			setHairBundlesByPriceLow2High(
 				hairBundles.sort((a, b) => a.name.localeCompare(b.name))
-			)
+			);
 		if (e.target.value) {
 			// eslint-disable-next-line array-callback-return
-			if (e.target.value === 'price from low - high') {
+			if (e.target.value === "price from low - high") {
 				setHairBundlesByPriceLow2High(
 					hairBundles.sort((a, b) => a.price - b.price)
-				)
-			} else if (e.target.value === 'price from high - low') {
-				const reversed = hairBundles.sort((a, b) => a.price - b.price).reverse()
-				setHairBundlesByPriceLow2High(reversed)
+				);
+			} else if (e.target.value === "price from high - low") {
+				const reversed = hairBundles
+					.sort((a, b) => a.price - b.price)
+					.reverse();
+				setHairBundlesByPriceLow2High(reversed);
 			}
 		}
-	}
+	};
 	const handleOnChangePrice = (e) => {
 		setPriceRangeFilter({
 			...priceRangeFilter,
 			[e.target.name]: Number(e.target.value),
-		})
-	}
+		});
+	};
 	const handleFormSubmit = (e) => {
-		e.preventDefault()
-		if (priceRangeFilter?.from === 0 && priceRangeFilter?.to === 0) return
+		e.preventDefault();
+		if (priceRangeFilter?.from === 0 && priceRangeFilter?.to === 0) return;
 		if (priceRangeFilter?.from && priceRangeFilter?.to) {
-			const array = []
+			const array = [];
 			// eslint-disable-next-line array-callback-return
 			hairBundles.filter((product) => {
 				if (
 					product?.price >= priceRangeFilter?.from &&
 					product?.price <= priceRangeFilter?.to
 				) {
-					array.push(product)
+					array.push(product);
 				}
-			})
-			setHairBundlesByPriceLow2High(array)
+			});
+			setHairBundlesByPriceLow2High(array);
 		}
-	}
+	};
 
 	const handleReset = () => {
 		setPriceRangeFilter({
-			from: '',
-			to: '',
-		})
+			from: "",
+			to: "",
+		});
 		setHairBundlesByPriceLow2High(
 			hairBundles.sort((a, b) => a.name.localeCompare(b.name))
-		)
-	}
+		);
+	};
 
 	const BundlesByPriceLow2High =
 		hairBundlesByPriceLow2High.length > 0
 			? hairBundlesByPriceLow2High
-			: hairBundles
+			: hairBundles;
 
 	return (
 		<div className="home">
@@ -238,10 +240,10 @@ function IndianBundles() {
 						sales
 							? `${
 									hairBundles.length === 0 && !show
-										? 'tw-pt-[230px]'
-										: 'tw-pt-[155px]'
+										? "tw-pt-[230px]"
+										: "tw-pt-[155px]"
 							  } tw-pb-10 md:tw-pt-[120px] tw-h-full tw-relative tw-flex tw-flex-col tw-items-center tw-mx-auto tw-bg-[rgba(255,255,255,0.1)]`
-							: 'tw-pb-10 tw-pt-[110px] md:tw-pt-20 tw-h-full tw-relative  tw-flex tw-flex-col tw-items-center tw-mx-auto tw-bg-[rgba(255,255,255,0.1)]'
+							: "tw-pb-10 tw-pt-[110px] md:tw-pt-20 tw-h-full tw-relative  tw-flex tw-flex-col tw-items-center tw-mx-auto tw-bg-[rgba(255,255,255,0.1)]"
 					}>
 					{show && hairBundles && (
 						<>
@@ -254,10 +256,10 @@ function IndianBundles() {
 							</div>
 							<div className="tw-pt-[30px] md:tw-pt-[40px]">
 								<div
-									className={`${searchControl && 'tw-w-[100%] lg:tw-w-[40%]'} ${
+									className={`${searchControl && "tw-w-[100%] lg:tw-w-[40%]"} ${
 										sales
-											? 'tw-top-[105px] md:tw-top-[80px]'
-											: 'tw-top-[60px] md:tw-top-[30px]'
+											? "tw-top-[105px] md:tw-top-[80px]"
+											: "tw-top-[60px] md:tw-top-[30px]"
 									} tw-flex tw-flex-col content tw-fixed tw-left-[-9px] md:tw-left-[77px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
 									<SearchInput
 										allProducts={hairBundles}
@@ -293,7 +295,7 @@ function IndianBundles() {
 															<p className="tw-text-[13px] md:tw-text-[14px]">
 																<span className="tw-text-xs tw-font-light">
 																	Starting from
-																</span>{' '}
+																</span>{" "}
 																${item?.price}
 															</p>
 														</div>
@@ -423,7 +425,7 @@ function IndianBundles() {
 				</div>
 			</Layout>
 		</div>
-	)
+	);
 }
 
-export default IndianBundles
+export default IndianBundles;

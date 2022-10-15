@@ -1,12 +1,12 @@
-import React from 'react'
-import axios from 'axios'
-import { useDispatch, useSelector } from 'react-redux'
+import React from "react";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import {
 	addToCartItem,
 	increaseCartItem,
 	selectCartItems,
-} from '../slices/appSlices'
-import { isInCart } from '../utils/helpers'
+} from "../slices/appSlices";
+import { isInCart } from "../utils/helpers";
 
 function Card({
 	product,
@@ -15,120 +15,120 @@ function Card({
 	scrollToTop,
 	sales,
 }) {
-	const cartItems = useSelector(selectCartItems)
-	const [error, setError] = React.useState(false)
-	const dispatch = useDispatch()
+	const cartItems = useSelector(selectCartItems);
+	const [error, setError] = React.useState(false);
+	const dispatch = useDispatch();
 	const [bundles, setBundles] = React.useState({
 		length: null,
-		quantity: '',
-	})
-	const lengthArr = product.availablelength.split(',')
+		quantity: "",
+	});
+	const lengthArr = product.availablelength.split(",");
 
 	async function handleViewImage(event) {
 		try {
 			const {
 				data: { products },
-			} = await axios.get('/api/v1/products')
+			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
 			const result = products.filter(
 				(product) => product._id === event.target.id
-			)
-			setSingleproducts(result)
+			);
+			setSingleproducts(result);
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
 
-		scrollToTop()
+		scrollToTop();
 	}
 
-	let salesAmount = Number(product.price - product.price * (sales / 100))
-	let cardPrice = product.price
+	let salesAmount = Number(product.price - product.price * (sales / 100));
+	let cardPrice = product.price;
 
 	// Actual price
-	if (bundles.length === '14') {
-		cardPrice = product.price
-	} else if (bundles.length === '16') {
-		cardPrice = product.price + 10
-	} else if (bundles.length === '18') {
-		cardPrice = product.price + 20
-	} else if (bundles.length === '20') {
-		cardPrice = product.price + 30
-	} else if (bundles.length === '22') {
-		cardPrice = product.price + 40
-	} else if (bundles.length === '24') {
-		cardPrice = product.price + 50
-	} else if (bundles.length === '26') {
-		cardPrice = product.price + 60
-	} else if (bundles.length === '28') {
-		cardPrice = product.price + 70
-	} else if (bundles.length === '30') {
-		cardPrice = product.price + 80
+	if (bundles.length === "14") {
+		cardPrice = product.price;
+	} else if (bundles.length === "16") {
+		cardPrice = product.price + 10;
+	} else if (bundles.length === "18") {
+		cardPrice = product.price + 20;
+	} else if (bundles.length === "20") {
+		cardPrice = product.price + 30;
+	} else if (bundles.length === "22") {
+		cardPrice = product.price + 40;
+	} else if (bundles.length === "24") {
+		cardPrice = product.price + 50;
+	} else if (bundles.length === "26") {
+		cardPrice = product.price + 60;
+	} else if (bundles.length === "28") {
+		cardPrice = product.price + 70;
+	} else if (bundles.length === "30") {
+		cardPrice = product.price + 80;
 	}
 	// Sales Price
 
-	if (bundles.length === '14') {
-		salesAmount = product.price - product.price * 0.15
-	} else if (bundles.length === '16') {
-		salesAmount = salesAmount + 10
-	} else if (bundles.length === '18') {
-		salesAmount = salesAmount + 20
-	} else if (bundles.length === '20') {
-		salesAmount = salesAmount + 30
-	} else if (bundles.length === '22') {
-		salesAmount = salesAmount + 40
-	} else if (bundles.length === '24') {
-		salesAmount = salesAmount + 50
-	} else if (bundles.length === '26') {
-		salesAmount = salesAmount + 60
-	} else if (bundles.length === '28') {
-		salesAmount = salesAmount + 70
-	} else if (bundles.length === '30') {
-		salesAmount = salesAmount + 80
+	if (bundles.length === "14") {
+		salesAmount = product.price - product.price * 0.15;
+	} else if (bundles.length === "16") {
+		salesAmount = salesAmount + 10;
+	} else if (bundles.length === "18") {
+		salesAmount = salesAmount + 20;
+	} else if (bundles.length === "20") {
+		salesAmount = salesAmount + 30;
+	} else if (bundles.length === "22") {
+		salesAmount = salesAmount + 40;
+	} else if (bundles.length === "24") {
+		salesAmount = salesAmount + 50;
+	} else if (bundles.length === "26") {
+		salesAmount = salesAmount + 60;
+	} else if (bundles.length === "28") {
+		salesAmount = salesAmount + 70;
+	} else if (bundles.length === "30") {
+		salesAmount = salesAmount + 80;
 	}
 
 	// Adding to cart items
-	const { name, _id, image, color, description } = product
-	const price = product.sales && sales ? salesAmount : cardPrice
-	const hairLength = bundles.length
-	const hairColor = color
-
+	const { name, _id, images, color, description } = product;
+	const price = product.sales && sales ? salesAmount : cardPrice;
+	const hairLength = bundles.length;
+	const hairColor = color;
+	const image = images[0];
 	const singleProduct = {
 		name,
 		id: _id,
-		image,
+		image: image,
 		hairColor,
 		price,
 		hairLength,
 		description,
-	}
+	};
 	const addToCart = () => {
 		if (bundles?.length) {
-			dispatch(addToCartItem(singleProduct))
+			dispatch(addToCartItem(singleProduct));
 			setTimeout(() => {
-				setSingleCart(singleProduct)
-			}, 1000)
+				setSingleCart(singleProduct);
+			}, 1000);
 		} else {
-			setError(true)
+			setError(true);
 		}
-	}
+	};
 
 	const IncreaseItem = () => {
-		dispatch(increaseCartItem(singleProduct))
+		dispatch(increaseCartItem(singleProduct));
 		setTimeout(() => {
-			setSingleCart(singleProduct)
-		}, 1000)
-	}
+			setSingleCart(singleProduct);
+		}, 1000);
+	};
 
 	const handleOnChange = (e) => {
-		setBundles({ ...bundles, [e.target.name]: e.target.value })
-		setError(false)
-	}
+		setBundles({ ...bundles, [e.target.name]: e.target.value });
+		setError(false);
+	};
 
 	return (
 		<div className="tw-w-[100%] tw-mx-auto tw-h-[300px] lg:tw-h-[400px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-sm">
 			<img
 				onClick={handleViewImage}
 				id={product._id}
-				src={product.image}
+				src={product.images[0]}
 				alt={product._id}
 				className=" tw-w-full tw-h-[70%] lg:tw-h-[75%] tw-object-cover tw-rounded-sm tw-cursor-pointer"
 			/>
@@ -149,8 +149,8 @@ function Card({
 						<span
 							className={
 								sales !== 0 && product.sales
-									? 'tw-line-through tw-font-light tw-text-[11px]'
-									: 'tw-font-semibold'
+									? "tw-line-through tw-font-light tw-text-[11px]"
+									: "tw-font-semibold"
 							}>
 							${cardPrice.toFixed(2)} USD
 						</span>
@@ -191,7 +191,7 @@ function Card({
 				)}
 			</div>
 		</div>
-	)
+	);
 }
 
-export default Card
+export default Card;

@@ -1,12 +1,12 @@
-import React from 'react'
-import axios from 'axios'
-import { useDispatch, useSelector } from 'react-redux'
+import React from "react";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import {
 	addToCartItem,
 	increaseCartItem,
 	selectCartItems,
-} from '../slices/appSlices'
-import { isInCart } from '../utils/helpers'
+} from "../slices/appSlices";
+import { isInCart } from "../utils/helpers";
 
 function Card({
 	product,
@@ -16,169 +16,169 @@ function Card({
 	sales,
 }) {
 	// const [ID, setID] = React.useState('')
-	const cartItems = useSelector(selectCartItems)
-	const [error, setError] = React.useState(false)
-	const dispatch = useDispatch()
+	const cartItems = useSelector(selectCartItems);
+	const [error, setError] = React.useState(false);
+	const dispatch = useDispatch();
 	const [bundles, setBundles] = React.useState({
-		widthlength: product.type.toLowerCase() === 'frontal' ? '13x4' : '5x4',
+		widthlength: product.type.toLowerCase() === "frontal" ? "13x4" : "5x4",
 		length: null,
-		color: 'Natural black',
-		hairType: 'Straight',
-	})
-	const lengthArr = product.availablelength.split(',')
-	const colorArr = product?.availablecolor?.split(', ')
-	const widthlength = product?.widthlength?.split(', ')
-	const hairType = ['Straight', 'Bodywave', 'Wavy', 'Curly']
+		color: "Natural black",
+		hairType: "Straight",
+	});
+	const lengthArr = product.availablelength?.split(",");
+	const colorArr = product?.availablecolor?.split(", ");
+	const widthlength = product?.widthlength?.split(", ");
+	const hairType = ["Straight", "Bodywave", "Wavy", "Curly"];
 
 	const handleOnChange = (e) => {
-		setBundles({ ...bundles, [e.target.name]: e.target.value })
-		setError(false)
-	}
+		setBundles({ ...bundles, [e.target.name]: e.target.value });
+		setError(false);
+	};
 
 	async function handleViewImage(event) {
 		try {
 			const {
 				data: { products },
-			} = await axios.get('/api/v1/products')
+			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
 			const result = products.filter(
 				(product) => product._id === event.target.id
-			)
-			setSingleproducts(result)
+			);
+			setSingleproducts(result);
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-		scrollToTop()
+		scrollToTop();
 	}
 
-	let cardPrice1 = product.price
-	let salesAmount1 = Number(product.price - product.price * (sales / 100))
+	let cardPrice1 = product.price;
+	let salesAmount1 = Number(product.price - product.price * (sales / 100));
 
 	//  Actual price1
-	if (bundles.length === '14') {
-		cardPrice1 = product.price
-	} else if (bundles.length === '16') {
-		cardPrice1 = product.price + 10
-	} else if (bundles.length === '18') {
-		cardPrice1 = product.price + 20
-	} else if (bundles.length === '20') {
-		cardPrice1 = product.price + 30
-	} else if (bundles.length === '22') {
-		cardPrice1 = product.price + 40
+	if (bundles.length === "14") {
+		cardPrice1 = product.price;
+	} else if (bundles.length === "16") {
+		cardPrice1 = product.price + 10;
+	} else if (bundles.length === "18") {
+		cardPrice1 = product.price + 20;
+	} else if (bundles.length === "20") {
+		cardPrice1 = product.price + 30;
+	} else if (bundles.length === "22") {
+		cardPrice1 = product.price + 40;
 	}
 	// Sales Price1
-	if (bundles.length === '14') {
-		salesAmount1 = product.price - product.price * (sales / 100)
-	} else if (bundles.length === '16') {
-		salesAmount1 = salesAmount1 + 10
-	} else if (bundles.length === '18') {
-		salesAmount1 = salesAmount1 + 20
-	} else if (bundles.length === '20') {
-		salesAmount1 = salesAmount1 + 30
-	} else if (bundles.length === '22') {
-		salesAmount1 = salesAmount1 + 40
+	if (bundles.length === "14") {
+		salesAmount1 = product.price - product.price * (sales / 100);
+	} else if (bundles.length === "16") {
+		salesAmount1 = salesAmount1 + 10;
+	} else if (bundles.length === "18") {
+		salesAmount1 = salesAmount1 + 20;
+	} else if (bundles.length === "20") {
+		salesAmount1 = salesAmount1 + 30;
+	} else if (bundles.length === "22") {
+		salesAmount1 = salesAmount1 + 40;
 	}
 
-	let cardPrice2 = product.price
-	let salesAmount2 = Number(product.price - product.price * (sales / 100))
+	let cardPrice2 = product.price;
+	let salesAmount2 = Number(product.price - product.price * (sales / 100));
 	// Actual Price2
-	if (bundles.length === '14') {
-		cardPrice2 = product.price
-	} else if (bundles.length === '16') {
-		cardPrice2 = product.price + 6
-	} else if (bundles.length === '18') {
-		cardPrice2 = product.price + 12
-	} else if (bundles.length === '20') {
-		cardPrice2 = product.price + 18
-	} else if (bundles.length === '22') {
-		cardPrice2 = product.price + 24
+	if (bundles.length === "14") {
+		cardPrice2 = product.price;
+	} else if (bundles.length === "16") {
+		cardPrice2 = product.price + 6;
+	} else if (bundles.length === "18") {
+		cardPrice2 = product.price + 12;
+	} else if (bundles.length === "20") {
+		cardPrice2 = product.price + 18;
+	} else if (bundles.length === "22") {
+		cardPrice2 = product.price + 24;
 	}
 	// Sales Price2
-	if (bundles.length === '14') {
-		salesAmount2 = Number(product.price - product.price * (sales / 100))
-	} else if (bundles.length === '16') {
-		salesAmount2 = salesAmount2 + 6
-	} else if (bundles.length === '18') {
-		salesAmount2 = salesAmount2 + 12
-	} else if (bundles.length === '20') {
-		salesAmount2 = salesAmount2 + 18
-	} else if (bundles.length === '22') {
-		salesAmount2 = salesAmount2 + 24
+	if (bundles.length === "14") {
+		salesAmount2 = Number(product.price - product.price * (sales / 100));
+	} else if (bundles.length === "16") {
+		salesAmount2 = salesAmount2 + 6;
+	} else if (bundles.length === "18") {
+		salesAmount2 = salesAmount2 + 12;
+	} else if (bundles.length === "20") {
+		salesAmount2 = salesAmount2 + 18;
+	} else if (bundles.length === "22") {
+		salesAmount2 = salesAmount2 + 24;
 	}
 
 	// Adding to cart items
-	const { name, _id, image, description } = product
+	const { name, _id, image, description } = product;
 	const pricePredict = () => {
-		if (product.type.toLowerCase() === 'frontal') {
+		if (product.type.toLowerCase() === "frontal") {
 			if (
-				bundles.color.toLowerCase()?.includes('natural black') &&
-				(bundles.hairType.toLowerCase()?.includes('bodywave') ||
-					bundles.hairType.toLowerCase()?.includes('wavy') ||
-					bundles.hairType.toLowerCase()?.includes('curly'))
+				bundles.color.toLowerCase()?.includes("natural black") &&
+				(bundles.hairType.toLowerCase()?.includes("bodywave") ||
+					bundles.hairType.toLowerCase()?.includes("wavy") ||
+					bundles.hairType.toLowerCase()?.includes("curly"))
 			) {
 				if (sales !== 0 && product?.sales) {
-					return (salesAmount2 += 10)
+					return (salesAmount2 += 10);
 				} else {
-					return (cardPrice2 += 10)
+					return (cardPrice2 += 10);
 				}
 			} else if (
-				bundles.color.toLowerCase()?.includes('natural black') &&
-				bundles.hairType.toLowerCase()?.includes('straight')
+				bundles.color.toLowerCase()?.includes("natural black") &&
+				bundles.hairType.toLowerCase()?.includes("straight")
 			) {
 				if (sales !== 0 && product?.sales) {
-					return salesAmount2
+					return salesAmount2;
 				} else {
-					return cardPrice2
+					return cardPrice2;
 				}
 			}
 		} else {
 			if (
-				bundles.color.toLowerCase()?.includes('natural black') &&
-				(bundles.hairType.toLowerCase()?.includes('bodywave') ||
-					bundles.hairType.toLowerCase()?.includes('wavy') ||
-					bundles.hairType.toLowerCase()?.includes('curly'))
+				bundles.color.toLowerCase()?.includes("natural black") &&
+				(bundles.hairType.toLowerCase()?.includes("bodywave") ||
+					bundles.hairType.toLowerCase()?.includes("wavy") ||
+					bundles.hairType.toLowerCase()?.includes("curly"))
 			) {
 				if (sales !== 0 && product?.sales) {
-					return (salesAmount1 += 5)
+					return (salesAmount1 += 5);
 				} else {
-					return (cardPrice1 += 5)
+					return (cardPrice1 += 5);
 				}
 			} else if (
-				bundles.color.toLowerCase()?.includes('natural black') &&
-				bundles.hairType.toLowerCase()?.includes('straight')
+				bundles.color.toLowerCase()?.includes("natural black") &&
+				bundles.hairType.toLowerCase()?.includes("straight")
 			) {
 				if (sales !== 0 && product?.sales) {
-					return salesAmount1
+					return salesAmount1;
 				} else {
-					return cardPrice1
+					return cardPrice1;
 				}
 			}
 
 			if (
-				bundles.color.toLowerCase()?.includes('blonde613') &&
-				(bundles.hairType.toLowerCase()?.includes('bodywave') ||
-					bundles.hairType.toLowerCase()?.includes('wavy') ||
-					bundles.hairType.toLowerCase()?.includes('curly'))
+				bundles.color.toLowerCase()?.includes("blonde613") &&
+				(bundles.hairType.toLowerCase()?.includes("bodywave") ||
+					bundles.hairType.toLowerCase()?.includes("wavy") ||
+					bundles.hairType.toLowerCase()?.includes("curly"))
 			) {
 				if (sales !== 0 && product?.sales) {
-					return (salesAmount1 += 15)
+					return (salesAmount1 += 15);
 				} else {
-					return (cardPrice1 += 15)
+					return (cardPrice1 += 15);
 				}
 			} else if (
-				bundles.color.toLowerCase()?.includes('blonde613') &&
-				bundles.hairType.toLowerCase()?.includes('straight')
+				bundles.color.toLowerCase()?.includes("blonde613") &&
+				bundles.hairType.toLowerCase()?.includes("straight")
 			) {
 				if (sales !== 0 && product?.sales) {
-					return (salesAmount1 += 10)
+					return (salesAmount1 += 10);
 				} else {
-					return (cardPrice1 += 10)
+					return (cardPrice1 += 10);
 				}
 			}
 		}
-	}
-	const price = pricePredict()
-	const hairLength = bundles.length
-	const hairColor = bundles.color
+	};
+	const price = pricePredict();
+	const hairLength = bundles.length;
+	const hairColor = bundles.color;
 
 	const singleProduct = {
 		name,
@@ -188,32 +188,32 @@ function Card({
 		hairLength,
 		hairColor,
 		description,
-	}
+	};
 
 	const addToCart = () => {
 		if (bundles?.length) {
-			dispatch(addToCartItem(singleProduct))
+			dispatch(addToCartItem(singleProduct));
 			setTimeout(() => {
-				setSingleCart(singleProduct)
-			}, 1000)
+				setSingleCart(singleProduct);
+			}, 1000);
 		} else {
-			setError(true)
+			setError(true);
 		}
-	}
+	};
 
 	const IncreaseItem = () => {
-		dispatch(increaseCartItem(singleProduct))
+		dispatch(increaseCartItem(singleProduct));
 		setTimeout(() => {
-			setSingleCart(singleProduct)
-		}, 1000)
-	}
+			setSingleCart(singleProduct);
+		}, 1000);
+	};
 
 	return (
 		<div className="tw-w-[100%] tw-h-[300px] lg:tw-h-[400px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-sm">
 			<img
 				onClick={handleViewImage}
 				id={product._id}
-				src={product.image}
+				src={product.images[0]}
 				alt={product._id}
 				className="tw-w-full tw-h-[70%] lg:tw-h-[75%] tw-object-cover tw-rounded-sm hover:tw-cursor-pointer"
 			/>
@@ -229,22 +229,22 @@ function Card({
 						{sales !== 0 && product.sales && (
 							<span className="tw-mr-2 tw-font-semibold">
 								$
-								{product.type.toLowerCase() === 'frontal'
+								{product.type.toLowerCase() === "frontal"
 									? salesAmount2.toFixed(2)
-									: salesAmount1.toFixed(2)}{' '}
+									: salesAmount1.toFixed(2)}{" "}
 								USD
 							</span>
 						)}
 						<span
 							className={
 								sales !== 0 && product.sales
-									? 'tw-line-through tw-font-light tw-text-[11px]'
-									: 'tw-font-semibold'
+									? "tw-line-through tw-font-light tw-text-[11px]"
+									: "tw-font-semibold"
 							}>
 							$
-							{product.type.toLowerCase() === 'frontal'
+							{product.type.toLowerCase() === "frontal"
 								? cardPrice2.toFixed(2)
-								: cardPrice1.toFixed(2)}{' '}
+								: cardPrice1.toFixed(2)}{" "}
 							USD
 						</span>
 					</div>
@@ -256,7 +256,7 @@ function Card({
 						id="length"
 						value={bundles.length}
 						name="length">
-						{lengthArr.map((len, idx) => (
+						{lengthArr?.map((len, idx) => (
 							<option key={idx}>{len}</option>
 						))}
 					</select>
@@ -266,7 +266,7 @@ function Card({
 						id="widthlength"
 						value={bundles.widthlength}
 						name="widthlength">
-						{widthlength.map((len, idx) => (
+						{widthlength?.map((len, idx) => (
 							<option key={idx}>{len}</option>
 						))}
 					</select>
@@ -278,7 +278,7 @@ function Card({
 						id="color"
 						value={bundles.color}
 						name="color">
-						{colorArr.map((colo, idx) => (
+						{colorArr?.map((colo, idx) => (
 							<option key={idx}>{colo}</option>
 						))}
 					</select>
@@ -288,7 +288,7 @@ function Card({
 						id="hairType"
 						value={bundles.hairType}
 						name="hairType">
-						{hairType.map((type, idx) => (
+						{hairType?.map((type, idx) => (
 							<option key={idx}>{type}</option>
 						))}
 					</select>
@@ -319,7 +319,7 @@ function Card({
 				)}
 			</div>
 		</div>
-	)
+	);
 }
 
-export default Card
+export default Card;

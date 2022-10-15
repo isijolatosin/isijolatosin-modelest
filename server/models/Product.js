@@ -1,36 +1,36 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const ProductSchema = new mongoose.Schema({
 	name: {
 		type: String,
-		required: [true, 'must provide a name'],
+		required: [true, "must provide a name"],
 		trim: true,
-		maxlength: [50, 'name maximum character exceeded!'],
+		maxlength: [50, "name maximum character exceeded!"],
 	},
 	brand: {
 		type: String,
-		required: [true, 'must provide a brand'],
+		required: [true, "must provide a brand"],
 		trim: true,
-		maxlength: [50, 'name maximum character exceeded!'],
+		maxlength: [50, "name maximum character exceeded!"],
 	},
 	type: {
 		type: String,
-		required: [true, 'must provide a type'],
+		required: [true, "must provide a type"],
 		trim: true,
-		maxlength: [50, 'name maximum character exceeded!'],
+		maxlength: [50, "name maximum character exceeded!"],
 	},
 	color: {
 		type: String,
-		required: [true, 'must provide a color'],
+		required: [true, "must provide a color"],
 		trim: true,
-		maxlength: [50, 'name maximum character exceeded!'],
+		maxlength: [50, "name maximum character exceeded!"],
 	},
 	availablecolor: {
 		type: String,
 	},
 	length: {
 		type: String,
-		required: [true, 'must provide a length'],
+		required: [true, "must provide a length"],
 		trim: true,
 	},
 	availablelength: {
@@ -41,12 +41,12 @@ const ProductSchema = new mongoose.Schema({
 	},
 	price: {
 		type: Number,
-		required: [true, 'must provide a price'],
+		required: [true, "must provide a price"],
 		trim: true,
 	},
 	description: {
 		type: String,
-		required: [true, 'must provide description'],
+		required: [true, "must provide description"],
 		trim: true,
 	},
 	video: {
@@ -64,6 +64,9 @@ const ProductSchema = new mongoose.Schema({
 	image: {
 		type: String,
 	},
+	images: {
+		type: Array,
+	},
 	sales: {
 		type: Boolean,
 		default: false,
@@ -72,6 +75,19 @@ const ProductSchema = new mongoose.Schema({
 		type: Boolean,
 		default: false,
 	},
-})
+	category: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Category",
+		required: true,
+	},
+	dateCreated: {
+		type: Date,
+		default: Date.now,
+	},
+	isFeatured: {
+		type: Boolean,
+		default: false,
+	},
+});
 
-module.exports = mongoose.model('Product', ProductSchema)
+module.exports = mongoose.model("Product", ProductSchema);

@@ -1,108 +1,110 @@
-import React from 'react'
-import axios from 'axios'
-import { Helmet } from 'react-helmet'
-import Layout from '../components/shared/Layout'
-import BundleCard from '../components/BundleCard'
+import React from "react";
+import axios from "axios";
+import { Helmet } from "react-helmet";
+import Layout from "../components/shared/Layout";
+import BundleCard from "../components/BundleCard";
 import {
 	fetchBundlePercentage,
 	fetchSalesPercentage,
-} from '../utils/salesPercentageNumber'
+} from "../utils/salesPercentageNumber";
 
 function IndianDeal() {
 	// const { user } = useContext(UserContext)
 	const [dealPriceBodyWaveFrontal, setDealPriceBodyWaveFrontal] =
-		React.useState(null)
+		React.useState(null);
 	const [dealPriceBodyWaveClosure, setDealPriceBodyWaveClosure] =
-		React.useState(null)
-	const [sales, setSales] = React.useState(null)
+		React.useState(null);
+	const [sales, setSales] = React.useState(null);
 
-	const [dealPriceCurlyFrontal, setDealPriceCurlyFrontal] = React.useState(null)
-	const [dealPriceCurlyClosure, setDealPriceCurlyClosure] = React.useState(null)
-	const [bodyWaveFrontal, setBodyWaveFrontal] = React.useState(null)
-	const [CurlyFrontal, setCurlyFrontal] = React.useState(null)
-	const [bodyWaveClosure, setBodyWaveClosure] = React.useState(null)
-	const [CurlyClosure, setCurlyClosure] = React.useState(null)
-	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12)
+	const [dealPriceCurlyFrontal, setDealPriceCurlyFrontal] =
+		React.useState(null);
+	const [dealPriceCurlyClosure, setDealPriceCurlyClosure] =
+		React.useState(null);
+	const [bodyWaveFrontal, setBodyWaveFrontal] = React.useState(null);
+	const [CurlyFrontal, setCurlyFrontal] = React.useState(null);
+	const [bodyWaveClosure, setBodyWaveClosure] = React.useState(null);
+	const [CurlyClosure, setCurlyClosure] = React.useState(null);
+	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12);
 
 	React.useEffect(() => {
-		setSales(fetchSalesPercentage())
-		setBundleDealsPercentage(fetchBundlePercentage())
+		setSales(fetchSalesPercentage());
+		setBundleDealsPercentage(fetchBundlePercentage());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, []);
 
 	async function fetchProducts() {
 		try {
 			const {
 				data: { products },
-			} = await axios.get('/api/v1/products')
+			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
 
-			const filtered = []
-			let price = 0
-			let price2 = 0
-			let price3 = 0
-			let price4 = 0
+			const filtered = [];
+			let price = 0;
+			let price2 = 0;
+			let price3 = 0;
+			let price4 = 0;
 			// eslint-disable-next-line array-callback-return
 			products.filter((product) => {
-				if (product.name.toLowerCase() === 'body wave') {
-					filtered.push(product)
-					setBodyWaveFrontal(product)
-					price += product?.price * 3 + 20 + 30 + 40
+				if (product.name.toLowerCase() === "body wave") {
+					filtered.push(product);
+					setBodyWaveFrontal(product);
+					price += product?.price * 3 + 20 + 30 + 40;
 				}
-				if (product.name.toLowerCase() === 'natural curly') {
-					filtered.push(product)
-					setCurlyClosure(product)
-					price2 += product?.price * 3 + 20 + 30 + 40
+				if (product.name.toLowerCase() === "natural curly") {
+					filtered.push(product);
+					setCurlyClosure(product);
+					price2 += product?.price * 3 + 20 + 30 + 40;
 				}
-				if (product.name.toLowerCase() === 'body wave') {
-					filtered.push(product)
-					setBodyWaveClosure(product)
-					price3 += product?.price * 3 + 20 + 30 + 40
+				if (product.name.toLowerCase() === "body wave") {
+					filtered.push(product);
+					setBodyWaveClosure(product);
+					price3 += product?.price * 3 + 20 + 30 + 40;
 				}
-				if (product.name.toLowerCase() === 'natural curly') {
-					filtered.push(product)
-					setCurlyFrontal(product)
-					price4 += product?.price * 3 + 20 + 30 + 40
+				if (product.name.toLowerCase() === "natural curly") {
+					filtered.push(product);
+					setCurlyFrontal(product);
+					price4 += product?.price * 3 + 20 + 30 + 40;
 				}
 				// Body wave frontal 18inch
-				if (product.type.toLowerCase() === 'frontal') {
-					filtered.push(product)
-					price += product?.price + 20
+				if (product.type.toLowerCase() === "frontal") {
+					filtered.push(product);
+					price += product?.price + 20;
 				}
 				// Natural curly frontal 16inch
-				if (product.type.toLowerCase() === 'frontal') {
-					filtered.push(product)
-					price2 += product?.price + 20
+				if (product.type.toLowerCase() === "frontal") {
+					filtered.push(product);
+					price2 += product?.price + 20;
 				}
 				// Body wave closure 18inch
-				if (product.type.toLowerCase() === 'closure') {
-					filtered.push(product)
-					price3 += product?.price + 10
+				if (product.type.toLowerCase() === "closure") {
+					filtered.push(product);
+					price3 += product?.price + 10;
 				}
 				// Natural curly closure 16inch
-				if (product.type.toLowerCase() === 'closure') {
-					filtered.push(product)
-					price4 += product?.price + 10
+				if (product.type.toLowerCase() === "closure") {
+					filtered.push(product);
+					price4 += product?.price + 10;
 				}
-				const discount = price * (bundleDealsPercentage / 100)
-				const discount2 = price2 * (bundleDealsPercentage / 100)
-				const discount3 = price3 * (bundleDealsPercentage / 100)
-				const discount4 = price4 * (bundleDealsPercentage / 100)
-				setDealPriceBodyWaveFrontal((price - discount).toFixed(2))
-				setDealPriceCurlyFrontal((price2 - discount2).toFixed(2))
-				setDealPriceBodyWaveClosure((price3 - discount3).toFixed(2))
-				setDealPriceCurlyClosure((price4 - discount4).toFixed(2))
-			})
+				const discount = price * (bundleDealsPercentage / 100);
+				const discount2 = price2 * (bundleDealsPercentage / 100);
+				const discount3 = price3 * (bundleDealsPercentage / 100);
+				const discount4 = price4 * (bundleDealsPercentage / 100);
+				setDealPriceBodyWaveFrontal((price - discount).toFixed(2));
+				setDealPriceCurlyFrontal((price2 - discount2).toFixed(2));
+				setDealPriceBodyWaveClosure((price3 - discount3).toFixed(2));
+				setDealPriceCurlyClosure((price4 - discount4).toFixed(2));
+			});
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
 	}
 
 	React.useEffect(() => {
 		setTimeout(() => {
-			fetchProducts()
-		}, 3000)
+			fetchProducts();
+		}, 3000);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, []);
 
 	return (
 		<div className="home">
@@ -113,8 +115,8 @@ function IndianDeal() {
 				<div
 					className={`${
 						sales
-							? 'tw-pt-[140px] md:tw-pt-[110px]'
-							: 'tw-pt-[95px] md:tw-pt-[60px]'
+							? "tw-pt-[140px] md:tw-pt-[110px]"
+							: "tw-pt-[95px] md:tw-pt-[60px]"
 					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10`}>
 					{bodyWaveFrontal === null &&
 					CurlyFrontal === null &&
@@ -171,7 +173,7 @@ function IndianDeal() {
 				</div>
 			</Layout>
 		</div>
-	)
+	);
 }
 
-export default IndianDeal
+export default IndianDeal;

@@ -47,7 +47,7 @@ const Success = () => {
 	const finalTax = finalPriceToPayObject?.taxInDollar
 	const finalShipCost = finalPriceToPayObject?.shipCostInDollar
 	const PriceInDollar = finalPriceToPayObject?.priceInDollar
-	// const discountPrice = Number(localStorage.getItem('discountPrice'))
+	const discountPrice = Number(localStorage.getItem('discountPrice'))
 
 	const addressFromPP = JSON.parse(localStorage.getItem('addressFromPaypal'))
 
@@ -62,34 +62,13 @@ const Success = () => {
 	const payMethod = localStorage.getItem('payMethod')
 	const orderNo = localStorage.getItem('order no')
 	const userEmail = user?.email || localStorage.getItem('altEmail')
-	const [showLoad, setShowLoad] = React.useState(false)
-	const [discount, setDiscount] = React.useState('')
-	const [error, setError] = React.useState(false)
-	const [code, setCode] = React.useState('')
 	const [showInfo, setShowInfo] = React.useState(false)
-	const [resultArry, setResultArray] = React.useState([])
-	const [discountPrice, setDiscountPrice] = React.useState('')
 	const discountedAmount = Number(
 		(totalPriceFromCart - discountPrice).toFixed(2)
 	)
 
 	React.useEffect(() => {
 		setSales(fetchSalesPercentage())
-
-		db.collection('admin')
-			.doc(`${AUTHORIZED_ID.id_one}/`)
-			.collection('discount-code')
-			.onSnapshot((snapshot) => {
-				const results = snapshot.docs.map((doc) => ({
-					data: doc.data(),
-				}))
-
-				const resultArry = []
-				for (const result of results) {
-					resultArry.push(result?.data?.code)
-				}
-				setResultArray(resultArry)
-			})
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
@@ -240,70 +219,6 @@ const Success = () => {
 		? `Thank you ${user?.displayName}`
 		: 'Thank you!'
 
-	const handleDisount = (e) => {
-		setDiscount(e.target.value)
-	}
-	const handleApply = () => {
-		if (error) {
-			setTimeout(function () {
-				setError(false)
-			}, 5000)
-		}
-		if (code) {
-			setTimeout(function () {
-				setCode('')
-			}, 3000)
-		}
-		if (resultArry.includes(discount)) {
-			if (discount === '') {
-				setError(true)
-			} else {
-				if (sales > 0) {
-					const salesPrice = totalPriceFromCart * (sales / 100)
-					setDiscountPrice(totalPriceFromCart - salesPrice)
-
-					localStorage.setItem('discountPrice', totalPriceFromCart - salesPrice)
-					setShowLoad(true)
-				}
-				setDiscount('')
-			}
-
-			db.collection('admin')
-				.doc(`${AUTHORIZED_ID.id_one}/`)
-				.collection('discount-code')
-				.onSnapshot((snapshot) => {
-					snapshot.docs.map(
-						// eslint-disable-next-line array-callback-return
-						(doc) => {
-							if (doc.data().code === discount) {
-								db.collection('admin')
-									.doc(`${AUTHORIZED_ID.id_one}/`)
-									.collection('discount-code')
-									.doc(doc.id)
-									.delete()
-							}
-						}
-					)
-				})
-		} else {
-			setError(true)
-		}
-	}
-	const generateCode = () => {
-		const genCode = `ModelEst${Math.random().toString(18).slice(2)}`
-		setCode(genCode)
-		db.collection('admin')
-			.doc(`${AUTHORIZED_ID.id_one}/`)
-			.collection('discount-code')
-			.add({
-				code: genCode,
-			})
-			.then(() => {
-				console.log(`SUCCESSFULL ADDED CODE`)
-			})
-			.catch((error) => console.log('Error ' + error.message))
-	}
-	console.log(showSum)
 	return (
 		<>
 			<Helmet>
@@ -326,14 +241,7 @@ const Success = () => {
 								sales={sales}
 								setShowSum={setShowSum}
 								isBorder={false}
-								showLoad={showLoad}
 								cartItems={cartItems}
-								discount={discount}
-								handleDisount={handleDisount}
-								error={error}
-								handleApply={handleApply}
-								generateCode={generateCode}
-								code={code}
 								discountPrice={discountPrice}
 								total={totalPriceFromCart}
 								setShowInfo={setShowInfo}
@@ -371,7 +279,9 @@ const Success = () => {
 												size1={true}
 												isBold2={true}
 											/>
-											<p className="tw-text-[10px]">{user?.email}</p>
+											<p className="tw-text-[10px]">
+												{user?.email || userEmail}
+											</p>
 										</div>
 										<div className="tw-mb-5">
 											<Heading

@@ -1,38 +1,38 @@
-import React from 'react'
-import axios from 'axios'
-import Heading from './Heading'
-import InventoryCard from './InventoryCard'
-import Button from './shared/Button'
+import React from "react";
+import axios from "axios";
+import Heading from "./Heading";
+import InventoryCard from "./InventoryCard";
+import Button from "./shared/Button";
 
 function AllInventories() {
-	const [fetchAllData, setFetchAllData] = React.useState([])
-	const [singleProduct, setSingleProduct] = React.useState()
-	const [postError, setPostError] = React.useState('')
-	const [isOnSales, setIsOnSales] = React.useState(false)
-	const [isInstock, setIsInstock] = React.useState(false)
+	const [fetchAllData, setFetchAllData] = React.useState([]);
+	const [singleProduct, setSingleProduct] = React.useState();
+	const [postError, setPostError] = React.useState("");
+	const [isOnSales, setIsOnSales] = React.useState(false);
+	const [isInstock, setIsInstock] = React.useState(false);
 	// const [imageFile, setImageFile] = React.useState('')
 
 	const toggleSales = () => {
-		setIsOnSales(!isOnSales)
-	}
+		setIsOnSales(!isOnSales);
+	};
 	const toggleInstock = () => {
-		setIsInstock(!isInstock)
-	}
+		setIsInstock(!isInstock);
+	};
 
 	async function fetchProducts() {
 		try {
 			const {
 				data: { products },
-			} = await axios.get('/api/v1/products')
-			setFetchAllData(products)
+			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
+			setFetchAllData(products);
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
 	}
 
 	React.useEffect(() => {
-		fetchProducts()
-	}, [])
+		fetchProducts();
+	}, []);
 
 	const handleInputName = (e) => {
 		setSingleProduct({
@@ -53,8 +53,8 @@ function AllInventories() {
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 			instock: singleProduct.instock,
-		})
-	}
+		});
+	};
 	const handleInputBrand = (e) => {
 		setSingleProduct({
 			id: singleProduct.id,
@@ -74,8 +74,8 @@ function AllInventories() {
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 			instock: singleProduct.instock,
-		})
-	}
+		});
+	};
 	const handleInputDensity = (e) => {
 		setSingleProduct({
 			id: singleProduct.id,
@@ -95,8 +95,8 @@ function AllInventories() {
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 			instock: singleProduct.instock,
-		})
-	}
+		});
+	};
 	const handleInputTexture = (e) => {
 		setSingleProduct({
 			id: singleProduct.id,
@@ -116,8 +116,8 @@ function AllInventories() {
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 			instock: singleProduct.instock,
-		})
-	}
+		});
+	};
 	const handleInputCapsize = (e) => {
 		setSingleProduct({
 			id: singleProduct.id,
@@ -137,8 +137,8 @@ function AllInventories() {
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 			instock: singleProduct.instock,
-		})
-	}
+		});
+	};
 	const handleInputType = (e) => {
 		setSingleProduct({
 			id: singleProduct.id,
@@ -157,8 +157,8 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
-		})
-	}
+		});
+	};
 	const handleInputColor = (e) => {
 		setSingleProduct({
 			id: singleProduct.id,
@@ -177,8 +177,8 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
-		})
-	}
+		});
+	};
 	const handleInputAvailableColor = (e) => {
 		setSingleProduct({
 			id: singleProduct.id,
@@ -197,8 +197,8 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
-		})
-	}
+		});
+	};
 	const handleInputLen = (e) => {
 		setSingleProduct({
 			id: singleProduct.id,
@@ -217,8 +217,8 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
-		})
-	}
+		});
+	};
 	const handleInputAvailableLen = (e) => {
 		setSingleProduct({
 			id: singleProduct.id,
@@ -237,8 +237,8 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
-		})
-	}
+		});
+	};
 	const handleInputDealLen = (e) => {
 		setSingleProduct({
 			id: singleProduct.id,
@@ -257,8 +257,8 @@ function AllInventories() {
 			dealLength: e.target.value,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
-		})
-	}
+		});
+	};
 	const handleInputPrice = (e) => {
 		setSingleProduct({
 			id: singleProduct.id,
@@ -277,8 +277,8 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
-		})
-	}
+		});
+	};
 	const handleInputVideo = (e) => {
 		setSingleProduct({
 			id: singleProduct.id,
@@ -297,8 +297,8 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
-		})
-	}
+		});
+	};
 	const handleInputDesc = (e) => {
 		setSingleProduct({
 			id: singleProduct.id,
@@ -317,12 +317,12 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			sales: singleProduct.sales,
 			description: e.target.value,
-		})
-	}
+		});
+	};
 
 	async function updateSingleProduct(e) {
-		e.preventDefault()
-		const id = singleProduct?.id
+		e.preventDefault();
+		const id = singleProduct?.id;
 		try {
 			const product = {
 				name: singleProduct.name,
@@ -341,28 +341,31 @@ function AllInventories() {
 				description: singleProduct.description,
 				sales: isOnSales,
 				instock: isInstock,
-			}
+			};
 			if (
-				product.name === '' ||
-				product.brand === '' ||
-				product.type === '' ||
-				product.color === '' ||
+				product.name === "" ||
+				product.brand === "" ||
+				product.type === "" ||
+				product.color === "" ||
 				product.price === null ||
 				product.length === null ||
-				product.description === ''
+				product.description === ""
 			) {
-				return setPostError('Missing Credentials')
+				return setPostError("Missing Credentials");
 			}
-			await axios.patch(`/api/v1/products/${id}`, product)
-			setPostError('')
+			await axios.patch(
+				`${process.env.REACT_APP_BASE_ROUTE}/products/${id}`,
+				product
+			);
+			setPostError("");
 		} catch (error) {
-			setPostError(error.message)
-			console.log(error)
+			setPostError(error.message);
+			console.log(error);
 		}
 
-		setSingleProduct()
+		setSingleProduct();
 
-		fetchProducts()
+		fetchProducts();
 	}
 
 	return (
@@ -530,8 +533,8 @@ function AllInventories() {
 										checked={isOnSales}
 										className={
 											isOnSales
-												? 'tw-ml-2 tw-rounded-full tw-bg-violet-400'
-												: 'tw-ml-2 tw-rounded-full tw-bg-none tw-border-violet-200'
+												? "tw-ml-2 tw-rounded-full tw-bg-violet-400"
+												: "tw-ml-2 tw-rounded-full tw-bg-none tw-border-violet-200"
 										}
 										onChange={toggleSales}
 									/>
@@ -545,8 +548,8 @@ function AllInventories() {
 										checked={isInstock}
 										className={
 											isInstock
-												? 'tw-ml-2 tw-rounded-full tw-bg-violet-400'
-												: 'tw-ml-2 tw-rounded-full tw-bg-none tw-border-violet-200'
+												? "tw-ml-2 tw-rounded-full tw-bg-violet-400"
+												: "tw-ml-2 tw-rounded-full tw-bg-none tw-border-violet-200"
 										}
 										onChange={toggleInstock}
 									/>
@@ -563,6 +566,6 @@ function AllInventories() {
 				</div>
 			)}
 		</div>
-	)
+	);
 }
-export default AllInventories
+export default AllInventories;

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
 const FeaturedCard = ({ featuredProduct }) => {
 	return (
@@ -8,11 +8,7 @@ const FeaturedCard = ({ featuredProduct }) => {
 				{featuredProduct.map((item, idx) => (
 					<Link
 						key={idx}
-						to={
-							item?.name.toLowerCase().includes('bundles')
-								? `/all-bundles`
-								: item?.route
-						}
+						to={item?.route}
 						className="media-element tw-relative tw-gap-0 tw-shadow-lg tw-snap-center">
 						<img className="tw-shadow-lg" src={item?.image} alt={item?.name} />
 						<p className="tw-absolute tw-bg-[rgba(0,0,0,0.8)] tw-text-[#bba371] tw-font-light tw-bottom-0 tw-rounded-b-lg md:tw-p-3 tw-pl-2 tw-tracking-widest md:tw-text-[28px] tw-text-[18px] tw-w-full font_cursive">
@@ -22,7 +18,7 @@ const FeaturedCard = ({ featuredProduct }) => {
 				))}
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default FeaturedCard
+export default FeaturedCard;

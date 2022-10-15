@@ -1,70 +1,84 @@
-import React, { useContext } from 'react'
-import { Helmet } from 'react-helmet'
-import { getDatabase, ref, set } from 'firebase/database'
-import Heading from '../components/Heading'
-import Inventory from '../components/Inventory'
-import Layout from '../components/shared/Layout'
-import Shipment from '../components/Shipment'
-import { BsFillArrowUpSquareFill } from 'react-icons/bs'
-import { RiChat1Line } from 'react-icons/ri'
-import { RiSendPlaneLine } from 'react-icons/ri'
-import AllInventories from '../components/AllInventories'
-import { UserContext } from '../context/user-context'
-import Inqury from '../components/Inqury'
+import React, { useContext } from "react";
+import { Helmet } from "react-helmet";
+import { getDatabase, ref, set } from "firebase/database";
+import Heading from "../components/Heading";
+import Inventory from "../components/Inventory";
+import Layout from "../components/shared/Layout";
+import Shipment from "../components/Shipment";
+import { BsFillArrowUpSquareFill } from "react-icons/bs";
+import { RiChat1Line } from "react-icons/ri";
+import { RiSendPlaneLine } from "react-icons/ri";
+import AllInventories from "../components/AllInventories";
+import { UserContext } from "../context/user-context";
+import Inqury from "../components/Inqury";
 import {
 	MdAdd,
 	MdOutlineInventory,
 	MdOutlineLocalShipping,
-} from 'react-icons/md'
-import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
+} from "react-icons/md";
+import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
+import axios from "axios";
 
 function Management() {
-	const database = getDatabase()
-	const [sales, setSales] = React.useState(null)
-	const [section, setSection] = React.useState('all-inventory')
-	const [percentSale, setPercentSale] = React.useState(null)
-	const [bundlePercentSale, setBundlePercentSale] = React.useState(null)
-	const { user } = useContext(UserContext)
+	const database = getDatabase();
+	const [sales, setSales] = React.useState(null);
+	const [categories, setCategories] = React.useState([]);
+	const [section, setSection] = React.useState("all-inventory");
+	const [percentSale, setPercentSale] = React.useState(null);
+	const [bundlePercentSale, setBundlePercentSale] = React.useState(null);
+	const { user } = useContext(UserContext);
+
+	async function getCategories() {
+		try {
+			const {
+				data: { category },
+			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/category`);
+			setCategories(category);
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
 	React.useEffect(() => {
-		setSales(fetchSalesPercentage())
+		setSales(fetchSalesPercentage());
+		getCategories();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, []);
 
 	const toggleSection = (e) => {
-		setSection(e.target.id)
-	}
+		setSection(e.target.id);
+	};
 
 	const SectionComp = () => {
-		if (section === 'all-inventory') {
-			return <AllInventories />
+		if (section === "all-inventory") {
+			return <AllInventories />;
 		}
-		if (section === 'inventory') {
-			return <Inventory />
+		if (section === "inventory") {
+			return <Inventory categories={categories} />;
 		}
-		if (section === 'shipping') {
-			return <Shipment />
+		if (section === "shipping") {
+			return <Shipment />;
 		}
-		if (section === 'inquiry') {
-			return <Inqury />
+		if (section === "inquiry") {
+			return <Inqury />;
 		}
-	}
+	};
 	const handleSubmit = () => {
-		if (percentSale !== null || percentSale !== '') {
-			set(ref(database, 'sales'), {
+		if (percentSale !== null || percentSale !== "") {
+			set(ref(database, "sales"), {
 				no: percentSale,
-			})
+			});
 		}
-		setPercentSale('')
-	}
+		setPercentSale("");
+	};
 	const handleSubmitBundleDeal = () => {
-		if (bundlePercentSale !== null || bundlePercentSale !== '') {
-			set(ref(database, 'bundle deals'), {
+		if (bundlePercentSale !== null || bundlePercentSale !== "") {
+			set(ref(database, "bundle deals"), {
 				no: bundlePercentSale,
-			})
+			});
 		}
-		setBundlePercentSale('')
-	}
+		setBundlePercentSale("");
+	};
 
 	return (
 		<>
@@ -75,8 +89,8 @@ function Management() {
 				<div
 					className={
 						sales
-							? 'tw-pt-[150px] tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-bg-neutral-200'
-							: 'tw-pt-[120px] tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-bg-neutral-200'
+							? "tw-pt-[150px] tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-bg-neutral-200"
+							: "tw-pt-[120px] tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-bg-neutral-200"
 					}>
 					<div className="tw-flex tw-flex-col md:tw-flex-row md:tw-items-center tw-justify-between tw-w-[95%] md:tw-w-[95%]">
 						<div className="tw-mb-2 md:tw-mb-0">
@@ -169,7 +183,7 @@ function Management() {
 				</div>
 			</Layout>
 		</>
-	)
+	);
 }
 
-export default Management
+export default Management;
