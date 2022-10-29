@@ -1,44 +1,45 @@
-import { Routes, Route } from 'react-router-dom'
-import HomePage from './pages/home-page'
-import Register from './pages/register'
-import Ambassador from './pages/ambassadorReg'
-import Login from './pages/login'
-import NotFound from './pages/error'
-import Canceled from './pages/canceled'
-import Success from './pages/success'
-import Management from './pages/management'
-import Cart from './pages/cart'
-import Checkout from './pages/checkout'
-import Payment from './pages/payment'
-import Account from './pages/account'
+import { Routes, Route } from "react-router-dom";
+import HomePage from "./pages/home-page";
+import Register from "./pages/register";
+import Ambassador from "./pages/ambassadorReg";
+import Login from "./pages/login";
+import NotFound from "./pages/error";
+import Canceled from "./pages/canceled";
+import Success from "./pages/success";
+import Management from "./pages/management";
+import Cart from "./pages/cart";
+import Checkout from "./pages/checkout";
+import Payment from "./pages/payment";
+import Account from "./pages/account";
 
-import DealPage from './pages/dealPage'
-import AllBundles from './pages/allBundles'
+import DealPage from "./pages/dealPage";
+import AllBundles from "./pages/allBundles";
 
-import IndianDeal from './pages/indianDeal'
-import IndianBundles from './pages/indian-bundles'
-import IndianJetBlackHair from './pages/indian-jet-black-hairs'
-import IndianClosureFrontal from './pages/indian-closure-frontal'
+import IndianDeal from "./pages/indianDeal";
+import IndianBundles from "./pages/indian-bundles";
+import IndianJetBlackHair from "./pages/indian-jet-black-hairs";
+import IndianClosureFrontal from "./pages/indian-closure-frontal";
 
-import VietnameseWig from './pages/vietnameseWigs'
-import VietnameseDeal from './pages/vietnameseDeal'
-import VietnameseBundles from './pages/vietnamese-bundles'
-import VietnameseClosureFrontal from './pages/vietnamese-closure-frontal'
+import VietnameseWig from "./pages/vietnameseWigs";
+import VietnameseDeal from "./pages/vietnameseDeal";
+import VietnameseBundles from "./pages/vietnamese-bundles";
+import VietnameseClosureFrontal from "./pages/vietnamese-closure-frontal";
 
-import SingleWig from './pages/singlewig'
-import VirginWig from './pages/virginWigs'
-import VirginDeal from './pages/virginDeal'
-import VirginBundles from './pages/virgin-bundles'
-import VirginClosureFrontal from './pages/virgin-closure-frontal'
+import SingleWig from "./pages/singlewig";
+import VirginWig from "./pages/virginWigs";
+import VirginDeal from "./pages/virginDeal";
+import VirginBundles from "./pages/virgin-bundles";
+import VirginClosureFrontal from "./pages/virgin-closure-frontal";
 
-import Faqs from './pages/faqs'
-import Blogs from './pages/blogs'
-import { PayPalScriptProvider } from '@paypal/react-paypal-js'
+import Faqs from "./pages/faqs";
+import Blogs from "./pages/blogs";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 function App() {
 	return (
 		<PayPalScriptProvider
-			option={{ 'client-id': process.env.REACT_APP_PAYPAL_CLIENT_ID }}>
+			option={{ "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID }}
+		>
 			<Routes>
 				<Route exact path="/register" element={<Register />} />
 				<Route
@@ -179,7 +180,7 @@ function App() {
 				<Route exact path="/" element={<HomePage />} />
 			</Routes>
 		</PayPalScriptProvider>
-	)
+	);
 }
 
-export default App
+export default App;
