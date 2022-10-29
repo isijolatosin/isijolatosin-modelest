@@ -23,6 +23,7 @@ const Canceled = () => {
 		localStorage.removeItem("username");
 		localStorage.removeItem("finalPriceToPay");
 		localStorage.removeItem("finalPriceToPayObject");
+		localStorage.removeItem("payMethod");
 	}, []);
 	return (
 		<Layout>
