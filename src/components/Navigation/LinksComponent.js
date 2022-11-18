@@ -1,107 +1,107 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const indianSubLinks = [
 	{
-		id: '1',
-		name: 'Bundles',
-		route: '/bundles/indian',
+		id: "1",
+		name: "Bundles",
+		route: "/bundles/indian",
 	},
 	{
-		id: '2',
-		name: 'Closure / Frontal',
-		route: '/closure-frontal/indian',
+		id: "2",
+		name: "Closure / Frontal",
+		route: "/closure-frontal/indian",
 	},
 	{
-		id: '3',
-		name: 'Jet Black / Blonde',
-		route: '/jet-black-&-blonde/indian',
+		id: "3",
+		name: "Jet Black / Blonde",
+		route: "/jet-black-&-blonde/indian",
 	},
-]
+];
 const virginSubLinks = [
 	{
-		id: '3',
-		name: 'Wigs',
-		route: '/virgin-wigs/',
+		id: "3",
+		name: "Wigs",
+		route: "/virgin-wigs/",
 	},
 	{
-		id: '1',
-		name: 'Bundles',
-		route: '/bundles/virgin',
+		id: "1",
+		name: "Bundles",
+		route: "/bundles/virgin",
 	},
 	{
-		id: '2',
-		name: 'Closure / Frontal',
-		route: '/closure-frontal/virgin',
+		id: "2",
+		name: "Closure / Frontal",
+		route: "/closure-frontal/virgin",
 	},
-]
+];
 const vietnameseSubLinks = [
-	// {
-	// 	id: '3',
-	// 	name: 'Wigs',
-	// 	route: '/vietnamese-wigs/',
-	// },
 	{
-		id: '1',
-		name: 'Bundles',
-		route: '/bundles/vietnamese',
+		id: "3",
+		name: "Wigs",
+		route: "/vietnamese-wigs/",
 	},
 	{
-		id: '2',
-		name: 'Closure / Frontal',
-		route: '/closure-frontal/vietnamese',
+		id: "1",
+		name: "Bundles",
+		route: "/bundles/vietnamese",
 	},
-]
+	{
+		id: "2",
+		name: "Closure / Frontal",
+		route: "/closure-frontal/vietnamese",
+	},
+];
 const bundlesDeals = [
 	{
-		id: '1',
-		name: 'Indian',
-		route: '/indian-bundles-deals',
+		id: "1",
+		name: "Indian",
+		route: "/indian-bundles-deals",
 	},
 	{
-		id: '2',
-		name: 'Virgin',
-		route: '/virgin-bundles-deals',
+		id: "2",
+		name: "Virgin",
+		route: "/virgin-bundles-deals",
 	},
 	{
-		id: '3',
-		name: 'Vietnamese',
-		route: '/vietnamese-bundles-deals',
+		id: "3",
+		name: "Vietnamese",
+		route: "/vietnamese-bundles-deals",
 	},
-]
+];
 const helpLinks = [
 	{
-		id: '1',
-		key: 'faqs',
-		name: 'FAQs',
+		id: "1",
+		key: "faqs",
+		name: "FAQs",
 	},
 	{
-		id: '2',
-		key: '/blogs/caring-for-indian-virgin-vietnamese-hair-extensions',
-		name: 'Blogs',
+		id: "2",
+		key: "/blogs/caring-for-indian-virgin-vietnamese-hair-extensions",
+		name: "Blogs",
 	},
 	{
-		id: '3',
-		key: 'privacy',
-		name: 'Privacy Policy',
+		id: "3",
+		key: "privacy",
+		name: "Privacy Policy",
 	},
 	{
-		id: '4',
-		key: 'shipping',
-		name: 'Shipping & Returns',
+		id: "4",
+		key: "shipping",
+		name: "Shipping & Returns",
 	},
 	{
-		id: '5',
-		key: 'terms',
-		name: 'Terms & Conditions',
+		id: "5",
+		key: "terms",
+		name: "Terms & Conditions",
 	},
 	{
-		id: '6',
-		key: 'contact',
-		name: 'About Us / Contact Us',
+		id: "6",
+		key: "contact",
+		name: "About Us / Contact Us",
 	},
-]
+];
 
 function LinksComponent({
 	setShowContactForm,
@@ -109,86 +109,86 @@ function LinksComponent({
 	setShowShippingReturns,
 	setPrivacyReturns,
 }) {
-	const navigate = useNavigate()
-	const [list1, setList1] = React.useState(false)
-	const [list2, setList2] = React.useState(false)
-	const [list3, setList3] = React.useState(false)
-	const [list4, setList4] = React.useState(false)
-	const [list5, setList5] = React.useState(false)
+	const navigate = useNavigate();
+	const [list1, setList1] = React.useState(false);
+	const [list2, setList2] = React.useState(false);
+	const [list3, setList3] = React.useState(false);
+	const [list4, setList4] = React.useState(false);
+	const [list5, setList5] = React.useState(false);
 
 	const handleMousein1 = () => {
-		setList5(false)
-		setList4(false)
-		setList3(false)
-		setList2(false)
-		setList1(true)
-	}
+		setList5(false);
+		setList4(false);
+		setList3(false);
+		setList2(false);
+		setList1(true);
+	};
 	const handleMousein2 = () => {
-		setList5(false)
-		setList4(false)
-		setList3(false)
-		setList2(true)
-		setList1(false)
-	}
+		setList5(false);
+		setList4(false);
+		setList3(false);
+		setList2(true);
+		setList1(false);
+	};
 	const handleMousein3 = () => {
-		setList5(false)
-		setList4(false)
-		setList3(true)
-		setList2(false)
-		setList1(false)
-	}
+		setList5(false);
+		setList4(false);
+		setList3(true);
+		setList2(false);
+		setList1(false);
+	};
 	const handleMousein4 = () => {
-		setList5(false)
-		setList4(true)
-		setList3(false)
-		setList2(false)
-		setList1(false)
-	}
+		setList5(false);
+		setList4(true);
+		setList3(false);
+		setList2(false);
+		setList1(false);
+	};
 	const handleMousein5 = () => {
-		setList5(true)
-		setList4(false)
-		setList3(false)
-		setList2(false)
-		setList1(false)
-	}
+		setList5(true);
+		setList4(false);
+		setList3(false);
+		setList2(false);
+		setList1(false);
+	};
 
 	const handleHelp = (txt) => {
-		if (txt.toLowerCase() === 'about us / contact us') {
-			setShowContactForm(true)
-			setPrivacyReturns(false)
-			setShowShippingReturns(false)
-			setShowTerms(false)
-			window.scrollTo(0, document.body.scrollHeight)
-		} else if (txt.toLowerCase() === 'privacy policy') {
-			setShowContactForm(false)
-			setPrivacyReturns(true)
-			setShowShippingReturns(false)
-			setShowTerms(false)
-			window.scrollTo(0, document.body.scrollHeight)
-		} else if (txt.toLowerCase() === 'shipping & returns') {
-			setShowContactForm(false)
-			setPrivacyReturns(false)
-			setShowShippingReturns(true)
-			setShowTerms(false)
-			window.scrollTo(0, document.body.scrollHeight)
-		} else if (txt.toLowerCase() === 'terms & conditions') {
-			setShowContactForm(false)
-			setPrivacyReturns(false)
-			setShowShippingReturns(false)
-			setShowTerms(true)
-			window.scrollTo(0, document.body.scrollHeight)
-		} else if (txt.toLowerCase() === 'faqs') {
-			setShowContactForm(false)
-			setPrivacyReturns(false)
-			setShowShippingReturns(false)
-			navigate('/modelEst/frequently-asked-questions')
-		} else if (txt.toLowerCase() === 'blogs') {
-			setShowContactForm(false)
-			setPrivacyReturns(false)
-			setShowShippingReturns(false)
-			navigate('/blogs/caring-for-indian-virgin-vietnamese-hair-extensions')
+		if (txt.toLowerCase() === "about us / contact us") {
+			setShowContactForm(true);
+			setPrivacyReturns(false);
+			setShowShippingReturns(false);
+			setShowTerms(false);
+			window.scrollTo(0, document.body.scrollHeight);
+		} else if (txt.toLowerCase() === "privacy policy") {
+			setShowContactForm(false);
+			setPrivacyReturns(true);
+			setShowShippingReturns(false);
+			setShowTerms(false);
+			window.scrollTo(0, document.body.scrollHeight);
+		} else if (txt.toLowerCase() === "shipping & returns") {
+			setShowContactForm(false);
+			setPrivacyReturns(false);
+			setShowShippingReturns(true);
+			setShowTerms(false);
+			window.scrollTo(0, document.body.scrollHeight);
+		} else if (txt.toLowerCase() === "terms & conditions") {
+			setShowContactForm(false);
+			setPrivacyReturns(false);
+			setShowShippingReturns(false);
+			setShowTerms(true);
+			window.scrollTo(0, document.body.scrollHeight);
+		} else if (txt.toLowerCase() === "faqs") {
+			setShowContactForm(false);
+			setPrivacyReturns(false);
+			setShowShippingReturns(false);
+			navigate("/modelEst/frequently-asked-questions");
+		} else if (txt.toLowerCase() === "blogs") {
+			setShowContactForm(false);
+			setPrivacyReturns(false);
+			setShowShippingReturns(false);
+			navigate("/blogs/caring-for-indian-virgin-vietnamese-hair-extensions");
 		}
-	}
+	};
 
 	return (
 		<div className="tw-grid tw-grid-cols-5 tw-w-full">
@@ -301,7 +301,7 @@ function LinksComponent({
 				)}
 			</div>
 		</div>
-	)
+	);
 }
 
-export default LinksComponent
+export default LinksComponent;

@@ -41,6 +41,7 @@ function IndianBundles() {
 					!product.name.toLowerCase().includes("closure") &&
 					!product.name.toLowerCase().includes("frontal") &&
 					!product.type.toLowerCase().includes("virgin wig") &&
+					!product.type.toLowerCase().includes("vietnamese wig") &&
 					!product.brand.toLowerCase().includes("virgin hair") &&
 					!product.brand.toLowerCase().includes("vietnamese hair")
 			);
