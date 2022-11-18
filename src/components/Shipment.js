@@ -1,43 +1,45 @@
-import React, { useContext, useState } from 'react'
-import emailjs from 'emailjs-com'
-import { UserContext } from '../context/user-context'
-import Heading from './Heading'
-import { db } from '../firebase'
-import { MdOutlineKeyboardArrowUp } from 'react-icons/md'
-import { GoMailRead } from 'react-icons/go'
-import { GiCheckMark } from 'react-icons/gi'
-import { MdClose } from 'react-icons/md'
-import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
-import Button from './shared/Button'
-import { AUTHORIZED_ID } from '../constant'
-import { FaShippingFast } from 'react-icons/fa'
-import { SiMinutemailer } from 'react-icons/si'
+import React, { useContext, useState } from "react";
+import emailjs from "emailjs-com";
+import { UserContext } from "../context/user-context";
+import Heading from "./Heading";
+import { db } from "../firebase";
+import { MdOutlineKeyboardArrowUp } from "react-icons/md";
+import { GoMailRead } from "react-icons/go";
+import { GiCheckMark } from "react-icons/gi";
+import { MdClose } from "react-icons/md";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import Button from "./shared/Button";
+import { AUTHORIZED_ID } from "../constant";
+import { FaShippingFast } from "react-icons/fa";
+import { SiMinutemailer } from "react-icons/si";
+import axios from "axios";
 
 function Shippment() {
-	const { user } = useContext(UserContext)
-	const [readMore, setReadMore] = React.useState(false)
-	const [emailSent, setEmailSent] = React.useState(false)
-	const [showSendIcon, setShowSendIcon] = React.useState(false)
-	const [showShipText, setShowShipText] = React.useState(false)
-	const [compareID, setCompareID] = React.useState(false)
-	const [trackingInput, setShowTrackingInput] = React.useState(false)
-	const [modal, setModal] = React.useState(false)
-	const [_id, setId] = React.useState('')
-	const [clientShippingEmail, setClientShippingEmail] = React.useState('')
-	const [clientShippingName, setClientShippingName] = React.useState('')
-	const [matchIdx, setMatchIdx] = React.useState('')
-	const [custmr, setCustmr] = React.useState('')
-	const [isLoading, setIsLoading] = React.useState(true)
+	const { user } = useContext(UserContext);
+	const [readMore, setReadMore] = React.useState(false);
+	const [emailSent, setEmailSent] = React.useState(false);
+	const [showSendIcon, setShowSendIcon] = React.useState(false);
+	const [showShipText, setShowShipText] = React.useState(false);
+	const [compareID, setCompareID] = React.useState(false);
+	const [trackingInput, setShowTrackingInput] = React.useState(false);
+	const [modal, setModal] = React.useState(false);
+	const [_id, setId] = React.useState("");
+	const [clientShippingEmail, setClientShippingEmail] = React.useState("");
+	const [clientShippingName, setClientShippingName] = React.useState("");
+	const [matchIdx, setMatchIdx] = React.useState("");
+	const [custmr, setCustmr] = React.useState("");
+	const [isLoading, setIsLoading] = React.useState(true);
+
 	const [shippingInfo, setShippingInfo] = React.useState({
 		shippingHeader: [],
 		shippingData: [],
-	})
+	});
 	const [trackingNum, setTrackingNum] = useState({
-		number: '',
-		courier: '',
-	})
+		number: "",
+		courier: "",
+	});
 
-	const itemObj = []
+	const itemObj = [];
 	// eslint-disable-next-line array-callback-return
 	shippingInfo?.shippingData?.filter((item) => {
 		const obj = {
@@ -45,47 +47,62 @@ function Shippment() {
 			quantity: item.quantity,
 			description: item.description,
 			id: item?.id,
-		}
+		};
 		if (item?.id === _id) {
-			itemObj.push(obj)
+			itemObj.push(obj);
 		}
-	})
+	});
 
 	const messageParams = {
 		name: clientShippingName,
 		message: `Thank you for your patronage. Your order of ${itemObj?.[0]?.quantity} ${itemObj?.[0]?.name} has been shipped. You can track your parcel with the following tracking details: Tracking No - ${trackingNum.number}, Courier - ${trackingNum.courier}.`,
 		client: clientShippingEmail,
-	}
+	};
 
 	const handleChangeAuthUser = (e) => {
-		setTrackingNum({ ...trackingNum, [e.target.name]: e.target.value })
-	}
+		setTrackingNum({ ...trackingNum, [e.target.name]: e.target.value });
+	};
 
 	const getObjectHeader = (object) => {
-		let objectKeys = []
+		let objectKeys = [];
 		if (object) {
 			for (let i = 0; i < object.length; i++) {
-				objectKeys.push(Object?.keys(object?.[i]?.data || []))
+				objectKeys.push(Object?.keys(object?.[i]?.data || []));
 			}
 		}
-		objectKeys.map((item) => item.sort())
-		return objectKeys
+		objectKeys.map((item) => item.sort());
+		return objectKeys;
+	};
+
+	async function fetchProducts() {
+		try {
+			const { data } = await axios.get(
+				`${process.env.REACT_APP_BASE_ROUTE}/orders`
+			);
+			console.log(data);
+		} catch (error) {
+			console.log("message", error.message);
+		}
 	}
+
+	React.useEffect(() => {
+		fetchProducts();
+	}, []);
 
 	React.useEffect(() => {
 		// getting address and details for shipping
 		user &&
 			db
-				.collection('admin')
+				.collection("admin")
 				.doc(`${AUTHORIZED_ID.id_one}/`)
-				.collection('all-purchased')
-				.orderBy('timestamp', 'asc')
+				.collection("all-purchased")
+				.orderBy("timestamp", "asc")
 				.onSnapshot((snapshot) => {
 					const results = snapshot.docs.map((doc) => ({
 						data: doc.data(),
-					}))
+					}));
 					if (results) {
-						let data = []
+						let data = [];
 						for (const result of results) {
 							data.push({
 								address: result?.data.address,
@@ -104,83 +121,83 @@ function Shippment() {
 								shipMethod: result?.data.shipMethod,
 								timestamp: new Date(result?.data.timestamp).toDateString(),
 								title: result?.data.title,
-							})
+							});
 						}
 
 						setTimeout(() => {
 							setShippingInfo({
 								shippingHeader: getObjectHeader(results),
 								shippingData: data,
-							})
-						}, 5000)
+							});
+						}, 5000);
 					}
-				})
-	}, [user])
+				});
+	}, [user]);
 
 	if (isLoading) {
 		setTimeout(() => {
-			setIsLoading(false)
-		}, 5000)
+			setIsLoading(false);
+		}, 5000);
 	}
 	const toggleRead = (idx) => {
-		setMatchIdx(idx)
-		setReadMore(!readMore)
-	}
+		setMatchIdx(idx);
+		setReadMore(!readMore);
+	};
 	const toggleModal = (idx, customer) => {
-		setCustmr(customer)
-		setMatchIdx(idx)
-		setModal(true)
-		setShowShipText(false)
-	}
+		setCustmr(customer);
+		setMatchIdx(idx);
+		setModal(true);
+		setShowShipText(false);
+	};
 
 	const hideShipped = (id) => {
-		db.collection('admin')
+		db.collection("admin")
 			.doc(`${AUTHORIZED_ID.id_one}/`)
-			.collection('all-purchased')
+			.collection("all-purchased")
 			.onSnapshot((snapshot) => {
 				snapshot.docs.map(
 					(doc) =>
 						doc.data().id === id &&
 						db
-							.collection('admin')
+							.collection("admin")
 							.doc(`${AUTHORIZED_ID.id_one}/`)
-							.collection('all-purchased')
+							.collection("all-purchased")
 							.doc(doc.id)
 							.delete()
-				)
-			})
+				);
+			});
 
 		// generate automated email to client
 		const SendClientSuccessfulPurchaseEmail = () => {
 			emailjs
 				.send(
-					'service_czeioxp',
-					'template_kxtdmr3',
+					"service_czeioxp",
+					"template_kxtdmr3",
 					messageParams,
-					'user_VORMh20QoM0GcnDrVoVnj'
+					"user_VORMh20QoM0GcnDrVoVnj"
 				)
 				.then((res) => {})
-				.catch((err) => console.log(err))
-		}
+				.catch((err) => console.log(err));
+		};
 
 		setTimeout(() => {
-			SendClientSuccessfulPurchaseEmail()
-		}, 1000)
+			SendClientSuccessfulPurchaseEmail();
+		}, 1000);
 
-		setShowTrackingInput(false)
-		setModal(false)
-	}
+		setShowTrackingInput(false);
+		setModal(false);
+	};
 
 	const scrollToTop = function scrollToTop() {
-		window.scrollTo(0, 0)
-	}
+		window.scrollTo(0, 0);
+	};
 
 	const handleShipText = (e) => {
 		if (e) {
-			setShowShipText(true)
-			setCompareID(e)
+			setShowShipText(true);
+			setCompareID(e);
 		}
-	}
+	};
 
 	// 5DAYS after purchase EMAIL TO CUSTOMER MANUAL TRIGGER
 	const SendFutureEmail = (email, customer, color, title, quantity) => {
@@ -188,25 +205,25 @@ function Shippment() {
 			name: customer,
 			message: `Your order - ${quantity} ${title} of color ${color} is currently being processed. Once order has been shipped, a tracking number with a courier name will be sent to your email. Thank you for being our valued customer`,
 			client: email,
-		}
+		};
 		setTimeout(() => {
 			emailjs
 				.send(
-					'service_czeioxp',
-					'template_kxtdmr3',
+					"service_czeioxp",
+					"template_kxtdmr3",
 					futureMessage,
-					'user_VORMh20QoM0GcnDrVoVnj'
+					"user_VORMh20QoM0GcnDrVoVnj"
 				)
 				.then((res) => {})
-				.catch((err) => console.log(err))
+				.catch((err) => console.log(err));
 
-			setEmailSent(true)
-		}, 1000)
+			setEmailSent(true);
+		}, 1000);
 
 		setTimeout(() => {
-			setEmailSent(false)
-		}, 5000)
-	}
+			setEmailSent(false);
+		}, 5000);
+	};
 
 	return (
 		<div className="tw-flex tw-flex-col tw-items-center tw-my-5">
@@ -235,13 +252,13 @@ function Shippment() {
 							/>
 							<div
 								className={
-									trackingNum.number === '' || trackingNum.courier === ''
-										? 'tw-flex tw-flex-col tw-justify-center tw-text-sm tw-text-gray-200'
-										: 'tw-flex tw-flex-col tw-justify-center tw-text-sm tw-text-green-700 hover:tw-text-gray-400'
+									trackingNum.number === "" || trackingNum.courier === ""
+										? "tw-flex tw-flex-col tw-justify-center tw-text-sm tw-text-gray-200"
+										: "tw-flex tw-flex-col tw-justify-center tw-text-sm tw-text-green-700 hover:tw-text-gray-400"
 								}>
 								<button
 									disabled={
-										trackingNum.number === '' || trackingNum.courier === ''
+										trackingNum.number === "" || trackingNum.courier === ""
 									}
 									onClick={() => hideShipped(_id)}>
 									Submit Tracking
@@ -274,15 +291,15 @@ function Shippment() {
 										</thead>
 										<tbody className="tw-relative">
 											{shippingInfo?.shippingData?.map((item, idx) => {
-												const currentTime = new Date().getDate()
+												const currentTime = new Date().getDate();
 												const future5days =
-													new Date(item?.timestamp).getDate() + 6
-												const diff = future5days - currentTime
+													new Date(item?.timestamp).getDate() + 6;
+												const diff = future5days - currentTime;
 
 												return (
 													<tr
 														className={`${
-															diff <= 1 ? 'tw-bg-red-200' : 'tw-bg-white'
+															diff <= 1 ? "tw-bg-red-200" : "tw-bg-white"
 														} table-item-row`}
 														key={idx}>
 														{Object?.values(item)?.map((itm, index) => (
@@ -290,23 +307,23 @@ function Shippment() {
 																onMouseOver={() => handleShipText(item?.id)}
 																className={`${
 																	itm?.length >= 100
-																		? 'table-items align-left'
-																		: 'table-items'
+																		? "table-items align-left"
+																		: "table-items"
 																} ${
-																	String(itm).includes('https://')
-																		? 'tw-text-xs tw-px-1'
-																		: ' tw-px-2'
+																	String(itm).includes("https://")
+																		? "tw-text-xs tw-px-1"
+																		: " tw-px-2"
 																} tw-max-w-[200px] tw-overflow-auto slimBar tw-relative`}
 																key={index}>
-																{String(itm).includes('https://') && (
+																{String(itm).includes("https://") && (
 																	<img
 																		src={itm}
 																		alt={itm}
 																		className="tw-object-cover tw-pl-0 tw-max-w-[200px] tw-w-[200px] tw-h-[100px]"
 																	/>
 																)}
-																{typeof itm === 'string' &&
-																!String(itm).includes('https://')
+																{typeof itm === "string" &&
+																!String(itm).includes("https://")
 																	? itm?.length >= 100
 																		? readMore && matchIdx === item?.id
 																			? itm
@@ -314,18 +331,18 @@ function Shippment() {
 																		: itm
 																	: itm}
 																{itm?.length >= 100 &&
-																	!String(itm).includes('https://') && (
+																	!String(itm).includes("https://") && (
 																		<>
 																			<span
 																				onClick={() => toggleRead(item?.id)}>
 																				{readMore && matchIdx === item?.id ? (
 																					<>
-																						<span>Read Less</span>{' '}
+																						<span>Read Less</span>{" "}
 																						<MdOutlineKeyboardArrowUp />
 																					</>
 																				) : (
 																					<>
-																						<span>Read More</span>{' '}
+																						<span>Read More</span>{" "}
 																						<MdOutlineKeyboardArrowDown />
 																					</>
 																				)}
@@ -349,11 +366,11 @@ function Shippment() {
 																			<button
 																				className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-green-700"
 																				onClick={() => {
-																					setId(item?.id)
-																					setClientShippingEmail(item?.email)
-																					setClientShippingName(item?.customer)
-																					setShowTrackingInput(true)
-																					scrollToTop()
+																					setId(item?.id);
+																					setClientShippingEmail(item?.email);
+																					setClientShippingName(item?.customer);
+																					setShowTrackingInput(true);
+																					scrollToTop();
 																				}}>
 																				<GiCheckMark className="tw-mr-1" />
 																				Yes
@@ -361,8 +378,8 @@ function Shippment() {
 																			<button
 																				className="tw-mx-2 tw-flex tw-flex-row tw-text-sm tw-items-center hover:tw-text-red-800"
 																				onClick={() => {
-																					setShowTrackingInput(false)
-																					setModal(false)
+																					setShowTrackingInput(false);
+																					setModal(false);
 																				}}>
 																				<MdClose
 																					size={20}
@@ -420,7 +437,7 @@ function Shippment() {
 															)}
 														</div>
 													</tr>
-												)
+												);
 											})}
 										</tbody>
 									</table>
@@ -438,6 +455,6 @@ function Shippment() {
 				</div>
 			)}
 		</div>
-	)
+	);
 }
-export default Shippment
+export default Shippment;
