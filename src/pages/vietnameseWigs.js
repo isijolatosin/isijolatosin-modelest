@@ -58,15 +58,13 @@ function VietnameseWigs() {
 							</div>
 						</div>
 					) : (
-						<div className="xl:tw-w-[80%] lg:tw-w-[70%] tw-mx-auto tw-py-[70px] tw-px-5 tw-grid xl:tw-grid-cols-3 lg:tw-grid-cols-2 md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
-							<div className="tw-w-full tw-flex tw-justify-center">
-								{wigs &&
-									wigs?.map((wig) => (
-										<div key={wig.id}>
-											<WigsCard product={wig} dealPrice={wig?.price} />
-										</div>
-									))}
-							</div>
+						<div className="tw-w-full tw-flex tw-flex-wrap tw-justify-center tw-mx-auto">
+							{wigs &&
+								wigs?.map((wig) => (
+									<div key={wig.id}>
+										<WigsCard product={wig} dealPrice={wig?.price} />
+									</div>
+								))}
 						</div>
 					)}
 				</div>
