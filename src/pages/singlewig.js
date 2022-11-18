@@ -20,15 +20,18 @@ import {
 	wigTextureTypeIncreaseValue1,
 	wigTextureType2,
 	wigTextureTypeIncreaseValue2,
+	frontalVietnameseWigPricing,
+	closureVietnameseWigPricing,
 } from "../constant";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Heading from "../components/Heading";
 import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
 import PaymentOptions from "../components/shared/PaymentOptions";
 import { constructWigPrice } from "../utils/constructWigPrice";
 
 const SingleWig = () => {
+	const navigate = useNavigate();
 	const [singleWig, setSingleWig] = React.useState([]);
 	const [singleCart, setSingleCart] = React.useState(null);
 	const [error, setError] = React.useState(false);
@@ -57,19 +60,6 @@ const SingleWig = () => {
 			const filtered = products.filter((product) => product._id === wigId);
 
 			setSingleWig(filtered.sort((a, b) => a.name.localeCompare(b.name)));
-
-			// const imgArray = [];
-			// eslint-disable-next-line array-callback-return
-			// filtered.map((item) => {
-			// 	const obj = {
-			// 		image: item?.image,
-			// 		image2: item?.image2,
-			// 		image3: item?.image3,
-			// 		image4: item?.image4,
-			// 	};
-			// 	imgArray.push(obj);
-			// 	setImageArray(obj);
-			// });
 		} catch (error) {
 			console.log(error);
 		}
@@ -98,16 +88,39 @@ const SingleWig = () => {
 		wigTextureTypeIncreaseValue1,
 		wigTextureTypeIncreaseValue2
 	);
+	// Price for virgin wigs
+	const vietWPrice1 = constructWigPrice(
+		_length,
+		frontalVietnameseWigPricing,
+		singleWig
+	);
+	const vietWPrice2 = constructWigPrice(
+		_length,
+		closureVietnameseWigPricing,
+		singleWig
+	);
+
 	// Adding to cart items
 	const name = singleWig[0]?.name;
+	const brand = singleWig[0]?.brand;
 	const id = singleWig[0]?._id;
 	const image = singleWig[0]?.images[0];
 	const description = singleWig[0]?.description;
-	const price = name?.toLowerCase().includes("-closure")
+	const priceVirgin = name?.toLowerCase().includes("-closure")
 		? vWPrice2
 		: name?.toLowerCase().includes("-frontal")
 		? vWPrice1
 		: singleWig[0]?.price;
+	const priceViet =
+		brand?.toLowerCase().includes("sdd") &&
+		name?.toLowerCase().includes("-closure")
+			? vietWPrice2
+			: brand?.toLowerCase().includes("sdd") &&
+			  name?.toLowerCase().includes("-frontal")
+			? vietWPrice1
+			: singleWig[0]?.price;
+
+	const price = brand?.toLowerCase().includes("sdd") ? priceViet : priceVirgin;
 	const hairLength = _length;
 	const hairTexture = singleWig[0]?.texture;
 	const quantity = Number(_quantity);
@@ -218,12 +231,14 @@ const SingleWig = () => {
 						<div>
 							<div className="tw-fixed tw-z-10 tw-right-5 md:tw-right-20 tw-top-[120px]">
 								<div className="tw-text-neutral-900  tw-mb-3">
-									<Link to="/virgin-wigs">
+									<div
+										onClick={() => navigate(-1)}
+										className="tw-cursor-pointer">
 										<BsFillArrowLeftCircleFill
 											size={35}
 											className="hover:md:tw-text-neutral-50 hover:tw-drop-shadow-lg tw-ease-in tw-duration-300"
 										/>{" "}
-									</Link>
+									</div>
 								</div>
 							</div>
 							<div className="">

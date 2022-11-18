@@ -53,6 +53,28 @@ export const frontalVirginWigPricing = [
 	{ length: "28", price: 550 },
 	{ length: "30", price: 575 },
 ];
+export const closureVietnameseWigPricing = [
+	{ length: "14", price: 330 },
+	{ length: "16", price: 275 },
+	{ length: "18", price: 300 },
+	{ length: "20", price: 350 },
+	{ length: "22", price: 375 },
+	{ length: "24", price: 400 },
+	{ length: "26", price: 450 },
+	{ length: "28", price: 620 },
+	{ length: "30", price: 550 },
+];
+export const frontalVietnameseWigPricing = [
+	{ length: "14", price: 315 },
+	{ length: "16", price: 325 },
+	{ length: "18", price: 350 },
+	{ length: "20", price: 425 },
+	{ length: "22", price: 450 },
+	{ length: "24", price: 475 },
+	{ length: "26", price: 500 },
+	{ length: "28", price: 550 },
+	{ length: "30", price: 575 },
+];
 export const wigTextureType1 = [
 	"body wave",
 	"deep wave",
