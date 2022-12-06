@@ -1,49 +1,51 @@
-import React, { useState } from 'react'
-import { Helmet } from 'react-helmet'
-import { Link, useNavigate } from 'react-router-dom'
-import Layout from '../components/shared/Layout'
-import { auth, createUserProfileDocument } from '../firebase'
-import Button from '../components/shared/Button'
-import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
+import React, { useRef, useState } from "react";
+import { Helmet } from "react-helmet";
+import { Link, useNavigate } from "react-router-dom";
+import Layout from "../components/shared/Layout";
+import { auth, createUserProfileDocument } from "../firebase";
+import Button from "../components/shared/Button";
+import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
 
 const Register = () => {
-	const navigate = useNavigate()
+	const navigate = useNavigate();
+	const inputRef = useRef();
 	const [authUser, setAuthUser] = useState({
-		name: '',
-		email: '',
-		phone: '',
-		password: '',
+		name: "",
+		email: "",
+		phone: "",
+		password: "",
 		error: null,
-	})
-	const [sales, setSales] = React.useState(null)
+	});
+	const [sales, setSales] = React.useState(null);
 
 	React.useEffect(() => {
-		setSales(fetchSalesPercentage())
+		inputRef.current.focus();
+		setSales(fetchSalesPercentage());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, []);
 
 	const handleChangeAuthUser = (e) => {
-		setAuthUser({ ...authUser, [e.target.name]: e.target.value })
-	}
+		setAuthUser({ ...authUser, [e.target.name]: e.target.value });
+	};
 
 	const handleSubmit = async (e) => {
-		e.preventDefault()
+		e.preventDefault();
 
 		try {
 			const { user } = await auth.createUserWithEmailAndPassword(
 				authUser.email,
 				authUser.password
-			)
+			);
 			await createUserProfileDocument(user, {
 				displayName: authUser.name,
 				Phone: authUser.phone,
-			})
-			navigate('/')
+			});
+			navigate("/");
 		} catch (error) {
-			console.log(error)
-			setAuthUser({ ...authUser, error: error.message })
+			console.log(error);
+			setAuthUser({ ...authUser, error: error.message });
 		}
-	}
+	};
 
 	return (
 		<div>
@@ -53,7 +55,7 @@ const Register = () => {
 			<Layout>
 				<section
 					className={`${
-						sales ? 'tw-pt-[180px]' : 'tw-pt-[100px]'
+						sales ? "tw-pt-[180px]" : "tw-pt-[100px]"
 					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10 home`}>
 					<div className="tw-text-center">
 						<h1 className="tw-text-2xl tw-font-bold tw-text-neutral-50">
@@ -61,7 +63,7 @@ const Register = () => {
 						</h1>
 						<p className="tw-w-[55%] tw-mx-auto tw-my-10 tw-text-neutral-50 tw-font-light">
 							By creating account with us, you consent to receiving newsletters
-							or promotions from{' '}
+							or promotions from{" "}
 							<Link to="/">
 								<span className="tw-text-rose-800">modelEst.</span>
 							</Link>
@@ -71,6 +73,7 @@ const Register = () => {
 						<form onSubmit={handleSubmit}>
 							<div>
 								<input
+									ref={inputRef}
 									type="text"
 									name="name"
 									id="name"
@@ -125,37 +128,37 @@ const Register = () => {
 					</article>
 					<div>
 						<p className="tw-text-neutral-300 tw-font-light tw-text-center">
-							Already have an account with us?{' '}
+							Already have an account with us?{" "}
 							<Link to="/login">
 								<button className="tw-text-pink-800 tw-mb-10">Login</button>
-							</Link>{' '}
+							</Link>{" "}
 						</p>
 					</div>
 					<div>
 						<p className="tw-font-light tw-mb-10 tw-w-[70%] tw-mx-auto tw-text-center tw-text-neutral-50">
-							This site is protected by Google{' '}
+							This site is protected by Google{" "}
 							<a
 								href="https://policies.google.com/privacy"
 								rel="noopener noreferrer">
 								<span className="tw-text-pink-800 tw-mb-10 tw-text-sm tw-underline">
 									Privacy Policy
 								</span>
-							</a>{' '}
-							and{' '}
+							</a>{" "}
+							and{" "}
 							<a
 								href="https://policies.google.com/terms"
 								rel="noopener noreferrer">
 								<span className="tw-text-pink-800 tw-mb-10 tw-text-sm tw-underline">
 									Terms of Service
 								</span>
-							</a>{' '}
+							</a>{" "}
 							apply
 						</p>
 					</div>
 				</section>
 			</Layout>
 		</div>
-	)
-}
+	);
+};
 
-export default Register
+export default Register;

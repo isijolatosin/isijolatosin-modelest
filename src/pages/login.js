@@ -1,47 +1,49 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import firebase from '../firebase'
-import Layout from '../components/shared/Layout'
-import { auth } from '../firebase'
-import Button from '../components/shared/Button'
-import { Helmet } from 'react-helmet'
-import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
+import React, { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import firebase from "../firebase";
+import Layout from "../components/shared/Layout";
+import { auth } from "../firebase";
+import Button from "../components/shared/Button";
+import { Helmet } from "react-helmet";
+import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
 
 const Login = () => {
-	const navigate = useNavigate()
-	const [isReset, setIsReset] = React.useState(false)
+	const navigate = useNavigate();
+	const inputRef = useRef();
+	const [isReset, setIsReset] = React.useState(false);
 	const [authUser, setAuthUser] = useState({
-		email: '',
-		password: '',
+		email: "",
+		password: "",
 		error: null,
-	})
-	const [showpswd, setShowpswd] = useState(false)
-	const [sales, setSales] = React.useState(null)
+	});
+	const [showpswd, setShowpswd] = useState(false);
+	const [sales, setSales] = React.useState(null);
 
 	React.useEffect(() => {
-		setSales(fetchSalesPercentage())
+		inputRef.current.focus();
+		setSales(fetchSalesPercentage());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, []);
 
 	const handleChangeAuthUser = (e) => {
-		setAuthUser({ ...authUser, [e.target.name]: e.target.value })
-	}
+		setAuthUser({ ...authUser, [e.target.name]: e.target.value });
+	};
 
 	const togglePassword = () => {
-		setShowpswd(!showpswd)
-	}
+		setShowpswd(!showpswd);
+	};
 
 	const handleSubmit = async (e) => {
-		e.preventDefault()
+		e.preventDefault();
 
 		try {
-			await auth.signInWithEmailAndPassword(authUser.email, authUser.password)
-			navigate('/')
+			await auth.signInWithEmailAndPassword(authUser.email, authUser.password);
+			navigate("/");
 		} catch (error) {
-			console.log(error)
-			setAuthUser({ ...authUser, error: error.message })
+			console.log(error);
+			setAuthUser({ ...authUser, error: error.message });
 		}
-	}
+	};
 
 	const resetPassword = (email) => {
 		firebase
@@ -49,12 +51,12 @@ const Login = () => {
 			.sendPasswordResetEmail(authUser.email)
 			.then(() => {
 				try {
-					setIsReset(true)
+					setIsReset(true);
 				} catch (error) {
-					console.log(`error message - ${error.message}`)
+					console.log(`error message - ${error.message}`);
 				}
-			})
-	}
+			});
+	};
 
 	return (
 		<div>
@@ -64,7 +66,7 @@ const Login = () => {
 			<Layout>
 				<main
 					className={`${
-						sales ? 'tw-pt-[80px]' : ''
+						sales ? "tw-pt-[80px]" : ""
 					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10 home`}>
 					<section className="tw-flex tw-flex-col tw-items-center tw-pt-[150px] lg:tw-pt-[100px]">
 						<div className="tw-text-center">
@@ -80,6 +82,7 @@ const Login = () => {
 							<form onSubmit={handleSubmit}>
 								<div>
 									<input
+										ref={inputRef}
 										type="text"
 										name="email"
 										id="email"
@@ -91,7 +94,7 @@ const Login = () => {
 								</div>
 								<div className="tw-relative tw-h-[38.4px] lg:tw-w-[30%] tw-w-[70%] tw-mx-auto tw-shadow-xl">
 									<input
-										type={showpswd ? 'text' : 'password'}
+										type={showpswd ? "text" : "password"}
 										name="password"
 										id="password"
 										value={authUser.password}
@@ -119,7 +122,7 @@ const Login = () => {
 						</article>
 						<div className="tw-text-neutral-100 tw-items-center tw-text-sm tw-flex tw-flex-col tw-font-light ">
 							<span>
-								Forgot Password? |{' '}
+								Forgot Password? |{" "}
 								<button
 									onClick={() => resetPassword(authUser.email)}
 									className="tw-text-pink-800 tw-underline">
@@ -132,7 +135,7 @@ const Login = () => {
 								</div>
 							)}
 							<p className="tw-mt-5 tw-mb-10">
-								Not a Member? |{' '}
+								Not a Member? |{" "}
 								<Link to="/register">
 									<button className="tw-text-pink-800 tw-underline">
 										Create Account
@@ -144,7 +147,7 @@ const Login = () => {
 				</main>
 			</Layout>
 		</div>
-	)
-}
+	);
+};
 
-export default Login
+export default Login;
