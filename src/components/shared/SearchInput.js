@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { MdOutlineClose } from "react-icons/md";
 import { RiSearch2Fill } from "react-icons/ri";
 
@@ -11,6 +11,7 @@ const SearchInput = ({
 	inputValue,
 	setInputValue,
 }) => {
+	const inputRef = useRef(null);
 	const handleChange = (e) => {
 		setInputValue(e);
 		if (inputValue) {
@@ -117,6 +118,7 @@ const SearchInput = ({
 					: "_search tw-bg-white tw-rounded-r-[30px]"
 			}`}>
 			<input
+				ref={inputRef}
 				type="text"
 				value={inputValue}
 				onChange={(e) => handleChange(e.target.value)}
@@ -139,7 +141,12 @@ const SearchInput = ({
 						}}
 					/>
 				) : (
-					<RiSearch2Fill onClick={() => setSearchControl(true)} />
+					<RiSearch2Fill
+						onClick={() => {
+							setSearchControl(true);
+							inputRef.current.focus();
+						}}
+					/>
 				)}
 			</button>
 		</div>
