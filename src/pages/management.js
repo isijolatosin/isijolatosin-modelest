@@ -21,7 +21,6 @@ import axios from "axios";
 
 function Management() {
 	const database = getDatabase();
-	const [sales, setSales] = React.useState(null);
 	const [categories, setCategories] = React.useState([]);
 	const [section, setSection] = React.useState("all-inventory");
 	const [percentSale, setPercentSale] = React.useState(null);
@@ -40,7 +39,6 @@ function Management() {
 	}
 
 	React.useEffect(() => {
-		setSales(fetchSalesPercentage());
 		getCategories();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -86,12 +84,7 @@ function Management() {
 				<title>Admin Portal</title>
 			</Helmet>
 			<Layout>
-				<div
-					className={
-						sales
-							? "tw-pt-[150px] tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-bg-neutral-200"
-							: "tw-pt-[120px] tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-bg-neutral-200"
-					}>
+				<div className="tw-pt-[120px] tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-bg-neutral-200">
 					<div className="tw-flex tw-flex-col md:tw-flex-row md:tw-items-center tw-justify-between tw-w-[95%] md:tw-w-[95%]">
 						<div className="tw-mb-2 md:tw-mb-0">
 							<Heading

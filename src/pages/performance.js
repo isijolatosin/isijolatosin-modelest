@@ -14,10 +14,10 @@ const Ambassador = () => {
 	return (
 		<div>
 			<Helmet>
-				<title>Ambassador Sign Up</title>
+				<title>Ambassador Performance</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-pt-20 tw-pb-10 tw-px-10 tw-grid tw-grid-cols-1 lg:tw-grid-cols-2 xl:tw-grid-cols-3 tw-gap-2 tw-bg-neutral-400">
+				<div className="tw-pt-[100px] md:tw-pt-20  tw-pb-10 tw-px-10 tw-grid tw-grid-cols-1 lg:tw-grid-cols-2 xl:tw-grid-cols-3 tw-gap-2 tw-bg-neutral-400">
 					{allAmb?.map((amb) => (
 						<div key={amb.yourSalesCode}>
 							<ProfileCard data={amb} />

@@ -1,8 +1,8 @@
-import React from 'react'
-import { getDatabase, ref, onValue } from 'firebase/database'
-import ImageComponent from './ImageComponent'
-import LinksComponent from './LinksComponent'
-import NavIcons from './NavIcons'
+import React from "react";
+// import { getDatabase, ref, onValue } from "firebase/database";
+import ImageComponent from "./ImageComponent";
+import LinksComponent from "./LinksComponent";
+import NavIcons from "./NavIcons";
 
 function Nav({
 	setShowContactForm,
@@ -11,29 +11,22 @@ function Nav({
 	setPrivacyReturns,
 	showContactForm,
 }) {
-	const [sales, setSales] = React.useState(null)
-	const database = getDatabase()
-	const starCountRef = ref(database, 'sales')
-	React.useEffect(() => {
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val()
-
-			setSales(data?.no)
-		})
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [starCountRef])
+	// const [sales, setSales] = React.useState(null);
+	// const database = getDatabase();
+	// const starCountRef = ref(database, "sales");
+	// 	React.useEffect(() => {
+	// 		onValue(starCountRef, (snapshot) => {
+	// 			const data = snapshot.val();
+	//
+	// 			setSales(data?.no);
+	// 		});
+	// 		// eslint-disable-next-line react-hooks/exhaustive-deps
+	// 	}, [starCountRef]);
 
 	return (
 		<div>
-			{sales !== 0 && (
-				<div className="tw-bg-black tw-flex tw-flex-row tw-text-white tw-border-b-[1px] tw-font-bold tw-text-center tw-justify-center tw-py-2 lg:tw-text-3xl ">
-					<div className="scaling">
-						<span className="tw-text-xl">{sales}% OFF - BACK TO SCHOOL !!</span>
-					</div>
-				</div>
-			)}
 			<div className="tw-flex tw-h-[60px] tw-w-[95%] lg:tw-w-[100%] xl:tw-w-[85%] 2xl:tw-w-[80%] tw-grow tw-flex-row tw-items-center tw-justify-between tw-my-0 tw-mx-auto">
-				<div className="tw-w-[22%]">
+				<div className="tw-w-[40%]">
 					<ImageComponent />
 				</div>
 				<div className="tw-hidden md:tw-w-[70%] md:tw-inline tw-w-[48%]">
@@ -58,7 +51,7 @@ function Nav({
 				/>
 			</div>
 		</div>
-	)
+	);
 }
 
-export default Nav
+export default Nav;
