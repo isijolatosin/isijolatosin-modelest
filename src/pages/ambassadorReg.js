@@ -56,12 +56,15 @@ const Ambassador = () => {
 				.slice(0, 3)
 				.toUpperCase()}${Math.random().toString(18).slice(2).toUpperCase()}`;
 
-			const index = allAmb?.findIndex(
-				(obj) =>
-					obj.yourSalesCode.toUpperCase() === code || obj.email === ambObj.email
-			);
+			const index =
+				allAmb &&
+				allAmb?.findIndex(
+					(obj) =>
+						obj.yourSalesCode.toUpperCase() === code ||
+						obj.email === ambObj.email
+				);
 
-			if (index < 0) {
+			if (!index || index < 0) {
 				db.collection("ambassador")
 					.add({
 						accountNo: ambObj?.accountNo,
