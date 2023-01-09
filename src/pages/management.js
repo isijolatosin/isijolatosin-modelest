@@ -16,7 +16,6 @@ import {
 	MdOutlineInventory,
 	MdOutlineLocalShipping,
 } from "react-icons/md";
-import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
 import axios from "axios";
 
 function Management() {
