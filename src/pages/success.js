@@ -120,7 +120,7 @@ const Success = () => {
 		const SendClientSuccessfulPurchaseEmail = () => {
 			emailjs
 				.send(
-					"service_czeioxp",
+					"service_53u3i5m",
 					"template_doi2qb7",
 					messageParams,
 					"user_VORMh20QoM0GcnDrVoVnj"
@@ -234,8 +234,7 @@ const Success = () => {
 							sales
 								? "tw-pt-[230px] md:tw-pt-[100px] tw-flex tw-flex-col tw-items-left tw-text-neutral-600 tw-font-thin home"
 								: "tw-pt-[80px] md:tw-pt-[50px] tw-flex tw-flex-col tw-items-left tw-text-neutral-600 tw-font-thin home"
-						}
-					>
+						}>
 						<div className="tw-w-full tw-flex tw-justify-center tw-mx-auto">
 							<img src={logo} alt="" className="tw-w-[100px]" />
 						</div>

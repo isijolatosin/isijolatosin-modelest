@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { MdOutlineClose } from "react-icons/md";
 import { RiSearch2Fill } from "react-icons/ri";
 

@@ -1,57 +1,44 @@
-import React, { useState } from 'react'
-import { Helmet } from 'react-helmet'
-import { Link } from 'react-router-dom'
-import Layout from '../components/shared/Layout'
-import Button from '../components/shared/Button'
-import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
-import { db } from '../firebase'
-import { RiHomeLine, RiInstagramLine, RiSnapchatLine } from 'react-icons/ri'
-import { SiTiktok } from 'react-icons/si'
-import Heading from '../components/Heading'
+import React, { useState } from "react";
+import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
+import Layout from "../components/shared/Layout";
+import Button from "../components/shared/Button";
+import { db } from "../firebase";
+import firebase from "../firebase";
+import { RiHomeLine, RiInstagramLine, RiSnapchatLine } from "react-icons/ri";
+import { SiTiktok } from "react-icons/si";
+import Heading from "../components/Heading";
+import useFetchHook from "../utils/useFetchHook";
+import { AMB } from "../constant";
 
 const Ambassador = () => {
 	const [ambObj, setAmbObj] = useState({
-		firstname: '',
-		lastname: '',
-		email: '',
-		code: '',
-		phone: '',
-		bankName: '',
-		accountNo: '',
-		state: '',
-		country: '',
-		date: '',
-		instagram: '',
-		tiktok: '',
-		snapchat: '',
+		firstname: "",
+		lastname: "",
+		email: "",
+		code: "",
+		phone: "",
+		bankName: "",
+		accountNo: "",
+		state: "",
+		country: "",
+		date: "",
+		instagram: "",
+		tiktok: "",
+		snapchat: "",
 		error: null,
-	})
-	const [sales, setSales] = React.useState(null)
-	const [exist, setAlreadyExist] = React.useState(false)
-	const [allAmb, setAllAmb] = React.useState([])
-	const [ambCode, setAmbCode] = React.useState('')
-
-	React.useEffect(() => {
-		setSales(fetchSalesPercentage())
-		db.collection('ambassador').onSnapshot((snapshot) => {
-			const result = []
-			// eslint-disable-next-line array-callback-return
-			snapshot.docs.map((doc) => {
-				if (doc.data()) {
-					result.push(doc.data())
-				}
-			})
-			setAllAmb(result)
-		})
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	});
+	const [exist, setAlreadyExist] = React.useState(false);
+	const [ambCode, setAmbCode] = React.useState("");
+	const type = "amb";
+	const allAmb = useFetchHook(db, type);
 
 	const handleChangeAuthUser = (e) => {
-		setAmbObj({ ...ambObj, [e.target.name]: e.target.value })
-	}
+		setAmbObj({ ...ambObj, [e.target.name]: e.target.value });
+	};
 
 	const handleSubmit = async (e) => {
-		e.preventDefault()
+		e.preventDefault();
 
 		if (
 			ambObj.accountNo &&
@@ -67,57 +54,77 @@ const Ambassador = () => {
 		) {
 			const code = `AMB${ambObj.country
 				.slice(0, 3)
-				.toUpperCase()}${Math.random().toString(18).slice(2).toUpperCase()}`
+				.toUpperCase()}${Math.random().toString(18).slice(2).toUpperCase()}`;
 
 			const index = allAmb?.findIndex(
 				(obj) =>
 					obj.yourSalesCode.toUpperCase() === code || obj.email === ambObj.email
-			)
+			);
 
 			if (index < 0) {
-				db.collection('ambassador')
+				db.collection("ambassador")
 					.add({
 						accountNo: ambObj?.accountNo,
 						bankName: ambObj?.bankName,
 						country: ambObj?.country,
 						date: ambObj?.date,
 						email: ambObj?.email,
-						firstname: ambObj?.firstname,
+						displayName: ambObj?.firstname + " " + ambObj?.lastname,
 						instagram: ambObj?.instagram,
-						lastname: ambObj?.lastname,
 						phone: ambObj?.code + ambObj?.phone,
 						state: ambObj?.state,
 						snapchat: ambObj?.snapchat,
 						tiktok: ambObj?.tiktok,
 						yourSalesCode: code,
+						totalSales: 0,
+						month: "",
+						monthCount: 0,
 					})
 					.then(() => {
 						setAmbObj({
-							firstname: '',
-							lastname: '',
-							email: '',
-							code: '',
-							phone: '',
-							bankName: '',
-							accountNo: '',
-							state: '',
-							country: '',
-							date: '',
-							instagram: '',
-							tiktok: '',
-							snapchat: '',
+							firstname: "",
+							lastname: "",
+							email: "",
+							code: "",
+							phone: "",
+							bankName: "",
+							accountNo: "",
+							state: "",
+							country: "",
+							date: "",
+							instagram: "",
+							tiktok: "",
+							snapchat: "",
 							error: null,
-						})
-						setAlreadyExist(false)
-						setAmbCode(code)
-					})
+						});
+						setAlreadyExist(false);
+						setAmbCode(code);
+					});
+
+				db.collection("authorized-users").onSnapshot((snapshot) => {
+					// eslint-disable-next-line array-callback-return
+					snapshot.docs.filter((doc) => {
+						// const savedData = doc.data()?.adminUsers;
+						db.collection("authorized-users")
+							.doc(doc.id)
+							.set(
+								{
+									adminUsers: firebase.firestore.FieldValue.arrayUnion({
+										code: code,
+										email: ambObj?.email,
+										type: AMB,
+									}),
+								},
+								{ merge: true }
+							);
+					});
+				});
 			} else {
-				setAlreadyExist(true)
+				setAlreadyExist(true);
 			}
 		} else {
-			setAmbObj({ ...ambObj, error: 'Required field(s) missing!' })
 		}
-	}
+	};
 
 	return (
 		<div>
@@ -125,10 +132,7 @@ const Ambassador = () => {
 				<title>Ambassador Sign Up</title>
 			</Helmet>
 			<Layout>
-				<section
-					className={`${
-						sales ? 'tw-pt-[180px]' : 'tw-pt-[130px]'
-					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10 logo`}>
+				<section className="tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10 logo">
 					<div className="tw-text-center tw-relative">
 						<div className="tw-w-[55%] tw-mx-auto tw-my-10 tw-text-neutral-50 tw-font-light">
 							<Link to="/">
@@ -349,7 +353,7 @@ const Ambassador = () => {
 					</article>
 					<div
 						className={`tw-flex tw-flex-col tw-items-center tw-text-white tw-mb-5 tw-ease-in tw-duration-500 ${
-							ambCode ? 'tw-opacity-1 tw-scale-100' : 'tw-opacity-0 tw-scale-50'
+							ambCode ? "tw-opacity-1 tw-scale-100" : "tw-opacity-0 tw-scale-50"
 						}`}>
 						<p className="tw-text-xs">Your personal sales code is</p>
 						<p className="yellow tw-bg-white tw-text-neutral-900  tw-px-20 tw-w-fit tw-flex">
@@ -359,18 +363,18 @@ const Ambassador = () => {
 
 					<div>
 						<p className="tw-text-neutral-300 tw-font-light tw-text-center  tw-text-xs ">
-							Already Locked In?{' '}
+							Already Locked In?{" "}
 							<Link to="/">
 								<button className="tw-text-[#bba371] tw-font-thin tw-mb-10">
 									go to home page
 								</button>
-							</Link>{' '}
+							</Link>{" "}
 						</p>
 					</div>
 				</section>
 			</Layout>
 		</div>
-	)
-}
+	);
+};
 
-export default Ambassador
+export default Ambassador;

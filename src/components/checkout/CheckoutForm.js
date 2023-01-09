@@ -1,48 +1,48 @@
-import React, { useContext } from 'react'
-import { UserContext } from '../../context/user-context'
-import { SHIPPING_COST } from '../../constant'
-import { ValidateEmail } from '../../utils/ValidateEmail'
-import { BsFillQuestionCircleFill } from 'react-icons/bs'
-import { useNavigate } from 'react-router-dom'
+import React, { useContext } from "react";
+import { UserContext } from "../../context/user-context";
+import { SHIPPING_COST } from "../../constant";
+import { ValidateEmail } from "../../utils/ValidateEmail";
+import { BsFillQuestionCircleFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 // import { countries } from '../../country'
 
 const CheckoutForm = ({ shippingMethod, setWarn }) => {
-	const navigate = useNavigate()
-	const [email, setEmail] = React.useState('')
-	const [showInfo, setShowInfo] = React.useState(false)
+	const navigate = useNavigate();
+	const [email, setEmail] = React.useState("");
+	const [showInfo, setShowInfo] = React.useState(false);
 
 	const [address, setAddress] = React.useState({
-		country: '',
-		firstname: '',
-		lastname: '',
-		street: '',
-		apartment: '',
-		city: '',
-		province: '',
-		postalcode: '',
-		phonenumber: '',
-	})
-	const [error, setError] = React.useState(false)
-	const { user } = useContext(UserContext)
+		country: "",
+		firstname: "",
+		lastname: "",
+		street: "",
+		apartment: "",
+		city: "",
+		province: "",
+		postalcode: "",
+		phonenumber: "",
+	});
+	const [error, setError] = React.useState(false);
+	const { user } = useContext(UserContext);
 	const countries = [
-		{ id: 0, name: '...' },
-		{ id: 1, name: 'canada' },
-		{ id: 2, name: 'united kingdom' },
-		{ id: 3, name: 'united states' },
-		{ id: 4, name: 'nigeria' },
-	]
+		{ id: 0, name: "..." },
+		{ id: 1, name: "canada" },
+		{ id: 2, name: "united kingdom" },
+		{ id: 3, name: "united states" },
+		{ id: 4, name: "nigeria" },
+	];
 
 	const inputOnchangeHandler = (e) => {
-		let value = e.target.value
+		let value = e.target.value;
 
-		setAddress({ ...address, [e.target.name]: value })
+		setAddress({ ...address, [e.target.name]: value });
 		// setAlert(false)
-	}
+	};
 
 	// Submit address
 	const handleSubmitAddress = () => {
-		if (shippingMethod === '') {
-			setWarn(true)
+		if (shippingMethod === "") {
+			setWarn(true);
 		} else if (
 			(user || email) &&
 			address.country &&
@@ -54,13 +54,13 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 			address.postalcode &&
 			address.phonenumber
 		) {
-			const orderNo = `ModelEst${Math.random().toString(36).slice(2)}`
-			const userName = `${address.firstname} ${address.lastname}`
-			const shippingAd = `${address.street}, ${
-				address.apartment && address.apartment
+			const orderNo = `ModelEst${Math.random().toString(36).slice(2)}`;
+			const userName = `${address.firstname} ${address.lastname}`;
+			const shippingAd = `${address.street}${
+				address.apartment && `, ${address.apartment}`
 			}, ${address.city}. ${address.province}. ${address.postalcode}. ${
 				address.country
-			}`
+			}`;
 
 			if (
 				!user ||
@@ -74,10 +74,10 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 				!address.postalcode ||
 				!address.phonenumber
 			) {
-				setError(true)
+				setError(true);
 			}
 			if (!ValidateEmail(email)) {
-				setError(true)
+				setError(true);
 			}
 			if (
 				(user &&
@@ -100,53 +100,53 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 					address.phonenumber &&
 					address?.country)
 			) {
-				localStorage.setItem('country', address.country)
-				localStorage.setItem('address', shippingAd)
-				localStorage.setItem('phone', address.phonenumber)
-				localStorage.setItem('order no', orderNo)
-				localStorage.setItem('username', userName)
-				email && localStorage.setItem('altEmail', email)
+				localStorage.setItem("country", address.country);
+				localStorage.setItem("address", shippingAd);
+				localStorage.setItem("phone", address.phonenumber);
+				localStorage.setItem("order no", orderNo);
+				localStorage.setItem("username", userName);
+				email && localStorage.setItem("altEmail", email);
 				setAddress({
-					street: '',
-					firstname: '',
-					lastname: '',
-					apartment: '',
-					phonenumber: '',
-					city: '',
-					province: '',
-					postalcode: '',
-					country: '',
-				})
-				setError(false)
+					street: "",
+					firstname: "",
+					lastname: "",
+					apartment: "",
+					phonenumber: "",
+					city: "",
+					province: "",
+					postalcode: "",
+					country: "",
+				});
+				setError(false);
 			}
 			// eslint-disable-next-line array-callback-return
 			Object.keys(SHIPPING_COST).filter((cntry) => {
 				const add =
-					address.country.toLowerCase() === 'united states' ||
-					address.country.toLowerCase() === 'usa' ||
-					address.country.toLowerCase() === 'united states of america' ||
-					address.country.toLowerCase() === 'america'
-						? 'usa'
-						: address.country.toLowerCase() === 'united kingdom' ||
-						  address.country.toLowerCase() === 'uk' ||
-						  address.country.toLowerCase() === 'london'
-						? 'london'
-						: address.country
+					address.country.toLowerCase() === "united states" ||
+					address.country.toLowerCase() === "usa" ||
+					address.country.toLowerCase() === "united states of america" ||
+					address.country.toLowerCase() === "america"
+						? "usa"
+						: address.country.toLowerCase() === "united kingdom" ||
+						  address.country.toLowerCase() === "uk" ||
+						  address.country.toLowerCase() === "london"
+						? "london"
+						: address.country;
 				cntry.toLowerCase() === add &&
 					localStorage.setItem(
-						'shippingCost',
+						"shippingCost",
 						JSON.stringify({
 							country: cntry,
 							cost: SHIPPING_COST[cntry],
 						})
-					)
-			})
-			setEmail('')
-			navigate('/payment')
+					);
+			});
+			setEmail("");
+			navigate("/payment");
 		} else {
-			setError(true)
+			setError(true);
 		}
-	}
+	};
 
 	return (
 		<div>
@@ -159,8 +159,8 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 						value={email}
 						className={
 							error && !ValidateEmail(email)
-								? 'user-email-input tw-border-red-700'
-								: 'user-email-input tw-text-sm tw-border-neutral-400'
+								? "user-email-input tw-border-red-700"
+								: "user-email-input tw-text-sm tw-border-neutral-400"
 						}
 					/>
 				)}
@@ -171,8 +171,8 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 					<select
 						className={`${
 							error && !address.country
-								? 'user-email-input tw-border-red-700'
-								: 'tw-border-neutral-400'
+								? "user-email-input tw-border-red-700"
+								: "tw-border-neutral-400"
 						} user-email-input tw-font-light tw-border-[1px] tw-rounded-[6px] tw-mb-[10px] tw-py-[9px] tw-text-sm focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400 tw-capitalize`}
 						onChange={inputOnchangeHandler}
 						id="country"
@@ -195,8 +195,8 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 						placeholder="First name"
 						className={
 							error && !address.firstname
-								? 'user-email-input tw-border-red-700'
-								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
+								? "user-email-input tw-border-red-700"
+								: "user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400"
 						}
 					/>
 					<input
@@ -207,8 +207,8 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 						placeholder="Last name"
 						className={
 							error && !address.lastname
-								? 'user-email-input tw-border-red-700'
-								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
+								? "user-email-input tw-border-red-700"
+								: "user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400"
 						}
 					/>
 				</div>
@@ -220,8 +220,8 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 					placeholder="Address"
 					className={
 						error && !address.street
-							? 'user-email-input tw-border-red-700'
-							: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
+							? "user-email-input tw-border-red-700"
+							: "user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400"
 					}
 				/>
 				<input
@@ -232,8 +232,8 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 					placeholder="Apartment, suite, etc. (optional)"
 					className={
 						error && !address.apartment
-							? 'user-email-input tw-border-red-700'
-							: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
+							? "user-email-input tw-border-red-700"
+							: "user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400"
 					}
 				/>
 				<div className="tw-grid tw-grid-cols-3 tw-gap-x-[7px]">
@@ -245,8 +245,8 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 						placeholder="City"
 						className={
 							error && !address.city
-								? 'user-email-input tw-border-red-700'
-								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
+								? "user-email-input tw-border-red-700"
+								: "user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400"
 						}
 					/>
 					<input
@@ -257,8 +257,8 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 						placeholder="State / Province"
 						className={
 							error && !address.province
-								? 'user-email-input tw-border-red-700'
-								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400'
+								? "user-email-input tw-border-red-700"
+								: "user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400"
 						}
 					/>
 					<input
@@ -269,16 +269,16 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 						placeholder="Postal Code"
 						className={
 							error && !address.postalcode
-								? 'user-email-input tw-border-red-700'
-								: 'user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400 '
+								? "user-email-input tw-border-red-700"
+								: "user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400 "
 						}
 					/>
 				</div>
 				<div
 					className={`${
 						error && !address.phonenumber
-							? 'tw-border-red-700'
-							: 'tw-border-neutral-400'
+							? "tw-border-red-700"
+							: "tw-border-neutral-400"
 					} tw-text-sm tw-font-light tw-border-[1px] tw-rounded-[6px] tw-flex tw-items-center tw-relative`}>
 					<input
 						name="phonenumber"
@@ -301,7 +301,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 					)}
 				</div>
 			</div>
-			{email.substr(email.length - 3) === 'com' && (
+			{email.substr(email.length - 3) === "com" && (
 				<div className="email-verify tw-text-center tw-text-xs">
 					<span>Please verify you have the correct email and address</span>
 				</div>
@@ -326,7 +326,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
 				</button>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default CheckoutForm
+export default CheckoutForm;

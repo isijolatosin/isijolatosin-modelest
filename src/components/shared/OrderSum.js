@@ -1,11 +1,11 @@
-import React from 'react'
-import { BsFillQuestionCircleFill } from 'react-icons/bs'
-import { FaOpencart } from 'react-icons/fa'
+import React from "react";
+import { BsFillQuestionCircleFill } from "react-icons/bs";
+import { FaOpencart } from "react-icons/fa";
 import {
 	MdOutlineKeyboardArrowDown,
 	MdOutlineKeyboardArrowUp,
-} from 'react-icons/md'
-import CartItemsCheckout from '../CartItemsCheckout'
+} from "react-icons/md";
+import CartItemsCheckout from "../CartItemsCheckout";
 
 const OrderSum = ({
 	sales,
@@ -25,27 +25,27 @@ const OrderSum = ({
 	showInfo,
 	isSuccess,
 }) => {
-	const [showSum, setShowSum] = React.useState(false)
-	console.log(sales)
+	const [showSum, setShowSum] = React.useState(false);
+
 	return (
 		<div>
 			<div
 				className={`${
-					isSuccess ? '' : 'tw-block lg:tw-hidden'
-				} tw-text-[#bba371] ${showSum ? 'tw-mb-5' : 'tw-mb-0'} tw-pt-5 ${
-					isBorderBottom && 'tw-border-b-[1px]'
+					isSuccess ? "" : "tw-block lg:tw-hidden"
+				} tw-text-[#bba371] ${showSum ? "tw-mb-5" : "tw-mb-0"} tw-pt-5 ${
+					isBorderBottom && "tw-border-b-[1px]"
 				} ${
-					isBorder ? ' tw-border-t-[1px] tw-border-neutral-800' : ''
+					isBorder ? " tw-border-t-[1px] tw-border-neutral-800" : ""
 				} tw-flex tw-mx-auto tw-justify-center`}>
 				<div className={`tw-flex tw-items-center tw-px-5 tw-text-xs`}>
 					<FaOpencart className="tw-mr-2" size={25} />
 					<span>
-						{showSum ? 'Hide' : 'Show'} order summary{' '}
+						{showSum ? "Hide" : "Show"} order summary{" "}
 						{(sales || sales !== 0) && (
 							<span className="tw-text-white tw-font-light">
 								/ apply discount
 							</span>
-						)}{' '}
+						)}{" "}
 					</span>
 					{showSum ? (
 						<MdOutlineKeyboardArrowUp
@@ -64,11 +64,11 @@ const OrderSum = ({
 			</div>
 			<div
 				className={`${
-					showSum ? `tw-opacity-1 tw-py-5` : 'tw-h-0 tw-opacity-0'
+					showSum ? `tw-opacity-1 tw-py-5` : "tw-h-0 tw-opacity-0"
 				} tw-ease-in tw-duration-300 ${
 					isSuccess
-						? 'lg:tw-px-[220px] xl:tw-px-[320px] 2xl:tw-px-[520px]'
-						: 'lg:tw-hidden tw-block lg:tw-w-[30%] md:tw-px-10'
+						? "lg:tw-px-[220px] xl:tw-px-[320px] 2xl:tw-px-[520px]"
+						: "lg:tw-hidden tw-block lg:tw-w-[30%] md:tw-px-10"
 				} tw-w-full tw-p-1 md:tw-py-5 tw-bg-[#bba371] `}>
 				{cartItems.map((item) => (
 					<CartItemsCheckout
@@ -87,9 +87,9 @@ const OrderSum = ({
 								onChange={handleDisount}
 								placeholder="Discount code"
 								className={`${
-									error && discount === ''
-										? 'tw-border-red-700 tw-border-[1px]'
-										: 'tw-border-neutral-400 tw-border-[1px]'
+									error && discount === ""
+										? "tw-border-red-700 tw-border-[1px]"
+										: "tw-border-neutral-400 tw-border-[1px]"
 								} tw-text-sm tw-font-light tw-rounded-md tw-w-[70%] tw-py-2 placeholder:tw-text-xs `}
 							/>
 							<button
@@ -177,7 +177,7 @@ const OrderSum = ({
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default OrderSum
+export default OrderSum;

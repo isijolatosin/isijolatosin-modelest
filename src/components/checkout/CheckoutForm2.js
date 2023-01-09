@@ -1,19 +1,22 @@
-import React, { useContext } from 'react'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
-import { GoAlert } from 'react-icons/go'
-import { SiMastercard } from 'react-icons/si'
-import { RiVisaLine } from 'react-icons/ri'
-import { SiAmericanexpress } from 'react-icons/si'
-import { UserContext } from '../../context/user-context'
-import PaypalCheckoutButton from '../PaypalCheckoutButton'
-import { selectCartItems } from '../../slices/appSlices'
+import React, { useContext } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
+import { GoAlert } from "react-icons/go";
+import { SiMastercard } from "react-icons/si";
+import { RiVisaLine } from "react-icons/ri";
+import { SiAmericanexpress } from "react-icons/si";
+import { UserContext } from "../../context/user-context";
+import PaypalCheckoutButton from "../PaypalCheckoutButton";
+import { selectCartItems } from "../../slices/appSlices";
+import { db } from "../../firebase";
+import firebase from "../../firebase";
+import { MONTHS } from "../../constant";
 
-const mastercard = require('../../assets/mastercard.png')
-const mastercard2 = require('../../assets/mastercard2.png')
-const americanExpress = require('../../assets/american-express.png')
+const mastercard = require("../../assets/mastercard.png");
+const mastercard2 = require("../../assets/mastercard2.png");
+const americanExpress = require("../../assets/american-express.png");
 
 const CheckoutForm = ({
 	sales,
@@ -27,93 +30,95 @@ const CheckoutForm = ({
 	setSucceeded,
 	succeeded,
 }) => {
-	const navigate = useNavigate()
-	const stripe = useStripe()
-	const elements = useElements()
-	const cartItems = useSelector(selectCartItems)
+	const batch = db.batch();
+	const increment = firebase.firestore.FieldValue.increment(1);
+	const navigate = useNavigate();
+	const stripe = useStripe();
+	const elements = useElements();
+	const cartItems = useSelector(selectCartItems);
 	const email =
-		localStorage.getItem('altEmail') && localStorage.getItem('altEmail')
-	const shippingCost = JSON.parse(localStorage.getItem('shippingCost'))
-	const shipMethod = localStorage.getItem('ship')
+		localStorage.getItem("altEmail") && localStorage.getItem("altEmail");
+	const shippingCost = JSON.parse(localStorage.getItem("shippingCost"));
+	const shipMethod = localStorage.getItem("ship");
 	// const [succeeded, setSucceeded] = React.useState(false)
-	const [paymentWarn, setPaymentWarn] = React.useState(false)
-	const [_error, set_Error] = React.useState(null)
-	const [processing, setProcessing] = React.useState('')
-	const [disabled, setDisabled] = React.useState(true)
-	const { user } = useContext(UserContext)
-	const [paywithStripe, setPaywithStripe] = React.useState(false)
+	const [paymentWarn, setPaymentWarn] = React.useState(false);
+	const [_error, set_Error] = React.useState(null);
+	const [processing, setProcessing] = React.useState("");
+	const [disabled, setDisabled] = React.useState(true);
+	const { user } = useContext(UserContext);
+	const [paywithStripe, setPaywithStripe] = React.useState(false);
 
-	const shipCostInCent = Number((shippingCost?.cost * 100).toFixed(2))
-	const shipCostInDollar = shipCostInCent / 100
+	const shipCostInCent = Number((shippingCost?.cost * 100).toFixed(2));
+	const shipCostInDollar = shipCostInCent / 100;
 	const taxInDollar = Number(
 		(Number(total) * Number(process.env.REACT_APP_TAX_PERCENT)).toFixed(2)
-	)
-	const taxInCent = taxInDollar * 100
-	const priceInDollar = total
-	const priceInCent = total * 100
+	);
+	const taxInCent = taxInDollar * 100;
+	const priceInDollar = total;
+	const priceInCent = total * 100;
 	const finalPriceToPay =
-		shipMethod === 'ship'
+		shipMethod === "ship"
 			? discountPrice
 				? discountPrice + shipCostInDollar + taxInDollar
 				: shipCostInDollar + priceInDollar + taxInDollar
 			: discountPrice
 			? discountPrice + taxInDollar
-			: priceInDollar + taxInDollar
+			: priceInDollar + taxInDollar;
 
-	localStorage.setItem('finalPriceToPay', finalPriceToPay)
+	localStorage.setItem("finalPriceToPay", finalPriceToPay);
 	localStorage.setItem(
-		'finalPriceToPayObject',
+		"finalPriceToPayObject",
 		JSON.stringify({
 			priceInDollar: priceInDollar,
 			shipCostInDollar: shipCostInDollar,
 			taxInDollar: taxInDollar,
 		})
-	)
+	);
 
 	const handlePayWithStripe = () => {
-		setPaywithStripe(true)
-	}
+		setPaywithStripe(true);
+	};
 
 	const cardStyle = {
 		style: {
 			base: {
-				color: '#32325d',
-				fontFamily: 'Arial, sans-serif',
-				fontSmoothing: 'antialiased',
-				fontSize: '16px',
-				'::placeholder': {
-					color: '#32325d',
+				color: "#32325d",
+				fontFamily: "Arial, sans-serif",
+				fontSmoothing: "antialiased",
+				fontSize: "16px",
+				"::placeholder": {
+					color: "#32325d",
 				},
 			},
 			invalid: {
-				color: '#fa755a',
-				iconColor: '#fa755a',
+				color: "#fa755a",
+				iconColor: "#fa755a",
 			},
 		},
-	}
+	};
 
 	const handleChange = async (event) => {
-		setDisabled(event.empty)
-		set_Error(event.error ? event.error.message : '')
-	}
+		setDisabled(event.empty);
+		set_Error(event.error ? event.error.message : "");
+	};
 
 	const handleSubmit = async (ev) => {
-		ev.preventDefault()
+		ev.preventDefault();
 
 		if (!paywithStripe) {
-			setPaymentWarn(true)
+			setPaymentWarn(true);
 		}
 
 		// if (total_amount >= installmentStartPrice) {
 		if (paywithStripe) {
 			// One time payment
-			setProcessing(true)
+			setProcessing(true);
 
-			let clientSecret
+			let clientSecret;
 
 			try {
 				const { data } = await axios.post(
-					'/.netlify/functions/create-payment-intent',
+					"/.netlify/functions/create-payment-intent",
 					JSON.stringify({
 						cartItems,
 						shipCostInCent,
@@ -123,13 +128,13 @@ const CheckoutForm = ({
 						shipMethod,
 						itemCount,
 					})
-				)
+				);
 
-				clientSecret = data.clientSecret.split("'")?.[0]
+				clientSecret = data.clientSecret.split("'")?.[0];
 			} catch (error) {
 				set_Error(
-					error?.response?.data ? 'Please contact modelEst Admin...' : ''
-				)
+					error?.response?.data ? "Please contact modelEst Admin..." : ""
+				);
 			}
 
 			if (clientSecret) {
@@ -140,28 +145,63 @@ const CheckoutForm = ({
 							email: user?.email || email,
 						},
 					},
-				})
+				});
 
-				localStorage.setItem('payload', payload?.paymentIntent?.client_secret)
+				if (localStorage.getItem("referral")) {
+					const currentMonth = Object.keys(MONTHS).filter((m) =>
+						MONTHS[m] === new Date().getMonth() ? m : null
+					)[0];
+
+					db.collection("ambassador").onSnapshot((snapshot) => {
+						// eslint-disable-next-line array-callback-return
+						snapshot.docs.filter((doc) => {
+							if (
+								doc?.data()?.yourSalesCode === localStorage.getItem("referral")
+							) {
+								const ambRef = db.collection("ambassador").doc(doc.id);
+								batch.update(ambRef, { totalSales: increment });
+
+								if (
+									!doc?.data()?.month ||
+									doc?.data()?.month !== new Date().getMonth()
+								)
+									batch.update(ambRef, { month: currentMonth });
+
+								if (MONTHS[doc?.data()?.month] < MONTHS[currentMonth]) {
+									batch.update(ambRef, { monthCount: 1 });
+								} else
+									batch.update(
+										ambRef,
+										{ monthCount: increment },
+										{ merge: true }
+									);
+
+								batch.commit();
+							}
+						});
+					});
+				}
+
+				localStorage.setItem("payload", payload?.paymentIntent?.client_secret);
 
 				if (payload.error) {
-					set_Error(`Payment failed ${payload.error.message}`)
-					setProcessing(false)
+					set_Error(`Payment failed ${payload.error.message}`);
+					setProcessing(false);
 					setTimeout(() => {
-						navigate('/canceled')
-					}, 5000)
+						navigate("/canceled");
+					}, 5000);
 				} else {
-					set_Error(null)
-					setProcessing(false)
-					setSucceeded(true)
+					set_Error(null);
+					setProcessing(false);
+					setSucceeded(true);
 					payload?.paymentIntent?.client_secret &&
 						setTimeout(() => {
-							navigate('/success')
-						}, 5000)
+							navigate("/success");
+						}, 5000);
 				}
 			}
 		}
-	}
+	};
 
 	return (
 		<div>
@@ -232,24 +272,24 @@ const CheckoutForm = ({
 						<article className="tw-text-center tw-mt-2">
 							<h4>Thank you. Your payment was successful!</h4>
 							<h4 className="tw-text-xs tw-text-green-700 tw-mb-2">
-								Redirecting to {succeeded ? 'success' : 'canceled'} page...
+								Redirecting to {succeeded ? "success" : "canceled"} page...
 							</h4>
 						</article>
 					) : (
 						<article className="tw-flex tw-items-center tw-text-[12px] tw-p-1 tw-mt-1 tw-max-w-[100%] tw-text-black tw-mx-auto">
 							<span className="tw-underline">
 								Hello, {user && user?.displayName}, your total is $
-								{shipMethod === 'ship'
+								{shipMethod === "ship"
 									? discountPrice
 										? discountPrice + shipCostInDollar + taxInDollar
 										: shipCostInDollar + priceInDollar + taxInDollar
 									: discountPrice
 									? discountPrice + taxInDollar
-									: priceInDollar + taxInDollar}{' '}
-								-{' '}
+									: priceInDollar + taxInDollar}{" "}
+								-{" "}
 								<span className="tw-text-neutral-400">
 									(tax
-									{shipMethod === 'pick up' ? '' : ' & shipping'} inclusive)
+									{shipMethod === "pick up" ? "" : " & shipping"} inclusive)
 								</span>
 							</span>
 						</article>
@@ -259,8 +299,8 @@ const CheckoutForm = ({
 			<form
 				className={
 					paywithStripe
-						? 'tw-block tw-ease-in tw-duration-300 tw-w-full tw-pt-2 tw-bg-white'
-						: 'tw-hidden tw-ease-in tw-duration-300'
+						? "tw-block tw-ease-in tw-duration-300 tw-w-full tw-pt-2 tw-bg-white"
+						: "tw-hidden tw-ease-in tw-duration-300"
 				}
 				id="payment-form"
 				onSubmit={handleSubmit}>
@@ -288,10 +328,10 @@ const CheckoutForm = ({
 					<span
 						className={
 							processing || disabled || succeeded || paywithStripe
-								? 'tw-text-neutral-50 tw-font-light'
-								: 'tw-text-orange-500 tw-font-light'
+								? "tw-text-neutral-50 tw-font-light"
+								: "tw-text-orange-500 tw-font-light"
 						}>
-						{processing ? <div className="spinner" id="spinner"></div> : 'Pay'}
+						{processing ? <div className="spinner" id="spinner"></div> : "Pay"}
 					</span>
 				</button>
 				{paymentWarn && (
@@ -309,28 +349,28 @@ const CheckoutForm = ({
 					</div>
 				)}
 				<div className="tw-w-[90%] tw-mx-auto tw-pt-1">
-					<p className={succeeded ? 'result-message' : 'result-message hidden'}>
+					<p className={succeeded ? "result-message" : "result-message hidden"}>
 						Payment Succeeded,
-						{user?.email === 'tisijola7@gmail.com' && (
+						{user?.email === "tisijola7@gmail.com" && (
 							<span>
-								{' '}
+								{" "}
 								see the result in your
 								<a
 									className="tw-text-blue-600"
 									href={`https://dashboard.stripe.com/test/payments`}
 									target="_blank"
 									rel="noreferrer">
-									{' '}
+									{" "}
 									Stripe Dashboard
 								</a>
 							</span>
-						)}{' '}
+						)}{" "}
 						Refresh the page to pay again
 					</p>
 				</div>
 			</form>
 		</div>
-	)
-}
+	);
+};
 
-export default CheckoutForm
+export default CheckoutForm;

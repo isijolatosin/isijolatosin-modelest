@@ -1,5 +1,19 @@
-export const SUPER_USER1 = "estherodi2020@gmail.com";
-export const SUPER_USER2 = "tisijola7@gmail.com";
+export const ADMIN = "admin";
+export const AMB = "ambassador";
+export const MONTHS = {
+	january: 0,
+	february: 1,
+	march: 2,
+	april: 3,
+	may: 4,
+	june: 5,
+	july: 6,
+	august: 7,
+	september: 8,
+	october: 9,
+	november: 10,
+	december: 11,
+};
 export const SHIPPING_COST = {
 	canada: 20,
 	usa: 10,

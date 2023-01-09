@@ -1,42 +1,43 @@
-import React, { useContext } from 'react'
-import { Helmet } from 'react-helmet'
-import Heading from '../components/Heading'
-import Layout from '../components/shared/Layout'
-import { UserContext } from '../context/user-context'
-import { db } from '../firebase'
-import { fetchSalesPercentage } from '../utils/salesPercentageNumber'
+import React, { useContext } from "react";
+import { Helmet } from "react-helmet";
+import Heading from "../components/Heading";
+import Layout from "../components/shared/Layout";
+import { UserContext } from "../context/user-context";
+import { db } from "../firebase";
+import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
+import ProfileCard from "../components/shared/ProfileCard";
 
 function Account() {
-	const [isLoading, setIsLoading] = React.useState(true)
-	const { user } = useContext(UserContext)
-	const [sales, setSales] = React.useState(false)
-	const [cartHist, setCartHist] = React.useState([])
+	const [isLoading, setIsLoading] = React.useState(true);
+	const { user } = useContext(UserContext);
+	const [sales, setSales] = React.useState(false);
+	const [cartHist, setCartHist] = React.useState([]);
 	if (isLoading) {
 		setTimeout(() => {
-			setIsLoading(false)
-		}, 5000)
+			setIsLoading(false);
+		}, 5000);
 	}
 
 	React.useEffect(() => {
-		setSales(fetchSalesPercentage())
+		setSales(fetchSalesPercentage());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, []);
 
 	React.useEffect(() => {
 		// getting address and details for shipping
 		user &&
 			db
-				.collection('purchased')
+				.collection("purchased")
 				.doc(`${user?.email}/`)
-				.collection('shoppings')
-				.orderBy('timestamp', 'asc')
+				.collection("shoppings")
+				.orderBy("timestamp", "asc")
 				.onSnapshot((snapshot) => {
 					const results = snapshot.docs.map((doc) => ({
 						data: doc.data(),
-					}))
+					}));
 
 					if (results) {
-						let data = []
+						let data = [];
 						for (const result of results) {
 							data.push({
 								color: result?.data.color,
@@ -49,15 +50,15 @@ function Account() {
 								timestamp: new Date(result?.data.timestamp).toDateString(),
 								title: result?.data.title,
 								image: result?.data?.image,
-							})
+							});
 						}
 
 						setTimeout(() => {
-							setCartHist(data)
-						}, 3000)
+							setCartHist(data);
+						}, 3000);
 					}
-				})
-	}, [user])
+				});
+	}, [user]);
 
 	return (
 		<>
@@ -67,21 +68,10 @@ function Account() {
 			<Layout>
 				<div
 					className={`${
-						sales ? 'tw-pt-[150px]' : 'tw-pt-[110px] md:tw-pt-[100px]'
+						sales ? "tw-pt-[150px]" : "tw-pt-[110px] md:tw-pt-[100px]"
 					} tw-pb-[110px] md:tw-pb-[100px] tw-px-5 tw-bg-gray-300 tw-flex tw-flex-col tw-items-center`}>
 					<div className="tw-w-full lg:tw-w-[95%]">
-						<div className="tw-bg-neutral-50 tw-p-2 tw-rounded-sm tw-mb-1">
-							<h1 className="tw-font-light tw-text-xs">
-								<strong>Account Name:</strong> {user?.displayName}
-							</h1>
-							<h1 className="tw-font-light tw-text-xs">
-								<strong>Account Email:</strong> {user?.email}
-							</h1>
-							<h1 className="tw-font-light tw-text-xs">
-								<strong>Customer since:</strong>{' '}
-								{new Date(user?.createdAt?.seconds * 1000).toLocaleString()}
-							</h1>
-						</div>
+						<ProfileCard data={user} />
 						<div className="tw-bg-neutral-50 tw-p-2 tw-rounded-sm tw-w-[100%]">
 							<Heading children="Cart History" isBold={true} />
 
@@ -157,7 +147,7 @@ function Account() {
 				</div>
 			</Layout>
 		</>
-	)
+	);
 }
 
-export default Account
+export default Account;

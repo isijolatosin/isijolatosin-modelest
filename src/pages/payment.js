@@ -62,6 +62,7 @@ const Cart = () => {
 	const [estimatedTotalPriceNaira, setestimatedTotalPriceNaira] =
 		React.useState("");
 	const [exchangeRate, setExchangeRate] = React.useState("");
+
 	const shipPrice =
 		shipMethod === "ship" ? `USD $${shippingObj.cost}:00` : "PICK UP";
 	const taxPrice = discountPrice
@@ -171,8 +172,8 @@ const Cart = () => {
 	};
 
 	const handleReferral = () => {
-		setReferral("");
 		localStorage.setItem("referral", referral);
+		setReferral("");
 		setError(false);
 	};
 
@@ -187,8 +188,7 @@ const Cart = () => {
 						sales
 							? "tw-pt-[125px] tw-bg-neutral-200 md:tw-pt-[105px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center home tw-relative"
 							: "tw-bg-neutral-200 tw-pt-[90px] md:tw-pt-[60px] tw-pb-[20px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center home tw-relative"
-					}
-				>
+					}>
 					{cartItems.length === 0 ? (
 						<div className="tw-flex tw-items-center">
 							<div className="tw-mr-5 tw-font-light tw-text-white">
@@ -319,8 +319,7 @@ const Cart = () => {
 														/>
 														<button
 															onClick={handleReferral}
-															className="tw-text-[#bba371] tw-pl-2"
-														>
+															className="tw-text-[#bba371] tw-pl-2">
 															<FiSend size={20} />
 														</button>
 													</div>
@@ -343,22 +342,19 @@ const Cart = () => {
 									<div className="tw-text-neutral-400 tw-flex tw-items-center tw-border-t-[1px] tw-border-b-[1px] tw-border-neutral-800 tw-py-3 lg:tw-mt-[-40px] tw-justify-center tw-font-light tw-text-xs tw-mt-[-30px]">
 										<Link
 											to={`/user-cart/${user?.displayName}`}
-											className="tw-flex tw-items-center tw-mr-2"
-										>
+											className="tw-flex tw-items-center tw-mr-2">
 											<span className="tw-mr-2 tw-text-white">Cart</span>
 											<MdKeyboardArrowRight size={23} />
 										</Link>
 										<Link
 											to={`/checkout/${user?.displayName}`}
-											className="tw-flex tw-items-center tw-mr-2"
-										>
+											className="tw-flex tw-items-center tw-mr-2">
 											<span
 												className={`${
 													window.location.pathname.includes("checkout")
 														? "tw-text-[#bba371] tw-font-bold"
 														: "tw-text-white"
-												} tw-mr-2`}
-											>
+												} tw-mr-2`}>
 												Information
 											</span>
 											<MdKeyboardArrowRight size={23} />
@@ -369,8 +365,7 @@ const Cart = () => {
 													window.location.pathname.includes("payment")
 														? "tw-text-[#bba371] tw-font-bold"
 														: "tw-text-white"
-												}`}
-											>
+												}`}>
 												Payment
 											</span>
 										</Link>
@@ -378,8 +373,7 @@ const Cart = () => {
 									<div
 										className={`tw-block lg:tw-hidden tw-text-[#bba371] tw-border-t-[1px] tw-border-neutral-800 tw-pt-5 ${
 											showSum && "tw-mb-5"
-										}`}
-									>
+										}`}>
 										<div className="tw-flex tw-items-center">
 											<FaOpencart className="tw-mr-2" size={25} />
 											<span>{showSum ? "Hide" : "Show"} order summary </span>
@@ -399,8 +393,7 @@ const Cart = () => {
 									<div
 										className={`${
 											showSum ? `tw-opacity-1 tw-py-5` : "tw-h-0 tw-opacity-0"
-										} tw-ease-in tw-duration-300 lg:tw-hidden tw-block tw-w-full lg:tw-w-[30%] tw-p-1 md:tw-px-10 md:tw-py-5 tw-bg-[#bba371] `}
-									>
+										} tw-ease-in tw-duration-300 lg:tw-hidden tw-block tw-w-full lg:tw-w-[30%] tw-p-1 md:tw-px-10 md:tw-py-5 tw-bg-[#bba371] `}>
 										{cartItems.map((item) => (
 											<CartItemsCheckout product={item} key={item.id} />
 										))}
@@ -517,8 +510,7 @@ const Cart = () => {
 															/>
 															<button
 																onClick={handleReferral}
-																className="tw-text-[#5a400a] tw-pl-2"
-															>
+																className="tw-text-[#5a400a] tw-pl-2">
 																<FiSend size={20} />
 															</button>
 														</div>
@@ -563,15 +555,13 @@ const Cart = () => {
 															<span
 																className={`checkmark-radio ${
 																	warn && "tw-border-red-500 tw-border-[1px]"
-																}`}
-															></span>
+																}`}></span>
 														</label>
 
 														<div
 															className={`tw-flex tw-items-center ${
 																warn ? "tw-text-red-500" : "tw-text-black"
-															}`}
-														>
+															}`}>
 															<img
 																src={paypal}
 																alt="paypal"
@@ -594,14 +584,12 @@ const Cart = () => {
 															<span
 																className={`checkmark-radio ${
 																	warn && "tw-border-red-500 tw-border-[1px]"
-																}`}
-															></span>
+																}`}></span>
 														</label>
 														<div
 															className={`tw-flex tw-items-start ${
 																warn ? "tw-text-red-500" : "tw-text-black"
-															} tw-flex tw-flex-col`}
-														>
+															} tw-flex tw-flex-col`}>
 															<div className="tw-flex tw-items-center">
 																<BsCreditCard size={35} color="black" />
 																<span className="tw-text-[12px] tw-m-3 tw-font-light tw-tracking-wider">
@@ -643,8 +631,7 @@ const Cart = () => {
 												</div>
 												<div
 													onClick={placeOrder}
-													className="tw-z-40 tw-flex tw-flex-col tw-items-center tw-w-full tw-my-10 md:tw-my-0 md:tw-w-[40%]"
-												>
+													className="tw-z-40 tw-flex tw-flex-col tw-items-center tw-w-full tw-my-10 md:tw-my-0 md:tw-w-[40%]">
 													<button className="tw-bg-neutral-800 tw-text-white tw-text-xs tw-px-5 tw-py-2 hover:md:tw-bg-neutral-100 hover:md:tw-text-neutral-900 tw-ease-in tw-duration-300 tw-w-[80%] md:tw-w-[50%] tw-mx-auto tw-rounded-[30px]">
 														PLACE ORDER
 													</button>
@@ -685,8 +672,7 @@ const Cart = () => {
 							redirect || succeeded || pageCancel
 								? "tw-opacity-1 tw-inline tw-ease-in tw-duration-300"
 								: "tw-opacity-0 tw-hidden tw-ease-in tw-duration-300"
-						} tw-bg-[rgba(255,255,255,0.9)] tw-flex tw-flex-col tw-items-center tw-justify-center tw-fixed tw-top-[35%] md:tw-top-[15%] tw-z-50 tw-ease-in tw-duration-300 tw-w-[100%] tw-h-[40%] md:tw-w-[70%] md:tw-h-[60%]`}
-					>
+						} tw-bg-[rgba(255,255,255,0.9)] tw-flex tw-flex-col tw-items-center tw-justify-center tw-fixed tw-top-[35%] md:tw-top-[15%] tw-z-50 tw-ease-in tw-duration-300 tw-w-[100%] tw-h-[40%] md:tw-w-[70%] md:tw-h-[60%]`}>
 						<div className="circular-loader-payment"></div>
 						<div>
 							<span className="tw-text-green-700 tw-text-md">
