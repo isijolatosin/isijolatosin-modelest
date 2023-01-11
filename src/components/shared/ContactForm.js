@@ -28,12 +28,12 @@ const ContactForm = ({
 				Please fill out the form below and we will get back to you as soon as
 				possible
 			</p>
-			{!window.navigator.userAgentData.mobile && (
+			<div className="tw-mb-3">
 				<CtaButton text="Send a message via whatsapp!" whatsapp={true} />
-			)}
+			</div>
 			{isFormBtn && (
 				<div
-					className="tw-flex tw-flex-row tw-mx-auto tw-items-center tw-justify-center tw-text-white tw-bg-neutral-500 tw-rounded-lg tw-py-[4px] tw-font-light tw-text-sm md:tw-max-w-[70%] lg:tw-max-w-[50%] tw-my-3 tw-cursor-pointer"
+					className="tw-flex tw-flex-row tw-mx-auto tw-items-center tw-justify-center tw-text-white tw-bg-neutral-500 tw-rounded-lg tw-py-[4px] tw-font-light tw-text-sm md:tw-max-w-[70%] lg:tw-max-w-[50%] tw-mb-3 tw-cursor-pointer"
 					onClick={() => setToggleHeight(!toggleHeight)}>
 					<span className="tw-mr-2">
 						{toggleHeight ? "Send a message via email" : "Close email form"}

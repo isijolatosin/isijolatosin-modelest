@@ -259,10 +259,10 @@ function HomePage() {
 									message: "",
 								});
 							}}
-							className="tw-mb-[1px] tw-text-[#bba371] tw-bg-[rgba(0,0,0,0.85)] tw-rounded-t-[30px] tw-cursor-pointer tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 tw-pt-4 tw-pb-1 tw-px-2 tw-w-[45px]">
-							<MdOutgoingMail size={30} />
+							className="tw-mb-[1px] tw-text-[#bba371] tw-bg-[rgba(0,0,0,0.85)] tw-rounded-t-[30px] tw-cursor-pointer tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 tw-pt-4 tw-pb-2 tw-w-[55px] tw-flex tw-flex-row tw-justify-center">
+							<MdOutgoingMail size={35} />
 						</div>
-						<div className="tw-text-[#bba371] tw-bg-[rgba(0,0,0,0.85)] tw-rounded-b-[30px] tw-cursor-pointer tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 tw-pb-4 tw-pt-1 tw-px-2 tw-w-[45px]">
+						<div className="tw-text-[#bba371] tw-bg-[rgba(0,0,0,0.85)] tw-rounded-b-[30px] tw-cursor-pointer tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 tw-pb-4 tw-pt-2 tw-w-[55px]">
 							<CtaButton />
 						</div>
 					</div>
