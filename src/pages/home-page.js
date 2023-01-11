@@ -242,8 +242,10 @@ function HomePage() {
 					</div>
 					<div
 						className={`${
-							chat ? "tw-inline" : "tw-hidden"
-						} md:tw-hidden tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-p-3 tw-rounded-[30px] tw-z-20 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300`}>
+							chat
+								? "tw-flex tw-flex-col tw-items-center tw-justify-center"
+								: "tw-hidden"
+						} md:tw-hidden tw-fixed tw-bottom-[25px] tw-right-[10px] tw-z-20 hover:md:tw-bg-white hover:md:tw-text-neutral-900 `}>
 						<div
 							onClick={() => {
 								setShowForm(!showForm);
@@ -257,10 +259,12 @@ function HomePage() {
 									message: "",
 								});
 							}}
-							className="tw-mb-3 tw-pb-3 tw-border-b-[1px] tw-border-[#bba371] tw-text-[#bba371]">
-							<MdOutgoingMail size={27} />
+							className="tw-mb-[1px] tw-text-[#bba371] tw-bg-[rgba(0,0,0,0.85)] tw-rounded-t-[30px] tw-cursor-pointer tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 tw-pt-4 tw-pb-1 tw-px-2 tw-w-[45px]">
+							<MdOutgoingMail size={30} />
 						</div>
-						<CtaButton />
+						<div className="tw-text-[#bba371] tw-bg-[rgba(0,0,0,0.85)] tw-rounded-b-[30px] tw-cursor-pointer tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 tw-pb-4 tw-pt-1 tw-px-2 tw-w-[45px]">
+							<CtaButton />
+						</div>
 					</div>
 					<div
 						className={`${searchControl && "tw-w-[100%] lg:tw-w-[40%]"} ${

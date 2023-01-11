@@ -31,7 +31,7 @@ const ContactForm = ({
 			<CtaButton text="Send a message via whatsapp!" whatsapp={true} />
 			{isFormBtn && (
 				<div
-					className="tw-flex tw-flex-row tw-mx-auto tw-items-center tw-justify-center tw-text-white tw-bg-neutral-500 tw-rounded-lg tw-py-[4px] tw-font-light tw-text-sm md:tw-max-w-[70%] lg:tw-max-w-[50%] tw-mb-5 tw-cursor-pointer"
+					className="tw-flex tw-flex-row tw-mx-auto tw-items-center tw-justify-center tw-text-white tw-bg-neutral-500 tw-rounded-lg tw-py-[4px] tw-font-light tw-text-sm md:tw-max-w-[70%] lg:tw-max-w-[50%] tw-my-3 tw-cursor-pointer"
 					onClick={() => setToggleHeight(!toggleHeight)}>
 					<span className="tw-mr-2">
 						{toggleHeight ? "Send a message via email" : "Close email form"}
