@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import { MdOutlineKeyboardArrowUp } from "react-icons/md";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import { MdOutgoingMail } from "react-icons/md";
 import { Helmet } from "react-helmet";
 import Layout from "../components/shared/Layout";
 import Products from "../components/Products";
@@ -23,9 +22,7 @@ function HomePage() {
 	const [toBottom, setToBottom] = React.useState(false);
 	const [chat, setChat] = React.useState(true);
 	const [showPopInfo, setShowPopInfo] = React.useState(false);
-	const [showForm, setShowForm] = React.useState(false);
 	const [searchError, setSearchError] = React.useState(false);
-	// const [expired, setExpired] = React.useState(false)
 	const [allProducts, setAllproducts] = React.useState([]);
 	const [allWigsCloudinaryImg, setAllWigsCloudinaryImg] = React.useState([]);
 	const [filtered, setFiltered] = React.useState([]);
@@ -227,12 +224,12 @@ function HomePage() {
 					<div
 						className={`${
 							showPopInfo
-								? "tw-opacity-1 tw-right-[50px]"
+								? "tw-opacity-1 tw-right-[60px]"
 								: "tw-opacity-0 tw-right-[-400px]"
-						} tw-inline md:tw-hidden tw-fixed tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-border-[#bba371] tw-border-[1px] tw-w-[200px] tw-bottom-[70px] tw-px-5 tw-py-3 tw-text-center tw-text-xs tw-rounded-xl tw-rounded-br-none tw-ease-in tw-duration-500 tw-from-zinc-1000 tw-z-20`}>
+						} tw-inline md:tw-hidden tw-fixed tw-bg-[rgba(0,0,0,0.85)] tw-text-green-500 tw-border-green-500 tw-border-[0.5px] tw-w-[200px] tw-bottom-[70px] tw-px-5 tw-py-3 tw-text-center tw-text-xs tw-font-light tw-rounded-xl tw-rounded-br-none tw-ease-in tw-duration-500 tw-from-zinc-1000 tw-z-20`}>
 						<span>
 							For customized order placing and special inquiries, send modelEst
-							a message and we'll get back to you ASAP!
+							a message on whatsapp!
 						</span>
 						<div
 							onClick={() => setShowPopInfo(false)}
@@ -245,26 +242,8 @@ function HomePage() {
 							chat
 								? "tw-flex tw-flex-col tw-items-center tw-justify-center"
 								: "tw-hidden"
-						} md:tw-hidden tw-fixed tw-bottom-[25px] tw-right-[10px] tw-z-20 hover:md:tw-bg-white hover:md:tw-text-neutral-900 `}>
-						<div
-							onClick={() => {
-								setShowForm(!showForm);
-								setChatError(false);
-								setChatSuccess(false);
-								setShowPopInfo(false);
-								setChatDetail({
-									name: "",
-									title: "",
-									email: "",
-									message: "",
-								});
-							}}
-							className="tw-mb-[1px] tw-text-[#bba371] tw-bg-[rgba(0,0,0,0.85)] tw-rounded-t-[30px] tw-cursor-pointer tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 tw-pt-4 tw-pb-2 tw-w-[55px] tw-flex tw-flex-row tw-justify-center">
-							<MdOutgoingMail size={35} />
-						</div>
-						<div className="tw-text-[#bba371] tw-bg-[rgba(0,0,0,0.85)] tw-rounded-b-[30px] tw-cursor-pointer tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300 tw-pb-4 tw-pt-2 tw-w-[55px]">
-							<CtaButton />
-						</div>
+						} md:tw-hidden tw-w-[55px] tw-fixed tw-bottom-[25px] tw-right-[10px] tw-z-20 hover:md:tw-bg-white hover:md:tw-text-neutral-900 `}>
+						<CtaButton isIcon={true} />
 					</div>
 					<div
 						className={`${searchControl && "tw-w-[100%] lg:tw-w-[40%]"} ${
@@ -325,26 +304,6 @@ function HomePage() {
 								</Link>
 							</div>
 						)}
-					</div>
-					<div
-						className={`${
-							showForm
-								? "tw-right-0 md:tw-right-[8px]"
-								: "tw-right-[-800px] md:tw-right-[-350px]"
-						} tw-w-[100%] tw-h-screen tw-px-5 tw-pt-[110px] md:tw-pt-0 md:tw-max-h-[600px] md:tw-w-[350px] tw-fixed tw-z-30 tw-bg-[rgba(255,255,255,0.97)] tw-p-2 tw-bottom-0 md:tw-bottom-[50px] tw-text-neutral-900 tw-ease-in tw-duration-300`}>
-						<ContactForm
-							SubmitInqury={SubmitInqury}
-							setShowForm={setShowForm}
-							setChatError={setChatError}
-							setChatSuccess={setChatSuccess}
-							setChatDetail={setChatDetail}
-							chatDetail={chatDetail}
-							handleChangeChat={handleChangeChat}
-							chatSuccess={chatSuccess}
-							chatError={chatError}
-							textColor="tw-text-neutral-900"
-							isCancelBtn={true}
-						/>
 					</div>
 					{allProducts.length !== 0 ? (
 						<div className="tw-bg-neutral-900 tw-w-[100%]">
