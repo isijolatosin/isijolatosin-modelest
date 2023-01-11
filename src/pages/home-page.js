@@ -6,7 +6,6 @@ import { Helmet } from "react-helmet";
 import Layout from "../components/shared/Layout";
 import Products from "../components/Products";
 import { db } from "../firebase";
-import ContactForm from "../components/shared/ContactForm";
 import { Link } from "react-router-dom";
 import SearchInput from "../components/shared/SearchInput";
 import { getDatabase, ref, onValue } from "firebase/database";
