@@ -55,12 +55,8 @@ function ClosureFrontal() {
 	}
 
 	React.useEffect(() => {
-		setTimeout(() => {
-			fetchProducts();
-		}, 2000);
-		setTimeout(() => {
-			setShow(true);
-		}, 4000);
+		fetchProducts();
+		setShow(true);
 	}, []);
 
 	const scrollToTop = function scrollToTop() {
@@ -170,9 +166,7 @@ function ClosureFrontal() {
 	const addToCart = () => {
 		if (typeof price === "number" && length && _color && _hairType) {
 			dispatch(addToCartItem(singleProduct));
-			setTimeout(() => {
-				setSingleCart(singleProduct);
-			}, 1000);
+			setSingleCart(singleProduct);
 		} else {
 			setError(true);
 		}
@@ -180,9 +174,7 @@ function ClosureFrontal() {
 
 	const IncreaseItem = () => {
 		dispatch(increaseCartItem(singleProduct));
-		setTimeout(() => {
-			setSingleCart(singleProduct);
-		}, 1000);
+		setSingleCart(singleProduct);
 	};
 	const desc = [
 		{ key: "Brand", value: `raw ${singleProducts?.[0]?.brand} hair` },

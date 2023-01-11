@@ -52,10 +52,8 @@ function IndianBundles() {
 	}
 
 	React.useEffect(() => {
-		setTimeout(() => {
-			fetchProducts();
-			setShow(true);
-		}, 3000);
+		fetchProducts();
+		setShow(true);
 	}, []);
 
 	const scrollToTop = function scrollToTop() {
@@ -115,9 +113,7 @@ function IndianBundles() {
 	const addToCart = () => {
 		if (length) {
 			dispatch(addToCartItem(singleProduct));
-			setTimeout(() => {
-				setSingleCart(singleProduct);
-			}, 1000);
+			setSingleCart(singleProduct);
 		} else {
 			setError(true);
 		}
@@ -125,9 +121,7 @@ function IndianBundles() {
 
 	const IncreaseItem = () => {
 		dispatch(increaseCartItem(singleProduct));
-		setTimeout(() => {
-			setSingleCart(singleProduct);
-		}, 1000);
+		setSingleCart(singleProduct);
 	};
 
 	const desc = [

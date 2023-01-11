@@ -1,6 +1,7 @@
-import React from 'react'
-import { CgClose } from 'react-icons/cg'
-import { HiEye, HiEyeOff } from 'react-icons/hi'
+import React from "react";
+import { CgClose } from "react-icons/cg";
+import { MdOutgoingMail } from "react-icons/md";
+import CtaButton from "./CtaButton";
 
 const ContactForm = ({
 	SubmitInqury,
@@ -27,33 +28,35 @@ const ContactForm = ({
 				Please fill out the form below and we will get back to you as soon as
 				possible
 			</p>
+			<CtaButton text="Send a message via whatsapp!" whatsapp={true} />
 			{isFormBtn && (
-				<div className="tw-w-full tw-mx-auto tw-flex tw-justify-center">
-					<button
-						className="tw-text-[#bba371] tw-text-center tw-mb-2 tw-border-[1px] tw-p-3 tw-rounded-full tw-border-neutral-700 tw-text-sm hover:tw-text-neutral-600 hover:tw-border-[#bba371] tw-ease-in tw-duration-300"
-						onClick={() => setToggleHeight(!toggleHeight)}>
-						{toggleHeight ? <HiEye size={25} /> : <HiEyeOff size={25} />}
-					</button>
+				<div
+					className="tw-flex tw-flex-row tw-mx-auto tw-items-center tw-justify-center tw-text-white tw-bg-neutral-500 tw-rounded-lg tw-py-[4px] tw-font-light tw-text-sm md:tw-max-w-[70%] lg:tw-max-w-[50%] tw-mb-5 tw-cursor-pointer"
+					onClick={() => setToggleHeight(!toggleHeight)}>
+					<span className="tw-mr-2">
+						{toggleHeight ? "Send a message via email" : "Close email form"}
+					</span>
+					<MdOutgoingMail size={25} />
 				</div>
 			)}
 			<form
 				onSubmit={SubmitInqury}
 				className={`${
-					toggleHeight ? 'tw-h-0 tw-opacity-0' : 'tw-h-full tw-opacity-1'
+					toggleHeight ? "tw-h-0 tw-opacity-0" : "tw-h-full tw-opacity-1"
 				} tw-ease-in tw-duration-300`}>
 				{isCancelBtn && (
 					<div className="tw-absolute tw-right-[30px] tw-top-[70px]">
 						<div
 							onClick={() => {
-								setShowForm(false)
-								setChatError(false)
-								setChatSuccess(false)
+								setShowForm(false);
+								setChatError(false);
+								setChatSuccess(false);
 								setChatDetail({
-									name: '',
-									title: '',
-									email: '',
-									message: '',
-								})
+									name: "",
+									title: "",
+									email: "",
+									message: "",
+								});
 							}}
 							className="tw-text-md tw-text-white tw-bg-neutral-900 tw-w-[30px] tw-h-[30px] tw-p-[8px] tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-ease-in tw-duration-300 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900">
 							<CgClose />
@@ -122,7 +125,7 @@ const ContactForm = ({
 				</button>
 			</form>
 		</>
-	)
-}
+	);
+};
 
-export default ContactForm
+export default ContactForm;

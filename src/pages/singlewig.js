@@ -152,9 +152,7 @@ const SingleWig = () => {
 	const addToCart = () => {
 		if (quantity && _length) {
 			dispatch(addToCartItem(wigProduct));
-			setTimeout(() => {
-				setSingleCart(wigProduct);
-			}, 1000);
+			setSingleCart(wigProduct);
 		} else {
 			setError(true);
 		}
@@ -163,9 +161,7 @@ const SingleWig = () => {
 	const IncreaseItem = () => {
 		if (quantity && _length) {
 			dispatch(increaseCartItem(wigProduct));
-			setTimeout(() => {
-				setSingleCart(wigProduct);
-			}, 1000);
+			setSingleCart(wigProduct);
 		} else {
 			setError(true);
 		}

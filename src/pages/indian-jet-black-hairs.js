@@ -47,10 +47,8 @@ function IndianJetBlackHair() {
 	}
 
 	React.useEffect(() => {
-		setTimeout(() => {
-			fetchProducts();
-			setShow(true);
-		}, 2000);
+		fetchProducts();
+		setShow(true);
 	}, []);
 
 	const scrollToTop = function scrollToTop() {
@@ -110,9 +108,7 @@ function IndianJetBlackHair() {
 	const addToCart = () => {
 		if (length) {
 			dispatch(addToCartItem(singleProduct));
-			setTimeout(() => {
-				setSingleCart(singleProduct);
-			}, 1000);
+			setSingleCart(singleProduct);
 		} else {
 			setError(true);
 		}
@@ -120,9 +116,7 @@ function IndianJetBlackHair() {
 
 	const IncreaseItem = () => {
 		dispatch(increaseCartItem(singleProduct));
-		setTimeout(() => {
-			setSingleCart(singleProduct);
-		}, 1000);
+		setSingleCart(singleProduct);
 	};
 
 	const desc = [

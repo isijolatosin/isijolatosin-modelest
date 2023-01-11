@@ -13,9 +13,10 @@ function Account() {
 	const [sales, setSales] = React.useState(false);
 	const [cartHist, setCartHist] = React.useState([]);
 	if (isLoading) {
-		setTimeout(() => {
+		const myTimeout = setTimeout(() => {
 			setIsLoading(false);
 		}, 5000);
+		clearTimeout(myTimeout);
 	}
 
 	React.useEffect(() => {

@@ -3,14 +3,20 @@ import axios from "axios";
 import { Helmet } from "react-helmet";
 import Layout from "../components/shared/Layout";
 import WigsCard from "../components/WigsCard";
-import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
+import { getDatabase, ref, onValue } from "firebase/database";
 
 function VietnameseWigs() {
 	const [wigs, setWigs] = React.useState(null);
+	const database = getDatabase();
 
 	const [sales, setSales] = React.useState(null);
 	React.useEffect(() => {
-		setSales(fetchSalesPercentage());
+		const starCountRef = ref(database, "sales");
+		onValue(starCountRef, (snapshot) => {
+			const data = snapshot.val();
+
+			setSales(data.no);
+		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

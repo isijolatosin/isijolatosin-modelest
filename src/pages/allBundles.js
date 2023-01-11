@@ -58,10 +58,8 @@ function IndianBundles() {
 		setSales(fetchSalesPercentage());
 
 		window.scrollTo(0, 0);
-		setTimeout(() => {
-			fetchProducts();
-			setShow(true);
-		}, 3000);
+		fetchProducts();
+		setShow(true);
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -123,9 +121,12 @@ function IndianBundles() {
 	const addToCart = () => {
 		if (length) {
 			dispatch(addToCartItem(singleProduct));
-			setTimeout(() => {
+			const myTimeOut = setTimeout(() => {
 				setSingleCart(singleProduct);
 			}, 1000);
+
+			myTimeOut();
+			return clearTimeout(myTimeOut);
 		} else {
 			setError(true);
 		}
@@ -133,9 +134,11 @@ function IndianBundles() {
 
 	const IncreaseItem = () => {
 		dispatch(increaseCartItem(singleProduct));
-		setTimeout(() => {
+		const myTimeOut = setTimeout(() => {
 			setSingleCart(singleProduct);
 		}, 1000);
+		myTimeOut();
+		return clearTimeout(myTimeOut);
 	};
 
 	const desc = [

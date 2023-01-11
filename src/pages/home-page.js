@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { MdOutlineKeyboardArrowUp } from "react-icons/md";
-import { HiChatAlt2 } from "react-icons/hi";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { MdOutgoingMail } from "react-icons/md";
 import { Helmet } from "react-helmet";
 import Layout from "../components/shared/Layout";
 import Products from "../components/Products";
@@ -9,11 +10,10 @@ import { db } from "../firebase";
 import ContactForm from "../components/shared/ContactForm";
 import { Link } from "react-router-dom";
 import SearchInput from "../components/shared/SearchInput";
-// import PromoCard from '../components/PromoCard'
 import { getDatabase, ref, onValue } from "firebase/database";
-import { AiOutlineCloseCircle } from "react-icons/ai";
 import { cloudinaryBaseUrl } from "../constant";
 import PictureSlide from "../components/shared/PictureSlide";
+import CtaButton from "../components/shared/CtaButton";
 
 function HomePage() {
 	const [searchControl, setSearchControl] = React.useState(false);
@@ -99,10 +99,8 @@ function HomePage() {
 			});
 			const reverseFeatured = fArray.reverse();
 
-			setTimeout(() => {
-				setFeaturedProduct(reverseFeatured);
-				setAllproducts(products.sort((a, b) => a.name.localeCompare(b.type)));
-			}, 2000);
+			setFeaturedProduct(reverseFeatured);
+			setAllproducts(products?.sort((a, b) => a?.name?.localeCompare(b?.type)));
 		} catch (error) {
 			console.log(error);
 		}
@@ -165,14 +163,6 @@ function HomePage() {
 			chatDetail.name === "" ||
 			chatDetail.title === "" ||
 			chatDetail.email === "" ||
-			chatDetail.message === ""
-		) {
-			setChatError(true);
-		}
-		if (
-			chatDetail.name === "" &&
-			chatDetail.title === "" &&
-			chatDetail.email === "" &&
 			chatDetail.message === ""
 		) {
 			setChatError(true);
@@ -251,22 +241,26 @@ function HomePage() {
 						</div>
 					</div>
 					<div
-						onClick={() => {
-							setShowForm(!showForm);
-							setChatError(false);
-							setChatSuccess(false);
-							setShowPopInfo(false);
-							setChatDetail({
-								name: "",
-								title: "",
-								email: "",
-								message: "",
-							});
-						}}
 						className={`${
 							chat ? "tw-inline" : "tw-hidden"
-						} md:tw-hidden tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-text-[#bba371] tw-p-3 tw-rounded-[30px] tw-z-20 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300`}>
-						<HiChatAlt2 size={25} />
+						} md:tw-hidden tw-fixed tw-bottom-[25px] tw-right-[10px] tw-bg-[rgba(0,0,0,0.85)] tw-p-3 tw-rounded-[30px] tw-z-20 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-shadow-lg tw-shadow-[rgba(255,255,255,0.3)] tw-ease-in tw-duration-300`}>
+						<div
+							onClick={() => {
+								setShowForm(!showForm);
+								setChatError(false);
+								setChatSuccess(false);
+								setShowPopInfo(false);
+								setChatDetail({
+									name: "",
+									title: "",
+									email: "",
+									message: "",
+								});
+							}}
+							className="tw-mb-3 tw-pb-3 tw-border-b-[1px] tw-border-[#bba371] tw-text-[#bba371]">
+							<MdOutgoingMail size={27} />
+						</div>
+						<CtaButton />
 					</div>
 					<div
 						className={`${searchControl && "tw-w-[100%] lg:tw-w-[40%]"} ${

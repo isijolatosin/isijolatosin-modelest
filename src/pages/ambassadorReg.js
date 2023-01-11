@@ -243,6 +243,10 @@ const Ambassador = () => {
 											type="date"
 											name="date"
 											id="date"
+											placeholder={
+												window.navigator.userAgentData.mobile && "Date"
+											}
+											required
 											value={ambObj.date}
 											onChange={handleChangeAuthUser}
 											className="tw-w-full tw-px-3 tw-py-2 tw-border-0 tw-text-sm focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-800 invalid:tw-text-red-800 focus:invalid:tw-border-red-800 focus:invalid:tw-ring-red-800 tw-outline-0"

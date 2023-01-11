@@ -40,9 +40,7 @@ function VirginWigs() {
 	}
 
 	React.useEffect(() => {
-		setTimeout(() => {
-			fetchProducts();
-		}, 3000);
+		fetchProducts();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
