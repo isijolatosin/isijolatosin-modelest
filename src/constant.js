@@ -1,5 +1,6 @@
 export const ADMIN = "admin";
 export const AMB = "ambassador";
+export const WHATSAPPBASEURL = "https://wa.me/";
 export const MONTHS = {
 	january: 0,
 	february: 1,
