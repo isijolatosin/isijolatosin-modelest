@@ -24,9 +24,10 @@ const OrderSum = ({
 	setShowInfo,
 	showInfo,
 	isSuccess,
+	shipCost,
+	isSuccessfull,
 }) => {
 	const [showSum, setShowSum] = React.useState(false);
-
 	return (
 		<div>
 			<div
@@ -41,11 +42,14 @@ const OrderSum = ({
 					<FaOpencart className="tw-mr-2" size={25} />
 					<span>
 						{showSum ? "Hide" : "Show"} order summary{" "}
-						{(sales || sales !== 0) && (
-							<span className="tw-text-white tw-font-light">
-								/ apply discount
-							</span>
-						)}{" "}
+						{sales ||
+							(isSuccessfull ? (
+								""
+							) : (
+								<span className="tw-text-white tw-font-light">
+									/ apply discount
+								</span>
+							))}{" "}
 					</span>
 					{showSum ? (
 						<MdOutlineKeyboardArrowUp
@@ -156,7 +160,9 @@ const OrderSum = ({
 									</div>
 								)}
 							</div>
-							<span>Calculated at next step</span>
+							<span>
+								{shipCost ? `$${shipCost}` : "Calculated at next step"}
+							</span>
 						</div>
 					</div>
 					<div className="tw-flex tw-items-center tw-justify-between tw-text-sm tw-pt-5 tw-px-3">
@@ -168,8 +174,15 @@ const OrderSum = ({
 							{showLoad ? (
 								<div className="circular-loader-small"></div>
 							) : (
-								<span className="tw-text-[20px]">
-									${discountPrice ? discountPrice : total}
+								<span className="tw-text-[20px] tw-font-bold">
+									$
+									{discountPrice
+										? shipCost
+											? discountPrice + shipCost
+											: discountPrice
+										: shipCost
+										? total + shipCost
+										: total}
 								</span>
 							)}
 						</div>

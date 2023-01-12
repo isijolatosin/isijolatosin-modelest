@@ -6,11 +6,9 @@ import Inventory from "../components/Inventory";
 import Layout from "../components/shared/Layout";
 import Shipment from "../components/Shipment";
 import { BsFillArrowUpSquareFill } from "react-icons/bs";
-import { RiChat1Line } from "react-icons/ri";
 import { RiSendPlaneLine } from "react-icons/ri";
 import AllInventories from "../components/AllInventories";
 import { UserContext } from "../context/user-context";
-import Inqury from "../components/Inqury";
 import {
 	MdAdd,
 	MdOutlineInventory,
@@ -47,17 +45,16 @@ function Management() {
 	};
 
 	const SectionComp = () => {
-		if (section === "all-inventory") {
-			return <AllInventories />;
-		}
-		if (section === "inventory") {
-			return <Inventory categories={categories} />;
-		}
-		if (section === "shipping") {
-			return <Shipment />;
-		}
-		if (section === "inquiry") {
-			return <Inqury />;
+		switch (section) {
+			case "all-inventory":
+				return <AllInventories />;
+			case "inventory":
+				return <Inventory categories={categories} />;
+			case "shipping":
+				return <Shipment />;
+
+			default:
+				break;
 		}
 	};
 	const handleSubmit = () => {
@@ -147,13 +144,6 @@ function Management() {
 								onClick={toggleSection}>
 								<MdOutlineLocalShipping className="tw-mr-1" />
 								Shipment
-							</li>
-							<li
-								id="inquiry"
-								className="tw-flex tw-justify-center tw-items-center hover:tw-cursor-pointer tw-bg-violet-50  tw-px-4 tw-py-2 tw-rounded-full hover:tw-bg-violet-100 tw-ease-in tw-duration-300"
-								onClick={toggleSection}>
-								<RiChat1Line className="tw-mr-1" />
-								Inquiry
 							</li>
 						</ul>
 					</div>

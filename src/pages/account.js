@@ -12,11 +12,13 @@ function Account() {
 	const { user } = useContext(UserContext);
 	const [sales, setSales] = React.useState(false);
 	const [cartHist, setCartHist] = React.useState([]);
+
+	let myTimeout;
+	clearTimeout(myTimeout);
 	if (isLoading) {
-		const myTimeout = setTimeout(() => {
+		myTimeout = setTimeout(() => {
 			setIsLoading(false);
 		}, 5000);
-		clearTimeout(myTimeout);
 	}
 
 	React.useEffect(() => {
@@ -25,6 +27,8 @@ function Account() {
 	}, []);
 
 	React.useEffect(() => {
+		let timeOut;
+		clearTimeout(timeOut);
 		// getting address and details for shipping
 		user &&
 			db
@@ -54,7 +58,7 @@ function Account() {
 							});
 						}
 
-						setTimeout(() => {
+						timeOut = setTimeout(() => {
 							setCartHist(data);
 						}, 3000);
 					}

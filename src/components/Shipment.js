@@ -90,7 +90,9 @@ function Shippment() {
 	}, []);
 
 	React.useEffect(() => {
+		let timeOut;
 		// getting address and details for shipping
+		clearTimeout(timeOut);
 		user &&
 			db
 				.collection("admin")
@@ -124,7 +126,7 @@ function Shippment() {
 							});
 						}
 
-						setTimeout(() => {
+						timeOut = setTimeout(() => {
 							setShippingInfo({
 								shippingHeader: getObjectHeader(results),
 								shippingData: data,
@@ -134,8 +136,10 @@ function Shippment() {
 				});
 	}, [user]);
 
+	let _timeOut;
+	clearTimeout(_timeOut);
 	if (isLoading) {
-		setTimeout(() => {
+		_timeOut = setTimeout(() => {
 			setIsLoading(false);
 		}, 5000);
 	}
@@ -151,6 +155,8 @@ function Shippment() {
 	};
 
 	const hideShipped = (id) => {
+		let hideTimeOut;
+		clearTimeout(hideTimeOut);
 		db.collection("admin")
 			.doc(`${AUTHORIZED_ID.id_one}/`)
 			.collection("all-purchased")
@@ -180,7 +186,7 @@ function Shippment() {
 				.catch((err) => console.log(err));
 		};
 
-		setTimeout(() => {
+		hideTimeOut = setTimeout(() => {
 			SendClientSuccessfulPurchaseEmail();
 		}, 1000);
 
@@ -201,12 +207,14 @@ function Shippment() {
 
 	// 5DAYS after purchase EMAIL TO CUSTOMER MANUAL TRIGGER
 	const SendFutureEmail = (email, customer, color, title, quantity) => {
+		let emailTimeOut;
+		clearTimeout(emailTimeOut);
 		const futureMessage = {
 			name: customer,
 			message: `Your order - ${quantity} ${title} of color ${color} is currently being processed. Once order has been shipped, a tracking number with a courier name will be sent to your email. Thank you for being our valued customer`,
 			client: email,
 		};
-		setTimeout(() => {
+		emailTimeOut = setTimeout(() => {
 			emailjs
 				.send(
 					"service_czeioxp",
@@ -220,7 +228,7 @@ function Shippment() {
 			setEmailSent(true);
 		}, 1000);
 
-		setTimeout(() => {
+		emailTimeOut = setTimeout(() => {
 			setEmailSent(false);
 		}, 5000);
 	};

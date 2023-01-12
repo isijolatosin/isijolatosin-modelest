@@ -214,10 +214,12 @@ const DealPage = () => {
 		},
 	];
 
+	let timeOut;
 	const addToCart = () => {
+		clearTimeout(timeOut);
 		if (quantity && _length) {
 			dispatch(addToCartItem(dealsProduct));
-			setTimeout(() => {
+			timeOut = setTimeout(() => {
 				setSingleCart(dealsProduct);
 			}, 1000);
 		} else {
@@ -228,7 +230,7 @@ const DealPage = () => {
 	const IncreaseItem = () => {
 		if (quantity && _length) {
 			dispatch(increaseCartItem(dealsProduct));
-			setTimeout(() => {
+			timeOut = setTimeout(() => {
 				setSingleCart(dealsProduct);
 			}, 1000);
 		} else {

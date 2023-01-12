@@ -1,25 +1,25 @@
-import React, { useContext } from 'react'
-import { CgClose } from 'react-icons/cg'
-import { GrCheckmark } from 'react-icons/gr'
-import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { UserContext } from '../../context/user-context'
-import { selectItemCount } from '../../slices/appSlices'
+import React, { useContext } from "react";
+import { CgClose } from "react-icons/cg";
+import { GrCheckmark } from "react-icons/gr";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/user-context";
+import { selectItemCount } from "../../slices/appSlices";
 
 const Add2CartPopup = ({ singleCart, setSingleCart, quantity }) => {
-	const navigate = useNavigate()
-	const [agree, setAgree] = React.useState(false)
-	const [warn, setWarn] = React.useState(false)
-	const [showInfo, setShowInfo] = React.useState(false)
-	const { user } = useContext(UserContext)
-	const itemCount = useSelector(selectItemCount)
+	const navigate = useNavigate();
+	const [agree, setAgree] = React.useState(false);
+	const [warn, setWarn] = React.useState(false);
+	const [showInfo, setShowInfo] = React.useState(false);
+	const { user } = useContext(UserContext);
+	const itemCount = useSelector(selectItemCount);
 
 	function handleCheckout() {
 		if (!agree) {
-			setWarn(true)
+			setWarn(true);
 		}
 		if (agree) {
-			navigate(`/checkout/${user?.displayName || 'new-customer'}`)
+			navigate(`/checkout/${user?.displayName || "new-customer"}`);
 		}
 	}
 
@@ -42,7 +42,7 @@ const Add2CartPopup = ({ singleCart, setSingleCart, quantity }) => {
 						/>
 						<div className="tw-flex tw-flex-col tw-text-xs md:tw-text-sm">
 							<span>
-								{singleCart.hairLength?.includes('inch')
+								{singleCart.hairLength?.includes("inch")
 									? `${singleCart.hairLength} ${singleCart.name}`
 									: `${singleCart.hairLength} - inches ${singleCart.name}`}
 							</span>
@@ -60,25 +60,25 @@ const Add2CartPopup = ({ singleCart, setSingleCart, quantity }) => {
 						<label className="check-container">
 							<input
 								onChange={(e) => {
-									setAgree(e.target.checked)
-									setWarn(false)
+									setAgree(e.target.checked);
+									setWarn(false);
 								}}
 								type="checkbox"
 							/>
 							<span
-								className={`${warn && 'tw-border-red-700'} checkmark`}></span>
+								className={`${warn && "tw-border-red-700"} checkmark`}></span>
 						</label>
 						<div>
 							<p
 								className={`${
-									warn ? 'tw-text-red-600' : 'tw-text-neutral-900'
+									warn ? "tw-text-red-600" : "tw-text-neutral-900"
 								} tw-text-sm`}>
-								I have read and agreed with{' '}
+								I have read and agreed with{" "}
 								<button
 									className={`${
 										warn
-											? 'tw-text-red-600 tw-border-b-[1px] tw-border-red-600'
-											: 'tw-text-blue-500 tw-border-b-[1px] tw-border-blue-500'
+											? "tw-text-red-600 tw-border-b-[1px] tw-border-red-600"
+											: "tw-text-blue-500 tw-border-b-[1px] tw-border-blue-500"
 									}`}
 									onMouseOver={() => setShowInfo(true)}
 									onMouseLeave={() => setShowInfo(false)}>
@@ -100,10 +100,10 @@ const Add2CartPopup = ({ singleCart, setSingleCart, quantity }) => {
 								onClick={() => {
 									if (agree) {
 										navigate(
-											`/user-cart/${user?.displayName || 'new-customer'}`
-										)
+											`/user-cart/${user?.displayName || "new-customer"}`
+										);
 									} else {
-										setWarn(true)
+										setWarn(true);
 									}
 								}}
 								className="tw-border tw-border-black tw-py-1 tw-px-5 tw-bg-white tw-text-center tw-text-xs md:tw-text-sm hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300">
@@ -117,7 +117,7 @@ const Add2CartPopup = ({ singleCart, setSingleCart, quantity }) => {
 						</div>
 						<button
 							onClick={() => {
-								setSingleCart(null)
+								setSingleCart(null);
 							}}
 							size={25}
 							className="tw-w-full tw-text-center tw-text-blue-500 tw-text-xs tw-mt-5 tw-pb-1 hover:tw-cursor-pointer hover:tw-text-neutral-600 tw-ease-in tw-duration-300">
@@ -130,7 +130,7 @@ const Add2CartPopup = ({ singleCart, setSingleCart, quantity }) => {
 				</div>
 			)}
 		</div>
-	)
-}
+	);
+};
 
-export default Add2CartPopup
+export default Add2CartPopup;

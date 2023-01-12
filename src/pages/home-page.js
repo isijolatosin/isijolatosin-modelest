@@ -121,16 +121,20 @@ function HomePage() {
 	};
 
 	React.useEffect(() => {
+		let timeOut;
+		clearTimeout(timeOut);
 		fetchProducts();
 		fetchCloudinaryImages();
 
-		setTimeout(() => {
+		timeOut = setTimeout(() => {
 			setShowPopInfo(true);
 		}, 5000);
 	}, []);
 
+	let _timeOut;
+	clearTimeout(_timeOut);
 	if (showPopInfo) {
-		setTimeout(() => {
+		_timeOut = setTimeout(() => {
 			setShowPopInfo(false);
 		}, 10000);
 	}
@@ -153,6 +157,8 @@ function HomePage() {
 	};
 
 	const SubmitInqury = (e) => {
+		let __timeOut;
+		clearTimeout(__timeOut);
 		e.preventDefault();
 
 		if (
@@ -188,7 +194,7 @@ function HomePage() {
 				email: "",
 				message: "",
 			});
-			setTimeout(() => {
+			__timeOut = setTimeout(() => {
 				setChatSuccess(true);
 			}, 1000);
 		}

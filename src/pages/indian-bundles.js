@@ -110,18 +110,25 @@ function IndianBundles() {
 		hairTexture,
 	};
 
+	let timeOut;
 	const addToCart = () => {
+		clearTimeout(timeOut);
 		if (length) {
 			dispatch(addToCartItem(singleProduct));
-			setSingleCart(singleProduct);
+			timeOut = setSingleCart(singleProduct);
 		} else {
 			setError(true);
 		}
 	};
 
 	const IncreaseItem = () => {
-		dispatch(increaseCartItem(singleProduct));
-		setSingleCart(singleProduct);
+		clearTimeout(timeOut);
+		if (length) {
+			dispatch(increaseCartItem(singleProduct));
+			timeOut = setSingleCart(singleProduct);
+		} else {
+			setError(true);
+		}
 	};
 
 	const desc = [

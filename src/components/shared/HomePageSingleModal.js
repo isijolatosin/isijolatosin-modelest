@@ -278,10 +278,12 @@ const HomePageSingleModal = ({
 		hairTexture,
 	};
 
+	let timeOut;
 	const addToCart = () => {
+		clearTimeout(timeOut);
 		if (length) {
 			dispatch(addToCartItem(singleProduct));
-			setTimeout(() => {
+			timeOut = setTimeout(() => {
 				setSingleCart(singleProduct);
 			}, 1000);
 		} else {
@@ -290,7 +292,15 @@ const HomePageSingleModal = ({
 	};
 
 	const IncreaseItem = () => {
-		dispatch(increaseCartItem(singleProduct));
+		clearTimeout(timeOut);
+		if (length) {
+			dispatch(increaseCartItem(singleProduct));
+			timeOut = setTimeout(() => {
+				setSingleCart(singleProduct);
+			}, 1000);
+		} else {
+			setError(true);
+		}
 	};
 
 	const desc = [

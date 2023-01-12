@@ -32,7 +32,7 @@ const Success = () => {
 	const username = localStorage.getItem("username");
 	const [showSum, setShowSum] = React.useState(false);
 	const userphone =
-		localStorage.getItem("phone").length === 10
+		localStorage.getItem("phone")?.length === 10
 			? `(${localStorage.getItem("phone").slice(0, 3)}) ${localStorage
 					.getItem("phone")
 					.slice(3, 6)}-${localStorage
@@ -96,6 +96,8 @@ const Success = () => {
 	var futureDate2 = new Date(timestampB).toDateString();
 
 	React.useEffect(() => {
+		let __timeOut;
+		clearTimeout(__timeOut);
 		// Send a purchase mail to client
 		const messageParams = {
 			name: (user && user?.displayName) || userEmail,
@@ -129,7 +131,7 @@ const Success = () => {
 				.catch((err) => console.log(err));
 		};
 
-		setTimeout(() => {
+		__timeOut = setTimeout(() => {
 			SendClientSuccessfulPurchaseEmail();
 		}, 1000);
 
@@ -250,6 +252,8 @@ const Success = () => {
 								setShowInfo={setShowInfo}
 								showInfo={showInfo}
 								isSuccess={true}
+								isSuccessfull={true}
+								shipCost={shippingCost.cost}
 							/>
 						</div>
 						<div className={`tw-px-5 tw-pt-5 tw-bg-neutral-200`}>

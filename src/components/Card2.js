@@ -100,10 +100,13 @@ function Card({
 		hairLength,
 		description,
 	};
+
+	let timeOut;
 	const addToCart = () => {
+		clearTimeout(timeOut);
 		if (bundles?.length) {
 			dispatch(addToCartItem(singleProduct));
-			setTimeout(() => {
+			timeOut = setTimeout(() => {
 				setSingleCart(singleProduct);
 			}, 1000);
 		} else {
@@ -112,10 +115,15 @@ function Card({
 	};
 
 	const IncreaseItem = () => {
-		dispatch(increaseCartItem(singleProduct));
-		setTimeout(() => {
-			setSingleCart(singleProduct);
-		}, 1000);
+		clearTimeout(timeOut);
+		if (bundles?.length) {
+			dispatch(increaseCartItem(singleProduct));
+			timeOut = setTimeout(() => {
+				setSingleCart(singleProduct);
+			}, 1000);
+		} else {
+			setError(true);
+		}
 	};
 
 	const handleOnChange = (e) => {

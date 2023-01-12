@@ -1,11 +1,15 @@
 import React, { useContext } from "react";
 import { Helmet } from "react-helmet";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FaOpencart, FaHandPointRight } from "react-icons/fa";
 import Layout from "../components/shared/Layout";
 import CartItems from "../components/CartItems";
-import { selectCartItems, selectTotal } from "../slices/appSlices";
+import {
+	clearCartItem,
+	selectCartItems,
+	selectTotal,
+} from "../slices/appSlices";
 import Button from "../components/shared/Button";
 import { UserContext } from "../context/user-context";
 import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
@@ -13,7 +17,9 @@ import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
 const Cart = () => {
 	const { user } = useContext(UserContext);
 	const cartItems = useSelector(selectCartItems);
+	const clearCartItm = useSelector(clearCartItem);
 	const total = useSelector(selectTotal);
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [sales, setSales] = React.useState(false);
 	const [agree, setAgree] = React.useState(false);
@@ -44,13 +50,19 @@ const Cart = () => {
 						sales
 							? "tw-pt-[170px] tw-bg-neutral-200 md:tw-pt-[120px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center home tw-relative"
 							: "tw-bg-neutral-200 tw-pt-[90px] md:tw-pt-[60px] tw-pb-[20px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center home tw-relative"
-					}
-				>
+					}>
 					<div className="tw-flex tw-flex-row tw-items-center tw-mb-1">
 						<FaOpencart className="tw-text-2xl tw-text-violet-500" />
 						<h2 className="tw-text-2xl tw-ml-2 tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-pink-500 tw-to-violet-500">
 							Cart
 						</h2>
+						{cartItems.length > 0 && (
+							<div
+								onClick={() => dispatch(clearCartItm)}
+								className="tw-ml-16 tw-cursor-pointer tw-duration-300 tw-ease-in hover:tw-text-[#4a4029] tw-text-[#bba371] tw-font-light tw-tracking-wider tw-text-sm">
+								<span>Clear cart</span>
+							</div>
+						)}
 					</div>
 					{cartItems?.length === 0 ? (
 						<div className="tw-flex tw-items-center">
@@ -82,15 +94,15 @@ const Cart = () => {
 											type="checkbox"
 										/>
 										<span
-											className={`${warn && "tw-border-red-700"} checkmark`}
-										></span>
+											className={`${
+												warn && "tw-border-red-700"
+											} checkmark`}></span>
 									</label>
 									<div className="tw-flex tw-items-center">
 										<p
 											className={`${
 												warn ? "tw-text-red-600" : "tw-text-neutral-900"
-											} tw-text-sm`}
-										>
+											} tw-text-sm`}>
 											I have read and agreed with{" "}
 										</p>
 										<div className="tw-relative tw-ml-2 tw-text-xs">
@@ -101,8 +113,7 @@ const Cart = () => {
 														: "tw-text-blue-500 tw-border-b-[1px] tw-border-blue-500"
 												}`}
 												onMouseOver={() => setShowInfo(true)}
-												onMouseLeave={() => setShowInfo(false)}
-											>
+												onMouseLeave={() => setShowInfo(false)}>
 												Terms and Conditions
 											</button>
 											{showInfo && (
@@ -118,8 +129,7 @@ const Cart = () => {
 								<div className="tw-w-[80%] tw-mx-auto tw-flex tw-items-center">
 									<button
 										onClick={handleCheckout}
-										className="tw-bg-black tw-text-white tw-py-2 tw-px-5 tw-text-center tw-text-xs md:tw-text-sm hover:tw-bg-white hover:tw-text-neutral-900 tw-border tw-border-black tw-ease-in tw-duration-300 tw-w-full"
-									>
+										className="tw-bg-black tw-text-white tw-py-2 tw-px-5 tw-text-center tw-text-xs md:tw-text-sm hover:tw-bg-white hover:tw-text-neutral-900 tw-border tw-border-black tw-ease-in tw-duration-300 tw-w-full">
 										<button>Proceed to check out</button>
 									</button>
 								</div>

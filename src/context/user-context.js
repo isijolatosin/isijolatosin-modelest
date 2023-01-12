@@ -9,6 +9,8 @@ const UserContextProvider = ({ children }) => {
 	const [changeInfo, setChangeInfo] = React.useState(false);
 
 	React.useEffect(() => {
+		let contextTimer;
+		clearTimeout(contextTimer);
 		const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
 			if (userAuth) {
 				const userRef = await createUserProfileDocument(userAuth);
@@ -17,12 +19,12 @@ const UserContextProvider = ({ children }) => {
 						id: snapShot.id,
 						...snapShot.data(),
 					});
-					setTimeout(() => {
+					contextTimer = setTimeout(() => {
 						setLoading(false);
 					}, 2000);
 				});
 			} else {
-				setTimeout(() => {
+				contextTimer = setTimeout(() => {
 					setLoading(false);
 					setUser(userAuth);
 				}, 2000);
@@ -31,8 +33,10 @@ const UserContextProvider = ({ children }) => {
 		return () => unsubscribeFromAuth();
 	}, []);
 
+	let timeOut;
+	clearTimeout(timeOut);
 	if (!user) {
-		setTimeout(() => {
+		timeOut = setTimeout(() => {
 			setChangeInfo(true);
 		}, 500);
 	}

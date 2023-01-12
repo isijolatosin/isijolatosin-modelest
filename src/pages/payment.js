@@ -120,22 +120,24 @@ const Cart = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	let __timeOut;
+	clearTimeout(__timeOut);
 	if (redirect) {
-		setTimeout(function () {
+		__timeOut = setTimeout(function () {
 			setRedirect(false);
 
 			navigate("/success");
 		}, 5000);
 	}
 	if (pageCancel) {
-		setTimeout(function () {
+		__timeOut = setTimeout(function () {
 			setPageCancel(false);
 
 			navigate("/canceled");
 		}, 5000);
 	}
 	if (showLoad) {
-		setTimeout(function () {
+		__timeOut = setTimeout(function () {
 			setShowLoad(false);
 		}, 5000);
 	}

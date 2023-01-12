@@ -103,6 +103,8 @@ const CheckoutForm = ({
 	};
 
 	const handleSubmit = async (ev) => {
+		let subTimout;
+		clearTimeout(subTimout);
 		ev.preventDefault();
 
 		if (!paywithStripe) {
@@ -187,17 +189,16 @@ const CheckoutForm = ({
 				if (payload.error) {
 					set_Error(`Payment failed ${payload.error.message}`);
 					setProcessing(false);
-					setTimeout(() => {
+					subTimout = setTimeout(() => {
 						navigate("/canceled");
 					}, 5000);
 				} else {
 					set_Error(null);
 					setProcessing(false);
 					setSucceeded(true);
-					payload?.paymentIntent?.client_secret &&
-						setTimeout(() => {
-							navigate("/success");
-						}, 5000);
+					subTimout = setTimeout(() => {
+						payload?.paymentIntent?.client_secret && navigate("/success");
+					}, 5000);
 				}
 			}
 		}

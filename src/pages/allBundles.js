@@ -99,7 +99,7 @@ function IndianBundles() {
 	// Adding to cart items
 	const name = singleProducts?.[0] && singleProducts?.[0]?.name;
 	const id = singleProducts?.[0] && singleProducts?.[0]?._id;
-	const image = singleProducts?.[0] && singleProducts?.[0]?.image;
+	const image = singleProducts?.[0] && singleProducts?.[0]?.images[0];
 	const color = singleProducts?.[0] && singleProducts?.[0]?.color;
 	const description = singleProducts?.[0] && singleProducts?.[0]?.description;
 	const hairLength = length;
@@ -118,27 +118,29 @@ function IndianBundles() {
 		hairTexture,
 	};
 
+	let myTimeOut;
 	const addToCart = () => {
+		clearTimeout(myTimeOut);
 		if (length) {
 			dispatch(addToCartItem(singleProduct));
-			const myTimeOut = setTimeout(() => {
+			myTimeOut = setTimeout(() => {
 				setSingleCart(singleProduct);
 			}, 1000);
-
-			myTimeOut();
-			return clearTimeout(myTimeOut);
 		} else {
 			setError(true);
 		}
 	};
 
 	const IncreaseItem = () => {
-		dispatch(increaseCartItem(singleProduct));
-		const myTimeOut = setTimeout(() => {
-			setSingleCart(singleProduct);
-		}, 1000);
-		myTimeOut();
-		return clearTimeout(myTimeOut);
+		clearTimeout(myTimeOut);
+		if (length) {
+			dispatch(increaseCartItem(singleProduct));
+			myTimeOut = setTimeout(() => {
+				setSingleCart(singleProduct);
+			}, 1000);
+		} else {
+			setError(true);
+		}
 	};
 
 	const desc = [
