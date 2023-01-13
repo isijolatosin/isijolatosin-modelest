@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { MdOutlineKeyboardArrowUp } from "react-icons/md";
-import { AiOutlineCloseCircle } from "react-icons/ai";
 import { Helmet } from "react-helmet";
 import Layout from "../components/shared/Layout";
 import Products from "../components/Products";
@@ -20,11 +19,11 @@ function HomePage() {
 	const [chatSuccess, setChatSuccess] = React.useState(false);
 	const [toBottom, setToBottom] = React.useState(false);
 	const [chat, setChat] = React.useState(true);
-	const [showPopInfo, setShowPopInfo] = React.useState(false);
 	const [searchError, setSearchError] = React.useState(false);
 	const [allProducts, setAllproducts] = React.useState([]);
 	const [allWigsCloudinaryImg, setAllWigsCloudinaryImg] = React.useState([]);
 	const [filtered, setFiltered] = React.useState([]);
+	const [showWhatsapp, setShowWhatsapp] = React.useState(false);
 	const [sales, setSales] = React.useState(null);
 	const [inputValue, setInputValue] = React.useState("");
 	const [similarProductsClosure, setSimilarProductsClosure] =
@@ -141,19 +140,7 @@ function HomePage() {
 		clearTimeout(timeOut);
 		fetchProducts();
 		fetchCloudinaryImages();
-
-		timeOut = setTimeout(() => {
-			setShowPopInfo(true);
-		}, 5000);
 	}, []);
-
-	let _timeOut;
-	clearTimeout(_timeOut);
-	if (showPopInfo) {
-		_timeOut = setTimeout(() => {
-			setShowPopInfo(false);
-		}, 10000);
-	}
 
 	window.onscroll = function (ev) {
 		if (
@@ -243,28 +230,23 @@ function HomePage() {
 						<MdOutlineKeyboardArrowUp size={33} />
 					</div>
 					<div
-						className={`${
-							showPopInfo
-								? "tw-opacity-1 tw-right-[60px]"
-								: "tw-opacity-0 tw-right-[-400px]"
-						} tw-inline md:tw-hidden tw-fixed tw-bg-[rgba(0,0,0,0.85)] tw-text-green-500 tw-border-green-500 tw-border-[0.5px] tw-w-[200px] tw-bottom-[70px] tw-px-5 tw-py-3 tw-text-center tw-text-xs tw-font-light tw-rounded-xl tw-rounded-br-none tw-ease-in tw-duration-500 tw-from-zinc-1000 tw-z-20`}>
-						<span>
-							For customized order placing and special inquiries, send modelEst
-							a message on whatsapp!
-						</span>
-						<div
-							onClick={() => setShowPopInfo(false)}
-							className="tw-absolute tw-top-0 tw-right-[-15px] tw-z-20">
-							<AiOutlineCloseCircle />
+						className={`md:tw-hidden tw-fixed tw-bottom-0 tw-z-20 tw-w-[100%] ${
+							!chat && "tw-hidden"
+						}`}>
+						<div className="tw-flex tw-flex-row tw-justify-center tw-text-center tw-w-full tw-h-[70px]">
+							<p
+								className="tw-font-light tw-text-green-500 tw-text-sm tw-bg-neutral-800 tw-border-t-[1px] tw-border-green-900 tw-w-full tw-flex tw-items-center tw-justify-center"
+								onClick={() => setShowWhatsapp(!showWhatsapp)}>
+								{showWhatsapp
+									? "Hide whatsapp button"
+									: "Chat with us on whatsapp. CLICK ME"}
+							</p>
+							{showWhatsapp && (
+								<div>
+									<CtaButton isIcon={true} />
+								</div>
+							)}
 						</div>
-					</div>
-					<div
-						className={`${
-							chat
-								? "tw-flex tw-flex-col tw-items-center tw-justify-center"
-								: "tw-hidden"
-						} md:tw-hidden tw-w-[55px] tw-fixed tw-bottom-[25px] tw-right-[10px] tw-z-20 hover:md:tw-bg-white hover:md:tw-text-neutral-900 `}>
-						<CtaButton isIcon={true} />
 					</div>
 					<div
 						className={`${searchControl && "tw-w-[100%] lg:tw-w-[40%]"} ${
@@ -339,7 +321,6 @@ function HomePage() {
 										</p>
 									</div>
 								</div>
-								{/* {!expired && <PromoCard setExpired={setExpired} />} */}
 								<Products
 									SubmitInqury={SubmitInqury}
 									setChatError={setChatError}

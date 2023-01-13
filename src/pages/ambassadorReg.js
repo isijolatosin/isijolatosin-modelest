@@ -72,7 +72,7 @@ const Ambassador = () => {
 						country: ambObj?.country,
 						date: ambObj?.date,
 						email: ambObj?.email,
-						displayName: ambObj?.firstname + " " + ambObj?.lastname,
+						displayName: `${ambObj?.firstname} ${ambObj?.lastname}`,
 						instagram: ambObj?.instagram,
 						phone: ambObj?.code + ambObj?.phone,
 						state: ambObj?.state,
@@ -82,6 +82,7 @@ const Ambassador = () => {
 						totalSales: 0,
 						month: "",
 						monthCount: 0,
+						role: `${ambObj?.country}-${AMB}`,
 					})
 					.then(() => {
 						setAmbObj({
