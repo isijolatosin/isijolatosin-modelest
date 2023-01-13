@@ -128,7 +128,7 @@ function HomePage() {
 				);
 			} else if (isAndroid) {
 				images.push(
-					`${cloudinaryBaseUrl}f_webp,w-400/v${version}/${public_id}.${format}`
+					`${cloudinaryBaseUrl}f_webp,w-200/v${version}/${public_id}.${format}`
 				);
 			}
 		});
