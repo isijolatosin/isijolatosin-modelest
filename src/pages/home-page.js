@@ -124,11 +124,11 @@ function HomePage() {
 				);
 			} else if (isIOS) {
 				images.push(
-					`${cloudinaryBaseUrl}f_webp/v${version}/${public_id}.${format}`
+					`${cloudinaryBaseUrl}f_jp2/v${version}/${public_id}.${format}`
 				);
 			} else if (isAndroid) {
 				images.push(
-					`${cloudinaryBaseUrl}f_jp2/v${version}/${public_id}.${format}`
+					`${cloudinaryBaseUrl}f_webp/v${version}/${public_id}.${format}`
 				);
 			}
 		});
