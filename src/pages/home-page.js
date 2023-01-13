@@ -101,7 +101,6 @@ function HomePage() {
 			console.log(error);
 		}
 	}
-
 	const fetchCloudinaryImages = async () => {
 		const {
 			data: { resources },
@@ -113,12 +112,13 @@ function HomePage() {
 			const public_id = img?.public_id;
 			let version = img?.version;
 			let format = img?.format;
-			const isIOS =
-				window.navigator.platform &&
-				/iPad|iPhone|iPod/.test(navigator.platform);
-			const isAndroid =
-				window.navigator.platform && /android/i.test(navigator.platform);
-			if (!isIOS && !isAndroid) {
+			const isIOS = window.navigator.userAgent.indexOf("iPhone") !== -1;
+			const isAndroid = window.navigator.userAgent.indexOf("Android") !== -1;
+			const isWin = window.navigator.userAgent.indexOf("Win") !== -1;
+			const isMac = window.navigator.userAgent.indexOf("Mac") !== -1;
+			const isUNIX = window.navigator.userAgent.indexOf("X11") !== -1;
+			const isLinux = window.navigator.userAgent.indexOf("Linux") !== -1;
+			if (isWin || isMac || isUNIX || isLinux) {
 				images.push(
 					`${cloudinaryBaseUrl}f_auto/v${version}/${public_id}.${format}`
 				);
