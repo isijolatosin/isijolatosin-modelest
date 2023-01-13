@@ -113,8 +113,24 @@ function HomePage() {
 			const public_id = img?.public_id;
 			let version = img?.version;
 			let format = img?.format;
-
-			images.push(`${cloudinaryBaseUrl}${version}/${public_id}.${format}`);
+			const isIOS =
+				window.navigator.platform &&
+				/iPad|iPhone|iPod/.test(navigator.platform);
+			const isAndroid =
+				window.navigator.platform && /android/i.test(navigator.platform);
+			if (!isIOS && !isAndroid) {
+				images.push(
+					`${cloudinaryBaseUrl}f_auto/v${version}/${public_id}.${format}`
+				);
+			} else if (isIOS) {
+				images.push(
+					`${cloudinaryBaseUrl}f_webp/v${version}/${public_id}.${format}`
+				);
+			} else if (isAndroid) {
+				images.push(
+					`${cloudinaryBaseUrl}f_jp2/v${version}/${public_id}.${format}`
+				);
+			}
 		});
 
 		setAllWigsCloudinaryImg(images);

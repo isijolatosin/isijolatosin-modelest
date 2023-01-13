@@ -103,4 +103,4 @@ export const wigTextureType2 = ["kinky curly", "kinky straight", "water wave"];
 export const wigTextureTypeIncreaseValue2 = 15;
 
 export const cloudinaryBaseUrl =
-	"https://res.cloudinary.com/dhdccvkyt/image/upload/f_auto,q_auto/v";
+	"https://res.cloudinary.com/dhdccvkyt/image/upload/q_auto,";
