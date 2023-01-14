@@ -29,7 +29,7 @@ const OrderSum = ({
 }) => {
 	const [showSum, setShowSum] = React.useState(false);
 	return (
-		<div>
+		<div className="tw-relative">
 			<div
 				className={`${
 					isSuccess ? "" : "tw-block lg:tw-hidden"
@@ -165,7 +165,10 @@ const OrderSum = ({
 							</span>
 						</div>
 					</div>
-					<div className="tw-flex tw-items-center tw-justify-between tw-text-sm tw-pt-5 tw-px-3">
+					<div
+						className={`tw-flex tw-items-center tw-justify-between tw-text-sm tw-pt-5 tw-px-3  ${
+							!showSum && "tw-absolute tw-bottom-[500px]"
+						}`}>
 						<span className="tw-text-[16px]">Total</span>
 						<div className="tw-flex tw-items-center">
 							<span className="tw-text-[12px] tw-mr-2 tw-text-neutral-700">

@@ -25,6 +25,7 @@ import Heading from "../components/Heading";
 import { RiVisaLine } from "react-icons/ri";
 import { BASE_CURRENCY_CONVERTER_URL } from "../constant";
 import { FiSend } from "react-icons/fi";
+import { countries } from "../country";
 
 const logo = require("../assets/logo2.png");
 const paypal = require("../assets/paypal.png");
@@ -59,6 +60,7 @@ const Cart = () => {
 	const [showCardPayment, setShowCardPayment] = React.useState(false);
 	const [warn, setWarn] = React.useState(false);
 	const [succeeded, setSucceeded] = React.useState(false);
+	const [currencyCode, setCurrencyCode] = React.useState("");
 	const [estimatedTotalPriceNaira, setestimatedTotalPriceNaira] =
 		React.useState("");
 	const [exchangeRate, setExchangeRate] = React.useState("");
@@ -105,20 +107,24 @@ const Cart = () => {
 			headers: myHeaders,
 		};
 
-		country === "nigeria" &&
-			fetch(
-				`${BASE_CURRENCY_CONVERTER_URL}to=ngn&from=usd&amount=${estimatedTotalPrice}`,
-				requestOptions
-			)
-				.then((response) => response.json())
-				.then((result) => {
-					setestimatedTotalPriceNaira(result.result.toFixed(2));
-					setExchangeRate(result.info.rate.toFixed(2));
-				})
-				.catch((error) => console.log("error", error));
+		const countryCurrencyCode = countries.filter(
+			(c) => c?.countryName.toLowerCase() === country.toLowerCase()
+		);
 
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+		countryCurrencyCode &&
+			setCurrencyCode(countryCurrencyCode?.[0]?.currencyCode.toUpperCase());
+
+		fetch(
+			`${BASE_CURRENCY_CONVERTER_URL}to=${countryCurrencyCode?.[0]?.currencyCode.toLowerCase()}&from=usd&amount=${estimatedTotalPrice}`,
+			requestOptions
+		)
+			.then((response) => response.json())
+			.then((result) => {
+				setestimatedTotalPriceNaira(result.result.toFixed(2));
+				setExchangeRate(result.info.rate.toFixed(2));
+			})
+			.catch((error) => console.log("error", error));
+	}, [country, estimatedTotalPrice]);
 
 	let __timeOut;
 	clearTimeout(__timeOut);
@@ -278,8 +284,8 @@ const Cart = () => {
 												</div>
 											</div>
 										</div>
-										{country === "nigeria" && (
-											<div className="tw-border-y-[1px] tw-border-[#b59248] tw-p-3  tw-w-full">
+										<div className="tw-border-y-[1px] tw-border-[#b59248] tw-p-3  tw-w-full">
+											{!country.includes("united states") && (
 												<div className="tw-flex-[0'5] tw-mb-5">
 													<Heading
 														children="Conversion"
@@ -289,52 +295,52 @@ const Cart = () => {
 													/>
 													<div className="tw-flex tw-items-center tw-text-neutral-600 tw-font-thin tw-mt-[-3px]">
 														<p className="tw-text-[10px] tw-mr-2">Rate: </p>
-														<p className="tw-text-[12px]">#{exchangeRate}</p>
+														<p className="tw-text-[10px]">{`${currencyCode} ${exchangeRate}`}</p>
 													</div>
 													<div className="tw-flex tw-items-center tw-text-neutral-600 tw-font-thin tw-mt-[-5px]">
 														<span className="tw-text-[10px] tw-mr-2">
-															NAIRA:{" "}
+															AMOUNT:{" "}
 														</span>
 														{showLoad ? (
 															<div className="circular-loader-small"></div>
 														) : (
-															<span className="tw-text-[12px]">
-																#{estimatedTotalPriceNaira}
+															<span className="tw-text-[10px]">
+																{`${currencyCode} ${estimatedTotalPriceNaira}`}
 															</span>
 														)}
 													</div>
 												</div>
-												<div className="tw-flex-[0'5] tw-w-fit">
-													<p className="tw-text-xs">Enter referral code</p>
-													<div className="tw-flex tw-items-center">
-														<input
-															name="referral"
-															type="text"
-															value={referral}
-															onChange={(e) => setReferral(e.target.value)}
-															placeholder="referral code"
-															className={`${
-																error && referral === ""
-																	? "tw-border-red-700 tw-border-[1px]"
-																	: "tw-border-[1px] tw-border-[#bba371]"
-															} tw-text-sm tw-font-light tw-bg-transparent tw-py-1 placeholder:tw-text-xs focus:tw-ring-0`}
-														/>
-														<button
-															onClick={handleReferral}
-															className="tw-text-[#bba371] tw-pl-2">
-															<FiSend size={20} />
-														</button>
-													</div>
-													{error && (
-														<div className="tw-text-red-700">
-															<p className="tw-text-xs">
-																Please enter your referral code!
-															</p>
-														</div>
-													)}
+											)}
+											<div className="tw-flex-[0'5] tw-w-fit">
+												<p className="tw-text-xs">Enter referral code</p>
+												<div className="tw-flex tw-items-center">
+													<input
+														name="referral"
+														type="text"
+														value={referral}
+														onChange={(e) => setReferral(e.target.value)}
+														placeholder="referral code"
+														className={`${
+															error && referral === ""
+																? "tw-border-red-700 tw-border-[1px]"
+																: "tw-border-[1px] tw-border-[#bba371]"
+														} tw-text-sm tw-font-light tw-bg-transparent tw-py-1 placeholder:tw-text-xs focus:tw-ring-0`}
+													/>
+													<button
+														onClick={handleReferral}
+														className="tw-text-[#bba371] tw-pl-2">
+														<FiSend size={20} />
+													</button>
 												</div>
+												{error && (
+													<div className="tw-text-red-700">
+														<p className="tw-text-xs">
+															Please enter your referral code!
+														</p>
+													</div>
+												)}
 											</div>
-										)}
+										</div>
 									</div>
 								</div>
 								<div className="tw-w-full lg:tw-w-[70%] tw-px-3 md:tw-pr-0 md:tw-pl-5">

@@ -239,7 +239,7 @@ function HomePage() {
 								onClick={() => setShowWhatsapp(!showWhatsapp)}>
 								{showWhatsapp
 									? "Hide whatsapp button"
-									: "Chat with us on whatsapp. CLICK ME"}
+									: "Message us on whatsapp. CLICK ME"}
 							</p>
 							{showWhatsapp && (
 								<div>

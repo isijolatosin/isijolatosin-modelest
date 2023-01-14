@@ -5,7 +5,7 @@ import { UserContext } from "../../context/user-context";
 import { FaUserGraduate } from "react-icons/fa";
 import useFetchHook from "../../utils/useFetchHook";
 import { db } from "../../firebase";
-import { ADMIN, AMB } from "../../constant";
+import { AMB, ROLE } from "../../constant";
 
 const logo = require("../../assets/logo2.png");
 
@@ -14,8 +14,12 @@ function ImageComponent() {
 	const [showText, setShowText] = React.useState(false);
 	const type = "authUsers";
 	const admin = useFetchHook(db, type)?.[0];
-	const adminArray = admin?.adminUsers.filter((adm) => adm?.type === ADMIN);
-	const ambArray = admin?.adminUsers.filter((amb) => amb?.type === AMB);
+	const adminArray = admin?.adminUsers.filter(
+		(adm) => adm?.type === ROLE.GLOBAL_LEAD
+	);
+	const ambArray = admin?.adminUsers.filter(
+		(amb) => amb?.type === ROLE.GLOBAL_LEAD || ROLE.REGIONAL_LEAD || AMB
+	);
 
 	let ambCode;
 	let authUser;

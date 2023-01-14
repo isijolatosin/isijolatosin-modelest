@@ -9,10 +9,10 @@ import { RiVisaLine } from "react-icons/ri";
 import { SiAmericanexpress } from "react-icons/si";
 import { UserContext } from "../../context/user-context";
 import PaypalCheckoutButton from "../PaypalCheckoutButton";
-import { selectCartItems } from "../../slices/appSlices";
+import { selectCartItems, selectItemCount } from "../../slices/appSlices";
 import { db } from "../../firebase";
 import firebase from "../../firebase";
-import { MONTHS } from "../../constant";
+import { AUTHORIZED_ID, MONTHS } from "../../constant";
 
 const mastercard = require("../../assets/mastercard.png");
 const mastercard2 = require("../../assets/mastercard2.png");
@@ -31,11 +31,11 @@ const CheckoutForm = ({
 	succeeded,
 }) => {
 	const batch = db.batch();
-	const increment = firebase.firestore.FieldValue.increment(1);
 	const navigate = useNavigate();
 	const stripe = useStripe();
 	const elements = useElements();
 	const cartItems = useSelector(selectCartItems);
+	const itemsCount = useSelector(selectItemCount);
 	const email =
 		localStorage.getItem("altEmail") && localStorage.getItem("altEmail");
 	const shippingCost = JSON.parse(localStorage.getItem("shippingCost"));
@@ -73,6 +73,9 @@ const CheckoutForm = ({
 			shipCostInDollar: shipCostInDollar,
 			taxInDollar: taxInDollar,
 		})
+	);
+	const increment = firebase.firestore.FieldValue.increment(
+		itemsCount && itemsCount
 	);
 
 	const handlePayWithStripe = () => {
@@ -157,6 +160,10 @@ const CheckoutForm = ({
 					db.collection("ambassador").onSnapshot((snapshot) => {
 						// eslint-disable-next-line array-callback-return
 						snapshot.docs.filter((doc) => {
+							const accCurrentMonthIncome = +(
+								finalPriceToPay * 0.1 +
+								doc?.data()?.currentMonthIncome
+							).toFixed(2);
 							if (
 								doc?.data()?.yourSalesCode === localStorage.getItem("referral")
 							) {
@@ -170,13 +177,19 @@ const CheckoutForm = ({
 									batch.update(ambRef, { month: currentMonth });
 
 								if (MONTHS[doc?.data()?.month] < MONTHS[currentMonth]) {
-									batch.update(ambRef, { monthCount: 1 });
-								} else
+									// first payment in a new year
+									batch.update(ambRef, { monthCount: itemsCount });
+									batch.update(ambRef, { currentMonthIncome: finalPriceToPay });
+								} else {
+									batch.update(ambRef, {
+										currentMonthIncome: accCurrentMonthIncome,
+									});
 									batch.update(
 										ambRef,
 										{ monthCount: increment },
 										{ merge: true }
 									);
+								}
 
 								batch.commit();
 							}
@@ -352,7 +365,7 @@ const CheckoutForm = ({
 				<div className="tw-w-[90%] tw-mx-auto tw-pt-1">
 					<p className={succeeded ? "result-message" : "result-message hidden"}>
 						Payment Succeeded,
-						{user?.email === "tisijola7@gmail.com" && (
+						{user?.email === AUTHORIZED_ID.id_two && (
 							<span>
 								{" "}
 								see the result in your

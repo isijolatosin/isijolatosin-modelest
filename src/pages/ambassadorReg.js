@@ -82,6 +82,7 @@ const Ambassador = () => {
 						totalSales: 0,
 						month: "",
 						monthCount: 0,
+						currentMonthIncome: 0,
 						role: `${ambObj?.country}-${AMB}`,
 					})
 					.then(() => {

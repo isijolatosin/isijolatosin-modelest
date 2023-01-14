@@ -40,13 +40,13 @@ const HomePageSingleModal = ({
 		(p) => p._id !== singleProducts[0]?._id
 	);
 
-	const allSizes = ["14", "16", "18", "20", "22", "24"];
+	const allSizes = ["14", "16", "18", "20", "22", "24", "26", "28"];
 	const cartItems = useSelector(selectCartItems);
 	const [error, setError] = React.useState(false);
 
 	const [length, setLength] = React.useState("");
-	const [_color, setColor] = React.useState(null);
-	const [_hairType, sethairType] = React.useState(null);
+	const [_color, setColor] = React.useState("");
+	const [_hairType, sethairType] = React.useState("");
 	const dispatch = useDispatch();
 
 	const name = singleProducts?.[0] && singleProducts?.[0]?.name;
@@ -281,25 +281,33 @@ const HomePageSingleModal = ({
 	let timeOut;
 	const addToCart = () => {
 		clearTimeout(timeOut);
-		if (length) {
-			dispatch(addToCartItem(singleProduct));
-			timeOut = setTimeout(() => {
-				setSingleCart(singleProduct);
-			}, 1000);
-		} else {
+		if (!price) {
 			setError(true);
+		} else {
+			if (length) {
+				dispatch(addToCartItem(singleProduct));
+				timeOut = setTimeout(() => {
+					setSingleCart(singleProduct);
+				}, 1000);
+			} else {
+				setError(true);
+			}
 		}
 	};
 
 	const IncreaseItem = () => {
 		clearTimeout(timeOut);
-		if (length) {
-			dispatch(increaseCartItem(singleProduct));
-			timeOut = setTimeout(() => {
-				setSingleCart(singleProduct);
-			}, 1000);
-		} else {
+		if (!price) {
 			setError(true);
+		} else {
+			if (length) {
+				dispatch(increaseCartItem(singleProduct));
+				timeOut = setTimeout(() => {
+					setSingleCart(singleProduct);
+				}, 1000);
+			} else {
+				setError(true);
+			}
 		}
 	};
 

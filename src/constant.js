@@ -1,6 +1,10 @@
 export const ADMIN = "admin";
 export const AMB = "ambassador";
 export const WHATSAPPBASEURL = "https://wa.me/";
+export const ROLE = {
+	GLOBAL_LEAD: "global lead",
+	REGIONAL_LEAD: "regional lead",
+};
 export const MONTHS = {
 	january: 0,
 	february: 1,
