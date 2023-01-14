@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { Helmet } from "react-helmet";
 import { getDatabase, ref, set } from "firebase/database";
 import Heading from "../components/Heading";
@@ -20,9 +20,17 @@ function Management() {
 	const database = getDatabase();
 	const [categories, setCategories] = React.useState([]);
 	const [section, setSection] = React.useState("all-inventory");
-	const [percentSale, setPercentSale] = React.useState(null);
-	const [bundlePercentSale, setBundlePercentSale] = React.useState(null);
 	const { user } = useContext(UserContext);
+	let percentSale;
+	let selectType;
+	const inputRef = useRef(percentSale);
+	const selectRef = useRef(selectType);
+	const salesType = [
+		{ name: "Select sales type", id: 0 },
+		{ name: "amb", id: 1 },
+		{ name: "sales", id: 2 },
+		{ name: "bundle", id: 3 },
+	];
 
 	async function getCategories() {
 		try {
@@ -57,22 +65,41 @@ function Management() {
 				break;
 		}
 	};
-	const handleSubmit = () => {
-		if (percentSale !== null || percentSale !== "") {
-			set(ref(database, "sales"), {
-				no: percentSale,
-			});
+
+	function handleSalesSubmit() {
+		switch (selectType) {
+			case "sales":
+				return (
+					percentSale &&
+					set(ref(database, "sales"), {
+						no: +percentSale,
+					})
+				);
+			case "amb":
+				return (
+					percentSale &&
+					set(ref(database, "ambassador"), {
+						no: +percentSale,
+					})
+				);
+			case "bundle":
+				return (
+					percentSale &&
+					set(ref(database, "bundle deals"), {
+						no: +percentSale,
+					})
+				);
+			default:
+				break;
 		}
-		setPercentSale("");
-	};
-	const handleSubmitBundleDeal = () => {
-		if (bundlePercentSale !== null || bundlePercentSale !== "") {
-			set(ref(database, "bundle deals"), {
-				no: bundlePercentSale,
-			});
-		}
-		setBundlePercentSale("");
-	};
+	}
+
+	function handleSelect() {
+		selectType = selectRef.current.value;
+	}
+	function handlePercentSale() {
+		percentSale = inputRef.current.value;
+	}
 
 	return (
 		<>
@@ -81,8 +108,8 @@ function Management() {
 			</Helmet>
 			<Layout>
 				<div className="tw-pt-[120px] tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-bg-neutral-200">
-					<div className="tw-flex tw-flex-col md:tw-flex-row md:tw-items-center tw-justify-between tw-w-[95%] md:tw-w-[95%]">
-						<div className="tw-mb-2 md:tw-mb-0">
+					<div className="tw-flex tw-flex-col md:tw-flex-row md:tw-items-center tw-justify-between tw-w-full md:tw-w-[80%]">
+						<div className="tw-mb-2 md:tw-mb-0 tw-ml-2 md:tw-ml-0">
 							<Heading
 								children="Management portal"
 								isBold={true}
@@ -90,34 +117,33 @@ function Management() {
 							/>
 						</div>
 						<div className="tw-flex tw-flex-col md:tw-flex-row">
-							<div className="tw-mr-5 tw-mb-2 tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[75%] md:tw-w-[50%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100">
+							<div className="tw-mr-5 tw-mb-2 tw-flex tw-items-center tw-justify-end tw-w-[75%] md:tw-w-[50%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100">
+								<select
+									ref={selectRef}
+									className="tw-w-[90%] tw-text-gray-400 tw-text-sm tw-placeholder-gray-400 focus:tw-outline-none tw-border-none focus:tw-border-none focus:tw-ring-0 focus:tw-ring-none disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0 tw-bg-transparent"
+									onChange={handleSelect}
+									id="sales type"
+									value={salesType?.name}
+									name="sales type">
+									{salesType.map((item, idx) => (
+										<option key={idx}>{item.name}</option>
+									))}
+								</select>
+							</div>
+							<div className="tw-mb-2 tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[75%] md:tw-w-[50%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100">
 								<input
+									ref={inputRef}
 									type="number"
-									name="percentSale"
+									step="any"
+									name="Percentage"
 									id="number"
 									value={percentSale}
-									onChange={(e) => setPercentSale(Number(e.target.value))}
+									onChange={handlePercentSale}
 									placeholder="sales %"
 									className="tw-w-[90%] tw-h-[30px] tw-placeholder-gray-400 focus:tw-outline-none tw-border-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0 tw-bg-transparent"
 								/>
 								<RiSendPlaneLine
-									onClick={handleSubmit}
-									size={20}
-									className="tw-text-violet-700 hover:tw-text-violet-300 tw-ease-in tw-duration-300 tw-w-[10%] tw-mr-2"
-								/>
-							</div>
-							<div className="tw-mb-2 tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[75%] md:tw-w-[50%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100">
-								<input
-									type="number"
-									name="bndlePercentSale"
-									id="number"
-									value={bundlePercentSale}
-									onChange={(e) => setBundlePercentSale(Number(e.target.value))}
-									placeholder="bundle-deals sales %"
-									className="tw-w-[90%] tw-h-[30px] tw-placeholder-gray-400 focus:tw-outline-none tw-border-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0 tw-bg-transparent"
-								/>
-								<RiSendPlaneLine
-									onClick={handleSubmitBundleDeal}
+									onClick={handleSalesSubmit}
 									size={20}
 									className="tw-text-violet-700 hover:tw-text-violet-300 tw-ease-in tw-duration-300 tw-w-[10%] tw-mr-2"
 								/>

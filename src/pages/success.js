@@ -342,8 +342,10 @@ const Success = () => {
 										</div>
 									</div>
 								</div>
-								<div className="tw-my-10 tw-w-[100%] tw-bg-neutral-900 tw-text-center tw-text-xs tw-text-white tw-py-4 tw-cursor-pointer tw-rounded-[6px] md:hover:tw-bg-neutral-300 md:hover:tw-text-neutral-900 tw-ease-in tw-duration-300">
-									<span onClick={handleBackToShopping}>Continue shopping</span>
+								<div
+									onClick={handleBackToShopping}
+									className="tw-my-10 tw-w-[100%] tw-bg-neutral-900 tw-text-center tw-text-xs tw-text-white tw-py-4 tw-cursor-pointer tw-rounded-[6px] md:hover:tw-bg-neutral-300 md:hover:tw-text-neutral-900 tw-ease-in tw-duration-300">
+									<span>Continue shopping</span>
 								</div>
 							</div>
 						</div>

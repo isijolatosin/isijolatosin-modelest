@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext } from "react";
 import axios from "axios";
+import { getDatabase, ref, onValue } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
@@ -30,6 +32,16 @@ const CheckoutForm = ({
 	setSucceeded,
 	succeeded,
 }) => {
+	const database = getDatabase();
+	const [ambPercent, setAmbPercent] = React.useState(0);
+	React.useEffect(() => {
+		const starCountRef = ref(database, "ambassador");
+		onValue(starCountRef, (snapshot) => {
+			const data = snapshot.val();
+			setAmbPercent(data.no);
+		});
+	}, []);
+
 	const batch = db.batch();
 	const navigate = useNavigate();
 	const stripe = useStripe();
@@ -105,7 +117,7 @@ const CheckoutForm = ({
 		set_Error(event.error ? event.error.message : "");
 	};
 
-	const handleSubmit = async (ev) => {
+	const handlePaymentSubmit = async (ev) => {
 		let subTimout;
 		clearTimeout(subTimout);
 		ev.preventDefault();
@@ -160,10 +172,17 @@ const CheckoutForm = ({
 					db.collection("ambassador").onSnapshot((snapshot) => {
 						// eslint-disable-next-line array-callback-return
 						snapshot.docs.filter((doc) => {
-							const accCurrentMonthIncome = +(
-								finalPriceToPay * 0.1 +
-								doc?.data()?.currentMonthIncome
-							).toFixed(2);
+							const accCurrentMonthIncome =
+								ambPercent > 0
+									? +(
+											finalPriceToPay * ambPercent +
+											doc?.data()?.currentMonthIncome
+									  ).toFixed(2)
+									: +(
+											finalPriceToPay * 0.05 +
+											doc?.data()?.currentMonthIncome
+									  ).toFixed(2);
+
 							if (
 								doc?.data()?.yourSalesCode === localStorage.getItem("referral")
 							) {
@@ -317,7 +336,7 @@ const CheckoutForm = ({
 						: "tw-hidden tw-ease-in tw-duration-300"
 				}
 				id="payment-form"
-				onSubmit={handleSubmit}>
+				onSubmit={handlePaymentSubmit}>
 				<div className="tw-flex tw-max-w-[95%] tw-mb-1 tw-items-center tw-mx-auto tw-justify-end tw-mr-4 md:tw-mr-6 lg:tw-mr-5 xl:tw-mr-6">
 					<SiMastercard size={20} className="tw-text-yellow-500 tw-mr-3" />
 					<RiVisaLine size={30} className="tw-mr-3 tw-text-blue-900" />
