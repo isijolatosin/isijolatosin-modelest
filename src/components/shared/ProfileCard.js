@@ -14,6 +14,10 @@ const ProfileCard = (props) => {
 					: props?.data?.role === AMB
 					? "tw-bg-neutral-200 tw-text-neutral-600"
 					: ""
+			} ${
+				props?.data?.email === user?.email
+					? "tw-border-[3px] tw-border-[#bba371]"
+					: ""
 			} tw-grid tw-grid-col-2 tw-grid-flow-col tw-gap-3 tw-p-2 tw-pt-5 tw-mb-1 tw-rounded-sm tw-relative`}>
 			<div>
 				<h1 className="tw-font-light tw-text-xs tw-border-b-[0.1px] tw-border-neutral-700 tw-py-1">
@@ -80,7 +84,7 @@ const ProfileCard = (props) => {
 				)}
 			</div>
 			{props?.data?.email === user?.email && (
-				<div className="tw-absolute tw-top-0 tw-left-0 tw-bg-[#bba371] tw-border-b-[1px] tw-border-neutral-300 tw-px-4 tw-pt-1 tw-text-[9px] tw-text-black tw-w-full tw-font-light">
+				<div className="tw-absolute tw-top-0 tw-left-0 tw-bg-[#bba371] tw-px-4 tw-pt-1 tw-text-[9px] tw-text-black tw-w-full tw-font-light">
 					<span>You - {user?.displayName || props?.data?.email}</span>
 				</div>
 			)}
