@@ -17,7 +17,7 @@ const ProfileCard = (props) => {
 			} tw-grid tw-grid-col-2 tw-grid-flow-col tw-gap-3 tw-p-2 tw-pt-5 tw-mb-1 tw-rounded-sm tw-relative`}>
 			<div>
 				<h1 className="tw-font-light tw-text-xs tw-border-b-[0.1px] tw-border-neutral-700 tw-py-1">
-					<strong>Account Name:</strong> {props?.data?.displayName}
+					<strong>Role:</strong> {props?.data?.role}
 				</h1>
 				<h1 className="tw-font-light tw-text-xs tw-border-b-[0.1px] tw-border-neutral-700 tw-py-1">
 					<strong>Handle:</strong>{" "}
@@ -38,7 +38,7 @@ const ProfileCard = (props) => {
 			</div>
 			<div>
 				<h1 className="tw-font-light tw-text-xs tw-border-b-[0.1px] tw-border-neutral-700 tw-py-1">
-					<strong>Customer since:</strong>{" "}
+					<strong>Ambassador since:</strong>{" "}
 					{props?.data?.createdAt
 						? new Date(props?.data?.createdAt?.seconds * 1000).toLocaleString()
 						: props?.data?.date}
