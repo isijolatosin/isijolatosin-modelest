@@ -25,7 +25,7 @@ const Ambassador = () => {
 				<title>Ambassador Performance</title>
 			</Helmet>
 			<Layout>
-				<div className="tw-pt-[100px] md:tw-pt-20  tw-pb-10 tw-px-10 tw-flex tw-justify-center tw-bg-neutral-300">
+				<div className="tw-pt-[100px] md:tw-pt-20  tw-pb-10  tw-flex tw-justify-center tw-bg-neutral-300">
 					{verifyAmbId ? (
 						<div className="tw-grid tw-grid-cols-1 lg:tw-grid-cols-2 xl:tw-grid-cols-3 tw-gap-2 ">
 							{allAmb?.map((amb) => (
