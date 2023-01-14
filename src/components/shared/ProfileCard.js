@@ -80,7 +80,7 @@ const ProfileCard = (props) => {
 				)}
 			</div>
 			{props?.data?.email === user?.email && (
-				<div className="tw-absolute tw-top-0 tw-left-0 tw-bg-neutral-100 tw-border-b-[1px] tw-border-neutral-300 tw-px-4 tw-pt-1 tw-text-[9px] tw-text-black tw-w-full tw-font-light">
+				<div className="tw-absolute tw-top-0 tw-left-0 tw-bg-[#bba371] tw-border-b-[1px] tw-border-neutral-300 tw-px-4 tw-pt-1 tw-text-[9px] tw-text-black tw-w-full tw-font-light">
 					<span>You - {user?.displayName || props?.data?.email}</span>
 				</div>
 			)}
