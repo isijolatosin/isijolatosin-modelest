@@ -29,7 +29,7 @@ function Products({ allProducts, sales }) {
 				<div
 					className={`tw-grid tw-grid-cols-2 md:tw-grid-cols-3 lg:tw-grid-cols-4 xl:tw-grid-cols-5 tw-w-full ${
 						!sales && "tw-pt-[8px]"
-					} md:tw-w-[100%] tw-gap-5`}>
+					} md:tw-w-[100%] tw-gap-3`}>
 					{allProducts?.map((product) => {
 						return (
 							<div
