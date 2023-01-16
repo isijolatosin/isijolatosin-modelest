@@ -1,12 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import {
-	addToCartItem,
-	increaseCartItem,
-	selectCartItems,
-} from "../slices/appSlices";
+import { selectCartItems } from "../slices/appSlices";
 import { isInCart } from "../utils/helpers";
+import { addToCart } from "../utils/putToCartFunc";
 
 function Card({
 	product,
@@ -15,7 +12,6 @@ function Card({
 	scrollToTop,
 	sales,
 }) {
-	// const [ID, setID] = React.useState('')
 	const cartItems = useSelector(selectCartItems);
 	const [error, setError] = React.useState(false);
 	const dispatch = useDispatch();
@@ -190,31 +186,6 @@ function Card({
 		description,
 	};
 
-	let timeOut;
-	const addToCart = () => {
-		clearTimeout(timeOut);
-		if (bundles?.length) {
-			dispatch(addToCartItem(singleProduct));
-			timeOut = setTimeout(() => {
-				setSingleCart(singleProduct);
-			}, 1000);
-		} else {
-			setError(true);
-		}
-	};
-
-	const IncreaseItem = () => {
-		clearTimeout(timeOut);
-		if (bundles?.length) {
-			dispatch(increaseCartItem(singleProduct));
-			timeOut = setTimeout(() => {
-				setSingleCart(singleProduct);
-			}, 1000);
-		} else {
-			setError(true);
-		}
-	};
-
 	return (
 		<div className="tw-w-[100%] tw-h-[300px] lg:tw-h-[400px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-sm">
 			<img
@@ -303,7 +274,20 @@ function Card({
 				{isInCart(singleProduct, cartItems) ? (
 					<div
 						className="tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-full tw-bg-neutral-900 tw-px-3 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[100%] tw-mx-auto tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mb-2 hover:md:tw-text-neutral-900 hover:md:tw-bg-white "
-						onClick={cartItems.length !== 0 ? IncreaseItem : null}>
+						onClick={
+							cartItems.length !== 0
+								? () =>
+										addToCart(
+											price,
+											bundles?.length,
+											dispatch,
+											singleProduct,
+											setSingleCart,
+											setError,
+											true
+										)
+								: null
+						}>
 						<div className="tw-flex tw-flex-row tw-items-center">
 							<span className="tw-mr-3">Add More</span>
 						</div>
@@ -311,7 +295,17 @@ function Card({
 				) : (
 					<div
 						className="tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-full tw-bg-neutral-900 tw-px-3 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[100%] tw-mx-auto tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mb-2 hover:md:tw-text-neutral-900 hover:md:tw-bg-white "
-						onClick={addToCart}>
+						onClick={() =>
+							addToCart(
+								price,
+								bundles?.length,
+								dispatch,
+								singleProduct,
+								setSingleCart,
+								setError,
+								true
+							)
+						}>
 						<div className="tw-flex tw-flex-row tw-items-center">
 							<span className="tw-mr-3">Add to cart</span>
 						</div>

@@ -6,7 +6,7 @@ import RatingFix from "./shared/RatingFix";
 import truncate from "../utils/truncate";
 import { Link } from "react-router-dom";
 
-function WigsCard({ product, sales, dealPrice, frontalClosure, texture }) {
+function WigsCard({ product }) {
 	const lengthSplit = product?.length.split(", ");
 	const lengthSplitFirst = product?.length.split(", ")[0];
 	const lengthSplitEnd = product?.length.split(", ")[lengthSplit.length - 1];
@@ -15,8 +15,8 @@ function WigsCard({ product, sales, dealPrice, frontalClosure, texture }) {
 			<ul className="ul">
 				<li>
 					<span className="tw-absolute tw-left-[-95px] tw-text-white tw-text-md tw-font-bold">
-						<span className="tw-text-xs tw-font-light">From</span> ${dealPrice}
-						:00
+						<span className="tw-text-xs tw-font-light">From</span> $
+						{product?.price[lengthSplit[0]]}
 					</span>
 					<GiMoneyStack />
 				</li>
@@ -38,12 +38,7 @@ function WigsCard({ product, sales, dealPrice, frontalClosure, texture }) {
 					<VscSymbolRuler />
 				</li>
 				<li>
-					<span
-						className={`${
-							product.sales && sales !== 0
-								? "tw-text-white  tw-left-[-35px]"
-								: "tw-text-white tw-left-[-73px]"
-						} tw-absolute tw-text-xs`}>
+					<span className="tw-text-white tw-left-[-73px] tw-absolute tw-text-xs">
 						{product.sales ? "Sales" : "Not on Sales"}
 					</span>
 					<MdMoneyOff className={`${product.sales && "tw-text-red-800"}`} />
@@ -80,7 +75,9 @@ function WigsCard({ product, sales, dealPrice, frontalClosure, texture }) {
 				</div>
 				<span className="tw-text-xs">
 					Starting from{" "}
-					<span className="tw-font-bold tw-text-xl">${dealPrice}:00</span>
+					<span className="tw-font-bold tw-text-xl">
+						${product?.price[lengthSplit[0]]}
+					</span>
 				</span>
 				<p className="">{truncate(product.description, 30)}</p>
 			</div>

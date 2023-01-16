@@ -5,12 +5,14 @@ import Slideshow from "../../utils/Slideshow";
 import Heading from "../Heading";
 import PaymentOptions from "./PaymentOptions";
 import Rating from "./Rating";
+import { addToCart } from "../../utils/putToCartFunc";
+import { useDispatch } from "react-redux";
 
 const SingleProductModal = ({
 	price,
 	singleProducts,
 	setSingleproducts,
-	sales,
+	setSingleCart,
 	desc,
 	sizes,
 	setLength,
@@ -18,8 +20,6 @@ const SingleProductModal = ({
 	error,
 	singleProduct,
 	cartItems,
-	IncreaseItem,
-	addToCart,
 	_hairColor,
 	texture,
 	sethairType,
@@ -28,6 +28,7 @@ const SingleProductModal = ({
 	color,
 	hairType,
 }) => {
+	const dispatch = useDispatch();
 	return (
 		<div>
 			{singleProducts && (
@@ -122,23 +123,8 @@ const SingleProductModal = ({
 										</span>
 									))}
 								<p className="tw-font-medium tw-text-xl tw-my-[10px]">
-									Price:{" "}
-									<span
-										className={
-											sales !== 0 &&
-											singleProducts?.[0]?.sales &&
-											"tw-mr-3 tw-line-through tw-text-neutral-400 tw-border-r-[1px] tw-border-neutral-500 tw-pr-3"
-										}>
-										{sales !== 0 &&
-											singleProducts?.[0]?.sales &&
-											`$${
-												price
-													? price + singleProducts?.[0].price * (sales / 100)
-													: singleProducts?.[0].price
-											}${" "}
-										USD${" "}`}
-									</span>
-									${price ? price : " ***"} USD
+									Price: ${price ? price : " ***"}{" "}
+									<span className="tw-text-[12px] tw-font-light">USD</span>
 								</p>
 								<div className="tw-text-sm tw-font-light">
 									<div>
@@ -152,12 +138,6 @@ const SingleProductModal = ({
 									</div>
 								</div>
 							</div>
-							{singleProducts?.[0]?.sales && (
-								<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-my-1 tw-text-red-600">
-									Sales: {sales && `${sales}%`}{" "}
-									<span className="tw-text-xs">OFF</span>
-								</p>
-							)}
 							<PaymentOptions price={price} />
 							<div>
 								{error && (
@@ -173,7 +153,20 @@ const SingleProductModal = ({
 								{isInCart(singleProduct, cartItems) ? (
 									<div
 										className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300"
-										onClick={cartItems.length !== 0 ? IncreaseItem : null}>
+										onClick={
+											cartItems.length !== 0
+												? () =>
+														addToCart(
+															price,
+															length,
+															dispatch,
+															singleProduct,
+															setSingleCart,
+															setError,
+															true
+														)
+												: null
+										}>
 										<span>
 											Add more of {singleProducts?.[0].name} {color} {hairType}{" "}
 											- {length}"
@@ -182,7 +175,17 @@ const SingleProductModal = ({
 								) : (
 									<div
 										className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300"
-										onClick={addToCart}>
+										onClick={() =>
+											addToCart(
+												price,
+												length,
+												dispatch,
+												singleProduct,
+												setSingleCart,
+												setError,
+												true
+											)
+										}>
 										<span>Add to cart</span>
 									</div>
 								)}

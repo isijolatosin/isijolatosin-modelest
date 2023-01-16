@@ -21,14 +21,7 @@ import {
 	returnDecsriptionObject,
 	returnObjectProperty,
 } from "../../utils/returnObjectProperty";
-import {
-	predictPriceFunc,
-	priceFunc,
-	pricePredict,
-	wigFuncClosure,
-	wigFuncFrontal,
-} from "../../utils/predictPriceFunc";
-import { increaseItem, addToCart } from "../../utils/putToCartFunc";
+import { addToCart } from "../../utils/putToCartFunc";
 
 const HomePageSingleModal = ({
 	singleProducts,
@@ -55,44 +48,12 @@ const HomePageSingleModal = ({
 		avesizes,
 		sizes,
 		_hairTexture,
-		_sales,
-		_singleprice,
-		_vWPriceClosure,
-		_vWPriceFrontal,
 	} = returnObjectProperty(singleProducts);
 	const texture = [STRAIGHT, BODYWAVE, CURLY, WAVY];
 	const hairLength = length;
 	const hairColor = _color || color;
 	const hairTexture = _hairType || _hairTexture;
-	let cardPrice =
-		sales !== 0 && _sales
-			? _singleprice - _singleprice * (sales / 100)
-			: _singleprice;
-	let { _price, _price2 } = predictPriceFunc(cardPrice, length);
-	const vWPrice = _vWPriceClosure
-		? wigFuncClosure(singleProducts, length)
-		: _vWPriceFrontal
-		? wigFuncFrontal(singleProducts, length)
-		: "";
-	const f_cPrice = pricePredict(
-		singleProducts,
-		_color,
-		_hairType,
-		_price2,
-		_price
-	);
-
-	const price_Nosales =
-		singleProducts?.[0]?.type.toLowerCase().includes(FRONTAL) ||
-		singleProducts?.[0]?.type.toLowerCase().includes(CLOSURE)
-			? f_cPrice
-			: singleProducts?.[0]?.type.toLowerCase().includes(VIRGINWIG)
-			? vWPrice
-			: _price;
-
-	const price = singleProducts?.[0]?.type.includes(VIRGINWIG)
-		? vWPrice
-		: priceFunc(singleProducts, f_cPrice, _price, price_Nosales);
+	const price = singleProducts?.[0]?.price[+length];
 
 	const singleProduct = {
 		name,
@@ -248,43 +209,19 @@ const HomePageSingleModal = ({
 					)}
 				</div>
 				<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 ">
-					{!price_Nosales &&
-						(singleProducts?.[0]?.type.toLowerCase() === FRONTAL ||
-						singleProducts?.[0]?.type.toLowerCase() === CLOSURE ? (
-							<span className="tw-text-xs tw-my-3 tw-text-green-700">
-								*** Select color & tetxure to calculate price... ***
-							</span>
-						) : (
-							<span className="tw-text-xs tw-my-3 tw-text-green-700">
-								*** Select length to calculate price... ***
-							</span>
-						))}
+					{singleProducts?.[0]?.type.toLowerCase() === FRONTAL ||
+					singleProducts?.[0]?.type.toLowerCase() === CLOSURE ? (
+						<span className="tw-text-xs tw-my-3 tw-text-green-700">
+							*** Select color & tetxure to calculate price... ***
+						</span>
+					) : (
+						<span className="tw-text-xs tw-my-3 tw-text-green-700">
+							*** Select length to calculate price... ***
+						</span>
+					)}
 					<p className="tw-font-medium tw-text-2xl tw-mb-[10px]">
-						Price:{" "}
-						{!singleProducts?.[0]?.type.includes(VIRGINWIG) && (
-							<span
-								className={
-									sales !== 0 &&
-									singleProducts?.[0]?.sales &&
-									"tw-mr-3 tw-line-through tw-text-neutral-400 tw-border-r-[1px] tw-border-neutral-500 tw-pr-3"
-								}>
-								$
-								{sales !== 0 &&
-									singleProducts?.[0]?.sales &&
-									`${
-										price_Nosales
-											? price_Nosales +
-											  singleProducts?.[0]?.price * (sales / 100)
-											: singleProducts?.[0]?.price +
-											  singleProducts?.[0]?.price * (sales / 100)
-									}${" "}`}
-							</span>
-						)}
-						{singleProducts?.[0]?.type.includes(VIRGINWIG)
-							? `$${vWPrice ? vWPrice : "***"}${" "}`
-							: price_Nosales
-							? price_Nosales
-							: " ***"}
+						Price:
+						<span className="">${price}</span>
 					</p>
 					<div className="tw-text-sm tw-font-light tw-text-neutral-500 tw-italic">
 						<div>
@@ -330,13 +267,14 @@ const HomePageSingleModal = ({
 								onClick={
 									cartItems.length !== 0
 										? () =>
-												increaseItem(
+												addToCart(
 													price,
 													length,
 													dispatch,
 													singleProduct,
 													setSingleCart,
-													setError
+													setError,
+													true
 												)
 										: null
 								}>

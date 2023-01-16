@@ -3,41 +3,28 @@ import { Helmet } from "react-helmet";
 import Layout from "../components/shared/Layout";
 import Card from "../components/Card4";
 import axios from "axios";
-import {
-	addToCartItem,
-	increaseCartItem,
-	selectCartItems,
-} from "../slices/appSlices";
-import { useDispatch, useSelector } from "react-redux";
+import { selectCartItems } from "../slices/appSlices";
+import { useSelector } from "react-redux";
 import Add2CartPopup from "../components/shared/Add2CartPopup";
 import SingleProductModal from "../components/shared/SingleProductModal";
 import Reviews from "../components/shared/Reviews";
-import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
 
 function ClosureFrontal() {
 	const [singleProducts, setSingleproducts] = React.useState(null);
 	const [closureFrontal, setClosureFrontal] = React.useState([]);
 	const [show, setShow] = React.useState(false);
 	const [error, setError] = React.useState(false);
-	const [sales, setSales] = React.useState(null);
 	const [length, setLength] = React.useState("14");
 	const [_color, setColor] = React.useState(null);
 	const [_hairType, sethairType] = React.useState(null);
 	const [singleCart, setSingleCart] = React.useState(null);
 	const cartItems = useSelector(selectCartItems);
-	const dispatch = useDispatch();
 
 	const _hairColor =
 		singleProducts?.[0]?.type.toLowerCase() === "frontal"
 			? ["Natural black"]
 			: ["Natural black", "Blonde613"];
 	const texture = ["Straight", "Bodywave", "Curly", "Wavy"];
-
-	React.useEffect(() => {
-		setSales(fetchSalesPercentage());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
 	async function fetchProducts() {
 		try {
 			const {
@@ -64,10 +51,7 @@ function ClosureFrontal() {
 	};
 	const sizes = singleProducts?.[0].availablelength?.split(", ");
 
-	let cardPrice =
-		sales !== 0 && singleProducts?.[0]?.sales
-			? singleProducts?.[0]?.price - singleProducts?.[0]?.price * (sales / 100)
-			: singleProducts?.[0]?.price;
+	let cardPrice = singleProducts?.[0]?.price;
 
 	let _price;
 	let _price2;
@@ -162,20 +146,6 @@ function ClosureFrontal() {
 		description,
 		hairTexture,
 	};
-
-	const addToCart = () => {
-		if (typeof price === "number" && length && _color && _hairType) {
-			dispatch(addToCartItem(singleProduct));
-			setSingleCart(singleProduct);
-		} else {
-			setError(true);
-		}
-	};
-
-	const IncreaseItem = () => {
-		dispatch(increaseCartItem(singleProduct));
-		setSingleCart(singleProduct);
-	};
 	const desc = [
 		{ key: "Brand", value: `raw ${singleProducts?.[0]?.brand} hair` },
 		{ key: "Hair Texture", value: name },
@@ -207,16 +177,7 @@ function ClosureFrontal() {
 				<title>Indian-Hair-Closure&Frontal</title>
 			</Helmet>
 			<Layout>
-				<div
-					className={
-						sales
-							? `${
-									closureFrontal.length === 0 && !show
-										? "tw-pt-[230px]"
-										: "tw-pt-[155px]"
-							  } tw-pb-10 md:tw-pt-[120px] tw-h-full tw-relative tw-bg-[rgba(255,255,255,0.1)] tw-flex tw-flex-col tw-items-center tw-mx-auto`
-							: "tw-pb-10 tw-pt-[110px] md:tw-pt-20 tw-h-full tw-relative tw-bg-[rgba(255,255,255,0.1)] tw-flex tw-flex-col tw-items-center tw-mx-auto "
-					}>
+				<div className="tw-pb-10 tw-pt-[110px] md:tw-pt-20 tw-h-full tw-relative tw-bg-[rgba(255,255,255,0.1)] tw-flex tw-flex-col tw-items-center tw-mx-auto ">
 					<div className="tw-fixed tw-z-50 tw-top-0 md:tw-top-[-95px] tw-right-0 md:tw-right-[-30px]">
 						<Add2CartPopup
 							singleCart={singleCart}
@@ -230,7 +191,6 @@ function ClosureFrontal() {
 								{closureFrontal.map((item) => (
 									<div key={item._id}>
 										<Card
-											sales={sales}
 											key={item._id}
 											product={item}
 											setSingleproducts={setSingleproducts}
@@ -254,7 +214,6 @@ function ClosureFrontal() {
 							category={singleProducts?.[0]?.name}
 							singleProducts={singleProducts}
 							setSingleproducts={setSingleproducts}
-							sales={sales}
 							desc={desc}
 							sizes={sizes}
 							setLength={setLength}
@@ -262,8 +221,6 @@ function ClosureFrontal() {
 							error={error}
 							singleProduct={singleProduct}
 							cartItems={cartItems}
-							IncreaseItem={IncreaseItem}
-							addToCart={addToCart}
 							_hairColor={_hairColor}
 							texture={texture}
 							sethairType={sethairType}

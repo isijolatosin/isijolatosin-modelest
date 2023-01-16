@@ -6,7 +6,8 @@ export function addToCart(
 	dispatch,
 	singleProduct,
 	setSingleCart,
-	setError
+	setError,
+	increase
 ) {
 	let timeOut;
 	clearTimeout(timeOut);
@@ -14,30 +15,12 @@ export function addToCart(
 		setError(true);
 	} else {
 		if (length) {
-			dispatch(addToCartItem(singleProduct));
-			timeOut = setTimeout(() => {
-				setSingleCart(singleProduct);
-			}, 1000);
-		} else {
-			setError(true);
-		}
-	}
-}
-export function increaseItem(
-	price,
-	length,
-	dispatch,
-	singleProduct,
-	setSingleCart,
-	setError
-) {
-	let timeOut;
-	clearTimeout(timeOut);
-	if (!price) {
-		setError(true);
-	} else {
-		if (length) {
-			dispatch(increaseCartItem(singleProduct));
+			if (increase) {
+				dispatch(increaseCartItem(singleProduct));
+			} else {
+				console.log(singleProduct);
+				dispatch(addToCartItem(singleProduct));
+			}
 			timeOut = setTimeout(() => {
 				setSingleCart(singleProduct);
 			}, 1000);

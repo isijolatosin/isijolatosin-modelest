@@ -3,32 +3,19 @@ import { Helmet } from "react-helmet";
 import axios from "axios";
 import Layout from "../components/shared/Layout";
 import Card from "../components/Card2";
-import {
-	addToCartItem,
-	increaseCartItem,
-	selectCartItems,
-} from "../slices/appSlices";
-import { useDispatch, useSelector } from "react-redux";
+import { selectCartItems } from "../slices/appSlices";
+import { useSelector } from "react-redux";
 import Add2CartPopup from "../components/shared/Add2CartPopup";
 import SingleProductModal from "../components/shared/SingleProductModal";
 import Reviews from "../components/shared/Reviews";
-import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
 
 function IndianBundles() {
 	const [hairBundles, setHairBundles] = React.useState([]);
 	const [singleProducts, setSingleproducts] = React.useState(null);
 	const [singleCart, setSingleCart] = React.useState(null);
-	const [show, setShow] = React.useState(false);
 	const [error, setError] = React.useState(false);
-	const [sales, setSales] = React.useState(null);
 	const [length, setLength] = React.useState("14");
 	const cartItems = useSelector(selectCartItems);
-	const dispatch = useDispatch();
-
-	React.useEffect(() => {
-		setSales(fetchSalesPercentage());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 
 	async function fetchProducts() {
 		try {
@@ -53,40 +40,12 @@ function IndianBundles() {
 
 	React.useEffect(() => {
 		fetchProducts();
-		setShow(true);
 	}, []);
 
 	const scrollToTop = function scrollToTop() {
 		window.scrollTo(0, 0);
 	};
 	const sizes = singleProducts?.[0].availablelength.split(", ");
-
-	let cardPrice =
-		sales !== 0 && singleProducts?.[0]?.sales
-			? singleProducts?.[0]?.price - singleProducts?.[0]?.price * (sales / 100)
-			: singleProducts?.[0]?.price;
-
-	let _price;
-
-	if (length === "14") {
-		_price = cardPrice;
-	} else if (length === "16") {
-		_price = cardPrice + 10;
-	} else if (length === "18") {
-		_price = cardPrice + 20;
-	} else if (length === "20") {
-		_price = cardPrice + 30;
-	} else if (length === "22") {
-		_price = cardPrice + 40;
-	} else if (length === "24") {
-		_price = cardPrice + 50;
-	} else if (length === "26") {
-		_price = cardPrice + 60;
-	} else if (length === "28") {
-		_price = cardPrice + 70;
-	} else if (length === "30") {
-		_price = cardPrice + 80;
-	}
 
 	// Adding to cart items
 	const name = singleProducts?.[0] && singleProducts?.[0]?.name;
@@ -97,7 +56,7 @@ function IndianBundles() {
 	const hairLength = length;
 	const hairColor = color;
 	const hairTexture = singleProducts?.[0] && singleProducts?.[0]?.name;
-	const price = Number(_price);
+	const price = singleProducts?.[0]?.price[+length];
 
 	const singleProduct = {
 		name,
@@ -108,27 +67,6 @@ function IndianBundles() {
 		hairLength,
 		description,
 		hairTexture,
-	};
-
-	let timeOut;
-	const addToCart = () => {
-		clearTimeout(timeOut);
-		if (length) {
-			dispatch(addToCartItem(singleProduct));
-			timeOut = setSingleCart(singleProduct);
-		} else {
-			setError(true);
-		}
-	};
-
-	const IncreaseItem = () => {
-		clearTimeout(timeOut);
-		if (length) {
-			dispatch(increaseCartItem(singleProduct));
-			timeOut = setSingleCart(singleProduct);
-		} else {
-			setError(true);
-		}
 	};
 
 	const desc = [
@@ -162,16 +100,7 @@ function IndianBundles() {
 				<title>Indian-Hair-Bundles</title>
 			</Helmet>
 			<Layout>
-				<div
-					className={
-						sales
-							? `${
-									hairBundles.length === 0 && !show
-										? "tw-pt-[230px]"
-										: "tw-pt-[155px]"
-							  } tw-pb-10 md:tw-pt-[120px] tw-h-full tw-relative  tw-flex tw-flex-col tw-items-center tw-mx-auto tw-bg-[rgba(255,255,255,0.1)]`
-							: "tw-pb-10 tw-pt-[110px] md:tw-pt-20 tw-h-full tw-relative  tw-flex tw-flex-col tw-items-center tw-mx-auto tw-bg-[rgba(255,255,255,0.1)]"
-					}>
+				<div className="tw-pb-10 tw-pt-[110px] md:tw-pt-20 tw-h-full tw-relative  tw-flex tw-flex-col tw-items-center tw-mx-auto tw-bg-[rgba(255,255,255,0.1)]">
 					<div className="tw-fixed tw-z-50 tw-top-0 md:tw-top-[-95px] tw-right-0 md:tw-right-[-30px]">
 						<Add2CartPopup
 							singleCart={singleCart}
@@ -179,14 +108,12 @@ function IndianBundles() {
 							quantity="1"
 						/>
 					</div>
-					{show && hairBundles && (
+					{hairBundles?.length ? (
 						<div className="tw-w-full tw-px-2">
 							<div className="tw-grid tw-grid-cols-2 lg:tw-flex lg:tw-flex-wrap tw-items-center tw-justify-center tw-gap-2 md:tw-gap-5">
-								{hairBundles.map((item) => (
+								{hairBundles?.map((item) => (
 									<div key={item._id}>
 										<Card
-											sales={sales}
-											key={item._id}
 											product={item}
 											setSingleproducts={setSingleproducts}
 											setSingleCart={setSingleCart}
@@ -197,8 +124,7 @@ function IndianBundles() {
 							</div>
 							<Reviews category="hair-bundles" color="white" />
 						</div>
-					)}
-					{!show && (
+					) : (
 						<div className="tw-rounded-full progress">
 							<div className="inner"></div>
 						</div>
@@ -209,17 +135,15 @@ function IndianBundles() {
 							category={singleProducts?.[0]?.name}
 							singleProducts={singleProducts}
 							setSingleproducts={setSingleproducts}
-							sales={sales}
 							desc={desc}
 							sizes={sizes}
 							setLength={setLength}
 							setError={setError}
 							error={error}
 							singleProduct={singleProduct}
+							setSingleCart={setSingleCart}
 							cartItems={cartItems}
-							IncreaseItem={IncreaseItem}
-							addToCart={addToCart}
-							price={_price}
+							price={price}
 							length={length}
 						/>
 					)}

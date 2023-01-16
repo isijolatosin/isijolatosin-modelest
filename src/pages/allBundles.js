@@ -3,12 +3,8 @@ import { Helmet } from "react-helmet";
 import axios from "axios";
 import Layout from "../components/shared/Layout";
 import Card from "../components/Card2";
-import {
-	addToCartItem,
-	increaseCartItem,
-	selectCartItems,
-} from "../slices/appSlices";
-import { useDispatch, useSelector } from "react-redux";
+import { selectCartItems } from "../slices/appSlices";
+import { useSelector } from "react-redux";
 import Add2CartPopup from "../components/shared/Add2CartPopup";
 import SingleProductModal from "../components/shared/SingleProductModal";
 import Reviews from "../components/shared/Reviews";
@@ -37,7 +33,6 @@ function IndianBundles() {
 		to: "",
 	});
 	const cartItems = useSelector(selectCartItems);
-	const dispatch = useDispatch();
 
 	async function fetchProducts() {
 		try {
@@ -116,31 +111,6 @@ function IndianBundles() {
 		hairLength,
 		description,
 		hairTexture,
-	};
-
-	let myTimeOut;
-	const addToCart = () => {
-		clearTimeout(myTimeOut);
-		if (length) {
-			dispatch(addToCartItem(singleProduct));
-			myTimeOut = setTimeout(() => {
-				setSingleCart(singleProduct);
-			}, 1000);
-		} else {
-			setError(true);
-		}
-	};
-
-	const IncreaseItem = () => {
-		clearTimeout(myTimeOut);
-		if (length) {
-			dispatch(increaseCartItem(singleProduct));
-			myTimeOut = setTimeout(() => {
-				setSingleCart(singleProduct);
-			}, 1000);
-		} else {
-			setError(true);
-		}
 	};
 
 	const desc = [
@@ -413,6 +383,7 @@ function IndianBundles() {
 							category={singleProducts?.[0]?.name}
 							singleProducts={singleProducts}
 							setSingleproducts={setSingleproducts}
+							setSingleCart={setSingleCart}
 							sales={sales}
 							desc={desc}
 							sizes={sizes}
@@ -421,8 +392,6 @@ function IndianBundles() {
 							error={error}
 							singleProduct={singleProduct}
 							cartItems={cartItems}
-							IncreaseItem={IncreaseItem}
-							addToCart={addToCart}
 							price={_price}
 							length={length}
 						/>

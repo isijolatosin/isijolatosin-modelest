@@ -5,52 +5,30 @@ import axios from "axios";
 import Slideshow from "../utils/Slideshow";
 import RatingFix from "../components/shared/RatingFix";
 import { isInCart } from "../utils/helpers";
-import {
-	addToCartItem,
-	increaseCartItem,
-	selectCartItems,
-} from "../slices/appSlices";
+import { selectCartItems } from "../slices/appSlices";
 import Reviews from "../components/shared/Reviews";
 import Add2CartPopup from "../components/shared/Add2CartPopup";
 import { useDispatch, useSelector } from "react-redux";
-import {
-	closureVirginWigPricing,
-	frontalVirginWigPricing,
-	wigTextureType1,
-	wigTextureTypeIncreaseValue1,
-	wigTextureType2,
-	wigTextureTypeIncreaseValue2,
-	frontalVietnameseWigPricing,
-	closureVietnameseWigPricing,
-} from "../constant";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import Heading from "../components/Heading";
-import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
 import PaymentOptions from "../components/shared/PaymentOptions";
-import { constructWigPrice } from "../utils/constructWigPrice";
+import { returnDecsriptionObject } from "../utils/returnObjectProperty";
+import { addToCart } from "../utils/putToCartFunc";
 
 const SingleWig = () => {
 	const navigate = useNavigate();
 	const [singleWig, setSingleWig] = React.useState([]);
 	const [singleCart, setSingleCart] = React.useState(null);
 	const [error, setError] = React.useState(false);
-	// const [imageArray, setImageArray] = React.useState([]);
-	const [_quantity, setQuantity] = React.useState(1);
 	const [_length, setLength] = React.useState(null);
 	const dispatch = useDispatch();
 	const cartItems = useSelector(selectCartItems);
 	const category = window.location.pathname.split("/").filter((x) => x)?.[0];
-	const [sales, setSales] = React.useState(null);
 	const wigId = window.location.pathname
 		.split("/")
 		.filter((x) => x)?.[1]
 		.split("-")?.[1];
-
-	React.useEffect(() => {
-		setSales(fetchSalesPercentage());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 
 	async function fetchProducts() {
 		try {
@@ -69,61 +47,14 @@ const SingleWig = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	// Price for virgin wigs
-	const vWPrice1 = constructWigPrice(
-		_length,
-		frontalVirginWigPricing,
-		singleWig,
-		wigTextureType1,
-		wigTextureType2,
-		wigTextureTypeIncreaseValue1,
-		wigTextureTypeIncreaseValue2
-	);
-	const vWPrice2 = constructWigPrice(
-		_length,
-		closureVirginWigPricing,
-		singleWig,
-		wigTextureType1,
-		wigTextureType2,
-		wigTextureTypeIncreaseValue1,
-		wigTextureTypeIncreaseValue2
-	);
-	// Price for virgin wigs
-	const vietWPrice1 = constructWigPrice(
-		_length,
-		frontalVietnameseWigPricing,
-		singleWig
-	);
-	const vietWPrice2 = constructWigPrice(
-		_length,
-		closureVietnameseWigPricing,
-		singleWig
-	);
-
 	// Adding to cart items
 	const name = singleWig[0]?.name;
-	const brand = singleWig[0]?.brand;
 	const id = singleWig[0]?._id;
 	const image = singleWig[0]?.images[0];
 	const description = singleWig[0]?.description;
-	const priceVirgin = name?.toLowerCase().includes("-closure")
-		? vWPrice2
-		: name?.toLowerCase().includes("-frontal")
-		? vWPrice1
-		: singleWig[0]?.price;
-	const priceViet =
-		brand?.toLowerCase().includes("sdd") &&
-		name?.toLowerCase().includes("-closure")
-			? vietWPrice2
-			: brand?.toLowerCase().includes("sdd") &&
-			  name?.toLowerCase().includes("-frontal")
-			? vietWPrice1
-			: singleWig[0]?.price;
-
-	const price = brand?.toLowerCase().includes("sdd") ? priceViet : priceVirgin;
 	const hairLength = _length;
 	const hairTexture = singleWig[0]?.texture;
-	const quantity = Number(_quantity);
+	const price = +singleWig[0]?.price[_length];
 	const avLengths =
 		singleWig[0]?.availablelength.length > 3
 			? singleWig[0]?.availablelength.split(", ")
@@ -136,7 +67,7 @@ const SingleWig = () => {
 	const lengthArray = [...lengths];
 	const allSizes = [...avLengths];
 	const hairColor = singleWig[0]?.color;
-
+	const quantity = 1;
 	const wigProduct = {
 		name,
 		id,
@@ -148,63 +79,18 @@ const SingleWig = () => {
 		quantity,
 		hairColor,
 	};
-
-	const addToCart = () => {
-		if (quantity && _length) {
-			dispatch(addToCartItem(wigProduct));
-			setSingleCart(wigProduct);
-		} else {
-			setError(true);
-		}
-	};
-
-	const IncreaseItem = () => {
-		if (quantity && _length) {
-			dispatch(increaseCartItem(wigProduct));
-			setSingleCart(wigProduct);
-		} else {
-			setError(true);
-		}
-	};
 	const aLength =
 		singleWig[0]?.availablelength.length > 2
 			? singleWig[0]?.availablelength.split(", ")
 			: singleWig[0]?.availablelength;
 
-	const desc = [
-		{ key: "Brand", value: `Raw ${singleWig[0]?.brand} hair` },
-		{
-			key: "Hair Texture",
-			value: singleWig[0]?.texture,
-		},
-		{ key: "Hair Color", value: singleWig[0]?.color },
-		{ key: "Material", value: "100% Human Hair" },
-		{ key: "Density", value: `${singleWig[0]?.density}` },
-		{
-			key: "Hair Length",
-			value: Array.isArray(aLength)
-				? `Available from ${aLength?.[0]}" - ${
-						aLength?.[aLength.length - 1]
-				  }" inches`
-				: `Available length is ${aLength}" inches`,
-		},
-		{
-			key: "Cap Size",
-			value:
-				singleWig[0]?.capsize || "Average Size(Head circumference: 54cm - 58cm",
-		},
-		{
-			key: "Return policy",
-			value:
-				"We accept 10-days no reason return exchange with hair not been used",
-		},
-		{
-			key: "Delivery time",
-			value:
-				"We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)",
-		},
-		{ key: "Can be bleached.dyed", value: "Yes" },
-	];
+	const desc = returnDecsriptionObject(
+		singleWig,
+		"",
+		name,
+		singleWig[0]?.color,
+		aLength
+	);
 
 	return (
 		<>
@@ -212,15 +98,12 @@ const SingleWig = () => {
 				<title>{`${name}-Hair-Bundle-Deals`}</title>
 			</Helmet>
 			<Layout>
-				<div
-					className={`${
-						sales ? "tw-pt-[58px] md:tw-pt-[50px]" : "tw-pt-0"
-					} tw-w-full tw-bg-white tw-flex tw-flex-col tw-items-center tw-relative`}>
+				<div className="tw-pt-0 tw-w-full tw-bg-white tw-flex tw-flex-col tw-items-center tw-relative">
 					<div className="tw-fixed tw-z-20 tw-top-0 md:tw-top-[-95px] tw-right-0">
 						<Add2CartPopup
 							singleCart={singleCart}
 							setSingleCart={setSingleCart}
-							quantity={_quantity}
+							quantity={quantity}
 						/>
 					</div>
 					<div className="tw-mt-[70px] tw-w-full md:tw-w-[95%] tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
@@ -283,30 +166,14 @@ const SingleWig = () => {
 									)}
 								</div>
 								<div className="tw-inline-block md:tw-hidden">
-									<div className="tw-flex tw-items-center">
-										<span className="tw-mr-2">Quantity: </span>
-										<div>
-											<input
-												type="number"
-												name="quantity"
-												id="quantity"
-												value={_quantity}
-												onChange={(e) => setQuantity(e.target.value)}
-												placeholder="Quantity"
-												className="tw-mt-5 tw-block tw-w-[50px] tw-px-3 tw-py-2 tw-border tw-border-neutral-100 tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5"
-											/>
-										</div>
-									</div>
 									{!price && (
 										<span className="tw-text-xs tw-text-green-700">
 											*** Select length to calculate price... ***
 										</span>
 									)}
 									<div className="tw-mb-1">
-										<span className="tw-text-3xl">
-											${price * Number(_quantity) || "***"}
-											:00
-										</span>
+										<span className="tw-text-3xl">${price || "***"}</span>
+										<span className="tw-text-[12px] tw-font-light"> USD</span>
 									</div>
 									<div className="tw-text-sm tw-font-light tw-text-neutral-500 tw-italic tw-my-3">
 										<div>
@@ -323,7 +190,7 @@ const SingleWig = () => {
 									{error && (
 										<div>
 											<p className="tw-text-left tw-mb-2 tw-mt-5 tw-text-red-600 tw-text-xs">
-												Please provide length and quantity for your order
+												Please provide length for your order
 											</p>
 										</div>
 									)}
@@ -332,7 +199,20 @@ const SingleWig = () => {
 											className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
 												!error && "tw-mt-5"
 											}`}
-											onClick={cartItems.length !== 0 ? IncreaseItem : null}>
+											onClick={
+												cartItems.length !== 0
+													? () =>
+															addToCart(
+																price,
+																_length,
+																dispatch,
+																wigProduct,
+																setSingleCart,
+																setError,
+																true
+															)
+													: null
+											}>
 											<span>Add more</span>
 										</div>
 									) : (
@@ -340,7 +220,16 @@ const SingleWig = () => {
 											className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
 												!error && "tw-mt-5"
 											}`}
-											onClick={addToCart}>
+											onClick={() =>
+												addToCart(
+													price,
+													_length,
+													dispatch,
+													wigProduct,
+													setSingleCart,
+													setError
+												)
+											}>
 											<span>Add to cart</span>
 										</div>
 									)}
@@ -373,30 +262,14 @@ const SingleWig = () => {
 								))}
 							</div>
 							<div className="tw-hidden md:tw-inline-block">
-								<div className="tw-flex tw-items-center">
-									<span className="tw-mr-2">Quantity: </span>
-									<div>
-										<input
-											type="number"
-											name="quantity"
-											id="quantity"
-											value={_quantity}
-											onChange={(e) => setQuantity(e.target.value)}
-											placeholder="Quantity"
-											className="tw-mt-5 tw-block tw-w-[50px] tw-px-3 tw-py-2 tw-border tw-border-neutral-100 tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5"
-										/>
-									</div>
-								</div>
 								{!price && (
 									<span className="tw-text-xs tw-text-green-700">
 										*** Select length to calculate price... ***
 									</span>
 								)}
 								<div className="tw-mb-1">
-									<span className="tw-text-3xl">
-										${price * Number(_quantity) || "***"}
-										:00
-									</span>
+									<span className="tw-text-3xl">${price || "***"}</span>
+									<span className="tw-text-[12px] tw-font-light"> USD</span>
 								</div>
 								<div className="tw-text-xs tw-text-neutral-500 tw-italic tw-font-light tw-my-3">
 									<div>
@@ -422,7 +295,20 @@ const SingleWig = () => {
 										className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[50%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
 											!error && "tw-mt-5"
 										}`}
-										onClick={cartItems.length !== 0 ? IncreaseItem : null}>
+										onClick={
+											cartItems.length !== 0
+												? () =>
+														addToCart(
+															price,
+															_length,
+															dispatch,
+															wigProduct,
+															setSingleCart,
+															setError,
+															true
+														)
+												: null
+										}>
 										<span>Add more</span>
 									</div>
 								) : (
@@ -430,7 +316,16 @@ const SingleWig = () => {
 										className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[50%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
 											!error && "tw-mt-5"
 										}`}
-										onClick={addToCart}>
+										onClick={() =>
+											addToCart(
+												price,
+												_length,
+												dispatch,
+												wigProduct,
+												setSingleCart,
+												setError
+											)
+										}>
 										<span>Add to cart</span>
 									</div>
 								)}

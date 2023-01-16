@@ -3,10 +3,7 @@ import axios from "axios";
 import { Helmet } from "react-helmet";
 import Layout from "../components/shared/Layout";
 import BundleCard from "../components/BundleCard";
-import {
-	fetchBundlePercentage,
-	fetchSalesPercentage,
-} from "../utils/salesPercentageNumber";
+import { fetchBundlePercentage } from "../utils/salesPercentageNumber";
 
 function IndianDeal() {
 	// const { user } = useContext(UserContext)
@@ -14,7 +11,6 @@ function IndianDeal() {
 		React.useState(null);
 	const [dealPriceBodyWaveClosure, setDealPriceBodyWaveClosure] =
 		React.useState(null);
-	const [sales, setSales] = React.useState(null);
 
 	const [dealPriceCurlyFrontal, setDealPriceCurlyFrontal] =
 		React.useState(null);
@@ -27,7 +23,6 @@ function IndianDeal() {
 	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12);
 
 	React.useEffect(() => {
-		setSales(fetchSalesPercentage());
 		setBundleDealsPercentage(fetchBundlePercentage());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -110,12 +105,7 @@ function IndianDeal() {
 				<title>Indian-Hair-Bundle-Deals</title>
 			</Helmet>
 			<Layout sales={bundleDealsPercentage}>
-				<div
-					className={`${
-						sales
-							? "tw-pt-[140px] md:tw-pt-[110px]"
-							: "tw-pt-[95px] md:tw-pt-[60px]"
-					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10`}>
+				<div className="tw-pt-[95px] md:tw-pt-[60px] tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10">
 					{bodyWaveFrontal === null &&
 					CurlyFrontal === null &&
 					bodyWaveClosure === null &&

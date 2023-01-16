@@ -1,12 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import {
-	addToCartItem,
-	increaseCartItem,
-	selectCartItems,
-} from "../slices/appSlices";
+import { selectCartItems } from "../slices/appSlices";
 import { isInCart } from "../utils/helpers";
+import { addToCart } from "../utils/putToCartFunc";
 
 function Card({
 	product,
@@ -40,104 +37,10 @@ function Card({
 		scrollToTop();
 	}
 
-	let salesAmount1 = Number(product.price - product.price * (sales / 100));
-	let cardPrice1 = product.price;
-
-	//  Actual Price
-	if (bundles.length === "14") {
-		cardPrice1 = product.price;
-	} else if (bundles.length === "16") {
-		cardPrice1 = product.price + 10;
-	} else if (bundles.length === "18") {
-		cardPrice1 = product.price + 20;
-	} else if (bundles.length === "20") {
-		cardPrice1 = product.price + 30;
-	} else if (bundles.length === "22") {
-		cardPrice1 = product.price + 40;
-	} else if (bundles.length === "24") {
-		cardPrice1 = product.price + 50;
-	} else if (bundles.length === "26") {
-		cardPrice1 = product.price + 60;
-	} else if (bundles.length === "28") {
-		cardPrice1 = product.price + 70;
-	} else if (bundles.length === "30") {
-		cardPrice1 = product.price + 80;
-	}
-	//  Sales Price
-	if (bundles.length === "14") {
-		salesAmount1 = product.price - product.price * (sales / 100);
-	} else if (bundles.length === "16") {
-		salesAmount1 = salesAmount1 + 10;
-	} else if (bundles.length === "18") {
-		salesAmount1 = salesAmount1 + 20;
-	} else if (bundles.length === "20") {
-		salesAmount1 = salesAmount1 + 30;
-	} else if (bundles.length === "22") {
-		salesAmount1 = salesAmount1 + 40;
-	} else if (bundles.length === "24") {
-		salesAmount1 = salesAmount1 + 50;
-	} else if (bundles.length === "26") {
-		salesAmount1 = salesAmount1 + 60;
-	} else if (bundles.length === "28") {
-		salesAmount1 = salesAmount1 + 70;
-	} else if (bundles.length === "30") {
-		salesAmount1 = salesAmount1 + 80;
-	}
-
-	let salesAmount2 = Number(product.price - product.price * (sales / 100));
-	let cardPrice2 = product.price;
-
-	//  Actual price
-	if (bundles.length === "14") {
-		cardPrice2 = product.price;
-	} else if (bundles.length === "16") {
-		cardPrice2 = product.price + 10;
-	} else if (bundles.length === "18") {
-		cardPrice2 = product.price + 20;
-	} else if (bundles.length === "20") {
-		cardPrice2 = product.price + 30;
-	} else if (bundles.length === "22") {
-		cardPrice2 = product.price + 40;
-	} else if (bundles.length === "24") {
-		cardPrice2 = product.price + 50;
-	} else if (bundles.length === "26") {
-		cardPrice2 = product.price + 60;
-	} else if (bundles.length === "28") {
-		cardPrice2 = product.price + 70;
-	} else if (bundles.length === "30") {
-		cardPrice2 = product.price + 80;
-	}
-	// Sales Price
-	if (bundles.length === "14") {
-		salesAmount2 = product.price - product.price * (sales / 100);
-	} else if (bundles.length === "16") {
-		salesAmount2 = salesAmount2 + 10;
-	} else if (bundles.length === "18") {
-		salesAmount2 = salesAmount2 + 20;
-	} else if (bundles.length === "20") {
-		salesAmount2 = salesAmount2 + 30;
-	} else if (bundles.length === "22") {
-		salesAmount2 = salesAmount2 + 40;
-	} else if (bundles.length === "24") {
-		salesAmount2 = salesAmount2 + 50;
-	} else if (bundles.length === "26") {
-		salesAmount2 = salesAmount2 + 60;
-	} else if (bundles.length === "28") {
-		salesAmount2 = salesAmount2 + 70;
-	} else if (bundles.length === "30") {
-		salesAmount2 = salesAmount2 + 80;
-	}
-
 	// Adding to cart items
-	const { name, _id, image, color, description } = product;
-	const price =
-		product.color === "blonde613"
-			? product.sales && sales
-				? salesAmount2
-				: cardPrice2
-			: product.sales && sales
-			? salesAmount1
-			: cardPrice1;
+	const { name, _id, images, color, description } = product;
+	const image = images?.[0];
+	const price = product?.price[bundles?.length];
 	const hairLength = bundles.length;
 	const hairColor = color;
 
@@ -149,31 +52,6 @@ function Card({
 		price,
 		hairLength,
 		description,
-	};
-
-	let timeOut;
-	const addToCart = () => {
-		clearTimeout(timeOut);
-		if (bundles?.length) {
-			dispatch(addToCartItem(singleProduct));
-			timeOut = setTimeout(() => {
-				setSingleCart(singleProduct);
-			}, 1000);
-		} else {
-			setError(true);
-		}
-	};
-
-	const IncreaseItem = () => {
-		clearTimeout(timeOut);
-		if (bundles?.length) {
-			dispatch(increaseCartItem(singleProduct));
-			timeOut = setTimeout(() => {
-				setSingleCart(singleProduct);
-			}, 1000);
-		} else {
-			setError(true);
-		}
 	};
 
 	const handleOnChange = (e) => {
@@ -200,24 +78,8 @@ function Card({
 					<div className="tw-pt-2 tw-flex tw-justify-between tw-w-full tw-text-[12px] md:tw-text-[14px]">
 						<p className="tw-font-bold">{product.name}</p>
 						<div className="tw-pb-2 tw-flex tw-flex-col">
-							{sales !== 0 && product.sales && (
-								<span className="tw-mr-1 tw-font-semibold">
-									$
-									{product.color === "blonde613"
-										? salesAmount2.toFixed(2)
-										: salesAmount1.toFixed(2)}
-								</span>
-							)}
-							<span
-								className={
-									sales !== 0 && product.sales
-										? "tw-line-through tw-font-light tw-text-[11px]"
-										: "tw-font-semibold"
-								}>
-								$
-								{product.color === "blonde613"
-									? cardPrice2.toFixed(2)
-									: cardPrice1.toFixed(2)}
+							<span className="tw-font-semibold">
+								${price ? price : "***"} USD
 							</span>
 						</div>
 					</div>
@@ -238,13 +100,36 @@ function Card({
 					{isInCart(singleProduct, cartItems) ? (
 						<div
 							className="tw-text-center tw-flex-[0.8] tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-full tw-bg-neutral-900 tw-px-1 tw-py-[6px] tw-items-center tw-justify-center tw-max-w-[110px] tw-text-neutral-50 hover:tw-cursor-pointer hover:md:tw-text-neutral-900 hover:md:tw-bg-white hover:tw-text-neutral-400 tw-ease-in tw-duration-500"
-							onClick={cartItems.length !== 0 ? IncreaseItem : null}>
+							onClick={
+								cartItems.length !== 0
+									? () =>
+											addToCart(
+												price,
+												bundles?.length,
+												dispatch,
+												singleProduct,
+												setSingleCart,
+												setError,
+												true
+											)
+									: null
+							}>
 							<span className="">Add More</span>
 						</div>
 					) : (
 						<div
 							className="tw-flex-[0.8] tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-full tw-bg-neutral-900 tw-px-1 tw-py-[6px] tw-items-center tw-justify-center tw-max-w-[110px] tw-text-neutral-50 tw-cursor-pointer hover:md:tw-text-neutral-900 hover:md:tw-bg-white tw-ease-in tw-duration-500"
-							onClick={addToCart}>
+							onClick={() =>
+								addToCart(
+									price,
+									bundles?.length,
+									dispatch,
+									singleProduct,
+									setSingleCart,
+									setError,
+									true
+								)
+							}>
 							<span className="">Add to cart</span>
 						</div>
 					)}

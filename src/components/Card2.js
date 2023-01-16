@@ -1,29 +1,19 @@
 import React from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import {
-	addToCartItem,
-	increaseCartItem,
-	selectCartItems,
-} from "../slices/appSlices";
+import { selectCartItems } from "../slices/appSlices";
 import { isInCart } from "../utils/helpers";
+import { addToCart } from "../utils/putToCartFunc";
 
-function Card({
-	product,
-	setSingleproducts,
-	setSingleCart,
-	scrollToTop,
-	sales,
-}) {
+function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 	const cartItems = useSelector(selectCartItems);
 	const [error, setError] = React.useState(false);
 	const dispatch = useDispatch();
 	const [bundles, setBundles] = React.useState({
-		length: null,
+		length: "",
 		quantity: "",
 	});
 	const lengthArr = product.availablelength.split(",");
-
 	async function handleViewImage(event) {
 		try {
 			const {
@@ -40,54 +30,9 @@ function Card({
 		scrollToTop();
 	}
 
-	let salesAmount = Number(product.price - product.price * (sales / 100));
-	let cardPrice = product.price;
-
-	// Actual price
-	if (bundles.length === "14") {
-		cardPrice = product.price;
-	} else if (bundles.length === "16") {
-		cardPrice = product.price + 10;
-	} else if (bundles.length === "18") {
-		cardPrice = product.price + 20;
-	} else if (bundles.length === "20") {
-		cardPrice = product.price + 30;
-	} else if (bundles.length === "22") {
-		cardPrice = product.price + 40;
-	} else if (bundles.length === "24") {
-		cardPrice = product.price + 50;
-	} else if (bundles.length === "26") {
-		cardPrice = product.price + 60;
-	} else if (bundles.length === "28") {
-		cardPrice = product.price + 70;
-	} else if (bundles.length === "30") {
-		cardPrice = product.price + 80;
-	}
-	// Sales Price
-
-	if (bundles.length === "14") {
-		salesAmount = product.price - product.price * 0.15;
-	} else if (bundles.length === "16") {
-		salesAmount = salesAmount + 10;
-	} else if (bundles.length === "18") {
-		salesAmount = salesAmount + 20;
-	} else if (bundles.length === "20") {
-		salesAmount = salesAmount + 30;
-	} else if (bundles.length === "22") {
-		salesAmount = salesAmount + 40;
-	} else if (bundles.length === "24") {
-		salesAmount = salesAmount + 50;
-	} else if (bundles.length === "26") {
-		salesAmount = salesAmount + 60;
-	} else if (bundles.length === "28") {
-		salesAmount = salesAmount + 70;
-	} else if (bundles.length === "30") {
-		salesAmount = salesAmount + 80;
-	}
-
 	// Adding to cart items
 	const { name, _id, images, color, description } = product;
-	const price = product.sales && sales ? salesAmount : cardPrice;
+	const price = +product?.price[bundles?.length];
 	const hairLength = bundles.length;
 	const hairColor = color;
 	const image = images[0];
@@ -101,36 +46,10 @@ function Card({
 		description,
 	};
 
-	let timeOut;
-	const addToCart = () => {
-		clearTimeout(timeOut);
-		if (bundles?.length) {
-			dispatch(addToCartItem(singleProduct));
-			timeOut = setTimeout(() => {
-				setSingleCart(singleProduct);
-			}, 1000);
-		} else {
-			setError(true);
-		}
-	};
-
-	const IncreaseItem = () => {
-		clearTimeout(timeOut);
-		if (bundles?.length) {
-			dispatch(increaseCartItem(singleProduct));
-			timeOut = setTimeout(() => {
-				setSingleCart(singleProduct);
-			}, 1000);
-		} else {
-			setError(true);
-		}
-	};
-
 	const handleOnChange = (e) => {
 		setBundles({ ...bundles, [e.target.name]: e.target.value });
 		setError(false);
 	};
-
 	return (
 		<div className="tw-w-[100%] tw-mx-auto tw-h-[300px] lg:tw-h-[400px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-sm">
 			<img
@@ -140,27 +59,12 @@ function Card({
 				alt={product._id}
 				className=" tw-w-full tw-h-[70%] lg:tw-h-[75%] tw-object-cover tw-rounded-sm tw-cursor-pointer"
 			/>
-			{product?.sales && sales !== 0 && (
-				<span className="tw-absolute tw-top-0 tw-left-0 tw-bg-gray-600 tw-text-white tw-rounded-tl-sm tw-rounded-br-sm tw-text-xs tw-p-[2px] tw-font-light">
-					on sales
-				</span>
-			)}
 			<div className="tw-bg-white tw-h-[30%] lg:tw-h-[25%] tw-text-neutral-800 tw-px-2 tw-w-full tw-relative tw-z-5 tw-bottom-0 tw-rounded-b-lg">
 				<div className="tw-pt-2 tw-flex tw-justify-between tw-w-full tw-text-[12px] md:tw-text-[14px]">
 					<p className="tw-font-bold">{product.name}</p>
 					<div className="tw-pb-2 tw-flex tw-flex-col">
-						{sales !== 0 && product.sales && (
-							<span className="tw-mr-2 tw-font-semibold">
-								${salesAmount.toFixed(2)} USD
-							</span>
-						)}
-						<span
-							className={
-								sales !== 0 && product.sales
-									? "tw-line-through tw-font-light tw-text-[11px]"
-									: "tw-font-semibold"
-							}>
-							${cardPrice.toFixed(2)} USD
+						<span className="tw-font-semibold">
+							${price ? price : "***"} USD
 						</span>
 					</div>
 				</div>
@@ -179,13 +83,35 @@ function Card({
 					{isInCart(singleProduct, cartItems) ? (
 						<div
 							className="tw-text-center tw-flex-[0.8] tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-full tw-bg-neutral-900 tw-px-1 tw-py-[6px] tw-items-center tw-justify-center tw-max-w-[110px] tw-text-neutral-50 hover:tw-cursor-pointer hover:md:tw-text-neutral-900 hover:md:tw-bg-white hover:tw-text-neutral-400 tw-ease-in tw-duration-500"
-							onClick={cartItems.length !== 0 ? IncreaseItem : null}>
+							onClick={
+								cartItems.length !== 0
+									? () =>
+											addToCart(
+												price,
+												bundles?.length,
+												dispatch,
+												singleProduct,
+												setSingleCart,
+												setError,
+												true
+											)
+									: null
+							}>
 							<span className="">Add More</span>
 						</div>
 					) : (
 						<div
 							className="tw-flex-[0.8] tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-full tw-bg-neutral-900 tw-px-1 tw-py-[6px] tw-items-center tw-justify-center tw-max-w-[110px] tw-text-neutral-50 tw-cursor-pointer hover:md:tw-text-neutral-900 hover:md:tw-bg-white tw-ease-in tw-duration-500"
-							onClick={addToCart}>
+							onClick={() =>
+								addToCart(
+									price,
+									bundles?.length,
+									dispatch,
+									singleProduct,
+									setSingleCart,
+									setError
+								)
+							}>
 							<span className="">Add to cart</span>
 						</div>
 					)}

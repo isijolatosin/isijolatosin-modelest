@@ -1,14 +1,14 @@
-import React from 'react'
-import { AiFillStar } from 'react-icons/ai'
-import generateRandom from '../../utils/RandomGen'
+import React from "react";
+import { AiFillStar } from "react-icons/ai";
+import generateRandom from "../../utils/RandomGen";
 
-const RatingFix = ({ isNum, isReview, size, color, color2 }) => {
-	const MAX_RATING = 5
-	const MIN_RATING = 5
+const RatingFix = React.memo(({ isNum, isReview, size, color, color2 }) => {
+	const MAX_RATING = 5;
+	const MIN_RATING = 5;
 	const [rating] = React.useState(
 		Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1) + MIN_RATING)
-	)
-	const deci = Number(Math.random().toFixed(1))
+	);
+	const deci = +Math.random().toFixed(1);
 	return (
 		<div className="tw-flex tw-items-center">
 			{Array(rating)
@@ -23,7 +23,7 @@ const RatingFix = ({ isNum, isReview, size, color, color2 }) => {
 			{isNum && <span className="tw-ml-1">{rating + deci}</span>}
 			{generateRandom(100, 200)} reviews
 		</div>
-	)
-}
+	);
+});
 
-export default RatingFix
+export default RatingFix;

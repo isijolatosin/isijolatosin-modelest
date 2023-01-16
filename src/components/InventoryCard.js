@@ -29,7 +29,9 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 				density: product.density,
 				texture: product.texture,
 				capsize: product.capsize,
-				price: product.price,
+				price:
+					product.price[+product.length] ||
+					product.price[+product.length.split(", ")[0]],
 				video: product.video,
 				description: product.description,
 				sales: product.sales,

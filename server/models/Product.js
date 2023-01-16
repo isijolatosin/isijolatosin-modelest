@@ -40,7 +40,7 @@ const ProductSchema = new mongoose.Schema({
 		type: String,
 	},
 	price: {
-		type: Number,
+		type: mongoose.SchemaTypes.Mixed,
 		required: [true, "must provide a price"],
 		trim: true,
 	},
