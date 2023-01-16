@@ -1,45 +1,19 @@
-import React from 'react'
-import Card from './Card'
-import Add2CartPopup from './shared/Add2CartPopup'
+import React from "react";
+import Card from "./Card";
+import Add2CartPopup from "./shared/Add2CartPopup";
+import DealsCard from "./shared/DealsCard";
+import ContactForm from "./shared/ContactForm";
+import { DEALSOPTIONLENGTHARRAY } from "../constant";
+import HomePageSingleModal from "./shared/HomePageSingleModal";
 
-import DealsCard from './shared/DealsCard'
-import FeaturedCard from '../components/shared/FeaturedCard'
-import ContactForm from './shared/ContactForm'
-
-import HomePageSingleModal from './shared/HomePageSingleModal'
-
-function Products({
-	allProducts,
-	sales,
-	featuredProduct,
-	SubmitInqury,
-	setChatError,
-	setChatSuccess,
-	chatDetail,
-	handleChangeChat,
-	chatSuccess,
-	similarProductsFrontal,
-	similarProductsClosure,
-	chatError,
-}) {
-	const [toggleHeight, setToggleHeight] = React.useState(true)
-	const [singleProducts, setSingleproducts] = React.useState(null)
-	const [singleCart, setSingleCart] = React.useState(null)
+function Products({ allProducts, sales }) {
+	const [toggleHeight, setToggleHeight] = React.useState(true);
+	const [singleProducts, setSingleproducts] = React.useState(null);
+	const [singleCart, setSingleCart] = React.useState(null);
 
 	const scrollToTop = function scrollToTop() {
-		window.scrollTo(0, 0)
-	}
-
-	const lengthArray = [
-		'14inch, 16inch, & 18inch',
-		'16inch, 18inch, & 20inch',
-		'18inch, 20inch, & 22inch',
-		'20inch, 22inch, & 24inch',
-	]
-	const productSectionLength =
-		allProducts?.length % 2 === 0
-			? allProducts?.length / 2
-			: (allProducts?.length - 1) / 2
+		window.scrollTo(0, 0);
+	};
 
 	return (
 		<div className="tw-mt-[20px] md:tw-mt-[10px] tw-relative tw-flex tw-flex-col tw-items-center ">
@@ -47,47 +21,41 @@ function Products({
 				<Add2CartPopup
 					singleCart={singleCart}
 					setSingleCart={setSingleCart}
+					setSingleproducts={setSingleproducts}
 					quantity="1"
 				/>
 			</div>
 			{allProducts ? (
 				<div
-					className={`featuredCard2 tw-grid tw-grid-flow-col tw-pb-5 tw-overflow-x-scroll tw-w-full tw-snap-x tw-snap-mandatory ${
-						!sales && 'tw-pt-[8px]'
-					} md:tw-w-[100%] tw-gap-2`}>
-					{allProducts?.slice(0, productSectionLength).map((product) => {
+					className={`tw-grid tw-grid-cols-2 md:tw-grid-cols-3 lg:tw-grid-cols-4 xl:tw-grid-cols-5 tw-w-full ${
+						!sales && "tw-pt-[8px]"
+					} md:tw-w-[100%] tw-gap-5`}>
+					{allProducts?.map((product) => {
 						return (
 							<div
-								key={product._id}
+								key={product?._id}
 								className="tw-justify-center tw-items-center tw-flex tw-flex-row tw-snap-center">
 								<Card
 									sales={sales}
-									key={product._id}
+									key={product?._id}
 									product={product}
 									setSingleproducts={setSingleproducts}
 									scrollToTop={scrollToTop}
 								/>
 							</div>
-						)
+						);
 					})}
 				</div>
 			) : (
 				<div className="tw-text-neutral-500">Loading data...</div>
 			)}
-			<DealsCard lengthArray={lengthArray} brand="Indian, Virgin, Vietnamese" />
-			<div className="">
-				<FeaturedCard featuredProduct={featuredProduct} />
-			</div>
+			<DealsCard
+				lengthArray={DEALSOPTIONLENGTHARRAY}
+				brand="Indian, Virgin, Vietnamese"
+			/>
 			<div className="tw-border-b-[1px] tw-border-neutral-800 tw-w-full md:tw-inline tw-hidden">
 				<div className="tw-bg-neutral-900 tw-mt-5 md:tw-w-[50%] tw-w-full tw-mx-auto">
 					<ContactForm
-						SubmitInqury={SubmitInqury}
-						setChatError={setChatError}
-						setChatSuccess={setChatSuccess}
-						chatDetail={chatDetail}
-						handleChangeChat={handleChangeChat}
-						chatSuccess={chatSuccess}
-						chatError={chatError}
 						textColor="tw-text-white"
 						isCancelBtn={false}
 						toggleHeight={toggleHeight}
@@ -96,45 +64,17 @@ function Products({
 					/>
 				</div>
 			</div>
-			{allProducts ? (
-				<div
-					className={`featuredCard2 tw-grid tw-grid-flow-col tw-pb-5 tw-overflow-x-scroll tw-w-full tw-snap-x tw-snap-mandatory ${
-						!sales && 'tw-pt-[20px]'
-					} md:tw-w-[100%] tw-gap-2 tw-mt-10 `}>
-					{allProducts
-						?.slice(productSectionLength, allProducts.length)
-						.map((product) => {
-							return (
-								<div
-									key={product._id}
-									className="tw-justify-center tw-items-center tw-flex tw-flex-row tw-snap-center">
-									<Card
-										sales={sales}
-										key={product._id}
-										product={product}
-										setSingleproducts={setSingleproducts}
-										scrollToTop={scrollToTop}
-									/>
-								</div>
-							)
-						})}
-				</div>
-			) : (
-				<div className="tw-text-neutral-500">Loading data...</div>
-			)}
 
 			{singleProducts && (
 				<HomePageSingleModal
 					singleProducts={singleProducts}
 					setSingleproducts={setSingleproducts}
-					similarProductsClosure={similarProductsClosure}
-					similarProductsFrontal={similarProductsFrontal}
 					sales={sales}
 					setSingleCart={setSingleCart}
 				/>
 			)}
 		</div>
-	)
+	);
 }
 
-export default Products
+export default Products;

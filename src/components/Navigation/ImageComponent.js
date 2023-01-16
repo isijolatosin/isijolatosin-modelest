@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { RiAdminFill } from "react-icons/ri";
 import { UserContext } from "../../context/user-context";
 import { FaUserGraduate } from "react-icons/fa";
-import useFetchHook from "../../utils/useFetchHook";
+import useFetchHook from "../../utils/useFetchDBHook";
 import { db } from "../../firebase";
 import { AMB, ROLE } from "../../constant";
 
@@ -13,8 +13,8 @@ function ImageComponent() {
 	const { user } = useContext(UserContext);
 	const [showText, setShowText] = React.useState(false);
 	const type = "authUsers";
-	const admin = useFetchHook(db, type)?.[0];
-	const adminArray = admin?.adminUsers.filter(
+	const admin = useFetchHook(db, type, {})?.[0];
+	const adminArray = admin?.adminUsers?.filter(
 		(adm) => adm?.type === ROLE.GLOBAL_LEAD
 	);
 	const ambArray = admin?.adminUsers.filter(

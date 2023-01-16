@@ -15,19 +15,24 @@ const ProfileCard = (props) => {
 					? "tw-bg-neutral-200 tw-text-neutral-600"
 					: ""
 			} ${
-				props?.data?.email === user?.email
-					? "tw-border-[3px] tw-border-[#bba371]"
+				props?.data?.email === user?.email && props?.isBorderRequired
+					? "tw-border-[3px] tw-border-[#bba371] "
 					: ""
-			} tw-grid tw-grid-col-2 tw-grid-flow-col tw-gap-3 tw-p-2 tw-pt-5 tw-mb-1 tw-rounded-sm tw-relative`}>
+			} ${
+				props?.isBorderRequired &&
+				"tw-grid tw-grid-col-2 tw-grid-flow-col tw-gap-3 tw-p-2 tw-pt-5 tw-mb-1 tw-rounded-sm"
+			} tw-relative`}>
 			<div>
 				<h1 className="tw-font-light tw-text-xs tw-border-b-[0.1px] tw-border-neutral-700 tw-py-1">
-					<strong>Role:</strong> {props?.data?.role}
+					<strong>{props?.data?.role ? "Role:" : "Name:"}</strong>{" "}
+					{props?.data?.role || user?.displayName}
 				</h1>
 				<h1 className="tw-font-light tw-text-xs tw-border-b-[0.1px] tw-border-neutral-700 tw-py-1">
-					<strong>Handle:</strong>{" "}
+					<strong>{props?.data?.role ? "Handle:" : "Email:"}</strong>{" "}
 					{props?.data?.instagram ||
 						props?.data?.tiktok ||
-						props?.data?.snapchat}
+						props?.data?.snapchat ||
+						user?.email}
 				</h1>
 				{props?.data?.country && (
 					<h1 className="tw-font-light tw-text-xs tw-border-b-[0.1px] tw-border-neutral-700 tw-py-1">
@@ -42,7 +47,9 @@ const ProfileCard = (props) => {
 			</div>
 			<div>
 				<h1 className="tw-font-light tw-text-xs tw-border-b-[0.1px] tw-border-neutral-700 tw-py-1">
-					<strong>Ambassador since:</strong>{" "}
+					<strong>
+						{props?.data?.role ? "Ambassador since:" : "Customer since:"}
+					</strong>{" "}
 					{props?.data?.createdAt
 						? new Date(props?.data?.createdAt?.seconds * 1000).toLocaleString()
 						: props?.data?.date}
@@ -83,7 +90,7 @@ const ProfileCard = (props) => {
 					</div>
 				)}
 			</div>
-			{props?.data?.email === user?.email && (
+			{props?.data?.email === user?.email && props?.isBorderRequired && (
 				<div className="tw-absolute tw-top-0 tw-left-0 tw-bg-[#bba371] tw-px-4 tw-pt-1 tw-text-[9px] tw-text-black tw-w-full tw-font-light">
 					<span>You - {user?.displayName || props?.data?.email}</span>
 				</div>

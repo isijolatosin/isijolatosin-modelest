@@ -1,16 +1,45 @@
-import React from 'react'
-import { AiOutlineInstagram } from 'react-icons/ai'
-import { FaTiktok } from 'react-icons/fa'
-import { SiMastercard } from 'react-icons/si'
-import { TiSocialLinkedin } from 'react-icons/ti'
-import { RiVisaLine } from 'react-icons/ri'
-import { SiAmericanexpress } from 'react-icons/si'
-import { countries } from '../country'
-import { Link } from 'react-router-dom'
-import Heading from './Heading'
-import About from './About'
+import React from "react";
+import { AiOutlineInstagram } from "react-icons/ai";
+import { FaTiktok } from "react-icons/fa";
+import { SiMastercard } from "react-icons/si";
+import { TiSocialLinkedin } from "react-icons/ti";
+import { RiVisaLine } from "react-icons/ri";
+import { SiAmericanexpress } from "react-icons/si";
+import { countries } from "../country";
+import { Link } from "react-router-dom";
+import Heading from "./Heading";
+import About from "./About";
+import {
+	ABOUT_US,
+	BUNDLES,
+	BUNDLES_LINK,
+	BUNDLES_VIRGIN_LINK,
+	CLOSURE_FRONTAL,
+	CLOSURE_FRONTAL_LINK,
+	CLOSURE_FRONTAL_VIETNAMESE_LINK,
+	CLOSURE_FRONTAL_VIRGIN_LINK,
+	DEVELOPER,
+	INDIAN_BUNDLE_DEAL,
+	INDIAN_BUNDLE_DEAL_LINK,
+	JET_BLACK_BLONDE,
+	JET_BLACK_BLONDE_LINK,
+	MODELEST_EMAIL,
+	MODELEST_INSTAGRAM,
+	MODELEST_TIKTOK,
+	PRIVACY_POLICIES,
+	SHIPPING_POLICIES,
+	TERMS_CONDITION,
+	UNITED_STATES,
+	VIETNAMESE_BUNDLE,
+	VIETNAMESE_DEALS,
+	VIETNAMESE_DEALS_LINK,
+	VIRGIN_DEALS,
+	VIRGIN_DEALS_LINK,
+	WIGS,
+	WIGS_LINK,
+} from "../constant";
 
-const ty = require('../assets/ty.jpeg')
+const ty = require("../assets/ty.jpeg");
 
 function Footer({
 	showContactForm,
@@ -26,61 +55,61 @@ function Footer({
 		{ id: 1, type: <SiMastercard size={20} color="darkorange" /> },
 		{ id: 2, type: <RiVisaLine size={20} color="blue" /> },
 		{ id: 3, type: <SiAmericanexpress size={20} color="blue" /> },
-	]
-	const [country, setCountry] = React.useState('United States')
+	];
+	const [country, setCountry] = React.useState(UNITED_STATES);
 	const handleOnChange = (e) => {
-		setCountry(e.target.value)
-		localStorage.setItem('country', e.target.value)
-	}
+		setCountry(e.target.value);
+		localStorage.setItem("country", e.target.value);
+	};
 	const [contactInput, setcontactInput] = React.useState({
-		name: '',
-		email: '',
-		subject: '',
-		message: '',
+		name: "",
+		email: "",
+		subject: "",
+		message: "",
 		error: null,
-	})
+	});
 
 	const links = [
 		{
 			id: 1,
-			name: 'About Us / Contact Us',
+			name: ABOUT_US,
 		},
 		{
 			id: 2,
-			name: 'Terms and Conditions',
+			name: TERMS_CONDITION,
 		},
 		{
 			id: 3,
-			name: 'Shipping & Returns Policy',
+			name: SHIPPING_POLICIES,
 		},
 		{
 			id: 4,
-			name: 'Privacy Policy',
+			name: PRIVACY_POLICIES,
 		},
-	]
+	];
 
 	const indian = [
 		{
-			id: '1',
-			name: 'Bundles',
-			route: '/bundles/indian',
+			id: "1",
+			name: BUNDLES,
+			route: BUNDLES_LINK,
 		},
 		{
-			id: '2',
-			name: 'Closure / Frontal',
-			route: '/closure-frontal/indian',
+			id: "2",
+			name: CLOSURE_FRONTAL,
+			route: CLOSURE_FRONTAL_LINK,
 		},
 		{
-			id: '3',
-			name: 'Jet Black / Blonde',
-			route: '/jet-black-&-blonde/indian',
+			id: "3",
+			name: JET_BLACK_BLONDE,
+			route: JET_BLACK_BLONDE_LINK,
 		},
 		{
-			id: '4',
-			name: 'Indian Deals',
-			route: '/indian-bundles-deals',
+			id: "4",
+			name: INDIAN_BUNDLE_DEAL,
+			route: INDIAN_BUNDLE_DEAL_LINK,
 		},
-	]
+	];
 	const vietnamese = [
 		// {
 		// 	id: '1',
@@ -88,66 +117,66 @@ function Footer({
 		// 	route: '/vietnamese-wigs',
 		// },
 		{
-			id: '2',
-			name: 'Bundles',
-			route: '/bundles/vietnamese',
+			id: "2",
+			name: BUNDLES,
+			route: VIETNAMESE_BUNDLE,
 		},
 		{
-			id: '3',
-			name: 'Closure / Frontal',
-			route: '/closure-frontal/vietnamese',
+			id: "3",
+			name: CLOSURE_FRONTAL,
+			route: CLOSURE_FRONTAL_VIETNAMESE_LINK,
 		},
 		{
-			id: '4',
-			name: 'Vietnamese Deals',
-			route: '/vietnamese-bundles-deals',
+			id: "4",
+			name: VIETNAMESE_DEALS,
+			route: VIETNAMESE_DEALS_LINK,
 		},
-	]
+	];
 	const Virgin = [
 		{
-			id: '1',
-			name: 'wigs',
-			route: '/virgin-wigs',
+			id: "1",
+			name: WIGS,
+			route: WIGS_LINK,
 		},
 		{
-			id: '2',
-			name: 'Bundles',
-			route: '/bundles/virgin',
+			id: "2",
+			name: BUNDLES,
+			route: BUNDLES_VIRGIN_LINK,
 		},
 		{
-			id: '3',
-			name: 'Closure / Frontal',
-			route: '/closure-frontal/virgin',
+			id: "3",
+			name: CLOSURE_FRONTAL,
+			route: CLOSURE_FRONTAL_VIRGIN_LINK,
 		},
 		{
-			id: '4',
-			name: 'Virgin Deals',
-			route: '/Virgin-bundles-deals',
+			id: "4",
+			name: VIRGIN_DEALS,
+			route: VIRGIN_DEALS_LINK,
 		},
-	]
+	];
 
 	const handleContactInput = (e) => {
-		setcontactInput({ ...contactInput, [e.target.name]: e.target.value })
-	}
+		setcontactInput({ ...contactInput, [e.target.name]: e.target.value });
+	};
 
 	function handleSubmit(e) {
-		e.preventDefault()
+		e.preventDefault();
 		try {
 			window.open(
-				`mailto:'modelEst1010@gmail.com'?subject=${contactInput.subject}&body=${contactInput.name}: ${contactInput.message}. My email is ${contactInput.email}`
-			)
+				`mailto:${MODELEST_EMAIL}?subject=${contactInput.subject}&body=${contactInput.name}: ${contactInput.message}. My email is ${contactInput.email}`
+			);
 			setcontactInput({
-				name: '',
-				email: '',
-				subject: '',
-				message: '',
+				name: "",
+				email: "",
+				subject: "",
+				message: "",
 				error: null,
-			})
+			});
 		} catch (error) {
-			console.log(error)
-			setcontactInput({ ...contactInput, error: error.message })
+			console.log(error);
+			setcontactInput({ ...contactInput, error: error.message });
 		}
-		setShowContactForm(false)
+		setShowContactForm(false);
 	}
 
 	return (
@@ -238,32 +267,32 @@ function Footer({
 								<li
 									key={link.id}
 									onClick={
-										link.name === 'About Us / Contact Us'
+										link.name === ABOUT_US
 											? () => {
-													setShowContactForm(true)
-													setShowTerms(false)
-													setShowShippingReturns(false)
-													setPrivacyReturns(false)
+													setShowContactForm(true);
+													setShowTerms(false);
+													setShowShippingReturns(false);
+													setPrivacyReturns(false);
 											  }
-											: link.name === 'Terms and Conditions'
+											: link.name === "Terms and Conditions"
 											? () => {
-													setShowTerms(!showTerms)
-													setShowContactForm(false)
-													setShowShippingReturns(false)
-													setPrivacyReturns(false)
+													setShowTerms(!showTerms);
+													setShowContactForm(false);
+													setShowShippingReturns(false);
+													setPrivacyReturns(false);
 											  }
-											: link.name === 'Shipping & Returns Policy'
+											: link.name === "Shipping & Returns Policy"
 											? () => {
-													setShowShippingReturns(!showShippingReturns)
-													setShowTerms(false)
-													setShowContactForm(false)
+													setShowShippingReturns(!showShippingReturns);
+													setShowTerms(false);
+													setShowContactForm(false);
 											  }
-											: link.name === 'Privacy Policy'
+											: link.name === "Privacy Policy"
 											? () => {
-													setPrivacyReturns(!showPrivacyReturns)
-													setShowTerms(false)
-													setShowContactForm(false)
-													setShowShippingReturns(false)
+													setPrivacyReturns(!showPrivacyReturns);
+													setShowTerms(false);
+													setShowContactForm(false);
+													setShowShippingReturns(false);
 											  }
 											: null
 									}
@@ -658,37 +687,37 @@ function Footer({
 						<p>
 							For more information about our privacy practices, if you have
 							questions, or if you would like to make a complaint, please
-							contact us by e-mail at <strong> modelEst1010@gmail.com</strong>{' '}
+							contact us by e-mail at <strong> modelEst1010@gmail.com</strong>{" "}
 							or by mail using the details provided below:
 						</p>
 					</div>
 				)}
 
 				{showContactForm && (
-					<div className="tw-flex tw-flex-col lg:tw-flex-row  tw-justify-center tw-mb-10">
-						<div className="tw-mx-auto tw-w-full bg-blur tw-py-10 tw-rounded-lg">
-							<div className="tw-w-[100%] md:tw-w-[95%] tw-mx-auto">
-								<About />
-							</div>
+					<div className="tw-flex tw-flex-col xl:tw-flex-row xl:tw-justify-between tw-px-20 xl:tw-h-[700px]">
+						<div className="xl:tw-flex-[0.6] tw-mx-auto tw-w-full bg-blur tw-py-10 tw-rounded-lg tw-h-[700px tw-w-[100%] md:tw-w-[95%]">
+							<About />
 						</div>
-						<form
-							onSubmit={handleSubmit}
-							className="tw-w-full tw-flex tw-flex-col tw-items-center md:tw-max-w-[80%] tw-bg-neutral-50 tw-py-5 tw-mb-5">
-							<span
-								id="contact"
-								className="tw-text-2xl tw-font-light tw-mb-1 tw-mt-5">
-								Contact - ModelEst
-							</span>
-							<p className="tw-font-light tw-text-[14px] tw-max-w-[80%] lg:tw-max-w-[50%] tw-my-5">
-								We at modelEst are customer centric, we take pride in our
-								customers. We are committed in helping with picking the right
-								hair for you, adequate information regarding education on hair
-								maintenance, and providing high quality hair extensions. We
-								value you our customers and we are committed to long time
-								support. Our customers are our sister’s. We respond within 24-48
-								business hours Monday - Friday.
-							</p>
-							<div className="md:tw-w-[90%] lg:tw-w-[70%] 2xl:tw-w-[50%] tw-mx-auto tw-flex tw-flex-col tw-items-center">
+						<div className="xl:tw-flex-[0.4] tw-flex tw-flex-col tw-justify-center tw-mt-10 lg:tw-mt-0 xl:tw-ml-10">
+							<div>
+								<span
+									id="contact"
+									className="tw-text-2xl tw-font-light tw-mb-1 tw-mt-5">
+									Contact - ModelEst
+								</span>
+								<p className="tw-font-light tw-text-[14px] tw-max-w-[90%] tw-my-5">
+									We at modelEst are customer centric, we take pride in our
+									customers. We are committed in helping with picking the right
+									hair for you, adequate information regarding education on hair
+									maintenance, and providing high quality hair extensions. We
+									value you our customers and we are committed to long time
+									support. Our customers are our sister’s. We respond within
+									24-48 business hours Monday - Friday.
+								</p>
+							</div>
+							<form
+								onSubmit={handleSubmit}
+								className="tw-w-full tw-flex tw-flex-col tw-justify-center md:tw-max-w-[90%] tw-text-neutral-600 tw-py-5 tw-mb-5">
 								<input
 									type="text"
 									name="name"
@@ -736,8 +765,8 @@ function Footer({
 									type="submit">
 									submit
 								</button>
-							</div>
-						</form>
+							</form>
+						</div>
 					</div>
 				)}
 				{showTerms && (
@@ -1201,11 +1230,11 @@ function Footer({
 							</p>
 						</div>
 						<div className="md:tw-flex tw-ml-1">
-							<p className="tw-flex tw-items-center">
-								<span>Design by</span>{' '}
+							<div className="tw-flex tw-items-center">
+								<span>Design by</span>{" "}
 								<div className="tw-border-[1px] tw-border-neutral-400 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-ml-1 tw-p-1">
 									<a
-										href="https://isijolaoluwatosin.netlify.app/"
+										href={DEVELOPER.NETLIFY}
 										target="_blank"
 										rel="noopener noreferrer">
 										<img
@@ -1218,14 +1247,14 @@ function Footer({
 								<a
 									target="_blank"
 									rel="noopener noreferrer"
-									href="https://www.linkedin.com/in/oluwatosin-isijola-33333ba8/"
+									href={DEVELOPER.LINKEDIN}
 									className="tw-border-[1px] tw-border-neutral-400 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-ml-1 tw-px-[4px] tw-pt-[3px] tw-pb-[4.5px]">
 									<TiSocialLinkedin
 										size={15}
 										className="hover:md:tw-w-[24px] hover:md:tw-h-[24px] tw-text-blue-500 tw-ease-in tw-duration-300"
 									/>
 								</a>
-							</p>
+							</div>
 						</div>
 					</div>
 
@@ -1241,8 +1270,8 @@ function Footer({
 								key={item.id}
 								className={
 									item.id !== 3
-										? 'tw-mx-2 tw-border tw-border-gray-300 tw-rounded-sm tw-px-1'
-										: 'tw-mx-2'
+										? "tw-mx-2 tw-border tw-border-gray-300 tw-rounded-sm tw-px-1"
+										: "tw-mx-2"
 								}>
 								{item.type}
 							</div>
@@ -1250,7 +1279,7 @@ function Footer({
 					</div>
 					<div className="tw-flex tw-justify-evenly tw-items-center tw-mt-3 rose-gold">
 						<a
-							href="https://www.instagram.com/modelestluxuryhair/"
+							href={MODELEST_INSTAGRAM}
 							target="_blank"
 							rel="noopener noreferrer">
 							<AiOutlineInstagram
@@ -1258,17 +1287,14 @@ function Footer({
 								className="hover:tw-text-rose-100"
 							/>
 						</a>
-						<a
-							href="https://www.tiktok.com/@es.motayo"
-							target="_blank"
-							rel="noopener noreferrer">
+						<a href={MODELEST_TIKTOK} target="_blank" rel="noopener noreferrer">
 							<FaTiktok size={20} className="hover:tw-text-rose-100" />
 						</a>
 					</div>
 				</div>
 			</div>
 		</footer>
-	)
+	);
 }
 
-export default Footer
+export default Footer;

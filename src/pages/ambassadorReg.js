@@ -8,7 +8,7 @@ import firebase from "../firebase";
 import { RiHomeLine, RiInstagramLine, RiSnapchatLine } from "react-icons/ri";
 import { SiTiktok } from "react-icons/si";
 import Heading from "../components/Heading";
-import useFetchHook from "../utils/useFetchHook";
+import useFetchDBHook from "../utils/useFetchDBHook";
 import { AMB } from "../constant";
 
 const Ambassador = () => {
@@ -31,7 +31,7 @@ const Ambassador = () => {
 	const [exist, setAlreadyExist] = React.useState(false);
 	const [ambCode, setAmbCode] = React.useState("");
 	const type = "amb";
-	const allAmb = useFetchHook(db, type);
+	const allAmb = useFetchDBHook(db, type);
 
 	const handleChangeAuthUser = (e) => {
 		setAmbObj({ ...ambObj, [e.target.name]: e.target.value });

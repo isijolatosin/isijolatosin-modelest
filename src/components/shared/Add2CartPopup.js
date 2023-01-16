@@ -6,7 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/user-context";
 import { selectItemCount } from "../../slices/appSlices";
 
-const Add2CartPopup = ({ singleCart, setSingleCart, quantity }) => {
+const Add2CartPopup = ({
+	singleCart,
+	setSingleCart,
+	quantity,
+	setSingleproducts,
+}) => {
 	const navigate = useNavigate();
 	const [agree, setAgree] = React.useState(false);
 	const [warn, setWarn] = React.useState(false);
@@ -21,6 +26,11 @@ const Add2CartPopup = ({ singleCart, setSingleCart, quantity }) => {
 		if (agree) {
 			navigate(`/checkout/${user?.displayName || "new-customer"}`);
 		}
+	}
+	function handleContinueShopping() {
+		setSingleCart(null);
+		setSingleproducts(null);
+		window.scrollTo(0, 900);
 	}
 
 	return (
@@ -116,9 +126,7 @@ const Add2CartPopup = ({ singleCart, setSingleCart, quantity }) => {
 							</button>
 						</div>
 						<button
-							onClick={() => {
-								setSingleCart(null);
-							}}
+							onClick={handleContinueShopping}
 							size={25}
 							className="tw-w-full tw-text-center tw-text-blue-500 tw-text-xs tw-mt-5 tw-pb-1 hover:tw-cursor-pointer hover:tw-text-neutral-600 tw-ease-in tw-duration-300">
 							<span>Continue shopping</span>

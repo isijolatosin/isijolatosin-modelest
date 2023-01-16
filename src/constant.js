@@ -1,6 +1,46 @@
 export const ADMIN = "admin";
+export const WIGS = "wigs";
+export const WIGS_LINK = "/virgin-wigs";
+export const BUNDLES = "Bundles";
+export const BUNDLES_LINK = "/bundles/indian";
+export const BUNDLES_VIRGIN_LINK = "/bundles/virgin";
+export const CLOSURE_FRONTAL = "Closure / Frontal";
+export const CLOSURE_FRONTAL_LINK = "/closure-frontal/indian";
+export const CLOSURE_FRONTAL_VIRGIN_LINK = "/closure-frontal/virgin";
+export const CLOSURE_FRONTAL_VIETNAMESE_LINK = "/closure-frontal/vietnamese";
+export const JET_BLACK_BLONDE = "Jet Black / Blonde";
+export const JET_BLACK_BLONDE_LINK = "/jet-black-&-blonde/indian";
+export const INDIAN_BUNDLE_DEAL = "Indian Deals";
+export const INDIAN_BUNDLE_DEAL_LINK = "/indian-bundles-deals";
+export const VIETNAMESE_BUNDLE = "/bundles/vietnamese";
+export const VIETNAMESE_DEALS = "Vietnamese Deals";
+export const VIETNAMESE_DEALS_LINK = "/vietnamese-bundles-deals";
+export const VIRGIN_DEALS = "Virgin Deals";
+export const VIRGIN_DEALS_LINK = "/Virgin-bundles-deals";
+export const ABOUT_US = "About Us / Contact Us";
+export const TERMS_CONDITION = "Terms and Conditions";
+export const SHIPPING_POLICIES = "Shipping & Returns Policy";
+export const PRIVACY_POLICIES = "Privacy Policy";
+export const UNITED_STATES = "United States";
 export const AMB = "ambassador";
+export const VIRGINWIG = "virgin wig";
+export const FRONTAL = "frontal";
+export const CLOSURE = "closure";
+export const NATURAL_BLACK = "natural black";
+export const BLONDE613 = "blonde613";
+export const STRAIGHT = "straight";
+export const BODYWAVE = "bodywave";
+export const CURLY = "curly";
+export const WAVY = "wavy";
 export const WHATSAPPBASEURL = "https://wa.me/";
+export const MODELEST_EMAIL = "modelEst1010@gmail.com";
+export const DEVELOPER = {
+	NETLIFY: "https://isijolaoluwatosin.netlify.app/",
+	LINKEDIN: "https://www.linkedin.com/in/oluwatosin-isijola-33333ba8/",
+};
+export const MODELEST_INSTAGRAM =
+	"https://www.instagram.com/modelestluxuryhair/";
+export const MODELEST_TIKTOK = "https://www.tiktok.com/@es.motayo";
 export const ROLE = {
 	GLOBAL_LEAD: "global lead",
 	REGIONAL_LEAD: "regional lead",
@@ -25,14 +65,26 @@ export const SHIPPING_COST = {
 	london: 20,
 	nigeria: 50,
 };
+export const ALLSIZES = [
+	{ value: "14", id: 1 },
+	{ value: "16", id: 2 },
+	{ value: "18", id: 3 },
+	{ value: "20", id: 4 },
+	{ value: "22", id: 5 },
+	{ value: "24", id: 6 },
+	{ value: "26", id: 7 },
+	{ value: "28", id: 8 },
+];
+export const DEALSOPTIONLENGTHARRAY = [
+	"14inch, 16inch, & 18inch",
+	"16inch, 18inch, & 20inch",
+	"18inch, 20inch, & 22inch",
+	"20inch, 22inch, & 24inch",
+];
 export const CANADA = "canada";
 export const USERS = "users";
 export const BOOKINGS = "bookings";
-// export const FREE_SHIPPING_AMOUNT = 200
 export const CURRENCY = "usd";
-// export const TAX_PERCENT = 0.06
-// export const installmentStartPrice = 10
-// export const installmentStartPrice = 49900
 
 // Back end url
 export const HTTPS_LINK = "http://localhost:5000";

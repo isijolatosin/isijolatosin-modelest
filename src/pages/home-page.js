@@ -1,146 +1,51 @@
-import React from "react";
-import axios from "axios";
+import React, { useCallback } from "react";
 import { MdOutlineKeyboardArrowUp } from "react-icons/md";
 import { Helmet } from "react-helmet";
 import Layout from "../components/shared/Layout";
 import Products from "../components/Products";
-import { db } from "../firebase";
-import { Link } from "react-router-dom";
 import SearchInput from "../components/shared/SearchInput";
-import { getDatabase, ref, onValue } from "firebase/database";
-import { cloudinaryBaseUrl } from "../constant";
+import { getDatabase } from "firebase/database";
 import PictureSlide from "../components/shared/PictureSlide";
 import CtaButton from "../components/shared/CtaButton";
+import useFetchHook from "../utils/useFetchHook";
+import useFetchDBHook from "../utils/useFetchDBHook";
+import SearchDropDown from "../components/shared/SearchDropDown";
 
 function HomePage() {
 	const [searchControl, setSearchControl] = React.useState(false);
 	const [close, setClose] = React.useState(false);
-	const [chatError, setChatError] = React.useState(false);
-	const [chatSuccess, setChatSuccess] = React.useState(false);
 	const [toBottom, setToBottom] = React.useState(false);
 	const [chat, setChat] = React.useState(true);
 	const [searchError, setSearchError] = React.useState(false);
-	const [allProducts, setAllproducts] = React.useState([]);
 	const [allWigsCloudinaryImg, setAllWigsCloudinaryImg] = React.useState([]);
 	const [filtered, setFiltered] = React.useState([]);
 	const [showWhatsapp, setShowWhatsapp] = React.useState(false);
-	const [sales, setSales] = React.useState(null);
 	const [inputValue, setInputValue] = React.useState("");
-	const [similarProductsClosure, setSimilarProductsClosure] =
-		React.useState(null);
-	const [similarProductsFrontal, setSimilarProductsFrontal] =
-		React.useState(null);
-	const [chatDetail, setChatDetail] = React.useState({
-		name: "",
-		title: "",
-		email: "",
-		message: "",
-	});
-	const [featuredProduct, setFeaturedProduct] = React.useState([]);
+	const [allProducts, setAllproducts] = React.useState([]);
 
 	const database = getDatabase();
-	React.useEffect(() => {
-		const starCountRef = ref(database, "sales");
-		onValue(starCountRef, (snapshot) => {
-			const data = snapshot.val();
-			setSales(data.no);
-		});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	const type = "sales";
+	let salesType;
+	salesType = useFetchDBHook(database, type);
 
-	async function fetchProducts() {
-		try {
-			const {
-				data: {
-					products,
-					//  curUser
-				},
-			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
+	// Getting products from db
+	const url1 = `${process.env.REACT_APP_BASE_ROUTE}/products`;
+	const productsRes = useFetchHook(url1, "products");
+	const fetchProducts = useCallback(async () => {
+		setAllproducts(productsRes);
+	}, [productsRes]);
 
-			const array1 = [];
-			const array2 = [];
-			// eslint-disable-next-line array-callback-return
-			products.filter((prod) => {
-				if (prod?.brand?.toLowerCase().includes("virgin hair")) {
-					if (prod?.name?.toLowerCase().includes("-closure")) {
-						array1.push(prod);
-					}
-				}
-				setSimilarProductsClosure(array1);
-
-				if (prod?.brand?.toLowerCase().includes("virgin hair")) {
-					if (prod?.name?.toLowerCase().includes("-frontal")) {
-						array2.push(prod);
-					}
-				}
-				setSimilarProductsFrontal(array2);
-			});
-
-			const fArray = [];
-			// eslint-disable-next-line array-callback-return
-			products.filter((p) => {
-				if (p?.isFeatured) {
-					const obj = {
-						name: p?.name,
-						price: p?.price,
-						brand: p?.brand,
-						color: p?.color,
-						type: p?.type,
-						image: p?.images[0],
-						route: `/${p?.route}`,
-					};
-					fArray.push(obj);
-				}
-			});
-			const reverseFeatured = fArray.reverse();
-
-			setFeaturedProduct(reverseFeatured);
-			setAllproducts(products?.sort((a, b) => a?.name?.localeCompare(b?.type)));
-		} catch (error) {
-			console.log(error);
-		}
-	}
-	const fetchCloudinaryImages = async () => {
-		const {
-			data: { resources },
-		} = await axios.get(process.env.REACT_APP_CLOUDINARY_WIGS);
-
-		const images = [];
-		// eslint-disable-next-line array-callback-return
-		resources.map((img) => {
-			const public_id = img?.public_id;
-			let version = img?.version;
-			let format = img?.format;
-			const isIOS = window.navigator.userAgent.indexOf("iPhone") !== -1;
-			const isAndroid = window.navigator.userAgent.indexOf("Android") !== -1;
-			const isWin = window.navigator.userAgent.indexOf("Win") !== -1;
-			const isMac = window.navigator.userAgent.indexOf("Mac") !== -1;
-			const isUNIX = window.navigator.userAgent.indexOf("X11") !== -1;
-			const isLinux = window.navigator.userAgent.indexOf("Linux") !== -1;
-			if (isWin || isMac || isUNIX || isLinux) {
-				images.push(
-					`${cloudinaryBaseUrl}f_auto/v${version}/${public_id}.${format}`
-				);
-			} else if (isIOS) {
-				images.push(
-					`${cloudinaryBaseUrl}f_jp2/v${version}/${public_id}.${format}`
-				);
-			} else if (isAndroid) {
-				images.push(
-					`${cloudinaryBaseUrl}f_webp,w_50/v${version}/${public_id}.${format}`
-				);
-			}
-		});
-
-		setAllWigsCloudinaryImg(images);
-	};
+	// Getting slide imgaes from cloudinary
+	const url2 = process.env.REACT_APP_CLOUDINARY_WIGS;
+	const resources = useFetchHook(url2, "cloudinaryImage");
+	const fetchCloudinaryImages = useCallback(async () => {
+		setAllWigsCloudinaryImg(resources);
+	}, [resources]);
 
 	React.useEffect(() => {
-		let timeOut;
-		clearTimeout(timeOut);
 		fetchProducts();
 		fetchCloudinaryImages();
-	}, []);
+	}, [fetchProducts, fetchCloudinaryImages]);
 
 	window.onscroll = function (ev) {
 		if (
@@ -154,54 +59,7 @@ function HomePage() {
 			setChat(true);
 		}
 	};
-	const handleChangeChat = (e) => {
-		setChatError(false);
-		setChatDetail({ ...chatDetail, [e.target.name]: e.target.value });
-	};
 
-	const SubmitInqury = (e) => {
-		let __timeOut;
-		clearTimeout(__timeOut);
-		e.preventDefault();
-
-		if (
-			chatDetail.name === "" ||
-			chatDetail.title === "" ||
-			chatDetail.email === "" ||
-			chatDetail.message === ""
-		) {
-			setChatError(true);
-		} else if (
-			chatDetail.name !== "" &&
-			chatDetail.title !== "" &&
-			chatDetail.email !== "" &&
-			chatDetail.message !== ""
-		) {
-			db.collection("customer-inqury")
-				.add({
-					id: `ModelEst${Math.random().toString(36).slice(2)}`,
-					name: chatDetail.name,
-					title: chatDetail.title,
-					message: chatDetail.message,
-					email: chatDetail.email,
-					timestamp: new Date().valueOf(),
-				})
-				.then(() => {
-					console.log(`SUCCESSFULL`);
-				})
-				.catch((error) => console.log("Error " + error.message));
-
-			setChatDetail({
-				name: "",
-				title: "",
-				email: "",
-				message: "",
-			});
-			__timeOut = setTimeout(() => {
-				setChatSuccess(true);
-			}, 1000);
-		}
-	};
 	return (
 		<div className="relative home ">
 			<Helmet>
@@ -210,14 +68,15 @@ function HomePage() {
 			<Layout>
 				<div
 					className={
-						allProducts.every((product) => product.sales)
+						allProducts?.length > 0 &&
+						allProducts.every((product) => product?.sales)
 							? `tw-flex tw-flex-col tw-items-center ${
-									allProducts.length === 0 ? "tw-pt-[60px]" : "tw-pt-[120px]"
+									allProducts?.length === 0 ? "tw-pt-[60px]" : "tw-pt-[120px]"
 							  } tw-pb-10 md:tw-py-[50px] lg:tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[80%] lg:tw-mx-auto`
 							: ` tw-flex tw-flex-col tw-items-center ${
-									allProducts.length === 0 && "tw-pt-[230px]"
+									allProducts?.length === 0 && "tw-pt-[230px]"
 							  } ${
-									sales !== 0
+									salesType > 0
 										? "md:tw-pt-[75px] tw-pt-[95px]"
 										: "md:tw-pt-[35px] tw-pt-[50px]"
 							  } md:tw-pb-[50px] lg:tw-w-[100%] lg:tw-mx-auto tw-bg-[rgba(255,255,255,0.1)] tw-relative`
@@ -233,7 +92,7 @@ function HomePage() {
 						className={`md:tw-hidden tw-fixed tw-bottom-0 tw-z-20 tw-w-[100%] ${
 							!chat && "tw-hidden"
 						}`}>
-						<div className="tw-flex tw-flex-row tw-justify-center tw-text-center tw-w-full tw-h-[70px]">
+						<div className="tw-flex tw-flex-row tw-justify-center tw-text-center tw-w-[100%] tw-h-[70px]">
 							<p
 								className="tw-font-light tw-text-green-500 tw-text-sm tw-bg-neutral-800 tw-border-t-[1px] tw-border-green-900 tw-w-full tw-flex tw-items-center tw-justify-center"
 								onClick={() => setShowWhatsapp(!showWhatsapp)}>
@@ -250,12 +109,12 @@ function HomePage() {
 					</div>
 					<div
 						className={`${searchControl && "tw-w-[100%] lg:tw-w-[40%]"} ${
-							sales
+							salesType
 								? "tw-top-[101px] md:tw-top-[76px]"
 								: "tw-top-[56px] md:tw-top-[24px]"
 						} tw-flex tw-flex-col content tw-fixed tw-left-[-16px] md:tw-left-[-16px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
 						<SearchInput
-							allProducts={allProducts}
+							allProducts={allProducts && allProducts}
 							searchControl={searchControl}
 							close={close}
 							setFiltered={setFiltered}
@@ -273,48 +132,18 @@ function HomePage() {
 							</div>
 						)}
 						{filtered?.length !== 0 && inputValue && (
-							<div className="tw-bg-white tw-text-black  tw-w-[80%] tw-overflow-y-scroll tw-max-h-[400px] md:tw-max-h-[600px] featuredCard tw-shadow-lg tw-rounded-b-[5px] tw-border-[1px] tw-border-t-0 tw-border-neutral-900">
-								{filtered.map((item) => (
-									<Link to={item?.route} key={item?._id}>
-										<div className="tw-flex tw-items-center tw-p-3 tw-border-b-[1px] tw-w-[100%] tw-mx-auto hover:tw-bg-[rgba(215,191,137,0.3)] tw-ease-in tw-duration-300">
-											<div className="tw-mr-3">
-												<img
-													src={item?.image}
-													alt={item?.name}
-													className="tw-object-cover tw-w-[40px] tw-h-[40px] tw-rounded-full"
-												/>
-											</div>
-											<div>
-												<p className="tw-text-[13px] md:tw-text-[14px]">
-													{item?.name}
-												</p>
-												<p className="tw-text-[13px] md:tw-text-[14px]">
-													<span className="tw-text-xs tw-font-light">
-														Starting from
-													</span>{" "}
-													${item?.price}
-												</p>
-											</div>
-										</div>
-									</Link>
-								))}
-								<Link to="/all-bundles">
-									<div className="tw-pr-5 tw-py-3 tw-border-b-[1px] tw-w-[90%] tw-mx-auto">
-										<span className="tw-text-[13px] md:tw-text-[14px] tw-text-[#bba371] hover:tw-text-black tw-ease-in tw-duration-300">
-											View all bundles
-										</span>
-									</div>
-								</Link>
-							</div>
+							<SearchDropDown filtered={filtered} />
 						)}
 					</div>
-					{allProducts.length !== 0 ? (
+					{allProducts?.length > 0 ? (
 						<div className="tw-bg-neutral-900 tw-w-[100%]">
 							<div className="tw-mb-6 tw-mt-[80px] tw-w-full tw-px-3 ">
 								<div className="tw-relative">
-									<div className="tw-w-full tw-flex tw-items-center">
-										<PictureSlide images={allWigsCloudinaryImg} />
-									</div>
+									{allWigsCloudinaryImg && (
+										<div className="tw-w-full tw-flex tw-items-center">
+											<PictureSlide images={allWigsCloudinaryImg} />
+										</div>
+									)}
 									<div className="tw-absolute tw-text-white tw-bottom-[10%] md:tw-bottom-[20%] tw-text-center tw-w-full font_cursive tw-text-2xl md:tw-text-6xl tw-z-1">
 										<p className="tw-font-light tw-text-[rgba(215,191,137,0.7)] md:tw-text-[rgba(215,191,137,0.2)]">
 											Your pleasure, our luxury...
@@ -322,18 +151,8 @@ function HomePage() {
 									</div>
 								</div>
 								<Products
-									SubmitInqury={SubmitInqury}
-									setChatError={setChatError}
-									setChatSuccess={setChatSuccess}
-									chatDetail={chatDetail}
-									handleChangeChat={handleChangeChat}
-									chatSuccess={chatSuccess}
-									chatError={chatError}
-									sales={sales}
-									featuredProduct={featuredProduct}
-									allProducts={allProducts}
-									similarProductsClosure={similarProductsClosure}
-									similarProductsFrontal={similarProductsFrontal}
+									sales={salesType}
+									allProducts={allProducts && allProducts}
 								/>
 							</div>
 						</div>

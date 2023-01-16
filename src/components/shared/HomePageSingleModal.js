@@ -4,43 +4,38 @@ import Heading from "../Heading";
 import Rating from "./Rating";
 import { isInCart } from "../../utils/helpers";
 import { CgClose } from "react-icons/cg";
-import {
-	addToCartItem,
-	increaseCartItem,
-	selectCartItems,
-} from "../../slices/appSlices";
+import { selectCartItems } from "../../slices/appSlices";
 import { useDispatch, useSelector } from "react-redux";
 import {
-	closureVirginWigPricing,
-	frontalVirginWigPricing,
-	wigTextureType1,
-	wigTextureTypeIncreaseValue1,
-	wigTextureType2,
-	wigTextureTypeIncreaseValue2,
+	ALLSIZES,
+	FRONTAL,
+	STRAIGHT,
+	BODYWAVE,
+	CURLY,
+	WAVY,
+	CLOSURE,
+	VIRGINWIG,
 } from "../../constant";
 import PaymentOptions from "./PaymentOptions";
+import {
+	returnDecsriptionObject,
+	returnObjectProperty,
+} from "../../utils/returnObjectProperty";
+import {
+	predictPriceFunc,
+	priceFunc,
+	pricePredict,
+	wigFuncClosure,
+	wigFuncFrontal,
+} from "../../utils/predictPriceFunc";
+import { increaseItem, addToCart } from "../../utils/putToCartFunc";
 
 const HomePageSingleModal = ({
 	singleProducts,
 	setSingleCart,
 	setSingleproducts,
-	similarProductsFrontal,
-	similarProductsClosure,
 	sales,
 }) => {
-	const similarProducts = singleProducts[0]?.name
-		.toLowerCase()
-		.includes("-closure")
-		? similarProductsClosure
-		: singleProducts[0]?.name.toLowerCase().includes("-frontal")
-		? similarProductsFrontal
-		: [];
-
-	const similarProductsFiltered = similarProducts.filter(
-		(p) => p._id !== singleProducts[0]?._id
-	);
-
-	const allSizes = ["14", "16", "18", "20", "22", "24", "26", "28"];
 	const cartItems = useSelector(selectCartItems);
 	const [error, setError] = React.useState(false);
 
@@ -49,222 +44,55 @@ const HomePageSingleModal = ({
 	const [_hairType, sethairType] = React.useState("");
 	const dispatch = useDispatch();
 
-	const name = singleProducts?.[0] && singleProducts?.[0]?.name;
-	const id = singleProducts?.[0] && singleProducts?.[0]?._id;
-	const image = singleProducts?.[0] && singleProducts?.[0]?.images[0];
-	const color = singleProducts?.[0] && singleProducts?.[0]?.color;
-	const description = singleProducts?.[0] && singleProducts?.[0]?.description;
-	const width = singleProducts?.[0] && singleProducts?.[0]?.widthlength;
-
-	const _hairColor =
-		singleProducts?.[0]?.type.toLowerCase() === "frontal"
-			? ["Natural black"]
-			: ["Natural black", "Blonde613"];
-	const texture = ["Straight", "Bodywave", "Curly", "Wavy"];
-
-	const avesizes = singleProducts?.[0]?.availablelength?.split(", ");
-	const sizes = singleProducts?.[0]?.length.split(", ");
-
+	const {
+		name,
+		id,
+		image,
+		color,
+		description,
+		width,
+		_hairColor,
+		avesizes,
+		sizes,
+		_hairTexture,
+		_sales,
+		_singleprice,
+		_vWPriceClosure,
+		_vWPriceFrontal,
+	} = returnObjectProperty(singleProducts);
+	const texture = [STRAIGHT, BODYWAVE, CURLY, WAVY];
 	const hairLength = length;
 	const hairColor = _color || color;
-	const hairTexture = _hairType || singleProducts?.[0]?.texture;
-
+	const hairTexture = _hairType || _hairTexture;
 	let cardPrice =
-		sales !== 0 && singleProducts?.[0]?.sales
-			? singleProducts?.[0]?.price - singleProducts?.[0]?.price * (sales / 100)
-			: singleProducts?.[0]?.price;
-
-	let _price;
-	let _price2;
-
-	if (length === "14") {
-		_price = cardPrice;
-	} else if (length === "16") {
-		_price = cardPrice + 10;
-	} else if (length === "18") {
-		_price = cardPrice + 20;
-	} else if (length === "20") {
-		_price = cardPrice + 30;
-	} else if (length === "22") {
-		_price = cardPrice + 40;
-	} else if (length === "24") {
-		_price = cardPrice + 50;
-	} else if (length === "26") {
-		_price = cardPrice + 60;
-	} else if (length === "28") {
-		_price = cardPrice + 70;
-	} else if (length === "30") {
-		_price = cardPrice + 80;
-	}
-
-	if (length === "14") {
-		_price2 = cardPrice;
-	} else if (length === "16") {
-		_price2 = cardPrice + 6;
-	} else if (length === "18") {
-		_price2 = cardPrice + 12;
-	} else if (length === "20") {
-		_price2 = cardPrice + 18;
-	} else if (length === "22") {
-		_price2 = cardPrice + 24;
-	} else if (length === "24") {
-		_price2 = cardPrice + 30;
-	} else if (length === "26") {
-		_price2 = cardPrice + 36;
-	} else if (length === "28") {
-		_price2 = cardPrice + 42;
-	} else if (length === "30") {
-		_price2 = cardPrice + 48;
-	}
-
-	const pricePredict = () => {
-		if (singleProducts?.[0]?.type.toLowerCase() === "frontal") {
-			// for frontal
-			if (
-				_color?.toLowerCase()?.includes("natural black") &&
-				(_hairType?.toLowerCase()?.includes("bodywave") ||
-					_hairType?.toLowerCase()?.includes("wavy") ||
-					_hairType?.toLowerCase()?.includes("curly"))
-			) {
-				return (_price2 += 6);
-			} else if (
-				_color?.toLowerCase()?.includes("natural black") &&
-				_hairType?.toLowerCase()?.includes("straight")
-			) {
-				return _price2;
-			}
-		} else {
-			// for closure
-			if (
-				_color?.toLowerCase()?.includes("natural black") &&
-				(_hairType?.toLowerCase()?.includes("bodywave") ||
-					_hairType?.toLowerCase()?.includes("wavy") ||
-					_hairType?.toLowerCase()?.includes("curly"))
-			) {
-				return (_price += 5);
-			} else if (
-				_color?.toLowerCase()?.includes("natural black") &&
-				_hairType?.toLowerCase()?.includes("straight")
-			) {
-				return _price;
-			}
-
-			if (
-				_color?.toLowerCase()?.includes("blonde613") &&
-				(_hairType?.toLowerCase()?.includes("bodywave") ||
-					_hairType?.toLowerCase()?.includes("wavy") ||
-					_hairType?.toLowerCase()?.includes("curly"))
-			) {
-				return (_price += 15);
-			} else if (
-				_color?.toLowerCase()?.includes("blonde613") &&
-				_hairType?.toLowerCase()?.includes("straight")
-			) {
-				return (_price += 10);
-			}
-		}
-	};
-
-	// Price for virgin wigs
-	function wigFuncClosure() {
-		let a;
-		// eslint-disable-next-line array-callback-return
-		closureVirginWigPricing.map((p) => {
-			if (length === p?.length) {
-				if (singleProducts[0]?.texture) {
-					if (
-						wigTextureType1.includes(singleProducts[0]?.texture?.toLowerCase())
-					) {
-						a = p?.price + wigTextureTypeIncreaseValue1;
-					} else {
-						a = p?.price;
-					}
-				} else if (singleProducts[0]?.texture) {
-					if (
-						wigTextureType2.includes(singleProducts[0]?.texture?.toLowerCase())
-					) {
-						a = p?.price + wigTextureTypeIncreaseValue2;
-					} else {
-						a = p?.price;
-					}
-				} else if (
-					singleProducts[0]?.texture.toLowerCase().includes("straight")
-				) {
-					a = p?.price;
-				} else {
-					a = p?.price;
-				}
-			}
-		});
-		return a;
-	}
-
-	function wigFuncFrontal() {
-		let a;
-		// eslint-disable-next-line array-callback-return
-		frontalVirginWigPricing.map((p) => {
-			if (length === p?.length) {
-				if (singleProducts[0]?.texture) {
-					if (
-						wigTextureType1.includes(singleProducts[0]?.texture?.toLowerCase())
-					) {
-						a = p?.price + wigTextureTypeIncreaseValue1;
-					} else {
-						a = p?.price;
-					}
-				} else if (singleProducts[0]?.texture) {
-					if (
-						wigTextureType2.includes(singleProducts[0]?.texture?.toLowerCase())
-					) {
-						a = p?.price + wigTextureTypeIncreaseValue2;
-					} else {
-						a = p?.price;
-					}
-				} else if (
-					singleProducts[0]?.texture?.toLowerCase().includes("straight")
-				) {
-					a = p?.price;
-				} else {
-					a = p?.price;
-				}
-			}
-		});
-		return a;
-	}
-
-	const vWPrice = singleProducts?.[0]?.name.toLowerCase().includes("-closure")
-		? wigFuncClosure()
-		: singleProducts?.[0]?.name.toLowerCase().includes("-frontal")
-		? wigFuncFrontal()
+		sales !== 0 && _sales
+			? _singleprice - _singleprice * (sales / 100)
+			: _singleprice;
+	let { _price, _price2 } = predictPriceFunc(cardPrice, length);
+	const vWPrice = _vWPriceClosure
+		? wigFuncClosure(singleProducts, length)
+		: _vWPriceFrontal
+		? wigFuncFrontal(singleProducts, length)
 		: "";
-	const f_cPrice = pricePredict();
-
-	const priceFunc = () => {
-		if (singleProducts?.[0]?.sales) {
-			if (
-				singleProducts?.[0]?.type.toLowerCase() === "frontal" ||
-				singleProducts?.[0]?.type.toLowerCase() === "closure"
-			) {
-				return Number(f_cPrice);
-			} else {
-				return Number(_price);
-			}
-		} else {
-			return Number(price_Nosales);
-		}
-	};
+	const f_cPrice = pricePredict(
+		singleProducts,
+		_color,
+		_hairType,
+		_price2,
+		_price
+	);
 
 	const price_Nosales =
-		singleProducts?.[0]?.type.toLowerCase().includes("frontal") ||
-		singleProducts?.[0]?.type.toLowerCase().includes("closure")
+		singleProducts?.[0]?.type.toLowerCase().includes(FRONTAL) ||
+		singleProducts?.[0]?.type.toLowerCase().includes(CLOSURE)
 			? f_cPrice
-			: singleProducts?.[0]?.type.toLowerCase().includes("virgin wig")
+			: singleProducts?.[0]?.type.toLowerCase().includes(VIRGINWIG)
 			? vWPrice
 			: _price;
 
-	const price = singleProducts?.[0]?.type.includes("virgin wig")
+	const price = singleProducts?.[0]?.type.includes(VIRGINWIG)
 		? vWPrice
-		: priceFunc();
+		: priceFunc(singleProducts, f_cPrice, _price, price_Nosales);
 
 	const singleProduct = {
 		name,
@@ -277,77 +105,8 @@ const HomePageSingleModal = ({
 		width,
 		hairTexture,
 	};
-
-	let timeOut;
-	const addToCart = () => {
-		clearTimeout(timeOut);
-		if (!price) {
-			setError(true);
-		} else {
-			if (length) {
-				dispatch(addToCartItem(singleProduct));
-				timeOut = setTimeout(() => {
-					setSingleCart(singleProduct);
-				}, 1000);
-			} else {
-				setError(true);
-			}
-		}
-	};
-
-	const IncreaseItem = () => {
-		clearTimeout(timeOut);
-		if (!price) {
-			setError(true);
-		} else {
-			if (length) {
-				dispatch(increaseCartItem(singleProduct));
-				timeOut = setTimeout(() => {
-					setSingleCart(singleProduct);
-				}, 1000);
-			} else {
-				setError(true);
-			}
-		}
-	};
-
-	const desc = [
-		{ key: "Brand", value: `Raw ${singleProducts?.[0]?.brand} hair` },
-		{
-			key: "Hair Texture",
-			value:
-				singleProducts?.[0]?.type.toLowerCase() === "frontal" ||
-				singleProducts?.[0]?.type.toLowerCase() === "closure"
-					? texture.join(", ")
-					: name,
-		},
-		{ key: "Hair Color", value: color },
-		{
-			key: "Hair Length",
-			value: `Available from ${avesizes?.[0]}" - ${
-				avesizes?.[avesizes.length - 1]
-			}" inches`,
-		},
-		{ key: "Material", value: "100% Human Hair" },
-		{
-			key: "Cap Size",
-			value: "Average Size(Head circumference: 54cm - 58cm",
-		},
-		{ key: "Can be bleached.dyed", value: "Yes" },
-		{
-			key: "Return policy",
-			value:
-				"We accept 10-days no reason return exchange with hair not been used",
-		},
-		{
-			key: "Delivery time",
-			value:
-				"We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)",
-		},
-	];
-
 	return (
-		<div className="single tw-fixed tw-z-40 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-0 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white md:tw-pt-5 ">
+		<div className="single tw-fixed tw-z-40 tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-0 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white md:tw-pt-5 ">
 			<div className="general-scrollbar-hide md:tw-mx-auto tw-w-[100%] md:tw-w-[90%] tw-h-full tw-flex md:tw-flex-row tw-flex-col tw-overflow-scroll">
 				<div className="tw-relative tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
 					<Slideshow
@@ -367,8 +126,8 @@ const HomePageSingleModal = ({
 							Description: {singleProducts?.[0]?.description}
 						</p>
 					</div>
-					{singleProducts?.[0]?.name.toLowerCase() === "frontal" ||
-					singleProducts?.[0]?.name.toLowerCase() === "closure" ? (
+					{singleProducts?.[0]?.name.toLowerCase() === FRONTAL ||
+					singleProducts?.[0]?.name.toLowerCase() === CLOSURE ? (
 						<div className="tw-ml-5  md:tw-ml-0 tw-mt-5">
 							<div className="tw-flex tw-flex-col tw-border-y-[1px] tw-py-3">
 								<div className="tw-flex tw-flex-wrap tw-gap-2">
@@ -427,7 +186,7 @@ const HomePageSingleModal = ({
 								</div>
 							</div>
 						</div>
-					) : singleProducts?.[0]?.type.toLowerCase().includes("virgin wig") ? (
+					) : singleProducts?.[0]?.type.toLowerCase().includes(VIRGINWIG) ? (
 						<div className="tw-ml-5 md:tw-ml-0 tw-mt-5">
 							<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
 								<div className="tw-flex tw-flex-wrap tw-border-y-[1px] tw-py-3 tw-gap-2">
@@ -458,24 +217,29 @@ const HomePageSingleModal = ({
 					) : (
 						<div className="tw-flex tw-flex-col tw-ml-5 tw-mt-5 md:tw-ml-0 tw-border-y-[1px] tw-py-3">
 							<div className="tw-flex tw-flex-wrap tw-gap-2">
-								{allSizes.map(
+								{ALLSIZES.map(
 									// eslint-disable-next-line array-callback-return
 									(item) =>
-										avesizes?.includes(item) ? (
+										avesizes?.includes(item?.value) ? (
 											<div
+												key={item?.id}
 												onClick={() => {
-													setLength(item);
+													setLength(item?.value);
 													setError(false);
 												}}
 												className={` tw-flex tw-flex-wrap tw-mr-2 tw-p-2 tw-px-3 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
-													item === length && "tw-bg-neutral-900 tw-text-white"
+													item?.value &&
+													length &&
+													item?.value === length &&
+													"tw-bg-neutral-900 tw-text-white"
 												}`}>
-												<span>{item}</span>
+												<span>{item?.value}</span>
 											</div>
 										) : (
 											<div
-												className={`tw-flex tw-flex-wrap tw-mr-2 tw-p-2 tw-px-3 tw-border-[1px] tw-rounded-full tw-cursor-not-allowed tw-text-neutral-300`}>
-												<span>{item}</span>
+												key={item?.id}
+												className="tw-flex tw-flex-wrap tw-mr-2 tw-p-2 tw-px-3 tw-border-[1px] tw-rounded-full tw-cursor-not-allowed tw-text-neutral-300">
+												<span>{item?.value}</span>
 											</div>
 										)
 								)}
@@ -485,8 +249,8 @@ const HomePageSingleModal = ({
 				</div>
 				<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 ">
 					{!price_Nosales &&
-						(singleProducts?.[0]?.type.toLowerCase() === "frontal" ||
-						singleProducts?.[0]?.type.toLowerCase() === "closure" ? (
+						(singleProducts?.[0]?.type.toLowerCase() === FRONTAL ||
+						singleProducts?.[0]?.type.toLowerCase() === CLOSURE ? (
 							<span className="tw-text-xs tw-my-3 tw-text-green-700">
 								*** Select color & tetxure to calculate price... ***
 							</span>
@@ -497,7 +261,7 @@ const HomePageSingleModal = ({
 						))}
 					<p className="tw-font-medium tw-text-2xl tw-mb-[10px]">
 						Price:{" "}
-						{!singleProducts?.[0]?.type.includes("virgin wig") && (
+						{!singleProducts?.[0]?.type.includes(VIRGINWIG) && (
 							<span
 								className={
 									sales !== 0 &&
@@ -516,7 +280,7 @@ const HomePageSingleModal = ({
 									}${" "}`}
 							</span>
 						)}
-						{singleProducts?.[0]?.type.includes("virgin wig")
+						{singleProducts?.[0]?.type.includes(VIRGINWIG)
 							? `$${vWPrice ? vWPrice : "***"}${" "}`
 							: price_Nosales
 							? price_Nosales
@@ -553,8 +317,8 @@ const HomePageSingleModal = ({
 						{error && (
 							<div>
 								<p className="tw-text-center tw-mb-2 tw-text-red-600 tw-text-xs">
-									{singleProducts?.[0]?.type.toLowerCase() === "frontal" ||
-									singleProducts?.[0]?.type.toLowerCase() === "closure"
+									{singleProducts?.[0]?.type.toLowerCase() === FRONTAL ||
+									singleProducts?.[0]?.type.toLowerCase() === CLOSURE
 										? `Please provide color, texture and length for ${singleProducts?.[0]?.name}`
 										: `Please provide length for ${singleProducts?.[0]?.name}`}
 								</p>
@@ -563,9 +327,21 @@ const HomePageSingleModal = ({
 						{isInCart(singleProduct, cartItems) ? (
 							<div
 								className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:md:tw-text-neutral-900 hover:md:tw-bg-white tw-cursor-pointer tw-ease-in tw-duration-300"
-								onClick={cartItems.length !== 0 ? IncreaseItem : null}>
-								{singleProducts?.[0]?.type.toLowerCase() === "frontal" ||
-								singleProducts?.[0]?.type.toLowerCase() === "closure" ? (
+								onClick={
+									cartItems.length !== 0
+										? () =>
+												increaseItem(
+													price,
+													length,
+													dispatch,
+													singleProduct,
+													setSingleCart,
+													setError
+												)
+										: null
+								}>
+								{singleProducts?.[0]?.type.toLowerCase() === FRONTAL ||
+								singleProducts?.[0]?.type.toLowerCase() === CLOSURE ? (
 									<span>
 										Add more of {_hairType} {_color} - {length}"
 									</span>
@@ -578,47 +354,36 @@ const HomePageSingleModal = ({
 						) : (
 							<div
 								className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:md:tw-text-neutral-900 hover:md:tw-bg-white tw-cursor-pointer tw-ease-in tw-duration-300"
-								onClick={addToCart}>
+								onClick={() =>
+									addToCart(
+										price,
+										length,
+										dispatch,
+										singleProduct,
+										setSingleCart,
+										setError
+									)
+								}>
 								<span>Add to cart</span>
 							</div>
 						)}
 					</div>
-					{similarProductsFiltered.length !== 0 && (
-						<>
-							<div className="tw-mt-5 tw-mb-2">
-								<Heading
-									children={
-										similarProductsFiltered.length > 1
-											? "Similar products"
-											: "Similar product"
-									}
-									isBold={false}
-								/>
-							</div>
-							<div className=" tw-flex tw-flex-wrap">
-								{similarProductsFiltered.map((product) => (
-									<div className="tw-relative tw-mb-5 tw-w-[80px] tw-h-[85px] tw-rounded-md">
-										<img
-											className="tw-w-full tw-h-full tw-object-cover tw-rounded-md"
-											src={product.image}
-											alt={product.name}
-										/>
-										<p className="tw-text-[10px] tw-absolute tw-bottom-0 tw-bg-[rgba(255,255,255,0.8)] tw-text-black tw-text-center tw-w-full tw-rounded-b-md">
-											{product.name}
-										</p>
-									</div>
-								))}
-							</div>
-						</>
-					)}
 
 					<div className="tw-my-5 tw-border-t-[1px] tw-border-red-700 tw-py-5 tw-overflow-scroll single tw-h-[70%]">
 						<div className="tw-mb-5">
 							<Heading children="Product Details" isBold={false} />
 						</div>
 						<div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 md:tw-gap-x-10">
-							{desc.map((item, idx) => (
-								<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm tw-capitalize">
+							{returnDecsriptionObject(
+								singleProducts,
+								texture,
+								name,
+								color,
+								avesizes
+							)?.map((item, idx) => (
+								<div
+									key={idx}
+									className="tw-flex tw-flex-col tw-mb-2 tw-text-sm tw-capitalize">
 									<span className="tw-uppercase tw-text-xs tw-text-red-600 tw-font-bold">
 										{item.key}:{" "}
 									</span>
