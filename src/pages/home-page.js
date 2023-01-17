@@ -22,7 +22,6 @@ function HomePage() {
 	const [showWhatsapp, setShowWhatsapp] = React.useState(false);
 	const [inputValue, setInputValue] = React.useState("");
 	const [allProducts, setAllproducts] = React.useState([]);
-
 	const database = getDatabase();
 	const type = "sales";
 	let salesType;

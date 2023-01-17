@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Helmet } from "react-helmet";
-import axios from "axios";
 import Layout from "../components/shared/Layout";
 import Card from "../components/Card2";
 import { selectCartItems } from "../slices/appSlices";
@@ -9,15 +8,18 @@ import Add2CartPopup from "../components/shared/Add2CartPopup";
 import SingleProductModal from "../components/shared/SingleProductModal";
 import Reviews from "../components/shared/Reviews";
 import SearchInput from "../components/shared/SearchInput";
-import { Link } from "react-router-dom";
 import { RiSendPlaneFill } from "react-icons/ri";
 import Heading from "../components/Heading";
 import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
+import SearchDropDown from "../components/shared/SearchDropDown";
+import useFetchHook from "../utils/useFetchHook";
+import { returnDecsriptionObject } from "../utils/returnObjectProperty";
 
 function IndianBundles() {
 	const [hairBundles, setHairBundles] = React.useState([]);
 	const [hairBundlesByPriceLow2High, setHairBundlesByPriceLow2High] =
 		React.useState([]);
+	const [close, setClose] = React.useState(false);
 	const [searchFiltered, setSearchFiltered] = React.useState([]);
 	const [searchError, setSearchError] = React.useState(false);
 	const [searchControl, setSearchControl] = React.useState(false);
@@ -26,28 +28,21 @@ function IndianBundles() {
 	const [show, setShow] = React.useState(false);
 	const [error, setError] = React.useState(false);
 	const [sales, setSales] = React.useState(null);
-	const [length, setLength] = React.useState("14");
+	const [length, setLength] = React.useState(14);
 	const [priceFilter, setPriceFilter] = React.useState("");
+	const [inputValue, setInputValue] = React.useState("");
 	const [priceRangeFilter, setPriceRangeFilter] = React.useState({
 		from: "",
 		to: "",
 	});
 	const cartItems = useSelector(selectCartItems);
 
-	async function fetchProducts() {
-		try {
-			const {
-				data: { products },
-			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
-
-			const filtered = products.filter((product) =>
-				product.type.toLowerCase().includes("hair bundles")
-			);
-			setHairBundles(filtered.sort((a, b) => a.name.localeCompare(b.name)));
-		} catch (error) {
-			console.log(error);
-		}
-	}
+	// Getting products from db
+	const url1 = `${process.env.REACT_APP_BASE_ROUTE}/products`;
+	const productsRes = useFetchHook(url1, "products", false, false, true);
+	const fetchProducts = useCallback(async () => {
+		setHairBundles(productsRes);
+	}, [productsRes]);
 
 	React.useEffect(() => {
 		setSales(fetchSalesPercentage());
@@ -55,41 +50,12 @@ function IndianBundles() {
 		window.scrollTo(0, 0);
 		fetchProducts();
 		setShow(true);
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [fetchProducts]);
 
 	const scrollToTop = function scrollToTop() {
 		window.scrollTo(0, 0);
 	};
 	const sizes = singleProducts?.[0].availablelength.split(", ");
-
-	let cardPrice =
-		sales !== 0 && singleProducts?.[0]?.sales
-			? singleProducts?.[0]?.price - singleProducts?.[0]?.price * (sales / 100)
-			: singleProducts?.[0]?.price;
-
-	let _price;
-
-	if (length === "14") {
-		_price = cardPrice;
-	} else if (length === "16") {
-		_price = cardPrice + 10;
-	} else if (length === "18") {
-		_price = cardPrice + 20;
-	} else if (length === "20") {
-		_price = cardPrice + 30;
-	} else if (length === "22") {
-		_price = cardPrice + 40;
-	} else if (length === "24") {
-		_price = cardPrice + 50;
-	} else if (length === "26") {
-		_price = cardPrice + 60;
-	} else if (length === "28") {
-		_price = cardPrice + 70;
-	} else if (length === "30") {
-		_price = cardPrice + 80;
-	}
 
 	// Adding to cart items
 	const name = singleProducts?.[0] && singleProducts?.[0]?.name;
@@ -100,7 +66,7 @@ function IndianBundles() {
 	const hairLength = length;
 	const hairColor = color;
 	const hairTexture = singleProducts?.[0] && singleProducts?.[0]?.name;
-	const price = Number(_price);
+	const price = singleProducts?.[0]?.price[length];
 
 	const singleProduct = {
 		name,
@@ -113,33 +79,9 @@ function IndianBundles() {
 		hairTexture,
 	};
 
-	const desc = [
-		{ key: "Brand", value: `raw ${singleProducts?.[0]?.brand} hair` },
-		{ key: "Hair Texture", value: name },
-		{ key: "Hair Color", value: color },
-		{
-			key: "Hair Length",
-			value: `Available from ${sizes?.[0]}" - ${
-				sizes?.[sizes.length - 1]
-			}" inches`,
-		},
-		{ key: "Material", value: "100% Human Hair" },
-		{ key: "Density", value: "150% - 200%" },
-		{ key: "Cap Size", value: "Average Size(Head circumference: 54cm - 58cm" },
-		{ key: "Can be bleached dyed", value: "Yes" },
-		{
-			key: "Delivery time",
-			value:
-				"We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)",
-		},
-		{
-			key: "Return policy",
-			value:
-				"We accept 10-days no reason return exchange with hair not been used",
-		},
-	];
+	const desc = returnDecsriptionObject(singleProducts, "", name, color, sizes);
 	const priceList = [
-		"Select Sort Direction",
+		"Default Sort Direction",
 		"price from low - high",
 		"price from high - low",
 	];
@@ -155,11 +97,19 @@ function IndianBundles() {
 			// eslint-disable-next-line array-callback-return
 			if (e.target.value === "price from low - high") {
 				setHairBundlesByPriceLow2High(
-					hairBundles.sort((a, b) => a.price - b.price)
+					hairBundles.sort(
+						(a, b) =>
+							a.price[a?.length.split(", ")?.[0] || a?.length] -
+							b.price[a?.length.split(", ")?.[0] || a?.length]
+					)
 				);
 			} else if (e.target.value === "price from high - low") {
 				const reversed = hairBundles
-					.sort((a, b) => a.price - b.price)
+					.sort(
+						(a, b) =>
+							a.price[a?.length.split(", ")?.[0] || a?.length] -
+							b.price[a?.length.split(", ")?.[0] || a?.length]
+					)
 					.reverse();
 				setHairBundlesByPriceLow2High(reversed);
 			}
@@ -168,7 +118,7 @@ function IndianBundles() {
 	const handleOnChangePrice = (e) => {
 		setPriceRangeFilter({
 			...priceRangeFilter,
-			[e.target.name]: Number(e.target.value),
+			[e.target.name]: +e.target.value,
 		});
 	};
 	const handleFormSubmit = (e) => {
@@ -179,8 +129,12 @@ function IndianBundles() {
 			// eslint-disable-next-line array-callback-return
 			hairBundles.filter((product) => {
 				if (
-					product?.price >= priceRangeFilter?.from &&
-					product?.price <= priceRangeFilter?.to
+					product?.price[
+						product?.length?.split(", ")?.[0] || product?.length
+					] >= priceRangeFilter?.from &&
+					product?.price[
+						product?.length?.split(", ")?.[0] || product?.length
+					] <= priceRangeFilter?.to
 				) {
 					array.push(product);
 				}
@@ -210,16 +164,7 @@ function IndianBundles() {
 				<title>Indian-Hair-Bundles</title>
 			</Helmet>
 			<Layout>
-				<div
-					className={
-						sales
-							? `${
-									hairBundles.length === 0 && !show
-										? "tw-pt-[230px]"
-										: "tw-pt-[155px]"
-							  } tw-pb-10 md:tw-pt-[120px] tw-h-full tw-relative tw-flex tw-flex-col tw-items-center tw-mx-auto tw-bg-[rgba(255,255,255,0.1)]`
-							: "tw-pb-10 tw-pt-[110px] md:tw-pt-20 tw-h-full tw-relative  tw-flex tw-flex-col tw-items-center tw-mx-auto tw-bg-[rgba(255,255,255,0.1)]"
-					}>
+				<div className="tw-pb-10 tw-pt-[110px] md:tw-pt-20 tw-h-full tw-relative  tw-flex tw-flex-col tw-items-center tw-mx-auto tw-bg-[rgba(255,255,255,0.1)]">
 					{show && hairBundles && (
 						<>
 							<div className="tw-fixed tw-z-50 tw-top-0 md:tw-top-[-95px] tw-right-0 md:tw-right-[-30px]">
@@ -231,17 +176,20 @@ function IndianBundles() {
 							</div>
 							<div className="tw-pt-[30px] md:tw-pt-[40px]">
 								<div
-									className={`${searchControl && "tw-w-[100%] lg:tw-w-[40%]"} ${
-										sales
-											? "tw-top-[105px] md:tw-top-[80px]"
-											: "tw-top-[60px] md:tw-top-[30px]"
+									className={`${
+										searchControl && "tw-w-[100%] lg:tw-w-[40%]"
+									} "tw-top-[60px] md:tw-top-[30px]"
 									} tw-flex tw-flex-col content tw-fixed tw-left-[-9px] md:tw-left-[77px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
 									<SearchInput
-										allProducts={hairBundles}
+										allProducts={hairBundles && hairBundles}
 										searchControl={searchControl}
+										close={close}
 										setFiltered={setSearchFiltered}
 										setSearchControl={setSearchControl}
+										setClose={setClose}
 										setSearchError={setSearchError}
+										inputValue={inputValue}
+										setInputValue={setInputValue}
 									/>
 
 									{searchError && (
@@ -251,40 +199,8 @@ function IndianBundles() {
 											</p>
 										</div>
 									)}
-									{searchFiltered?.length !== 0 && !searchError && (
-										<div className="tw-bg-white tw-text-black tw-ml-[1px] tw-w-[79.7%] tw-overflow-y-scroll tw-max-h-[400px] md:tw-max-h-[600px] featuredCard tw-shadow-lg tw-rounded-b-[5px] tw-border-[1px] tw-border-t-0 tw-border-neutral-900">
-											{searchFiltered.map((item) => (
-												<Link to={item?.route} key={item?._id}>
-													<div className="tw-flex tw-items-center tw-p-3 tw-border-b-[1px] tw-w-[100%] tw-mx-auto hover:tw-bg-[rgba(215,191,137,0.3)] tw-ease-in tw-duration-300">
-														<div className="tw-mr-3">
-															<img
-																src={item?.image}
-																alt={item?.name}
-																className="tw-object-cover tw-w-[40px] tw-h-[40px] tw-rounded-full"
-															/>
-														</div>
-														<div>
-															<p className="tw-text-[13px] md:tw-text-[14px]">
-																{item?.name}
-															</p>
-															<p className="tw-text-[13px] md:tw-text-[14px]">
-																<span className="tw-text-xs tw-font-light">
-																	Starting from
-																</span>{" "}
-																${item?.price}
-															</p>
-														</div>
-													</div>
-												</Link>
-											))}
-											<Link to="/all-bundles">
-												<div className="tw-pr-5 tw-py-3 tw-border-b-[1px] tw-w-[90%] tw-mx-auto">
-													<span className="tw-text-[13px] md:tw-text-[14px] tw-text-[#bba371] hover:tw-text-black tw-ease-in tw-duration-300">
-														View all bundles
-													</span>
-												</div>
-											</Link>
-										</div>
+									{searchFiltered?.length !== 0 && inputValue && (
+										<SearchDropDown filtered={searchFiltered} />
 									)}
 								</div>
 								<div className=" tw-flex tw-items-top tw-text-neutral-400">
@@ -345,7 +261,7 @@ function IndianBundles() {
 								</div>
 							</div>
 
-							<div className="tw-w-full md:tw-w-[90%] tw-pt-5 tw-text-center md:tw-text-left tw-pb-3 tw-mt-[30px] tw-border-t-[1px] tw-border-neutral-600">
+							<div className="tw-w-full md:tw-w-[90%] tw-pt-8 tw-text-center md:tw-text-left tw-pb-3 tw-mt-[30px] tw-border-t-[1px] tw-border-neutral-600">
 								<Heading
 									children="All Indian Bundles"
 									isWhite={true}
@@ -384,7 +300,6 @@ function IndianBundles() {
 							singleProducts={singleProducts}
 							setSingleproducts={setSingleproducts}
 							setSingleCart={setSingleCart}
-							sales={sales}
 							desc={desc}
 							sizes={sizes}
 							setLength={setLength}
@@ -392,7 +307,7 @@ function IndianBundles() {
 							error={error}
 							singleProduct={singleProduct}
 							cartItems={cartItems}
-							price={_price}
+							price={price}
 							length={length}
 						/>
 					)}

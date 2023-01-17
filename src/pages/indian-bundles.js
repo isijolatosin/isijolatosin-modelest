@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Helmet } from "react-helmet";
-import axios from "axios";
 import Layout from "../components/shared/Layout";
 import Card from "../components/Card2";
 import { selectCartItems } from "../slices/appSlices";
@@ -9,6 +8,7 @@ import Add2CartPopup from "../components/shared/Add2CartPopup";
 import SingleProductModal from "../components/shared/SingleProductModal";
 import Reviews from "../components/shared/Reviews";
 import { returnDecsriptionObject } from "../utils/returnObjectProperty";
+import useFetchHook from "../utils/useFetchHook";
 
 function IndianBundles() {
 	const [hairBundles, setHairBundles] = React.useState([]);
@@ -18,30 +18,15 @@ function IndianBundles() {
 	const [length, setLength] = React.useState("14");
 	const cartItems = useSelector(selectCartItems);
 
-	async function fetchProducts() {
-		try {
-			const {
-				data: { products },
-			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
-			const filtered = products.filter(
-				(product) =>
-					product.color.toLowerCase() === "natural black" &&
-					!product.name.toLowerCase().includes("closure") &&
-					!product.name.toLowerCase().includes("frontal") &&
-					!product.type.toLowerCase().includes("virgin wig") &&
-					!product.type.toLowerCase().includes("vietnamese wig") &&
-					!product.brand.toLowerCase().includes("virgin hair") &&
-					!product.brand.toLowerCase().includes("vietnamese hair")
-			);
-			setHairBundles(filtered.sort((a, b) => a.name.localeCompare(b.name)));
-		} catch (error) {
-			console.log(error);
-		}
-	}
+	const url1 = `${process.env.REACT_APP_BASE_ROUTE}/products`;
+	const indianRes = useFetchHook(url1, "products", true);
+	const fetchProducts = useCallback(async () => {
+		setHairBundles(indianRes);
+	}, [indianRes]);
 
 	React.useEffect(() => {
 		fetchProducts();
-	}, []);
+	}, [fetchProducts]);
 
 	const scrollToTop = function scrollToTop() {
 		window.scrollTo(0, 0);

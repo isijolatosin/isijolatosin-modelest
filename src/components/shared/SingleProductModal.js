@@ -87,7 +87,7 @@ const SingleProductModal = ({
 									{sizes?.map((size) => (
 										<span
 											onClick={() => {
-												setLength(size);
+												setLength(+size);
 												setError(false);
 											}}
 											className={`tw-flex tw-flex-wrap ${

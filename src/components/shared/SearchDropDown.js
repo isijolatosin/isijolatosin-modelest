@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 const SearchDropDown = ({ filtered }) => {
 	return (
 		<div className="tw-bg-white tw-text-black  tw-w-[80%] tw-overflow-y-scroll tw-max-h-[400px] md:tw-max-h-[600px] featuredCard tw-shadow-lg tw-rounded-b-[5px] tw-border-[1px] tw-border-t-0 tw-border-neutral-900">
-			{filtered?.map((item) => (
-				<Link to={item?.route} key={item?._id}>
+			{filtered?.map((item, idx) => (
+				<Link to={item?.route} key={idx}>
 					<div className="tw-flex tw-items-center tw-p-3 tw-border-b-[1px] tw-w-[100%] tw-mx-auto hover:tw-bg-[rgba(215,191,137,0.3)] tw-ease-in tw-duration-300">
 						<div className="tw-mr-3">
 							<img

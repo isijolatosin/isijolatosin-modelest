@@ -1,6 +1,18 @@
 import React, { useRef } from "react";
 import { MdOutlineClose } from "react-icons/md";
 import { RiSearch2Fill } from "react-icons/ri";
+import {
+	ALL_BUNDLES,
+	BUNDLES,
+	CLOSURE,
+	CLOSURE_FRONTAL_LINK,
+	FRONTAL,
+	HAIR_BUNDLES,
+	VIETNAMESE,
+	VIETNAMESE_WIGS_LINK,
+	VIRGINWIG,
+	WIGS_LINK,
+} from "../../constant";
 
 const SearchInput = ({
 	allProducts,
@@ -20,78 +32,129 @@ const SearchInput = ({
 			// eslint-disable-next-line array-callback-return
 			allProducts.filter((product) => {
 				if (product?.brand?.toLowerCase().includes(inputValue.toLowerCase())) {
-					if (product?.type?.toLowerCase().includes("virgin wig")) {
+					if (product?.type?.toLowerCase().includes(VIRGINWIG)) {
 						const obj = {
 							name: product?.name,
 							image: product?.images[0],
-							price: product?.price,
-							route: "/virgin-wigs",
+							price:
+								product?.price?.[
+									product?.length?.split(", ")[0] || product?.length
+								],
+							route: WIGS_LINK,
 						};
 						returnFiltered.push(obj);
 					}
-					if (product?.type?.toLowerCase().includes("hair bundle")) {
+					if (
+						product?.type?.toLowerCase().includes(HAIR_BUNDLES) ||
+						product?.type?.toLowerCase().includes(BUNDLES)
+					) {
 						const obj = {
 							name: product?.name,
 							image: product?.images[0],
-							price: product?.price,
-							route: "/all-bundles",
+							price:
+								product?.price?.[
+									product?.length?.split(", ")[0] || product?.length
+								],
+							route: ALL_BUNDLES,
 						};
 						returnFiltered.push(obj);
 					}
-					if (product?.type?.toLowerCase().includes("frontal")) {
+					if (product?.type?.toLowerCase().includes(FRONTAL)) {
 						const obj = {
 							name: product?.name,
 							image: product?.images[0],
-							price: product?.price,
-							route: "/closure-frontal/indian",
+							price:
+								product?.price?.[
+									product?.length?.split(", ")[0] || product?.length
+								],
+							route: CLOSURE_FRONTAL_LINK,
 						};
 						returnFiltered.push(obj);
 					}
-					if (product?.type?.toLowerCase().includes("closure")) {
+					if (product?.type?.toLowerCase().includes(CLOSURE)) {
 						const obj = {
 							name: product?.name,
 							image: product?.images[0],
-							price: product?.price,
-							route: "/closure-frontal/indian",
+							price:
+								product?.price?.[
+									product?.length?.split(", ")[0] || product?.length
+								],
+							route: CLOSURE_FRONTAL_LINK,
 						};
 						returnFiltered.push(obj);
 					}
-				}
-
-				if (product?.name?.toLowerCase().includes(inputValue.toLowerCase())) {
-					if (product?.type?.toLowerCase().includes("virgin wig")) {
+					if (product?.type?.toLowerCase().includes(VIETNAMESE)) {
 						const obj = {
 							name: product?.name,
 							image: product?.images[0],
-							price: product?.price,
-							route: "/virgin-wigs",
+							price:
+								product?.price?.[
+									product?.length?.split(", ")[0] || product?.length
+								],
+							route: VIETNAMESE_WIGS_LINK,
 						};
 						returnFiltered.push(obj);
 					}
-					if (product?.type?.toLowerCase().includes("hair bundle")) {
+				} else if (
+					product?.name?.toLowerCase().includes(inputValue.toLowerCase())
+				) {
+					if (product?.type?.toLowerCase().includes(VIRGINWIG)) {
 						const obj = {
 							name: product?.name,
 							image: product?.images[0],
-							price: product?.price,
-							route: "/all-bundles",
+							price:
+								product?.price?.[
+									product?.length?.split(", ")[0] || product?.length
+								],
+							route: WIGS_LINK,
 						};
 						returnFiltered.push(obj);
 					}
-					if (product?.type?.toLowerCase().includes("frontal")) {
+					if (product?.type?.toLowerCase().includes(HAIR_BUNDLES)) {
 						const obj = {
 							name: product?.name,
 							image: product?.images[0],
-							price: product?.price,
-							route: "/closure-frontal/indian",
+							price:
+								product?.price?.[
+									product?.length?.split(", ")[0] || product?.length
+								],
+							route: ALL_BUNDLES,
 						};
 						returnFiltered.push(obj);
 					}
-					if (product?.type?.toLowerCase().includes("closure")) {
+					if (product?.type?.toLowerCase().includes(FRONTAL)) {
 						const obj = {
 							name: product?.name,
 							image: product?.images[0],
-							price: product?.price,
-							route: "/closure-frontal/indian",
+							price:
+								product?.price?.[
+									product?.length?.split(", ")[0] || product?.length
+								],
+							route: CLOSURE_FRONTAL_LINK,
+						};
+						returnFiltered.push(obj);
+					}
+					if (product?.type?.toLowerCase().includes(CLOSURE)) {
+						const obj = {
+							name: product?.name,
+							image: product?.images[0],
+							price:
+								product?.price?.[
+									product?.length?.split(", ")[0] || product?.length
+								],
+							route: CLOSURE_FRONTAL_LINK,
+						};
+						returnFiltered.push(obj);
+					}
+					if (product?.type?.toLowerCase().includes(VIETNAMESE)) {
+						const obj = {
+							name: product?.name,
+							image: product?.images[0],
+							price:
+								product?.price?.[
+									product?.length?.split(", ")[0] || product?.length
+								],
+							route: VIETNAMESE_WIGS_LINK,
 						};
 						returnFiltered.push(obj);
 					}
@@ -121,14 +184,14 @@ const SearchInput = ({
 				ref={inputRef}
 				type="text"
 				value={inputValue}
-				onChange={(e) => handleChange(e.target.value)}
+				onChange={(e) => handleChange(inputRef.current.value)}
 				className={`${
 					searchControl
 						? "search__input tw-placeholder-neutral-900 tw-text-neutral-900 tw-text-[14px] __search__input placeholder:tw-text-xs"
 						: "search__input tw-placeholder-neutral-900 tw-text-neutral-900 tw-text-[14px]"
-				}`}
+				} placeholder:tw-text-neutral-500 placeholder:tw-italic`}
 				aria-label="search"
-				placeholder="Search..."
+				placeholder="...search by name / brand"
 			/>
 			<button className="search__submit tw-z-10" aria-label="submit search">
 				{searchControl ? (

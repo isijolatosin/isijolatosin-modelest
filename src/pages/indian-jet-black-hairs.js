@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Helmet } from "react-helmet";
-import axios from "axios";
 import Layout from "../components/shared/Layout";
 import Card from "../components/Card3";
 import { selectCartItems } from "../slices/appSlices";
@@ -9,6 +8,7 @@ import Add2CartPopup from "../components/shared/Add2CartPopup";
 import SingleProductModal from "../components/shared/SingleProductModal";
 import Reviews from "../components/shared/Reviews";
 import { returnDecsriptionObject } from "../utils/returnObjectProperty";
+import useFetchHook from "../utils/useFetchHook";
 
 function IndianJetBlackHair() {
 	const [singleProducts, setSingleproducts] = React.useState(null);
@@ -18,25 +18,16 @@ function IndianJetBlackHair() {
 	const cartItems = useSelector(selectCartItems);
 	const [singleCart, setSingleCart] = React.useState(null);
 
-	async function fetchProducts() {
-		try {
-			const {
-				data: { products },
-			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
-			const filtered = products.filter(
-				(product) =>
-					product.color.toLowerCase() === "jet black" ||
-					product.color.toLowerCase().includes("blonde613")
-			);
-			setJetBlackHair(filtered.sort((a, b) => a.name.localeCompare(b.name)));
-		} catch (error) {
-			console.log(error);
-		}
-	}
+	// Getting products from db
+	const url1 = `${process.env.REACT_APP_BASE_ROUTE}/products`;
+	const productsRes = useFetchHook(url1, "products", false, true);
+	const fetchProducts = useCallback(async () => {
+		setJetBlackHair(productsRes);
+	}, [productsRes]);
 
 	React.useEffect(() => {
 		fetchProducts();
-	}, []);
+	}, [fetchProducts]);
 
 	const scrollToTop = function scrollToTop() {
 		window.scrollTo(0, 0);

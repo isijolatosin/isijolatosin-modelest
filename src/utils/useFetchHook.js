@@ -2,9 +2,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import axios from "axios";
-import { cloudinaryBaseUrl } from "../constant";
+import { CLOSURE, FRONTAL, cloudinaryBaseUrl } from "../constant";
 
-export default function useFetchHook(url, type) {
+export default function useFetchHook(url, type, isBundle, isJet, isAllBundles) {
 	const [resources, setResources] = React.useState([]);
 	const [productsRes, setProductsRes] = React.useState([]);
 
@@ -49,9 +49,43 @@ export default function useFetchHook(url, type) {
 						data: { products },
 					} = await axios.get(url);
 					try {
-						setProductsRes(
-							products?.sort((a, b) => a?.name?.localeCompare(b?.type))
-						);
+						if (isBundle) {
+							const filtered = products.filter(
+								(product) =>
+									product.color.toLowerCase() === "natural black" &&
+									!product.name.toLowerCase().includes("closure") &&
+									!product.name.toLowerCase().includes("frontal") &&
+									!product.type.toLowerCase().includes("virgin wig") &&
+									!product.type.toLowerCase().includes("vietnamese wig") &&
+									!product.brand.toLowerCase().includes("virgin hair") &&
+									!product.brand.toLowerCase().includes("vietnamese hair")
+							);
+							setProductsRes(
+								filtered.sort((a, b) => a.name.localeCompare(b.name))
+							);
+						} else if (isJet) {
+							const filtered = products.filter(
+								(product) =>
+									(product.color.toLowerCase() === "jet black" ||
+										product.color.toLowerCase().includes("blonde613")) &&
+									product?.type.toLowerCase() !== CLOSURE &&
+									product?.type.toLowerCase() !== FRONTAL
+							);
+							setProductsRes(
+								filtered.sort((a, b) => a.name.localeCompare(b.name))
+							);
+						} else if (isAllBundles) {
+							const filtered = products.filter((product) =>
+								product.type.toLowerCase().includes("hair bundles")
+							);
+							setProductsRes(
+								filtered.sort((a, b) => a.name.localeCompare(b.name))
+							);
+						} else {
+							setProductsRes(
+								products?.sort((a, b) => a?.name?.localeCompare(b?.type))
+							);
+						}
 					} catch (error) {
 						console.log(error);
 					}
