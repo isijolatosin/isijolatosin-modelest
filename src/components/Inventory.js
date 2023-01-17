@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 import React from "react";
 import InventoryForm from "./InventoryForm";
-import { uploadFile, uploadMultipleFile } from "../utils/uploadFileFunc";
+import { uploadMultipleFile } from "../utils/uploadFileFunc";
 import { useGlobalContext } from "../context/useContextHook";
 import axios from "axios";
 
@@ -12,7 +12,6 @@ function Inventory({ categories }) {
 	const [isFeatured, setIsFeatured] = React.useState(false);
 	const [postError, setPostError] = React.useState("");
 	const [formData, setFormData] = React.useState({});
-	const [imageFile, setImageFile] = React.useState("");
 	const [imagesFile, setImagesFile] = React.useState([]);
 
 	const handleformDataChange = (e) => {
@@ -51,7 +50,6 @@ function Inventory({ categories }) {
 				sales: isOnSales,
 				instock: isInstock,
 				isFeatured: isFeatured,
-				image: imageFile,
 				images: imagesFile,
 				category: formData.category,
 			};
@@ -77,6 +75,7 @@ function Inventory({ categories }) {
 			description: "",
 			category: "",
 		});
+		setImagesFile([]);
 		setIsOnSales(false);
 		setIsInstock(false);
 		setIsFeatured(false);

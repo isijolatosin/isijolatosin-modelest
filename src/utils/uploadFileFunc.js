@@ -24,6 +24,7 @@ export const uploadMultipleFile = async (e, setImagesFile) => {
 		const array = [];
 		response.map((image) => {
 			array.push(image?.src);
+			return null;
 		});
 		setImagesFile(array);
 	} catch (error) {

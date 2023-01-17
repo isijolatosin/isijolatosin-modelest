@@ -61,9 +61,6 @@ const ProductSchema = new mongoose.Schema({
 	capsize: {
 		type: String,
 	},
-	image: {
-		type: String,
-	},
 	images: {
 		type: Array,
 	},
