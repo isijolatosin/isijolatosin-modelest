@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import axios from "axios";
 import Heading from "./Heading";
 import InventoryCard from "./InventoryCard";
@@ -10,7 +10,6 @@ function AllInventories() {
 	const [postError, setPostError] = React.useState("");
 	const [isOnSales, setIsOnSales] = React.useState(false);
 	const [isInstock, setIsInstock] = React.useState(false);
-	// const [imageFile, setImageFile] = React.useState('')
 
 	const toggleSales = () => {
 		setIsOnSales(!isOnSales);
@@ -19,7 +18,7 @@ function AllInventories() {
 		setIsInstock(!isInstock);
 	};
 
-	async function fetchProducts() {
+	const fetchProducts = useCallback(async () => {
 		try {
 			const {
 				data: { products },
@@ -28,11 +27,11 @@ function AllInventories() {
 		} catch (error) {
 			console.log(error);
 		}
-	}
+	}, []);
 
 	React.useEffect(() => {
 		fetchProducts();
-	}, []);
+	}, [fetchProducts]);
 
 	const handleInputName = (e) => {
 		setSingleProduct({
@@ -45,7 +44,7 @@ function AllInventories() {
 			type: singleProduct.type,
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
-			price: Number(singleProduct.price),
+			price: singleProduct.priceObj,
 			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
@@ -66,7 +65,7 @@ function AllInventories() {
 			type: singleProduct.type,
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
-			price: Number(singleProduct.price),
+			price: singleProduct.priceObj,
 			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
@@ -87,7 +86,7 @@ function AllInventories() {
 			type: singleProduct.type,
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
-			price: Number(singleProduct.price),
+			price: singleProduct.priceObj,
 			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
@@ -108,7 +107,7 @@ function AllInventories() {
 			type: singleProduct.type,
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
-			price: Number(singleProduct.price),
+			price: singleProduct.priceObj,
 			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
@@ -129,7 +128,7 @@ function AllInventories() {
 			type: singleProduct.type,
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
-			price: Number(singleProduct.price),
+			price: singleProduct.priceObj,
 			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
@@ -150,7 +149,7 @@ function AllInventories() {
 			type: e.target.value,
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
-			price: Number(singleProduct.price),
+			price: singleProduct.priceObj,
 			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
@@ -170,7 +169,7 @@ function AllInventories() {
 			type: singleProduct.type,
 			color: e.target.value,
 			availablecolor: singleProduct.availablecolor,
-			price: Number(singleProduct.price),
+			price: singleProduct.priceObj,
 			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
@@ -190,7 +189,7 @@ function AllInventories() {
 			type: singleProduct.type,
 			color: singleProduct.color,
 			availablecolor: e.target.value,
-			price: Number(singleProduct.price),
+			price: singleProduct.priceObj,
 			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
@@ -210,7 +209,7 @@ function AllInventories() {
 			type: singleProduct.type,
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
-			price: Number(singleProduct.price),
+			price: singleProduct.priceObj,
 			video: singleProduct.video,
 			length: e.target.value,
 			availablelength: singleProduct.availablelength,
@@ -230,7 +229,7 @@ function AllInventories() {
 			type: singleProduct.type,
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
-			price: Number(singleProduct.price),
+			price: singleProduct.priceObj,
 			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: e.target.value,
@@ -250,31 +249,11 @@ function AllInventories() {
 			type: singleProduct.type,
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
-			price: Number(singleProduct.price),
+			price: singleProduct.priceObj,
 			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelengthe,
 			dealLength: e.target.value,
-			description: singleProduct.description,
-			sales: singleProduct.sales,
-		});
-	};
-	const handleInputPrice = (e) => {
-		setSingleProduct({
-			id: singleProduct.id,
-			name: singleProduct.name,
-			brand: singleProduct.brand,
-			density: singleProduct.density,
-			texture: singleProduct.texture,
-			capsize: singleProduct.capsize,
-			type: singleProduct.type,
-			color: singleProduct.color,
-			availablecolor: singleProduct.availablecolor,
-			price: e.target.value,
-			video: singleProduct.video,
-			length: singleProduct.length,
-			availablelength: singleProduct.availablelength,
-			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
 		});
@@ -290,7 +269,7 @@ function AllInventories() {
 			type: singleProduct.type,
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
-			price: Number(singleProduct.price),
+			price: singleProduct.priceObj,
 			video: e.target.value,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
@@ -310,7 +289,7 @@ function AllInventories() {
 			type: singleProduct.type,
 			color: singleProduct.color,
 			availablecolor: singleProduct.availablecolor,
-			price: Number(singleProduct.price),
+			price: singleProduct.priceObj,
 			video: singleProduct.video,
 			length: singleProduct.length,
 			availablelength: singleProduct.availablelength,
@@ -333,7 +312,7 @@ function AllInventories() {
 				type: singleProduct.type,
 				color: singleProduct.color,
 				availablecolor: singleProduct.availablecolor,
-				price: Number(singleProduct.price),
+				price: singleProduct.priceObj,
 				video: singleProduct.video,
 				length: singleProduct.length,
 				availablelength: singleProduct.availablelength,
@@ -347,7 +326,6 @@ function AllInventories() {
 				product.brand === "" ||
 				product.type === "" ||
 				product.color === "" ||
-				product.price === null ||
 				product.length === null ||
 				product.description === ""
 			) {
@@ -359,7 +337,7 @@ function AllInventories() {
 			);
 			setPostError("");
 		} catch (error) {
-			setPostError(error.message);
+			setPostError(error.message ? "Please check your input fields" : "");
 			console.log(error);
 		}
 
@@ -493,15 +471,6 @@ function AllInventories() {
 									value={singleProduct.dealLength}
 									onChange={handleInputDealLen}
 									placeholder="Bundle Deal Lengths..."
-									className="tw-rounded tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-								/>
-								<input
-									type="number"
-									name="price"
-									id="price"
-									value={singleProduct.price}
-									onChange={handleInputPrice}
-									placeholder="Price..."
 									className="tw-rounded tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
 								/>
 								<input

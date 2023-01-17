@@ -102,61 +102,7 @@ export const BASE_CURRENCY_CONVERTER_URL =
 export const googleSearch = "https://www.google.com/maps/search/";
 export const location = "springview ct. Glen Burnie. Baltimore. Maryland. USA";
 
-export const closureVirginWigPricing = [
-	{ length: "14", price: 250 },
-	{ length: "16", price: 275 },
-	{ length: "18", price: 300 },
-	{ length: "20", price: 350 },
-	{ length: "22", price: 375 },
-	{ length: "24", price: 400 },
-	{ length: "26", price: 450 },
-	{ length: "28", price: 500 },
-	{ length: "30", price: 550 },
-];
-export const frontalVirginWigPricing = [
-	{ length: "14", price: 315 },
-	{ length: "16", price: 325 },
-	{ length: "18", price: 350 },
-	{ length: "20", price: 425 },
-	{ length: "22", price: 450 },
-	{ length: "24", price: 475 },
-	{ length: "26", price: 500 },
-	{ length: "28", price: 550 },
-	{ length: "30", price: 575 },
-];
-export const closureVietnameseWigPricing = [
-	{ length: "14", price: 330 },
-	{ length: "16", price: 275 },
-	{ length: "18", price: 300 },
-	{ length: "20", price: 350 },
-	{ length: "22", price: 375 },
-	{ length: "24", price: 400 },
-	{ length: "26", price: 450 },
-	{ length: "28", price: 620 },
-	{ length: "30", price: 550 },
-];
-export const frontalVietnameseWigPricing = [
-	{ length: "14", price: 315 },
-	{ length: "16", price: 325 },
-	{ length: "18", price: 350 },
-	{ length: "20", price: 425 },
-	{ length: "22", price: 450 },
-	{ length: "24", price: 475 },
-	{ length: "26", price: 500 },
-	{ length: "28", price: 550 },
-	{ length: "30", price: 575 },
-];
-export const wigTextureType1 = [
-	"body wave",
-	"deep wave",
-	"loose wave",
-	"loose curly",
-	"curly",
-];
-
-export const wigTextureTypeIncreaseValue1 = 10;
-export const wigTextureType2 = ["kinky curly", "kinky straight", "water wave"];
-export const wigTextureTypeIncreaseValue2 = 15;
+export const priceObjectArray = [14, 16, 18, 20, 22, 24, 26, 28, 30];
 
 export const cloudinaryBaseUrl =
 	"https://res.cloudinary.com/dhdccvkyt/image/upload/q_auto,";

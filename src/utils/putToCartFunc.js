@@ -18,7 +18,6 @@ export function addToCart(
 			if (increase) {
 				dispatch(increaseCartItem(singleProduct));
 			} else {
-				console.log(singleProduct);
 				dispatch(addToCartItem(singleProduct));
 			}
 			timeOut = setTimeout(() => {

@@ -29,6 +29,7 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 				density: product.density,
 				texture: product.texture,
 				capsize: product.capsize,
+				priceObj: product.price,
 				price:
 					product.price[+product.length] ||
 					product.price[+product.length.split(", ")[0]],
@@ -66,7 +67,10 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 					{product?.availablecolor && (
 						<span className="tw-w-[100%]">{`Available Color: ${product.availablecolor}`}</span>
 					)}
-					<span className="tw-w-[100%]">{`Price: $${product.price}`}</span>
+					<span className="tw-w-[100%]">{`Price: $${
+						product.price[product.length] ||
+						product.price[product.length.split(", ")[0]]
+					}`}</span>
 					<span className="tw-w-[100%]">{`Length: ${product.length}"`}</span>
 					{product.availablelength && (
 						<span className="tw-w-[100%]">{`Available Length: ${product.availablelength}"`}</span>

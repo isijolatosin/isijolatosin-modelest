@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import Add2CartPopup from "../components/shared/Add2CartPopup";
 import SingleProductModal from "../components/shared/SingleProductModal";
 import Reviews from "../components/shared/Reviews";
+import { returnDecsriptionObject } from "../utils/returnObjectProperty";
 
 function IndianBundles() {
 	const [hairBundles, setHairBundles] = React.useState([]);
@@ -68,31 +69,7 @@ function IndianBundles() {
 		description,
 		hairTexture,
 	};
-
-	const desc = [
-		{ key: "Brand", value: `raw ${singleProducts?.[0]?.brand} hair` },
-		{ key: "Hair Texture", value: name },
-		{ key: "Hair Color", value: color },
-		{
-			key: "Hair Length",
-			value: `Available from ${sizes?.[0]}" - ${
-				sizes?.[sizes.length - 1]
-			}" inches`,
-		},
-		{ key: "Material", value: "100% Human Hair" },
-		{ key: "Cap Size", value: "Average Size(Head circumference: 54cm - 58cm" },
-		{
-			key: "Delivery time",
-			value:
-				"We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)",
-		},
-		{
-			key: "Return policy",
-			value:
-				"We accept 10-days no reason return exchange with hair not been used",
-		},
-		{ key: "Can be bleached dyed", value: "Yes" },
-	];
+	const desc = returnDecsriptionObject(singleProducts, "", name, color, sizes);
 
 	return (
 		<div className="home">

@@ -1,6 +1,8 @@
+import React from "react";
 import Button from "./shared/Button";
+import PriceInput from "./shared/PriceInput";
 
-function InventoryForm({
+const InventoryForm = ({
 	handleSubmit,
 	inputTypes,
 	handleformDataChange,
@@ -16,7 +18,7 @@ function InventoryForm({
 	uploadFile,
 	uploadMultipleFile,
 	categories,
-}) {
+}) => {
 	return (
 		<form onSubmit={handleSubmit}>
 			<div className="tw-flex tw-flex-col tw-items-center tw-w-[100%] tw-mx-auto">
@@ -67,6 +69,7 @@ function InventoryForm({
 						/>
 					</div>
 				</div>
+				<PriceInput />
 				<div className="tw-flex tw-flex-col tw-w-[90%] lg:tw-w-[80%] xl:tw-w-[60%] 2xl:tw-w-[50%]">
 					<textarea
 						value={formData.description}
@@ -135,6 +138,6 @@ function InventoryForm({
 			</div>
 		</form>
 	);
-}
+};
 
 export default InventoryForm;

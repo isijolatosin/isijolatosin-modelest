@@ -45,25 +45,23 @@ const Add2CartPopup = ({
 					</div>
 					<div className="tw-flex tw-flex-row tw-mb-5 tw-mt-3">
 						<img
-							id={singleCart._id}
-							src={singleCart.image}
-							alt={singleCart._id}
+							id={singleCart?._id || singleCart?.id}
+							src={singleCart?.image}
+							alt={singleCart?._id || singleCart?.id}
 							className="tw-h-[50px] tw-w-[50px] tw-mr-2 tw-object-cover tw-rounded-full tw-object-center"
 						/>
 						<div className="tw-flex tw-flex-col tw-text-xs md:tw-text-sm">
 							<span>
-								{singleCart.hairLength?.includes("inch")
-									? `${singleCart.hairLength} ${singleCart.name}`
-									: `${singleCart.hairLength} - inches ${singleCart.name}`}
+								{`${singleCart?.hairLength} - inches ${singleCart?.name}`}
 							</span>
-							{singleCart.hairColor && (
-								<span>Color - {singleCart.hairColor}</span>
+							{singleCart?.hairColor && (
+								<span>Color - {singleCart?.hairColor}</span>
 							)}
-							{singleCart.hairTexture && (
-								<span>Texture - {singleCart.hairTexture}</span>
+							{singleCart?.hairTexture && (
+								<span>Texture - {singleCart?.hairTexture}</span>
 							)}
-							{singleCart.width && <span>Width - {singleCart.width}</span>}
-							<span>${singleCart.price} USD</span>
+							{singleCart?.width && <span>Width - {singleCart?.width}</span>}
+							<span>${singleCart?.price} USD</span>
 						</div>
 					</div>
 					<div className="tw-flex tw-items-center tw-relative tw-mb-5">

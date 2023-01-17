@@ -1,9 +1,12 @@
 /* eslint-disable array-callback-return */
 import React from "react";
-import axios from "axios";
 import InventoryForm from "./InventoryForm";
+import { uploadFile, uploadMultipleFile } from "../utils/uploadFileFunc";
+import { useGlobalContext } from "../context/useContextHook";
+import axios from "axios";
 
 function Inventory({ categories }) {
+	const { priceObject } = useGlobalContext();
 	const [isOnSales, setIsOnSales] = React.useState(false);
 	const [isInstock, setIsInstock] = React.useState(false);
 	const [isFeatured, setIsFeatured] = React.useState(false);
@@ -38,7 +41,7 @@ function Inventory({ categories }) {
 				capsize: formData.capsize,
 				type: formData.type,
 				color: formData.color,
-				price: formData.price,
+				price: priceObject,
 				video: formData.video,
 				length: formData.length,
 				availablelength: formData.availablelength,
@@ -66,7 +69,6 @@ function Inventory({ categories }) {
 			capsize: "",
 			type: "",
 			color: "",
-			price: "",
 			video: "",
 			length: "",
 			dealLength: "",
@@ -159,13 +161,6 @@ function Inventory({ categories }) {
 			placeholder: "Available Lengths...",
 		},
 		{
-			id: "12",
-			name: "price",
-			type: "number",
-			value: formData.price,
-			placeholder: "Price CA($)...",
-		},
-		{
 			id: "13",
 			name: "video",
 			type: "text",
@@ -181,62 +176,6 @@ function Inventory({ categories }) {
 		},
 	];
 
-	const uploadFile = async (e) => {
-		// turn 'e' to an array
-		const imageFile = e.target.files[0];
-		const formData = new FormData();
-		formData.append("image", imageFile);
-		try {
-			const {
-				data: {
-					image: { src },
-				},
-			} = await axios.post(
-				`${process.env.REACT_APP_BASE_ROUTE}/products/uploadSingle`,
-				formData,
-				{
-					headers: {
-						"Content-Type": "multipart/form-data",
-					},
-				}
-			);
-
-			setImageFile(src);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-	const uploadMultipleFile = async (e) => {
-		// turn 'e' to an array
-		var formData = new FormData();
-		const files = e.target.files;
-		for (var i = 0; i < files.length; i++) {
-			formData.append("image", files[i]);
-		}
-
-		try {
-			const {
-				data: { response },
-			} = await axios.post(
-				`${process.env.REACT_APP_BASE_ROUTE}/products/uploadMultiple`,
-				formData,
-				{
-					headers: {
-						"Content-Type": "multipart/form-data",
-					},
-				}
-			);
-
-			const array = [];
-			response.map((image) => {
-				array.push(image?.src);
-			});
-			setImagesFile(array);
-		} catch (error) {
-			console.log(error.message);
-		}
-	};
-
 	return (
 		<InventoryForm
 			handleSubmit={handleSubmit}
@@ -249,8 +188,7 @@ function Inventory({ categories }) {
 			toggleInstock={toggleInstock}
 			postError={postError}
 			buttonText="Add to Inventory"
-			uploadFile={uploadFile}
-			uploadMultipleFile={uploadMultipleFile}
+			uploadMultipleFile={(e) => uploadMultipleFile(e, setImagesFile)}
 			toggleIsFeatured={toggleIsFeatured}
 			isFeatured={isFeatured}
 			categories={categories}

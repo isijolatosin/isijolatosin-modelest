@@ -20,15 +20,28 @@ const SingleProductModal = ({
 	error,
 	singleProduct,
 	cartItems,
-	_hairColor,
-	texture,
-	sethairType,
 	setColor,
 	length,
 	color,
-	hairType,
 }) => {
 	const dispatch = useDispatch();
+	const _hairColor = singleProducts?.[0]?.availablecolor?.split(", ");
+	const handleAdd = (increase) => {
+		if (price && length && color) {
+			addToCart(
+				price,
+				length,
+				dispatch,
+				singleProduct,
+				setSingleCart,
+				setError,
+				increase && increase
+			);
+			setError(false);
+		} else {
+			setError(true);
+		}
+	};
 	return (
 		<div>
 			{singleProducts && (
@@ -49,7 +62,7 @@ const SingleProductModal = ({
 								</p>
 							</div>
 							{_hairColor && (
-								<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5 tw-mt-5 tw-w-[90%] tw-mx-auto">
+								<div className="tw-flex tw-flex-col tw-border-b-[1px] tw-border-neutral-300 tw-pb-5 tw-mt-5 tw-w-[90%] tw-mx-auto">
 									<div className="tw-flex tw-flex-wrap">
 										{_hairColor?.map((colr, idx) => (
 											<span
@@ -69,29 +82,9 @@ const SingleProductModal = ({
 									</div>
 								</div>
 							)}
-							{texture && (
-								<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5 tw-w-[90%] tw-mx-auto">
-									<div className="tw-flex tw-flex-wrap">
-										{texture?.map((tex, idx) => (
-											<span
-												onClick={() => {
-													sethairType(tex);
-												}}
-												className={`${
-													hairType === tex
-														? "tw-bg-neutral-900 tw-text-white"
-														: "tw-bg-neutral-200 tw-text-neutral-900"
-												} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
-												key={idx}>
-												<span>{tex}</span>
-											</span>
-										))}
-									</div>
-								</div>
-							)}
-							<div className="tw-flex tw-flex-col tw-mt-5 tw-mb-2 tw-border-y-[1px] tw-py-3 tw-w-[90%] tw-mx-auto">
+							<div className="tw-flex tw-flex-col tw-mb-2 tw-border-y-[1px] tw-py-3 tw-w-[90%] tw-mx-auto">
 								<div className="tw-flex tw-flex-wrap tw-gap-2">
-									{sizes?.map((size, idx) => (
+									{sizes?.map((size) => (
 										<span
 											onClick={() => {
 												setLength(size);
@@ -102,7 +95,7 @@ const SingleProductModal = ({
 													? "tw-bg-neutral-900 tw-text-white"
 													: "tw-bg-white tw-text-neutral-900"
 											} tw-rounded-full tw-mr-2 tw-border-[1px] tw-border-neutral-900 tw-p-2 tw-px-3 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
-											key={idx}>
+											key={size}>
 											{size}
 										</span>
 									))}
@@ -131,9 +124,6 @@ const SingleProductModal = ({
 										Color: <span>{color ? color : "***"}</span>
 									</div>
 									<div>
-										Texture: <span>{hairType ? hairType : "***"}</span>
-									</div>
-									<div>
 										Length: <span>{length}" inches</span>
 									</div>
 								</div>
@@ -145,7 +135,7 @@ const SingleProductModal = ({
 										<p className="tw-text-center tw-mb-2 tw-text-red-600 tw-text-xs">
 											{singleProducts?.[0]?.type.toLowerCase() === "frontal" ||
 											singleProducts?.[0]?.type.toLowerCase() === "closure"
-												? `Please provide color, texture and length for ${singleProducts?.[0].name}`
+												? `Please provide color and length for ${singleProducts?.[0].name}`
 												: `Please provide length for ${singleProducts?.[0].name}`}
 										</p>
 									</div>
@@ -154,38 +144,14 @@ const SingleProductModal = ({
 									<div
 										className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300"
 										onClick={
-											cartItems.length !== 0
-												? () =>
-														addToCart(
-															price,
-															length,
-															dispatch,
-															singleProduct,
-															setSingleCart,
-															setError,
-															true
-														)
-												: null
+											cartItems.length !== 0 ? () => handleAdd(true) : null
 										}>
-										<span>
-											Add more of {singleProducts?.[0].name} {color} {hairType}{" "}
-											- {length}"
-										</span>
+										<span>Add more</span>
 									</div>
 								) : (
 									<div
 										className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300"
-										onClick={() =>
-											addToCart(
-												price,
-												length,
-												dispatch,
-												singleProduct,
-												setSingleCart,
-												setError,
-												true
-											)
-										}>
+										onClick={handleAdd}>
 										<span>Add to cart</span>
 									</div>
 								)}
@@ -196,7 +162,9 @@ const SingleProductModal = ({
 								</div>
 								<div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 md:tw-gap-x-10">
 									{desc?.map((item, idx) => (
-										<div className="tw-capitalize tw-flex tw-flex-col tw-mb-2 tw-text-sm">
+										<div
+											key={idx}
+											className="tw-capitalize tw-flex tw-flex-col tw-mb-2 tw-text-sm">
 											<span className="tw-uppercase tw-text-xs tw-text-red-600 tw-font-bold">
 												{item.key}:{" "}
 											</span>
@@ -223,7 +191,6 @@ const SingleProductModal = ({
 									onClick={() => {
 										setSingleproducts(null);
 										setColor(null);
-										sethairType(null);
 										setLength("14");
 									}}
 									className="tw-text-2xl tw-text-white tw-bg-neutral-900 tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-absolute tw-top-[20px] tw-right-[20px] tw-ease-in tw-duration-300 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900">

@@ -14,22 +14,11 @@ function Card({
 }) {
 	const cartItems = useSelector(selectCartItems);
 	const [error, setError] = React.useState(false);
+	const [length, setLength] = React.useState(0);
+	const [color, setColor] = React.useState("");
 	const dispatch = useDispatch();
-	const [bundles, setBundles] = React.useState({
-		widthlength: product.type.toLowerCase() === "frontal" ? "13x4" : "5x4",
-		length: null,
-		color: "Natural black",
-		hairType: "Straight",
-	});
 	const lengthArr = product.availablelength?.split(",");
 	const colorArr = product?.availablecolor?.split(", ");
-	const widthlength = product?.widthlength?.split(", ");
-	const hairType = ["Straight", "Bodywave", "Wavy", "Curly"];
-
-	const handleOnChange = (e) => {
-		setBundles({ ...bundles, [e.target.name]: e.target.value });
-		setError(false);
-	};
 
 	async function handleViewImage(event) {
 		try {
@@ -46,135 +35,12 @@ function Card({
 		scrollToTop();
 	}
 
-	let cardPrice1 = product.price;
-	let salesAmount1 = Number(product.price - product.price * (sales / 100));
-
-	//  Actual price1
-	if (bundles.length === "14") {
-		cardPrice1 = product.price;
-	} else if (bundles.length === "16") {
-		cardPrice1 = product.price + 10;
-	} else if (bundles.length === "18") {
-		cardPrice1 = product.price + 20;
-	} else if (bundles.length === "20") {
-		cardPrice1 = product.price + 30;
-	} else if (bundles.length === "22") {
-		cardPrice1 = product.price + 40;
-	}
-	// Sales Price1
-	if (bundles.length === "14") {
-		salesAmount1 = product.price - product.price * (sales / 100);
-	} else if (bundles.length === "16") {
-		salesAmount1 = salesAmount1 + 10;
-	} else if (bundles.length === "18") {
-		salesAmount1 = salesAmount1 + 20;
-	} else if (bundles.length === "20") {
-		salesAmount1 = salesAmount1 + 30;
-	} else if (bundles.length === "22") {
-		salesAmount1 = salesAmount1 + 40;
-	}
-
-	let cardPrice2 = product.price;
-	let salesAmount2 = Number(product.price - product.price * (sales / 100));
-	// Actual Price2
-	if (bundles.length === "14") {
-		cardPrice2 = product.price;
-	} else if (bundles.length === "16") {
-		cardPrice2 = product.price + 6;
-	} else if (bundles.length === "18") {
-		cardPrice2 = product.price + 12;
-	} else if (bundles.length === "20") {
-		cardPrice2 = product.price + 18;
-	} else if (bundles.length === "22") {
-		cardPrice2 = product.price + 24;
-	}
-	// Sales Price2
-	if (bundles.length === "14") {
-		salesAmount2 = Number(product.price - product.price * (sales / 100));
-	} else if (bundles.length === "16") {
-		salesAmount2 = salesAmount2 + 6;
-	} else if (bundles.length === "18") {
-		salesAmount2 = salesAmount2 + 12;
-	} else if (bundles.length === "20") {
-		salesAmount2 = salesAmount2 + 18;
-	} else if (bundles.length === "22") {
-		salesAmount2 = salesAmount2 + 24;
-	}
-
 	// Adding to cart items
-	const { name, _id, image, description } = product;
-	const pricePredict = () => {
-		if (product.type.toLowerCase() === "frontal") {
-			if (
-				bundles.color.toLowerCase()?.includes("natural black") &&
-				(bundles.hairType.toLowerCase()?.includes("bodywave") ||
-					bundles.hairType.toLowerCase()?.includes("wavy") ||
-					bundles.hairType.toLowerCase()?.includes("curly"))
-			) {
-				if (sales !== 0 && product?.sales) {
-					return (salesAmount2 += 10);
-				} else {
-					return (cardPrice2 += 10);
-				}
-			} else if (
-				bundles.color.toLowerCase()?.includes("natural black") &&
-				bundles.hairType.toLowerCase()?.includes("straight")
-			) {
-				if (sales !== 0 && product?.sales) {
-					return salesAmount2;
-				} else {
-					return cardPrice2;
-				}
-			}
-		} else {
-			if (
-				bundles.color.toLowerCase()?.includes("natural black") &&
-				(bundles.hairType.toLowerCase()?.includes("bodywave") ||
-					bundles.hairType.toLowerCase()?.includes("wavy") ||
-					bundles.hairType.toLowerCase()?.includes("curly"))
-			) {
-				if (sales !== 0 && product?.sales) {
-					return (salesAmount1 += 5);
-				} else {
-					return (cardPrice1 += 5);
-				}
-			} else if (
-				bundles.color.toLowerCase()?.includes("natural black") &&
-				bundles.hairType.toLowerCase()?.includes("straight")
-			) {
-				if (sales !== 0 && product?.sales) {
-					return salesAmount1;
-				} else {
-					return cardPrice1;
-				}
-			}
-
-			if (
-				bundles.color.toLowerCase()?.includes("blonde613") &&
-				(bundles.hairType.toLowerCase()?.includes("bodywave") ||
-					bundles.hairType.toLowerCase()?.includes("wavy") ||
-					bundles.hairType.toLowerCase()?.includes("curly"))
-			) {
-				if (sales !== 0 && product?.sales) {
-					return (salesAmount1 += 15);
-				} else {
-					return (cardPrice1 += 15);
-				}
-			} else if (
-				bundles.color.toLowerCase()?.includes("blonde613") &&
-				bundles.hairType.toLowerCase()?.includes("straight")
-			) {
-				if (sales !== 0 && product?.sales) {
-					return (salesAmount1 += 10);
-				} else {
-					return (cardPrice1 += 10);
-				}
-			}
-		}
-	};
-	const price = pricePredict();
-	const hairLength = bundles.length;
-	const hairColor = bundles.color;
+	const { name, _id, images, description } = product;
+	const price = product?.price[length];
+	const image = images[0];
+	const hairLength = length;
+	const hairColor = color;
 
 	const singleProduct = {
 		name,
@@ -184,6 +50,23 @@ function Card({
 		hairLength,
 		hairColor,
 		description,
+	};
+
+	const handleAdd = (increase) => {
+		if (price && length && color) {
+			addToCart(
+				price,
+				length,
+				dispatch,
+				singleProduct,
+				setSingleCart,
+				setError,
+				increase && increase
+			);
+			setError(false);
+		} else {
+			setError(true);
+		}
 	};
 
 	return (
@@ -200,121 +83,69 @@ function Card({
 					on sales
 				</span>
 			)}
-			<div className="tw-bg-white tw-text-neutral-800 tw-px-2 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-lg">
-				<div className="tw-pt-2 tw-flex tw-justify-between tw-w-full tw-text-[14px]">
-					<p className="tw-font-bold">{product.name}</p>
-					<div className="tw-pb-2 tw-flex tw-flex-col">
-						{sales !== 0 && product.sales && (
-							<span className="tw-mr-2 tw-font-semibold">
-								$
-								{product.type.toLowerCase() === "frontal"
-									? salesAmount2.toFixed(2)
-									: salesAmount1.toFixed(2)}{" "}
-								USD
-							</span>
-						)}
-						<span
-							className={
-								sales !== 0 && product.sales
-									? "tw-line-through tw-font-light tw-text-[11px]"
-									: "tw-font-semibold"
-							}>
-							$
-							{product.type.toLowerCase() === "frontal"
-								? cardPrice2.toFixed(2)
-								: cardPrice1.toFixed(2)}{" "}
-							USD
+			<div className="tw-bg-white tw-text-neutral-800 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-[10px]">
+				<div className="tw-pt-2  tw-px-2 tw-flex tw-justify-between tw-w-full tw-text-[14px] tw-border-b-[1px] tw-border-neutral-300 tw-mb-2">
+					<p className="tw-font-bold tw-text-xs md:tw-text-[14px]">
+						{product.name}
+					</p>
+					<div className="tw-pb-1 tw-flex tw-flex-col">
+						<span className="tw-font-semibold tw-text-xs md:tw-text-[14px]">
+							${price ? price : "***"} USD
 						</span>
 					</div>
 				</div>
-				<div className="tw-flex tw-items-center tw-justify-between tw-w-full">
-					<select
-						className="tw-flex-[0.5] tw-text-neutral-900 tw-mt-1 tw-block tw-w-full tw-mr-2 tw-px-1 tw-py-1 tw-border tw-border-neutral-900 tw-rounded-full tw-text-xs tw-shadow-sm tw-placeholder-neutral-900 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-neutral-900 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0"
-						onChange={handleOnChange}
-						id="length"
-						value={bundles.length}
-						name="length">
-						{lengthArr?.map((len, idx) => (
-							<option key={idx}>{len}</option>
-						))}
-					</select>
-					<select
-						className="tw-flex-[0.5] tw-text-neutral-900 tw-mt-1 tw-block tw-w-full tw-px-1 tw-py-1 tw-border tw-border-neutral-900 tw-rounded-full tw-text-xs tw-shadow-sm tw-placeholder-neutral-900 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-neutral-900 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0"
-						onChange={handleOnChange}
-						id="widthlength"
-						value={bundles.widthlength}
-						name="widthlength">
-						{widthlength?.map((len, idx) => (
-							<option key={idx}>{len}</option>
-						))}
-					</select>
+				<div className=" tw-px-2 tw-flex tw-flex-row tw-items-center tw-border-b-[1px] tw-border-neutral-300 tw-pb-2 tw-my-2">
+					{lengthArr.map((len, idx) => (
+						<div
+							onClick={() => setLength(+len)}
+							key={idx}
+							className={`md:tw-cursor-pointer md:hover:tw-bg-neutral-800 md:hover:tw-text-white tw-duration-300 tw-ease-in tw-w-[30px] tw-mr-3 tw-h-[30px] tw-flex tw-items-center tw-justify-center tw-border-[1px] ${
+								length === +len
+									? "tw-bg-neutral-800 tw-text-white"
+									: "tw-border-neutral-400 tw-text-neutral-600"
+							} tw-text-[12px] md:tw-text-sm tw-rounded-full`}>
+							<span>{len}</span>
+						</div>
+					))}
 				</div>
-				<div className="tw-flex tw-items-center tw-justify-between tw-w-full">
-					<select
-						className="tw-text-neutral-900 tw-mt-1 tw-mr-2 tw-block tw-w-full tw-px-1 tw-py-1 tw-border tw-border-neutral-900 tw-rounded-full tw-text-xs tw-shadow-sm tw-placeholder-neutral-900 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-neutral-900 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0 tw-mb-3"
-						onChange={handleOnChange}
-						id="color"
-						value={bundles.color}
-						name="color">
-						{colorArr?.map((colo, idx) => (
-							<option key={idx}>{colo}</option>
-						))}
-					</select>
-					<select
-						className="tw-text-neutral-900 tw-mt-1 tw-block tw-w-full tw-px-1 tw-py-1 tw-border tw-border-neutral-900 tw-rounded-full tw-text-xs tw-shadow-sm tw-placeholder-neutral-900 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-neutral-900 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0 tw-mb-3"
-						onChange={handleOnChange}
-						id="hairType"
-						value={bundles.hairType}
-						name="hairType">
-						{hairType?.map((type, idx) => (
-							<option key={idx}>{type}</option>
-						))}
-					</select>
+				<div className=" tw-px-2 tw-flex tw-flex-row tw-items-center tw-w-[100%] tw-my-2 tw-border-b-[1px] tw-border-neutral-300 tw-pb-2">
+					{colorArr.map((col, idx) => (
+						<div
+							onClick={() => {
+								setColor(col);
+								setError(false);
+							}}
+							key={idx}
+							className={`tw-duration-300 tw-ease-in md:hover:tw-bg-neutral-800 md:hover:tw-text-white tw-cursor-pointer tw-px-2 md:tw-px-5 tw-py-1 tw-text-[10px] md:tw-text-xs tw-mr-3 tw-flex tw-items-center tw-justify-center tw-rounded-full  ${
+								color === col
+									? "tw-bg-neutral-800 tw-text-white"
+									: "tw-bg-neutral-300 tw-text-neutral-800"
+							}`}>
+							<span>{col}</span>
+						</div>
+					))}
 				</div>
 				{isInCart(singleProduct, cartItems) ? (
 					<div
-						className="tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-full tw-bg-neutral-900 tw-px-3 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[100%] tw-mx-auto tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mb-2 hover:md:tw-text-neutral-900 hover:md:tw-bg-white "
-						onClick={
-							cartItems.length !== 0
-								? () =>
-										addToCart(
-											price,
-											bundles?.length,
-											dispatch,
-											singleProduct,
-											setSingleCart,
-											setError,
-											true
-										)
-								: null
-						}>
+						className=" tw-mx-2 tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-full tw-bg-neutral-900 tw-px-3 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[70%] tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mb-2 hover:md:tw-text-neutral-900 hover:md:tw-bg-white "
+						onClick={cartItems.length !== 0 ? () => handleAdd(true) : null}>
 						<div className="tw-flex tw-flex-row tw-items-center">
 							<span className="tw-mr-3">Add More</span>
 						</div>
 					</div>
 				) : (
 					<div
-						className="tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-full tw-bg-neutral-900 tw-px-3 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[100%] tw-mx-auto tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mb-2 hover:md:tw-text-neutral-900 hover:md:tw-bg-white "
-						onClick={() =>
-							addToCart(
-								price,
-								bundles?.length,
-								dispatch,
-								singleProduct,
-								setSingleCart,
-								setError,
-								true
-							)
-						}>
+						className=" tw-mx-2 tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-full tw-bg-neutral-900 tw-px-3 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[70%] tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mb-2 hover:md:tw-text-neutral-900 hover:md:tw-bg-white "
+						onClick={handleAdd}>
 						<div className="tw-flex tw-flex-row tw-items-center">
 							<span className="tw-mr-3">Add to cart</span>
 						</div>
 					</div>
 				)}
 				{error && (
-					<div>
-						<p className="tw-text-center tw-mb-2 tw-text-red-600 tw-text-xs">
-							Please provide length ...
+					<div className="tw-bg-red-800 tw- tw-w-[100%] tw-rounded-b-[9px]">
+						<p className="tw-text-center tw-text-white tw-text-xs">
+							Please provide length and color
 						</p>
 					</div>
 				)}

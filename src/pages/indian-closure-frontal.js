@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Helmet } from "react-helmet";
 import Layout from "../components/shared/Layout";
 import Card from "../components/Card4";
@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import Add2CartPopup from "../components/shared/Add2CartPopup";
 import SingleProductModal from "../components/shared/SingleProductModal";
 import Reviews from "../components/shared/Reviews";
+import { returnDecsriptionObject } from "../utils/returnObjectProperty";
 
 function ClosureFrontal() {
 	const [singleProducts, setSingleproducts] = React.useState(null);
@@ -16,16 +17,10 @@ function ClosureFrontal() {
 	const [error, setError] = React.useState(false);
 	const [length, setLength] = React.useState("14");
 	const [_color, setColor] = React.useState(null);
-	const [_hairType, sethairType] = React.useState(null);
 	const [singleCart, setSingleCart] = React.useState(null);
 	const cartItems = useSelector(selectCartItems);
 
-	const _hairColor =
-		singleProducts?.[0]?.type.toLowerCase() === "frontal"
-			? ["Natural black"]
-			: ["Natural black", "Blonde613"];
-	const texture = ["Straight", "Bodywave", "Curly", "Wavy"];
-	async function fetchProducts() {
+	const fetchProducts = useCallback(async () => {
 		try {
 			const {
 				data: { products },
@@ -39,92 +34,17 @@ function ClosureFrontal() {
 		} catch (error) {
 			console.log(error);
 		}
-	}
+	}, []);
 
 	React.useEffect(() => {
 		fetchProducts();
 		setShow(true);
-	}, []);
+	}, [fetchProducts]);
 
 	const scrollToTop = function scrollToTop() {
 		window.scrollTo(0, 0);
 	};
 	const sizes = singleProducts?.[0].availablelength?.split(", ");
-
-	let cardPrice = singleProducts?.[0]?.price;
-
-	let _price;
-	let _price2;
-
-	if (length === "14") {
-		_price = cardPrice;
-	} else if (length === "16") {
-		_price = cardPrice + 10;
-	} else if (length === "18") {
-		_price = cardPrice + 20;
-	} else if (length === "20") {
-		_price = cardPrice + 30;
-	} else if (length === "22") {
-		_price = cardPrice + 40;
-	}
-	if (length === "14") {
-		_price2 = cardPrice;
-	} else if (length === "16") {
-		_price2 = cardPrice + 6;
-	} else if (length === "18") {
-		_price2 = cardPrice + 12;
-	} else if (length === "20") {
-		_price2 = cardPrice + 18;
-	} else if (length === "22") {
-		_price2 = cardPrice + 24;
-	}
-
-	const pricePredict = () => {
-		if (singleProducts?.[0]?.type.toLowerCase() === "frontal") {
-			if (
-				_color?.toLowerCase()?.includes("natural black") &&
-				(_hairType?.toLowerCase()?.includes("bodywave") ||
-					_hairType?.toLowerCase()?.includes("wavy") ||
-					_hairType?.toLowerCase()?.includes("curly"))
-			) {
-				return (_price2 += 6);
-			} else if (
-				_color?.toLowerCase()?.includes("natural black") &&
-				_hairType?.toLowerCase()?.includes("straight")
-			) {
-				return _price2;
-			}
-		} else {
-			if (
-				_color?.toLowerCase()?.includes("natural black") &&
-				(_hairType?.toLowerCase()?.includes("bodywave") ||
-					_hairType?.toLowerCase()?.includes("wavy") ||
-					_hairType?.toLowerCase()?.includes("curly"))
-			) {
-				return (_price += 5);
-			} else if (
-				_color?.toLowerCase()?.includes("natural black") &&
-				_hairType?.toLowerCase()?.includes("straight")
-			) {
-				return _price;
-			}
-
-			if (
-				_color?.toLowerCase()?.includes("blonde613") &&
-				(_hairType?.toLowerCase()?.includes("bodywave") ||
-					_hairType?.toLowerCase()?.includes("wavy") ||
-					_hairType?.toLowerCase()?.includes("curly"))
-			) {
-				return (_price += 15);
-			} else if (
-				_color?.toLowerCase()?.includes("blonde613") &&
-				_hairType?.toLowerCase()?.includes("straight")
-			) {
-				return (_price += 10);
-			}
-		}
-	};
-	const price = Number(pricePredict());
 
 	// Adding to cart items
 	const name = singleProducts?.[0] && singleProducts?.[0]?.name;
@@ -134,7 +54,10 @@ function ClosureFrontal() {
 	const description = singleProducts?.[0] && singleProducts?.[0]?.description;
 	const hairLength = length;
 	const hairColor = _color;
-	const hairTexture = _hairType && _hairType;
+	const quantity = 1;
+	const price =
+		singleProducts?.[0] &&
+		singleProducts?.[0]?.price[singleProducts?.[0]?.length];
 
 	const singleProduct = {
 		name,
@@ -144,32 +67,9 @@ function ClosureFrontal() {
 		price,
 		hairLength,
 		description,
-		hairTexture,
+		quantity,
 	};
-	const desc = [
-		{ key: "Brand", value: `raw ${singleProducts?.[0]?.brand} hair` },
-		{ key: "Hair Texture", value: name },
-		{ key: "Hair Color", value: color },
-		{
-			key: "Hair Length",
-			value: `Available from ${sizes?.[0]}" - ${
-				sizes?.[sizes.length - 1]
-			}" inches`,
-		},
-		{ key: "Material", value: "100% Human Hair" },
-		{ key: "Cap Size", value: "Average Size(Head circumference: 54cm - 58cm" },
-		{
-			key: "Delivery time",
-			value:
-				"We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)",
-		},
-		{
-			key: "Return policy",
-			value:
-				"We accept 10-days no reason return exchange with hair not been used",
-		},
-		{ key: "Can be bleached dyed", value: "Yes" },
-	];
+	const desc = returnDecsriptionObject(singleProducts, "", name, color, sizes);
 
 	return (
 		<div className="home">
@@ -182,7 +82,7 @@ function ClosureFrontal() {
 						<Add2CartPopup
 							singleCart={singleCart}
 							setSingleCart={setSingleCart}
-							quantity="1"
+							quantity
 						/>
 					</div>
 					{show && closureFrontal && (
@@ -221,14 +121,11 @@ function ClosureFrontal() {
 							error={error}
 							singleProduct={singleProduct}
 							cartItems={cartItems}
-							_hairColor={_hairColor}
-							texture={texture}
-							sethairType={sethairType}
 							setColor={setColor}
 							price={price}
 							length={length}
 							color={_color}
-							hairType={_hairType}
+							setSingleCart={setSingleCart}
 						/>
 					)}
 				</div>
