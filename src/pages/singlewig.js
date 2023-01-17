@@ -92,6 +92,23 @@ const SingleWig = () => {
 		aLength
 	);
 
+	const handleAdd = (increase) => {
+		if (price && _length) {
+			addToCart(
+				price,
+				_length,
+				dispatch,
+				wigProduct,
+				setSingleCart,
+				setError,
+				increase && increase
+			);
+			setError(false);
+		} else {
+			setError(true);
+		}
+	};
+
 	return (
 		<>
 			<Helmet>
@@ -200,18 +217,7 @@ const SingleWig = () => {
 												!error && "tw-mt-5"
 											}`}
 											onClick={
-												cartItems.length !== 0
-													? () =>
-															addToCart(
-																price,
-																_length,
-																dispatch,
-																wigProduct,
-																setSingleCart,
-																setError,
-																true
-															)
-													: null
+												cartItems.length !== 0 ? () => handleAdd(true) : null
 											}>
 											<span>Add more</span>
 										</div>
@@ -220,16 +226,7 @@ const SingleWig = () => {
 											className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
 												!error && "tw-mt-5"
 											}`}
-											onClick={() =>
-												addToCart(
-													price,
-													_length,
-													dispatch,
-													wigProduct,
-													setSingleCart,
-													setError
-												)
-											}>
+											onClick={handleAdd}>
 											<span>Add to cart</span>
 										</div>
 									)}
