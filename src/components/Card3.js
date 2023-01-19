@@ -16,7 +16,7 @@ function Card({
 	const [error, setError] = React.useState(false);
 	const dispatch = useDispatch();
 	const [bundles, setBundles] = React.useState({
-		length: null,
+		length: "",
 		quantity: "",
 	});
 	const lengthArr = product.availablelength.split(",");

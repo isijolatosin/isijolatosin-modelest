@@ -1,4 +1,13 @@
 export const ADMIN = "admin";
+export const DEFAULT = "Default Sort Direction";
+export const LOW_HIGH = "price from low - high";
+export const HIGH_LOW = "price from high - low";
+export const PRODUCT = "products";
+export const AMBASSADOR = "ambassador";
+export const AUTH_USER = "authorized-users";
+export const SHOPPINGS = "shoppings";
+export const PURCHASE = "purchased";
+export const CLOUDINARY = "cloudinaryImage";
 export const WIGS = "wigs";
 export const WIGS_LINK = "/virgin-wigs";
 export const BUNDLES = "bundles";

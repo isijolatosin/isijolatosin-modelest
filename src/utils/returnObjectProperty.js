@@ -25,7 +25,9 @@ export function returnObjectProperty(dt) {
 		_hairColor =
 			dt?.[0]?.type.toLowerCase() === FRONTAL
 				? [NATURAL_BLACK]
-				: [NATURAL_BLACK, BLONDE613];
+				: dt?.[0]?.type.toLowerCase() === CLOSURE
+				? [NATURAL_BLACK, BLONDE613]
+				: null;
 		avesizes = dt?.[0]?.availablelength?.split(", ");
 		sizes = dt?.[0]?.length.split(", ");
 		_hairTexture = dt?.[0]?.texture;

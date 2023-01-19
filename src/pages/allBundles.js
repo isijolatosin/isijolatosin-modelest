@@ -8,12 +8,12 @@ import Add2CartPopup from "../components/shared/Add2CartPopup";
 import SingleProductModal from "../components/shared/SingleProductModal";
 import Reviews from "../components/shared/Reviews";
 import SearchInput from "../components/shared/SearchInput";
-import { RiSendPlaneFill } from "react-icons/ri";
 import Heading from "../components/Heading";
-import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
 import SearchDropDown from "../components/shared/SearchDropDown";
 import useFetchHook from "../utils/useFetchHook";
 import { returnDecsriptionObject } from "../utils/returnObjectProperty";
+import { DEFAULT, HIGH_LOW, LOW_HIGH, PRODUCT } from "../constant";
+import FilterComponent from "../components/shared/FilterComponent";
 
 function IndianBundles() {
 	const [hairBundles, setHairBundles] = React.useState([]);
@@ -27,26 +27,24 @@ function IndianBundles() {
 	const [singleCart, setSingleCart] = React.useState(null);
 	const [show, setShow] = React.useState(false);
 	const [error, setError] = React.useState(false);
-	const [sales, setSales] = React.useState(null);
 	const [length, setLength] = React.useState(14);
-	const [priceFilter, setPriceFilter] = React.useState("");
+	const [optionFilter, setOptionFilter] = React.useState("");
 	const [inputValue, setInputValue] = React.useState("");
 	const [priceRangeFilter, setPriceRangeFilter] = React.useState({
-		from: "",
-		to: "",
+		min: "",
+		max: "",
 	});
+
 	const cartItems = useSelector(selectCartItems);
 
 	// Getting products from db
-	const url1 = `${process.env.REACT_APP_BASE_ROUTE}/products`;
-	const productsRes = useFetchHook(url1, "products", false, false, true);
+	const url1 = `${process.env.REACT_APP_BASE_ROUTE}/${PRODUCT}`;
+	const productsRes = useFetchHook(url1, PRODUCT, false, false, true);
 	const fetchProducts = useCallback(async () => {
 		setHairBundles(productsRes);
 	}, [productsRes]);
 
 	React.useEffect(() => {
-		setSales(fetchSalesPercentage());
-
 		window.scrollTo(0, 0);
 		fetchProducts();
 		setShow(true);
@@ -78,40 +76,42 @@ function IndianBundles() {
 		description,
 		hairTexture,
 	};
-
 	const desc = returnDecsriptionObject(singleProducts, "", name, color, sizes);
-	const priceList = [
-		"Default Sort Direction",
-		"price from low - high",
-		"price from high - low",
-	];
+	const filterOption = [DEFAULT, LOW_HIGH, HIGH_LOW];
 
 	const handleOnChange = (e) => {
-		setPriceFilter(e.target.value);
+		setOptionFilter(e.target.value);
 
-		if (e.target.value === "" || e.target.value === "Select Sort Direction")
+		if ([DEFAULT, ""].includes(e.target.value))
 			setHairBundlesByPriceLow2High(
 				hairBundles.sort((a, b) => a.name.localeCompare(b.name))
 			);
 		if (e.target.value) {
 			// eslint-disable-next-line array-callback-return
-			if (e.target.value === "price from low - high") {
+			if (e.target.value === LOW_HIGH) {
 				setHairBundlesByPriceLow2High(
-					hairBundles.sort(
-						(a, b) =>
-							a.price[a?.length.split(", ")?.[0] || a?.length] -
-							b.price[a?.length.split(", ")?.[0] || a?.length]
+					hairBundles.sort((a, b) =>
+						a.price[a?.length.split(", ")?.[0] || a?.length] >
+						b.price[a?.length.split(", ")?.[0] || a?.length]
+							? 1
+							: a.price[a?.length.split(", ")?.[0] || a?.length] <
+							  b.price[a?.length.split(", ")?.[0] || a?.length]
+							? -1
+							: 0
 					)
 				);
-			} else if (e.target.value === "price from high - low") {
-				const reversed = hairBundles
-					.sort(
-						(a, b) =>
-							a.price[a?.length.split(", ")?.[0] || a?.length] -
-							b.price[a?.length.split(", ")?.[0] || a?.length]
+			} else if (e.target.value === HIGH_LOW) {
+				setHairBundlesByPriceLow2High(
+					hairBundles.sort((a, b) =>
+						a.price[a?.length.split(", ")?.[0] || a?.length] <
+						b.price[a?.length.split(", ")?.[0] || a?.length]
+							? 1
+							: a.price[a?.length.split(", ")?.[0] || a?.length] >
+							  b.price[a?.length.split(", ")?.[0] || a?.length]
+							? -1
+							: 0
 					)
-					.reverse();
-				setHairBundlesByPriceLow2High(reversed);
+				);
 			}
 		}
 	};
@@ -123,41 +123,44 @@ function IndianBundles() {
 	};
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
-		if (priceRangeFilter?.from === 0 && priceRangeFilter?.to === 0) return;
-		if (priceRangeFilter?.from && priceRangeFilter?.to) {
+		if ([priceRangeFilter?.min, priceRangeFilter?.max].every((p) => p === 0))
+			return;
+		if (
+			(priceRangeFilter?.min === 0 || priceRangeFilter?.min) &&
+			priceRangeFilter?.max
+		) {
 			const array = [];
 			// eslint-disable-next-line array-callback-return
 			hairBundles.filter((product) => {
 				if (
 					product?.price[
 						product?.length?.split(", ")?.[0] || product?.length
-					] >= priceRangeFilter?.from &&
+					] >= priceRangeFilter?.min &&
 					product?.price[
 						product?.length?.split(", ")?.[0] || product?.length
-					] <= priceRangeFilter?.to
+					] <= priceRangeFilter?.max
 				) {
 					array.push(product);
 				}
 			});
 			setHairBundlesByPriceLow2High(array);
+			setPriceRangeFilter({ min: "", max: "" });
 		}
 	};
 
 	const handleReset = () => {
 		setPriceRangeFilter({
-			from: "",
-			to: "",
+			min: "",
+			max: "",
 		});
 		setHairBundlesByPriceLow2High(
 			hairBundles.sort((a, b) => a.name.localeCompare(b.name))
 		);
 	};
-
 	const BundlesByPriceLow2High =
 		hairBundlesByPriceLow2High.length > 0
 			? hairBundlesByPriceLow2High
 			: hairBundles;
-
 	return (
 		<div className="home">
 			<Helmet>
@@ -203,62 +206,15 @@ function IndianBundles() {
 										<SearchDropDown filtered={searchFiltered} />
 									)}
 								</div>
-								<div className=" tw-flex tw-items-top tw-text-neutral-400">
-									<div className="tw-flex tw-flex-col md:tw-flex-row md:tw-items-center">
-										<div className="tw-flex tw-flex-row tw-items-center tw-mb-1 md:tw-mb-0">
-											<span className="tw-tracking-wider tw-font-light tw-text-sm tw-mr-2">
-												Price:
-											</span>
-											<select
-												className="tw-bg-transparent tw-w-[190px] tw-max-w-[220px] tw-block tw-mr-5 tw-pl-2 md:tw-px-2 tw-py-1 tw-border-[1px] tw-border-[#bba371] tw-rounded-[3px] tw-text-white tw-text-sm tw-shadow-sm tw-placeholder-neutral-900 focus:tw-outline-none focus:tw-border-none focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0"
-												onChange={handleOnChange}
-												id="from - to"
-												value={priceFilter}
-												name="from - to">
-												{priceList.map((price, idx) => (
-													<option key={idx}>{price}</option>
-												))}
-											</select>
-										</div>
-										<div className="tw-flex tw-flex-row tw-items-center tw-mt-3 md:tw-mt-0">
-											<span className="tw-tracking-wider tw-font-light tw-text-sm tw-mr-2">
-												Range:
-											</span>
-											<form
-												onSubmit={handleFormSubmit}
-												className="tw-flex tw-flex-row tw-items-center">
-												<input
-													className="tw-bg-transparent tw-w-[75px] tw-max-w-[110px] tw-block tw-mr-1 md:tw-px-2 tw-py-1 tw-border-[1px] tw-border-[#bba371] tw-rounded-[3px] tw-text-white tw-text-sm tw-shadow-sm tw-placeholder-neutral-900 focus:tw-outline-none focus:tw-border-none focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0 placeholder:tw-text-white placeholder:tw-mr-2"
-													type="number"
-													onChange={handleOnChangePrice}
-													id="from"
-													value={priceRangeFilter?.from}
-													name="from"
-													placeholder="From"
-												/>
-												<input
-													className="tw-bg-transparent tw-w-[60px] tw-max-w-[100px] tw-block tw-mr-5 md:tw-px-2 tw-py-1 tw-border-[1px] tw-border-[#bba371] tw-rounded-[3px] tw-text-white tw-text-sm tw-shadow-sm tw-placeholder-neutral-900 focus:tw-outline-none focus:tw-border-none focus:tw-ring-1 focus:tw-ring-sky-500 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0 placeholder:tw-text-white placeholder:tw-mr-2"
-													type="number"
-													onChange={handleOnChangePrice}
-													id="to"
-													value={priceRangeFilter?.to}
-													name="to"
-													placeholder="To"
-												/>
-												<button
-													type="submit"
-													className="tw-border-[1px] tw-border-[#bba371] tw-p-1 tw-rounded-full tw-text-[#bba371] tw-text-xl hover:md:tw-border-neutral-700 tw-ease-in tw-duration-300">
-													<RiSendPlaneFill />
-												</button>
-												<button
-													className="tw-ml-10 tw-text-xs tw-text-[#bba371] hover:md:tw-text-neutral-600 tw-ease-in tw-duration-300"
-													onClick={handleReset}>
-													<p>Reset All</p>
-												</button>
-											</form>
-										</div>
-									</div>
-								</div>
+								<FilterComponent
+									handleOnChange={handleOnChange}
+									optionFilter={optionFilter}
+									filterOption={filterOption}
+									handleFormSubmit={handleFormSubmit}
+									handleOnChangePrice={handleOnChangePrice}
+									priceRangeFilter={priceRangeFilter}
+									handleReset={handleReset}
+								/>
 							</div>
 
 							<div className="tw-w-full md:tw-w-[90%] tw-pt-8 tw-text-center md:tw-text-left tw-pb-3 tw-mt-[30px] tw-border-t-[1px] tw-border-neutral-600">
@@ -274,7 +230,6 @@ function IndianBundles() {
 									{BundlesByPriceLow2High.map((item) => (
 										<div key={item._id}>
 											<Card
-												sales={sales}
 												key={item._id}
 												product={item}
 												setSingleproducts={setSingleproducts}

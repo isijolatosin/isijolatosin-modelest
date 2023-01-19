@@ -115,7 +115,7 @@ const Add2CartPopup = ({
 									}
 								}}
 								className="tw-border tw-border-black tw-py-1 tw-px-5 tw-bg-white tw-text-center tw-text-xs md:tw-text-sm hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300">
-								<button>View cart ({itemCount})</button>
+								View cart ({itemCount})
 							</button>
 							<button
 								onClick={handleCheckout}

@@ -64,6 +64,7 @@ const Reviews = ({ category, color }) => {
 	};
 
 	React.useEffect(() => {
+		let mounted = true;
 		if (window?.location?.pathname === `/${category}/reviews`) {
 			setIsForm(true);
 		}
@@ -86,7 +87,7 @@ const Reviews = ({ category, color }) => {
 							date: result?.data?.date,
 						});
 					}
-					setReviewsArray(data);
+					if (mounted) setReviewsArray(data);
 				}
 			});
 
@@ -94,45 +95,46 @@ const Reviews = ({ category, color }) => {
 			const results = snapshot.docs.map((doc) => ({
 				data: doc.data(),
 			}));
-			setCount1(results.length);
+			if (mounted) setCount1(results.length);
 		});
 
 		db.collection(HAIR_BUNDLES).onSnapshot((snapshot) => {
 			const results = snapshot.docs.map((doc) => ({
 				data: doc.data(),
 			}));
-			setCount2(results.length);
+			if (mounted) setCount2(results.length);
 		});
 		db.collection(JETBLACK_BLONDEHAIR).onSnapshot((snapshot) => {
 			const results = snapshot.docs.map((doc) => ({
 				data: doc.data(),
 			}));
-			setCount3(results.length);
+			if (mounted) setCount3(results.length);
 		});
 		db.collection(NATURALCURLY_CLOSURE).onSnapshot((snapshot) => {
 			const results = snapshot.docs.map((doc) => ({
 				data: doc.data(),
 			}));
-			setCount4(results.length);
+			if (mounted) setCount4(results.length);
 		});
 		db.collection(BODYWAVE_CLOSURE).onSnapshot((snapshot) => {
 			const results = snapshot.docs.map((doc) => ({
 				data: doc.data(),
 			}));
-			setCount5(results.length);
+			if (mounted) setCount5(results.length);
 		});
 		db.collection(NATURALWAVE_FRONTAL).onSnapshot((snapshot) => {
 			const results = snapshot.docs.map((doc) => ({
 				data: doc.data(),
 			}));
-			setCount6(results.length);
+			if (mounted) setCount6(results.length);
 		});
 		db.collection(BODYWAVE_FRONTAL).onSnapshot((snapshot) => {
 			const results = snapshot.docs.map((doc) => ({
 				data: doc.data(),
 			}));
-			setCount7(results.length);
+			if (mounted) setCount7(results.length);
 		});
+		return () => (mounted = false);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

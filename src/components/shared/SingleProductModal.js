@@ -21,7 +21,6 @@ const SingleProductModal = ({
 	error,
 	singleProduct,
 	cartItems,
-	setColor,
 	length,
 	color,
 }) => {
@@ -68,7 +67,6 @@ const SingleProductModal = ({
 										{_hairColor?.map((colr, idx) => (
 											<span
 												onClick={() => {
-													setColor(colr);
 													setError(false);
 												}}
 												className={`${
@@ -192,7 +190,6 @@ const SingleProductModal = ({
 								<div
 									onClick={() => {
 										setSingleproducts(null);
-										setColor(null);
 										setLength("14");
 									}}
 									className="tw-text-2xl tw-text-white tw-bg-neutral-900 tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-absolute tw-top-[20px] tw-right-[20px] tw-ease-in tw-duration-300 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900">

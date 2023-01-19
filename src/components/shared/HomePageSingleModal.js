@@ -36,7 +36,6 @@ const HomePageSingleModal = ({
 	const [_color, setColor] = React.useState("");
 	const [_hairType, sethairType] = React.useState("");
 	const dispatch = useDispatch();
-
 	const {
 		name,
 		id,
@@ -87,9 +86,9 @@ const HomePageSingleModal = ({
 							Description: {singleProducts?.[0]?.description}
 						</p>
 					</div>
-					{singleProducts?.[0]?.name
-						.toLowerCase()
-						.includes(FRONTAL || CLOSURE) ? (
+					{[CLOSURE, FRONTAL].includes(
+						singleProducts?.[0]?.type.toLowerCase()
+					) ? (
 						<div className="tw-ml-5  md:tw-ml-0 tw-mt-5">
 							<div className="tw-flex tw-flex-col tw-border-y-[1px] tw-py-3">
 								<div className="tw-flex tw-flex-wrap tw-gap-2">
@@ -125,24 +124,6 @@ const HomePageSingleModal = ({
 											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
 											key={idx}>
 											<span>{colr}</span>
-										</span>
-									))}
-								</div>
-							</div>
-							<div className="tw-flex tw-flex-col tw-border-b-[1px] tw-py-3">
-								<div className="tw-flex tw-flex-wrap">
-									{texture.map((tex, idx) => (
-										<span
-											onClick={() => {
-												sethairType(tex);
-											}}
-											className={`${
-												_hairType === tex
-													? "tw-bg-neutral-900 tw-text-white"
-													: "tw-bg-neutral-200 tw-text-neutral-900"
-											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
-											key={idx}>
-											<span>{tex}</span>
 										</span>
 									))}
 								</div>
@@ -210,11 +191,11 @@ const HomePageSingleModal = ({
 					)}
 				</div>
 				<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 ">
-					{singleProducts?.[0]?.type
-						.toLowerCase()
-						.includes(CLOSURE || FRONTAL) ? (
+					{[CLOSURE, FRONTAL].includes(
+						singleProducts?.[0]?.type.toLowerCase()
+					) ? (
 						<span className="tw-text-xs tw-my-3 tw-text-green-700">
-							*** Select color & tetxure to calculate price... ***
+							*** Select color & length to calculate price... ***
 						</span>
 					) : (
 						<span className="tw-text-xs tw-my-3 tw-text-green-700">
@@ -236,10 +217,14 @@ const HomePageSingleModal = ({
 									: "***"}
 							</span>
 						</div>
-						<div>
-							Texture:{" "}
-							<span>{_hairType || singleProducts?.[0]?.texture || "***"}</span>
-						</div>
+						{singleProducts?.[0]?.texture && (
+							<div>
+								Texture:{" "}
+								<span>
+									{_hairType || singleProducts?.[0]?.texture || "***"}
+								</span>
+							</div>
+						)}
 						<div>
 							Length: <span>{length}" inches</span>
 						</div>

@@ -10,6 +10,7 @@ import CtaButton from "../components/shared/CtaButton";
 import useFetchHook from "../utils/useFetchHook";
 import useFetchDBHook from "../utils/useFetchDBHook";
 import SearchDropDown from "../components/shared/SearchDropDown";
+import { CLOUDINARY, PRODUCT } from "../constant";
 
 function HomePage() {
 	const [searchControl, setSearchControl] = React.useState(false);
@@ -28,15 +29,15 @@ function HomePage() {
 	salesType = useFetchDBHook(database, type);
 
 	// Getting products from db
-	const url1 = `${process.env.REACT_APP_BASE_ROUTE}/products`;
-	const productsRes = useFetchHook(url1, "products");
+	const url1 = `${process.env.REACT_APP_BASE_ROUTE}/${PRODUCT}`;
+	const productsRes = useFetchHook(url1, PRODUCT);
 	const fetchProducts = useCallback(async () => {
 		setAllproducts(productsRes);
 	}, [productsRes]);
 
 	// Getting slide imgaes from cloudinary
 	const url2 = process.env.REACT_APP_CLOUDINARY_WIGS;
-	const resources = useFetchHook(url2, "cloudinaryImage");
+	const resources = useFetchHook(url2, CLOUDINARY);
 	const fetchCloudinaryImages = useCallback(async () => {
 		setAllWigsCloudinaryImg(resources);
 	}, [resources]);
