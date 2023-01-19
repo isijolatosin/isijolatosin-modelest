@@ -55,13 +55,11 @@ export function returnDecsriptionObject(dt, texture, name, color, avesizes) {
 	const obj1 = { key: "Brand", value: `Raw ${dt?.[0]?.brand} hair` };
 	const obj2 = {
 		key: "Hair Texture",
-		value:
-			dt?.[0]?.type?.toLowerCase() === FRONTAL ||
-			dt?.[0]?.type?.toLowerCase() === CLOSURE
-				? texture
-					? texture?.join(", ")
-					: ""
-				: name,
+		value: [FRONTAL, CLOSURE].includes(dt?.[0]?.type?.toLowerCase())
+			? texture
+				? texture?.join(", ")
+				: ""
+			: name,
 	};
 	const obj3 = { key: "Hair Color", value: color };
 	const obj4 = {

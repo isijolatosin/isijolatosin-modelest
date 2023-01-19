@@ -3,8 +3,6 @@
 require("dotenv").config();
 const paypal = require("@paypal/checkout-server-sdk");
 
-// const base = process.env.BASE_URL || "https://api-m.paypal.com";
-
 const Environment =
 	process.env.SITE_ENV === "production"
 		? paypal.core.LiveEnvironment
@@ -38,7 +36,7 @@ exports.handler = async function (event, context) {
 		discountPercentage &&
 		totalFromRedux - totalFromRedux * (discountPercentage / 100);
 
-	if (discountedPrice === priceCost || totalFromRedux === priceCost) {
+	if ([discountedPrice, totalFromRedux].includes(priceCost)) {
 		shipMethod === "ship"
 			? (price = priceCost + taxCost + shipCost)
 			: (price = priceCost + taxCost);

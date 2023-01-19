@@ -1,36 +1,46 @@
-import React from 'react'
-import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
-import { GiPencil } from 'react-icons/gi'
-import { useNavigate } from 'react-router-dom'
-import { db } from '../../firebase'
-import Button from '../shared/Button'
-import Pagination from './Pagination'
+import React from "react";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { GiPencil } from "react-icons/gi";
+import { useNavigate } from "react-router-dom";
+import { db } from "../../firebase";
+import Button from "../shared/Button";
+import Pagination from "./Pagination";
+import {
+	ANONYMOUS,
+	BODYWAVE_CLOSURE,
+	BODYWAVE_FRONTAL,
+	FRONTAL_CLOSURE,
+	HAIR_BUNDLES,
+	JETBLACK_BLONDEHAIR,
+	NATURALCURLY_CLOSURE,
+	NATURALWAVE_FRONTAL,
+} from "../../constant";
 
 const Reviews = ({ category, color }) => {
-	const navigate = useNavigate()
-	const [chunkIndex, setChunkIndex] = React.useState(0)
-	const [isForm, setIsForm] = React.useState(false)
-	const [count1, setCount1] = React.useState(null)
-	const [count2, setCount2] = React.useState(null)
-	const [count3, setCount3] = React.useState(null)
-	const [count4, setCount4] = React.useState(null)
-	const [count5, setCount5] = React.useState(null)
-	const [count6, setCount6] = React.useState(null)
-	const [count7, setCount7] = React.useState(null)
-	const [reviewsArray, setReviewsArray] = React.useState([])
+	const navigate = useNavigate();
+	const [chunkIndex, setChunkIndex] = React.useState(0);
+	const [isForm, setIsForm] = React.useState(false);
+	const [count1, setCount1] = React.useState(null);
+	const [count2, setCount2] = React.useState(null);
+	const [count3, setCount3] = React.useState(null);
+	const [count4, setCount4] = React.useState(null);
+	const [count5, setCount5] = React.useState(null);
+	const [count6, setCount6] = React.useState(null);
+	const [count7, setCount7] = React.useState(null);
+	const [reviewsArray, setReviewsArray] = React.useState([]);
 	const [reviews, setReviews] = React.useState({
 		name: null,
 		email: null,
 		title: null,
 		message: null,
-	})
-	const [rating, setRating] = React.useState(0)
-	const contentPerPage = 3
-	const totalCards = reviewsArray.length / contentPerPage
+	});
+	const [rating, setRating] = React.useState(0);
+	const contentPerPage = 3;
+	const totalCards = reviewsArray.length / contentPerPage;
 
 	const handleChangeAuthUser = (e) => {
-		setReviews({ ...reviews, [e.target.name]: e.target.value })
-	}
+		setReviews({ ...reviews, [e.target.name]: e.target.value });
+	};
 
 	const handleSubmit = () => {
 		db.collection(category).add({
@@ -40,32 +50,32 @@ const Reviews = ({ category, color }) => {
 			message: reviews?.message,
 			rating: rating,
 			date: new Date().toDateString(),
-		})
+		});
 
-		setRating(0)
+		setRating(0);
 		setReviews({
-			name: '',
-			email: '',
-			title: '',
-			message: '',
-		})
-		setIsForm(false)
-		window.history.back()
-	}
+			name: "",
+			email: "",
+			title: "",
+			message: "",
+		});
+		setIsForm(false);
+		window.history.back();
+	};
 
 	React.useEffect(() => {
 		if (window?.location?.pathname === `/${category}/reviews`) {
-			setIsForm(true)
+			setIsForm(true);
 		}
 
 		db.collection(category)
-			.orderBy('date', 'asc')
+			.orderBy("date", "asc")
 			.onSnapshot((snapshot) => {
 				const results = snapshot.docs?.map((doc) => ({
 					data: doc.data(),
-				}))
+				}));
 				if (results) {
-					let data = []
+					let data = [];
 					for (const result of results) {
 						data.push({
 							name: result?.data?.name,
@@ -74,63 +84,63 @@ const Reviews = ({ category, color }) => {
 							message: result?.data?.message,
 							rating: result?.data?.rating,
 							date: result?.data?.date,
-						})
+						});
 					}
-					setReviewsArray(data)
+					setReviewsArray(data);
 				}
-			})
+			});
 
-		db.collection('closure-frontal').onSnapshot((snapshot) => {
+		db.collection(FRONTAL_CLOSURE).onSnapshot((snapshot) => {
 			const results = snapshot.docs.map((doc) => ({
 				data: doc.data(),
-			}))
-			setCount1(results.length)
-		})
+			}));
+			setCount1(results.length);
+		});
 
-		db.collection('hair-bundles').onSnapshot((snapshot) => {
+		db.collection(HAIR_BUNDLES).onSnapshot((snapshot) => {
 			const results = snapshot.docs.map((doc) => ({
 				data: doc.data(),
-			}))
-			setCount2(results.length)
-		})
-		db.collection('jet-black-&-blonde-hair').onSnapshot((snapshot) => {
+			}));
+			setCount2(results.length);
+		});
+		db.collection(JETBLACK_BLONDEHAIR).onSnapshot((snapshot) => {
 			const results = snapshot.docs.map((doc) => ({
 				data: doc.data(),
-			}))
-			setCount3(results.length)
-		})
-		db.collection('naturalcurly&closure').onSnapshot((snapshot) => {
+			}));
+			setCount3(results.length);
+		});
+		db.collection(NATURALCURLY_CLOSURE).onSnapshot((snapshot) => {
 			const results = snapshot.docs.map((doc) => ({
 				data: doc.data(),
-			}))
-			setCount4(results.length)
-		})
-		db.collection('bodywave&closure').onSnapshot((snapshot) => {
+			}));
+			setCount4(results.length);
+		});
+		db.collection(BODYWAVE_CLOSURE).onSnapshot((snapshot) => {
 			const results = snapshot.docs.map((doc) => ({
 				data: doc.data(),
-			}))
-			setCount5(results.length)
-		})
-		db.collection('naturalcurly&frontal').onSnapshot((snapshot) => {
+			}));
+			setCount5(results.length);
+		});
+		db.collection(NATURALWAVE_FRONTAL).onSnapshot((snapshot) => {
 			const results = snapshot.docs.map((doc) => ({
 				data: doc.data(),
-			}))
-			setCount6(results.length)
-		})
-		db.collection('bodywave&frontal').onSnapshot((snapshot) => {
+			}));
+			setCount6(results.length);
+		});
+		db.collection(BODYWAVE_FRONTAL).onSnapshot((snapshot) => {
 			const results = snapshot.docs.map((doc) => ({
 				data: doc.data(),
-			}))
-			setCount7(results.length)
-		})
+			}));
+			setCount7(results.length);
+		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, []);
 
-	const chunkedCards = []
-	let index = 0
+	const chunkedCards = [];
+	let index = 0;
 	for (let i = 0; i < totalCards; i++) {
-		chunkedCards.push(reviewsArray.slice(index, contentPerPage + index))
-		index += contentPerPage
+		chunkedCards.push(reviewsArray.slice(index, contentPerPage + index));
+		index += contentPerPage;
 	}
 
 	return (
@@ -155,8 +165,8 @@ const Reviews = ({ category, color }) => {
 							</div>
 							{count1 && count2 && count3 && (
 								<span className="md:tw-ml-2 tw-text-neutral-600">
-									Based on{' '}
-									{count1 + count2 + count3 + count4 + count5 + count6 + count7}{' '}
+									Based on{" "}
+									{count1 + count2 + count3 + count4 + count5 + count6 + count7}{" "}
 									reviews
 								</span>
 							)}
@@ -165,8 +175,8 @@ const Reviews = ({ category, color }) => {
 							<div
 								className="tw-mt-5 md:tw-mt-0 tw-flex tw-items-center tw-text-red-700 "
 								onClick={() => {
-									setIsForm(true)
-									navigate(`/${category}/reviews`)
+									setIsForm(true);
+									navigate(`/${category}/reviews`);
 								}}>
 								<span className="tw-font-[600] hover:tw-cursor-pointer tw-mr-1">
 									Write a review
@@ -207,11 +217,7 @@ const Reviews = ({ category, color }) => {
 						<div className="tw-mb-3">
 							<p>Rating</p>
 							<div className="tw-flex tw-mb-2">
-								{rating === 1 ||
-								rating === 2 ||
-								rating === 3 ||
-								rating === 4 ||
-								rating === 5 ? (
+								{[1, 2, 3, 4, 5].includes(rating) ? (
 									<AiFillStar
 										onClick={() => setRating(1)}
 										className="tw-text-neutral-800 hover:tw-cursor-pointer"
@@ -224,10 +230,7 @@ const Reviews = ({ category, color }) => {
 										size={25}
 									/>
 								)}
-								{rating === 2 ||
-								rating === 3 ||
-								rating === 4 ||
-								rating === 5 ? (
+								{[2, 3, 4, 5].includes(rating) ? (
 									<AiFillStar
 										onClick={() => setRating(2)}
 										className="tw-text-neutral-800 hover:tw-cursor-pointer"
@@ -240,7 +243,7 @@ const Reviews = ({ category, color }) => {
 										size={25}
 									/>
 								)}
-								{rating === 3 || rating === 4 || rating === 5 ? (
+								{[3, 4, 5].includes(rating) ? (
 									<AiFillStar
 										onClick={() => setRating(3)}
 										className="tw-text-neutral-800 hover:tw-cursor-pointer"
@@ -253,7 +256,7 @@ const Reviews = ({ category, color }) => {
 										size={25}
 									/>
 								)}
-								{rating === 4 || rating === 5 ? (
+								{[4, 5].includes(rating) ? (
 									<AiFillStar
 										onClick={() => setRating(4)}
 										className="tw-text-neutral-800 hover:tw-cursor-pointer"
@@ -266,7 +269,7 @@ const Reviews = ({ category, color }) => {
 										size={25}
 									/>
 								)}
-								{rating === 5 ? (
+								{[5].includes(rating) ? (
 									<AiFillStar
 										onClick={() => setRating(5)}
 										className="tw-text-neutral-800 hover:tw-cursor-pointer"
@@ -350,8 +353,8 @@ const Reviews = ({ category, color }) => {
 						</div>
 						<p className="Oswald tw-text-neutral-700">{review?.title}</p>
 						<p className="tw-font-bold tw-italic tw-text-xs tw-mb-3 tw-capitalize tw-text-neutral-700">
-							{review?.name ? review?.name : 'anonymous'}{' '}
-							<span className="tw-font-light tw-lowercase">on</span>{' '}
+							{review?.name ? review?.name : ANONYMOUS}{" "}
+							<span className="tw-font-light tw-lowercase">on</span>{" "}
 							{review?.date}
 						</p>
 						<p className="tw-text-xs tw-text-neutral-600 tw-leading-5">
@@ -369,7 +372,7 @@ const Reviews = ({ category, color }) => {
 				)}
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default Reviews
+export default Reviews;

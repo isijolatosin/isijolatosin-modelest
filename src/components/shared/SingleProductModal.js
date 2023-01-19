@@ -7,6 +7,7 @@ import PaymentOptions from "./PaymentOptions";
 import Rating from "./Rating";
 import { addToCart } from "../../utils/putToCartFunc";
 import { useDispatch } from "react-redux";
+import { CLOSURE, FRONTAL } from "../../constant";
 
 const SingleProductModal = ({
 	price,
@@ -104,17 +105,17 @@ const SingleProductModal = ({
 						</div>
 						<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900">
 							<div className="tw-flex tw-flex-col">
-								{singleProducts?.[0]?.sales &&
-									(singleProducts?.[0]?.type.toLowerCase() === "frontal" ||
-									singleProducts?.[0]?.type.toLowerCase() === "closure" ? (
-										<span className="tw-mt-2 tw-text-xs tw-text-green-700">
-											Select color, tetxure & length to calculate sales price...
-										</span>
-									) : (
-										<span className="tw-mt-2 tw-text-xs tw-text-green-700">
-											Select length to calculate sales price...
-										</span>
-									))}
+								{[FRONTAL, CLOSURE].includes(
+									singleProducts?.[0]?.type.toLowerCase()
+								) ? (
+									<span className="tw-mt-2 tw-text-xs tw-text-green-700">
+										Select color and / or length to calculate sales price...
+									</span>
+								) : (
+									<span className="tw-mt-2 tw-text-xs tw-text-green-700">
+										Select length to calculate sales price...
+									</span>
+								)}
 								<p className="tw-font-medium tw-text-xl tw-my-[10px]">
 									Price: ${price ? price : " ***"}{" "}
 									<span className="tw-text-[12px] tw-font-light">USD</span>
@@ -133,8 +134,9 @@ const SingleProductModal = ({
 								{error && (
 									<div>
 										<p className="tw-text-center tw-mb-2 tw-text-red-600 tw-text-xs">
-											{singleProducts?.[0]?.type.toLowerCase() === "frontal" ||
-											singleProducts?.[0]?.type.toLowerCase() === "closure"
+											{[FRONTAL, CLOSURE].includes(
+												singleProducts?.[0]?.type.toLowerCase()
+											)
 												? `Please provide color and length for ${singleProducts?.[0].name}`
 												: `Please provide length for ${singleProducts?.[0].name}`}
 										</p>

@@ -21,6 +21,7 @@ import {
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import PaymentOptions from "../components/shared/PaymentOptions";
+import { CLOSURE, FRONTAL } from "../constant";
 
 const DealPage = () => {
 	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12);
@@ -151,34 +152,24 @@ const DealPage = () => {
 	}, []);
 
 	// Adding to cart items
-	const name =
-		deals[0]?.name.toLowerCase().includes("frontal") ||
-		deals?.[0]?.name.toLowerCase().includes("closure")
-			? deals[1]?.name
-			: deals[0]?.name;
-	const id =
-		deals[0]?.name.toLowerCase().includes("frontal") ||
-		deals?.[0]?.name.toLowerCase().includes("closure")
-			? deals?.[1]?._id
-			: deals?.[0]?._id;
-	const image =
-		deals[0]?.name.toLowerCase().includes("frontal") ||
-		deals?.[0]?.name.toLowerCase().includes("closure")
-			? deals?.[1]?.images[0]
-			: deals?.[0]?.images[0];
-	const description =
-		deals[0]?.name.toLowerCase().includes("frontal") ||
-		deals?.[0]?.name.toLowerCase().includes("closure")
-			? deals?.[1]?.description
-			: deals?.[0]?.description;
+	const name = [FRONTAL, CLOSURE].includes(deals[0]?.name.toLowerCase())
+		? deals[1]?.name
+		: deals[0]?.name;
+	const id = [FRONTAL, CLOSURE].includes(deals[0]?.name.toLowerCase())
+		? deals?.[1]?._id
+		: deals?.[0]?._id;
+	const image = [FRONTAL, CLOSURE].includes(deals[0]?.name.toLowerCase())
+		? deals?.[1]?.images[0]
+		: deals?.[0]?.images[0];
+	const description = [FRONTAL, CLOSURE].includes(deals[0]?.name.toLowerCase())
+		? deals?.[1]?.description
+		: deals?.[0]?.description;
 	const price = dealPrice;
 	const hairLength = _length;
-	const hairTexture =
-		deals[0]?.name.toLowerCase().includes("frontal") ||
-		deals?.[0]?.name.toLowerCase().includes("closure")
-			? deals?.[1]?.name
-			: deals?.[0]?.name;
-	const quantity = Number(_quantity);
+	const hairTexture = [FRONTAL, CLOSURE].includes(deals[0]?.name.toLowerCase())
+		? deals?.[1]?.name
+		: deals?.[0]?.name;
+	const quantity = +_quantity;
 
 	const dealsProduct = {
 		name,

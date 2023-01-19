@@ -2,7 +2,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import axios from "axios";
-import { CLOSURE, FRONTAL, cloudinaryBaseUrl } from "../constant";
+import {
+	BLONDE613,
+	CLOSURE,
+	FRONTAL,
+	HAIR_BUNDLES,
+	JETBLACK,
+	NATURAL_BLACK,
+	VIETNAMESEHAIR,
+	VIETNAMESEWIG,
+	VIRGINHAIR,
+	VIRGINWIG,
+	cloudinaryBaseUrl,
+} from "../constant";
 
 export default function useFetchHook(url, type, isBundle, isJet, isAllBundles) {
 	const [resources, setResources] = React.useState([]);
@@ -52,13 +64,17 @@ export default function useFetchHook(url, type, isBundle, isJet, isAllBundles) {
 						if (isBundle) {
 							const filtered = products.filter(
 								(product) =>
-									product.color.toLowerCase() === "natural black" &&
-									!product.name.toLowerCase().includes("closure") &&
-									!product.name.toLowerCase().includes("frontal") &&
-									!product.type.toLowerCase().includes("virgin wig") &&
-									!product.type.toLowerCase().includes("vietnamese wig") &&
-									!product.brand.toLowerCase().includes("virgin hair") &&
-									!product.brand.toLowerCase().includes("vietnamese hair")
+									product.color.toLowerCase() === NATURAL_BLACK &&
+									!product.name.toLowerCase().includes(CLOSURE) &&
+									!product.name
+										.toLowerCase()
+										.includes(
+											FRONTAL ||
+												VIRGINWIG ||
+												VIETNAMESEWIG ||
+												VIRGINHAIR ||
+												VIETNAMESEHAIR
+										)
 							);
 							setProductsRes(
 								filtered.sort((a, b) => a.name.localeCompare(b.name))
@@ -66,17 +82,15 @@ export default function useFetchHook(url, type, isBundle, isJet, isAllBundles) {
 						} else if (isJet) {
 							const filtered = products.filter(
 								(product) =>
-									(product.color.toLowerCase() === "jet black" ||
-										product.color.toLowerCase().includes("blonde613")) &&
-									product?.type.toLowerCase() !== CLOSURE &&
-									product?.type.toLowerCase() !== FRONTAL
+									[JETBLACK, BLONDE613].includes(product.color.toLowerCase()) &&
+									![CLOSURE, FRONTAL].includes(product?.type.toLowerCase())
 							);
 							setProductsRes(
 								filtered.sort((a, b) => a.name.localeCompare(b.name))
 							);
 						} else if (isAllBundles) {
 							const filtered = products.filter((product) =>
-								product.type.toLowerCase().includes("hair bundles")
+								product.type.toLowerCase().includes(HAIR_BUNDLES)
 							);
 							setProductsRes(
 								filtered.sort((a, b) => a.name.localeCompare(b.name))

@@ -1,13 +1,13 @@
-require('dotenv').config()
+require("dotenv").config();
 
-const stripe = require('stripe')(process.env.REACT_APP_STRIPE_PRIVATE_KEY)
+const stripe = require("stripe")(process.env.REACT_APP_STRIPE_PRIVATE_KEY);
 
 // domain/.netlify/functions/create-payment-intent
 exports.handler = async function (event, context) {
 	const daysFromNow = (n) => {
-		let d = new Date()
-		return Math.floor(d.setDate(d.getDate() + n) / 1000)
-	}
+		let d = new Date();
+		return Math.floor(d.setDate(d.getDate() + n) / 1000);
+	};
 
 	if (event.body) {
 		const {
@@ -19,22 +19,22 @@ exports.handler = async function (event, context) {
 			cartItems,
 			sales,
 			shipMethod,
-		} = JSON.parse(event.body)
+		} = JSON.parse(event.body);
 
 		const totalCartPrice =
 			cartItems.reduce((total, prod) => total + prod.price * prod.quantity, 0) *
-			100
+			100;
 
 		const discountedPrice =
-			sales && totalCartPrice - totalCartPrice * (sales / 100)
+			sales && totalCartPrice - totalCartPrice * (sales / 100);
 
-		if (discountedPrice === balance || totalCartPrice === balance) {
-			const noOfInstallment = 4
+		if ([discountedPrice, totalCartPrice].includes(balance)) {
+			const noOfInstallment = 4;
 			const subAmount = Math.floor(
-				shipMethod === 'ship'
+				shipMethod === "ship"
 					? (balance + shippingFee + tax) / noOfInstallment
 					: (balance + tax) / noOfInstallment
-			)
+			);
 
 			try {
 				// create customer
@@ -45,31 +45,31 @@ exports.handler = async function (event, context) {
 					invoice_settings: {
 						default_payment_method: payment_method,
 					},
-				})
+				});
 
 				const subscription = await stripe.subscriptions.create({
 					customer: customer.id,
 					cancel_at: new Date(daysFromNow(42) * 1000),
-					items: [{ plan: 'price_1KdiVMLTIkVkSAcp6fej2hu8' }],
-					expand: ['latest_invoice.payment_intent'],
-				})
+					items: [{ plan: process.env.PLAN_KEY }],
+					expand: [process.env.REACT_APP_LATEST_INVOICE_PAYMENT_INTENT],
+				});
 				const client_secret =
-					subscription.latest_invoice.payment_intent.client_secret
+					subscription.latest_invoice.payment_intent.client_secret;
 				return {
 					statusCode: 200,
 					body: JSON.stringify({
 						client_secret: client_secret,
 					}),
-				}
+				};
 			} catch (error) {
-				console.log(error)
+				console.log(error);
 				return {
 					statusCode: 500,
 					body: JSON.stringify({ msg: error.message }),
-				}
+				};
 			}
 		} else {
-			return { statusCode: 500, body: 'Please Create Payment Intent' }
+			return { statusCode: 500, body: "Please Create Payment Intent" };
 		}
 	}
-}
+};

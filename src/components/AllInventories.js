@@ -322,12 +322,14 @@ function AllInventories() {
 				instock: isInstock,
 			};
 			if (
-				product.name === "" ||
-				product.brand === "" ||
-				product.type === "" ||
-				product.color === "" ||
-				product.length === null ||
-				product.description === ""
+				[
+					product.name,
+					product.brand,
+					product.type,
+					product.color,
+					product.length,
+					product.description,
+				].includes("" || null)
 			) {
 				return setPostError("Missing Credentials");
 			}

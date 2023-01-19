@@ -87,8 +87,9 @@ const HomePageSingleModal = ({
 							Description: {singleProducts?.[0]?.description}
 						</p>
 					</div>
-					{singleProducts?.[0]?.name.toLowerCase() === FRONTAL ||
-					singleProducts?.[0]?.name.toLowerCase() === CLOSURE ? (
+					{singleProducts?.[0]?.name
+						.toLowerCase()
+						.includes(FRONTAL || CLOSURE) ? (
 						<div className="tw-ml-5  md:tw-ml-0 tw-mt-5">
 							<div className="tw-flex tw-flex-col tw-border-y-[1px] tw-py-3">
 								<div className="tw-flex tw-flex-wrap tw-gap-2">
@@ -209,8 +210,9 @@ const HomePageSingleModal = ({
 					)}
 				</div>
 				<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 ">
-					{singleProducts?.[0]?.type.toLowerCase() === FRONTAL ||
-					singleProducts?.[0]?.type.toLowerCase() === CLOSURE ? (
+					{singleProducts?.[0]?.type
+						.toLowerCase()
+						.includes(CLOSURE || FRONTAL) ? (
 						<span className="tw-text-xs tw-my-3 tw-text-green-700">
 							*** Select color & tetxure to calculate price... ***
 						</span>
@@ -254,8 +256,9 @@ const HomePageSingleModal = ({
 						{error && (
 							<div>
 								<p className="tw-text-center tw-mb-2 tw-text-red-600 tw-text-xs">
-									{singleProducts?.[0]?.type.toLowerCase() === FRONTAL ||
-									singleProducts?.[0]?.type.toLowerCase() === CLOSURE
+									{singleProducts?.[0]?.type
+										.toLowerCase()
+										.includes(FRONTAL || CLOSURE)
 										? `Please provide color, texture and length for ${singleProducts?.[0]?.name}`
 										: `Please provide length for ${singleProducts?.[0]?.name}`}
 								</p>

@@ -260,14 +260,14 @@ function Shippment() {
 							/>
 							<div
 								className={
-									trackingNum.number === "" || trackingNum.courier === ""
+									[""].includes(trackingNum.number || trackingNum.courier)
 										? "tw-flex tw-flex-col tw-justify-center tw-text-sm tw-text-gray-200"
 										: "tw-flex tw-flex-col tw-justify-center tw-text-sm tw-text-green-700 hover:tw-text-gray-400"
 								}>
 								<button
-									disabled={
-										trackingNum.number === "" || trackingNum.courier === ""
-									}
+									disabled={[trackingNum.number, trackingNum.courier].includes(
+										""
+									)}
 									onClick={() => hideShipped(_id)}>
 									Submit Tracking
 								</button>
