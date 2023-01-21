@@ -1,37 +1,19 @@
-import React, { useCallback } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React from "react";
 import axios from "axios";
 import Heading from "./Heading";
 import InventoryCard from "./InventoryCard";
 import Button from "./shared/Button";
 
-function AllInventories() {
-	const [fetchAllData, setFetchAllData] = React.useState([]);
+function AllInventories({ fetchAllData, fetchProducts }) {
 	const [singleProduct, setSingleProduct] = React.useState();
 	const [postError, setPostError] = React.useState("");
-	const [isOnSales, setIsOnSales] = React.useState(false);
 	const [isInstock, setIsInstock] = React.useState(false);
+	const [salesPercent, setSalesPercent] = React.useState("");
 
-	const toggleSales = () => {
-		setIsOnSales(!isOnSales);
-	};
 	const toggleInstock = () => {
 		setIsInstock(!isInstock);
 	};
-
-	const fetchProducts = useCallback(async () => {
-		try {
-			const {
-				data: { products },
-			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
-			setFetchAllData(products);
-		} catch (error) {
-			console.log(error);
-		}
-	}, []);
-
-	React.useEffect(() => {
-		fetchProducts();
-	}, [fetchProducts]);
 
 	const handleInputName = (e) => {
 		setSingleProduct({
@@ -51,6 +33,7 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
+			salespercent: singleProduct.salespercent,
 			instock: singleProduct.instock,
 		});
 	};
@@ -72,6 +55,7 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
+			salespercent: singleProduct.salespercent,
 			instock: singleProduct.instock,
 		});
 	};
@@ -93,6 +77,7 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
+			salespercent: singleProduct.salespercent,
 			instock: singleProduct.instock,
 		});
 	};
@@ -114,6 +99,7 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
+			salespercent: singleProduct.salespercent,
 			instock: singleProduct.instock,
 		});
 	};
@@ -135,6 +121,7 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
+			salespercent: singleProduct.salespercent,
 			instock: singleProduct.instock,
 		});
 	};
@@ -156,6 +143,7 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
+			salespercent: singleProduct.salespercent,
 		});
 	};
 	const handleInputColor = (e) => {
@@ -176,6 +164,7 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
+			salespercent: singleProduct.salespercent,
 		});
 	};
 	const handleInputAvailableColor = (e) => {
@@ -196,6 +185,7 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
+			salespercent: singleProduct.salespercent,
 		});
 	};
 	const handleInputLen = (e) => {
@@ -216,6 +206,7 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
+			salespercent: singleProduct.salespercent,
 		});
 	};
 	const handleInputAvailableLen = (e) => {
@@ -236,6 +227,7 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
+			salespercent: singleProduct.salespercent,
 		});
 	};
 	const handleInputDealLen = (e) => {
@@ -256,6 +248,7 @@ function AllInventories() {
 			dealLength: e.target.value,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
+			salespercent: singleProduct.salespercent,
 		});
 	};
 	const handleInputVideo = (e) => {
@@ -276,6 +269,7 @@ function AllInventories() {
 			dealLength: singleProduct.dealLength,
 			description: singleProduct.description,
 			sales: singleProduct.sales,
+			salespercent: singleProduct.salespercent,
 		});
 	};
 	const handleInputDesc = (e) => {
@@ -295,11 +289,12 @@ function AllInventories() {
 			availablelength: singleProduct.availablelength,
 			dealLength: singleProduct.dealLength,
 			sales: singleProduct.sales,
+			salespercent: singleProduct.salespercent,
 			description: e.target.value,
 		});
 	};
 
-	async function updateSingleProduct(e) {
+	function updateSingleProduct(e) {
 		e.preventDefault();
 		const id = singleProduct?.id;
 		try {
@@ -318,8 +313,8 @@ function AllInventories() {
 				availablelength: singleProduct.availablelength,
 				dealLength: singleProduct.dealLength,
 				description: singleProduct.description,
-				sales: isOnSales,
 				instock: isInstock,
+				salespercent: salesPercent,
 			};
 			if (
 				[
@@ -333,7 +328,7 @@ function AllInventories() {
 			) {
 				return setPostError("Missing Credentials");
 			}
-			await axios.patch(
+			axios.patch(
 				`${process.env.REACT_APP_BASE_ROUTE}/products/${id}`,
 				product
 			);
@@ -342,10 +337,8 @@ function AllInventories() {
 			setPostError(error.message ? "Please check your input fields" : "");
 			console.log(error);
 		}
-
-		setSingleProduct();
-
-		fetchProducts();
+		setSingleProduct({});
+		window.location.reload();
 	}
 
 	return (
@@ -354,7 +347,7 @@ function AllInventories() {
 				<div className="tw-flex tw-flex-col tw-items-center tw-w-[100%] xl:tw-w-[90%] 2xl:tw-w-[85%] tw-mx-auto tw-mt-5">
 					<Heading children="All Inventories" isBold={true} size2={true} />
 					<div className="tw-grid tw-grid-cols-1 tw-w-full md:tw-grid-cols-2 xl:tw-grid-cols-3 2xl:tw-grid-cols-4 tw-gap-5 tw-p-5 lg:tw-p-10">
-						{fetchAllData.map((product) => (
+						{fetchAllData?.map((product) => (
 							<InventoryCard
 								key={product._id}
 								product={product}
@@ -494,24 +487,23 @@ function AllInventories() {
 								placeholder="Description..."
 								className="tw-rounded tw-mt-1 tw-block lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
 							/>
-							<div className="tw-flex tw-items-center">
-								<div className="tw-rounded tw-flex tw-flex-row tw-items-center tw-mt-5 tw-shadow-xl tw-p-2">
-									<label className="tw-mr-3 tw-text-gray-500 tw-text-sm">
-										Sales
+							<div className="tw-flex tw-items-center tw-justify-between lg:tw-w-[40%] tw-mx-auto tw-w-[90%]">
+								<div className="tw-rounded tw-flex tw-justify-center tw-items-center tw-flex-row tw-shadow-xl tw-pl-2 tw-bg-white tw-w-[300px]">
+									<label className="tw-w-[60%] tw-text-xs tw-text-neutral-400 tw-font-thin">
+										Sales Percent
 									</label>
 									<input
-										type="checkbox"
-										checked={isOnSales}
-										className={
-											isOnSales
-												? "tw-ml-2 tw-rounded-full tw-bg-violet-400"
-												: "tw-ml-2 tw-rounded-full tw-bg-none tw-border-violet-200"
-										}
-										onChange={toggleSales}
+										id="sales percent"
+										name="sales percent"
+										type="number"
+										placeholder="%"
+										value={salesPercent}
+										className="tw-w-[40%] tw-text-xs tw-text-neutral-400 tw-h-full tw-bg-neutral-200 tw-border-none focus:tw-ring-0 tw-border-0 placeholder:tw-text-neutral-400 placeholder:tw-text-xs placeholder:tw-font-light"
+										onChange={(e) => setSalesPercent(+e.target.value)}
 									/>
 								</div>
-								<div className="tw-rounded tw-flex tw-flex-row tw-items-center tw-mt-5 tw-shadow-xl tw-p-2">
-									<label className="tw-mr-3 tw-text-gray-500 tw-text-sm">
+								<div className="tw-rounded tw-flex tw-flex-row tw-items-center tw-shadow-xl tw-p-2">
+									<label className="tw-mr-3 tw-text-xs tw-text-neutral-400 tw-font-thin">
 										Instock
 									</label>
 									<input
@@ -527,7 +519,7 @@ function AllInventories() {
 								</div>
 							</div>
 							{postError && (
-								<span className="tw-text-xs tw-text-red-700 tw-mt-5">{`Error: ${postError}`}</span>
+								<span className="tw-text-xs tw-text-red-700">{`Error: ${postError}`}</span>
 							)}
 							<div className="tw-my-10">
 								<Button type="submit">Update Inventory</Button>

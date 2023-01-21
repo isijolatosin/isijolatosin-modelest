@@ -5,21 +5,17 @@ import { uploadMultipleFile } from "../utils/uploadFileFunc";
 import { useGlobalContext } from "../context/useContextHook";
 import axios from "axios";
 
-function Inventory({ categories }) {
+const Inventory = React.memo(({ categories }) => {
 	const { priceObject } = useGlobalContext();
-	const [isOnSales, setIsOnSales] = React.useState(false);
 	const [isInstock, setIsInstock] = React.useState(false);
 	const [isFeatured, setIsFeatured] = React.useState(false);
 	const [postError, setPostError] = React.useState("");
+	const [salesPercent, setSalesPercent] = React.useState(0);
 	const [formData, setFormData] = React.useState({});
 	const [imagesFile, setImagesFile] = React.useState([]);
 
 	const handleformDataChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
-	};
-
-	const toggleSales = () => {
-		setIsOnSales(!isOnSales);
 	};
 	const toggleInstock = () => {
 		setIsInstock(!isInstock);
@@ -47,7 +43,7 @@ function Inventory({ categories }) {
 				availablecolor: formData.availablecolor,
 				dealLength: formData.dealLength,
 				description: formData.description,
-				sales: isOnSales,
+				salespercent: salesPercent,
 				instock: isInstock,
 				isFeatured: isFeatured,
 				images: imagesFile,
@@ -76,7 +72,7 @@ function Inventory({ categories }) {
 			category: "",
 		});
 		setImagesFile([]);
-		setIsOnSales(false);
+		setSalesPercent("");
 		setIsInstock(false);
 		setIsFeatured(false);
 	};
@@ -181,9 +177,7 @@ function Inventory({ categories }) {
 			inputTypes={inputTypes}
 			handleformDataChange={handleformDataChange}
 			formData={formData}
-			isOnSales={isOnSales}
 			isInstock={isInstock}
-			toggleSales={toggleSales}
 			toggleInstock={toggleInstock}
 			postError={postError}
 			buttonText="Add to Inventory"
@@ -191,8 +185,9 @@ function Inventory({ categories }) {
 			toggleIsFeatured={toggleIsFeatured}
 			isFeatured={isFeatured}
 			categories={categories}
+			setSalesPercent={setSalesPercent}
 		/>
 	);
-}
+});
 
 export default Inventory;

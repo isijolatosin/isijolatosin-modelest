@@ -3,7 +3,8 @@ import axios from "axios";
 import { Helmet } from "react-helmet";
 import Layout from "../components/shared/Layout";
 import BundleCard from "../components/BundleCard";
-import { fetchBundlePercentage } from "../utils/salesPercentageNumber";
+import { useGlobalContext } from "../context/useContextHook";
+import { roundTo2Dec } from "../utils/roundTo2Dec";
 
 function IndianDeal() {
 	// const { user } = useContext(UserContext)
@@ -22,6 +23,7 @@ function IndianDeal() {
 	const [CurlyClosure, setCurlyClosure] = React.useState(null);
 	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12);
 
+	const { fetchBundlePercentage } = useGlobalContext();
 	React.useEffect(() => {
 		setBundleDealsPercentage(fetchBundlePercentage());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -84,10 +86,10 @@ function IndianDeal() {
 				const discount2 = price2 * (bundleDealsPercentage / 100);
 				const discount3 = price3 * (bundleDealsPercentage / 100);
 				const discount4 = price4 * (bundleDealsPercentage / 100);
-				setDealPriceBodyWaveFrontal((price - discount).toFixed(2));
-				setDealPriceCurlyFrontal((price2 - discount2).toFixed(2));
-				setDealPriceBodyWaveClosure((price3 - discount3).toFixed(2));
-				setDealPriceCurlyClosure((price4 - discount4).toFixed(2));
+				setDealPriceBodyWaveFrontal(roundTo2Dec(price - discount));
+				setDealPriceCurlyFrontal(roundTo2Dec(price2 - discount2));
+				setDealPriceBodyWaveClosure(roundTo2Dec(price3 - discount3));
+				setDealPriceCurlyClosure(roundTo2Dec(price4 - discount4));
 			});
 		} catch (error) {
 			console.log(error);

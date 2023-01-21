@@ -19,10 +19,19 @@ import {
 export default function useFetchHook(url, type, isBundle, isJet, isAllBundles) {
 	const [resources, setResources] = React.useState([]);
 	const [productsRes, setProductsRes] = React.useState([]);
+	const [categoryRes, setCategories] = React.useState([]);
+	const [singleProduct, setSingleProduct] = React.useState([]);
 
 	React.useEffect(async () => {
 		let mounted = true;
 		switch (type) {
+			case "singleProduct":
+				const {
+					data: { product },
+				} = await axios.get(url);
+				if (mounted) setSingleProduct(product);
+				return "";
+
 			case "cloudinaryImage":
 				const {
 					data: { resources },
@@ -55,6 +64,18 @@ export default function useFetchHook(url, type, isBundle, isJet, isAllBundles) {
 				});
 				if (mounted) setResources(images);
 				return "";
+
+			case "category":
+				try {
+					const {
+						data: { category },
+					} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/category`);
+					if (mounted) setCategories(category);
+				} catch (error) {
+					console.log(error);
+				}
+				return "";
+
 			case "products":
 				const {
 					data: { products },
@@ -114,11 +135,11 @@ export default function useFetchHook(url, type, isBundle, isJet, isAllBundles) {
 		return () => (mounted = false);
 	}, [type]);
 
-	const finalRes = resources?.length
-		? resources
-		: productsRes?.length
-		? productsRes
-		: null;
+	let finalRes;
+	if (resources?.length) finalRes = resources;
+	if (productsRes?.length) finalRes = productsRes;
+	if (categoryRes?.length) finalRes = categoryRes;
+	if (singleProduct?.length) finalRes = singleProduct;
 
 	return finalRes;
 }

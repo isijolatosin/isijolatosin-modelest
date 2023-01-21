@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useCallback, useContext, useRef } from "react";
 import { Helmet } from "react-helmet";
 import { getDatabase, ref, set } from "firebase/database";
 import Heading from "../components/Heading";
@@ -14,11 +14,13 @@ import {
 	MdOutlineInventory,
 	MdOutlineLocalShipping,
 } from "react-icons/md";
-import axios from "axios";
+import { CATEGORY, PRODUCT } from "../constant";
+import useFetchHook from "../utils/useFetchHook";
 
 function Management() {
 	const database = getDatabase();
 	const [categories, setCategories] = React.useState([]);
+	const [fetchAllData, setFetchAllData] = React.useState([]);
 	const [section, setSection] = React.useState("all-inventory");
 	const { user } = useContext(UserContext);
 	let percentSale;
@@ -32,21 +34,24 @@ function Management() {
 		{ name: "bundle", id: 3 },
 	];
 
-	async function getCategories() {
-		try {
-			const {
-				data: { category },
-			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/category`);
-			setCategories(category);
-		} catch (error) {
-			console.log(error);
-		}
-	}
+	const url = `${process.env.REACT_APP_BASE_ROUTE}/${PRODUCT}`;
+	const url2 = `${process.env.REACT_APP_BASE_ROUTE}/${CATEGORY}`;
+	const type = PRODUCT;
+	const type2 = CATEGORY;
+	const fetchProductsRes = useFetchHook(url, type);
+	const fetchCategoriesRes = useFetchHook(url2, type2);
+
+	const fetchProducts = useCallback(async () => {
+		setFetchAllData(fetchProductsRes);
+	}, [fetchProductsRes]);
+	const fetchCategories = useCallback(async () => {
+		setCategories(fetchCategoriesRes);
+	}, [fetchCategoriesRes]);
 
 	React.useEffect(() => {
-		getCategories();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+		fetchProducts();
+		fetchCategories();
+	}, [fetchProducts, fetchCategories]);
 
 	const toggleSection = (e) => {
 		setSection(e.target.id);
@@ -55,7 +60,12 @@ function Management() {
 	const SectionComp = () => {
 		switch (section) {
 			case "all-inventory":
-				return <AllInventories />;
+				return (
+					<AllInventories
+						fetchAllData={fetchAllData}
+						fetchProducts={fetchProducts}
+					/>
+				);
 			case "inventory":
 				return <Inventory categories={categories} />;
 			case "shipping":

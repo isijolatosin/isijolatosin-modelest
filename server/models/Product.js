@@ -64,9 +64,8 @@ const ProductSchema = new mongoose.Schema({
 	images: {
 		type: Array,
 	},
-	sales: {
-		type: Boolean,
-		default: false,
+	salespercent: {
+		type: Number,
 	},
 	instock: {
 		type: Boolean,

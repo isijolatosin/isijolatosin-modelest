@@ -1,13 +1,14 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { GrFormClose, GrFormAdd, GrFormSubtract } from 'react-icons/gr'
-import { MdOutlineKeyboardArrowUp } from 'react-icons/md'
-import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
+import React from "react";
+import { useDispatch } from "react-redux";
+import { GrFormClose, GrFormAdd, GrFormSubtract } from "react-icons/gr";
+import { MdOutlineKeyboardArrowUp } from "react-icons/md";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { roundTo2Dec } from "../utils/roundTo2Dec";
 import {
 	decreaseCartItem,
 	increaseCartItem,
 	removeCartItem,
-} from '../slices/appSlices'
+} from "../slices/appSlices";
 
 const CartItems = ({ product }) => {
 	const {
@@ -20,21 +21,21 @@ const CartItems = ({ product }) => {
 		hairColor,
 		description,
 		id,
-	} = product
-	const [expand, setExpand] = React.useState(false)
-	const dispatch = useDispatch()
+	} = product;
+	const [expand, setExpand] = React.useState(false);
+	const dispatch = useDispatch();
 
-	const prdct = { name, id, image, price, hairLength, hairColor, description }
+	const prdct = { name, id, image, price, hairLength, hairColor, description };
 
 	const increaseItem = () => {
-		dispatch(increaseCartItem(prdct))
-	}
+		dispatch(increaseCartItem(prdct));
+	};
 	const decreaseItem = () => {
-		dispatch(decreaseCartItem(prdct))
-	}
+		dispatch(decreaseCartItem(prdct));
+	};
 	const removeItem = () => {
-		dispatch(removeCartItem(prdct))
-	}
+		dispatch(removeCartItem(prdct));
+	};
 
 	return (
 		<div className="tw-flex tw-flex-row tw-p-5 tw-w-full tw-bg-gray-50 tw-mb-1">
@@ -50,7 +51,7 @@ const CartItems = ({ product }) => {
 					<div className="tw-font-bold">
 						<h4>{name}</h4>
 					</div>
-					<p>{`Price: $${Number((price * quantity).toFixed(2))}`}</p>
+					<p>{`Price: $${roundTo2Dec(price * quantity)}`}</p>
 					<p>{`Length: ${hairLength}`}</p>
 					{hairColor && <p>{`Color: ${hairColor}`}</p>}
 					{hairTexture && <p>{`Texture: ${hairTexture}`}</p>}
@@ -106,7 +107,7 @@ const CartItems = ({ product }) => {
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default CartItems
+export default CartItems;

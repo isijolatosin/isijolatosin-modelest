@@ -1,20 +1,20 @@
-import React from "react";
-import axios from "axios";
+import React, { useCallback } from "react";
 import { Helmet } from "react-helmet";
 import Layout from "../components/shared/Layout";
 import WigsCard from "../components/WigsCard";
+import { PRODUCT } from "../constant";
+import useFetchHook from "../utils/useFetchHook";
 
 function VirginWigs() {
 	const [wigs, setWigs] = React.useState([]);
-	async function fetchProducts() {
-		try {
-			const {
-				data: { products },
-			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
 
+	const url = `${process.env.REACT_APP_BASE_ROUTE}/${PRODUCT}`;
+	const productsRes = useFetchHook(url, PRODUCT);
+	const fetchProducts = useCallback(async () => {
+		try {
 			const filtered = [];
 			// eslint-disable-next-line array-callback-return
-			products.filter((product) => {
+			productsRes.filter((product) => {
 				if (product.type.toLowerCase().includes("virgin wig")) {
 					filtered.push(product);
 				}
@@ -23,13 +23,11 @@ function VirginWigs() {
 		} catch (error) {
 			console.log(error);
 		}
-	}
+	}, [productsRes]);
 
 	React.useEffect(() => {
 		fetchProducts();
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [fetchProducts]);
 
 	return (
 		<div className="home">

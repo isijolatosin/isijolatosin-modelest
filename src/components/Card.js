@@ -1,17 +1,16 @@
 import React from "react";
-import axios from "axios";
 import truncate from "../utils/truncate";
+import { useGlobalContext } from "../context/useContextHook";
 
-function Card({ product, setSingleproducts, scrollToTop, sales }) {
+function Card({ product, setSingleproduct, scrollToTop }) {
+	const { fetchProducts } = useGlobalContext();
+
 	async function handleViewImage(event) {
 		try {
-			const {
-				data: { products },
-			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
-			const result = products.filter(
+			const result = fetchProducts().filter(
 				(product) => product?._id === event.target.id
 			);
-			setSingleproducts(result);
+			setSingleproduct(result);
 		} catch (error) {
 			console.log(error);
 		}

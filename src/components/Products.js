@@ -8,9 +8,8 @@ import HomePageSingleModal from "./shared/HomePageSingleModal";
 
 function Products({ allProducts, sales }) {
 	const [toggleHeight, setToggleHeight] = React.useState(true);
-	const [singleProducts, setSingleproducts] = React.useState(null);
+	const [singleProduct, setSingleproduct] = React.useState(null);
 	const [singleCart, setSingleCart] = React.useState(null);
-
 	const scrollToTop = function scrollToTop() {
 		window.scrollTo(0, 0);
 	};
@@ -21,7 +20,7 @@ function Products({ allProducts, sales }) {
 				<Add2CartPopup
 					singleCart={singleCart}
 					setSingleCart={setSingleCart}
-					setSingleproducts={setSingleproducts}
+					setSingleproduct={setSingleproduct}
 					quantity="1"
 				/>
 			</div>
@@ -39,7 +38,7 @@ function Products({ allProducts, sales }) {
 									sales={sales}
 									key={product?._id}
 									product={product}
-									setSingleproducts={setSingleproducts}
+									setSingleproduct={setSingleproduct}
 									scrollToTop={scrollToTop}
 								/>
 							</div>
@@ -65,10 +64,10 @@ function Products({ allProducts, sales }) {
 				</div>
 			</div>
 
-			{singleProducts && (
+			{singleProduct && (
 				<HomePageSingleModal
-					singleProducts={singleProducts}
-					setSingleproducts={setSingleproducts}
+					singleProduct={singleProduct}
+					setSingleproduct={setSingleproduct}
 					sales={sales}
 					setSingleCart={setSingleCart}
 				/>

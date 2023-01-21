@@ -14,14 +14,12 @@ import Reviews from "../components/shared/Reviews";
 import Add2CartPopup from "../components/shared/Add2CartPopup";
 import { useDispatch, useSelector } from "react-redux";
 import Heading from "../components/Heading";
-import {
-	fetchBundlePercentage,
-	fetchSalesPercentage,
-} from "../utils/salesPercentageNumber";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import PaymentOptions from "../components/shared/PaymentOptions";
 import { CLOSURE, FRONTAL } from "../constant";
+import { useGlobalContext } from "../context/useContextHook";
+import { roundTo2Dec } from "../utils/roundTo2Dec";
 
 const DealPage = () => {
 	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12);
@@ -50,6 +48,7 @@ const DealPage = () => {
 				"-"
 			).length - 1
 	];
+	const { fetchSalesPercentage, fetchBundlePercentage } = useGlobalContext();
 	React.useEffect(() => {
 		setSales(fetchSalesPercentage());
 		setBundleDealsPercentage(fetchBundlePercentage());
@@ -114,9 +113,9 @@ const DealPage = () => {
 				}
 				const discnt =
 					bundleDealsPercentage &&
-					Number((price * (bundleDealsPercentage / 100)).toFixed(2));
+					roundTo2Dec(price * (bundleDealsPercentage / 100));
 
-				setDealPrice(discnt ? Number((price - discnt).toFixed(2)) : price);
+				setDealPrice(discnt ? roundTo2Dec(price - discnt) : price);
 			});
 
 			setDeals(filtered.sort((a, b) => a.name.localeCompare(b.name)));

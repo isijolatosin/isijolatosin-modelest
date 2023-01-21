@@ -1,16 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { Link } from "react-router-dom";
 import Layout from "../components/shared/Layout";
 import Button from "../components/shared/Button";
 import Heading from "../components/Heading";
-import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
 
 const Canceled = () => {
-	const [sales, setSales] = React.useState(false);
-
 	React.useEffect(() => {
-		setSales(fetchSalesPercentage());
-
 		localStorage.removeItem("discountPrice");
 		localStorage.removeItem("ship");
 		localStorage.removeItem("address");
@@ -27,13 +23,7 @@ const Canceled = () => {
 	}, []);
 	return (
 		<Layout>
-			<div
-				className={
-					sales
-						? "tw-pt-[230px] tw-bg-neutral-200 lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center"
-						: "tw-pt-[150px] tw-bg-neutral-200 lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center"
-				}
-			>
+			<div className="tw-pt-[150px] tw-bg-neutral-200 lg:tw-mt-[100px] tw-flex tw-flex-col tw-items-center">
 				<Heading children="payment failed" isBold={true} />
 				<div className="tw-my-5">
 					<span className="tw-font-semibold tw-text-red-800">

@@ -14,27 +14,29 @@ export function returnObjectProperty(dt) {
 		_sales,
 		_singleprice,
 		_vWPriceClosure,
-		_vWPriceFrontal;
+		_vWPriceFrontal,
+		salespercent;
 	if (dt) {
-		name = dt?.[0]?.name;
-		id = dt?.[0]?._id;
-		image = dt?.[0]?.images[0];
-		color = dt?.[0]?.color;
-		description = dt?.[0]?.description;
-		width = dt?.[0]?.widthlength;
+		name = dt?.name;
+		id = dt?._id;
+		image = dt?.images[0];
+		color = dt?.color;
+		description = dt?.description;
+		width = dt?.widthlength;
 		_hairColor =
-			dt?.[0]?.type.toLowerCase() === FRONTAL
+			dt?.type.toLowerCase() === FRONTAL
 				? [NATURAL_BLACK]
-				: dt?.[0]?.type.toLowerCase() === CLOSURE
+				: dt?.type.toLowerCase() === CLOSURE
 				? [NATURAL_BLACK, BLONDE613]
 				: null;
-		avesizes = dt?.[0]?.availablelength?.split(", ");
-		sizes = dt?.[0]?.length.split(", ");
-		_hairTexture = dt?.[0]?.texture;
-		_sales = dt?.[0]?.sales;
-		_singleprice = dt?.[0]?.price;
-		_vWPriceClosure = dt?.[0]?.name.toLowerCase().includes(`-${CLOSURE}`);
-		_vWPriceFrontal = dt?.[0]?.name.toLowerCase().includes(`-${FRONTAL}`);
+		avesizes = dt?.availablelength?.split(", ");
+		sizes = dt?.length.split(", ");
+		_hairTexture = dt?.texture;
+		_sales = dt?.sales;
+		_singleprice = dt?.price;
+		_vWPriceClosure = dt?.name.toLowerCase().includes(`-${CLOSURE}`);
+		_vWPriceFrontal = dt?.name.toLowerCase().includes(`-${FRONTAL}`);
+		salespercent = dt?.salespercent;
 	}
 	return {
 		name,
@@ -51,13 +53,14 @@ export function returnObjectProperty(dt) {
 		_singleprice,
 		_vWPriceClosure,
 		_vWPriceFrontal,
+		salespercent,
 	};
 }
 export function returnDecsriptionObject(dt, texture, name, color, avesizes) {
 	const obj1 = { key: "Brand", value: `Raw ${dt?.[0]?.brand} hair` };
 	const obj2 = {
 		key: "Hair Texture",
-		value: [FRONTAL, CLOSURE].includes(dt?.[0]?.type?.toLowerCase())
+		value: [FRONTAL, CLOSURE].includes(dt?.type?.toLowerCase())
 			? texture
 				? texture?.join(", ")
 				: ""

@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useCallback } from "react";
 import axios from "axios";
 import { MdDeleteOutline } from "react-icons/md";
 import { MdOutlineEditNote } from "react-icons/md";
+import useFetchHook from "../utils/useFetchHook";
+import { PRODUCT, SINGLE_PRODUCT } from "../constant";
 
 function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 	async function deleteSingleProduct() {
@@ -15,13 +17,17 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 		fetchProducts();
 	}
 
-	async function getSingleProduct() {
-		const id = product._id;
-		try {
-			const {
-				data: { product },
-			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products/${id}`);
+	const type = SINGLE_PRODUCT;
+	const id = product._id;
+	const url = `${process.env.REACT_APP_BASE_ROUTE}/${PRODUCT}/${id}`;
+	const fetchSingleProductsRes = useFetchHook(url, type);
+	const fetchSingle = useCallback(() => {
+		return fetchSingleProductsRes;
+	}, [fetchSingleProductsRes]);
 
+	async function getSingleProduct() {
+		try {
+			const product = fetchSingle();
 			setSingleProduct({
 				id: product._id,
 				name: product.name,
@@ -35,7 +41,6 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 					product.price[+product.length.split(", ")[0]],
 				video: product.video,
 				description: product.description,
-				sales: product.sales,
 				instock: product.instock,
 				type: product.type,
 				color: product.color,
@@ -43,6 +48,7 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 				dealLength: product.dealLength,
 				length: product.length,
 				availablelength: product.availablelength,
+				salespercent: product.salespercent,
 			});
 		} catch (error) {
 			console.log(error);
@@ -78,7 +84,9 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 					{product.dealLength && (
 						<span className="tw-w-[100%]">{`Deal length: ${product.dealLength}`}</span>
 					)}
-					<span className="tw-text-red-800">{product.sales && "onsale"}</span>
+					<span className="tw-text-red-800">
+						{product.salespercent && `${product.salespercent}% onsale`}
+					</span>
 				</div>
 				<div className="tw-flex tw-flex-col tw-justify-between tw-w-[15%] tw-border-l tw-border-neutral-300 tw-pl-[10px] lg:tw-pl-2 xl:tw-pl-[2px]">
 					<MdDeleteOutline

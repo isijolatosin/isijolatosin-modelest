@@ -7,7 +7,7 @@ import { addToCart } from "../utils/putToCartFunc";
 
 function Card({
 	product,
-	setSingleproducts,
+	setSingleproduct,
 	setSingleCart,
 	scrollToTop,
 	sales,
@@ -28,7 +28,7 @@ function Card({
 			const result = products.filter(
 				(product) => product._id === event.target.id
 			);
-			setSingleproducts(result);
+			setSingleproduct(result);
 		} catch (error) {
 			console.log(error);
 		}

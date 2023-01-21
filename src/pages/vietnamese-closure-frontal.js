@@ -1,13 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { Helmet } from "react-helmet";
 import Layout from "../components/shared/Layout";
-import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
+import { useGlobalContext } from "../context/useContextHook";
 
 function VietnameseClosureFrontal() {
 	const [sales, setSales] = React.useState(null);
+	const { fetchSalesPercentage } = useGlobalContext();
 	React.useEffect(() => {
 		setSales(fetchSalesPercentage());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const name = window.location.pathname

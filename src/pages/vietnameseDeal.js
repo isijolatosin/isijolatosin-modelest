@@ -1,18 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { Helmet } from "react-helmet";
 import Layout from "../components/shared/Layout";
-import {
-	fetchBundlePercentage,
-	fetchSalesPercentage,
-} from "../utils/salesPercentageNumber";
+import { useGlobalContext } from "../context/useContextHook";
 
 function VietnameseDeal() {
 	const [sales, setSales] = React.useState(null);
 	const [bundleDeals, setBundleDeals] = React.useState(null);
+	const { fetchSalesPercentage, fetchBundlePercentage } = useGlobalContext();
 	React.useEffect(() => {
 		setSales(fetchSalesPercentage());
 		setBundleDeals(fetchBundlePercentage());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
