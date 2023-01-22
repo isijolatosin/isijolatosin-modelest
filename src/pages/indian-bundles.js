@@ -7,12 +7,15 @@ import { useSelector } from "react-redux";
 import Add2CartPopup from "../components/shared/Add2CartPopup";
 import SingleProductModal from "../components/shared/SingleProductModal";
 import Reviews from "../components/shared/Reviews";
-import { returnDecsriptionObject } from "../utils/returnObjectProperty";
+import {
+	returnDecsriptionObject,
+	returnObjectProperty,
+} from "../utils/returnObjectProperty";
 import useFetchHook from "../utils/useFetchHook";
 
 function IndianBundles() {
 	const [hairBundles, setHairBundles] = React.useState([]);
-	const [singleProducts, setSingleproducts] = React.useState(null);
+	const [singleProduct, setSingleproduct] = React.useState(null);
 	const [singleCart, setSingleCart] = React.useState(null);
 	const [error, setError] = React.useState(false);
 	const [length, setLength] = React.useState("14");
@@ -31,20 +34,15 @@ function IndianBundles() {
 	const scrollToTop = function scrollToTop() {
 		window.scrollTo(0, 0);
 	};
-	const sizes = singleProducts?.[0].availablelength.split(", ");
 
 	// Adding to cart items
-	const name = singleProducts?.[0] && singleProducts?.[0]?.name;
-	const id = singleProducts?.[0] && singleProducts?.[0]?._id;
-	const image = singleProducts?.[0] && singleProducts?.[0]?.images[0];
-	const color = singleProducts?.[0] && singleProducts?.[0]?.color;
-	const description = singleProducts?.[0] && singleProducts?.[0]?.description;
+	const { name, id, image, color, description, size, avesizes, salespercent } =
+		returnObjectProperty(singleProduct?.[0]);
 	const hairLength = length;
 	const hairColor = color;
-	const hairTexture = singleProducts?.[0] && singleProducts?.[0]?.name;
-	const price = singleProducts?.[0]?.price[+length];
-
-	const singleProduct = {
+	const hairTexture = singleProduct?.[0] && singleProduct?.[0]?.name;
+	const price = singleProduct?.[0]?.price[+length];
+	const _singleProduct = {
 		name,
 		id,
 		image,
@@ -53,8 +51,15 @@ function IndianBundles() {
 		hairLength,
 		description,
 		hairTexture,
+		salespercent,
 	};
-	const desc = returnDecsriptionObject(singleProducts, "", name, color, sizes);
+	const desc = returnDecsriptionObject(
+		singleProduct,
+		"",
+		name,
+		color,
+		avesizes
+	);
 
 	return (
 		<div className="home">
@@ -77,7 +82,7 @@ function IndianBundles() {
 									<div key={item._id}>
 										<Card
 											product={item}
-											setSingleproducts={setSingleproducts}
+											setSingleproducts={setSingleproduct}
 											setSingleCart={setSingleCart}
 											scrollToTop={scrollToTop}
 										/>
@@ -92,17 +97,18 @@ function IndianBundles() {
 						</div>
 					)}
 
-					{singleProducts && (
+					{singleProduct && (
 						<SingleProductModal
-							category={singleProducts?.[0]?.name}
-							singleProducts={singleProducts}
-							setSingleproducts={setSingleproducts}
+							category={singleProduct?.[0]?.name}
+							singleProduct={singleProduct}
+							setSingleproducts={setSingleproduct}
 							desc={desc}
-							sizes={sizes}
+							size={size}
+							avesizes={avesizes}
 							setLength={setLength}
 							setError={setError}
 							error={error}
-							singleProduct={singleProduct}
+							_singleProduct={_singleProduct}
 							setSingleCart={setSingleCart}
 							cartItems={cartItems}
 							price={price}

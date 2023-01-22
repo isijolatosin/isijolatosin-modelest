@@ -9,12 +9,15 @@ export function returnObjectProperty(dt) {
 		width,
 		_hairColor,
 		avesizes,
-		sizes,
+		size,
 		_hairTexture,
 		_sales,
 		_singleprice,
 		_vWPriceClosure,
-		_vWPriceFrontal;
+		_vWPriceFrontal,
+		salespercent,
+		_with,
+		_hairLength;
 	if (dt) {
 		name = dt?.[0]?.name;
 		id = dt?.[0]?._id;
@@ -28,13 +31,18 @@ export function returnObjectProperty(dt) {
 				: dt?.[0]?.type.toLowerCase() === CLOSURE
 				? [NATURAL_BLACK, BLONDE613]
 				: null;
-		avesizes = dt?.[0]?.availablelength?.split(", ");
-		sizes = dt?.[0]?.length.split(", ");
-		_hairTexture = dt?.[0]?.texture;
-		_sales = dt?.[0]?.sales;
-		_singleprice = dt?.[0]?.price;
-		_vWPriceClosure = dt?.[0]?.name.toLowerCase().includes(`-${CLOSURE}`);
-		_vWPriceFrontal = dt?.[0]?.name.toLowerCase().includes(`-${FRONTAL}`);
+		avesizes = dt?.availablelength?.includes(",")
+			? dt?.availablelength?.split(", ")
+			: [dt?.availablelength];
+		size = dt?.length ? dt?.length : "";
+		_hairTexture = dt?.texture ? dt?.texture : "";
+		_sales = dt?.sales ? dt?.sales : dt?.sales;
+		_singleprice = dt?.price[dt?.length] || dt?.price;
+		_vWPriceClosure = dt?.name?.toLowerCase()?.includes(`-${CLOSURE}`);
+		_vWPriceFrontal = dt?.name?.toLowerCase()?.includes(`-${FRONTAL}`);
+		salespercent = dt?.salespercent;
+		_with = dt?.with ? dt?.with : "";
+		_hairLength = dt?.length ? dt?.length : "";
 	}
 	return {
 		name,
@@ -45,12 +53,15 @@ export function returnObjectProperty(dt) {
 		width,
 		_hairColor,
 		avesizes,
-		sizes,
+		size,
 		_hairTexture,
 		_sales,
 		_singleprice,
 		_vWPriceClosure,
 		_vWPriceFrontal,
+		_hairLength,
+		_with,
+		salespercent,
 	};
 }
 export function returnDecsriptionObject(dt, texture, name, color, avesizes) {

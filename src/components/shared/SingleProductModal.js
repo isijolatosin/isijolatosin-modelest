@@ -15,7 +15,7 @@ const SingleProductModal = ({
 	setSingleproducts,
 	setSingleCart,
 	desc,
-	sizes,
+	avesizes,
 	setLength,
 	setError,
 	error,
@@ -83,19 +83,19 @@ const SingleProductModal = ({
 							)}
 							<div className="tw-flex tw-flex-col tw-mb-2 tw-border-y-[1px] tw-py-3 tw-w-[90%] tw-mx-auto">
 								<div className="tw-flex tw-flex-wrap tw-gap-2">
-									{sizes?.map((size) => (
+									{avesizes?.map((sz) => (
 										<span
 											onClick={() => {
-												setLength(+size);
+												setLength(+sz);
 												setError(false);
 											}}
 											className={`tw-flex tw-flex-wrap ${
-												length === size
+												length === sz
 													? "tw-bg-neutral-900 tw-text-white"
 													: "tw-bg-white tw-text-neutral-900"
 											} tw-rounded-full tw-mr-2 tw-border-[1px] tw-border-neutral-900 tw-p-2 tw-px-3 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
-											key={size}>
-											{size}
+											key={sz}>
+											{sz}
 										</span>
 									))}
 								</div>
