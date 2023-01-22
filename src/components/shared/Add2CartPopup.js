@@ -29,8 +29,6 @@ const Add2CartPopup = ({
 	}
 	function handleContinueShopping() {
 		setSingleCart(null);
-		setSingleproduct(null);
-		window.scrollTo(0, 900);
 	}
 
 	return (

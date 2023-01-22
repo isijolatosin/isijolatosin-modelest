@@ -12,6 +12,7 @@ import {
 	returnObjectProperty,
 } from "../utils/returnObjectProperty";
 import useFetchHook from "../utils/useFetchHook";
+import { roundTo2Dec } from "../utils/roundTo2Dec";
 
 function IndianJetBlackHair() {
 	const [singleProduct, setSingleproduct] = React.useState(null);
@@ -37,9 +38,12 @@ function IndianJetBlackHair() {
 	};
 
 	// Adding to cart items
-	const { name, id, image, color, description, sizes, salespercent } =
+	const { name, id, image, color, description, avesizes, salespercent } =
 		returnObjectProperty(singleProduct?.[0]);
-	const price = singleProduct?.[0]?.price[+length];
+	const productPrice = singleProduct?.[0]?.price[+length];
+	const price = salespercent
+		? roundTo2Dec(productPrice - productPrice * (salespercent / 100))
+		: productPrice;
 	const hairLength = length;
 	const hairColor = color;
 	const hairTexture = singleProduct?.[0] && singleProduct?.[0]?.name;
@@ -60,7 +64,7 @@ function IndianJetBlackHair() {
 		"",
 		name,
 		color,
-		sizes
+		avesizes
 	);
 	return (
 		<div className="home">
@@ -104,7 +108,7 @@ function IndianJetBlackHair() {
 							singleProduct={singleProduct}
 							setSingleproduct={setSingleproduct}
 							desc={desc}
-							sizes={sizes}
+							avesizes={avesizes}
 							setLength={setLength}
 							setError={setError}
 							error={error}
@@ -112,6 +116,7 @@ function IndianJetBlackHair() {
 							cartItems={cartItems}
 							price={price}
 							length={length}
+							color={color}
 						/>
 					)}
 				</div>

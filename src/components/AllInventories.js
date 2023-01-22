@@ -4,293 +4,20 @@ import axios from "axios";
 import Heading from "./Heading";
 import InventoryCard from "./InventoryCard";
 import Button from "./shared/Button";
+import inputData from "../inputList.json";
 
 function AllInventories({ fetchAllData, fetchProducts }) {
 	const [singleProduct, setSingleProduct] = React.useState();
 	const [postError, setPostError] = React.useState("");
-	const [isInstock, setIsInstock] = React.useState(false);
-	const [salesPercent, setSalesPercent] = React.useState("");
-
-	const toggleInstock = () => {
-		setIsInstock(!isInstock);
-	};
-
-	const handleInputName = (e) => {
+	const handleInputUpdate = (e) => {
 		setSingleProduct({
-			id: singleProduct.id,
-			name: e.target.value,
-			brand: singleProduct.brand,
-			density: singleProduct.density,
-			texture: singleProduct.texture,
-			capsize: singleProduct.capsize,
-			type: singleProduct.type,
-			color: singleProduct.color,
-			availablecolor: singleProduct.availablecolor,
-			price: singleProduct.priceObj,
-			video: singleProduct.video,
-			length: singleProduct.length,
-			availablelength: singleProduct.availablelength,
-			dealLength: singleProduct.dealLength,
-			description: singleProduct.description,
-			sales: singleProduct.sales,
-			salespercent: singleProduct.salespercent,
-			instock: singleProduct.instock,
-		});
-	};
-	const handleInputBrand = (e) => {
-		setSingleProduct({
-			id: singleProduct.id,
-			name: singleProduct.name,
-			brand: e.target.value,
-			density: singleProduct.density,
-			texture: singleProduct.texture,
-			capsize: singleProduct.capsize,
-			type: singleProduct.type,
-			color: singleProduct.color,
-			availablecolor: singleProduct.availablecolor,
-			price: singleProduct.priceObj,
-			video: singleProduct.video,
-			length: singleProduct.length,
-			availablelength: singleProduct.availablelength,
-			dealLength: singleProduct.dealLength,
-			description: singleProduct.description,
-			sales: singleProduct.sales,
-			salespercent: singleProduct.salespercent,
-			instock: singleProduct.instock,
-		});
-	};
-	const handleInputDensity = (e) => {
-		setSingleProduct({
-			id: singleProduct.id,
-			name: singleProduct.name,
-			brand: singleProduct.brand,
-			density: e.target.value,
-			texture: singleProduct.texture,
-			capsize: singleProduct.capsize,
-			type: singleProduct.type,
-			color: singleProduct.color,
-			availablecolor: singleProduct.availablecolor,
-			price: singleProduct.priceObj,
-			video: singleProduct.video,
-			length: singleProduct.length,
-			availablelength: singleProduct.availablelength,
-			dealLength: singleProduct.dealLength,
-			description: singleProduct.description,
-			sales: singleProduct.sales,
-			salespercent: singleProduct.salespercent,
-			instock: singleProduct.instock,
-		});
-	};
-	const handleInputTexture = (e) => {
-		setSingleProduct({
-			id: singleProduct.id,
-			name: singleProduct.name,
-			brand: singleProduct.brand,
-			density: singleProduct.density,
-			texture: e.target.value,
-			capsize: singleProduct.capsize,
-			type: singleProduct.type,
-			color: singleProduct.color,
-			availablecolor: singleProduct.availablecolor,
-			price: singleProduct.priceObj,
-			video: singleProduct.video,
-			length: singleProduct.length,
-			availablelength: singleProduct.availablelength,
-			dealLength: singleProduct.dealLength,
-			description: singleProduct.description,
-			sales: singleProduct.sales,
-			salespercent: singleProduct.salespercent,
-			instock: singleProduct.instock,
-		});
-	};
-	const handleInputCapsize = (e) => {
-		setSingleProduct({
-			id: singleProduct.id,
-			name: singleProduct.name,
-			brand: singleProduct.brand,
-			density: singleProduct.density,
-			texture: singleProduct.texture,
-			capsize: e.target.value,
-			type: singleProduct.type,
-			color: singleProduct.color,
-			availablecolor: singleProduct.availablecolor,
-			price: singleProduct.priceObj,
-			video: singleProduct.video,
-			length: singleProduct.length,
-			availablelength: singleProduct.availablelength,
-			dealLength: singleProduct.dealLength,
-			description: singleProduct.description,
-			sales: singleProduct.sales,
-			salespercent: singleProduct.salespercent,
-			instock: singleProduct.instock,
-		});
-	};
-	const handleInputType = (e) => {
-		setSingleProduct({
-			id: singleProduct.id,
-			name: singleProduct.name,
-			brand: singleProduct.brand,
-			density: singleProduct.density,
-			texture: singleProduct.texture,
-			capsize: singleProduct.capsize,
-			type: e.target.value,
-			color: singleProduct.color,
-			availablecolor: singleProduct.availablecolor,
-			price: singleProduct.priceObj,
-			video: singleProduct.video,
-			length: singleProduct.length,
-			availablelength: singleProduct.availablelength,
-			dealLength: singleProduct.dealLength,
-			description: singleProduct.description,
-			sales: singleProduct.sales,
-			salespercent: singleProduct.salespercent,
-		});
-	};
-	const handleInputColor = (e) => {
-		setSingleProduct({
-			id: singleProduct.id,
-			name: singleProduct.name,
-			brand: singleProduct.brand,
-			density: singleProduct.density,
-			texture: singleProduct.texture,
-			capsize: singleProduct.capsize,
-			type: singleProduct.type,
-			color: e.target.value,
-			availablecolor: singleProduct.availablecolor,
-			price: singleProduct.priceObj,
-			video: singleProduct.video,
-			length: singleProduct.length,
-			availablelength: singleProduct.availablelength,
-			dealLength: singleProduct.dealLength,
-			description: singleProduct.description,
-			sales: singleProduct.sales,
-			salespercent: singleProduct.salespercent,
-		});
-	};
-	const handleInputAvailableColor = (e) => {
-		setSingleProduct({
-			id: singleProduct.id,
-			name: singleProduct.name,
-			brand: singleProduct.brand,
-			density: singleProduct.density,
-			texture: singleProduct.texture,
-			capsize: singleProduct.capsize,
-			type: singleProduct.type,
-			color: singleProduct.color,
-			availablecolor: e.target.value,
-			price: singleProduct.priceObj,
-			video: singleProduct.video,
-			length: singleProduct.length,
-			availablelength: singleProduct.availablelength,
-			dealLength: singleProduct.dealLength,
-			description: singleProduct.description,
-			sales: singleProduct.sales,
-			salespercent: singleProduct.salespercent,
-		});
-	};
-	const handleInputLen = (e) => {
-		setSingleProduct({
-			id: singleProduct.id,
-			name: singleProduct.name,
-			brand: singleProduct.brand,
-			density: singleProduct.density,
-			texture: singleProduct.texture,
-			capsize: singleProduct.capsize,
-			type: singleProduct.type,
-			color: singleProduct.color,
-			availablecolor: singleProduct.availablecolor,
-			price: singleProduct.priceObj,
-			video: singleProduct.video,
-			length: e.target.value,
-			availablelength: singleProduct.availablelength,
-			dealLength: singleProduct.dealLength,
-			description: singleProduct.description,
-			sales: singleProduct.sales,
-			salespercent: singleProduct.salespercent,
-		});
-	};
-	const handleInputAvailableLen = (e) => {
-		setSingleProduct({
-			id: singleProduct.id,
-			name: singleProduct.name,
-			brand: singleProduct.brand,
-			density: singleProduct.density,
-			texture: singleProduct.texture,
-			capsize: singleProduct.capsize,
-			type: singleProduct.type,
-			color: singleProduct.color,
-			availablecolor: singleProduct.availablecolor,
-			price: singleProduct.priceObj,
-			video: singleProduct.video,
-			length: singleProduct.length,
-			availablelength: e.target.value,
-			dealLength: singleProduct.dealLength,
-			description: singleProduct.description,
-			sales: singleProduct.sales,
-			salespercent: singleProduct.salespercent,
-		});
-	};
-	const handleInputDealLen = (e) => {
-		setSingleProduct({
-			id: singleProduct.id,
-			name: singleProduct.name,
-			brand: singleProduct.brand,
-			density: singleProduct.density,
-			texture: singleProduct.texture,
-			capsize: singleProduct.capsize,
-			type: singleProduct.type,
-			color: singleProduct.color,
-			availablecolor: singleProduct.availablecolor,
-			price: singleProduct.priceObj,
-			video: singleProduct.video,
-			length: singleProduct.length,
-			availablelength: singleProduct.availablelengthe,
-			dealLength: e.target.value,
-			description: singleProduct.description,
-			sales: singleProduct.sales,
-			salespercent: singleProduct.salespercent,
-		});
-	};
-	const handleInputVideo = (e) => {
-		setSingleProduct({
-			id: singleProduct.id,
-			name: singleProduct.name,
-			brand: singleProduct.brand,
-			density: singleProduct.density,
-			texture: singleProduct.texture,
-			capsize: singleProduct.capsize,
-			type: singleProduct.type,
-			color: singleProduct.color,
-			availablecolor: singleProduct.availablecolor,
-			price: singleProduct.priceObj,
-			video: e.target.value,
-			length: singleProduct.length,
-			availablelength: singleProduct.availablelength,
-			dealLength: singleProduct.dealLength,
-			description: singleProduct.description,
-			sales: singleProduct.sales,
-			salespercent: singleProduct.salespercent,
-		});
-	};
-	const handleInputDesc = (e) => {
-		setSingleProduct({
-			id: singleProduct.id,
-			name: singleProduct.name,
-			brand: singleProduct.brand,
-			density: singleProduct.density,
-			texture: singleProduct.texture,
-			capsize: singleProduct.capsize,
-			type: singleProduct.type,
-			color: singleProduct.color,
-			availablecolor: singleProduct.availablecolor,
-			price: singleProduct.priceObj,
-			video: singleProduct.video,
-			length: singleProduct.length,
-			availablelength: singleProduct.availablelength,
-			dealLength: singleProduct.dealLength,
-			sales: singleProduct.sales,
-			salespercent: singleProduct.salespercent,
-			description: e.target.value,
+			...singleProduct,
+			[e.target.name]:
+				e.target.value === "on"
+					? true
+					: e.target.name === "salespercent"
+					? +e.target.value
+					: e.target.value,
 		});
 	};
 
@@ -313,8 +40,8 @@ function AllInventories({ fetchAllData, fetchProducts }) {
 				availablelength: singleProduct.availablelength,
 				dealLength: singleProduct.dealLength,
 				description: singleProduct.description,
-				instock: isInstock,
-				salespercent: salesPercent,
+				instock: singleProduct.instock,
+				salespercent: singleProduct.salespercent,
 			};
 			if (
 				[
@@ -369,119 +96,23 @@ function AllInventories({ fetchAllData, fetchProducts }) {
 					<form onSubmit={updateSingleProduct}>
 						<div className="tw-flex tw-flex-col tw-items-center">
 							<div className="lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-grid tw-grid-cols-1 lg:tw-grid-cols-2 tw-gap-x-2">
-								<input
-									type="text"
-									name="title"
-									id="title"
-									value={singleProduct.name}
-									onChange={handleInputName}
-									placeholder="Product Name..."
-									className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-								/>
-								<input
-									type="text"
-									name="brand"
-									id="brand"
-									value={singleProduct.brand}
-									onChange={handleInputBrand}
-									placeholder="Product Brand..."
-									className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-								/>
-								<input
-									type="text"
-									name="density"
-									id="density"
-									value={singleProduct.density}
-									onChange={handleInputDensity}
-									placeholder="Product Density..."
-									className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-								/>
-								<input
-									type="text"
-									name="texture"
-									id="texture"
-									value={singleProduct.texture}
-									onChange={handleInputTexture}
-									placeholder="Product Texture..."
-									className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-								/>
-								<input
-									type="text"
-									name="capsize"
-									id="capsize"
-									value={singleProduct.capsize}
-									onChange={handleInputCapsize}
-									placeholder="Product Capsize..."
-									className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-								/>
-								<input
-									type="text"
-									name="type"
-									id="type"
-									value={singleProduct.type}
-									onChange={handleInputType}
-									placeholder="Product Type..."
-									className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-								/>
-								<input
-									type="text"
-									name="color"
-									id="color"
-									value={singleProduct.color}
-									onChange={handleInputColor}
-									placeholder="Product Color..."
-									className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-								/>
-								<input
-									type="text"
-									name="availablecolor"
-									id="availablecolor"
-									value={singleProduct.availablecolor}
-									onChange={handleInputAvailableColor}
-									placeholder="Available Color..."
-									className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-								/>
-								<input
-									type="text"
-									name="length"
-									id="length"
-									value={singleProduct.length}
-									onChange={handleInputLen}
-									placeholder="Length..."
-									className="tw-rounded tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-								/>
-								<input
-									type="text"
-									name="availablelength"
-									id="availablelength"
-									value={singleProduct.availablelength}
-									onChange={handleInputAvailableLen}
-									placeholder="Available Lengths..."
-									className="tw-rounded tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-								/>
-								<input
-									type="text"
-									name="dealLength"
-									id="dealLeangth"
-									value={singleProduct.dealLength}
-									onChange={handleInputDealLen}
-									placeholder="Bundle Deal Lengths..."
-									className="tw-rounded tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-								/>
-								<input
-									type="text"
-									name="video"
-									id="video"
-									value={singleProduct.video}
-									onChange={handleInputVideo}
-									placeholder="Product video url..."
-									className="tw-rounded tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-								/>
+								{inputData.map((data) => (
+									<input
+										key={data.id}
+										type={data.type}
+										name={singleProduct[data.name]}
+										id={data.id}
+										value={singleProduct[data.name]}
+										onChange={handleInputUpdate}
+										placeholder={data.placeholder}
+										className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+									/>
+								))}
 							</div>
 							<textarea
-								value={singleProduct.description}
+								value={singleProduct?.description}
 								name="description"
-								onChange={handleInputDesc}
+								onChange={handleInputUpdate}
 								rows={5}
 								cols={50}
 								placeholder="Description..."
@@ -493,13 +124,13 @@ function AllInventories({ fetchAllData, fetchProducts }) {
 										Sales Percent
 									</label>
 									<input
-										id="sales percent"
-										name="sales percent"
+										id="salespercent"
+										name="salespercent"
 										type="number"
+										onChange={handleInputUpdate}
 										placeholder="%"
-										value={salesPercent}
+										value={singleProduct?.salespercent || 0}
 										className="tw-w-[40%] tw-text-xs tw-text-neutral-400 tw-h-full tw-bg-neutral-200 tw-border-none focus:tw-ring-0 tw-border-0 placeholder:tw-text-neutral-400 placeholder:tw-text-xs placeholder:tw-font-light"
-										onChange={(e) => setSalesPercent(+e.target.value)}
 									/>
 								</div>
 								<div className="tw-rounded tw-flex tw-flex-row tw-items-center tw-shadow-xl tw-p-2">
@@ -508,13 +139,14 @@ function AllInventories({ fetchAllData, fetchProducts }) {
 									</label>
 									<input
 										type="checkbox"
-										checked={isInstock}
+										name="instock"
+										checked={singleProduct.instock}
 										className={
-											isInstock
+											singleProduct.instock
 												? "tw-ml-2 tw-rounded-full tw-bg-violet-400"
 												: "tw-ml-2 tw-rounded-full tw-bg-none tw-border-violet-200"
 										}
-										onChange={toggleInstock}
+										onChange={handleInputUpdate}
 									/>
 								</div>
 							</div>

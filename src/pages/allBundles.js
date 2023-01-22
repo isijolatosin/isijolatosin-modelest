@@ -17,6 +17,7 @@ import {
 } from "../utils/returnObjectProperty";
 import { DEFAULT, HIGH_LOW, LOW_HIGH, PRODUCT } from "../constant";
 import FilterComponent from "../components/shared/FilterComponent";
+import { roundTo2Dec } from "../utils/roundTo2Dec";
 
 function IndianBundles() {
 	const [hairBundles, setHairBundles] = React.useState([]);
@@ -30,7 +31,7 @@ function IndianBundles() {
 	const [singleCart, setSingleCart] = React.useState(null);
 	const [show, setShow] = React.useState(false);
 	const [error, setError] = React.useState(false);
-	const [length, setLength] = React.useState(14);
+	const [length, setLength] = React.useState("14");
 	const [optionFilter, setOptionFilter] = React.useState("");
 	const [inputValue, setInputValue] = React.useState("");
 	const [priceRangeFilter, setPriceRangeFilter] = React.useState({
@@ -58,12 +59,15 @@ function IndianBundles() {
 	};
 
 	// Adding to cart items
-	const { name, id, image, color, description, sizes, salespercent } =
-		returnObjectProperty(singleProduct);
+	const { name, id, image, color, description, avesizes, salespercent } =
+		returnObjectProperty(singleProduct?.[0]);
 	const hairLength = length;
 	const hairColor = color;
 	const hairTexture = singleProduct?.[0] && singleProduct?.[0]?.name;
-	const price = singleProduct?.[0]?.price[length];
+	const productPrice = singleProduct?.[0]?.price[+length];
+	const price = salespercent
+		? roundTo2Dec(productPrice - productPrice * (salespercent / 100))
+		: productPrice;
 
 	const _singleProduct = {
 		name,
@@ -76,7 +80,13 @@ function IndianBundles() {
 		hairTexture,
 		salespercent,
 	};
-	const desc = returnDecsriptionObject(singleProduct, "", name, color, sizes);
+	const desc = returnDecsriptionObject(
+		singleProduct,
+		"",
+		name,
+		color,
+		avesizes
+	);
 	const filterOption = [DEFAULT, LOW_HIGH, HIGH_LOW];
 
 	const handleOnChange = (e) => {
@@ -256,7 +266,7 @@ function IndianBundles() {
 							setSingleproduct={setSingleproduct}
 							setSingleCart={setSingleCart}
 							desc={desc}
-							sizes={sizes}
+							avesizes={avesizes}
 							setLength={setLength}
 							setError={setError}
 							error={error}
@@ -264,6 +274,7 @@ function IndianBundles() {
 							cartItems={cartItems}
 							price={price}
 							length={length}
+							color={color}
 						/>
 					)}
 				</div>
