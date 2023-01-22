@@ -3,8 +3,11 @@ import React from "react";
 import { ref, onValue } from "firebase/database";
 import axios from "axios";
 import {
+	ADMIN,
 	AMBASSADOR,
+	AUTHORIZED_ID,
 	AUTH_USER,
+	DISCOUNT_CODE,
 	PRODUCT,
 	PURCHASE,
 	SHOPPINGS,
@@ -17,11 +20,12 @@ export default function useFetchDBHook(data, type, user) {
 	const [products, setProduct] = React.useState([]);
 	const [resources, setResources] = React.useState([]);
 	const [cartHist, setCartHist] = React.useState([]);
+	const [discount, setDiscount] = React.useState([]);
 
 	React.useEffect(async () => {
 		let mounted = true;
 		switch (type) {
-			case "amb":
+			case "ambassador":
 				return data.collection(AMBASSADOR).onSnapshot((snapshot) => {
 					const result = [];
 					// eslint-disable-next-line array-callback-return
@@ -43,6 +47,23 @@ export default function useFetchDBHook(data, type, user) {
 					});
 					if (mounted) setAuthUsers(result);
 				});
+			case "checkout":
+				return data
+					.collection(ADMIN)
+					.doc(`${AUTHORIZED_ID.id_one}/`)
+					.collection(DISCOUNT_CODE)
+					.onSnapshot((snapshot) => {
+						const results = snapshot.docs.map((doc) => ({
+							data: doc.data(),
+						}));
+
+						const resultArry = [];
+						for (const result of results) {
+							resultArry.push(result?.data?.code);
+						}
+						// console.log(resultArry);
+						if (mounted) setDiscount(resultArry);
+					});
 			case "account":
 				return data
 					.collection(PURCHASE)
@@ -108,5 +129,9 @@ export default function useFetchDBHook(data, type, user) {
 	if (products.length) return (finalRes = products);
 	if (products.length) return (finalRes = products);
 	if (cartHist.length) return (finalRes = cartHist);
-	return finalRes;
+	if (discount.length) return (finalRes = discount);
+	else {
+		finalRes = [];
+		return finalRes;
+	}
 }

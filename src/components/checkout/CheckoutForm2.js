@@ -15,13 +15,14 @@ import { selectCartItems, selectItemCount } from "../../slices/appSlices";
 import { db } from "../../firebase";
 import firebase from "../../firebase";
 import { AUTHORIZED_ID, MONTHS } from "../../constant";
+import { useGlobalContext } from "../../context/useContextHook";
+import { roundTo2Dec } from "../../utils/roundTo2Dec";
 
 const mastercard = require("../../assets/mastercard.png");
 const mastercard2 = require("../../assets/mastercard2.png");
 const americanExpress = require("../../assets/american-express.png");
 
 const CheckoutForm = ({
-	sales,
 	total,
 	itemCount,
 	setRedirect,
@@ -60,11 +61,9 @@ const CheckoutForm = ({
 	const { user } = useContext(UserContext);
 	const [paywithStripe, setPaywithStripe] = React.useState(false);
 
-	const shipCostInCent = Number((shippingCost?.cost * 100).toFixed(2));
+	const shipCostInCent = roundTo2Dec(shippingCost?.cost * 100);
 	const shipCostInDollar = shipCostInCent / 100;
-	const taxInDollar = Number(
-		(Number(total) * Number(process.env.REACT_APP_TAX_PERCENT)).toFixed(2)
-	);
+	const taxInDollar = roundTo2Dec(total * +process.env.REACT_APP_TAX_PERCENT);
 	const taxInCent = taxInDollar * 100;
 	const priceInDollar = total;
 	const priceInCent = total * 100;
@@ -93,6 +92,7 @@ const CheckoutForm = ({
 	const handlePayWithStripe = () => {
 		setPaywithStripe(true);
 	};
+	const { fetchSalesPercentage } = useGlobalContext();
 
 	const cardStyle = {
 		style: {
@@ -141,7 +141,7 @@ const CheckoutForm = ({
 						shipCostInCent,
 						priceInCent,
 						taxInCent,
-						sales,
+						sales: fetchSalesPercentage(),
 						shipMethod,
 						itemCount,
 					})
@@ -174,15 +174,13 @@ const CheckoutForm = ({
 						snapshot.docs.filter((doc) => {
 							const accCurrentMonthIncome =
 								ambPercent > 0
-									? +(
+									? roundTo2Dec(
 											finalPriceToPay * ambPercent +
-											doc?.data()?.currentMonthIncome
-									  ).toFixed(2)
-									: +(
-											finalPriceToPay * 0.05 +
-											doc?.data()?.currentMonthIncome
-									  ).toFixed(2);
-
+												doc?.data()?.currentMonthIncome
+									  )
+									: roundTo2Dec(
+											finalPriceToPay * 0.05 + doc?.data()?.currentMonthIncome
+									  );
 							if (
 								doc?.data()?.yourSalesCode === localStorage.getItem("referral")
 							) {
@@ -284,7 +282,6 @@ const CheckoutForm = ({
 						</div>
 						<div className="tw-w-full">
 							<PaypalCheckoutButton
-								sales={sales}
 								tax={taxInDollar}
 								price={priceInDollar}
 								cartItems={cartItems}
@@ -314,11 +311,15 @@ const CheckoutForm = ({
 								Hello, {user && user?.displayName}, your total is $
 								{shipMethod === "ship"
 									? discountPrice
-										? discountPrice + shipCostInDollar + taxInDollar
-										: shipCostInDollar + priceInDollar + taxInDollar
+										? roundTo2Dec(
+												discountPrice + shipCostInDollar + taxInDollar
+										  )
+										: roundTo2Dec(
+												shipCostInDollar + priceInDollar + taxInDollar
+										  )
 									: discountPrice
-									? discountPrice + taxInDollar
-									: priceInDollar + taxInDollar}{" "}
+									? roundTo2Dec(discountPrice + taxInDollar)
+									: roundTo2Dec(discountPrice + taxInDollar)}{" "}
 								-{" "}
 								<span className="tw-text-neutral-400">
 									(tax

@@ -10,7 +10,7 @@ const Add2CartPopup = ({
 	singleCart,
 	setSingleCart,
 	quantity,
-	setSingleproducts,
+	setSingleproduct,
 }) => {
 	const navigate = useNavigate();
 	const [agree, setAgree] = React.useState(false);
@@ -29,7 +29,7 @@ const Add2CartPopup = ({
 	}
 	function handleContinueShopping() {
 		setSingleCart(null);
-		setSingleproducts(null);
+		setSingleproduct(null);
 		window.scrollTo(0, 900);
 	}
 
@@ -120,7 +120,7 @@ const Add2CartPopup = ({
 							<button
 								onClick={handleCheckout}
 								className="tw-bg-black tw-text-white tw-py-1 tw-px-5 tw-text-center tw-text-xs md:tw-text-sm hover:tw-bg-white hover:tw-text-neutral-900 tw-border tw-border-black tw-ease-in tw-duration-300">
-								<button>Check out</button>
+								Check out
 							</button>
 						</div>
 						<button

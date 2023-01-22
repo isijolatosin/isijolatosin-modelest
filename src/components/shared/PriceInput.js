@@ -13,7 +13,7 @@ const PriceInput = () => {
 						{item} inches
 					</p>
 					<input
-						value={priceObject.item ? priceObject.item : null}
+						value={priceObject.item ? priceObject.item : ""}
 						type="text"
 						onChange={(e) =>
 							setPriceObject({

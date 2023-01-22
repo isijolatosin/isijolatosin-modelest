@@ -25,7 +25,8 @@ const OrderSum = ({
 	showInfo,
 	isSuccess,
 	shipCost,
-	isSuccessfull,
+	tax,
+	discountedMargin,
 }) => {
 	const [showSum, setShowSum] = React.useState(false);
 	return (
@@ -42,14 +43,13 @@ const OrderSum = ({
 					<FaOpencart className="tw-mr-2" size={25} />
 					<span>
 						{showSum ? "Hide" : "Show"} order summary{" "}
-						{sales ||
-							(isSuccessfull ? (
-								""
-							) : (
-								<span className="tw-text-white tw-font-light">
-									/ apply discount
-								</span>
-							))}{" "}
+						{sales ? (
+							<span className="tw-text-white tw-font-light">
+								/ apply discount
+							</span>
+						) : (
+							<></>
+						)}{" "}
 					</span>
 					{showSum ? (
 						<MdOutlineKeyboardArrowUp
@@ -131,18 +131,30 @@ const OrderSum = ({
 					</>
 				)}
 				<div className="tw-relative">
-					<div className="tw-border-t-[1px] tw-border-b-[1px] tw-border-[#b59248] tw-py-5 tw-text-neutral-700 tw-px-3">
+					<div className="tw-border-t-[1px] tw-border-b-[1px] tw-text-[12px] tw-font-light tw-border-[#ceaf6c] tw-py-5 tw-text-neutral-700 tw-px-3">
 						<div className="tw-flex tw-items-center tw-justify-between tw-text-sm">
 							<span>Subtotal</span>
 							{showLoad ? (
 								<div className="circular-loader-small"></div>
 							) : (
-								<span className="tw-text-[16px]">
-									${discountPrice ? discountPrice : total}
-								</span>
+								<span>${discountPrice ? discountPrice : total}</span>
 							)}
 						</div>
-						<div className="tw-flex tw-items-center tw-justify-between tw-text-sm ">
+						{discountedMargin ? (
+							<div className="tw-flex tw-items-center tw-justify-between">
+								<span>Discount</span>
+								<span>${discountedMargin}</span>
+							</div>
+						) : (
+							<></>
+						)}
+						{tax && (
+							<div className="tw-flex tw-items-center tw-justify-between">
+								<span>Tax</span>
+								<span className="tw-text-[16px]">${tax}</span>
+							</div>
+						)}
+						<div className="tw-flex tw-items-center tw-justify-between ">
 							<div className="tw-relative tw-flex tw-items-center">
 								<span>Shipping</span>
 								<BsFillQuestionCircleFill
@@ -180,11 +192,11 @@ const OrderSum = ({
 								<span className="tw-text-[20px] tw-font-bold">
 									$
 									{discountPrice
-										? shipCost
-											? discountPrice + shipCost
-											: discountPrice
-										: shipCost
-										? total + shipCost
+										? shipCost && tax
+											? tax + shipCost + discountPrice
+											: tax + discountPrice
+										: shipCost && tax
+										? tax + shipCost + total
 										: total}
 								</span>
 							)}

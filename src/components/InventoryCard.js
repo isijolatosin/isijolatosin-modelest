@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useCallback } from "react";
 import axios from "axios";
 import { MdDeleteOutline } from "react-icons/md";
 import { MdOutlineEditNote } from "react-icons/md";
+import useFetchHook from "../utils/useFetchHook";
+import { PRODUCT, SINGLE_PRODUCT, CLOSURE } from "../constant";
 
 function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 	async function deleteSingleProduct() {
@@ -15,13 +17,17 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 		fetchProducts();
 	}
 
-	async function getSingleProduct() {
-		const id = product._id;
-		try {
-			const {
-				data: { product },
-			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products/${id}`);
+	const type = SINGLE_PRODUCT;
+	const id = product._id;
+	const url = `${process.env.REACT_APP_BASE_ROUTE}/${PRODUCT}/${id}`;
+	const fetchSingleProductsRes = useFetchHook(url, type);
+	const fetchSingle = useCallback(() => {
+		return fetchSingleProductsRes;
+	}, [fetchSingleProductsRes]);
 
+	async function getSingleProduct() {
+		try {
+			const product = fetchSingle();
 			setSingleProduct({
 				id: product._id,
 				name: product.name,
@@ -35,7 +41,6 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 					product.price[+product.length.split(", ")[0]],
 				video: product.video,
 				description: product.description,
-				sales: product.sales,
 				instock: product.instock,
 				type: product.type,
 				color: product.color,
@@ -43,6 +48,7 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 				dealLength: product.dealLength,
 				length: product.length,
 				availablelength: product.availablelength,
+				salespercent: product.salespercent,
 			});
 		} catch (error) {
 			console.log(error);
@@ -61,15 +67,24 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 			</div>
 			<div className="tw-flex tw-flex-row tw-w-[80%]">
 				<div className="tw-flex tw-flex-col tw-mr-5 tw-text-xs tw-font-light tw-w-[85%]">
-					<span className="tw-w-[100%]">{`Name: ${product.name}`}</span>
+					<div className="tw-relative">
+						<span className="tw-w-[100%]">{`Name: ${product.name}`}</span>
+						{product.with ? (
+							<span className="tw-absolute tw-bg-red-700 tw-top-[-5px] tw-right-[-15px] tw-w-[20px] tw-h-[20px] tw-font-bold tw-justify-center tw-flex tw-items-center tw-text-xs tw-text-white tw-rounded-full">
+								{product.with.toLowerCase() === CLOSURE ? "C" : "F"}
+							</span>
+						) : (
+							<></>
+						)}
+					</div>
 					<span className="tw-w-[100%]">{`Color: ${product.color}`}</span>
 					<span className="tw-w-[100%]">{`Brand: ${product.brand}`}</span>
 					{product?.availablecolor && (
 						<span className="tw-w-[100%]">{`Available Color: ${product.availablecolor}`}</span>
 					)}
 					<span className="tw-w-[100%]">{`Price: $${
-						product.price[product.length] ||
-						product.price[product.length.split(", ")[0]]
+						product?.price[product?.length] ||
+						product?.price[product?.length?.split(", ")[0]]
 					}`}</span>
 					<span className="tw-w-[100%]">{`Length: ${product.length}"`}</span>
 					{product.availablelength && (
@@ -78,7 +93,9 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 					{product.dealLength && (
 						<span className="tw-w-[100%]">{`Deal length: ${product.dealLength}`}</span>
 					)}
-					<span className="tw-text-red-800">{product.sales && "onsale"}</span>
+					<span className="tw-text-red-800">
+						{product.salespercent && `${product.salespercent}% onsale`}
+					</span>
 				</div>
 				<div className="tw-flex tw-flex-col tw-justify-between tw-w-[15%] tw-border-l tw-border-neutral-300 tw-pl-[10px] lg:tw-pl-2 xl:tw-pl-[2px]">
 					<MdDeleteOutline

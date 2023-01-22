@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "../components/shared/Layout";
 import { auth, createUserProfileDocument } from "../firebase";
 import Button from "../components/shared/Button";
-import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
+import { useGlobalContext } from "../context/useContextHook";
 
 const Register = () => {
 	const navigate = useNavigate();
@@ -18,10 +19,10 @@ const Register = () => {
 	});
 	const [sales, setSales] = React.useState(null);
 
+	const { fetchSalesPercentage } = useGlobalContext();
 	React.useEffect(() => {
 		inputRef.current.focus();
 		setSales(fetchSalesPercentage());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const handleChangeAuthUser = (e) => {

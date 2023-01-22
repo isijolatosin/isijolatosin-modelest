@@ -11,7 +11,10 @@ import SearchInput from "../components/shared/SearchInput";
 import Heading from "../components/Heading";
 import SearchDropDown from "../components/shared/SearchDropDown";
 import useFetchHook from "../utils/useFetchHook";
-import { returnDecsriptionObject } from "../utils/returnObjectProperty";
+import {
+	returnDecsriptionObject,
+	returnObjectProperty,
+} from "../utils/returnObjectProperty";
 import { DEFAULT, HIGH_LOW, LOW_HIGH, PRODUCT } from "../constant";
 import FilterComponent from "../components/shared/FilterComponent";
 
@@ -23,7 +26,7 @@ function IndianBundles() {
 	const [searchFiltered, setSearchFiltered] = React.useState([]);
 	const [searchError, setSearchError] = React.useState(false);
 	const [searchControl, setSearchControl] = React.useState(false);
-	const [singleProducts, setSingleproducts] = React.useState(null);
+	const [singleProduct, setSingleproduct] = React.useState(null);
 	const [singleCart, setSingleCart] = React.useState(null);
 	const [show, setShow] = React.useState(false);
 	const [error, setError] = React.useState(false);
@@ -53,20 +56,16 @@ function IndianBundles() {
 	const scrollToTop = function scrollToTop() {
 		window.scrollTo(0, 0);
 	};
-	const sizes = singleProducts?.[0].availablelength.split(", ");
 
 	// Adding to cart items
-	const name = singleProducts?.[0] && singleProducts?.[0]?.name;
-	const id = singleProducts?.[0] && singleProducts?.[0]?._id;
-	const image = singleProducts?.[0] && singleProducts?.[0]?.images[0];
-	const color = singleProducts?.[0] && singleProducts?.[0]?.color;
-	const description = singleProducts?.[0] && singleProducts?.[0]?.description;
+	const { name, id, image, color, description, sizes, salespercent } =
+		returnObjectProperty(singleProduct);
 	const hairLength = length;
 	const hairColor = color;
-	const hairTexture = singleProducts?.[0] && singleProducts?.[0]?.name;
-	const price = singleProducts?.[0]?.price[length];
+	const hairTexture = singleProduct?.[0] && singleProduct?.[0]?.name;
+	const price = singleProduct?.[0]?.price[length];
 
-	const singleProduct = {
+	const _singleProduct = {
 		name,
 		id,
 		image,
@@ -75,8 +74,9 @@ function IndianBundles() {
 		hairLength,
 		description,
 		hairTexture,
+		salespercent,
 	};
-	const desc = returnDecsriptionObject(singleProducts, "", name, color, sizes);
+	const desc = returnDecsriptionObject(singleProduct, "", name, color, sizes);
 	const filterOption = [DEFAULT, LOW_HIGH, HIGH_LOW];
 
 	const handleOnChange = (e) => {
@@ -232,7 +232,7 @@ function IndianBundles() {
 											<Card
 												key={item._id}
 												product={item}
-												setSingleproducts={setSingleproducts}
+												setSingleproduct={setSingleproduct}
 												setSingleCart={setSingleCart}
 												scrollToTop={scrollToTop}
 											/>
@@ -249,18 +249,18 @@ function IndianBundles() {
 						</div>
 					)}
 
-					{singleProducts && (
+					{singleProduct && (
 						<SingleProductModal
-							category={singleProducts?.[0]?.name}
-							singleProducts={singleProducts}
-							setSingleproducts={setSingleproducts}
+							category={singleProduct?.[0]?.name}
+							singleProduct={singleProduct}
+							setSingleproduct={setSingleproduct}
 							setSingleCart={setSingleCart}
 							desc={desc}
 							sizes={sizes}
 							setLength={setLength}
 							setError={setError}
 							error={error}
-							singleProduct={singleProduct}
+							_singleProduct={_singleProduct}
 							cartItems={cartItems}
 							price={price}
 							length={length}

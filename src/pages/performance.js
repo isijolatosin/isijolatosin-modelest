@@ -6,10 +6,11 @@ import { db } from "../firebase";
 import useFetchDBHook from "../utils/useFetchDBHook";
 import ProfileCard from "../components/shared/ProfileCard";
 import Button from "../components/shared/Button";
+import { AMB } from "../constant";
 
 const Ambassador = () => {
 	const { ambId } = useParams();
-	const type = "amb";
+	const type = AMB;
 	const allAmb = useFetchDBHook(db, type, {})?.sort((a, b) =>
 		a.monthCount < b.monthCount ? 1 : a.monthCount > b.monthCount ? -1 : 0
 	);

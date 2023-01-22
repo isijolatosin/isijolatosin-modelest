@@ -1,38 +1,20 @@
 import React from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { GiPencil } from "react-icons/gi";
-import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
 import Button from "../shared/Button";
 import Pagination from "./Pagination";
-import {
-	ANONYMOUS,
-	BODYWAVE_CLOSURE,
-	BODYWAVE_FRONTAL,
-	FRONTAL_CLOSURE,
-	HAIR_BUNDLES,
-	JETBLACK_BLONDEHAIR,
-	NATURALCURLY_CLOSURE,
-	NATURALWAVE_FRONTAL,
-} from "../../constant";
+import { ANONYMOUS } from "../../constant";
 
 const Reviews = ({ category, color }) => {
-	const navigate = useNavigate();
 	const [chunkIndex, setChunkIndex] = React.useState(0);
 	const [isForm, setIsForm] = React.useState(false);
-	const [count1, setCount1] = React.useState(null);
-	const [count2, setCount2] = React.useState(null);
-	const [count3, setCount3] = React.useState(null);
-	const [count4, setCount4] = React.useState(null);
-	const [count5, setCount5] = React.useState(null);
-	const [count6, setCount6] = React.useState(null);
-	const [count7, setCount7] = React.useState(null);
 	const [reviewsArray, setReviewsArray] = React.useState([]);
 	const [reviews, setReviews] = React.useState({
-		name: null,
-		email: null,
-		title: null,
-		message: null,
+		name: "",
+		email: "",
+		title: "",
+		message: "",
 	});
 	const [rating, setRating] = React.useState(0);
 	const contentPerPage = 3;
@@ -60,14 +42,10 @@ const Reviews = ({ category, color }) => {
 			message: "",
 		});
 		setIsForm(false);
-		window.history.back();
 	};
 
 	React.useEffect(() => {
 		let mounted = true;
-		if (window?.location?.pathname === `/${category}/reviews`) {
-			setIsForm(true);
-		}
 
 		db.collection(category)
 			.orderBy("date", "asc")
@@ -90,50 +68,6 @@ const Reviews = ({ category, color }) => {
 					if (mounted) setReviewsArray(data);
 				}
 			});
-
-		db.collection(FRONTAL_CLOSURE).onSnapshot((snapshot) => {
-			const results = snapshot.docs.map((doc) => ({
-				data: doc.data(),
-			}));
-			if (mounted) setCount1(results.length);
-		});
-
-		db.collection(HAIR_BUNDLES).onSnapshot((snapshot) => {
-			const results = snapshot.docs.map((doc) => ({
-				data: doc.data(),
-			}));
-			if (mounted) setCount2(results.length);
-		});
-		db.collection(JETBLACK_BLONDEHAIR).onSnapshot((snapshot) => {
-			const results = snapshot.docs.map((doc) => ({
-				data: doc.data(),
-			}));
-			if (mounted) setCount3(results.length);
-		});
-		db.collection(NATURALCURLY_CLOSURE).onSnapshot((snapshot) => {
-			const results = snapshot.docs.map((doc) => ({
-				data: doc.data(),
-			}));
-			if (mounted) setCount4(results.length);
-		});
-		db.collection(BODYWAVE_CLOSURE).onSnapshot((snapshot) => {
-			const results = snapshot.docs.map((doc) => ({
-				data: doc.data(),
-			}));
-			if (mounted) setCount5(results.length);
-		});
-		db.collection(NATURALWAVE_FRONTAL).onSnapshot((snapshot) => {
-			const results = snapshot.docs.map((doc) => ({
-				data: doc.data(),
-			}));
-			if (mounted) setCount6(results.length);
-		});
-		db.collection(BODYWAVE_FRONTAL).onSnapshot((snapshot) => {
-			const results = snapshot.docs.map((doc) => ({
-				data: doc.data(),
-			}));
-			if (mounted) setCount7(results.length);
-		});
 		return () => (mounted = false);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -165,11 +99,9 @@ const Reviews = ({ category, color }) => {
 										/>
 									))}
 							</div>
-							{count1 && count2 && count3 && (
+							{reviewsArray?.length && (
 								<span className="md:tw-ml-2 tw-text-neutral-600">
-									Based on{" "}
-									{count1 + count2 + count3 + count4 + count5 + count6 + count7}{" "}
-									reviews
+									Based on {reviewsArray?.length} reviews
 								</span>
 							)}
 						</div>
@@ -178,7 +110,6 @@ const Reviews = ({ category, color }) => {
 								className="tw-mt-5 md:tw-mt-0 tw-flex tw-items-center tw-text-red-700 "
 								onClick={() => {
 									setIsForm(true);
-									navigate(`/${category}/reviews`);
 								}}>
 								<span className="tw-font-[600] hover:tw-cursor-pointer tw-mr-1">
 									Write a review

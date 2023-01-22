@@ -2,70 +2,47 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import Layout from "../components/shared/Layout";
-import Button from "../components/shared/Button";
 import { db } from "../firebase";
 import firebase from "../firebase";
-import { RiHomeLine, RiInstagramLine, RiSnapchatLine } from "react-icons/ri";
-import { SiTiktok } from "react-icons/si";
-import Heading from "../components/Heading";
+import { RiHomeLine } from "react-icons/ri";
 import useFetchDBHook from "../utils/useFetchDBHook";
-import { AMB } from "../constant";
+import { AMB, AMBASSADOR } from "../constant";
+import AmbassadorForm from "../components/shared/AmbassadorForm";
 
 const Ambassador = () => {
-	const [ambObj, setAmbObj] = useState({
-		firstname: "",
-		lastname: "",
-		email: "",
-		code: "",
-		phone: "",
-		bankName: "",
-		accountNo: "",
-		state: "",
-		country: "",
-		date: "",
-		instagram: "",
-		tiktok: "",
-		snapchat: "",
-		error: null,
-	});
+	const [ambObj, setAmbObj] = useState({});
 	const [exist, setAlreadyExist] = React.useState(false);
 	const [ambCode, setAmbCode] = React.useState("");
-	const type = "amb";
+	const type = AMB;
 	const allAmb = useFetchDBHook(db, type);
 
-	const handleChangeAuthUser = (e) => {
+	const handleUpdateAmbObj = (e) => {
 		setAmbObj({ ...ambObj, [e.target.name]: e.target.value });
 	};
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
 		if (
-			ambObj.accountNo &&
-			ambObj.bankName &&
-			ambObj.firstname &&
-			ambObj.lastname &&
-			ambObj.email &&
-			ambObj.code &&
-			ambObj.phone &&
-			ambObj.country &&
-			ambObj.date &&
-			(ambObj.instagram || ambObj.tiktok || ambObj.snapchat)
+			[
+				!!ambObj.accountNo,
+				!!ambObj.bankName,
+				!!ambObj.firstname,
+				!!ambObj.lastname,
+				!!ambObj.email,
+				!!ambObj.code,
+				!!ambObj.phone,
+				!!ambObj.country,
+				!!ambObj.date,
+			].every((a) => a === true) &&
+			[!!ambObj.instagram, !!ambObj.tiktok, !!ambObj.snapchat].includes(true)
 		) {
 			const code = `AMB${ambObj.country
 				.slice(0, 3)
 				.toUpperCase()}${Math.random().toString(18).slice(2).toUpperCase()}`;
 
 			const index =
-				allAmb &&
-				allAmb?.findIndex(
-					(obj) =>
-						obj.yourSalesCode.toUpperCase() === code ||
-						obj.email === ambObj.email
-				);
-
+				allAmb && allAmb?.findIndex((obj) => obj.email === ambObj.email);
 			if (!index || index < 0) {
-				db.collection("ambassador")
+				db.collection(AMBASSADOR)
 					.add({
 						accountNo: ambObj?.accountNo,
 						bankName: ambObj?.bankName,
@@ -76,8 +53,8 @@ const Ambassador = () => {
 						instagram: ambObj?.instagram,
 						phone: ambObj?.code + ambObj?.phone,
 						state: ambObj?.state,
-						snapchat: ambObj?.snapchat,
-						tiktok: ambObj?.tiktok,
+						snapchat: ambObj?.snapchat ? ambObj?.snapchat : "",
+						tiktok: ambObj?.tiktok ? ambObj?.tiktok : "",
 						yourSalesCode: code,
 						totalSales: 0,
 						month: "",
@@ -86,22 +63,7 @@ const Ambassador = () => {
 						role: `${ambObj?.country}-${AMB}`,
 					})
 					.then(() => {
-						setAmbObj({
-							firstname: "",
-							lastname: "",
-							email: "",
-							code: "",
-							phone: "",
-							bankName: "",
-							accountNo: "",
-							state: "",
-							country: "",
-							date: "",
-							instagram: "",
-							tiktok: "",
-							snapchat: "",
-							error: null,
-						});
+						setAmbObj({});
 						setAlreadyExist(false);
 						setAmbCode(code);
 					});
@@ -127,7 +89,6 @@ const Ambassador = () => {
 			} else {
 				setAlreadyExist(true);
 			}
-		} else {
 		}
 	};
 
@@ -151,213 +112,12 @@ const Ambassador = () => {
 							<p className="tw-ml-1 tw-text-xs">Home</p>
 						</Link>
 					</div>
-					<article className="tw-w-full">
-						<form
-							className="tw-w-[95%] xl:tw-w-[75%] tw-mx-auto"
-							onSubmit={handleSubmit}>
-							<div>
-								<div className="tw-mt-10 tw-mb-2">
-									<Heading
-										children="Personal Information"
-										size2={true}
-										isBold={true}
-										isWhite={true}
-									/>
-								</div>
-								<div className="tw-grid md:tw-grid-cols-2 lg:tw-grid-cols-4 tw-gap-2">
-									<div className="tw-w-[100%]">
-										<input
-											type="text"
-											name="firstname"
-											id="firstname"
-											value={ambObj.firstname}
-											onChange={handleChangeAuthUser}
-											placeholder="First Name..."
-											className="tw-w-full tw-px-3 tw-py-2 tw-border-0 tw-text-sm placeholder:tw-text-neutral-900 placeholder:tw-text-xs placeholder:tw-font-light focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-800 invalid:tw-text-red-800 focus:invalid:tw-border-red-800 focus:invalid:tw-ring-red-800 tw-outline-0"
-										/>
-									</div>
-									<div className="tw-w-[100%]">
-										<input
-											type="text"
-											name="lastname"
-											id="lastname"
-											value={ambObj.lastname}
-											onChange={handleChangeAuthUser}
-											placeholder="Last Name..."
-											className="tw-w-full tw-px-3 tw-py-2 tw-border-0 tw-text-sm placeholder:tw-text-neutral-900 placeholder:tw-text-xs placeholder:tw-font-light focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-800 invalid:tw-text-red-800 focus:invalid:tw-border-red-800 focus:invalid:tw-ring-red-800 tw-outline-0"
-										/>
-									</div>
-									<div className="tw-w-[100%]">
-										<input
-											type="text"
-											name="email"
-											id="email"
-											value={ambObj.email}
-											onChange={handleChangeAuthUser}
-											placeholder="Email..."
-											className="tw-w-full tw-px-3 tw-py-2 tw-border-0 tw-text-sm placeholder:tw-text-neutral-900 placeholder:tw-text-xs placeholder:tw-font-light focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-800 invalid:tw-text-red-800 focus:invalid:tw-border-red-800 focus:invalid:tw-ring-red-800 tw-outline-0"
-										/>
-									</div>
-									<div className="tw-w-[100%] tw-flex tw-items-center">
-										<input
-											type="text"
-											name="code"
-											id="text"
-											value={ambObj.code}
-											onChange={handleChangeAuthUser}
-											placeholder="Code..."
-											className="tw-flex-[0.17] tw-w-full tw-px-3 tw-py-2 tw-text-sm placeholder:tw-text-neutral-900 placeholder:tw-text-xs placeholder:tw-font-light focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-800 invalid:tw-text-red-800 focus:invalid:tw-border-red-800 focus:invalid:tw-ring-red-800 tw-outline-0 tw-mr-1"
-										/>
-										<input
-											type="number"
-											name="phone"
-											id="number"
-											value={ambObj.phone}
-											onChange={handleChangeAuthUser}
-											placeholder="Phone No..."
-											className="tw-flex-[0.83] tw-w-full tw-px-3 tw-py-2 tw-text-sm placeholder:tw-text-neutral-900 placeholder:tw-text-xs placeholder:tw-font-light focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-800 invalid:tw-text-red-800 focus:invalid:tw-border-red-800 focus:invalid:tw-ring-red-800 tw-outline-0"
-										/>
-									</div>
-									<div className="tw-w-[100%]">
-										<input
-											type="text"
-											name="state"
-											id="state"
-											value={ambObj.state}
-											onChange={handleChangeAuthUser}
-											placeholder="State/Province..."
-											className="tw-w-full tw-px-3 tw-py-2 tw-border-0 tw-text-sm placeholder:tw-text-neutral-900 placeholder:tw-text-xs placeholder:tw-font-light focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-800 invalid:tw-text-red-800 focus:invalid:tw-border-red-800 focus:invalid:tw-ring-red-800 tw-outline-0"
-										/>
-									</div>
-									<div className="tw-w-[100%]">
-										<input
-											type="text"
-											name="country"
-											id="country"
-											value={ambObj.country}
-											onChange={handleChangeAuthUser}
-											placeholder="Country..."
-											className="tw-w-full tw-px-3 tw-py-2 tw-border-0 tw-text-sm placeholder:tw-text-neutral-900 placeholder:tw-text-xs placeholder:tw-font-light focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-800 invalid:tw-text-red-800 focus:invalid:tw-border-red-800 focus:invalid:tw-ring-red-800 tw-outline-0"
-										/>
-									</div>
-									<div className="tw-w-[100%]">
-										<input
-											type="date"
-											name="date"
-											id="date"
-											placeholder="Date"
-											required
-											value={ambObj.date}
-											onChange={handleChangeAuthUser}
-											className="tw-w-full tw-px-3 tw-py-2 tw-border-0 tw-text-sm focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-800 invalid:tw-text-red-800 focus:invalid:tw-border-red-800 focus:invalid:tw-ring-red-800 tw-outline-0"
-										/>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div className="tw-mt-10 tw-mb-2">
-									<Heading
-										children="Bank Information"
-										size2={true}
-										isBold={true}
-										isWhite={true}
-									/>
-								</div>
-								<div className="tw-grid md:tw-grid-cols-2 tw-gap-2">
-									<div className="tw-w-[100%]">
-										<input
-											type="text"
-											name="accountNo"
-											id="accountNo"
-											value={ambObj.accountNo}
-											onChange={handleChangeAuthUser}
-											placeholder="Account No..."
-											className="tw-w-full tw-px-3 tw-py-2 tw-border-0 tw-text-sm placeholder:tw-text-neutral-900 placeholder:tw-text-xs placeholder:tw-font-light focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-800 invalid:tw-text-red-800 focus:invalid:tw-border-red-800 focus:invalid:tw-ring-red-800 tw-outline-0"
-										/>
-									</div>
-									<div className="tw-w-[100%]">
-										<input
-											type="text"
-											name="bankName"
-											id="bankName"
-											value={ambObj.bankName}
-											onChange={handleChangeAuthUser}
-											placeholder="Bank Name..."
-											className="tw-w-full tw-px-3 tw-py-2 tw-border-0 tw-text-sm placeholder:tw-text-neutral-900 placeholder:tw-text-xs placeholder:tw-font-light focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-800 invalid:tw-text-red-800 focus:invalid:tw-border-red-800 focus:invalid:tw-ring-red-800 tw-outline-0"
-										/>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div className="tw-mt-10 tw-mb-2">
-									<Heading
-										children="Handles"
-										size2={true}
-										isBold={true}
-										isWhite={true}
-									/>
-								</div>
-								<div className="tw-grid md:tw-grid-cols-2 lg:tw-grid-cols-3 tw-gap-2">
-									<div className="tw-w-[100%] tw-flex tw-items-center tw-justify-center">
-										<div className="tw-flex-[0.12] tw-text-[#bba371]">
-											<RiInstagramLine size={25} />
-										</div>
-										<input
-											type="text"
-											name="instagram"
-											id="instagram"
-											value={ambObj.instagram}
-											onChange={handleChangeAuthUser}
-											placeholder="@instagram..."
-											className="tw-flex-[0.88] tw-w-full tw-px-3 tw-py-2 tw-border-0 tw-text-sm placeholder:tw-text-neutral-900 placeholder:tw-text-xs placeholder:tw-font-light focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-800 invalid:tw-text-red-800 focus:invalid:tw-border-red-800 focus:invalid:tw-ring-red-800 tw-outline-0"
-										/>
-									</div>
-									<div className="tw-w-[100%] tw-flex tw-items-center tw-justify-center">
-										<div className="tw-flex-[0.12] tw-text-[#bba371]">
-											<SiTiktok size={25} />
-										</div>
-										<input
-											type="text"
-											name="tiktok"
-											id="tiktok"
-											value={ambObj.tiktok}
-											onChange={handleChangeAuthUser}
-											placeholder="@tiktok..."
-											className="tw-flex-[0.88] tw-w-full tw-px-3 tw-py-2 tw-border-0 tw-text-sm placeholder:tw-text-neutral-900 placeholder:tw-text-xs placeholder:tw-font-light focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-800 invalid:tw-text-red-800 focus:invalid:tw-border-red-800 focus:invalid:tw-ring-red-800 tw-outline-0"
-										/>
-									</div>
-									<div className="tw-w-[100%] tw-flex tw-items-center tw-justify-center">
-										<div className="tw-flex-[0.12] tw-text-[#bba371]">
-											<RiSnapchatLine size={25} />
-										</div>
-										<input
-											type="text"
-											name="snapchat"
-											id="snapchat"
-											value={ambObj.snapchat}
-											onChange={handleChangeAuthUser}
-											placeholder="@snapchat..."
-											className="tw-flex-[0.88] tw-w-full tw-px-3 tw-py-2 tw-border-0 tw-text-sm placeholder:tw-text-neutral-900 placeholder:tw-text-xs placeholder:tw-font-light focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-800 invalid:tw-text-red-800 focus:invalid:tw-border-red-800 focus:invalid:tw-ring-red-800 tw-outline-0"
-										/>
-									</div>
-								</div>
-							</div>
-
-							<div className="tw-text-center tw-text-xs tw-text-red-800 tw-mt-10 tw-mb-2">
-								{ambObj.error ? <p>Error message: {ambObj.error}</p> : null}
-							</div>
-							{exist && (
-								<div className="tw-text-center tw-text-xs tw-text-red-800">
-									This Ambassador already exists in the database!
-								</div>
-							)}
-							<div className="tw-flex tw-flex-row tw-mb-10 tw-justify-center">
-								<Button onClick={handleSubmit} type="submit" isShadow={true}>
-									Lock In
-								</Button>
-							</div>
-						</form>
-					</article>
+					<AmbassadorForm
+						ambObj={ambObj}
+						handleUpdateAmbObj={handleUpdateAmbObj}
+						handleSubmit={handleSubmit}
+						exist={exist}
+					/>
 					<div
 						className={`tw-flex tw-flex-col tw-items-center tw-text-white tw-mb-5 tw-ease-in tw-duration-500 ${
 							ambCode ? "tw-opacity-1 tw-scale-100" : "tw-opacity-0 tw-scale-50"
@@ -370,7 +130,7 @@ const Ambassador = () => {
 
 					<div>
 						<p className="tw-text-neutral-300 tw-font-light tw-text-center  tw-text-xs ">
-							Already Locked In?{" "}
+							Already Created Your Space?{" "}
 							<Link to="/">
 								<button className="tw-text-[#bba371] tw-font-thin tw-mb-10">
 									go to home page

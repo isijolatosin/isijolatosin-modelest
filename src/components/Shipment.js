@@ -14,7 +14,7 @@ import { FaShippingFast } from "react-icons/fa";
 import { SiMinutemailer } from "react-icons/si";
 import axios from "axios";
 
-function Shippment() {
+const Shippment = React.memo(() => {
 	const { user } = useContext(UserContext);
 	const [readMore, setReadMore] = React.useState(false);
 	const [emailSent, setEmailSent] = React.useState(false);
@@ -464,5 +464,5 @@ function Shippment() {
 			)}
 		</div>
 	);
-}
+});
 export default Shippment;

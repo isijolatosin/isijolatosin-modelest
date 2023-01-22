@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext } from "react";
 import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaHandPointRight } from "react-icons/fa";
 import Layout from "../components/shared/Layout";
 import CartItemsCheckout from "../components/CartItemsCheckout";
@@ -9,14 +10,18 @@ import { selectCartItems, selectTotal } from "../slices/appSlices";
 import Total from "../components/Total";
 import Button from "../components/shared/Button";
 import { UserContext } from "../context/user-context";
-import { MdKeyboardArrowRight, MdOutlineLocalShipping } from "react-icons/md";
-import { SiHomeassistantcommunitystore } from "react-icons/si";
 import Heading from "../components/Heading";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { db } from "../firebase";
 import { AUTHORIZED_ID } from "../constant";
-import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
 import OrderSum from "../components/shared/OrderSum";
+import useFetchDBHook from "../utils/useFetchDBHook";
+import { useGlobalContext } from "../context/useContextHook";
+import { useCallback } from "react";
+import DiscountInputComponent from "../components/shared/DiscountInputComponent";
+import ShippingOptionComponent from "../components/shared/ShippingOptionComponent";
+import TotalCheckoutComponent from "../components/shared/TotalCheckoutComponent";
+import Tabs from "../components/shared/Tabs";
 
 const logo = require("../assets/logo2.png");
 
@@ -25,13 +30,12 @@ const Cart = () => {
 	const total = useSelector(selectTotal);
 	const cartItems = useSelector(selectCartItems);
 	const navigate = useNavigate();
-	const [sales, setSales] = React.useState(false);
 	const [redirect, setRedirect] = React.useState(false);
-
 	const [pageCancel, setPageCancel] = React.useState(false);
 	const [error, setError] = React.useState(false);
 	const [discount, setDiscount] = React.useState("");
 	const [discountPrice, setDiscountPrice] = React.useState("");
+	const [sales, setSales] = React.useState("");
 	const [shippingMethod, setShippingMethod] = React.useState("");
 	const [warn, setWarn] = React.useState(false);
 	const [showLoad, setShowLoad] = React.useState(false);
@@ -51,10 +55,17 @@ const Cart = () => {
 				code: genCode,
 			})
 			.then(() => {
-				console.log(`SUCCESSFULL ADDED CODE`);
+				console.log(`SUCCESSFULLY ADDED CODE`);
 			})
 			.catch((error) => console.log("Error " + error.message));
 	};
+	const type = "checkout";
+	const discountRes = useFetchDBHook(db, type);
+	const discountCode = useCallback(() => {
+		return discountRes;
+	}, [discountRes]);
+
+	const { fetchSalesPercentage } = useGlobalContext();
 
 	React.useEffect(() => {
 		localStorage.removeItem("discountPrice");
@@ -73,24 +84,8 @@ const Cart = () => {
 		localStorage.removeItem("phone");
 
 		setSales(fetchSalesPercentage());
-
-		db.collection("admin")
-			.doc(`${AUTHORIZED_ID.id_one}/`)
-			.collection("discount-code")
-			.onSnapshot((snapshot) => {
-				const results = snapshot.docs.map((doc) => ({
-					data: doc.data(),
-				}));
-
-				const resultArry = [];
-				for (const result of results) {
-					resultArry.push(result?.data?.code);
-				}
-				setResultArray(resultArry);
-			});
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+		setResultArray(discountCode());
+	}, [fetchSalesPercentage]);
 
 	let myTimeout;
 	clearTimeout(myTimeout);
@@ -113,7 +108,6 @@ const Cart = () => {
 			setShowLoad(false);
 		}, 5000);
 	}
-
 	const handleDisount = (e) => {
 		setDiscount(e.target.value);
 	};
@@ -130,18 +124,13 @@ const Cart = () => {
 			}, 3000);
 		}
 		if (resultArry.includes(discount)) {
-			if (discount === "") {
-				setError(true);
-			} else {
-				if (sales > 0) {
-					const salesPrice = total * (sales / 100);
-					setDiscountPrice(total - salesPrice);
+			const salesPrice = total * (sales / 100);
+			setDiscountPrice(total - salesPrice);
 
-					localStorage.setItem("discountPrice", total - salesPrice);
-					setShowLoad(true);
-				}
-				setDiscount("");
-			}
+			localStorage.setItem("discountPrice", total - salesPrice);
+			setShowLoad(true);
+
+			setDiscount("");
 
 			db.collection("admin")
 				.doc(`${AUTHORIZED_ID.id_one}/`)
@@ -176,19 +165,13 @@ const Cart = () => {
 			setWarn(true);
 		}
 	};
-
 	return (
 		<>
 			<Helmet>
 				<title>Checkout</title>
 			</Helmet>
 			<Layout>
-				<div
-					className={
-						sales
-							? "tw-pt-[125px] tw-bg-neutral-200 md:tw-pt-[105px] tw-pb-[30px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center home tw-relative"
-							: "tw-bg-neutral-200 tw-pt-[90px] md:tw-pt-[60px] tw-pb-[20px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center home tw-relative"
-					}>
+				<div className="tw-bg-neutral-200 tw-pt-[90px] md:tw-pt-[60px] tw-pb-[20px] tw-w-full tw-flex tw-flex-col tw-items-center tw-justify-center home tw-relative">
 					{cartItems.length === 0 ? (
 						<div className="tw-flex tw-items-center">
 							<div className="tw-mr-5 tw-font-light tw-text-white">
@@ -204,137 +187,30 @@ const Cart = () => {
 									{cartItems.map((item) => (
 										<CartItemsCheckout product={item} key={item.id} />
 									))}
-									{sales > 0 && (
-										<>
-											<div className="tw-w-full tw-pt-5 tw-flex tw-items-center">
-												<input
-													name="discount"
-													type="text"
-													value={discount}
-													onChange={handleDisount}
-													placeholder="Discount code"
-													className={`${
-														error && discount === ""
-															? "tw-border-red-700 tw-border-[1px]"
-															: "tw-border-neutral-400 tw-border-[1px]"
-													} tw-text-sm tw-font-light tw-rounded-md tw-w-[70%] tw-py-2 placeholder:tw-text-xs `}
-												/>
-												<button
-													className="tw-w-[30%] tw-bg-neutral-900 tw-text-white tw-ml-2 tw-py-[11px] tw-text-xs tw-rounded-md"
-													onClick={handleApply}>
-													Apply
-												</button>
-											</div>
-											{error && (
-												<div className="tw-pb-5 tw-pt-2 ">
-													<p className="tw-text-[10px] tw-text-red-700 tw-text-center">
-														<span className="tw-font-bold tw-text-xs">
-															Discount Code Not Valid!
-														</span>
-														<br />
-														<span className="tw-text-neutral-700 tw-font-light tw-tracking-wider">
-															Please generate a new code
-														</span>
-													</p>
-													<div className="tw-text-[10px] tw-w-full tw-mx-auto tw-flex tw-items-center tw-justify-center tw-mt-3">
-														<button
-															disabled={code}
-															onClick={generateCode}
-															className="tw-bg-neutral-900 tw-text-white tw-p-2 tw-rounded-md hover:md:tw-bg-white hover:md:tw-text-neutral-900 tw-ease-in tw-duration-300">
-															Generate code
-														</button>
-													</div>
-													<div>
-														<p className="yellow tw-text-neutral-400 tw-font-bold tw-text-xs tw-w-full tw-text-center tw-mt-4">
-															{code}
-														</p>
-													</div>
-												</div>
-											)}
-										</>
-									)}
-									<div className="tw-relative">
-										<div
-											className={`${
-												error ? "tw-border-t-[1px]" : "tw-border-t-0"
-											} tw-border-b-[1px] tw-border-[#b59248] tw-py-5 tw-text-neutral-700`}>
-											<div className="tw-flex tw-items-center tw-justify-between tw-text-sm">
-												<span>Subtotal</span>
-												{showLoad ? (
-													<div className="circular-loader-small"></div>
-												) : (
-													<span className="tw-text-[16px]">
-														${discountPrice ? discountPrice : total}
-													</span>
-												)}
-											</div>
-											<div className="tw-flex tw-items-center tw-justify-between tw-text-sm">
-												<div className="tw-relative tw-flex tw-items-center">
-													<span>Shipping</span>
-													<BsFillQuestionCircleFill
-														size={17}
-														onMouseOver={() => setShowInfo(true)}
-														onMouseLeave={() => setShowInfo(false)}
-														className="tw-text-neutral-700 tw-mx-1 hover:tw-cursor-pointer"
-													/>
-													{showInfo && (
-														<div className="tw-absolute tw-w-[170px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-bl-none tw-text-white tw-text-center tw-top-[-50px] tw-left-[74px] tw-font-light tw-text-sm tw-flex tw-items-top">
-															<span className="tw-text-left">
-																Review shipping policy in help tab
-															</span>
-														</div>
-													)}
-												</div>
-												<span>Calculated at next step</span>
-											</div>
-										</div>
-										<div className="tw-flex tw-items-center tw-justify-between tw-text-sm tw-pt-5">
-											<span className="tw-text-[16px]">Total</span>
-											<div className="tw-flex tw-items-center">
-												<span className="tw-text-[12px] tw-mr-2 tw-text-neutral-700">
-													USD
-												</span>
-												{showLoad ? (
-													<div className="circular-loader-small"></div>
-												) : (
-													<span className="tw-text-[20px]">
-														${discountPrice ? discountPrice : total}
-													</span>
-												)}
-											</div>
-										</div>
-									</div>
+									<DiscountInputComponent
+										discount={discount}
+										handleDisount={handleDisount}
+										error={error}
+										sales={sales}
+										handleApply={handleApply}
+										code={code}
+										generateCode={generateCode}
+									/>
+									<TotalCheckoutComponent
+										error={error}
+										showLoad={showLoad}
+										discountPrice={discountPrice}
+										total={total}
+										setShowInfo={setShowInfo}
+										showInfo={showInfo}
+									/>
 								</div>
 								<div className="tw-w-full lg:tw-w-[70%] tw-px-3 md:tw-pr-0 md:tw-pl-5">
 									<div className="tw-w-[200px] tw-mx-auto tw-mt-[-20px]">
 										<img src={logo} alt="" />
 									</div>
-									<div className="tw-text-neutral-400 tw-flex tw-items-center tw-border-t-[1px] tw-border-b-[1px] tw-border-neutral-800 tw-py-3 lg:tw-mt-[-40px] tw-justify-center tw-font-light tw-text-xs tw-mt-[-30px]">
-										<Link
-											to={`/user-cart/${user?.displayName}`}
-											className="tw-flex tw-items-center tw-mr-2">
-											<span className="tw-mr-2 tw-text-white">Cart</span>
-											<MdKeyboardArrowRight size={23} />
-										</Link>
-										<Link
-											to={`/checkout/${user?.displayName}`}
-											className="tw-flex tw-items-center tw-mr-2">
-											<span
-												className={`${
-													window.location.pathname.includes("checkout")
-														? "tw-text-[#bba371] tw-font-bold"
-														: "tw-text-white"
-												} tw-mr-2`}>
-												Information
-											</span>
-											<MdKeyboardArrowRight size={23} />
-										</Link>
-										<Link to={userPostalAddress && `/payment`}>
-											<span className="tw-mr-2 tw-text-white">Payment</span>
-										</Link>
-									</div>
+									<Tabs user={user} userPostalAddress={userPostalAddress} />
 									<OrderSum
-										sales={sales}
 										showLoad={showLoad}
 										cartItems={cartItems}
 										discount={discount}
@@ -347,7 +223,7 @@ const Cart = () => {
 										total={total}
 										setShowInfo={setShowInfo}
 										showInfo={showInfo}
-										isSuccessfull={false}
+										sales={sales}
 									/>
 
 									<div className="tw-mt-5 tw-mb-2 tw-flex tw-items-center tw-justify-between">
@@ -362,54 +238,10 @@ const Cart = () => {
 											</span>
 										)}
 									</div>
-									<div className="tw-bg-white tw-rounded-lg tw-mb-5">
-										<div className="tw-py-3 tw-px-5 tw-flex tw-items-center tw-border-b-[1px] tw-border-neutral-300">
-											<label className="radio-container tw-mr-2 tw-mt-[-10px]">
-												<input
-													onClick={(e) =>
-														handleShipMethod("ship", e.target.checked)
-													}
-													type="radio"
-													name="radio"
-													// checked
-												/>
-												<span
-													className={`checkmark-radio ${
-														warn && "tw-border-red-500 tw-border-[1px]"
-													}`}></span>
-											</label>
-
-											<div
-												className={`tw-flex tw-items-center ${
-													warn ? "tw-text-red-500" : "tw-text-[#bba371]"
-												}`}>
-												<MdOutlineLocalShipping size={25} />
-												<span className="tw-text-[16px] tw-m-3">Ship</span>
-											</div>
-										</div>
-										<div className="tw-py-3 tw-px-5 tw-flex tw-items-center">
-											<label className="radio-container tw-mr-2 tw-mt-[-10px]">
-												<input
-													onClick={(e) =>
-														handleShipMethod("pick up", e.target.checked)
-													}
-													type="radio"
-													name="radio"
-												/>
-												<span
-													className={`checkmark-radio ${
-														warn && "tw-border-red-500 tw-border-[1px]"
-													}`}></span>
-											</label>
-											<div
-												className={`tw-flex tw-items-center ${
-													warn ? "tw-text-red-500" : "tw-text-[#bba371]"
-												}`}>
-												<SiHomeassistantcommunitystore size={20} />
-												<span className="tw-text-[16px] tw-m-3">Pick up</span>
-											</div>
-										</div>
-									</div>
+									<ShippingOptionComponent
+										handleShipMethod={handleShipMethod}
+										warn={warn}
+									/>
 									<div className="tw-text-xs tw-mb-2 tw-flex tw-items-center tw-relative">
 										<Heading
 											children="Shipping Address"

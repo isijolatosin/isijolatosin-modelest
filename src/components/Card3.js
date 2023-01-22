@@ -7,7 +7,7 @@ import { addToCart } from "../utils/putToCartFunc";
 
 function Card({
 	product,
-	setSingleproducts,
+	setSingleproduct,
 	setSingleCart,
 	scrollToTop,
 	sales,
@@ -29,7 +29,7 @@ function Card({
 			const result = products.filter(
 				(product) => product._id === event.target.id
 			);
-			setSingleproducts(result);
+			setSingleproduct(result);
 		} catch (error) {
 			console.log(error);
 		}
@@ -38,7 +38,7 @@ function Card({
 	}
 
 	// Adding to cart items
-	const { name, _id, images, color, description } = product;
+	const { name, _id, images, color, description, salespercent } = product;
 	const image = images?.[0];
 	const price = product?.price[bundles?.length];
 	const hairLength = bundles.length;
@@ -52,6 +52,7 @@ function Card({
 		price,
 		hairLength,
 		description,
+		salespercent,
 	};
 
 	const handleOnChange = (e) => {

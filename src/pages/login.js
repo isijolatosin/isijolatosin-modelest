@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import firebase from "../firebase";
@@ -5,7 +6,7 @@ import Layout from "../components/shared/Layout";
 import { auth } from "../firebase";
 import Button from "../components/shared/Button";
 import { Helmet } from "react-helmet";
-import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
+import { useGlobalContext } from "../context/useContextHook";
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -19,10 +20,10 @@ const Login = () => {
 	const [showpswd, setShowpswd] = useState(false);
 	const [sales, setSales] = React.useState(null);
 
+	const { fetchSalesPercentage } = useGlobalContext();
 	React.useEffect(() => {
 		inputRef.current.focus();
 		setSales(fetchSalesPercentage());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const handleChangeAuthUser = (e) => {
