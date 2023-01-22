@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectCartItems } from "../slices/appSlices";
 import { isInCart } from "../utils/helpers";
 import { addToCart } from "../utils/putToCartFunc";
+import { roundTo2Dec } from "../utils/roundTo2Dec";
 
 function Card({
 	product,
@@ -15,10 +16,8 @@ function Card({
 	const cartItems = useSelector(selectCartItems);
 	const [error, setError] = React.useState(false);
 	const [length, setLength] = React.useState(0);
-	const [color, setColor] = React.useState("");
 	const dispatch = useDispatch();
 	const lengthArr = product.availablelength?.split(",");
-	const colorArr = product?.availablecolor?.split(", ");
 
 	async function handleViewImage(event) {
 		try {
@@ -36,8 +35,11 @@ function Card({
 	}
 
 	// Adding to cart items
-	const { name, _id, images, description } = product;
-	const price = product?.price[length];
+	const { name, _id, images, description, color } = product;
+	const productPrice = product?.price[+length];
+	const price = product?.salespercent
+		? roundTo2Dec(productPrice - productPrice * (product?.salespercent / 100))
+		: productPrice;
 	const image = images[0];
 	const hairLength = length;
 	const hairColor = color;
@@ -53,7 +55,7 @@ function Card({
 	};
 
 	const handleAdd = (increase) => {
-		if (price && length && color) {
+		if (price && length) {
 			addToCart(
 				price,
 				length,
@@ -78,17 +80,17 @@ function Card({
 				alt={product._id}
 				className="tw-w-full tw-h-[70%] lg:tw-h-[75%] tw-object-cover tw-rounded-sm hover:tw-cursor-pointer"
 			/>
-			{product?.sales && sales !== 0 && (
-				<span className="tw-absolute tw-top-0 tw-left-0 tw-bg-gray-600 tw-text-white tw-rounded-tl-sm tw-rounded-br-sm tw-text-xs tw-p-[2px] tw-font-light">
-					on sales
-				</span>
-			)}
 			<div className="tw-bg-white tw-text-neutral-800 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-[10px]">
 				<div className="tw-pt-2  tw-px-2 tw-flex tw-justify-between tw-w-full tw-text-[14px] tw-border-b-[1px] tw-border-neutral-300 tw-mb-2">
 					<p className="tw-font-bold tw-text-xs md:tw-text-[14px]">
 						{product.name}
 					</p>
 					<div className="tw-pb-1 tw-flex tw-flex-col">
+						{product?.salespercent && (
+							<span className="tw-top-0 tw-right-0 tw-text-[9px] tw-bg-red-700 tw-text-white tw-px-3 tw-rounded-full tw-pt-[1px]">
+								Discounted!
+							</span>
+						)}
 						<span className="tw-font-semibold tw-text-xs md:tw-text-[14px]">
 							${price ? price : "***"} USD
 						</span>
@@ -105,23 +107,6 @@ function Card({
 									: "tw-border-neutral-400 tw-text-neutral-600"
 							} tw-text-[12px] md:tw-text-sm tw-rounded-full`}>
 							<span>{len}</span>
-						</div>
-					))}
-				</div>
-				<div className=" tw-px-2 tw-flex tw-flex-row tw-items-center tw-w-[100%] tw-my-2 tw-border-b-[1px] tw-border-neutral-300 tw-pb-2">
-					{colorArr.map((col, idx) => (
-						<div
-							onClick={() => {
-								setColor(col);
-								setError(false);
-							}}
-							key={idx}
-							className={`tw-duration-300 tw-ease-in md:hover:tw-bg-neutral-800 md:hover:tw-text-white tw-cursor-pointer tw-px-2 md:tw-px-5 tw-py-1 tw-text-[10px] md:tw-text-xs tw-mr-3 tw-flex tw-items-center tw-justify-center tw-rounded-full  ${
-								color === col
-									? "tw-bg-neutral-800 tw-text-white"
-									: "tw-bg-neutral-300 tw-text-neutral-800"
-							}`}>
-							<span>{col}</span>
 						</div>
 					))}
 				</div>

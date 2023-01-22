@@ -1,0 +1,74 @@
+[
+	{
+		"type": "text",
+		"name": "name",
+		"id": "title",
+		"placeholder": "product name"
+	},
+	{
+		"type": "text",
+		"name": "brand",
+		"id": "brand",
+		"placeholder": "product brand"
+	},
+	{
+		"type": "text",
+		"name": "density",
+		"id": "density",
+		"placeholder": "product density"
+	},
+	{
+		"type": "text",
+		"name": "texture",
+		"id": "texture",
+		"placeholder": "product texture"
+	},
+	{
+		"type": "text",
+		"name": "capsize",
+		"id": "capsize",
+		"placeholder": "product capsize"
+	},
+	{
+		"type": "text",
+		"name": "type",
+		"id": "type",
+		"placeholder": "product type"
+	},
+	{
+		"type": "text",
+		"name": "color",
+		"id": "color",
+		"placeholder": "product color"
+	},
+	{
+		"type": "text",
+		"name": "availablecolor",
+		"id": "availablecolor",
+		"placeholder": "available color"
+	},
+	{
+		"type": "text",
+		"name": "length",
+		"id": "length",
+		"placeholder": "product length"
+	},
+	{
+		"type": "text",
+		"name": "availablelength",
+		"id": "availablelength",
+		"placeholder": "available length"
+	},
+	{
+		"type": "text",
+		"name": "dealLength",
+		"id": "dealLength",
+		"placeholder": "bundle deal length"
+	},
+	{
+		"type": "text",
+		"name": "video",
+		"id": "video",
+		"placeholder": "product video url"
+	}
+]

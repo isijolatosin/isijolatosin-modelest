@@ -7,7 +7,7 @@ import PaymentOptions from "./PaymentOptions";
 import Rating from "./Rating";
 import { addToCart } from "../../utils/putToCartFunc";
 import { useDispatch } from "react-redux";
-import { CLOSURE, FRONTAL } from "../../constant";
+import { ALLSIZES, CLOSURE, FRONTAL } from "../../constant";
 
 const SingleProductModal = ({
 	price,
@@ -25,7 +25,6 @@ const SingleProductModal = ({
 	color,
 }) => {
 	const dispatch = useDispatch();
-	const _hairColor = singleProduct?.[0]?.availablecolor?.split(", ");
 	const handleAdd = (increase) => {
 		if (price && length && color) {
 			addToCart(
@@ -61,60 +60,37 @@ const SingleProductModal = ({
 									Description: {singleProduct?.[0].description}
 								</p>
 							</div>
-							{_hairColor && (
-								<div className="tw-flex tw-flex-col tw-border-b-[1px] tw-border-neutral-300 tw-pb-5 tw-mt-5 tw-w-[90%] tw-mx-auto">
-									<div className="tw-flex tw-flex-wrap">
-										{_hairColor?.map((colr, idx) => (
-											<span
-												onClick={() => {
-													setError(false);
-												}}
-												className={`${
-													color === colr
-														? "tw-bg-neutral-900 tw-text-white"
-														: "tw-bg-neutral-200 tw-text-neutral-900"
-												} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
-												key={idx}>
-												<span>{colr}</span>
-											</span>
-										))}
-									</div>
-								</div>
-							)}
 							<div className="tw-flex tw-flex-col tw-mb-2 tw-border-y-[1px] tw-py-3 tw-w-[90%] tw-mx-auto">
 								<div className="tw-flex tw-flex-wrap tw-gap-2">
-									{avesizes?.map((sz) => (
-										<span
-											onClick={() => {
-												setLength(+sz);
-												setError(false);
-											}}
-											className={`tw-flex tw-flex-wrap ${
-												length === sz
-													? "tw-bg-neutral-900 tw-text-white"
-													: "tw-bg-white tw-text-neutral-900"
-											} tw-rounded-full tw-mr-2 tw-border-[1px] tw-border-neutral-900 tw-p-2 tw-px-3 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
-											key={sz}>
-											{sz}
-										</span>
-									))}
+									{ALLSIZES?.map((item) =>
+										avesizes?.includes(item?.value) ? (
+											<div
+												key={item?.id}
+												onClick={() => {
+													setLength(item?.value);
+													setError(false);
+												}}
+												className={` tw-flex tw-flex-wrap tw-mr-2 tw-p-2 tw-px-3 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
+													item?.value &&
+													length &&
+													item?.value === length &&
+													"tw-bg-neutral-900 tw-text-white"
+												}`}>
+												<span>{item?.value}</span>
+											</div>
+										) : (
+											<div
+												key={item?.id}
+												className="tw-flex tw-flex-wrap tw-mr-2 tw-p-2 tw-px-3 tw-border-[1px] tw-rounded-full tw-cursor-not-allowed tw-text-neutral-300">
+												<span>{item?.value}</span>
+											</div>
+										)
+									)}
 								</div>
 							</div>
 						</div>
 						<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900">
 							<div className="tw-flex tw-flex-col">
-								{[FRONTAL, CLOSURE].includes(
-									singleProduct?.[0]?.type.toLowerCase()
-								) ? (
-									<span className="tw-mt-2 tw-text-xs tw-text-green-700">
-										Select color and / or length to calculate sales price...
-									</span>
-								) : (
-									<span className="tw-mt-2 tw-text-xs tw-text-green-700">
-										Select length to calculate sales price...
-									</span>
-								)}
-
 								<div className="tw-flex tw-items-start tw-w-[70%] lg:tw-w-[45%] tw-mb-[10px]">
 									<p className="tw-font-medium tw-text-xl tw-my-[10px]">
 										Price: ${price ? price : " ***"}{" "}

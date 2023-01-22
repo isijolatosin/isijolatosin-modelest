@@ -1,9 +1,11 @@
-import React from "react";
-import axios from "axios";
+import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCartItems } from "../slices/appSlices";
 import { isInCart } from "../utils/helpers";
 import { addToCart } from "../utils/putToCartFunc";
+import { PRODUCT } from "../constant";
+import useFetchHook from "../utils/useFetchHook";
+import { roundTo2Dec } from "../utils/roundTo2Dec";
 
 function Card({ product, setSingleproduct, setSingleCart, scrollToTop }) {
 	const cartItems = useSelector(selectCartItems);
@@ -14,25 +16,31 @@ function Card({ product, setSingleproduct, setSingleCart, scrollToTop }) {
 		quantity: "",
 	});
 	const lengthArr = product.availablelength.split(",");
-	async function handleViewImage(event) {
-		try {
-			const {
-				data: { products },
-			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
-			const result = products.filter(
-				(product) => product._id === event.target.id
-			);
-			setSingleproduct(result);
-		} catch (error) {
-			console.log(error);
-		}
 
-		scrollToTop();
-	}
+	const type = PRODUCT;
+	const url = `${process.env.REACT_APP_BASE_ROUTE}/${PRODUCT}`;
+	const fetchProductsRes = useFetchHook(url, type);
+	const handleViewImage = useCallback(
+		(event) => {
+			try {
+				const result = fetchProductsRes.filter(
+					(product) => product._id === event.target.id
+				);
+				setSingleproduct(result);
+				scrollToTop();
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		[fetchProductsRes, scrollToTop, setSingleproduct]
+	);
 
 	// Adding to cart items
 	const { name, _id, images, color, description } = product;
-	const price = +product?.price[bundles?.length];
+	const productPrice = product?.price[+bundles?.length];
+	const price = product?.salespercent
+		? roundTo2Dec(productPrice - productPrice * (product?.salespercent / 100))
+		: productPrice;
 	const hairLength = bundles.length;
 	const hairColor = color;
 	const image = images[0];
@@ -60,9 +68,14 @@ function Card({ product, setSingleproduct, setSingleCart, scrollToTop }) {
 				className=" tw-w-full tw-h-[70%] lg:tw-h-[75%] tw-object-cover tw-rounded-sm tw-cursor-pointer"
 			/>
 			<div className="tw-bg-white tw-h-[30%] lg:tw-h-[25%] tw-text-neutral-800 tw-px-2 tw-w-full tw-relative tw-z-5 tw-bottom-0 tw-rounded-b-lg">
-				<div className="tw-pt-2 tw-flex tw-justify-between tw-w-full tw-text-[12px] md:tw-text-[14px]">
+				<div className="tw-pt-2 tw-flex tw-justify-between tw-w-full tw-text-[12px] md:tw-text-[14px] tw-mx-auto">
 					<p className="tw-font-bold">{product.name}</p>
-					<div className="tw-pb-2 tw-flex tw-flex-col">
+					<div className="tw-pb-2 tw-flex tw-flex-col tw-items-end">
+						{product?.salespercent && (
+							<span className="tw-top-0 tw-right-0 tw-text-[9px] tw-bg-red-700 tw-text-white tw-px-3 tw-rounded-full tw-pt-[1px]">
+								Discounted!
+							</span>
+						)}
 						<span className="tw-font-semibold">
 							${price ? price : "***"} USD
 						</span>

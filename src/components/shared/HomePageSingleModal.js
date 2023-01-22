@@ -46,7 +46,7 @@ const HomePageSingleModal = ({
 		width,
 		_hairColor,
 		avesizes,
-		sizes,
+		size,
 		_hairTexture,
 		salespercent,
 	} = returnObjectProperty(singleProduct?.[0]);
@@ -140,10 +140,10 @@ const HomePageSingleModal = ({
 						<div className="tw-ml-5 md:tw-ml-0 tw-mt-5">
 							<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
 								<div className="tw-flex tw-flex-wrap tw-border-y-[1px] tw-py-3 tw-gap-2">
-									{avesizes.map((size, idx) => (
+									{avesizes.map((siz, idx) => (
 										<span
 											onClick={() => {
-												if (sizes.includes(size)) {
+												if (size.includes(siz)) {
 													setLength(size);
 													setError(false);
 												}
@@ -153,12 +153,12 @@ const HomePageSingleModal = ({
 													? "tw-bg-neutral-900 tw-text-white"
 													: "tw-bg-white"
 											} ${
-												sizes.includes(size)
+												size.includes(siz)
 													? "tw-border-neutral-900 tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white"
 													: "tw-cursor-not-allowed tw-border-neutral-200 tw-text-neutral-300"
 											} tw-rounded-full tw-mr-2 tw-border-[1px] tw-p-2 tw-px-3 tw-text-[14px] tw-ease-in tw-duration-300`}
 											key={idx}>
-											{size}
+											{siz}
 										</span>
 									))}
 								</div>
@@ -198,17 +198,6 @@ const HomePageSingleModal = ({
 					)}
 				</div>
 				<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 ">
-					{[CLOSURE, FRONTAL].includes(
-						singleProduct?.[0]?.type.toLowerCase()
-					) ? (
-						<span className="tw-text-xs tw-my-3 tw-text-green-700">
-							*** Select color & length to calculate price... ***
-						</span>
-					) : (
-						<span className="tw-text-xs tw-my-3 tw-text-green-700">
-							*** Select length to calculate price... ***
-						</span>
-					)}
 					<div className="tw-flex tw-items-start tw-w-[70%] lg:tw-w-[45%] tw-mb-[10px]">
 						<p className="tw-font-medium tw-text-2xl">
 							Price:

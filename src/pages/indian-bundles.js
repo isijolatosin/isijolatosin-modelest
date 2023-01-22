@@ -12,6 +12,7 @@ import {
 	returnObjectProperty,
 } from "../utils/returnObjectProperty";
 import useFetchHook from "../utils/useFetchHook";
+import { roundTo2Dec } from "../utils/roundTo2Dec";
 
 function IndianBundles() {
 	const [hairBundles, setHairBundles] = React.useState([]);
@@ -24,7 +25,8 @@ function IndianBundles() {
 	const url1 = `${process.env.REACT_APP_BASE_ROUTE}/products`;
 	const indianRes = useFetchHook(url1, "products", true);
 	const fetchProducts = useCallback(async () => {
-		setHairBundles(indianRes);
+		const filtered = indianRes.filter((hr) => !hr.with);
+		setHairBundles(filtered);
 	}, [indianRes]);
 
 	React.useEffect(() => {
@@ -36,11 +38,15 @@ function IndianBundles() {
 	};
 
 	// Adding to cart items
-	const { name, id, image, color, description, size, avesizes, salespercent } = returnObjectProperty(singleProduct?.[0]);
+	const { name, id, image, color, description, size, avesizes, salespercent } =
+		returnObjectProperty(singleProduct?.[0]);
 	const hairLength = length;
 	const hairColor = color;
 	const hairTexture = singleProduct?.[0] && singleProduct?.[0]?.name;
-	const price = singleProduct?.[0]?.price[+length];
+	const productPrice = singleProduct?.[0]?.price[+length];
+	const price = salespercent
+		? roundTo2Dec(productPrice - productPrice * (salespercent / 100))
+		: productPrice;
 
 	const _singleProduct = {
 		name,
@@ -53,7 +59,7 @@ function IndianBundles() {
 		hairTexture,
 		salespercent,
 	};
-  
+
 	const desc = returnDecsriptionObject(
 		singleProduct,
 		"",
@@ -83,7 +89,7 @@ function IndianBundles() {
 									<div key={item._id}>
 										<Card
 											product={item}
-                      setSingleproduct={setSingleproduct}
+											setSingleproduct={setSingleproduct}
 											setSingleCart={setSingleCart}
 											scrollToTop={scrollToTop}
 										/>
@@ -102,7 +108,7 @@ function IndianBundles() {
 						<SingleProductModal
 							category={singleProduct?.[0]?.name}
 							singleProduct={singleProduct}
-              setSingleproduct={setSingleproduct}
+							setSingleproduct={setSingleproduct}
 							desc={desc}
 							size={size}
 							avesizes={avesizes}
@@ -114,6 +120,7 @@ function IndianBundles() {
 							cartItems={cartItems}
 							price={price}
 							length={length}
+							color={color}
 						/>
 					)}
 				</div>

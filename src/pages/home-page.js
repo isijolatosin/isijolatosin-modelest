@@ -31,8 +31,9 @@ function HomePage() {
 	// Getting products from db
 	const url1 = `${process.env.REACT_APP_BASE_ROUTE}/${PRODUCT}`;
 	const productsRes = useFetchHook(url1, PRODUCT);
-	const fetchProducts = useCallback(async () => {
-		setAllproducts(productsRes);
+	const fetchProducts = useCallback(() => {
+		const filteredHair = productsRes?.filter((item) => !item?.with);
+		setAllproducts(filteredHair);
 	}, [productsRes]);
 
 	// Getting slide imgaes from cloudinary

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectCartItems } from "../slices/appSlices";
 import { isInCart } from "../utils/helpers";
 import { addToCart } from "../utils/putToCartFunc";
+import { roundTo2Dec } from "../utils/roundTo2Dec";
 
 function Card({
 	product,
@@ -40,7 +41,10 @@ function Card({
 	// Adding to cart items
 	const { name, _id, images, color, description, salespercent } = product;
 	const image = images?.[0];
-	const price = product?.price[bundles?.length];
+	const productPrice = product?.price[+bundles?.length];
+	const price = product?.salespercent
+		? roundTo2Dec(productPrice - productPrice * (product?.salespercent / 100))
+		: productPrice;
 	const hairLength = bundles.length;
 	const hairColor = color;
 
@@ -79,6 +83,11 @@ function Card({
 					<div className="tw-pt-2 tw-flex tw-justify-between tw-w-full tw-text-[12px] md:tw-text-[14px]">
 						<p className="tw-font-bold">{product.name}</p>
 						<div className="tw-pb-2 tw-flex tw-flex-col">
+							{salespercent && (
+								<span className="tw-top-0 tw-right-0 tw-text-[9px] tw-bg-red-700 tw-text-white tw-px-3 tw-rounded-full tw-pt-[1px]">
+									Discounted!
+								</span>
+							)}
 							<span className="tw-font-semibold">
 								${price ? price : "***"} USD
 							</span>
