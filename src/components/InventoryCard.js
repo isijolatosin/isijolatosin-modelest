@@ -3,7 +3,7 @@ import axios from "axios";
 import { MdDeleteOutline } from "react-icons/md";
 import { MdOutlineEditNote } from "react-icons/md";
 import useFetchHook from "../utils/useFetchHook";
-import { PRODUCT, SINGLE_PRODUCT } from "../constant";
+import { PRODUCT, SINGLE_PRODUCT, CLOSURE } from "../constant";
 
 function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 	async function deleteSingleProduct() {
@@ -67,15 +67,24 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 			</div>
 			<div className="tw-flex tw-flex-row tw-w-[80%]">
 				<div className="tw-flex tw-flex-col tw-mr-5 tw-text-xs tw-font-light tw-w-[85%]">
-					<span className="tw-w-[100%]">{`Name: ${product.name}`}</span>
+					<div className="tw-relative">
+						<span className="tw-w-[100%]">{`Name: ${product.name}`}</span>
+						{product.with ? (
+							<span className="tw-absolute tw-bg-red-700 tw-top-[-5px] tw-right-[-15px] tw-w-[20px] tw-h-[20px] tw-font-bold tw-justify-center tw-flex tw-items-center tw-text-xs tw-text-white tw-rounded-full">
+								{product.with.toLowerCase() === CLOSURE ? "C" : "F"}
+							</span>
+						) : (
+							<></>
+						)}
+					</div>
 					<span className="tw-w-[100%]">{`Color: ${product.color}`}</span>
 					<span className="tw-w-[100%]">{`Brand: ${product.brand}`}</span>
 					{product?.availablecolor && (
 						<span className="tw-w-[100%]">{`Available Color: ${product.availablecolor}`}</span>
 					)}
 					<span className="tw-w-[100%]">{`Price: $${
-						product.price[product.length] ||
-						product.price[product.length.split(", ")[0]]
+						product?.price[product?.length] ||
+						product?.price[product?.length?.split(", ")[0]]
 					}`}</span>
 					<span className="tw-w-[100%]">{`Length: ${product.length}"`}</span>
 					{product.availablelength && (

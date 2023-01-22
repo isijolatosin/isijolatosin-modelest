@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Helmet } from "react-helmet";
 import Layout from "../components/shared/Layout";
-import axios from "axios";
 import Slideshow from "../utils/Slideshow";
 import RatingFix from "../components/shared/RatingFix";
 import { isInCart } from "../utils/helpers";
@@ -15,161 +14,59 @@ import Add2CartPopup from "../components/shared/Add2CartPopup";
 import { useDispatch, useSelector } from "react-redux";
 import Heading from "../components/Heading";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import PaymentOptions from "../components/shared/PaymentOptions";
-import { CLOSURE, FRONTAL } from "../constant";
-import { useGlobalContext } from "../context/useContextHook";
-import { roundTo2Dec } from "../utils/roundTo2Dec";
+import { PRODUCT } from "../constant";
+import useFetchHook from "../utils/useFetchHook";
+import {
+	returnDecsriptionObject,
+	returnObjectProperty,
+} from "../utils/returnObjectProperty";
 
 const DealPage = () => {
-	const [bundleDealsPercentage, setBundleDealsPercentage] = React.useState(12);
-	const [deals, setDeals] = React.useState([]);
+	const [singleDeal, setSingleDeal] = React.useState([]);
 	const [singleCart, setSingleCart] = React.useState(null);
-	const [lengthArray, setLengthArray] = React.useState([]);
-	const allSizes = ["14, 16, 18", "16, 18, 20", "18, 20, 22", "20, 22, 24"];
 	const [error, setError] = React.useState(false);
-	const [dealsImage, setDealsImage] = React.useState([]);
-	const [dealPrice, setDealPrice] = React.useState(null);
-	const [_quantity, setQuantity] = React.useState(1);
-	const [_length, setLength] = React.useState(null);
+	const [length, setLength] = React.useState(false);
 	const dispatch = useDispatch();
 	const cartItems = useSelector(selectCartItems);
-	const [sales, setSales] = React.useState(null);
-	const category = window.location.pathname
-		.split("/")
-		.filter((x) => x)
-		?.[window.location.pathname.split("/").filter((x) => x).length - 1].split(
-			"-"
-		)?.[
-		window.location.pathname
-			.split("/")
-			.filter((x) => x)
-			?.[window.location.pathname.split("/").filter((x) => x).length - 1].split(
-				"-"
-			).length - 1
-	];
-	const { fetchSalesPercentage, fetchBundlePercentage } = useGlobalContext();
-	React.useEffect(() => {
-		setSales(fetchSalesPercentage());
-		setBundleDealsPercentage(fetchBundlePercentage());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 
-	const frntlClsr = window.location.pathname
-		.split("-")
-		?.[window.location.pathname.split("-").length - 1].split("&")?.[
-		(window.location.pathname
-			.split("-")
-			?.[window.location.pathname.split("-").length - 1].split("&")).length - 1
-	];
-
-	async function fetchProducts() {
+	// Getting products from db
+	let { dealInfo } = useParams();
+	const productId = dealInfo.split("&")[1];
+	const category = dealInfo.split("-")[0];
+	const url1 = `${process.env.REACT_APP_BASE_ROUTE}/${PRODUCT}`;
+	const productsRes = useFetchHook(url1, PRODUCT);
+	const fetchProducts = useCallback(async () => {
 		try {
-			const {
-				data: { products },
-			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
-			const filtered = [];
-			let price = 0;
-			// eslint-disable-next-line array-callback-return
-			products.filter((product) => {
-				if (window.location.pathname.includes("bodywave")) {
-					if (product.name.toLowerCase() === "body wave") {
-						filtered.push(product);
-						// eslint-disable-next-line array-callback-return
-						filtered.map((product) => {
-							price += product?.price * 3 + 20 + 30 + 40;
-							if (product?.dealLength.split(" - ").length > 1) {
-								setLengthArray(product?.dealLength.split(" - "));
-							} else {
-								setLengthArray(...product?.dealLength.split(" - "));
-							}
-						});
-					}
-				}
-				if (window.location.pathname.includes("naturalcurly")) {
-					if (product.name.toLowerCase() === "natural curly") {
-						filtered.push(product);
-						// eslint-disable-next-line array-callback-return
-						filtered.map((product) => {
-							price += product?.price * 3 + 20 + 30 + 40;
-							if (product?.dealLength.split(" - ").length > 1) {
-								setLengthArray(product?.dealLength.split(" - "));
-							} else {
-								setLengthArray(...product?.dealLength.split(" - "));
-							}
-						});
-					}
-				}
-				if (window.location.pathname.includes("frontal")) {
-					if (product.type.toLowerCase() === "frontal") {
-						filtered.push(product);
-						price += product?.price + 20;
-					}
-				} else if (window.location.pathname.includes("closure")) {
-					if (product.type.toLowerCase() === "closure") {
-						filtered.push(product);
-						price += product?.price + 10;
-					}
-				}
-				const discnt =
-					bundleDealsPercentage &&
-					roundTo2Dec(price * (bundleDealsPercentage / 100));
-
-				setDealPrice(discnt ? roundTo2Dec(price - discnt) : price);
-			});
-
-			setDeals(filtered.sort((a, b) => a.name.localeCompare(b.name)));
-			const imgs = [];
-			filtered
-				.sort((a, b) => a.name.localeCompare(b.name))
-				// eslint-disable-next-line array-callback-return
-				.map((deal) => {
-					const imgObj = [
-						{
-							image: deal?.images[0],
-							image2: deal?.images[1],
-						},
-					];
-					imgs.push(...imgObj);
-				});
-			const imgSpread = [];
-			// eslint-disable-next-line array-callback-return
-			imgs.map((item) => {
-				imgSpread.push(item.image);
-				imgSpread.push(item.image2);
-			});
-			const rever = imgSpread.filter((x) => x).reverse();
-			setDealsImage(rever);
+			const filterSingleDeal = productsRes?.filter(
+				(product) => product?._id === productId
+			);
+			setSingleDeal(filterSingleDeal);
 		} catch (error) {
 			console.log(error);
 		}
-	}
+	}, [productsRes, productId]);
 
 	React.useEffect(() => {
 		fetchProducts();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [fetchProducts]);
 
 	// Adding to cart items
-	const name = [FRONTAL, CLOSURE].includes(deals[0]?.name.toLowerCase())
-		? deals[1]?.name
-		: deals[0]?.name;
-	const id = [FRONTAL, CLOSURE].includes(deals[0]?.name.toLowerCase())
-		? deals?.[1]?._id
-		: deals?.[0]?._id;
-	const image = [FRONTAL, CLOSURE].includes(deals[0]?.name.toLowerCase())
-		? deals?.[1]?.images[0]
-		: deals?.[0]?.images[0];
-	const description = [FRONTAL, CLOSURE].includes(deals[0]?.name.toLowerCase())
-		? deals?.[1]?.description
-		: deals?.[0]?.description;
-	const price = dealPrice;
-	const hairLength = _length;
-	const hairTexture = [FRONTAL, CLOSURE].includes(deals[0]?.name.toLowerCase())
-		? deals?.[1]?.name
-		: deals?.[0]?.name;
-	const quantity = +_quantity;
-
+	const {
+		name,
+		id,
+		image,
+		avesizes,
+		_singleprice,
+		description,
+		hairTexture,
+		_hairLength,
+	} = returnObjectProperty(singleDeal?.[0]);
+	const quantity = 1;
+	const price = _singleprice;
+	const lengthArray = [_hairLength];
+	const hairLength = length;
 	const dealsProduct = {
 		name,
 		id,
@@ -180,34 +77,17 @@ const DealPage = () => {
 		hairLength,
 		quantity,
 	};
-
-	const desc = [
-		{ key: "Brand", value: `Raw ${deals[0]?.brand} hair` },
-		{
-			key: "Hair Texture",
-			value: name,
-		},
-		{ key: "Hair Color", value: deals[1]?.color },
-
-		{ key: "Material", value: "100% Human Hair" },
-		{ key: "Can be bleached.dyed", value: "Yes" },
-		{ key: "Density", value: "150% - 200%" },
-		{
-			key: "Return policy",
-			value:
-				"We accept 10-days no reason return exchange with hair not been used",
-		},
-		{
-			key: "Delivery time",
-			value:
-				"We usually ship the order within 24 hours after order confirmation, except for weekends and holidays - (order confirmation is within 2 weeks)",
-		},
-	];
+	const desc = returnDecsriptionObject(
+		singleDeal?.[0],
+		"",
+		singleDeal?.[0]?.name,
+		singleDeal?.[0]?.color
+	);
 
 	let timeOut;
 	const addToCart = () => {
 		clearTimeout(timeOut);
-		if (quantity && _length) {
+		if (length) {
 			dispatch(addToCartItem(dealsProduct));
 			timeOut = setTimeout(() => {
 				setSingleCart(dealsProduct);
@@ -218,7 +98,7 @@ const DealPage = () => {
 	};
 
 	const IncreaseItem = () => {
-		if (quantity && _length) {
+		if (length) {
 			dispatch(increaseCartItem(dealsProduct));
 			timeOut = setTimeout(() => {
 				setSingleCart(dealsProduct);
@@ -233,16 +113,13 @@ const DealPage = () => {
 			<Helmet>
 				<title>{`${name}-Hair-Bundle-Deals`}</title>
 			</Helmet>
-			<Layout sales={bundleDealsPercentage}>
-				<div
-					className={`${
-						sales ? "tw-pt-[55px] md:tw-pt-[50px]" : "tw-pt-0"
-					} tw-w-full tw-bg-white tw-flex tw-flex-col tw-items-center`}>
+			<Layout>
+				<div className="tw-pt-0 tw-w-full tw-bg-white tw-flex tw-flex-col tw-items-center">
 					<div className="tw-fixed tw-z-20 tw-top-0 md:tw-top-[-95px] tw-right-0">
 						<Add2CartPopup
 							singleCart={singleCart}
 							setSingleCart={setSingleCart}
-							quantity={_quantity}
+							quantity={1}
 						/>
 					</div>
 					<div className="tw-pt-[70px] xl:tw-w-[80%] tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
@@ -257,28 +134,27 @@ const DealPage = () => {
 							</div>
 						</div>
 						<div className="">
-							<Slideshow images={dealsImage} iconSize={25} />
+							<Slideshow images={singleDeal?.[0]?.images} iconSize={25} />
 						</div>
 						<div className="tw-px-5">
-							<h1 className="tw-text-xl md:tw-text-3xl tw-uppercase">
-								{name} & {frntlClsr} - 3 Bundle Deal
-							</h1>
+							<h1 className="tw-text-xl md:tw-text-3xl tw-uppercase">{name}</h1>
 							<div className="tw-mb-5">
 								<RatingFix isReview={true} size={20} color="black" />
 							</div>
 							<span>Bundles</span>
 							<div className="tw-grid tw-grid-cols-1 lg:tw-grid-cols-2 tw-gap-2">
-								{allSizes.map(
+								{avesizes?.map(
 									// eslint-disable-next-line array-callback-return
-									(item) =>
+									(item, idx) =>
 										lengthArray?.includes(item) ? (
 											<div
+												key={idx}
 												onClick={() => {
 													setLength(item);
 													setError(false);
 												}}
 												className={`tw-text-center tw-mr-2 tw-mb-2 tw-p-2 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
-													item === _length && "tw-bg-neutral-900 tw-text-white"
+													item === length && "tw-bg-neutral-900 tw-text-white"
 												}`}>
 												<span>{item} - inches</span>
 											</div>
@@ -290,33 +166,18 @@ const DealPage = () => {
 										)
 								)}
 							</div>
-
-							<div className="tw-flex tw-items-center">
-								<span className="tw-mr-2">Quantity: </span>
-								<div>
-									<input
-										type="number"
-										name="quantity"
-										id="quantity"
-										value={_quantity}
-										onChange={(e) => setQuantity(e.target.value)}
-										placeholder="Quantity"
-										className="tw-mt-5 tw-block tw-w-[50px] tw-px-3 tw-py-2 tw-border tw-border-neutral-100 tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5"
-									/>
-								</div>
-							</div>
 							<div className="tw-mb-1">
-								<span className="tw-text-3xl">${dealPrice * _quantity}</span>
+								<span className="tw-text-3xl">${_singleprice}</span>
 							</div>
-							<PaymentOptions price={price} />
+							<PaymentOptions price={_singleprice} />
 							{error && (
 								<div>
 									<p className="tw-text-left tw-mb-2 tw-mt-5 tw-text-red-600 tw-text-xs">
-										Please provide length and quantity for your order
+										Please provide length for your order
 									</p>
 								</div>
 							)}
-							{isInCart(dealsProduct, cartItems) ? (
+							{isInCart(singleDeal?.[0], cartItems) ? (
 								<div
 									className={`tw-text-white tw-text-sm tw-font-light tw-max-w-[50%] tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:tw-text-neutral-900 hover:tw-bg-white hover:tw-cursor-pointer tw-ease-in tw-duration-300 ${
 										!error && "tw-mt-5"
@@ -338,7 +199,9 @@ const DealPage = () => {
 							</div>
 							<div className="tw-grid tw-mt-5 tw-grid-cols-1 md:tw-grid-cols-2 xl:tw-grid-cols-3 md:tw-gap-x-10">
 								{desc.map((item, idx) => (
-									<div className="tw-flex tw-flex-col tw-mb-2 tw-text-sm tw-capitalize">
+									<div
+										key={idx}
+										className="tw-flex tw-flex-col tw-mb-2 tw-text-sm tw-capitalize">
 										<span className="tw-uppercase tw-text-xs tw-text-red-600 tw-font-bold">
 											{item.key}:{" "}
 										</span>
@@ -350,7 +213,7 @@ const DealPage = () => {
 								<Heading children="Maintenance" />
 							</div>
 							<div className="tw-grid tw-mt-5 tw-grid-cols-1 md:tw-grid-cols-2 md:tw-gap-x-10">
-								{deals[0]?.maintenance.map((item, idx) => (
+								{singleDeal?.[0]?.maintenance?.map((item, idx) => (
 									<li
 										key={idx}
 										className="tw-text-sm tw-italic tw-text-neutral-500 tw-font-light tw-mb-2">

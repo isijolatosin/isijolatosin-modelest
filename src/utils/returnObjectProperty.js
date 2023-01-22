@@ -15,28 +15,34 @@ export function returnObjectProperty(dt) {
 		_singleprice,
 		_vWPriceClosure,
 		_vWPriceFrontal,
-		salespercent;
+		salespercent,
+		_hairLength,
+		_with;
 	if (dt) {
 		name = dt?.name;
 		id = dt?._id;
-		image = dt?.images[0];
-		color = dt?.color;
+		image = dt?.images?.[0];
+		color = dt?.color ? dt?.color : "";
 		description = dt?.description;
-		width = dt?.widthlength;
+		width = dt?.widthlength ? dt?.widthlength : "";
 		_hairColor =
-			dt?.type.toLowerCase() === FRONTAL
+			dt?.type?.toLowerCase() === FRONTAL
 				? [NATURAL_BLACK]
-				: dt?.type.toLowerCase() === CLOSURE
+				: dt?.type?.toLowerCase() === CLOSURE
 				? [NATURAL_BLACK, BLONDE613]
 				: null;
-		avesizes = dt?.availablelength?.split(", ");
-		sizes = dt?.length.split(", ");
-		_hairTexture = dt?.texture;
-		_sales = dt?.sales;
-		_singleprice = dt?.price;
-		_vWPriceClosure = dt?.name.toLowerCase().includes(`-${CLOSURE}`);
-		_vWPriceFrontal = dt?.name.toLowerCase().includes(`-${FRONTAL}`);
+		avesizes = dt?.availablelength?.includes(",")
+			? dt?.availablelength?.split(", ")
+			: [dt?.availablelength];
+		sizes = dt?.length?.indexOf(",") > -1 ? dt?.length?.split(", ") : "";
+		_hairTexture = dt?.texture ? dt?.texture : "";
+		_sales = dt?.sales ? dt?.sales : dt?.sales;
+		_singleprice = dt?.price[dt?.length] || dt?.price;
+		_vWPriceClosure = dt?.name?.toLowerCase()?.includes(`-${CLOSURE}`);
+		_vWPriceFrontal = dt?.name?.toLowerCase()?.includes(`-${FRONTAL}`);
 		salespercent = dt?.salespercent;
+		_with = dt?.with ? dt?.with : "";
+		_hairLength = dt?.length ? dt?.length : "";
 	}
 	return {
 		name,
@@ -54,6 +60,8 @@ export function returnObjectProperty(dt) {
 		_vWPriceClosure,
 		_vWPriceFrontal,
 		salespercent,
+		_with,
+		_hairLength,
 	};
 }
 export function returnDecsriptionObject(dt, texture, name, color, avesizes) {

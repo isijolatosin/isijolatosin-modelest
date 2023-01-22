@@ -10,13 +10,13 @@ function VirginWigs() {
 
 	const url = `${process.env.REACT_APP_BASE_ROUTE}/${PRODUCT}`;
 	const productsRes = useFetchHook(url, PRODUCT);
-	const fetchProducts = useCallback(async () => {
+	const fetchProducts = useCallback(() => {
 		try {
 			const filtered = [];
 			// eslint-disable-next-line array-callback-return
-			productsRes.filter((product) => {
-				if (product.type.toLowerCase().includes("virgin wig")) {
-					filtered.push(product);
+			productsRes?.filter((product) => {
+				if (product?.type?.toLowerCase()?.includes("virgin wig")) {
+					filtered?.push(product);
 				}
 			});
 			setWigs(filtered);
@@ -46,7 +46,7 @@ function VirginWigs() {
 						<div className="tw-w-full tw-flex tw-flex-wrap tw-justify-center tw-mx-auto">
 							{wigs &&
 								wigs?.map((wig) => (
-									<div key={wig.id}>
+									<div key={wig._id}>
 										<WigsCard product={wig} />
 									</div>
 								))}

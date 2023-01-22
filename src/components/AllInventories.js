@@ -294,7 +294,7 @@ function AllInventories({ fetchAllData, fetchProducts }) {
 		});
 	};
 
-	function updateSingleProduct(e) {
+	async function updateSingleProduct(e) {
 		e.preventDefault();
 		const id = singleProduct?.id;
 		try {
@@ -328,7 +328,7 @@ function AllInventories({ fetchAllData, fetchProducts }) {
 			) {
 				return setPostError("Missing Credentials");
 			}
-			axios.patch(
+			await axios.patch(
 				`${process.env.REACT_APP_BASE_ROUTE}/products/${id}`,
 				product
 			);
