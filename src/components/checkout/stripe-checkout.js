@@ -1,10 +1,10 @@
-import React from 'react'
-import { Elements } from '@stripe/react-stripe-js'
-import styled from 'styled-components'
-import { loadStripe } from '@stripe/stripe-js'
-import CheckoutForm2 from './CheckoutForm2'
+import React from "react";
+import { Elements } from "@stripe/react-stripe-js";
+import styled from "styled-components";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm2 from "./CheckoutForm2";
 
-const promise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
+const promise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const StripeCheckout = ({
 	total,
@@ -12,7 +12,6 @@ const StripeCheckout = ({
 	setRedirect,
 	setPageCancel,
 	discountPrice,
-	sales,
 	showPaypalPayment,
 	showCardPayment,
 	setSucceeded,
@@ -23,7 +22,6 @@ const StripeCheckout = ({
 			<Elements stripe={promise}>
 				<CheckoutForm2
 					total={total}
-					sales={sales}
 					itemCount={itemCount}
 					setRedirect={setRedirect}
 					setSucceeded={setSucceeded}
@@ -35,8 +33,8 @@ const StripeCheckout = ({
 				/>
 			</Elements>
 		</Wrapper>
-	)
-}
+	);
+};
 
 const Wrapper = styled.section`
 	form {
@@ -134,7 +132,7 @@ const Wrapper = styled.section`
 	.spinner:before,
 	.spinner:after {
 		position: absolute;
-		content: '';
+		content: "";
 	}
 
 	.spinner:before {
@@ -179,6 +177,6 @@ const Wrapper = styled.section`
 			width: 80vw;
 		}
 	}
-`
+`;
 
-export default StripeCheckout
+export default StripeCheckout;

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext } from "react";
 import { Helmet } from "react-helmet";
 import emailjs from "emailjs-com";
@@ -13,10 +14,11 @@ import { db } from "../firebase";
 import Layout from "../components/shared/Layout";
 import { UserContext } from "../context/user-context";
 import { AUTHORIZED_ID } from "../constant";
-import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import Heading from "../components/Heading";
 import OrderSum from "../components/shared/OrderSum";
+import { useGlobalContext } from "../context/useContextHook";
+import { roundTo2Dec } from "../utils/roundTo2Dec";
 
 const logo = require("../assets/logo2.png");
 
@@ -40,9 +42,10 @@ const Success = () => {
 					.slice(6, localStorage.getItem("phone").length)}`
 			: localStorage.getItem("phone");
 	const shippingCost = JSON.parse(localStorage.getItem("shippingCost"));
-	const finalPriceToPay = +(+localStorage.getItem("finalPriceToPay")).toFixed(
-		2
-	);
+	const tax = JSON.parse(
+		localStorage.getItem("finalPriceToPayObject")
+	)?.taxInDollar;
+	const finalPriceToPay = roundTo2Dec(+localStorage.getItem("finalPriceToPay"));
 
 	const finalPriceToPayObject = JSON.parse(
 		localStorage.getItem("finalPriceToPayObject")
@@ -66,14 +69,10 @@ const Success = () => {
 	const orderNo = localStorage.getItem("order no");
 	const userEmail = user?.email || localStorage.getItem("altEmail");
 	const [showInfo, setShowInfo] = React.useState(false);
-	const discountedAmount = Number(
-		(totalPriceFromCart - discountPrice).toFixed(2)
-	);
-
+	const discountedAmount = roundTo2Dec(totalPriceFromCart - discountPrice);
+	const { fetchSalesPercentage } = useGlobalContext();
 	React.useEffect(() => {
 		setSales(fetchSalesPercentage());
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	let nameArray = [];
@@ -252,8 +251,8 @@ const Success = () => {
 								setShowInfo={setShowInfo}
 								showInfo={showInfo}
 								isSuccess={true}
-								isSuccessfull={true}
 								shipCost={shippingCost.cost}
+								tax={tax}
 							/>
 						</div>
 						<div className={`tw-px-5 tw-pt-5 tw-bg-neutral-200`}>

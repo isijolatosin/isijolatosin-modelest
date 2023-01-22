@@ -18,17 +18,18 @@ export function returnObjectProperty(dt) {
 		salespercent,
 		_with,
 		_hairLength;
+    
 	if (dt) {
-		name = dt?.[0]?.name;
-		id = dt?.[0]?._id;
-		image = dt?.[0]?.images[0];
-		color = dt?.[0]?.color;
-		description = dt?.[0]?.description;
-		width = dt?.[0]?.widthlength;
+		name = dt?.name;
+		id = dt?._id;
+		image = dt?.images?.[0];
+		color = dt?.color ? dt?.color : "";
+		description = dt?.description;
+		width = dt?.widthlength ? dt?.widthlength : "";
 		_hairColor =
-			dt?.[0]?.type.toLowerCase() === FRONTAL
+			dt?.type?.toLowerCase() === FRONTAL
 				? [NATURAL_BLACK]
-				: dt?.[0]?.type.toLowerCase() === CLOSURE
+				: dt?.type?.toLowerCase() === CLOSURE
 				? [NATURAL_BLACK, BLONDE613]
 				: null;
 		avesizes = dt?.availablelength?.includes(",")
@@ -68,7 +69,7 @@ export function returnDecsriptionObject(dt, texture, name, color, avesizes) {
 	const obj1 = { key: "Brand", value: `Raw ${dt?.[0]?.brand} hair` };
 	const obj2 = {
 		key: "Hair Texture",
-		value: [FRONTAL, CLOSURE].includes(dt?.[0]?.type?.toLowerCase())
+		value: [FRONTAL, CLOSURE].includes(dt?.type?.toLowerCase())
 			? texture
 				? texture?.join(", ")
 				: ""

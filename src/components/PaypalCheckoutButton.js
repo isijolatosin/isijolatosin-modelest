@@ -1,6 +1,7 @@
 import React from "react";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { DISCOUNT_PERCENTAGE } from "../constant";
+import { useGlobalContext } from "../context/useContextHook";
 
 export default function PayplaCheckoutButton({
 	price,
@@ -11,9 +12,9 @@ export default function PayplaCheckoutButton({
 	setPageCancel,
 	shipMethod,
 	discountPrice,
-	sales,
 	itemCount,
 }) {
+	const { fetchSalesPercentage } = useGlobalContext();
 	React.useEffect(() => {
 		localStorage.removeItem("payload");
 	}, []);
@@ -43,7 +44,7 @@ export default function PayplaCheckoutButton({
 							shipCost: shipCost,
 							cartItems: cartItems,
 							shipMethod: shipMethod,
-							discountPercentage: sales && DISCOUNT_PERCENTAGE,
+							discountPercentage: fetchSalesPercentage() && DISCOUNT_PERCENTAGE,
 							itemCount,
 						}),
 					})

@@ -8,10 +8,13 @@ import { useSelector } from "react-redux";
 import Add2CartPopup from "../components/shared/Add2CartPopup";
 import SingleProductModal from "../components/shared/SingleProductModal";
 import Reviews from "../components/shared/Reviews";
-import { returnDecsriptionObject } from "../utils/returnObjectProperty";
+import {
+	returnDecsriptionObject,
+	returnObjectProperty,
+} from "../utils/returnObjectProperty";
 
 function ClosureFrontal() {
-	const [singleProducts, setSingleproducts] = React.useState(null);
+	const [singleProduct, setSingleproduct] = React.useState(null);
 	const [closureFrontal, setClosureFrontal] = React.useState([]);
 	const [show, setShow] = React.useState(false);
 	const [error, setError] = React.useState(false);
@@ -44,22 +47,17 @@ function ClosureFrontal() {
 	const scrollToTop = function scrollToTop() {
 		window.scrollTo(0, 0);
 	};
-	const sizes = singleProducts?.[0].availablelength?.split(", ");
 
 	// Adding to cart items
-	const name = singleProducts?.[0] && singleProducts?.[0]?.name;
-	const id = singleProducts?.[0] && singleProducts?.[0]?._id;
-	const image = singleProducts?.[0] && singleProducts?.[0]?.images[0];
-	const color = singleProducts?.[0] && singleProducts?.[0]?.color;
-	const description = singleProducts?.[0] && singleProducts?.[0]?.description;
+	const { name, id, image, color, description, sizes, salespercent } =
+		returnObjectProperty(singleProduct?.[0]);
 	const hairLength = length;
 	const hairColor = _color;
 	const quantity = 1;
 	const price =
-		singleProducts?.[0] &&
-		singleProducts?.[0]?.price[singleProducts?.[0]?.length];
+		singleProduct?.[0] && singleProduct?.[0]?.price[singleProduct?.[0]?.length];
 
-	const singleProduct = {
+	const _singleProduct = {
 		name,
 		id,
 		image,
@@ -68,8 +66,15 @@ function ClosureFrontal() {
 		hairLength,
 		description,
 		quantity,
+		salespercent,
 	};
-	const desc = returnDecsriptionObject(singleProducts, "", name, color, sizes);
+	const desc = returnDecsriptionObject(
+		singleProduct?.[0],
+		"",
+		name,
+		color,
+		sizes
+	);
 
 	return (
 		<div className="home">
@@ -93,7 +98,7 @@ function ClosureFrontal() {
 										<Card
 											key={item._id}
 											product={item}
-											setSingleproducts={setSingleproducts}
+											setSingleproduct={setSingleproduct}
 											setSingleCart={setSingleCart}
 											scrollToTop={scrollToTop}
 										/>
@@ -109,17 +114,17 @@ function ClosureFrontal() {
 						</div>
 					)}
 
-					{singleProducts && (
+					{singleProduct && (
 						<SingleProductModal
-							category={singleProducts?.[0]?.name}
-							singleProducts={singleProducts}
-							setSingleproducts={setSingleproducts}
+							category={singleProduct?.[0]?.name}
+							singleProduct={singleProduct}
+							setSingleproduct={setSingleproduct}
 							desc={desc}
 							sizes={sizes}
 							setLength={setLength}
 							setError={setError}
 							error={error}
-							singleProduct={singleProduct}
+							_singleProduct={_singleProduct}
 							cartItems={cartItems}
 							setColor={setColor}
 							price={price}

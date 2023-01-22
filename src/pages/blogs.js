@@ -2,15 +2,11 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import Heading from "../components/Heading";
 import Layout from "../components/shared/Layout";
-import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
 
 function Blogs() {
 	const [show, setShow] = React.useState(false);
-	const [sales, setSales] = React.useState(null);
 
 	React.useEffect(() => {
-		setSales(fetchSalesPercentage());
-
 		setShow(true);
 	}, []);
 
@@ -20,10 +16,7 @@ function Blogs() {
 				<title>blogs</title>
 			</Helmet>
 			<Layout>
-				<div
-					className={`${
-						sales ? "tw-pt-[70px] md:tw-pt-[70px]" : "tw-pt-[60px]"
-					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10`}>
+				<div className="tw-pt-[60px] tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10">
 					{!show && (
 						<div className="tw-bg-neutral-300 tw-pt-[50px] tw-flex tw-justify-center">
 							<div className="tw-rounded-full progress">

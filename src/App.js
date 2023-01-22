@@ -127,66 +127,9 @@ function App() {
 					{/*  */}
 					{/* ****************** DEALS ******************/}
 					<Route exact path="/deals/:dealInfo" element={<DealPage />} />
-					<Route
-						exact
-						path="/bodywave&closure/:reviews"
-						element={<DealPage />}
-					/>
 
 					{/*  */}
 					{/*  */}
-					{/* ****************** REVIEWS ******************/}
-					<Route
-						exact
-						path="/bodywave&frontal/:reviews"
-						element={<DealPage />}
-					/>
-					<Route
-						exact
-						path="/bundles/:brand/:reviews"
-						element={<VietnameseBundles />}
-					/>
-					<Route
-						exact
-						path="/bundles/:brand/:reviews"
-						element={<IndianBundles />}
-					/>
-					<Route
-						exact
-						path="/closure-frontal/indian/:reviews"
-						element={<IndianClosureFrontal />}
-					/>
-					<Route
-						exact
-						path="/jet-black-&-blonde/indian/:reviews"
-						element={<IndianJetBlackHair />}
-					/>
-					<Route
-						exact
-						path="/bundles/:brand/:reviews"
-						element={<VirginBundles />}
-					/>
-					<Route
-						exact
-						path="/naturalcurly&closure/:reviews"
-						element={<DealPage />}
-					/>
-					<Route
-						exact
-						path="/naturalcurly&frontal/:reviews"
-						element={<DealPage />}
-					/>
-					<Route
-						exact
-						path="/closure-frontal/virgin/:reviews"
-						element={<VirginClosureFrontal />}
-					/>
-					<Route
-						exact
-						path="/closure-frontal/vietnamese/:reviews"
-						element={<VietnameseClosureFrontal />}
-					/>
-
 					<Route exact path="*" element={<NotFound />} />
 					<Route exact path="/" element={<HomePage />} />
 				</Routes>

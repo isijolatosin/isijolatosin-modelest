@@ -1,6 +1,7 @@
 import React from "react";
 import { AiFillStar } from "react-icons/ai";
 import generateRandom from "../../utils/RandomGen";
+import { roundTo2Dec } from "../../utils/roundTo2Dec";
 
 const RatingFix = React.memo(({ isNum, isReview, size, color, color2 }) => {
 	const MAX_RATING = 5;
@@ -8,7 +9,7 @@ const RatingFix = React.memo(({ isNum, isReview, size, color, color2 }) => {
 	const [rating] = React.useState(
 		Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1) + MIN_RATING)
 	);
-	const deci = +Math.random().toFixed(1);
+	const deci = roundTo2Dec(Math.random());
 	return (
 		<div className="tw-flex tw-items-center">
 			{Array(rating)

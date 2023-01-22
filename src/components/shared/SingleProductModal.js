@@ -11,28 +11,28 @@ import { CLOSURE, FRONTAL } from "../../constant";
 
 const SingleProductModal = ({
 	price,
-	singleProducts,
-	setSingleproducts,
+	singleProduct,
+	setSingleproduct,
 	setSingleCart,
 	desc,
 	avesizes,
 	setLength,
 	setError,
 	error,
-	singleProduct,
+	_singleProduct,
 	cartItems,
 	length,
 	color,
 }) => {
 	const dispatch = useDispatch();
-	const _hairColor = singleProducts?.[0]?.availablecolor?.split(", ");
+	const _hairColor = singleProduct?.[0]?.availablecolor?.split(", ");
 	const handleAdd = (increase) => {
 		if (price && length && color) {
 			addToCart(
 				price,
 				length,
 				dispatch,
-				singleProduct,
+				_singleProduct,
 				setSingleCart,
 				setError,
 				increase && increase
@@ -44,21 +44,21 @@ const SingleProductModal = ({
 	};
 	return (
 		<div>
-			{singleProducts && (
+			{singleProduct && (
 				<div className="single tw-fixed tw-z-40 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-[0px] md:tw-pt-16 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
 					<div className="md:tw-w-[95%] md:tw-mx-auto tw-w-[100%] tw-h-full tw-flex md:tw-flex-row tw-flex-col">
 						<div className="tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
-							<Slideshow images={singleProducts?.[0].images} iconSize={25} />
+							<Slideshow images={singleProduct?.[0].images} iconSize={25} />
 							<div className="tw-w-[90%] tw-mx-auto">
 								<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
-									{singleProducts?.[0].name}
+									{singleProduct?.[0].name}
 								</p>
 								<div className="tw-flex tw-items-center tw-mb-5">
 									<span className="tw-mr-2">Review: </span>
 									<Rating isNum={true} />
 								</div>
 								<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-mt-0">
-									Description: {singleProducts?.[0].description}
+									Description: {singleProduct?.[0].description}
 								</p>
 							</div>
 							{_hairColor && (
@@ -104,7 +104,7 @@ const SingleProductModal = ({
 						<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900">
 							<div className="tw-flex tw-flex-col">
 								{[FRONTAL, CLOSURE].includes(
-									singleProducts?.[0]?.type.toLowerCase()
+									singleProduct?.[0]?.type.toLowerCase()
 								) ? (
 									<span className="tw-mt-2 tw-text-xs tw-text-green-700">
 										Select color and / or length to calculate sales price...
@@ -114,10 +114,18 @@ const SingleProductModal = ({
 										Select length to calculate sales price...
 									</span>
 								)}
-								<p className="tw-font-medium tw-text-xl tw-my-[10px]">
-									Price: ${price ? price : " ***"}{" "}
-									<span className="tw-text-[12px] tw-font-light">USD</span>
-								</p>
+
+								<div className="tw-flex tw-items-start tw-w-[70%] lg:tw-w-[45%] tw-mb-[10px]">
+									<p className="tw-font-medium tw-text-xl tw-my-[10px]">
+										Price: ${price ? price : " ***"}{" "}
+										<span className="tw-text-[12px] tw-font-light">USD</span>
+									</p>
+									{_singleProduct?.salespercent && (
+										<span className="tw-ml-5 tw-text-[9px] tw-mt-1 tw-bg-red-700 tw-text-white tw-px-3 tw-rounded-full tw-pt-[1px]">
+											Discounted!
+										</span>
+									)}
+								</div>
 								<div className="tw-text-sm tw-font-light">
 									<div>
 										Color: <span>{color ? color : "***"}</span>
@@ -133,10 +141,10 @@ const SingleProductModal = ({
 									<div>
 										<p className="tw-text-center tw-mb-2 tw-text-red-600 tw-text-xs">
 											{[FRONTAL, CLOSURE].includes(
-												singleProducts?.[0]?.type.toLowerCase()
+												singleProduct?.[0]?.type.toLowerCase()
 											)
-												? `Please provide color and length for ${singleProducts?.[0].name}`
-												: `Please provide length for ${singleProducts?.[0].name}`}
+												? `Please provide color and length for ${singleProduct?.[0].name}`
+												: `Please provide length for ${singleProduct?.[0].name}`}
 										</p>
 									</div>
 								)}
@@ -172,12 +180,12 @@ const SingleProductModal = ({
 										</div>
 									))}
 								</div>
-								{singleProducts?.[0]?.maintenance && (
+								{singleProduct?.[0]?.maintenance && (
 									<div className="tw-mt-10 tw-mb-2">
 										<Heading children="Maintenance" isBold={false} />
 									</div>
 								)}
-								{singleProducts?.[0]?.maintenance?.map((item, idx) => (
+								{singleProduct?.[0]?.maintenance?.map((item, idx) => (
 									<li
 										key={idx}
 										className="tw-text-sm tw-italic tw-text-neutral-500 tw-font-light tw-mb-2 ">
@@ -189,7 +197,7 @@ const SingleProductModal = ({
 							<div className="tw-fixed tw-top-3 tw-z-40 tw-right-3">
 								<div
 									onClick={() => {
-										setSingleproducts(null);
+										setSingleproduct(null);
 										setLength("14");
 									}}
 									className="tw-text-2xl tw-text-white tw-bg-neutral-900 tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-absolute tw-top-[20px] tw-right-[20px] tw-ease-in tw-duration-300 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900">

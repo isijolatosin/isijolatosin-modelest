@@ -5,7 +5,7 @@ import { selectCartItems } from "../slices/appSlices";
 import { isInCart } from "../utils/helpers";
 import { addToCart } from "../utils/putToCartFunc";
 
-function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
+function Card({ product, setSingleproduct, setSingleCart, scrollToTop }) {
 	const cartItems = useSelector(selectCartItems);
 	const [error, setError] = React.useState(false);
 	const dispatch = useDispatch();
@@ -22,7 +22,7 @@ function Card({ product, setSingleproducts, setSingleCart, scrollToTop }) {
 			const result = products.filter(
 				(product) => product._id === event.target.id
 			);
-			setSingleproducts(result);
+			setSingleproduct(result);
 		} catch (error) {
 			console.log(error);
 		}

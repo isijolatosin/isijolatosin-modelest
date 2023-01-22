@@ -1,14 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import Heading from "../components/Heading";
 import Layout from "../components/shared/Layout";
-import { fetchSalesPercentage } from "../utils/salesPercentageNumber";
+import { useGlobalContext } from "../context/useContextHook";
 
 function Faqs() {
 	const [show, setShow] = React.useState(false);
 	const [sales, setSales] = React.useState(null);
 
+	const { fetchSalesPercentage } = useGlobalContext();
 	React.useEffect(() => {
 		setSales(fetchSalesPercentage());
 	}, []);

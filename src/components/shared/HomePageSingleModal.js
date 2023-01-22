@@ -22,11 +22,12 @@ import {
 	returnObjectProperty,
 } from "../../utils/returnObjectProperty";
 import { addToCart } from "../../utils/putToCartFunc";
+import { roundTo2Dec } from "../../utils/roundTo2Dec";
 
 const HomePageSingleModal = ({
-	singleProducts,
+	singleProduct,
 	setSingleCart,
-	setSingleproducts,
+	setSingleproduct,
 	sales,
 }) => {
 	const cartItems = useSelector(selectCartItems);
@@ -47,14 +48,18 @@ const HomePageSingleModal = ({
 		avesizes,
 		sizes,
 		_hairTexture,
-	} = returnObjectProperty(singleProducts);
+		salespercent,
+	} = returnObjectProperty(singleProduct?.[0]);
 	const texture = [STRAIGHT, BODYWAVE, CURLY, WAVY];
 	const hairLength = length;
 	const hairColor = _color || color;
 	const hairTexture = _hairType || _hairTexture;
-	const price = singleProducts?.[0]?.price[+length];
+	const productPrice = singleProduct?.[0]?.price[+length];
+	const price = salespercent
+		? roundTo2Dec(productPrice - productPrice * (salespercent / 100))
+		: productPrice;
 
-	const singleProduct = {
+	const _singleProduct = {
 		name,
 		id,
 		image,
@@ -64,30 +69,32 @@ const HomePageSingleModal = ({
 		description,
 		width,
 		hairTexture,
+		salespercent,
 	};
+
 	return (
 		<div className="single tw-fixed tw-z-40 tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-0 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white md:tw-pt-5 ">
 			<div className="general-scrollbar-hide md:tw-mx-auto tw-w-[100%] md:tw-w-[90%] tw-h-full tw-flex md:tw-flex-row tw-flex-col tw-overflow-scroll">
 				<div className="tw-relative tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
 					<Slideshow
-						images={singleProducts?.[0]?.images}
+						images={singleProduct?.[0]?.images}
 						iconSize={25}
-						video={singleProducts[0]?.video}
+						video={singleProduct?.[0]?.video}
 					/>
 					<div className="tw-w-[90%] tw-mx-auto md:tw-w-[100%]">
 						<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
-							{singleProducts?.[0]?.name}
+							{singleProduct?.[0]?.name}
 						</p>
 						<div className="tw-flex tw-items-center tw-mb-5">
 							<span className="tw-mr-2">Review: </span>
 							<Rating isNum={true} color2="[#bba371]" />
 						</div>
 						<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-mt-0">
-							Description: {singleProducts?.[0]?.description}
+							Description: {singleProduct?.[0]?.description}
 						</p>
 					</div>
 					{[CLOSURE, FRONTAL].includes(
-						singleProducts?.[0]?.type.toLowerCase()
+						singleProduct?.[0]?.type.toLowerCase()
 					) ? (
 						<div className="tw-ml-5  md:tw-ml-0 tw-mt-5">
 							<div className="tw-flex tw-flex-col tw-border-y-[1px] tw-py-3">
@@ -129,7 +136,7 @@ const HomePageSingleModal = ({
 								</div>
 							</div>
 						</div>
-					) : singleProducts?.[0]?.type.toLowerCase().includes(VIRGINWIG) ? (
+					) : singleProduct?.[0]?.type.toLowerCase().includes(VIRGINWIG) ? (
 						<div className="tw-ml-5 md:tw-ml-0 tw-mt-5">
 							<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
 								<div className="tw-flex tw-flex-wrap tw-border-y-[1px] tw-py-3 tw-gap-2">
@@ -192,7 +199,7 @@ const HomePageSingleModal = ({
 				</div>
 				<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 ">
 					{[CLOSURE, FRONTAL].includes(
-						singleProducts?.[0]?.type.toLowerCase()
+						singleProduct?.[0]?.type.toLowerCase()
 					) ? (
 						<span className="tw-text-xs tw-my-3 tw-text-green-700">
 							*** Select color & length to calculate price... ***
@@ -202,27 +209,32 @@ const HomePageSingleModal = ({
 							*** Select length to calculate price... ***
 						</span>
 					)}
-					<p className="tw-font-medium tw-text-2xl tw-mb-[10px]">
-						Price:
-						<span className="">${price}</span>
-					</p>
+					<div className="tw-flex tw-items-start tw-w-[70%] lg:tw-w-[45%] tw-mb-[10px]">
+						<p className="tw-font-medium tw-text-2xl">
+							Price:
+							<span className="">${price || "***"}</span>
+						</p>
+						{salespercent && (
+							<span className="tw-ml-5 tw-text-[9px] tw-bg-red-700 tw-text-white tw-px-3 tw-rounded-full tw-pt-[1px]">
+								Discounted!
+							</span>
+						)}
+					</div>
 					<div className="tw-text-sm tw-font-light tw-text-neutral-500 tw-italic">
 						<div>
 							Color:{" "}
 							<span>
 								{_color
 									? _color
-									: singleProducts?.[0]?.color
-									? singleProducts?.[0]?.color
+									: singleProduct?.[0]?.color
+									? singleProduct?.[0]?.color
 									: "***"}
 							</span>
 						</div>
-						{singleProducts?.[0]?.texture && (
+						{singleProduct?.[0]?.texture && (
 							<div>
 								Texture:{" "}
-								<span>
-									{_hairType || singleProducts?.[0]?.texture || "***"}
-								</span>
+								<span>{_hairType || singleProduct?.[0]?.texture || "***"}</span>
 							</div>
 						)}
 						<div>
@@ -230,10 +242,12 @@ const HomePageSingleModal = ({
 						</div>
 					</div>
 
-					{singleProducts?.[0]?.sales && (
+					{salespercent && (
 						<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-my-1 tw-text-red-600">
-							Sales: {sales && `${sales}%`}{" "}
-							<span className="tw-text-xs">OFF</span>
+							Sales: {`${salespercent}%`}{" "}
+							<span className="tw-text-xs">
+								off of ${productPrice || "***"}
+							</span>
 						</p>
 					)}
 					<PaymentOptions price={price} />
@@ -241,54 +255,47 @@ const HomePageSingleModal = ({
 						{error && (
 							<div>
 								<p className="tw-text-center tw-mb-2 tw-text-red-600 tw-text-xs">
-									{singleProducts?.[0]?.type
+									{singleProduct?.[0]?.type
 										.toLowerCase()
 										.includes(FRONTAL || CLOSURE)
-										? `Please provide color, texture and length for ${singleProducts?.[0]?.name}`
-										: `Please provide length for ${singleProducts?.[0]?.name}`}
+										? `Please provide color, texture and length for ${singleProduct?.[0]?.name}`
+										: `Please provide length for ${singleProduct?.[0]?.name}`}
 								</p>
 							</div>
 						)}
-						{isInCart(singleProduct, cartItems) ? (
+						{isInCart(_singleProduct, cartItems) ? (
 							<div
 								className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:md:tw-text-neutral-900 hover:md:tw-bg-white tw-cursor-pointer tw-ease-in tw-duration-300"
 								onClick={
 									cartItems.length !== 0
 										? () =>
-												addToCart(
-													price,
-													length,
-													dispatch,
-													singleProduct,
-													setSingleCart,
-													setError,
-													true
-												)
+												length
+													? addToCart(
+															price,
+															dispatch,
+															_singleProduct,
+															setSingleCart,
+															setError,
+															true
+													  )
+													: setError(true)
 										: null
 								}>
-								{singleProducts?.[0]?.type.toLowerCase() === FRONTAL ||
-								singleProducts?.[0]?.type.toLowerCase() === CLOSURE ? (
-									<span>
-										Add more of {_hairType} {_color} - {length}"
-									</span>
-								) : (
-									<span>
-										Add more of {singleProducts?.[0]?.name} - {length}"
-									</span>
-								)}
+								<span>Add more</span>
 							</div>
 						) : (
 							<div
 								className="tw-text-white tw-text-sm tw-font-light tw-max-w-[100%] tw-mx-auto tw-text-center tw-py-2 tw-border tw-border-neutral-300 tw-rounded-md tw-bg-neutral-800 hover:md:tw-text-neutral-900 hover:md:tw-bg-white tw-cursor-pointer tw-ease-in tw-duration-300"
 								onClick={() =>
-									addToCart(
-										price,
-										length,
-										dispatch,
-										singleProduct,
-										setSingleCart,
-										setError
-									)
+									length
+										? addToCart(
+												price,
+												dispatch,
+												_singleProduct,
+												setSingleCart,
+												setError
+										  )
+										: setError(true)
 								}>
 								<span>Add to cart</span>
 							</div>
@@ -301,7 +308,7 @@ const HomePageSingleModal = ({
 						</div>
 						<div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 md:tw-gap-x-10">
 							{returnDecsriptionObject(
-								singleProducts,
+								singleProduct,
 								texture,
 								name,
 								color,
@@ -317,12 +324,12 @@ const HomePageSingleModal = ({
 								</div>
 							))}
 						</div>
-						{singleProducts?.[0]?.maintenance && (
+						{singleProduct?.[0]?.maintenance && (
 							<div className="tw-mt-5 tw-mb-2">
 								<Heading children="Maintenance" isBold={false} />
 							</div>
 						)}
-						{singleProducts?.[0]?.maintenance?.map((item, idx) => (
+						{singleProduct?.[0]?.maintenance?.map((item, idx) => (
 							<li
 								key={idx}
 								className="tw-text-sm tw-italic tw-text-neutral-500 tw-font-light tw-mb-2">
@@ -334,9 +341,9 @@ const HomePageSingleModal = ({
 					<div className="tw-fixed tw-top-3 tw-z-40 tw-right-3">
 						<div
 							onClick={() => {
-								setSingleproducts(null);
-								setColor(null);
-								sethairType(null);
+								setSingleproduct(null);
+								setColor("");
+								sethairType("");
 								setLength("");
 							}}
 							className="tw-text-2xl tw-text-white tw-bg-neutral-900 tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-shadow-lg tw-absolute tw-top-[20px] tw-right-[20px] tw-ease-in tw-duration-300 tw-cursor-pointer hover:md:tw-bg-white hover:md:tw-text-neutral-900">
