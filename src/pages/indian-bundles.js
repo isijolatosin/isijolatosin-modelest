@@ -36,8 +36,7 @@ function IndianBundles() {
 	};
 
 	// Adding to cart items
-	const { name, id, image, color, description, sizes, salespercent } =
-		returnObjectProperty(singleProduct?.[0]);
+	const { name, id, image, color, description, size, avesizes, salespercent } = returnObjectProperty(singleProduct?.[0]);
 	const hairLength = length;
 	const hairColor = color;
 	const hairTexture = singleProduct?.[0] && singleProduct?.[0]?.name;
@@ -54,7 +53,14 @@ function IndianBundles() {
 		hairTexture,
 		salespercent,
 	};
-	const desc = returnDecsriptionObject(singleProduct, "", name, color, sizes);
+  
+	const desc = returnDecsriptionObject(
+		singleProduct,
+		"",
+		name,
+		color,
+		avesizes
+	);
 
 	return (
 		<div className="home">
@@ -77,7 +83,7 @@ function IndianBundles() {
 									<div key={item._id}>
 										<Card
 											product={item}
-											setSingleproduct={setSingleproduct}
+                      setSingleproduct={setSingleproduct}
 											setSingleCart={setSingleCart}
 											scrollToTop={scrollToTop}
 										/>
@@ -96,9 +102,10 @@ function IndianBundles() {
 						<SingleProductModal
 							category={singleProduct?.[0]?.name}
 							singleProduct={singleProduct}
-							setSingleproduct={setSingleproduct}
+              setSingleproduct={setSingleproduct}
 							desc={desc}
-							sizes={sizes}
+							size={size}
+							avesizes={avesizes}
 							setLength={setLength}
 							setError={setError}
 							error={error}

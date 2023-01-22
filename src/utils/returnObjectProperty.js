@@ -9,15 +9,16 @@ export function returnObjectProperty(dt) {
 		width,
 		_hairColor,
 		avesizes,
-		sizes,
+		size,
 		_hairTexture,
 		_sales,
 		_singleprice,
 		_vWPriceClosure,
 		_vWPriceFrontal,
 		salespercent,
-		_hairLength,
-		_with;
+		_with,
+		_hairLength;
+    
 	if (dt) {
 		name = dt?.name;
 		id = dt?._id;
@@ -34,7 +35,7 @@ export function returnObjectProperty(dt) {
 		avesizes = dt?.availablelength?.includes(",")
 			? dt?.availablelength?.split(", ")
 			: [dt?.availablelength];
-		sizes = dt?.length?.indexOf(",") > -1 ? dt?.length?.split(", ") : "";
+		size = dt?.length ? dt?.length : "";
 		_hairTexture = dt?.texture ? dt?.texture : "";
 		_sales = dt?.sales ? dt?.sales : dt?.sales;
 		_singleprice = dt?.price[dt?.length] || dt?.price;
@@ -53,15 +54,15 @@ export function returnObjectProperty(dt) {
 		width,
 		_hairColor,
 		avesizes,
-		sizes,
+		size,
 		_hairTexture,
 		_sales,
 		_singleprice,
 		_vWPriceClosure,
 		_vWPriceFrontal,
-		salespercent,
-		_with,
 		_hairLength,
+		_with,
+		salespercent,
 	};
 }
 export function returnDecsriptionObject(dt, texture, name, color, avesizes) {
