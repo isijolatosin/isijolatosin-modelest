@@ -7,7 +7,7 @@ import PaymentOptions from "./PaymentOptions";
 import Rating from "./Rating";
 import { addToCart } from "../../utils/putToCartFunc";
 import { useDispatch } from "react-redux";
-import { ALLSIZES, CLOSURE, FRONTAL } from "../../constant";
+import { CLOSURE, FRONTAL } from "../../constant";
 
 const SingleProductModal = ({
 	price,
@@ -41,6 +41,7 @@ const SingleProductModal = ({
 			setError(true);
 		}
 	};
+
 	return (
 		<div>
 			{singleProduct && (
@@ -62,30 +63,22 @@ const SingleProductModal = ({
 							</div>
 							<div className="tw-flex tw-flex-col tw-mb-2 tw-border-y-[1px] tw-py-3 tw-w-[90%] tw-mx-auto">
 								<div className="tw-flex tw-flex-wrap tw-gap-2">
-									{ALLSIZES?.map((item) =>
-										avesizes?.includes(item?.value) ? (
-											<div
-												key={item?.id}
-												onClick={() => {
-													setLength(item?.value);
-													setError(false);
-												}}
-												className={` tw-flex tw-flex-wrap tw-mr-2 tw-p-2 tw-px-3 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
-													item?.value &&
-													length &&
-													item?.value === length &&
-													"tw-bg-neutral-900 tw-text-white"
-												}`}>
-												<span>{item?.value}</span>
-											</div>
-										) : (
-											<div
-												key={item?.id}
-												className="tw-flex tw-flex-wrap tw-mr-2 tw-p-2 tw-px-3 tw-border-[1px] tw-rounded-full tw-cursor-not-allowed tw-text-neutral-300">
-												<span>{item?.value}</span>
-											</div>
-										)
-									)}
+									{avesizes?.map((item, idx) => (
+										<div
+											key={idx}
+											onClick={() => {
+												setLength(item);
+												setError(false);
+											}}
+											className={` tw-flex tw-flex-wrap tw-mr-2 tw-p-2 tw-px-3 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
+												item &&
+												length &&
+												item === length &&
+												"tw-bg-neutral-900 tw-text-white"
+											}`}>
+											<span>{item}</span>
+										</div>
+									))}
 								</div>
 							</div>
 						</div>
