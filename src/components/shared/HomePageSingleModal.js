@@ -7,14 +7,12 @@ import { CgClose } from "react-icons/cg";
 import { selectCartItems } from "../../slices/appSlices";
 import { useDispatch, useSelector } from "react-redux";
 import {
-	ALLSIZES,
 	FRONTAL,
 	STRAIGHT,
 	BODYWAVE,
 	CURLY,
 	WAVY,
 	CLOSURE,
-	VIRGINWIG,
 } from "../../constant";
 import PaymentOptions from "./PaymentOptions";
 import {
@@ -44,9 +42,7 @@ const HomePageSingleModal = ({
 		color,
 		description,
 		width,
-		_hairColor,
 		avesizes,
-		size,
 		_hairTexture,
 		salespercent,
 	} = returnObjectProperty(singleProduct?.[0]);
@@ -93,109 +89,29 @@ const HomePageSingleModal = ({
 							Description: {singleProduct?.[0]?.description}
 						</p>
 					</div>
-					{[CLOSURE, FRONTAL].includes(
-						singleProduct?.[0]?.type.toLowerCase()
-					) ? (
-						<div className="tw-ml-5  md:tw-ml-0 tw-mt-5">
-							<div className="tw-flex tw-flex-col tw-border-y-[1px] tw-py-3">
-								<div className="tw-flex tw-flex-wrap tw-gap-2">
-									{avesizes?.map((size, idx) => (
-										<span
-											onClick={() => {
-												setLength(size);
-												setError(false);
-											}}
-											className={`tw-flex tw-flex-wrap ${
-												length === size
-													? "tw-bg-neutral-900 tw-text-white"
-													: "tw-bg-white tw-text-neutral-900"
-											} tw-rounded-full tw-mr-2 tw-border-[1px] tw-border-neutral-900 tw-p-2 tw-px-3 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
-											key={idx}>
-											{size}
-										</span>
-									))}
-								</div>
-							</div>
-							<div className="tw-flex tw-flex-col tw-border-b-[1px] tw-py-3">
-								<div className="tw-flex tw-flex-wrap">
-									{_hairColor.map((colr, idx) => (
-										<span
-											onClick={() => {
-												setColor(colr);
-												setError(false);
-											}}
-											className={`${
-												_color === colr
-													? "tw-bg-neutral-900 tw-text-white"
-													: "tw-bg-neutral-200 tw-text-neutral-900"
-											} tw-flex tw-flex-wrap tw-rounded-md tw-mr-2 tw-border-[1px] tw-border-neutral-100 tw-px-5 tw-py-1 tw-text-[14px] hover:tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300`}
-											key={idx}>
-											<span>{colr}</span>
-										</span>
-									))}
-								</div>
-							</div>
+					<div className="tw-flex tw-flex-col tw-ml-5 tw-mt-5 md:tw-ml-0 tw-border-y-[1px] tw-py-3">
+						<div className="tw-flex tw-flex-wrap tw-gap-2">
+							{avesizes.map(
+								// eslint-disable-next-line array-callback-return
+								(item, idx) => (
+									<div
+										key={idx}
+										onClick={() => {
+											setLength(item);
+											setError(false);
+										}}
+										className={` tw-flex tw-flex-wrap tw-mr-2 tw-p-2 tw-px-3 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
+											item &&
+											length &&
+											item === length &&
+											"tw-bg-neutral-900 tw-text-white"
+										}`}>
+										<span>{item}</span>
+									</div>
+								)
+							)}
 						</div>
-					) : singleProduct?.[0]?.type.toLowerCase().includes(VIRGINWIG) ? (
-						<div className="tw-ml-5 md:tw-ml-0 tw-mt-5">
-							<div className="tw-flex tw-flex-col tw-mb-5 tw-border-b-[1px] tw-pb-5">
-								<div className="tw-flex tw-flex-wrap tw-border-y-[1px] tw-py-3 tw-gap-2">
-									{avesizes.map((siz, idx) => (
-										<span
-											onClick={() => {
-												if (size.includes(siz)) {
-													setLength(size);
-													setError(false);
-												}
-											}}
-											className={`tw-flex tw-flex-wrap ${
-												length === size
-													? "tw-bg-neutral-900 tw-text-white"
-													: "tw-bg-white"
-											} ${
-												size.includes(siz)
-													? "tw-border-neutral-900 tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white"
-													: "tw-cursor-not-allowed tw-border-neutral-200 tw-text-neutral-300"
-											} tw-rounded-full tw-mr-2 tw-border-[1px] tw-p-2 tw-px-3 tw-text-[14px] tw-ease-in tw-duration-300`}
-											key={idx}>
-											{siz}
-										</span>
-									))}
-								</div>
-							</div>
-						</div>
-					) : (
-						<div className="tw-flex tw-flex-col tw-ml-5 tw-mt-5 md:tw-ml-0 tw-border-y-[1px] tw-py-3">
-							<div className="tw-flex tw-flex-wrap tw-gap-2">
-								{ALLSIZES.map(
-									// eslint-disable-next-line array-callback-return
-									(item) =>
-										avesizes?.includes(item?.value) ? (
-											<div
-												key={item?.id}
-												onClick={() => {
-													setLength(item?.value);
-													setError(false);
-												}}
-												className={` tw-flex tw-flex-wrap tw-mr-2 tw-p-2 tw-px-3 tw-border-[1px] tw-border-neutral-900 tw-rounded-full tw-cursor-pointer hover:tw-bg-neutral-900 hover:tw-text-white tw-ease-in tw-duration-300 ${
-													item?.value &&
-													length &&
-													item?.value === length &&
-													"tw-bg-neutral-900 tw-text-white"
-												}`}>
-												<span>{item?.value}</span>
-											</div>
-										) : (
-											<div
-												key={item?.id}
-												className="tw-flex tw-flex-wrap tw-mr-2 tw-p-2 tw-px-3 tw-border-[1px] tw-rounded-full tw-cursor-not-allowed tw-text-neutral-300">
-												<span>{item?.value}</span>
-											</div>
-										)
-								)}
-							</div>
-						</div>
-					)}
+					</div>
 				</div>
 				<div className="tw-w-[90%] md:tw-w-[50%] tw-mx-auto tw-text-neutral-900 ">
 					<div className="tw-flex tw-items-start tw-w-[70%] lg:tw-w-[45%] tw-mb-[10px]">

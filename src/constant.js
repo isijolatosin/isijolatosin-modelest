@@ -93,16 +93,6 @@ export const SHIPPING_COST = {
 	london: 20,
 	nigeria: 50,
 };
-export const ALLSIZES = [
-	{ value: "14", id: 1 },
-	{ value: "16", id: 2 },
-	{ value: "18", id: 3 },
-	{ value: "20", id: 4 },
-	{ value: "22", id: 5 },
-	{ value: "24", id: 6 },
-	{ value: "26", id: 7 },
-	{ value: "28", id: 8 },
-];
 export const DEALSOPTIONLENGTHARRAY = [
 	"14inch, 16inch, & 18inch",
 	"16inch, 18inch, & 20inch",
