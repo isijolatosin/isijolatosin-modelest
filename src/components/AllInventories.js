@@ -24,7 +24,7 @@ const AllInventories = ({ fetchAllData }) => {
 				</div>
 			) : (
 				<SingleProductEditForm
-					singleProduct={singleProduct}
+          singleProduct={singleProduct}
 					setSingleProduct={setSingleProduct}
 				/>
 			)}
