@@ -13,7 +13,6 @@ import {
 	VIETNAMESEWIG,
 	VIRGINHAIR,
 	VIRGINWIG,
-	cloudinaryBaseUrl,
 } from "../constant";
 
 export default function useFetchHook(url, type, isBundle, isJet, isAllBundles) {
@@ -50,15 +49,15 @@ export default function useFetchHook(url, type, isBundle, isJet, isAllBundles) {
 					const isLinux = window.navigator.userAgent.indexOf("Linux") !== -1;
 					if (isWin || isMac || isUNIX || isLinux) {
 						images.push(
-							`${cloudinaryBaseUrl}f_auto/v${version}/${public_id}.${format}`
+							`https://res.cloudinary.com/${process.env.REACT_APP_CLOUD_NAME}/image/upload/q_auto,f_auto/v${version}/${public_id}.${format}`
 						);
 					} else if (isIOS) {
 						images.push(
-							`${cloudinaryBaseUrl}f_jp2/v${version}/${public_id}.${format}`
+							`https://res.cloudinary.com/${process.env.REACT_APP_CLOUD_NAME}/image/upload/q_auto,f_jp2/v${version}/${public_id}.${format}`
 						);
 					} else if (isAndroid) {
 						images.push(
-							`${cloudinaryBaseUrl}f_webp,w_50/v${version}/${public_id}.${format}`
+							`https://res.cloudinary.com/${process.env.REACT_APP_CLOUD_NAME}/image/upload/q_auto,f_webp,w_50/v${version}/${public_id}.${format}`
 						);
 					}
 				});

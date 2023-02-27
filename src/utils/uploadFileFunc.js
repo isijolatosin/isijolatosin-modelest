@@ -42,7 +42,7 @@ export const uploadFile = async (e, setImageFile) => {
 				image: { src },
 			},
 		} = await axios.post(
-			`${process.env.REACT_APP_BASE_ROUTE}/products/uploadSingle`,
+			`${process.env.REACT_APP_BASE_ROUTE}/image/uploadSingle`,
 			formData,
 			{
 				headers: {
@@ -55,4 +55,34 @@ export const uploadFile = async (e, setImageFile) => {
 	} catch (error) {
 		console.log(error);
 	}
+};
+export const uploadImage = (e, setImagesFile) => {
+	const data = new FormData();
+	const images = e.target.files;
+	const returnImg = [];
+	for (var i = 0; i < images.length; i++) {
+		data.append("file", images[i]);
+
+		data.append(
+			"upload_preset",
+			`${process.env.REACT_APP_CLOUD_UPLOAD_PRESET}`
+		);
+		data.append("cloud_name", `${process.env.REACT_APP_CLOUD_NAME}`);
+		data.append("folder", "modelest-upload/general");
+
+		fetch(
+			`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
+			{
+				method: "post",
+				body: data,
+			}
+		)
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.url) returnImg.push(data.url);
+				console.log(data);
+			})
+			.catch((err) => console.log(err));
+	}
+	setImagesFile(returnImg);
 };

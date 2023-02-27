@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 import React from "react";
 import InventoryForm from "./InventoryForm";
-import { uploadMultipleFile } from "../utils/uploadFileFunc";
+import { uploadImage } from "../utils/uploadFileFunc";
 import { useGlobalContext } from "../context/useContextHook";
 import axios from "axios";
 
@@ -221,7 +221,7 @@ const Inventory = React.memo(({ categories }) => {
 			toggleInstock={toggleInstock}
 			postError={postError}
 			buttonText="Add to Inventory"
-			uploadMultipleFile={(e) => uploadMultipleFile(e, setImagesFile)}
+			uploadMultipleFile={(e) => uploadImage(e, setImagesFile)}
 			toggleIsFeatured={toggleIsFeatured}
 			isFeatured={isFeatured}
 			categories={categories}
