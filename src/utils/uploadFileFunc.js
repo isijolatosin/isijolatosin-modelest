@@ -80,7 +80,6 @@ export const uploadImage = (e, setImagesFile) => {
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.url) returnImg.push(data.url);
-				console.log(data);
 			})
 			.catch((err) => console.log(err));
 	}

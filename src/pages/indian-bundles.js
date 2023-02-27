@@ -48,7 +48,7 @@ function IndianBundles() {
 		? roundTo2Dec(productPrice - productPrice * (salespercent / 100))
 		: productPrice;
 
-	const _singleProduct = {
+	const _singleProductToCart = {
 		name,
 		id,
 		image,
@@ -115,7 +115,7 @@ function IndianBundles() {
 							setLength={setLength}
 							setError={setError}
 							error={error}
-							_singleProduct={_singleProduct}
+							_singleProduct={_singleProductToCart}
 							setSingleCart={setSingleCart}
 							cartItems={cartItems}
 							price={price}

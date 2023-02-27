@@ -119,7 +119,7 @@ const HomePageSingleModal = ({
 							Price:
 							<span className="">${price || "***"}</span>
 						</p>
-						{salespercent && (
+						{salespercent > 0 && (
 							<span className="tw-ml-5 tw-text-[9px] tw-bg-red-700 tw-text-white tw-px-3 tw-rounded-full tw-pt-[1px]">
 								Discounted!
 							</span>
@@ -147,7 +147,7 @@ const HomePageSingleModal = ({
 						</div>
 					</div>
 
-					{salespercent && (
+					{salespercent > 0 && (
 						<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-my-1 tw-text-red-600">
 							Sales: {`${salespercent}%`}{" "}
 							<span className="tw-text-xs">

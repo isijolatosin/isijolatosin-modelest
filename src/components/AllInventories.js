@@ -5,7 +5,7 @@ import InventoryCard from "./InventoryCard";
 import SingleProductEditForm from "./SingleProductEditForm";
 
 const AllInventories = ({ fetchAllData }) => {
-	const [singleProduct, setSingleProduct] = React.useState();
+	const [singleProduct, setSingleProduct] = React.useState(null);
 
 	return (
 		<div>
@@ -24,7 +24,7 @@ const AllInventories = ({ fetchAllData }) => {
 				</div>
 			) : (
 				<SingleProductEditForm
-          singleProduct={singleProduct}
+					singleProduct={singleProduct}
 					setSingleProduct={setSingleProduct}
 				/>
 			)}
