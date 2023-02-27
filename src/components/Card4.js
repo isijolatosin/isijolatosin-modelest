@@ -35,7 +35,7 @@ function Card({
 	}
 
 	// Adding to cart items
-	const { name, _id, images, description, color } = product;
+	const { name, _id, images, description, color, salespercent } = product;
 	const productPrice = product?.price[+length];
 	const price = product?.salespercent
 		? roundTo2Dec(productPrice - productPrice * (product?.salespercent / 100))
@@ -86,7 +86,7 @@ function Card({
 						{product.name}
 					</p>
 					<div className="tw-pb-1 tw-flex tw-flex-col">
-						{product?.salespercent && (
+						{+salespercent > 0 && (
 							<span className="tw-top-0 tw-right-0 tw-text-[9px] tw-bg-red-700 tw-text-white tw-px-3 tw-rounded-full tw-pt-[1px]">
 								Discounted!
 							</span>

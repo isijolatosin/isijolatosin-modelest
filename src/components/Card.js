@@ -1,6 +1,7 @@
 import React from "react";
 import truncate from "../utils/truncate";
 import { useGlobalContext } from "../context/useContextHook";
+import { roundTo2Dec } from "../utils/roundTo2Dec";
 
 function Card({ product, setSingleproduct, scrollToTop }) {
 	const { fetchProducts } = useGlobalContext();
@@ -17,7 +18,7 @@ function Card({ product, setSingleproduct, scrollToTop }) {
 		scrollToTop();
 	}
 
-	const price =
+	const _price =
 		product?.price[10] ||
 		product?.price[14] ||
 		product?.price[16] ||
@@ -28,6 +29,10 @@ function Card({ product, setSingleproduct, scrollToTop }) {
 		product?.price[26] ||
 		product?.price[28] ||
 		product?.price[30];
+
+	const price = product?.salespercent
+		? roundTo2Dec(_price - _price * (product?.salespercent / 100))
+		: _price;
 
 	return (
 		<div className="tw-h-[300px] tw-w-[250px] md:tw-w-[300px] tw-shadow-lg md:tw-h-[350px] tw-relative tw-rounded-lg">
@@ -50,6 +55,11 @@ function Card({ product, setSingleproduct, scrollToTop }) {
 								<span className="tw-text-[10px] tw-font-light">From</span> $
 								{price} USD
 							</span>
+							{+product?.salespercent > 0 && (
+								<span className="tw-top-0 tw-right-0 tw-text-[9px] tw-bg-red-700 tw-text-white tw-px-3 tw-rounded-full tw-pt-[1px]">
+									Discounted!
+								</span>
+							)}
 						</div>
 						<p className="tw-pt-2 tw-border-t-[1px] tw-border-neutral-700 tw-text-[10px] tw-text-neutral-900 tw-mb-3 tw-leading-none">
 							{truncate(product?.description, 10)}

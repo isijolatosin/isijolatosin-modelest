@@ -18,7 +18,7 @@ export function returnObjectProperty(dt) {
 		salespercent,
 		_with,
 		_hairLength;
-    
+
 	if (dt) {
 		name = dt?.name;
 		id = dt?._id;
@@ -41,7 +41,7 @@ export function returnObjectProperty(dt) {
 		_singleprice = dt?.price[dt?.length] || dt?.price;
 		_vWPriceClosure = dt?.name?.toLowerCase()?.includes(`-${CLOSURE}`);
 		_vWPriceFrontal = dt?.name?.toLowerCase()?.includes(`-${FRONTAL}`);
-		salespercent = dt?.salespercent;
+		salespercent = +dt?.salespercent;
 		_with = dt?.with ? dt?.with : "";
 		_hairLength = dt?.length ? dt?.length : "";
 	}

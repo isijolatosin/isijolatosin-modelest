@@ -7,11 +7,13 @@ const SingleProductEditForm = ({ singleProduct, setSingleProduct }) => {
 	const [postError, setPostError] = React.useState("");
 	const handleInputUpdate = (e) => {
 		let value = e.target.value;
+
 		if (e.target.value === "on") value = true;
 		if (e.target.name === "salespercent") {
-			if (e.target.value > 0) value = +e.target.value;
-			if (e.target.value <= 0) value = false;
+			if (+e.target.value > 0) value = +e.target.value;
+			if (+e.target.value <= 0) value = false;
 		}
+		console.log(value);
 
 		setSingleProduct({
 			...singleProduct,
@@ -62,7 +64,7 @@ const SingleProductEditForm = ({ singleProduct, setSingleProduct }) => {
 			setPostError(error.message ? "Please check your input fields" : "");
 			console.log(error);
 		}
-		setSingleProduct({});
+		setSingleProduct(null);
 		window.location.reload();
 	}
 
@@ -78,15 +80,15 @@ const SingleProductEditForm = ({ singleProduct, setSingleProduct }) => {
 			<form onSubmit={updateSingleProduct}>
 				<div className="tw-flex tw-flex-col tw-items-center">
 					<div className="lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-grid tw-grid-cols-1 lg:tw-grid-cols-2 tw-gap-x-2">
-						{inputData.map((data) => (
+						{inputData.map((input) => (
 							<input
-								key={data.id}
-								type={data.type}
-								name={singleProduct[data.name]}
-								id={data.id}
-								value={singleProduct[data.name]}
+								key={input.id}
+								type={input.type}
+								name={singleProduct[input.name]}
+								id={input.id}
+								value={singleProduct[input.name]}
 								onChange={handleInputUpdate}
-								placeholder={data.placeholder}
+								placeholder={input.placeholder}
 								className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
 							/>
 						))}
@@ -111,7 +113,11 @@ const SingleProductEditForm = ({ singleProduct, setSingleProduct }) => {
 								type="number"
 								onChange={handleInputUpdate}
 								placeholder="%"
-								value={singleProduct?.salespercent || 0}
+								value={
+									(+singleProduct?.salespercent > 0 &&
+										singleProduct?.salespercent) ||
+									null
+								}
 								className="tw-w-[40%] tw-text-xs tw-text-neutral-400 tw-h-full tw-bg-neutral-200 tw-border-none focus:tw-ring-0 tw-border-0 placeholder:tw-text-neutral-400 placeholder:tw-text-xs placeholder:tw-font-light"
 							/>
 						</div>

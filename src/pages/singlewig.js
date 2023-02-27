@@ -13,8 +13,12 @@ import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import Heading from "../components/Heading";
 import PaymentOptions from "../components/shared/PaymentOptions";
-import { returnDecsriptionObject } from "../utils/returnObjectProperty";
+import {
+	returnDecsriptionObject,
+	returnObjectProperty,
+} from "../utils/returnObjectProperty";
 import { addToCart } from "../utils/putToCartFunc";
+import { roundTo2Dec } from "../utils/roundTo2Dec";
 
 const SingleWig = () => {
 	const navigate = useNavigate();
@@ -48,13 +52,16 @@ const SingleWig = () => {
 	}, []);
 
 	// Adding to cart items
-	const name = singleWig[0]?.name;
-	const id = singleWig[0]?._id;
-	const image = singleWig[0]?.images[0];
-	const description = singleWig[0]?.description;
+	const { name, id, image, description, salespercent } = returnObjectProperty(
+		singleWig?.[0]
+	);
 	const hairLength = _length;
 	const hairTexture = singleWig[0]?.texture;
-	const price = +singleWig[0]?.price[_length];
+	const _price = +singleWig[0]?.price[_length];
+	const price = +salespercent
+		? roundTo2Dec(_price - _price * (salespercent / 100))
+		: _price;
+
 	const avLengths =
 		singleWig[0]?.availablelength.length > 3
 			? singleWig[0]?.availablelength.split(", ")
@@ -192,6 +199,11 @@ const SingleWig = () => {
 									<div className="tw-mb-1">
 										<span className="tw-text-3xl">${price || "***"}</span>
 										<span className="tw-text-[12px] tw-font-light"> USD</span>
+										{singleWig?.[0]?.salespercent > 0 && (
+											<span className="tw-ml-3 tw-text-[10px] tw-bg-red-700 tw-text-white tw-px-3 tw-rounded-full tw-py-[1px]">
+												Discounted!
+											</span>
+										)}
 									</div>
 									<div className="tw-text-sm tw-font-light tw-text-neutral-500 tw-italic tw-my-3">
 										<div>
@@ -270,6 +282,11 @@ const SingleWig = () => {
 								<div className="tw-mb-1">
 									<span className="tw-text-3xl">${price || "***"}</span>
 									<span className="tw-text-[12px] tw-font-light"> USD</span>
+									{singleWig?.[0]?.salespercent > 0 && (
+										<span className="tw-ml-3 tw-text-xs tw-bg-red-700 tw-text-white tw-px-3 tw-rounded-full tw-py-[1px]">
+											Discounted!
+										</span>
+									)}
 								</div>
 								<div className="tw-text-xs tw-text-neutral-500 tw-italic tw-font-light tw-my-3">
 									<div>

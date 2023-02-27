@@ -8,22 +8,29 @@ import Rating from "./Rating";
 import { addToCart } from "../../utils/putToCartFunc";
 import { useDispatch } from "react-redux";
 import { CLOSURE, FRONTAL } from "../../constant";
+import { returnObjectProperty } from "../../utils/returnObjectProperty";
+import { roundTo2Dec } from "../../utils/roundTo2Dec";
 
 const SingleProductModal = ({
-	price,
+	price: _price,
 	singleProduct,
 	setSingleproduct,
 	setSingleCart,
 	desc,
-	avesizes,
+	// avesizes,
 	setLength,
 	setError,
 	error,
 	_singleProduct,
 	cartItems,
 	length,
-	color,
+	// color,
 }) => {
+	const { name, color, description, avesizes, salespercent } =
+		returnObjectProperty(singleProduct?.[0]);
+	const price = +salespercent
+		? roundTo2Dec(_price - _price * (salespercent / 100))
+		: _price;
 	const dispatch = useDispatch();
 	const handleAdd = (increase) => {
 		if (price && length && color) {
@@ -51,14 +58,14 @@ const SingleProductModal = ({
 							<Slideshow images={singleProduct?.[0].images} iconSize={25} />
 							<div className="tw-w-[90%] tw-mx-auto">
 								<p className="tw-text-2xl tw-font-200 tw-tracking-tight tw-mb-[5px] tw-leading-6">
-									{singleProduct?.[0].name}
+									{name}
 								</p>
 								<div className="tw-flex tw-items-center tw-mb-5">
 									<span className="tw-mr-2">Review: </span>
 									<Rating isNum={true} />
 								</div>
 								<p className="tw-font-medium tw-text-sm tw-mb-[1px] tw-mt-0">
-									Description: {singleProduct?.[0].description}
+									Description: {description}
 								</p>
 							</div>
 							<div className="tw-flex tw-flex-col tw-mb-2 tw-border-y-[1px] tw-py-3 tw-w-[90%] tw-mx-auto">
@@ -89,7 +96,7 @@ const SingleProductModal = ({
 										Price: ${price ? price : " ***"}{" "}
 										<span className="tw-text-[12px] tw-font-light">USD</span>
 									</p>
-									{_singleProduct?.salespercent && (
+									{salespercent > 0 && (
 										<span className="tw-ml-5 tw-text-[9px] tw-mt-1 tw-bg-red-700 tw-text-white tw-px-3 tw-rounded-full tw-pt-[1px]">
 											Discounted!
 										</span>
@@ -112,8 +119,8 @@ const SingleProductModal = ({
 											{[FRONTAL, CLOSURE].includes(
 												singleProduct?.[0]?.type.toLowerCase()
 											)
-												? `Please provide color and length for ${singleProduct?.[0].name}`
-												: `Please provide length for ${singleProduct?.[0].name}`}
+												? `Please provide color and length for ${name}`
+												: `Please provide length for ${name}`}
 										</p>
 									</div>
 								)}

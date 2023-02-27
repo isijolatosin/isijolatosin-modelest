@@ -83,7 +83,7 @@ function Card({
 					<div className="tw-pt-2 tw-flex tw-justify-between tw-w-full tw-text-[12px] md:tw-text-[14px]">
 						<p className="tw-font-bold">{product.name}</p>
 						<div className="tw-pb-2 tw-flex tw-flex-col">
-							{salespercent && (
+							{+salespercent > 0 && (
 								<span className="tw-top-0 tw-right-0 tw-text-[9px] tw-bg-red-700 tw-text-white tw-px-3 tw-rounded-full tw-pt-[1px]">
 									Discounted!
 								</span>
