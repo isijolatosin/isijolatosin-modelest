@@ -18,6 +18,7 @@ function Card({ product, setSingleproduct, scrollToTop }) {
 	}
 
 	const price =
+		product?.price[10] ||
 		product?.price[14] ||
 		product?.price[16] ||
 		product?.price[18] ||
