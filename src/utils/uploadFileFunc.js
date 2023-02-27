@@ -12,7 +12,7 @@ export const uploadMultipleFile = async (e, setImagesFile) => {
 		const {
 			data: { response },
 		} = await axios.post(
-			`${process.env.REACT_APP_BASE_ROUTE}/products/uploadMultiple`,
+			`${process.env.REACT_APP_BASE_ROUTE}/image/uploadMultiple`,
 			formData,
 			{
 				headers: {
