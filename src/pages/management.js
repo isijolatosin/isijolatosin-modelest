@@ -17,7 +17,7 @@ import {
 import { CATEGORY, PRODUCT } from "../constant";
 import useFetchHook from "../utils/useFetchHook";
 
-function Management() {
+const Management = React.memo(() => {
 	const database = getDatabase();
 	const [categories, setCategories] = React.useState([]);
 	const [fetchAllData, setFetchAllData] = React.useState([]);
@@ -60,12 +60,7 @@ function Management() {
 	const SectionComp = () => {
 		switch (section) {
 			case "all-inventory":
-				return (
-					<AllInventories
-						fetchAllData={fetchAllData}
-						fetchProducts={fetchProducts}
-					/>
-				);
+				return <AllInventories fetchAllData={fetchAllData} />;
 			case "inventory":
 				return <Inventory categories={categories} />;
 			case "shipping":
@@ -202,6 +197,6 @@ function Management() {
 			</Layout>
 		</>
 	);
-}
+});
 
 export default Management;

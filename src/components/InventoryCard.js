@@ -5,7 +5,7 @@ import { MdOutlineEditNote } from "react-icons/md";
 import useFetchHook from "../utils/useFetchHook";
 import { PRODUCT, SINGLE_PRODUCT, CLOSURE } from "../constant";
 
-function InventoryCard({ product, fetchProducts, setSingleProduct }) {
+function InventoryCard({ product, setSingleProduct }) {
 	async function deleteSingleProduct() {
 		const id = product._id;
 		try {
@@ -13,8 +13,7 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 		} catch (error) {
 			console.log(error);
 		}
-
-		fetchProducts();
+		window.location.reload();
 	}
 
 	const type = SINGLE_PRODUCT;
@@ -94,7 +93,7 @@ function InventoryCard({ product, fetchProducts, setSingleProduct }) {
 						<span className="tw-w-[100%]">{`Deal length: ${product.dealLength}`}</span>
 					)}
 					<span className="tw-text-red-800">
-						{product.salespercent && `${product.salespercent}% onsale`}
+						{product.salespercent > 0 && `${product.salespercent}% onsale`}
 					</span>
 				</div>
 				<div className="tw-flex tw-flex-col tw-justify-between tw-w-[15%] tw-border-l tw-border-neutral-300 tw-pl-[10px] lg:tw-pl-2 xl:tw-pl-[2px]">
