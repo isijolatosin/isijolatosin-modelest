@@ -92,11 +92,10 @@ function InventoryCard({ product, setSingleProduct }) {
 					{product.dealLength && (
 						<span className="tw-w-[100%]">{`Deal length: ${product.dealLength}`}</span>
 					)}
-					{product.salespercent ? (
-						<span className="tw-text-red-800">
-							{product.salespercent && `${product.salespercent}% onsale`}
-						</span>
-					</div>
+					<span className="tw-text-red-800">
+						{product.salespercent > 0 && `${product.salespercent}% onsale`}
+					</span>
+				</div>
 				<div className="tw-flex tw-flex-col tw-justify-between tw-w-[15%] tw-border-l tw-border-neutral-300 tw-pl-[10px] lg:tw-pl-2 xl:tw-pl-[2px]">
 					<MdDeleteOutline
 						onClick={deleteSingleProduct}
@@ -108,10 +107,10 @@ function InventoryCard({ product, setSingleProduct }) {
 						size={30}
 						className="tw-p-[4px] tw-text-neutral-800 hover:tw-text-neutral-300 hover:tw-cursor-pointer hover:tw-border-neutral-800 hover:tw-border hover:tw-rounded-full tw-ease-in tw-duration-300"
 					/>
-					</div>
 				</div>
 			</div>
-		);
-	}
+		</div>
+	);
+}
 
 export default InventoryCard;
