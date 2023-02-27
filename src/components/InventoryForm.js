@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "./shared/Button";
 import PriceInput from "./shared/PriceInput";
+import { AiFillStar } from "react-icons/ai";
 
 const InventoryForm = ({
 	handleSubmit,
@@ -33,20 +34,24 @@ const InventoryForm = ({
 						</div>
 					))}
 				</div>
-				<div className="tw-grid tw-grid-cols-1 lg:tw-grid-cols-2 tw-gap-x-2">
+				<div className="tw-grid tw-grid-cols-1 lg:tw-grid-cols-2 tw-gap-x-2 tw-w-[90%] lg:tw-w-[80%] xl:tw-w-[60%] 2xl:tw-w-[50%]">
 					{inputTypes.map((inputType) => (
-						<input
-							key={inputType.id}
-							type={inputType.type}
-							name={inputType.name}
-							id={inputType.id}
-							value={inputType.value}
-							onChange={handleformDataChange}
-							placeholder={inputType.placeholder}
-							className="tw-rounded tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
-						/>
+						<div key={inputType.id} className="tw-relative">
+							<input
+								type={inputType.type}
+								name={inputType.name}
+								id={inputType.id}
+								value={inputType.value}
+								onChange={handleformDataChange}
+								placeholder={inputType.placeholder}
+								className="tw-rounded tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+							/>
+							{inputType.isRequired && (
+								<AiFillStar className="tw-absolute tw-left-2 tw-top-2 tw-text-red-800 tw-text-[8px]" />
+							)}
+						</div>
 					))}
-					<div className="tw-rounded tw-flex tw-flex-row tw-items-center tw-shadow-xl tw-pl-3 tw-py-2 tw-bg-white tw-mb-5">
+					<div className="tw-rounded tw-flex tw-flex-row tw-items-center tw-shadow-xl tw-mb-5 tw-mt-1 tw-pl-3 tw-bg-white">
 						<label className="tw-flex-[0.3] tw-text-xs tw-text-neutral-400 tw-font-thin">
 							Multiple Image
 						</label>
@@ -61,7 +66,7 @@ const InventoryForm = ({
 				<PriceInput />
 				<div className="tw-flex tw-flex-col tw-w-[90%] lg:tw-w-[80%] xl:tw-w-[60%] 2xl:tw-w-[50%]">
 					<textarea
-						value={formData.description}
+						value={formData?.description}
 						name="description"
 						onChange={handleformDataChange}
 						rows={5}
@@ -81,7 +86,11 @@ const InventoryForm = ({
 								placeholder="%"
 								value={salesPercent}
 								className="tw-w-[40%] tw-h-full tw-bg-neutral-200 tw-border-none focus:tw-ring-0 tw-border-0 placeholder:tw-text-neutral-400 placeholder:tw-text-xs placeholder:tw-font-light"
-								onChange={(e) => setSalesPercent(+e.target.value)}
+								onChange={(e) =>
+									+e.target.value > 0
+										? setSalesPercent(+e.target.value)
+										: setSalesPercent(false)
+								}
 							/>
 						</div>
 						<div className="tw-rounded tw-flex tw-justify-center tw-items-center tw-flex-row tw-shadow-xl tw-p-2 tw-bg-white">

@@ -6,12 +6,27 @@ import { useGlobalContext } from "../context/useContextHook";
 import axios from "axios";
 
 const Inventory = React.memo(({ categories }) => {
-	const { priceObject } = useGlobalContext();
+	const { priceObject, setPriceObject } = useGlobalContext();
 	const [isInstock, setIsInstock] = React.useState(false);
 	const [isFeatured, setIsFeatured] = React.useState(false);
 	const [postError, setPostError] = React.useState("");
-	const [salesPercent, setSalesPercent] = React.useState(0);
-	const [formData, setFormData] = React.useState({});
+	const [salesPercent, setSalesPercent] = React.useState();
+	const [formData, setFormData] = React.useState({
+		title: "",
+		brand: "",
+		density: "",
+		texture: "",
+		capsize: "",
+		type: "",
+		color: "",
+		video: "",
+		length: "",
+		availablelength: "",
+		availablecolor: "",
+		dealLength: "",
+		description: "",
+		category: "",
+	});
 	const [imagesFile, setImagesFile] = React.useState([]);
 
 	const handleformDataChange = (e) => {
@@ -71,10 +86,22 @@ const Inventory = React.memo(({ categories }) => {
 			description: "",
 			category: "",
 		});
+		setPriceObject({
+			14: "",
+			16: "",
+			18: "",
+			20: "",
+			22: "",
+			24: "",
+			26: "",
+			28: "",
+			30: "",
+		});
 		setImagesFile([]);
 		setSalesPercent("");
 		setIsInstock(false);
 		setIsFeatured(false);
+		window.location.reload();
 	};
 
 	const inputTypes = [
@@ -82,92 +109,105 @@ const Inventory = React.memo(({ categories }) => {
 			id: "1",
 			name: "title",
 			type: "text",
-			value: formData.title,
+			value: formData?.title,
 			placeholder: "Product Name...",
+			isRequired: true,
 		},
 		{
 			id: "2",
 			name: "brand",
 			type: "text",
-			value: formData.brand,
+			value: formData?.brand,
 			placeholder: "Product Brand...",
+			isRequired: true,
 		},
 		{
 			id: "3",
 			name: "density",
 			type: "text",
-			value: formData.density,
+			value: formData?.density,
 			placeholder: "Product Density...",
+			isRequired: false,
 		},
 		{
 			id: "4",
 			name: "texture",
 			type: "text",
-			value: formData.texture,
+			value: formData?.texture,
 			placeholder: "Product Texture...",
+			isRequired: true,
 		},
 		{
 			id: "5",
 			name: "capsize",
 			type: "text",
-			value: formData.capsize,
+			value: formData?.capsize,
 			placeholder: "Product Capsize...",
+			isRequired: false,
 		},
 		{
 			id: "6",
 			name: "type",
 			type: "text",
-			value: formData.type,
+			value: formData?.type,
 			placeholder: "Product Type...",
+			isRequired: true,
 		},
 		{
 			id: "7",
 			name: "color",
 			type: "text",
-			value: formData.color,
+			value: formData?.color,
 			placeholder: "Product Color...",
+			isRequired: true,
 		},
 		{
 			id: "8",
 			name: "availablecolor",
 			type: "text",
-			value: formData.availablecolor,
+			value: formData?.availablecolor,
 			placeholder: "Available Color...",
+			isRequired: true,
 		},
 		{
 			id: "9",
 			name: "length",
 			type: "number",
-			value: formData.length,
+			value: formData?.length,
 			placeholder: "Length...",
+			isRequired: true,
 		},
 		{
 			id: "10",
 			name: "dealLength",
 			type: "text",
-			value: formData.dealLength,
+			value: formData?.dealLength,
 			placeholder: "Bundle Deals Length...",
+			isRequired: false,
 		},
 		{
 			id: "11",
 			name: "availablelength",
 			type: "text",
-			value: formData.availablelength,
+			value: formData?.availablelength,
 			placeholder: "Available Lengths...",
+			isRequired: true,
+		},
+		{
+			id: "12",
+			name: "video",
+			type: "text",
+			value: formData?.video,
+			placeholder: "Product video url...",
+			isRequired: false,
 		},
 		{
 			id: "13",
-			name: "video",
-			type: "text",
-			value: formData.video,
-			placeholder: "Product video url...",
-		},
-		{
-			id: "14",
 			name: "category",
 			type: "text",
-			value: formData.category,
+			value: formData?.category,
 			placeholder: "Use category Id...",
+			isRequired: true,
 		},
 	];
 

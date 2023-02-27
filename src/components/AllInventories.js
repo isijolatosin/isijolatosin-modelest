@@ -2,9 +2,9 @@
 import React from "react";
 import Heading from "./Heading";
 import InventoryCard from "./InventoryCard";
-import InventoryUpdateForm from "./InventoryUpdateForm";
+import SingleProductEditForm from "./SingleProductEditForm";
 
-function AllInventories({ fetchAllData, fetchProducts }) {
+const AllInventories = ({ fetchAllData }) => {
 	const [singleProduct, setSingleProduct] = React.useState();
 
 	return (
@@ -17,19 +17,18 @@ function AllInventories({ fetchAllData, fetchProducts }) {
 							<InventoryCard
 								key={product._id}
 								product={product}
-								fetchProducts={fetchProducts}
 								setSingleProduct={setSingleProduct}
 							/>
 						))}
 					</div>
 				</div>
 			) : (
-				<InventoryUpdateForm
-					singleProduct={singleProduct}
+				<SingleProductEditForm
+          singleProduct={singleProduct}
 					setSingleProduct={setSingleProduct}
 				/>
 			)}
 		</div>
 	);
-}
+};
 export default AllInventories;
