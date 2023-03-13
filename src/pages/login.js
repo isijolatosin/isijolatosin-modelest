@@ -7,16 +7,14 @@ import { auth } from "../firebase";
 import Button from "../components/shared/Button";
 import { Helmet } from "react-helmet";
 import { useGlobalContext } from "../context/useContextHook";
+import useForm from "../utils/useForm";
 
 const Login = () => {
 	const navigate = useNavigate();
 	const inputRef = useRef();
+	const [inputValues, handleChange] = useForm();
 	const [isReset, setIsReset] = React.useState(false);
-	const [authUser, setAuthUser] = useState({
-		email: "",
-		password: "",
-		error: null,
-	});
+	const [error, setError] = useState(null);
 	const [showpswd, setShowpswd] = useState(false);
 	const [sales, setSales] = React.useState(null);
 
@@ -26,30 +24,28 @@ const Login = () => {
 		setSales(fetchSalesPercentage());
 	}, []);
 
-	const handleChangeAuthUser = (e) => {
-		setAuthUser({ ...authUser, [e.target.name]: e.target.value });
-	};
-
 	const togglePassword = () => {
 		setShowpswd(!showpswd);
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
 		try {
-			await auth.signInWithEmailAndPassword(authUser.email, authUser.password);
+			await auth.signInWithEmailAndPassword(
+				inputValues?.email,
+				inputValues?.password
+			);
 			navigate("/");
 		} catch (error) {
 			console.log(error);
-			setAuthUser({ ...authUser, error: error.message });
+			setError(error.message);
 		}
 	};
 
 	const resetPassword = (email) => {
 		firebase
 			.auth()
-			.sendPasswordResetEmail(authUser.email)
+			.sendPasswordResetEmail(inputValues?.email)
 			.then(() => {
 				try {
 					setIsReset(true);
@@ -87,8 +83,8 @@ const Login = () => {
 										type="text"
 										name="email"
 										id="email"
-										value={authUser.email}
-										onChange={handleChangeAuthUser}
+										value={inputValues?.email || ""}
+										onChange={handleChange}
 										placeholder="Email"
 										className="tw-mt-1 tw-block lg:tw-w-[30%] tw-mx-auto tw-w-[70%] tw-px-3 tw-py-2 tw-border tw-border-neutral-100 tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5"
 									/>
@@ -98,10 +94,10 @@ const Login = () => {
 										type={showpswd ? "text" : "password"}
 										name="password"
 										id="password"
-										value={authUser.password}
-										onChange={handleChangeAuthUser}
+										value={inputValues?.password || ""}
+										onChange={handleChange}
 										placeholder="Password"
-										className="tw-mt-1 tw-block tw-w-full tw-px-3 tw-py-2 tw-border tw-border-neutral-100 tw-text-sm  tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5"
+										className="tw-mt-1 tw-block tw-w-full tw-px-3 tw-py-2 tw-border tw-border-neutral-100 tw-text-sm tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5"
 									/>
 									<div className="tw-text-neutral-500 tw-font-light tw-flex tw-flex-row tw-justify-center tw-items-center tw-absolute tw-top-0 tw-bg-pink-900 tw-pr-2 tw-h-full tw-right-0 tw-w-[50px] tw-text-center tw-border tw-border-pink-900">
 										<input
@@ -112,7 +108,7 @@ const Login = () => {
 									</div>
 								</div>
 								<div className="tw-text-red-800 tw-text-xs tw-mt-5 tw-text-center">
-									{authUser.error ? <p>{authUser.error}</p> : null}
+									{error ? <p>{error}</p> : null}
 								</div>
 								<div className="tw-flex tw-flex-row tw-my-10 tw-justify-center">
 									<Button onClick={handleSubmit} type="submit">
@@ -125,14 +121,14 @@ const Login = () => {
 							<span>
 								Forgot Password? |{" "}
 								<button
-									onClick={() => resetPassword(authUser.email)}
+									onClick={() => resetPassword(inputValues?.email)}
 									className="tw-text-pink-800 tw-underline">
 									Reset
 								</button>
 							</span>
 							{isReset && (
 								<div className=" tw-text-blue-800 tw-mt-5">
-									<span>{`A password reset link has been sent to this email - ${authUser.email}`}</span>
+									<span>{`A password reset link has been sent to this email - ${inputValues?.email}`}</span>
 								</div>
 							)}
 							<p className="tw-mt-5 tw-mb-10">
