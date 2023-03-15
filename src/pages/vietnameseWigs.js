@@ -5,60 +5,60 @@ import Layout from "../components/shared/Layout";
 import WigsCard from "../components/WigsCard";
 
 function VietnameseWigs() {
-	const [wigs, setWigs] = React.useState(null);
+  const [wigs, setWigs] = React.useState(null);
 
-	async function fetchProducts() {
-		try {
-			const {
-				data: { products },
-			} = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
+  async function fetchProducts() {
+    try {
+      const {
+        data: { products },
+      } = await axios.get(`${process.env.REACT_APP_BASE_ROUTE}/products`);
 
-			const filtered = [];
-			// eslint-disable-next-line array-callback-return
-			products.filter((product) => {
-				if (product.type.toLowerCase().includes("vietnamese wig")) {
-					filtered.push(product);
-				}
-			});
-			setWigs(filtered);
-		} catch (error) {
-			console.log(error);
-		}
-	}
+      const filtered = [];
+      // eslint-disable-next-line array-callback-return
+      products.filter((product) => {
+        if (product.type.toLowerCase().includes("vietnamese wig")) {
+          filtered.push(product);
+        }
+      });
+      setWigs(filtered);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-	React.useEffect(() => {
-		fetchProducts();
+  React.useEffect(() => {
+    fetchProducts();
 
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-	return (
-		<div className="home">
-			<Helmet>
-				<title>Vietnamese-wigs</title>
-			</Helmet>
-			<Layout>
-				<div className="tw-pt-[95px] md:tw-pt-[60px] tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10">
-					{wigs?.length === 0 ? (
-						<div className="tw-w-full tw-flex tw-justify-center tw-pt-[50px]">
-							<div className="tw-rounded-full progress">
-								<div className="inner"></div>
-							</div>
-						</div>
-					) : (
-						<div className="tw-w-full tw-flex tw-flex-wrap tw-justify-center tw-mx-auto">
-							{wigs &&
-								wigs?.map((wig) => (
-									<div key={wig.id}>
-										<WigsCard product={wig} dealPrice={wig?.price} />
-									</div>
-								))}
-						</div>
-					)}
-				</div>
-			</Layout>
-		</div>
-	);
+  return (
+    <div className="home">
+      <Helmet>
+        <title>Vietnamese-wigs</title>
+      </Helmet>
+      <Layout>
+        <div className="tw-pt-[95px] md:tw-pt-[60px] tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10">
+          {wigs?.length === 0 ? (
+            <div className="tw-w-full tw-flex tw-justify-center tw-pt-[50px]">
+              <div className="tw-rounded-full progress">
+                <div className="inner"></div>
+              </div>
+            </div>
+          ) : (
+            <div className="tw-w-full tw-flex tw-flex-wrap tw-justify-center tw-mx-auto">
+              {wigs &&
+                wigs?.map((wig) => (
+                  <div key={wig.id}>
+                    <WigsCard product={wig} dealPrice={wig?.price} />
+                  </div>
+                ))}
+            </div>
+          )}
+        </div>
+      </Layout>
+    </div>
+  );
 }
 
 export default VietnameseWigs;

@@ -1,3 +1,3 @@
 export function roundTo2Dec(data) {
-	return +data?.toFixed(2);
+  return +data?.toFixed(2);
 }

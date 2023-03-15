@@ -1,221 +1,221 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from "react";
 import {
-	MdDoubleArrow,
-	MdKeyboardArrowLeft,
-	MdKeyboardArrowRight,
-} from 'react-icons/md'
+  MdDoubleArrow,
+  MdKeyboardArrowLeft,
+  MdKeyboardArrowRight,
+} from "react-icons/md";
 
 const Pagination = ({ data, contentPerPage, totalContent, setChunkIndex }) => {
-	const [allowPrevious, setAllowPrevious] = useState(false)
-	const [currentPage, setCurrentPage] = useState(1)
-	const [allowNext, setAllowNext] = useState(false)
-	const [paginatedCards, setPaginatedCards] = useState([])
-	const prevCurrentPage = useRef()
-	const totalCards = Math.ceil(data?.length / contentPerPage)
-	const chunkedCards = []
+  const [allowPrevious, setAllowPrevious] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [allowNext, setAllowNext] = useState(false);
+  const [paginatedCards, setPaginatedCards] = useState([]);
+  const prevCurrentPage = useRef();
+  const totalCards = Math.ceil(data?.length / contentPerPage);
+  const chunkedCards = [];
 
-	let index = 0
+  let index = 0;
 
-	for (let i = 0; i < data?.length; i++) {
-		chunkedCards.push(data.slice(index, contentPerPage + index))
+  for (let i = 0; i < data?.length; i++) {
+    chunkedCards.push(data.slice(index, contentPerPage + index));
 
-		index += contentPerPage
-	}
+    index += contentPerPage;
+  }
 
-	const handlePrevNextPageLogic = (page) => {
-		if (page === 1) {
-			setAllowPrevious(true)
-		} else {
-			setAllowPrevious(false)
-		}
+  const handlePrevNextPageLogic = (page) => {
+    if (page === 1) {
+      setAllowPrevious(true);
+    } else {
+      setAllowPrevious(false);
+    }
 
-		if (page < totalCards) {
-			setAllowNext(false)
-		} else {
-			setAllowNext(true)
-		}
+    if (page < totalCards) {
+      setAllowNext(false);
+    } else {
+      setAllowNext(true);
+    }
 
-		setChunkIndex(page - 1)
-		setCurrentPage(page)
-	}
+    setChunkIndex(page - 1);
+    setCurrentPage(page);
+  };
 
-	const setupPaginatedCards = () => {
-		const pagination = []
-		const index = Math.floor(currentPage / contentPerPage - 0.1)
-		const chunkedPaginated = []
+  const setupPaginatedCards = () => {
+    const pagination = [];
+    const index = Math.floor(currentPage / contentPerPage - 0.1);
+    const chunkedPaginated = [];
 
-		let sectionIndex = 0
+    let sectionIndex = 0;
 
-		for (let i = 0; i < chunkedCards.length; i++) {
-			chunkedPaginated.push(
-				chunkedCards.slice(sectionIndex, contentPerPage + sectionIndex)
-			)
-			sectionIndex += contentPerPage
-		}
+    for (let i = 0; i < chunkedCards.length; i++) {
+      chunkedPaginated.push(
+        chunkedCards.slice(sectionIndex, contentPerPage + sectionIndex)
+      );
+      sectionIndex += contentPerPage;
+    }
 
-		const chunkedPaginatedSections = []
-		const filteredChunk = chunkedPaginated.filter((x) => x.length !== 0)
+    const chunkedPaginatedSections = [];
+    const filteredChunk = chunkedPaginated.filter((x) => x.length !== 0);
 
-		for (let i = 0; i < filteredChunk.length; i++) {
-			if (filteredChunk[i].filter((x) => x.length !== 0).length !== 0) {
-				chunkedPaginatedSections.push(
-					filteredChunk[i].filter((x) => x.length !== 0)
-				)
-			}
-		}
+    for (let i = 0; i < filteredChunk.length; i++) {
+      if (filteredChunk[i].filter((x) => x.length !== 0).length !== 0) {
+        chunkedPaginatedSections.push(
+          filteredChunk[i].filter((x) => x.length !== 0)
+        );
+      }
+    }
 
-		for (let i = 1; i <= chunkedPaginatedSections[index]?.length; i++) {
-			pagination.push({
-				type: 'page',
-				number: index * contentPerPage + i,
-				label: index * contentPerPage + i,
-			})
-		}
+    for (let i = 1; i <= chunkedPaginatedSections[index]?.length; i++) {
+      pagination.push({
+        type: "page",
+        number: index * contentPerPage + i,
+        label: index * contentPerPage + i,
+      });
+    }
 
-		setPaginatedCards(pagination)
-	}
+    setPaginatedCards(pagination);
+  };
 
-	const handlePage = (page) => {
-		handlePrevNextPageLogic(page)
-	}
+  const handlePage = (page) => {
+    handlePrevNextPageLogic(page);
+  };
 
-	const handleFirstPage = () => {
-		if (currentPage === 1) {
-			setAllowPrevious(true)
-		}
-		setCurrentPage(1)
-		setChunkIndex(0)
-	}
+  const handleFirstPage = () => {
+    if (currentPage === 1) {
+      setAllowPrevious(true);
+    }
+    setCurrentPage(1);
+    setChunkIndex(0);
+  };
 
-	const handlePrevPage = () => {
-		if (currentPage > 1) {
-			if (currentPage - 1 === 1) {
-				setAllowPrevious(false)
-			}
-		}
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      if (currentPage - 1 === 1) {
+        setAllowPrevious(false);
+      }
+    }
 
-		setChunkIndex(currentPage - 2)
-		// setChunkIndex(currentPage);
-		setCurrentPage(currentPage - 1)
-	}
+    setChunkIndex(currentPage - 2);
+    // setChunkIndex(currentPage);
+    setCurrentPage(currentPage - 1);
+  };
 
-	const handleNextPage = () => {
-		if (currentPage === totalCards) {
-			setAllowNext(true)
-		}
+  const handleNextPage = () => {
+    if (currentPage === totalCards) {
+      setAllowNext(true);
+    }
 
-		if (currentPage >= 1) {
-			setAllowPrevious(false)
-		}
+    if (currentPage >= 1) {
+      setAllowPrevious(false);
+    }
 
-		if (currentPage) setChunkIndex(currentPage)
-		setCurrentPage(currentPage + 1)
-	}
+    if (currentPage) setChunkIndex(currentPage);
+    setCurrentPage(currentPage + 1);
+  };
 
-	const handleLastPage = () => {
-		if (currentPage + 1 === totalCards) {
-			setAllowNext(true)
-		}
+  const handleLastPage = () => {
+    if (currentPage + 1 === totalCards) {
+      setAllowNext(true);
+    }
 
-		if (currentPage >= 1) {
-			setAllowPrevious(false)
-		}
+    if (currentPage >= 1) {
+      setAllowPrevious(false);
+    }
 
-		setCurrentPage(totalCards)
-		setChunkIndex(totalCards - 1)
-	}
+    setCurrentPage(totalCards);
+    setChunkIndex(totalCards - 1);
+  };
 
-	useEffect(() => {
-		prevCurrentPage.current = currentPage
+  useEffect(() => {
+    prevCurrentPage.current = currentPage;
 
-		if (paginatedCards.length === 0) {
-			setupPaginatedCards()
-		}
+    if (paginatedCards.length === 0) {
+      setupPaginatedCards();
+    }
 
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [paginatedCards])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [paginatedCards]);
 
-	useEffect(() => {
-		if (prevCurrentPage.current !== currentPage) {
-			setupPaginatedCards()
-		}
+  useEffect(() => {
+    if (prevCurrentPage.current !== currentPage) {
+      setupPaginatedCards();
+    }
 
-		if (currentPage < totalCards) {
-			setAllowNext(false)
-		}
+    if (currentPage < totalCards) {
+      setAllowNext(false);
+    }
 
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [currentPage])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage]);
 
-	return (
-		<>
-			{totalContent > 1 && (
-				<div className="pagWrapper">
-					<button
-						onClick={handleFirstPage}
-						disabled={allowPrevious || currentPage === 1}
-						type="button"
-						className={
-							allowPrevious || currentPage === 1
-								? 'tw-opacity-[0.1] flipArrow pagButton'
-								: 'flipArrow pagButton'
-						}>
-						<MdDoubleArrow size={16} />
-					</button>
+  return (
+    <>
+      {totalContent > 1 && (
+        <div className="pagWrapper">
+          <button
+            onClick={handleFirstPage}
+            disabled={allowPrevious || currentPage === 1}
+            type="button"
+            className={
+              allowPrevious || currentPage === 1
+                ? "tw-opacity-[0.1] flipArrow pagButton"
+                : "flipArrow pagButton"
+            }>
+            <MdDoubleArrow size={16} />
+          </button>
 
-					<button
-						className={
-							allowPrevious || currentPage === 1
-								? 'pagButton tw-mr-3 tw-opacity-[0.1]'
-								: 'pagButton tw-mr-3'
-						}
-						onClick={handlePrevPage}
-						disabled={allowPrevious || currentPage === 1}
-						type="button">
-						<MdKeyboardArrowLeft />
-					</button>
+          <button
+            className={
+              allowPrevious || currentPage === 1
+                ? "pagButton tw-mr-3 tw-opacity-[0.1]"
+                : "pagButton tw-mr-3"
+            }
+            onClick={handlePrevPage}
+            disabled={allowPrevious || currentPage === 1}
+            type="button">
+            <MdKeyboardArrowLeft />
+          </button>
 
-					{paginatedCards.map((pagination, idx) => (
-						<button
-							key={idx}
-							type="button"
-							className={`${
-								currentPage === pagination?.number ? 'active pagNum' : 'pagNum'
-							}`}
-							label={pagination?.label}
-							onClick={() => handlePage(pagination?.number)}
-							disabled={currentPage === pagination?.number}>
-							{pagination?.label}
-						</button>
-					))}
+          {paginatedCards.map((pagination, idx) => (
+            <button
+              key={idx}
+              type="button"
+              className={`${
+                currentPage === pagination?.number ? "active pagNum" : "pagNum"
+              }`}
+              label={pagination?.label}
+              onClick={() => handlePage(pagination?.number)}
+              disabled={currentPage === pagination?.number}>
+              {pagination?.label}
+            </button>
+          ))}
 
-					<button
-						className={
-							allowNext || currentPage === totalCards
-								? 'pagButton tw-ml-3 tw-opacity-[0.1]'
-								: 'pagButton tw-ml-3'
-						}
-						onClick={handleNextPage}
-						disabled={allowNext || currentPage === totalCards}
-						type="button">
-						<MdKeyboardArrowRight />
-					</button>
+          <button
+            className={
+              allowNext || currentPage === totalCards
+                ? "pagButton tw-ml-3 tw-opacity-[0.1]"
+                : "pagButton tw-ml-3"
+            }
+            onClick={handleNextPage}
+            disabled={allowNext || currentPage === totalCards}
+            type="button">
+            <MdKeyboardArrowRight />
+          </button>
 
-					<button
-						className={
-							allowNext || currentPage === totalCards
-								? 'tw-opacity-[0.1] pagButton tw-flex tw-flex-row tw-items-center'
-								: ' pagButton tw-flex tw-flex-row tw-items-center'
-						}
-						onClick={handleLastPage}
-						disabled={allowNext || currentPage === totalCards}
-						type="button">
-						<MdDoubleArrow size={16} />
-					</button>
-				</div>
-			)}
-		</>
-	)
-}
+          <button
+            className={
+              allowNext || currentPage === totalCards
+                ? "tw-opacity-[0.1] pagButton tw-flex tw-flex-row tw-items-center"
+                : " pagButton tw-flex tw-flex-row tw-items-center"
+            }
+            onClick={handleLastPage}
+            disabled={allowNext || currentPage === totalCards}
+            type="button">
+            <MdDoubleArrow size={16} />
+          </button>
+        </div>
+      )}
+    </>
+  );
+};
 
-export default Pagination
+export default Pagination;

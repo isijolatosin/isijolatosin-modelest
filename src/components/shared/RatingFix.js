@@ -4,27 +4,27 @@ import generateRandom from "../../utils/RandomGen";
 import { roundTo2Dec } from "../../utils/roundTo2Dec";
 
 const RatingFix = React.memo(({ isNum, isReview, size, color, color2 }) => {
-	const MAX_RATING = 5;
-	const MIN_RATING = 5;
-	const [rating] = React.useState(
-		Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1) + MIN_RATING)
-	);
-	const deci = roundTo2Dec(Math.random());
-	return (
-		<div className="tw-flex tw-items-center">
-			{Array(rating)
-				.fill()
-				.map((_, i) => (
-					<AiFillStar
-						className={`tw-text-${color}-800 tw-text-${color2}`}
-						size={size}
-						key={i}
-					/>
-				))}
-			{isNum && <span className="tw-ml-1">{rating + deci}</span>}
-			{generateRandom(100, 200)} reviews
-		</div>
-	);
+  const MAX_RATING = 5;
+  const MIN_RATING = 5;
+  const [rating] = React.useState(
+    Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1) + MIN_RATING)
+  );
+  const deci = roundTo2Dec(Math.random());
+  return (
+    <div className="tw-flex tw-items-center">
+      {Array(rating)
+        .fill()
+        .map((_, i) => (
+          <AiFillStar
+            className={`tw-text-${color}-800 tw-text-${color2}`}
+            size={size}
+            key={i}
+          />
+        ))}
+      {isNum && <span className="tw-ml-1">{rating + deci}</span>}
+      {generateRandom(100, 200)} reviews
+    </div>
+  );
 });
 
 export default RatingFix;

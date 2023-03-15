@@ -5,34 +5,34 @@ import Layout from "../components/shared/Layout";
 import { useGlobalContext } from "../context/useContextHook";
 
 function VietnameseBundles() {
-	const [sales, setSales] = React.useState(null);
-	const [bundleDeals, setBundleDeals] = React.useState(null);
-	const { fetchSalesPercentage, fetchBundlePercentage } = useGlobalContext();
-	React.useEffect(() => {
-		setSales(fetchSalesPercentage());
-		setBundleDeals(fetchBundlePercentage());
-	}, []);
+  const [sales, setSales] = React.useState(null);
+  const [bundleDeals, setBundleDeals] = React.useState(null);
+  const { fetchSalesPercentage, fetchBundlePercentage } = useGlobalContext();
+  React.useEffect(() => {
+    setSales(fetchSalesPercentage());
+    setBundleDeals(fetchBundlePercentage());
+  }, []);
 
-	const name = window.location.pathname
-		.split("/")
-		.filter((x) => x)
-		.join(" ");
+  const name = window.location.pathname
+    .split("/")
+    .filter((x) => x)
+    .join(" ");
 
-	return (
-		<>
-			<Helmet>
-				<title>Vietnamese-Hair-Bundle</title>
-			</Helmet>
-			<Layout>
-				<div
-					className={`${
-						sales ? "tw-pt-[160px] md:tw-pt-[150px]" : "tw-pt-[95px]"
-					} tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10 home tw-text-white tw-text-center`}>
-					{name} coming soon. We got you covered... {bundleDeals}
-				</div>
-			</Layout>
-		</>
-	);
+  return (
+    <>
+      <Helmet>
+        <title>Vietnamese-Hair-Bundle</title>
+      </Helmet>
+      <Layout>
+        <div
+          className={`${
+            sales ? "tw-pt-[160px] md:tw-pt-[150px]" : "tw-pt-[95px]"
+          } tw-w-full tw-bg-[rgba(255,255,255,0.1)] tw-pb-10 home tw-text-white tw-text-center`}>
+          {name} coming soon. We got you covered... {bundleDeals}
+        </div>
+      </Layout>
+    </>
+  );
 }
 
 export default VietnameseBundles;
