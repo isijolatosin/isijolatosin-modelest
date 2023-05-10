@@ -9,7 +9,12 @@ import { GiCheckMark } from "react-icons/gi";
 import { MdClose } from "react-icons/md";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import Button from "./shared/Button";
-import { AUTHORIZED_ID } from "../constant";
+import {
+  AUTHORIZED_ID,
+  EMAILJS_PACKAGE_COMING_TEMPLATE,
+  EMAILJS_PUBLIC_KEY,
+  EMAILJS_SERVICE,
+} from "../constant";
 import { FaShippingFast } from "react-icons/fa";
 import { SiMinutemailer } from "react-icons/si";
 import axios from "axios";
@@ -173,21 +178,21 @@ const Shippment = React.memo(() => {
         );
       });
 
-    // generate automated email to client
-    const SendClientSuccessfulPurchaseEmail = () => {
+    // generate automated email to client on shipment confirmed
+    const SendClientSuccessfulShipmentEmail = () => {
       emailjs
         .send(
-          "service_czeioxp",
-          "template_kxtdmr3",
+          EMAILJS_SERVICE,
+          EMAILJS_PACKAGE_COMING_TEMPLATE,
           messageParams,
-          "user_VORMh20QoM0GcnDrVoVnj"
+          EMAILJS_PUBLIC_KEY
         )
         .then((res) => {})
         .catch((err) => console.log(err));
     };
 
     hideTimeOut = setTimeout(() => {
-      SendClientSuccessfulPurchaseEmail();
+      SendClientSuccessfulShipmentEmail();
     }, 1000);
 
     setShowTrackingInput(false);
@@ -217,10 +222,10 @@ const Shippment = React.memo(() => {
     emailTimeOut = setTimeout(() => {
       emailjs
         .send(
-          "service_czeioxp",
-          "template_kxtdmr3",
+          EMAILJS_SERVICE,
+          EMAILJS_PACKAGE_COMING_TEMPLATE,
           futureMessage,
-          "user_VORMh20QoM0GcnDrVoVnj"
+          EMAILJS_PUBLIC_KEY
         )
         .then((res) => {})
         .catch((err) => console.log(err));
@@ -306,6 +311,10 @@ const Shippment = React.memo(() => {
 
                         return (
                           <tr
+                            onMouseLeave={() => {
+                              setShowShipText(false);
+                              setCompareID("");
+                            }}
                             className={`${
                               diff <= 1 ? "tw-bg-red-200" : "tw-bg-white"
                             } table-item-row`}
@@ -457,7 +466,7 @@ const Shippment = React.memo(() => {
       ) : (
         <div className="history-page">
           <p className="danger">UNAUTHORIZED PATH!</p>
-          <Button to="/" className="btn block total_btn">
+          <Button to="/" className="block btn total_btn">
             Back to Home
           </Button>
         </div>

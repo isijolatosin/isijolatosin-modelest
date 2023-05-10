@@ -62,42 +62,46 @@ export const CURLY = "curly";
 export const WAVY = "wavy";
 export const WHATSAPPBASEURL = "https://wa.me/";
 export const MODELEST_EMAIL = "modelEst1010@gmail.com";
+export const EMAILJS_SERVICE = "service_53u3i5m";
+export const EMAILJS_TEMPLATE = "template_apatle9";
+export const EMAILJS_PACKAGE_COMING_TEMPLATE = "template_srjn4kg";
+export const EMAILJS_PUBLIC_KEY = "bVp3p8HUJVpYqOxF8";
 export const DEVELOPER = {
-	NETLIFY: "https://isijolaoluwatosin.netlify.app/",
-	LINKEDIN: "https://www.linkedin.com/in/oluwatosin-isijola-33333ba8/",
+  NETLIFY: "https://isijolaoluwatosin.netlify.app/",
+  LINKEDIN: "https://www.linkedin.com/in/oluwatosin-isijola-33333ba8/",
 };
 export const MODELEST_INSTAGRAM =
-	"https://www.instagram.com/modelestluxuryhair/";
+  "https://www.instagram.com/modelestluxuryhair/";
 export const MODELEST_TIKTOK = "https://www.tiktok.com/@es.motayo";
 export const ROLE = {
-	GLOBAL_LEAD: "global lead",
-	REGIONAL_LEAD: "regional lead",
+  GLOBAL_LEAD: "global lead",
+  REGIONAL_LEAD: "regional lead",
 };
 export const MONTHS = {
-	january: 0,
-	february: 1,
-	march: 2,
-	april: 3,
-	may: 4,
-	june: 5,
-	july: 6,
-	august: 7,
-	september: 8,
-	october: 9,
-	november: 10,
-	december: 11,
+  january: 0,
+  february: 1,
+  march: 2,
+  april: 3,
+  may: 4,
+  june: 5,
+  july: 6,
+  august: 7,
+  september: 8,
+  october: 9,
+  november: 10,
+  december: 11,
 };
 export const SHIPPING_COST = {
-	canada: 20,
-	usa: 10,
-	london: 20,
-	nigeria: 50,
+  canada: 20,
+  usa: 10,
+  london: 20,
+  nigeria: 50,
 };
 export const DEALSOPTIONLENGTHARRAY = [
-	"14inch, 16inch, & 18inch",
-	"16inch, 18inch, & 20inch",
-	"18inch, 20inch, & 22inch",
-	"20inch, 22inch, & 24inch",
+  "14inch, 16inch, & 18inch",
+  "16inch, 18inch, & 20inch",
+  "18inch, 20inch, & 22inch",
+  "20inch, 22inch, & 24inch",
 ];
 export const CANADA = "canada";
 export const USERS = "users";
@@ -109,14 +113,14 @@ export const HTTPS_LINK = "http://localhost:5000";
 // export const HTTPS_LINK = 'https://www.model-est.com'
 
 export const AUTHORIZED_ID = {
-	id_one: "estherodi1010@gmail.com",
-	id_two: "tisijola7@gmail.com",
+  id_one: "estherodi1010@gmail.com",
+  id_two: "tisijola7@gmail.com",
 };
 
 export const DISCOUNT_PERCENTAGE = 15;
 
 export const BASE_CURRENCY_CONVERTER_URL =
-	"https://api.apilayer.com/exchangerates_data/convert?";
+  "https://api.apilayer.com/exchangerates_data/convert?";
 export const googleSearch = "https://www.google.com/maps/search/";
 export const location = "springview ct. Glen Burnie. Baltimore. Maryland. USA";
 

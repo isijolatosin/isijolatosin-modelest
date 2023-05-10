@@ -13,7 +13,12 @@ import {
 import { db } from "../firebase";
 import Layout from "../components/shared/Layout";
 import { UserContext } from "../context/user-context";
-import { AUTHORIZED_ID } from "../constant";
+import {
+  AUTHORIZED_ID,
+  EMAILJS_PUBLIC_KEY,
+  EMAILJS_SERVICE,
+  EMAILJS_TEMPLATE,
+} from "../constant";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import Heading from "../components/Heading";
 import OrderSum from "../components/shared/OrderSum";
@@ -121,10 +126,10 @@ const Success = () => {
     const SendClientSuccessfulPurchaseEmail = () => {
       emailjs
         .send(
-          "service_53u3i5m",
-          "template_doi2qb7",
+          EMAILJS_SERVICE, // YOUR_SERVICE_ID
+          EMAILJS_TEMPLATE, // YOUR_TEMPLATE_ID
           messageParams,
-          "user_VORMh20QoM0GcnDrVoVnj"
+          EMAILJS_PUBLIC_KEY // YOUR_PUBLIC_KEY
         )
         .then((res) => {})
         .catch((err) => console.log(err));
