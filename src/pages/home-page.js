@@ -68,7 +68,7 @@ function HomePage() {
       </Helmet>
       <Layout>
         <div
-          className={
+          className={`${
             allProducts?.length > 0 &&
             allProducts.every((product) => product?.sales)
               ? `tw-flex tw-flex-col tw-items-center ${
@@ -81,7 +81,7 @@ function HomePage() {
                     ? "md:tw-pt-[75px] tw-pt-[95px]"
                     : "md:tw-pt-[35px] tw-pt-[50px]"
                 } md:tw-pb-[50px] lg:tw-w-[100%] lg:tw-mx-auto tw-bg-[rgba(255,255,255,0.1)] tw-relative`
-          }>
+          } tw-max-w-max-content-width tw-mx-auto`}>
           <div
             onClick={() => window.scrollTo(0, 0)}
             className={`${
@@ -113,7 +113,7 @@ function HomePage() {
               salesType
                 ? "tw-top-[101px] md:tw-top-[76px]"
                 : "tw-top-[56px] md:tw-top-[24px]"
-            } tw-flex tw-flex-col content tw-fixed tw-left-[-16px] md:tw-left-[-16px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px]`}>
+            } tw-flex tw-flex-col content tw-fixed tw-left-[-16px] md:tw-left-[-16px] tw-z-10 tw-ease-in tw-duration-300 2xl:tw-ml-10 tw-mt-[20px] tw-max-w-max-content-width tw-mx-auto`}>
             <SearchInput
               allProducts={allProducts && allProducts}
               searchControl={searchControl}
@@ -137,7 +137,7 @@ function HomePage() {
             )}
           </div>
           {allProducts?.length > 0 ? (
-            <div className="tw-bg-neutral-900 tw-w-[100%]">
+            <div className="tw-bg-neutral-900/80 tw-w-[100%]">
               <div className="tw-mb-6 tw-mt-[80px] tw-w-full tw-px-3 ">
                 <div className="tw-relative">
                   {allWigsCloudinaryImg && (

@@ -201,7 +201,7 @@ function LinksComponent({
         </p>
 
         {list1 && (
-          <div className="tw-absolute tw-top-[20px] md:tw-top-4 tw-left-[-12px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+          <div className="tw-absolute tw-top-[20px] md:tw-top-3 tw-left-[-12px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
             {indianSubLinks.map((item) => (
               <Link
                 to={item.route}
@@ -223,7 +223,7 @@ function LinksComponent({
         </p>
 
         {list3 && (
-          <div className="tw-absolute tw-top-[20px] md:tw-top-4 tw-right-[-40px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+          <div className="tw-absolute tw-top-[20px] md:tw-top-3 tw-right-[-40px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
             {virginSubLinks.map((item) => (
               <Link
                 to={item.route}
@@ -245,7 +245,7 @@ function LinksComponent({
         </p>
 
         {list2 && (
-          <div className="tw-absolute tw-top-[20px] md:tw-top-4 tw-left-[-43px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+          <div className="tw-absolute tw-top-[20px] md:tw-top-3 tw-left-[-43px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
             {vietnameseSubLinks.map((item) => (
               <Link
                 to={item.route}
@@ -267,7 +267,7 @@ function LinksComponent({
         </p>
 
         {list4 && (
-          <div className="tw-absolute tw-top-[20px] md:tw-top-4 tw-right-[-40px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+          <div className="tw-absolute tw-top-[20px] md:tw-top-3 tw-right-[-40px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
             {bundlesDeals.map((item) => (
               <Link
                 to={item.route}
@@ -283,12 +283,10 @@ function LinksComponent({
         onMouseOver={handleMousein5}
         onMouseLeave={() => setList5(false)}
         className="tw-w-full tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
-        <p className="tw-text-center hover:tw-cursor-pointer  tw-px-2">
-          Help ?
-        </p>
+        <p className="tw-text-center hover:tw-cursor-pointer tw-px-2">Help ?</p>
 
         {list5 && (
-          <div className="tw-absolute tw-top-[20px] md:tw-top-4 tw-right-[-12px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+          <div className="tw-absolute tw-top-[20px] md:tw-top-3 tw-right-[-12px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
             {helpLinks.map((item) => (
               <span
                 onClick={() => handleHelp(item.name)}

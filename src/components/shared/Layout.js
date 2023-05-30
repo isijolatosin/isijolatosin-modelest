@@ -18,7 +18,9 @@ function Layout({ children, allProducts }) {
           setPrivacyReturns={setPrivacyReturns}
         />
       </div>
-      <div className="tw-mt-2">{children}</div>
+      <div className="tw-mt-2 tw-max-w-max-content-width tw-mx-auto tw-px-5">
+        {children}
+      </div>
       <div>
         <Footer
           showContactForm={showContactForm}
