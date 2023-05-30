@@ -13,7 +13,7 @@ function Nav({
 }) {
   return (
     <div>
-      <div className="tw-flex tw-h-[60px] tw-w-[95%] lg:tw-w-[100%] xl:tw-w-[85%] 2xl:tw-w-[80%] tw-grow tw-flex-row tw-items-center tw-justify-between tw-my-0 tw-mx-auto">
+      <div className="tw-flex tw-h-[60px] tw-w-[95%] tw-max-w-max-content-width tw-grow tw-flex-row tw-items-center tw-justify-between tw-my-0 tw-mx-auto">
         <div className="tw-flex-[0.4] md:tw-flex-[0.2]">
           <ImageComponent />
         </div>
@@ -26,7 +26,7 @@ function Nav({
             showContactForm={showContactForm}
           />
         </div>
-        <div className="tw-flex-[0.4] md:tw-flex-[0.2]">
+        <div className="tw-flex-[0.4] md:tw-flex-[0.2] tw-flex tw-justify-end">
           <NavIcons />
         </div>
       </div>

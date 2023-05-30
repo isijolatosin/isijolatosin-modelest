@@ -41,7 +41,7 @@ function Account() {
       </Helmet>
       <Layout>
         <div className="tw-pt-[110px] md:tw-pt-[100px] tw-pb-[110px] md:tw-pb-[100px] tw-px-5 tw-bg-gray-300 tw-flex tw-flex-col tw-items-center">
-          <div className="tw-w-full lg:tw-w-[95%]">
+          <div className="tw-w-full tw-max-w-max-content-width">
             <ProfileCard data={user} />
             <div className="tw-bg-neutral-50 tw-p-2 tw-rounded-sm tw-w-[100%]">
               <Heading children="Cart History" isBold={true} />

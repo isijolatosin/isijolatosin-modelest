@@ -22,7 +22,7 @@ function NavIcons() {
   };
 
   return (
-    <div className=" tw-flex tw-flex-row tw-w-46 tw-justify-end tw-items-center tw-mb-3">
+    <div className=" tw-flex tw-flex-row tw-w-48 tw-items-center">
       {user && (
         <Link
           to={`/user/${user?.displayName}`}
@@ -37,11 +37,11 @@ function NavIcons() {
           navigate(`/user-cart/${user?.displayName || "new-customer"}`)
         }
         className={`${
-          itemCount > 0 && "tw-mt-6"
+          itemCount > 0 && "tw-mt-0"
         } tw-w-30 tw-h-30 tw-text-[#bba371] tw-text-xl  hover:tw-bg-neutral-800 hover:tw-text-[#bba371] tw-cursor-pointer tw-rounded-full tw-p-2 tw-ease-in tw-duration-300 tw-relative`}>
         {itemCount > 0 ? <BsHandbagFill size={21} /> : <BsHandbag size={21} />}
         {itemCount > 0 && (
-          <span className="tw-absolute tw--top-[10px] tw-right-[2px] tw-border-[1px] tw-border-[#bba371] tw-font-light tw-text-md bg-blur3 tw-bg-clip-text tw-text-[#ffffff] tw-rounded-full tw-p-4 tw-h-1 tw-w-1 tw-flex tw-mx-auto tw-justify-center tw-items-center">
+          <span className="tw-absolute tw--top-[5px] tw-right-[0px] tw-border-[1px] tw-border-[#bba371] tw-font-light tw-text-sm bg-blur3 tw-bg-clip-text tw-text-[#ffffff] tw-rounded-full tw-p-2 tw-h-1 tw-w-1 tw-flex tw-mx-auto tw-justify-center tw-items-center">
             {itemCount}
           </span>
         )}

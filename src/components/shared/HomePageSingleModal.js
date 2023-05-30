@@ -70,7 +70,7 @@ const HomePageSingleModal = ({
 
   return (
     <div className="single tw-fixed tw-z-40 tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-0 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white md:tw-pt-5 ">
-      <div className="general-scrollbar-hide md:tw-mx-auto tw-w-[100%] md:tw-w-[90%] tw-h-full tw-flex md:tw-flex-row tw-flex-col tw-overflow-scroll">
+      <div className="general-scrollbar-hide md:tw-mx-auto tw-w-[100%] md:tw-w-[90%] tw-h-full tw-flex md:tw-flex-row tw-flex-col tw-overflow-scroll tw-max-w-max-content-width">
         <div className="tw-relative tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
           <Slideshow
             images={singleProduct?.[0]?.images}

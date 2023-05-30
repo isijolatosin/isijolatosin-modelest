@@ -52,7 +52,7 @@ const SingleProductModal = ({
   return (
     <div>
       {singleProduct && (
-        <div className="single tw-fixed tw-z-40 tw-overflow-scroll tw-w-[100%] tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-[0px] md:tw-pt-16 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
+        <div className="single tw-fixed tw-z-40 tw-overflow-scroll tw-w-[100%] tw-max-w-max-content-width tw-mx-auto tw-shadow-lg tw-border-neutral-800 tw-h-[100vh] tw-right-0 tw-left-0 tw-top-[0px] md:tw-pt-16 tw-flex tw-flex-col tw-items-start tw-justify-center tw-bg-white">
           <div className="md:tw-w-[95%] md:tw-mx-auto tw-w-[100%] tw-h-full tw-flex md:tw-flex-row tw-flex-col">
             <div className="tw-w-[100%] md:tw-h-[500px] md:tw-w-[50%] tw-mx-auto md:tw-mr-10">
               <Slideshow images={singleProduct?.[0].images} iconSize={25} />
