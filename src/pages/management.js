@@ -112,46 +112,48 @@ const Management = React.memo(() => {
         <title>Admin Portal</title>
       </Helmet>
       <Layout>
-        <div className="tw-pt-[120px] tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-bg-neutral-200">
-          <div className="tw-flex tw-flex-col md:tw-flex-row md:tw-items-center tw-justify-between tw-w-full md:tw-w-[80%]">
-            <div className="tw-mb-2 md:tw-mb-0 tw-ml-2 md:tw-ml-0">
-              <Heading
-                children="Management portal"
-                isBold={true}
-                size3={true}
-              />
-            </div>
-            <div className="tw-flex tw-flex-col md:tw-flex-row">
-              <div className="tw-mr-5 tw-mb-2 tw-flex tw-items-center tw-justify-end tw-w-[75%] md:tw-w-[50%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100">
-                <select
-                  ref={selectRef}
-                  className="tw-w-[90%] tw-text-gray-400 tw-text-sm tw-placeholder-gray-400 focus:tw-outline-none tw-border-none focus:tw-border-none focus:tw-ring-0 focus:tw-ring-none disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0 tw-bg-transparent"
-                  onChange={handleSelect}
-                  id="sales type"
-                  value={salesType?.name}
-                  name="sales type">
-                  {salesType.map((item, idx) => (
-                    <option key={idx}>{item.name}</option>
-                  ))}
-                </select>
+        <div className="tw-bg-neutral-200 md:tw-px-5">
+          <div className="tw-pt-[120px] tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-max-w-max-content-width tw-mx-auto">
+            <div className="tw-flex tw-flex-col md:tw-flex-row md:tw-items-center tw-justify-between tw-w-full md:tw-w-[80%]">
+              <div className="tw-mb-2 md:tw-mb-0 tw-ml-2 md:tw-ml-0">
+                <Heading
+                  children="Management portal"
+                  isBold={true}
+                  size3={true}
+                />
               </div>
-              <div className="tw-mb-2 tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[75%] md:tw-w-[50%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100">
-                <input
-                  ref={inputRef}
-                  type="number"
-                  step="any"
-                  name="Percentage"
-                  id="number"
-                  value={percentSale}
-                  onChange={handlePercentSale}
-                  placeholder="sales %"
-                  className="tw-w-[90%] tw-h-[30px] tw-placeholder-gray-400 focus:tw-outline-none tw-border-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0 tw-bg-transparent"
-                />
-                <RiSendPlaneLine
-                  onClick={handleSalesSubmit}
-                  size={20}
-                  className="tw-text-violet-700 hover:tw-text-violet-300 tw-ease-in tw-duration-300 tw-w-[10%] tw-mr-2"
-                />
+              <div className="tw-flex tw-flex-col md:tw-flex-row tw-ml-2 md:ml-0">
+                <div className="tw-mr-5 tw-mb-2 tw-flex tw-items-center tw-justify-end tw-w-[75%] md:tw-w-[50%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100">
+                  <select
+                    ref={selectRef}
+                    className="tw-w-[90%] tw-text-gray-400 tw-text-sm tw-placeholder-gray-400 focus:tw-outline-none tw-border-none focus:tw-border-none focus:tw-ring-0 focus:tw-ring-none disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0 tw-bg-transparent"
+                    onChange={handleSelect}
+                    id="sales type"
+                    value={salesType?.name}
+                    name="sales type">
+                    {salesType.map((item, idx) => (
+                      <option key={idx}>{item.name}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="tw-mb-2 tw-py-[2px] tw-flex tw-items-center tw-justify-end tw-w-[75%] md:tw-w-[50%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100">
+                  <input
+                    ref={inputRef}
+                    type="number"
+                    step="any"
+                    name="Percentage"
+                    id="number"
+                    value={percentSale}
+                    onChange={handlePercentSale}
+                    placeholder="sales %"
+                    className="tw-w-[90%] tw-h-[30px] tw-placeholder-gray-400 focus:tw-outline-none tw-border-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0 tw-bg-transparent"
+                  />
+                  <RiSendPlaneLine
+                    onClick={handleSalesSubmit}
+                    size={20}
+                    className="tw-text-violet-700 hover:tw-text-violet-300 tw-ease-in tw-duration-300 tw-w-[10%] tw-mr-2"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -171,7 +173,7 @@ const Management = React.memo(() => {
               </li>
               <li
                 id="shipping"
-                className="tw-flex tw-justify-center tw-items-center hover:tw-cursor-pointer tw-bg-violet-50  tw-px-4 tw-py-2 tw-rounded-full hover:tw-bg-violet-100 tw-ease-in tw-duration-300"
+                className="tw-flex tw-justify-center tw-items-center hover:tw-cursor-pointer tw-bg-violet-50 tw-px-4 tw-py-2 tw-rounded-full hover:tw-bg-violet-100 tw-ease-in tw-duration-300"
                 onClick={toggleSection}>
                 <MdOutlineLocalShipping className="tw-mr-1" />
                 Shipment
