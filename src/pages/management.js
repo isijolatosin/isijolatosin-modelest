@@ -112,7 +112,7 @@ const Management = React.memo(() => {
         <title>Admin Portal</title>
       </Helmet>
       <Layout>
-        <div className="tw-bg-neutral-200 tw-px-5">
+        <div className="tw-bg-neutral-200 md:tw-px-5">
           <div className="tw-pt-[120px] tw-flex tw-flex-col tw-w-[100%] tw-items-center tw-max-w-max-content-width tw-mx-auto">
             <div className="tw-flex tw-flex-col md:tw-flex-row md:tw-items-center tw-justify-between tw-w-full md:tw-w-[80%]">
               <div className="tw-mb-2 md:tw-mb-0 tw-ml-2 md:tw-ml-0">
@@ -122,7 +122,7 @@ const Management = React.memo(() => {
                   size3={true}
                 />
               </div>
-              <div className="tw-flex tw-flex-col md:tw-flex-row">
+              <div className="tw-flex tw-flex-col md:tw-flex-row tw-ml-2 md:ml-0">
                 <div className="tw-mr-5 tw-mb-2 tw-flex tw-items-center tw-justify-end tw-w-[75%] md:tw-w-[50%] tw-rounded-full tw-px-3 tw-text-sm tw-bg-neutral-100">
                   <select
                     ref={selectRef}
