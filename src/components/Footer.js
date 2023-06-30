@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect } from "react";
 import { AiOutlineInstagram } from "react-icons/ai";
 import { FaTiktok } from "react-icons/fa";
 import { SiMastercard } from "react-icons/si";
