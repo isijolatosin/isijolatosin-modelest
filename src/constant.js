@@ -125,3 +125,8 @@ export const googleSearch = "https://www.google.com/maps/search/";
 export const location = "springview ct. Glen Burnie. Baltimore. Maryland. USA";
 
 export const priceObjectArray = [10, 14, 16, 18, 20, 22, 24, 26, 28, 30];
+
+// test
+// test 2
+// test 3
+// test 4
