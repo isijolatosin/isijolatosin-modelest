@@ -11,6 +11,7 @@ import useFetchHook from "../utils/useFetchHook";
 import useFetchDBHook from "../utils/useFetchDBHook";
 import SearchDropDown from "../components/shared/SearchDropDown";
 import { CLOUDINARY, PRODUCT } from "../constant";
+import { useEffect } from "react";
 
 function HomePage() {
   const [searchControl, setSearchControl] = React.useState(false);
@@ -60,6 +61,21 @@ function HomePage() {
       setChat(true);
     }
   };
+  useEffect(() => {
+    const scrollToBottom = () => {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
+    };
+
+    const timeoutId = setTimeout(scrollToBottom, 2000);
+    setTimeout(() => {
+      alert("Please select your Country/Region");
+    }, 3000);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
 
   return (
     <div className="relative home ">

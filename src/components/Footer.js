@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { AiOutlineInstagram } from "react-icons/ai";
 import { FaTiktok } from "react-icons/fa";
 import { SiMastercard } from "react-icons/si";
@@ -57,10 +58,13 @@ function Footer({
     { id: 3, type: <SiAmericanexpress size={20} color="blue" /> },
   ];
   const [country, setCountry] = React.useState(UNITED_STATES);
+
   const handleOnChange = (e) => {
     setCountry(e.target.value);
     localStorage.setItem("country", e.target.value);
+    document.cookie = `country=${e.target.value}`;
   };
+
   const [contactInput, setcontactInput] = React.useState({
     name: "",
     email: "",
