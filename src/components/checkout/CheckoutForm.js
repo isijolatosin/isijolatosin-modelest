@@ -24,12 +24,26 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
   });
   const [error, setError] = React.useState(false);
   const { user } = useContext(UserContext);
+
+  const countryValue = document.cookie
+    .split(";")
+    .map((cookie) => cookie.split("="))
+    .reduce(
+      (acc, [key, value]) => ({
+        ...acc,
+        [key.trim()]: decodeURIComponent(value),
+      }),
+      {}
+    );
+  const country = countryValue.country;
+
   const countries = [
     { id: 0, name: "..." },
     { id: 1, name: "canada" },
     { id: 2, name: "united kingdom" },
     { id: 3, name: "united states" },
     { id: 4, name: "nigeria" },
+    { id: 5, name: country },
   ];
 
   const inputOnchangeHandler = (e) => {
@@ -176,7 +190,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
             } user-email-input tw-font-light tw-border-[1px] tw-rounded-[6px] tw-mb-[10px] tw-py-[9px] tw-text-sm focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400 tw-capitalize`}
             onChange={inputOnchangeHandler}
             id="country"
-            value={address.country}
+            value={country ? country : address.country}
             name="country">
             {countries.map((plan) => (
               <option key={plan.id}>{plan.name}</option>
