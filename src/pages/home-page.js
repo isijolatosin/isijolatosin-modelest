@@ -65,6 +65,31 @@ function HomePage() {
     <div className="relative home ">
       <Helmet>
         <title>Home</title>
+        <meta
+          name="description"
+          content="Luxury raw indian bundles and HD Lace wigs"
+        />
+        <meta property="og:title" content="Modelest Luxury Hair" />
+        <meta
+          property="og:description"
+          content="Luxury raw indian bundles and HD Lace wigs"
+        />
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/dhdccvkyt/image/upload/v1668748580/modelest-upload/general/SSDL1_nbzxls.jpg"
+        />
+        <meta property="og:url" content="https://www.model-est.com/" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:title" content="Modelest Luxury Hair" />
+        <meta
+          name="twitter:description"
+          content="Luxury raw indian bundles and HD Lace wigs"
+        />
+        <meta
+          name="twitter:image"
+          content="https://res.cloudinary.com/dhdccvkyt/image/upload/v1668748580/modelest-upload/general/SSDL1_nbzxls.jpg"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
       <Layout>
         <div
