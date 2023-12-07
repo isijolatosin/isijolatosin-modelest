@@ -27,6 +27,7 @@ const CheckoutFormAction = ({ navigate }) => {
       <div className="tw-flex tw-items-center tw-relative tw-mb-5">
         <label className="check-container">
           <input
+            id="agreetoterms"
             onChange={(e) => {
               setAgree(e.target.checked);
               setWarn(false);
@@ -36,12 +37,13 @@ const CheckoutFormAction = ({ navigate }) => {
           <span className={`${warn && "tw-border-red-700"} checkmark`}></span>
         </label>
         <div className="tw-flex tw-items-center">
-          <p
+          <label
+            htmlFor="agreetoterms"
             className={`${
               warn ? "tw-text-red-600" : "tw-text-neutral-900"
             } tw-text-sm`}>
             I have read and agreed with{" "}
-          </p>
+          </label>
           <div className="tw-relative tw-ml-2 tw-text-xs">
             <button
               className={`${

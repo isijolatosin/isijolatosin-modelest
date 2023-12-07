@@ -14,8 +14,8 @@ const ShippingOptionComponent = ({ handleShipMethod, warn }) => {
             // checked
           />
           <span
-            className={`checkmark-radio ${
-              warn && "tw-border-red-500 tw-border-[1px]"
+            className={`checkmark-radio tw-border-[1px] ${
+              warn ? "tw-border-red-500" : "tw-border-[#bba371]"
             }`}></span>
         </label>
 
@@ -35,8 +35,8 @@ const ShippingOptionComponent = ({ handleShipMethod, warn }) => {
             name="radio"
           />
           <span
-            className={`checkmark-radio ${
-              warn && "tw-border-red-500 tw-border-[1px]"
+            className={`checkmark-radio tw-border-[1px] ${
+              warn ? "tw-border-red-500" : "tw-border-[#bba371]"
             }`}></span>
         </label>
         <div

@@ -100,7 +100,7 @@ const CheckoutForm = ({
         color: "#32325d",
         fontFamily: "Arial, sans-serif",
         fontSmoothing: "antialiased",
-        fontSize: "16px",
+        fontSize: "12px",
         "::placeholder": {
           color: "#32325d",
         },
@@ -308,19 +308,8 @@ const CheckoutForm = ({
           ) : (
             <article className="tw-flex tw-items-center tw-text-[12px] tw-p-1 tw-mt-1 tw-max-w-[100%] tw-text-black tw-mx-auto">
               <span className="tw-underline">
-                Hello, {user && user?.displayName}, your total is $
-                {shipMethod === "ship"
-                  ? discountPrice
-                    ? roundTo2Dec(
-                        discountPrice + shipCostInDollar + taxInDollar
-                      )
-                    : roundTo2Dec(
-                        shipCostInDollar + priceInDollar + taxInDollar
-                      )
-                  : discountPrice
-                  ? roundTo2Dec(discountPrice + taxInDollar)
-                  : roundTo2Dec(discountPrice + taxInDollar)}{" "}
-                -{" "}
+                Hello, {user && user?.displayName}, your total is
+                {finalPriceToPay} -{" "}
                 <span className="tw-text-neutral-400">
                   (tax
                   {shipMethod === "pick up" ? "" : " & shipping"} inclusive)

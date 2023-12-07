@@ -65,6 +65,7 @@ const Add2CartPopup = ({
           <div className="tw-flex tw-items-center tw-relative tw-mb-5">
             <label className="check-container">
               <input
+                id="agrretoterms"
                 onChange={(e) => {
                   setAgree(e.target.checked);
                   setWarn(false);
@@ -75,7 +76,8 @@ const Add2CartPopup = ({
                 className={`${warn && "tw-border-red-700"} checkmark`}></span>
             </label>
             <div>
-              <p
+              <label
+                htmlFor="agrretoterms"
                 className={`${
                   warn ? "tw-text-red-600" : "tw-text-neutral-900"
                 } tw-text-sm`}>
@@ -90,7 +92,7 @@ const Add2CartPopup = ({
                   onMouseLeave={() => setShowInfo(false)}>
                   Terms and Conditions
                 </button>
-              </p>
+              </label>
             </div>
             {showInfo && (
               <div className="tw-absolute tw-max-w-[150px] tw-bg-[rgba(0,0,0,0.85)] tw-p-2 tw-rounded-md tw-rounded-br-none md:tw-rounded-br-md md:tw-rounded-bl-none tw-text-white tw-text-center tw-top-[-40px] tw-right-[10px] tw-text-xs tw-flex tw-items-top">
