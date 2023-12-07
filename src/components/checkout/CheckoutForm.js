@@ -25,7 +25,11 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
       {}
     );
 
-  const country = countryValue.MODELESTUSERCOUNTRY;
+  const countryValueFromCookie = countryValue.MODELESTUSERCOUNTRY;
+  let country = "";
+
+  if (countryValueFromCookie !== "null") country = countryValueFromCookie;
+
   const _countries = [...countries, { countryCode: 5, countryName: country }];
 
   const [address, setAddress] = React.useState({
