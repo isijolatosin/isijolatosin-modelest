@@ -4,24 +4,13 @@ import { SHIPPING_COST } from "../../constant";
 import { ValidateEmail } from "../../utils/ValidateEmail";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-// import { countries } from '../../country'
+import { countries } from "../../country";
 
 const CheckoutForm = ({ shippingMethod, setWarn }) => {
   const navigate = useNavigate();
   const [email, setEmail] = React.useState("");
   const [showInfo, setShowInfo] = React.useState(false);
 
-  const [address, setAddress] = React.useState({
-    country: "",
-    firstname: "",
-    lastname: "",
-    street: "",
-    apartment: "",
-    city: "",
-    province: "",
-    postalcode: "",
-    phonenumber: "",
-  });
   const [error, setError] = React.useState(false);
   const { user } = useContext(UserContext);
 
@@ -35,39 +24,45 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
       }),
       {}
     );
-  const country = countryValue.country;
 
-  const countries = [
-    { id: 0, name: "..." },
-    { id: 1, name: "canada" },
-    { id: 2, name: "united kingdom" },
-    { id: 3, name: "united states" },
-    { id: 4, name: "nigeria" },
-    { id: 5, name: country },
-  ];
+  const country = countryValue.MODELESTUSERCOUNTRY;
+  const _countries = [...countries, { countryCode: 5, countryName: country }];
+
+  const [address, setAddress] = React.useState({
+    country: country ?? "",
+    firstname: "",
+    lastname: "",
+    street: "",
+    apartment: "",
+    city: "",
+    province: "",
+    postalcode: "",
+    phonenumber: "",
+  });
 
   const inputOnchangeHandler = (e) => {
     let value = e.target.value;
 
     setAddress({ ...address, [e.target.name]: value });
-    // setAlert(false)
   };
+
+  let isValidAddress = false;
+  if (
+    address.firstname &&
+    address.lastname &&
+    address.street &&
+    address.city &&
+    address.province &&
+    address.postalcode
+  )
+    isValidAddress = true;
 
   // Submit address
   const handleSubmitAddress = () => {
-    if (shippingMethod === "") {
-      setWarn(true);
-    } else if (
-      (user || email) &&
-      address.country &&
-      address.firstname &&
-      address.lastname &&
-      address.street &&
-      address.city &&
-      address.province &&
-      address.postalcode &&
-      address.phonenumber
-    ) {
+    if ((!user || !email) && !isValidAddress) {
+      setError(true);
+      if (shippingMethod === "") setWarn(true);
+    } else {
       const orderNo = `ModelEst${Math.random().toString(36).slice(2)}`;
       const userName = `${address.firstname} ${address.lastname}`;
       const shippingAd = `${address.street}${
@@ -76,23 +71,12 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
         address.country
       }`;
 
-      if (
-        !user ||
-        !email ||
-        !address.country ||
-        !address.firstname ||
-        !address.lastname ||
-        !address.street ||
-        !address.city ||
-        !address.province ||
-        !address.postalcode ||
-        !address.phonenumber
-      ) {
+      const _email = user.email ?? email;
+
+      if (!ValidateEmail(_email)) {
         setError(true);
       }
-      if (!ValidateEmail(email)) {
-        setError(true);
-      }
+
       if (
         (user &&
           address?.street &&
@@ -101,7 +85,6 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
           address?.city &&
           address?.province &&
           address?.postalcode &&
-          address.phonenumber &&
           address?.country) ||
         (email &&
           ValidateEmail(email) &&
@@ -111,7 +94,6 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
           address?.city &&
           address?.province &&
           address?.postalcode &&
-          address.phonenumber &&
           address?.country)
       ) {
         localStorage.setItem("country", address.country);
@@ -133,6 +115,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
         });
         setError(false);
       }
+
       // eslint-disable-next-line array-callback-return
       Object.keys(SHIPPING_COST).filter((cntry) => {
         const add =
@@ -155,10 +138,9 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
             })
           );
       });
+
       setEmail("");
       navigate("/payment");
-    } else {
-      setError(true);
     }
   };
 
@@ -179,7 +161,12 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
           />
         )}
         <div className="tw-relative">
-          <label className="tw-absolute tw-text-[11px] tw-bg-white tw-px-1 tw-top-[-12px] tw-left-[8px] tw-font-light tw-text-neutral-600">
+          <label
+            className={`tw-absolute tw-text-[11px] tw-bg-white tw-px-1 tw-top-[-12px] tw-left-[8px] tw-font-light ${
+              error && address.country === ""
+                ? "tw-text-red-600"
+                : "tw-text-neutral-600"
+            }`}>
             Country / Region
           </label>
           <select
@@ -190,10 +177,10 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
             } user-email-input tw-font-light tw-border-[1px] tw-rounded-[6px] tw-mb-[10px] tw-py-[9px] tw-text-sm focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400 tw-capitalize`}
             onChange={inputOnchangeHandler}
             id="country"
-            value={country ? country : address.country}
+            value={address.country ? address.country : country}
             name="country">
-            {countries.map((plan) => (
-              <option key={plan.id}>{plan.name}</option>
+            {_countries.map((plan, idx) => (
+              <option key={idx}>{plan.countryName}</option>
             ))}
             {/* {countries.map((item, idx) => (
 							<option key={idx}>{item.countryName}</option>
@@ -244,11 +231,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
           value={address.apartment}
           onChange={inputOnchangeHandler}
           placeholder="Apartment, suite, etc. (optional)"
-          className={
-            error && !address.apartment
-              ? "user-email-input tw-border-red-700"
-              : "user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400"
-          }
+          className="user-email-input tw-text-sm tw-font-light tw-border-neutral-400 focus:tw-border-neutral-400 focus:tw-ring-0 focus:tw-ring-neutral-400"
         />
         <div className="tw-grid tw-grid-cols-3 tw-gap-x-[7px]">
           <input
@@ -288,18 +271,13 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
             }
           />
         </div>
-        <div
-          className={`${
-            error && !address.phonenumber
-              ? "tw-border-red-700"
-              : "tw-border-neutral-400"
-          } tw-text-sm tw-font-light tw-border-[1px] tw-rounded-[6px] tw-flex tw-items-center tw-relative`}>
+        <div className="tw-text-sm tw-font-light tw-border-[1px] tw-rounded-[6px] tw-flex tw-items-center tw-relative tw-border-neutral-400">
           <input
             name="phonenumber"
             type="text"
             value={address.phonenumber}
             onChange={inputOnchangeHandler}
-            placeholder="Phone"
+            placeholder="Phone (optional)"
             className={`tw-bg-transparent tw-mb-0 tw-border-0 focus:tw-border-neutral-400 focus:tw-rounded-l-[6px] focus:tw-ring-1 focus:tw-ring-neutral-400 placeholder:tw-text-[12px] tw-text-sm tw-font-light tw-w-full`}
           />
           <BsFillQuestionCircleFill
