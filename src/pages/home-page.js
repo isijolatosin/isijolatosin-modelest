@@ -76,7 +76,7 @@ function HomePage() {
       return null;
     });
 
-    if (countryValue) return;
+    if (countryValue && countryValue !== "null") return;
 
     const timeoutId = setTimeout(() => {
       const country = prompt("Please select your Country/Region");
