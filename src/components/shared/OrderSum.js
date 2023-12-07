@@ -19,16 +19,30 @@ const OrderSum = ({
   handleApply,
   generateCode,
   code,
-  discountPrice,
-  total,
+  TotalPriceWithdiscounted,
+  totalPriceFromCart,
   setShowInfo,
   showInfo,
   isSuccess,
   shipCost,
   tax,
   discountedMargin,
+  shipMethod,
+  finalPriceToPay,
 }) => {
   const [showSum, setShowSum] = React.useState(false);
+  let shipDisplayValue = "";
+
+  if (shipMethod === "ship") {
+    if (shipCost) {
+      shipDisplayValue = shipCost;
+    } else {
+      shipDisplayValue = "Calculated at next step";
+    }
+  } else {
+    shipDisplayValue = shipMethod;
+  }
+
   return (
     <div className="tw-relative">
       <div
@@ -74,12 +88,8 @@ const OrderSum = ({
             ? "lg:tw-px-[220px] xl:tw-px-[320px] 2xl:tw-px-[520px]"
             : "lg:tw-hidden tw-block lg:tw-w-[30%] md:tw-px-10"
         } tw-w-full tw-p-1 md:tw-py-5 tw-bg-[#bba371] `}>
-        {cartItems.map((item) => (
-          <CartItemsCheckout
-            product={item}
-            key={item.id}
-            isSuccess={isSuccess}
-          />
+        {cartItems.map((item, idx) => (
+          <CartItemsCheckout product={item} key={idx} isSuccess={isSuccess} />
         ))}
         {sales > 0 && (
           <>
@@ -137,7 +147,12 @@ const OrderSum = ({
               {showLoad ? (
                 <div className="circular-loader-small"></div>
               ) : (
-                <span>${discountPrice ? discountPrice : total}</span>
+                <span>
+                  $
+                  {TotalPriceWithdiscounted
+                    ? TotalPriceWithdiscounted
+                    : totalPriceFromCart}
+                </span>
               )}
             </div>
             {discountedMargin ? (
@@ -172,9 +187,7 @@ const OrderSum = ({
                   </div>
                 )}
               </div>
-              <span>
-                {shipCost ? `$${shipCost}` : "Calculated at next step"}
-              </span>
+              <span>{shipDisplayValue}</span>
             </div>
           </div>
           <div
@@ -190,14 +203,7 @@ const OrderSum = ({
                 <div className="circular-loader-small"></div>
               ) : (
                 <span className="tw-text-[20px] tw-font-bold">
-                  $
-                  {discountPrice
-                    ? shipCost && tax
-                      ? tax + shipCost + discountPrice
-                      : tax + discountPrice
-                    : shipCost && tax
-                    ? tax + shipCost + total
-                    : total}
+                  ${finalPriceToPay}
                 </span>
               )}
             </div>
