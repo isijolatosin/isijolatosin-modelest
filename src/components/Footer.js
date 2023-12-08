@@ -62,7 +62,9 @@ function Footer({
     if (e.target.value.includes("-")) {
       const value = e.target.value.split(" - ")[0];
       setCountry(value);
-      document.cookie = `country=${value}`;
+      document.cookie = `MODELESTUSERCOUNTRY=${value}`;
+    } else {
+      document.cookie = `MODELESTUSERCOUNTRY=${e.target.value}`;
     }
   };
 
