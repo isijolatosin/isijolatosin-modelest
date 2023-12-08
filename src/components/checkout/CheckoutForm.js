@@ -75,7 +75,7 @@ const CheckoutForm = ({ shippingMethod, setWarn }) => {
         address.country
       }`;
 
-      const _email = user.email ?? email;
+      const _email = user?.email ?? email;
 
       if (!ValidateEmail(_email)) {
         setError(true);
