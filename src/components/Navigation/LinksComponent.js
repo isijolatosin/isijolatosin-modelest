@@ -218,7 +218,7 @@ function LinksComponent({
         onMouseOver={handleMousein3}
         onMouseLeave={() => setList3(false)}
         className="tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
-        <p className="tw-break-words tw-text-center hover:tw-cursor-pointer tw-border-r-[1px] tw-border-[#bba371] tw-px-2">
+        <p className="tw-break-words tw-text-center hover:tw-cursor-pointer tw-px-2">
           Virgin
         </p>
 
@@ -240,7 +240,7 @@ function LinksComponent({
         onMouseOver={handleMousein2}
         onMouseLeave={() => setList2(false)}
         className="tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
-        <p className="tw-text-center tw-break-words hover:tw-cursor-pointer tw-border-r-[1px] tw-border-[#bba371] tw-px-2">
+        <p className="tw-text-center tw-break-words hover:tw-cursor-pointer tw-border-x-[1px] tw-border-[#bba371] tw-px-2">
           Vietnamese
         </p>
 
