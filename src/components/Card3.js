@@ -15,11 +15,27 @@ function Card({
 }) {
   const cartItems = useSelector(selectCartItems);
   const [error, setError] = React.useState(false);
+  const [screenWidth, updateScreenWidth] = React.useState(0);
   const dispatch = useDispatch();
   const [bundles, setBundles] = React.useState({
     length: "",
     quantity: "",
   });
+
+  React.useEffect(() => {
+    function updateWindowWidth() {
+      updateScreenWidth(window.innerWidth);
+    }
+
+    window.onload = updateWindowWidth;
+
+    window.addEventListener("resize", updateWindowWidth);
+
+    return () => {
+      window.removeEventListener("resize", updateWindowWidth);
+    };
+  }, []);
+
   const lengthArr = product.availablelength.split(",");
 
   async function handleViewImage(event) {
@@ -78,7 +94,7 @@ function Card({
           on sales
         </span>
       )}
-      <div className="tw-bg-white tw-h-[30%] lg:tw-h-[25%] tw-text-neutral-800 tw-px-2 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-lg">
+      <div className="tw-bg-white tw-h-fit tw-pb-1 tw-text-neutral-800 tw-px-2 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-lg">
         <div className="tw-flex tw-flex-row tw-justify-between">
           <div className="tw-pt-2 tw-flex tw-justify-between tw-w-full tw-text-[12px] md:tw-text-[14px]">
             <p className="tw-font-bold">{product.name}</p>
@@ -97,11 +113,12 @@ function Card({
 
         <div className="tw-flex tw-items-center tw-mb-1 tw-justify-between">
           <select
-            className="tw-flex-[0.2] tw-text-neutral-900 tw-block tw-w-full tw-mr-5 tw-pl-2 md:tw-px-5 tw-py-1 tw-border tw-border-neutral-900 tw-rounded-full tw-text-sm tw-shadow-sm tw-placeholder-neutral-900 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-noneinvalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0"
+            className="tw-flex-[0.2] tw-h-[28px] tw-text-neutral-900 tw-block tw-w-full tw-mr-1 tw-pl-2 md:tw-px-5 tw-border-none tw-rounded-full tw-text-xs tw-shadow-sm tw-placeholder-neutral-900 focus:tw-outline-none focus:tw-ring-0 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0"
             onChange={handleOnChange}
             id="length"
             value={bundles.length}
             name="length">
+            <option value="">...</option>
             {lengthArr.map((len, idx) => (
               <option key={idx}>{len}</option>
             ))}
@@ -124,7 +141,9 @@ function Card({
                       )
                   : null
               }>
-              <span className="">Add More</span>
+              <span className="">
+                {screenWidth > 410 ? "Add More" : "More"}
+              </span>
             </div>
           ) : (
             <div
@@ -140,7 +159,9 @@ function Card({
                   true
                 )
               }>
-              <span className="">Add to cart</span>
+              <span className="">
+                {screenWidth > 410 ? "Add to cart" : "Add"}
+              </span>
             </div>
           )}
         </div>
