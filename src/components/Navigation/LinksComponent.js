@@ -195,13 +195,13 @@ function LinksComponent({
       <div
         onMouseOver={handleMousein1}
         onMouseLeave={() => setList1(false)}
-        className="tw-w-full tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
-        <p className="hover:tw-cursor-pointer tw-border-r-[1px] tw-border-[#bba371] tw-px-2 tw-text-center">
+        className="tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
+        <p className="tw-break-words hover:tw-cursor-pointer tw-border-r-[1px] tw-border-[#bba371] tw-px-2 tw-text-center">
           Indian
         </p>
 
         {list1 && (
-          <div className="tw-absolute tw-top-[20px] md:tw-top-3 tw-left-[-12px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+          <div className="tw-absolute tw-top-3 tw-left-[-12px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
             {indianSubLinks.map((item) => (
               <Link
                 to={item.route}
@@ -217,13 +217,13 @@ function LinksComponent({
       <div
         onMouseOver={handleMousein3}
         onMouseLeave={() => setList3(false)}
-        className="tw-w-full tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
-        <p className="tw-text-center hover:tw-cursor-pointer tw-border-r-[1px] tw-border-[#bba371] tw-px-2">
+        className="tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
+        <p className="tw-break-words tw-text-center hover:tw-cursor-pointer tw-border-r-[1px] tw-border-[#bba371] tw-px-2">
           Virgin
         </p>
 
         {list3 && (
-          <div className="tw-absolute tw-top-[20px] md:tw-top-3 tw-right-[-40px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+          <div className="tw-absolute tw-top-3 tw-right-[-40px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
             {virginSubLinks.map((item) => (
               <Link
                 to={item.route}
@@ -239,13 +239,13 @@ function LinksComponent({
       <div
         onMouseOver={handleMousein2}
         onMouseLeave={() => setList2(false)}
-        className="tw-w-full tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
-        <p className="tw-text-center hover:tw-cursor-pointer tw-border-r-[1px] tw-border-[#bba371] tw-px-2">
+        className="tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
+        <p className="tw-text-center tw-break-words hover:tw-cursor-pointer tw-border-r-[1px] tw-border-[#bba371] tw-px-2">
           Vietnamese
         </p>
 
         {list2 && (
-          <div className="tw-absolute tw-top-[20px] md:tw-top-3 tw-left-[-43px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+          <div className="tw-absolute tw-top-3 tw-left-[-43px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
             {vietnameseSubLinks.map((item) => (
               <Link
                 to={item.route}
@@ -261,13 +261,13 @@ function LinksComponent({
       <div
         onMouseOver={handleMousein4}
         onMouseLeave={() => setList4(false)}
-        className="tw-w-full tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
-        <p className="tw-text-center hover:tw-cursor-pointer tw-border-r-[1px] tw-border-[#bba371] tw-px-2">
+        className="tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
+        <p className="tw-break-words tw-text-center hover:tw-cursor-pointer tw-border-r-[1px] tw-border-[#bba371] tw-px-2">
           Deals
         </p>
 
         {list4 && (
-          <div className="tw-absolute tw-top-[20px] md:tw-top-3 tw-right-[-40px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+          <div className="tw-absolute tw-top-3 tw-right-[-40px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
             {bundlesDeals.map((item) => (
               <Link
                 to={item.route}
@@ -282,11 +282,13 @@ function LinksComponent({
       <div
         onMouseOver={handleMousein5}
         onMouseLeave={() => setList5(false)}
-        className="tw-w-full tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
-        <p className="tw-text-center hover:tw-cursor-pointer tw-px-2">Help ?</p>
+        className="tw-relative tw-uppercase tw-font-light tw-text-[10px] md:tw-text-[12px]">
+        <p className="tw-break-words tw-text-center hover:tw-cursor-pointer tw-px-2">
+          Help ?
+        </p>
 
         {list5 && (
-          <div className="tw-absolute tw-top-[20px] md:tw-top-3 tw-right-[-12px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
+          <div className="tw-absolute tw-top-3 tw-right-[-12px] md:tw-left-0 tw-flex tw-flex-col tw-justify-left tw-ease-in tw-duration-300">
             {helpLinks.map((item) => (
               <span
                 onClick={() => handleHelp(item.name)}

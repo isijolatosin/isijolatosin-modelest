@@ -41,7 +41,7 @@ const CartItems = ({ product }) => {
     <div className="tw-flex tw-flex-row tw-p-5 tw-w-full tw-bg-gray-50 tw-mb-1">
       <div className="tw-mr-5">
         <img
-          className="tw-w-[100px] tw-h-[100px] tw-shadow-lg"
+          className="tw-w-[100px] tw-h-[100px] tw-shadow-lg tw-object-cover"
           src={image}
           alt={name}
         />

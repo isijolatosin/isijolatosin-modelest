@@ -80,8 +80,8 @@ function Card({
         alt={product._id}
         className="tw-w-full tw-h-[70%] lg:tw-h-[75%] tw-object-cover tw-rounded-sm hover:tw-cursor-pointer"
       />
-      <div className="tw-bg-white tw-text-neutral-800 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-[10px]">
-        <div className="tw-pt-2  tw-px-2 tw-flex tw-justify-between tw-w-full tw-text-[14px] tw-border-b-[1px] tw-border-neutral-300 tw-mb-2">
+      <div className="tw-bg-white tw-px-2 tw-text-neutral-800 tw-w-full tw-absolute tw-z-5 tw-bottom-0 tw-rounded-b-[10px]">
+        <div className="tw-pt-2 tw-flex tw-justify-between tw-w-full tw-text-[14px] tw-border-b-[1px] tw-border-neutral-300 tw-mb-2">
           <p className="tw-font-bold tw-text-xs md:tw-text-[14px]">
             {product.name}
           </p>
@@ -96,12 +96,12 @@ function Card({
             </span>
           </div>
         </div>
-        <div className=" tw-px-2 tw-flex tw-flex-row tw-items-center tw-border-b-[1px] tw-border-neutral-300 tw-pb-2 tw-my-2">
+        <div className="tw-flex tw-flex-row tw-items-center tw-flex-wrap tw-gap-1 tw-border-b-[1px] tw-border-neutral-300 tw-pb-2 tw-my-2">
           {lengthArr.map((len, idx) => (
             <div
               onClick={() => setLength(+len)}
               key={idx}
-              className={`md:tw-cursor-pointer md:hover:tw-bg-neutral-800 md:hover:tw-text-white tw-duration-300 tw-ease-in tw-w-[30px] tw-mr-3 tw-h-[30px] tw-flex tw-items-center tw-justify-center tw-border-[1px] ${
+              className={`tw-cursor-pointer md:tw-cursor-pointer md:hover:tw-bg-neutral-800 md:hover:tw-text-white tw-duration-300 tw-ease-in tw-w-[30px] tw-h-[30px] tw-flex tw-items-center tw-justify-center tw-border-[1px] ${
                 length === +len
                   ? "tw-bg-neutral-800 tw-text-white"
                   : "tw-border-neutral-400 tw-text-neutral-600"
@@ -112,19 +112,15 @@ function Card({
         </div>
         {isInCart(singleProduct, cartItems) ? (
           <div
-            className=" tw-mx-2 tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-full tw-bg-neutral-900 tw-px-3 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[70%] tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mb-2 hover:md:tw-text-neutral-900 hover:md:tw-bg-white "
+            className="tw-w-full tw-text-xs tw-font-light tw-flex tw-rounded-full tw-bg-neutral-900 tw-px-3 tw-py-1 tw-items-center tw-justify-center tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mb-2 hover:md:tw-text-neutral-900 hover:md:tw-bg-white"
             onClick={cartItems.length !== 0 ? () => handleAdd(true) : null}>
-            <div className="tw-flex tw-flex-row tw-items-center">
-              <span className="tw-mr-3">Add More</span>
-            </div>
+            <span>Add More</span>
           </div>
         ) : (
           <div
-            className=" tw-mx-2 tw-text-xs tw-font-light tw-flex tw-flex-row tw-rounded-full tw-bg-neutral-900 tw-px-3 tw-py-[5px] tw-items-center tw-justify-center tw-max-w-[70%] tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mb-2 hover:md:tw-text-neutral-900 hover:md:tw-bg-white "
+            className="tw-w-full tw-text-xs tw-font-light tw-flex tw-rounded-full tw-bg-neutral-900 tw-px-3 tw-py-1 tw-items-center tw-justify-center tw-text-neutral-50 hover:tw-cursor-pointer hover:tw-text-neutral-400 tw-ease-in tw-duration-500 tw-mb-2 hover:md:tw-text-neutral-900 hover:md:tw-bg-white"
             onClick={handleAdd}>
-            <div className="tw-flex tw-flex-row tw-items-center">
-              <span className="tw-mr-3">Add to cart</span>
-            </div>
+            <span>Add to cart</span>
           </div>
         )}
         {error && (

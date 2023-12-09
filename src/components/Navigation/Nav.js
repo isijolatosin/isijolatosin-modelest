@@ -14,10 +14,10 @@ function Nav({
   return (
     <div>
       <div className="tw-flex tw-h-[60px] tw-w-[95%] tw-max-w-max-content-width tw-grow tw-flex-row tw-items-center tw-justify-between tw-my-0 tw-mx-auto">
-        <div className="tw-flex-[0.4] md:tw-flex-[0.2]">
+        <div>
           <ImageComponent />
         </div>
-        <div className="tw-hidden tw-flex-[0.6] md:tw-inline">
+        <div className="tw-hidden tw-flex-1 md:tw-inline">
           <LinksComponent
             setShowContactForm={setShowContactForm}
             setShowTerms={setShowTerms}
@@ -26,11 +26,11 @@ function Nav({
             showContactForm={showContactForm}
           />
         </div>
-        <div className="tw-flex-[0.4] md:tw-flex-[0.2] tw-flex tw-justify-end">
+        <div className=" tw-flex tw-justify-end">
           <NavIcons />
         </div>
       </div>
-      <div className="tw-in-line tw-px-3 md:tw-hidden tw-flex-0.8 tw-bg-[rgba(59,59,59,0.2)] tw-drop-shadow-lg tw tw-py-2 tw-text-white">
+      <div className="tw-in-line md:tw-hidden tw-flex-0.8 tw-bg-[rgba(59,59,59,0.2)] tw-drop-shadow-lg tw tw-py-2 tw-text-white">
         <LinksComponent
           setShowContactForm={setShowContactForm}
           setShowTerms={setShowTerms}
