@@ -103,6 +103,7 @@ const SingleWig = () => {
     if (price && _length) {
       addToCart(
         price,
+        hairLength,
         dispatch,
         wigProduct,
         setSingleCart,
@@ -132,7 +133,7 @@ const SingleWig = () => {
           <div className="tw-mt-[70px] tw-w-full md:tw-w-[95%] tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-5">
             <div>
               <div className="tw-fixed tw-z-10 tw-right-5 md:tw-right-20 tw-top-[120px]">
-                <div className="tw-text-neutral-900  tw-mb-3">
+                <div className="tw-text-neutral-900 tw-mb-3">
                   <div
                     onClick={() => navigate(-1)}
                     className="tw-cursor-pointer">

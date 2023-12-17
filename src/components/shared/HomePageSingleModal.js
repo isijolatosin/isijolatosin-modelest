@@ -177,6 +177,7 @@ const HomePageSingleModal = ({
                         length
                           ? addToCart(
                               price,
+                              length,
                               dispatch,
                               _singleProduct,
                               setSingleCart,
@@ -195,6 +196,7 @@ const HomePageSingleModal = ({
                   length
                     ? addToCart(
                         price,
+                        length,
                         dispatch,
                         _singleProduct,
                         setSingleCart,
