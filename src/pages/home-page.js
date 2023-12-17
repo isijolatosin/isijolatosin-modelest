@@ -79,7 +79,7 @@ function HomePage() {
     if (countryValue && countryValue !== "null") return;
 
     const timeoutId = setTimeout(() => {
-      const country = prompt("Please select your Country/Region");
+      const country = prompt("Please input your Country / Region here");
 
       document.cookie = `MODELESTUSERCOUNTRY=${country}`;
     }, 3000);
