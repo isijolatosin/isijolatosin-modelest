@@ -2,8 +2,9 @@ import { addToCartItem, increaseCartItem } from "../slices/appSlices";
 
 export function addToCart(
   price,
+  length,
   dispatch,
-  _singleProduct,
+  singleProduct,
   setSingleCart,
   setError,
   increase
@@ -14,12 +15,12 @@ export function addToCart(
     setError(true);
   } else {
     if (increase) {
-      dispatch(increaseCartItem(_singleProduct));
+      dispatch(increaseCartItem(singleProduct));
     } else {
-      dispatch(addToCartItem(_singleProduct));
+      dispatch(addToCartItem(singleProduct));
     }
     timeOut = setTimeout(() => {
-      setSingleCart(_singleProduct);
+      setSingleCart(singleProduct);
     }, 1000);
   }
 }

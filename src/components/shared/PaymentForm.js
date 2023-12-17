@@ -45,8 +45,8 @@ const PaymentForm = ({
                   // checked
                 />
                 <span
-                  className={`checkmark-radio ${
-                    warn && "tw-border-red-500 tw-border-[1px]"
+                  className={`checkmark-radio tw-border-[1px] ${
+                    warn ? "tw-border-red-500" : "tw-border-[#bba371]"
                   }`}></span>
               </label>
 
@@ -59,9 +59,9 @@ const PaymentForm = ({
                   alt="paypal"
                   className="tw-w-[45px] tw-border-[1px] tw-border-neutral-700 tw-p-2 tw-rounded-[3px]"
                 />
-                <span className="tw-text-[12px] tw-m-3 tw-font-light tw-tracking-wider">
+                <label className="tw-text-[12px] tw-m-3 tw-font-light tw-tracking-wider">
                   Pay with PayPal
-                </span>
+                </label>
               </div>
             </div>
             <div className="tw-px-5 tw-flex tw-items-top">
@@ -72,8 +72,8 @@ const PaymentForm = ({
                   name="radio"
                 />
                 <span
-                  className={`checkmark-radio ${
-                    warn && "tw-border-red-500 tw-border-[1px]"
+                  className={`checkmark-radio tw-border-[1px] ${
+                    warn ? "tw-border-red-500" : "tw-border-[#bba371]"
                   }`}></span>
               </label>
               <div

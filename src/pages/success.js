@@ -58,7 +58,9 @@ const Success = () => {
   const finalTax = finalPriceToPayObject?.taxInDollar;
   const finalShipCost = finalPriceToPayObject?.shipCostInDollar;
   const PriceInDollar = finalPriceToPayObject?.priceInDollar;
-  const discountPrice = Number(localStorage.getItem("discountPrice"));
+  const TotalPriceWithdiscounted = Number(
+    localStorage.getItem("discountPrice")
+  );
 
   const addressFromPP = JSON.parse(localStorage.getItem("addressFromPaypal"));
 
@@ -74,7 +76,9 @@ const Success = () => {
   const orderNo = localStorage.getItem("order no");
   const userEmail = user?.email || localStorage.getItem("altEmail");
   const [showInfo, setShowInfo] = React.useState(false);
-  const discountedAmount = roundTo2Dec(totalPriceFromCart - discountPrice);
+  const discountedAmount = roundTo2Dec(
+    totalPriceFromCart - TotalPriceWithdiscounted
+  );
   const { fetchSalesPercentage } = useGlobalContext();
   React.useEffect(() => {
     setSales(fetchSalesPercentage());
@@ -87,10 +91,12 @@ const Success = () => {
   // eslint-disable-next-line array-callback-return
   cartItems.map((item) => {
     nameArray.push(
-      `${item.quantity} ${item.name} - ${item.hairLength}inches ..... $${item.price}`
+      `${item.quantity} ${item.name} - ${
+        item?.hairLength ? `${item?.hairLength}inches` : ""
+      } ..... $${item.price}`
     );
     quantity += item.quantity;
-    id.push(`${item.id}-${item.name}`);
+    id.push(`${item._id || item.id}-${item.name}`);
   });
 
   const myCurrentDate = new Date();
@@ -111,7 +117,7 @@ const Success = () => {
       product: nameArray.join(", "),
       price: PriceInDollar,
       quantity: quantity,
-      discount: (discountPrice && discountedAmount) || "00.00",
+      discount: (TotalPriceWithdiscounted && discountedAmount) || "00.00",
       subtotal: PriceInDollar,
       shipping: shipMethod === "ship" ? finalShipCost : "0",
       shipMethod: shipMethod,
@@ -149,16 +155,16 @@ const Success = () => {
           .doc(`${userEmail}/`)
           .collection("shoppings")
           .add({
-            id: item.id + orderNo,
-            title: item.name,
-            description: item.description,
-            quantity: item.quantity,
+            id: item?.id + orderNo,
+            title: item?.name,
+            description: item?.description,
+            quantity: item?.quantity,
             price: item?.price || finalPriceToPay,
             address: userAddress,
             customer: (user && user?.displayName) || userEmail,
             email: userEmail,
             color: item?.hairColor ? item?.hairColor : "",
-            length: item?.hairLength,
+            length: item?.hairLength ? item?.hairLength : "",
             orderNo: orderNo,
             timestamp: new Date().valueOf(),
             image: item?.image ? item?.image : "",
@@ -176,16 +182,16 @@ const Success = () => {
           .doc(`${AUTHORIZED_ID.id_one}/`)
           .collection("all-purchased")
           .add({
-            id: item.id + orderNo,
-            title: item.name,
-            description: item.description,
-            quantity: item.quantity,
+            id: item?.id + orderNo,
+            title: item?.name,
+            description: item?.description,
+            quantity: item?.quantity,
             price: item?.price || finalPriceToPay,
             address: userAddress,
             customer: (user && user?.displayName) || userEmail,
             email: userEmail,
             color: item?.hairColor ? item?.hairColor : "",
-            length: item?.hairLength,
+            length: item?.hairLength ? item?.hairLength : "",
             orderNo: orderNo,
             timestamp: new Date().valueOf(),
             image: item?.image ? item?.image : "",
@@ -251,13 +257,15 @@ const Success = () => {
                 setShowSum={setShowSum}
                 isBorder={false}
                 cartItems={cartItems}
-                discountPrice={discountPrice}
-                total={totalPriceFromCart}
+                TotalPriceWithdiscounted={TotalPriceWithdiscounted}
+                totalPriceFromCart={totalPriceFromCart}
+                finalPriceToPay={finalPriceToPay}
                 setShowInfo={setShowInfo}
                 showInfo={showInfo}
                 isSuccess={true}
                 shipCost={shippingCost.cost}
                 tax={tax}
+                shipMethod={shipMethod}
               />
             </div>
             <div className={`tw-px-5 tw-pt-5 tw-bg-neutral-200`}>

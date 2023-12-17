@@ -61,17 +61,27 @@ function HomePage() {
       setChat(true);
     }
   };
-  useEffect(() => {
-    const scrollToBottom = () => {
-      window.scrollTo({
-        top: document.documentElement.scrollHeight,
-        behavior: "smooth",
-      });
-    };
 
-    const timeoutId = setTimeout(scrollToBottom, 2000);
-    setTimeout(() => {
-      alert("Please select your Country/Region");
+  useEffect(() => {
+    const cookieArray = document.cookie
+      .split("; ")
+      .map((cookie) => cookie.split("="));
+
+    let countryValue = "";
+
+    cookieArray.find((cookie) => {
+      if (cookie[0] === "MODELESTUSERCOUNTRY") {
+        countryValue = cookie[1];
+      }
+      return null;
+    });
+
+    if (countryValue && countryValue !== "null") return;
+
+    const timeoutId = setTimeout(() => {
+      const country = prompt("Please select your Country/Region");
+
+      document.cookie = `MODELESTUSERCOUNTRY=${country}`;
     }, 3000);
 
     return () => clearTimeout(timeoutId);

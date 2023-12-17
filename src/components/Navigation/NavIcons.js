@@ -22,11 +22,11 @@ function NavIcons() {
   };
 
   return (
-    <div className=" tw-flex tw-flex-row tw-w-48 tw-items-center">
+    <div className=" tw-flex tw-flex-row tw-w-fit tw-items-center tw-justify-end">
       {user && (
         <Link
           to={`/user/${user?.displayName}`}
-          className="tw-w-30 tw-h-30 tw-text-[#bba371] tw-ease-in tw-duration-300 hover:tw-bg-neutral-800 tw-cursor-pointer tw-rounded-full tw-p-2 tw-mr-4">
+          className="tw-w-30 tw-h-30 tw-text-[#bba371] tw-ease-in tw-duration-300 hover:tw-bg-neutral-800 tw-cursor-pointer tw-rounded-full tw-p-2">
           <BsFillPersonFill size={25} />
         </Link>
       )}
@@ -58,15 +58,15 @@ function NavIcons() {
         )}
       </div>
       {user && (
-        <div className="tw-flex tw-ml-[20px] tw-flex-col tw-justify-center tw-items-center hover:tw-bg-neutral-800 tw-cursor-pointer tw-rounded-full tw-p-2 tw-relative tw-ease-in tw-duration-300">
+        <div className="tw-flex tw-flex-col tw-justify-center tw-items-center hover:tw-bg-neutral-800 tw-cursor-pointer tw-rounded-full tw-p-2 tw-relative tw-ease-in tw-duration-300">
           <div className="tw-text-[#bba371] tw-text-xl">
             <FiLogOut size={25} onClick={handleSignOut} />
           </div>
         </div>
       )}
       {!user && (
-        <div className="tw-ml-5 tw-flex tw-flex-row tw-justify-between tw-items-center">
-          <div className="tw-flex tw-flex-col tw-justify-center tw-items-center hover:tw-bg-neutral-800 tw-cursor-pointer tw-rounded-full tw-p-2 tw-mr-5 tw-relative tw-ease-in tw-duration-300">
+        <div className="tw-ml-1 sm:tw-ml-0 tw-flex tw-flex-row tw-justify-between tw-items-center">
+          <div className="tw-flex tw-flex-col tw-justify-center tw-items-center hover:tw-bg-neutral-800 tw-cursor-pointer tw-rounded-full tw-p-2 tw-mr-1 sm:tw-mr-0 tw-relative tw-ease-in tw-duration-300">
             <div className="tw-text-[#bba371] tw-text-xl">
               <FiLogIn size={25} onClick={() => navigate("/login")} />
             </div>

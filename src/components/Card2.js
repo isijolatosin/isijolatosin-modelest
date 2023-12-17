@@ -10,11 +10,27 @@ import { roundTo2Dec } from "../utils/roundTo2Dec";
 function Card({ product, setSingleproduct, setSingleCart, scrollToTop }) {
   const cartItems = useSelector(selectCartItems);
   const [error, setError] = React.useState(false);
+  const [screenWidth, updateScreenWidth] = React.useState(0);
   const dispatch = useDispatch();
   const [bundles, setBundles] = React.useState({
     length: "",
     quantity: "",
   });
+
+  React.useEffect(() => {
+    function updateWindowWidth() {
+      updateScreenWidth(window.innerWidth);
+    }
+
+    window.onload = updateWindowWidth;
+
+    window.addEventListener("resize", updateWindowWidth);
+
+    return () => {
+      window.removeEventListener("resize", updateWindowWidth);
+    };
+  }, []);
+
   const lengthArr = product.availablelength.split(",");
 
   const type = PRODUCT;
@@ -58,6 +74,7 @@ function Card({ product, setSingleproduct, setSingleCart, scrollToTop }) {
     setBundles({ ...bundles, [e.target.name]: e.target.value });
     setError(false);
   };
+
   return (
     <div className="tw-w-[100%] tw-mx-auto tw-h-[300px] lg:tw-h-[400px] tw-mb-2 md:tw-mx-1 md:tw-w-[300px] tw-shadow-lg tw-relative tw-rounded-sm">
       <img
@@ -67,7 +84,7 @@ function Card({ product, setSingleproduct, setSingleCart, scrollToTop }) {
         alt={product._id}
         className=" tw-w-full tw-h-[70%] lg:tw-h-[75%] tw-object-cover tw-rounded-sm tw-cursor-pointer"
       />
-      <div className="tw-bg-white tw-h-[30%] lg:tw-h-[25%] tw-text-neutral-800 tw-px-2 tw-w-full tw-relative tw-z-5 tw-bottom-0 tw-rounded-b-lg">
+      <div className="tw-bg-white tw-h-fit tw-pb-1 tw-text-neutral-800 tw-px-2 tw-w-full tw-relative tw-z-5 tw-bottom-0 tw-rounded-b-lg">
         <div className="tw-pt-2 tw-flex tw-justify-between tw-w-full tw-text-[12px] md:tw-text-[14px] tw-mx-auto">
           <p className="tw-font-bold">{product.name}</p>
           <div className="tw-pb-2 tw-flex tw-flex-col tw-items-end">
@@ -83,12 +100,13 @@ function Card({ product, setSingleproduct, setSingleCart, scrollToTop }) {
         </div>
         <div className="tw-flex tw-items-center tw-justify-between">
           <select
-            className="tw-flex-[0.2] tw-text-neutral-900 tw-block tw-w-full tw-mr-5 tw-pl-2 md:tw-px-5 tw-py-1 tw-border tw-border-neutral-900 tw-rounded-full tw-text-sm tw-shadow-sm tw-placeholder-neutral-900 focus:tw-outline-none focus:tw-border-sky-500 focus:tw-ring-1 focus:tw-ring-sky-500disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-noneinvalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0"
+            className="tw-flex-[0.2] tw-h-[28px] tw-text-neutral-900 tw-block tw-w-full tw-mr-1 tw-pl-2 md:tw-px-5 tw-border-none tw-rounded-full tw-text-xs tw-shadow-sm tw-placeholder-neutral-900 focus:tw-outline-none focus:tw-ring-0 disabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-red-500 invalid:tw-text-red-600 focus:invalid:tw-border-red-500 focus:invalid:tw-ring-red-500 tw-outline-0"
             onChange={handleOnChange}
             id="length"
             value={bundles.length}
             name="length"
             placeholder="Length">
+            <option value="">...</option>
             {lengthArr.map((len, idx) => (
               <option key={idx}>{len}</option>
             ))}
@@ -110,7 +128,9 @@ function Card({ product, setSingleproduct, setSingleCart, scrollToTop }) {
                       )
                   : null
               }>
-              <span className="">Add More</span>
+              <span className="">
+                {screenWidth > 410 ? "Add More" : "More"}
+              </span>
             </div>
           ) : (
             <div
@@ -125,7 +145,9 @@ function Card({ product, setSingleproduct, setSingleCart, scrollToTop }) {
                   setError
                 )
               }>
-              <span className="">Add to cart</span>
+              <span className="">
+                {screenWidth > 410 ? "Add to cart" : "Add"}
+              </span>
             </div>
           )}
         </div>

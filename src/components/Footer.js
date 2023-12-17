@@ -59,9 +59,13 @@ function Footer({
   const [country, setCountry] = React.useState(UNITED_STATES);
 
   const handleOnChange = (e) => {
-    setCountry(e.target.value);
-    localStorage.setItem("country", e.target.value);
-    document.cookie = `country=${e.target.value}`;
+    if (e.target.value.includes("-")) {
+      const value = e.target.value.split(" - ")[0];
+      setCountry(value);
+      document.cookie = `MODELESTUSERCOUNTRY=${value}`;
+    } else {
+      document.cookie = `MODELESTUSERCOUNTRY=${e.target.value}`;
+    }
   };
 
   const [contactInput, setcontactInput] = React.useState({
