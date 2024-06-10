@@ -1,48 +1,58 @@
 import React from "react";
 import Button from "./shared/Button";
-import inputData from "../inputList.json";
 import axios from "axios";
 
 const SingleProductEditForm = ({ singleProduct, setSingleProduct }) => {
   const [postError, setPostError] = React.useState("");
-  const handleInputUpdate = (e) => {
-    let value = e.target.value;
-
-    if (e.target.value === "on") value = true;
-    if (e.target.name === "salespercent") {
-      if (+e.target.value > 0) value = +e.target.value;
-      if (+e.target.value <= 0) value = false;
-    }
-    console.log(value);
-
-    setSingleProduct({
-      ...singleProduct,
-      [e.target.name]: value,
-    });
-  };
+  const [name, setName] = React.useState(singleProduct?.name);
+  const [brand, setBrand] = React.useState(singleProduct?.brand);
+  const [density, setDensity] = React.useState(singleProduct?.density);
+  const [texture, setTexture] = React.useState(singleProduct?.texture);
+  const [capsize, setCapsize] = React.useState(singleProduct?.capsize);
+  const [type, setType] = React.useState(singleProduct?.type);
+  const [color, setColor] = React.useState(singleProduct?.color);
+  const [availablecolor, setAvailablecolor] = React.useState(
+    singleProduct?.availablecolor
+  );
+  const [price, setPrice] = React.useState(singleProduct?.price);
+  const [video, setVideo] = React.useState(singleProduct?.video);
+  const [length, setLength] = React.useState(singleProduct?.length);
+  const [availablelength, setAvailablelength] = React.useState(
+    singleProduct?.availablelength
+  );
+  const [dealLength, setDealLength] = React.useState(singleProduct?.dealLength);
+  const [description, setDescription] = React.useState(
+    singleProduct?.description
+  );
+  const [instock, setInstock] = React.useState(singleProduct?.instock);
+  const [salespercent, setSalespercent] = React.useState(
+    singleProduct?.salespercent
+  );
 
   async function updateSingleProduct(e) {
     e.preventDefault();
     const id = singleProduct?.id;
     try {
       const product = {
-        name: singleProduct.name,
-        brand: singleProduct.brand,
-        density: singleProduct.density,
-        texture: singleProduct.texture,
-        capsize: singleProduct.capsize,
-        type: singleProduct.type,
-        color: singleProduct.color,
-        availablecolor: singleProduct.availablecolor,
-        price: singleProduct.priceObj,
-        video: singleProduct.video,
-        length: singleProduct.length,
-        availablelength: singleProduct.availablelength,
-        dealLength: singleProduct.dealLength,
-        description: singleProduct.description,
-        instock: singleProduct.instock,
-        salespercent: singleProduct.salespercent,
+        id: id,
+        name: name,
+        brand: brand,
+        density: density,
+        texture: texture,
+        capsize: capsize,
+        type: type,
+        color: color,
+        availablecolor: availablecolor,
+        price: { ...singleProduct?.priceObj, [length]: price.toString() },
+        video: video,
+        length: length,
+        availablelength: availablelength,
+        dealLength: dealLength,
+        description: description,
+        instock: instock,
+        salespercent: salespercent,
       };
+
       if (
         [
           product.name,
@@ -80,23 +90,195 @@ const SingleProductEditForm = ({ singleProduct, setSingleProduct }) => {
       <form onSubmit={updateSingleProduct}>
         <div className="tw-flex tw-flex-col tw-items-center">
           <div className="lg:tw-w-[50%] tw-mx-auto tw-w-[90%] tw-grid tw-grid-cols-1 lg:tw-grid-cols-2 tw-gap-x-2">
-            {inputData.map((input) => (
+            <fieldset className="tw-relative">
+              <legend className="tw-absolute tw-right-0 tw-text-xs tw-bg-violet-300 tw-text-white tw-px-1 tw-rounded-sm">
+                Title
+              </legend>
               <input
-                key={input.id}
-                type={input.type}
-                name={singleProduct[input.name]}
-                id={input.id}
-                value={singleProduct[input.name]}
-                onChange={handleInputUpdate}
-                placeholder={input.placeholder}
+                type="text"
+                name="name"
+                id="title"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Product name"
                 className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
               />
-            ))}
+            </fieldset>
+            <fieldset className="tw-relative">
+              <legend className="tw-absolute tw-right-0 tw-text-xs tw-bg-violet-300 tw-text-white tw-px-1 tw-rounded-sm">
+                Brand
+              </legend>
+              <input
+                type="text"
+                name="brand"
+                id="brand"
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
+                placeholder="Product brand"
+                className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+              />
+            </fieldset>
+            <fieldset className="tw-relative">
+              <legend className="tw-absolute tw-right-0 tw-text-xs tw-bg-violet-300 tw-text-white tw-px-1 tw-rounded-sm">
+                Density
+              </legend>
+              <input
+                type="text"
+                name="density"
+                id="density"
+                value={density}
+                onChange={(e) => setDensity(e.target.value)}
+                placeholder="Product density"
+                className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+              />
+            </fieldset>
+            <fieldset className="tw-relative">
+              <legend className="tw-absolute tw-right-0 tw-text-xs tw-bg-violet-300 tw-text-white tw-px-1 tw-rounded-sm">
+                Texture
+              </legend>
+
+              <input
+                type="text"
+                name="texture"
+                id="texture"
+                value={texture}
+                onChange={(e) => setTexture(e.target.value)}
+                placeholder="Product texture"
+                className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+              />
+            </fieldset>
+            <fieldset className="tw-relative">
+              <legend className="tw-absolute tw-right-0 tw-text-xs tw-bg-violet-300 tw-text-white tw-px-1 tw-rounded-sm">
+                Cap size
+              </legend>
+              <input
+                type="text"
+                name="capsize"
+                id="capsize"
+                value={capsize}
+                onChange={(e) => setCapsize(e.target.value)}
+                placeholder="Product capsize"
+                className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+              />
+            </fieldset>
+            <fieldset className="tw-relative">
+              <legend className="tw-absolute tw-right-0 tw-text-xs tw-bg-violet-300 tw-text-white tw-px-1 tw-rounded-sm">
+                Type
+              </legend>
+              <input
+                type="text"
+                name="type"
+                id="type"
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+                placeholder="Product type"
+                className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+              />
+            </fieldset>
+            <fieldset className="tw-relative">
+              <legend className="tw-absolute tw-right-0 tw-text-xs tw-bg-violet-300 tw-text-white tw-px-1 tw-rounded-sm">
+                Color
+              </legend>
+              <input
+                type="text"
+                name="color"
+                id="color"
+                value={color}
+                onChange={(e) => setColor(e.target.value)}
+                placeholder="Product color"
+                className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+              />
+            </fieldset>
+            <fieldset className="tw-relative">
+              <legend className="tw-absolute tw-right-0 tw-text-xs tw-bg-violet-300 tw-text-white tw-px-1 tw-rounded-sm">
+                Available Color
+              </legend>
+              <input
+                type="text"
+                name="availablecolor"
+                id="availablecolor"
+                value={availablecolor}
+                onChange={(e) => setAvailablecolor(e.target.value)}
+                placeholder="Product availablecolor"
+                className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+              />
+            </fieldset>
+            <fieldset className="tw-relative">
+              <legend className="tw-absolute tw-right-0 tw-text-xs tw-bg-violet-300 tw-text-white tw-px-1 tw-rounded-sm">
+                Length
+              </legend>
+              <input
+                type="text"
+                name="length"
+                id="length"
+                value={length}
+                onChange={(e) => setLength(e.target.value)}
+                placeholder="Product length"
+                className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+              />
+            </fieldset>
+            <fieldset className="tw-relative">
+              <legend className="tw-absolute tw-right-0 tw-text-xs tw-bg-violet-300 tw-text-white tw-px-1 tw-rounded-sm">
+                Available length
+              </legend>
+              <input
+                type="text"
+                name="availablelength"
+                id="availablelength"
+                value={availablelength}
+                onChange={(e) => setAvailablelength(e.target.value)}
+                placeholder="Product availablelength"
+                className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+              />
+            </fieldset>
+            <fieldset className="tw-relative">
+              <legend className="tw-absolute tw-right-0 tw-text-xs tw-bg-violet-300 tw-text-white tw-px-1 tw-rounded-sm">
+                Deal length
+              </legend>
+              <input
+                type="text"
+                name="dealLength"
+                id="dealLength"
+                value={dealLength}
+                onChange={(e) => setDealLength(e.target.value)}
+                placeholder="Product dealLength"
+                className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+              />
+            </fieldset>
+            <fieldset className="tw-relative">
+              <legend className="tw-absolute tw-right-0 tw-text-xs tw-bg-violet-300 tw-text-white tw-px-1 tw-rounded-sm">
+                Video
+              </legend>
+              <input
+                type="text"
+                name="video"
+                id="video"
+                value={video}
+                onChange={(e) => setVideo(e.target.value)}
+                placeholder="Product video"
+                className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+              />
+            </fieldset>
+            <fieldset className="tw-relative">
+              <legend className="tw-absolute tw-right-0 tw-text-xs tw-bg-violet-300 tw-text-white tw-px-1 tw-rounded-sm">
+                Price
+              </legend>
+              <input
+                type="number"
+                name="price"
+                id="price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                placeholder="Product price"
+                className="tw-mt-1 tw-block tw-mx-auto tw-w-[100%] tw-px-3 tw-py-2 tw-border-none tw-text-sm tw-shadow-xl tw-placeholder-gray-400 focus:tw-outline-none focus:tw-border-gray-200 focus:tw-ring-1 focus:tw-ring-gray-200 isabled:tw-bg-gray-50 disabled:tw-text-gray-500 disabled:tw-border-gray-200 disabled:tw-shadow-none invalid:tw-border-pink-500 invalid:tw-text-pink-600 focus:invalid:tw-border-pink-500 focus:invalid:tw-ring-pink-500 tw-outline-0 tw-mb-5 placeholder:tw-font-light placeholder:tw-text-xs tw-text-gray-700 tw-font-light"
+              />
+            </fieldset>
           </div>
+
           <textarea
-            value={singleProduct?.description}
+            value={description}
             name="description"
-            onChange={handleInputUpdate}
+            onChange={(e) => setDescription(e.target.value)}
             rows={5}
             cols={50}
             placeholder="Description..."
@@ -111,13 +293,12 @@ const SingleProductEditForm = ({ singleProduct, setSingleProduct }) => {
                 id="salespercent"
                 name="salespercent"
                 type="number"
-                onChange={handleInputUpdate}
+                onChange={(e) => {
+                  if (+e.target.value > 0) setSalespercent(+e.target.value);
+                  if (+e.target.value <= 0) setSalespercent(0);
+                }}
                 placeholder="%"
-                value={
-                  (+singleProduct?.salespercent > 0 &&
-                    singleProduct?.salespercent) ||
-                  null
-                }
+                value={(+salespercent > 0 && salespercent) || ""}
                 className="tw-w-[40%] tw-text-xs tw-text-neutral-400 tw-h-full tw-bg-neutral-200 tw-border-none focus:tw-ring-0 tw-border-0 placeholder:tw-text-neutral-400 placeholder:tw-text-xs placeholder:tw-font-light"
               />
             </div>
@@ -128,13 +309,19 @@ const SingleProductEditForm = ({ singleProduct, setSingleProduct }) => {
               <input
                 type="checkbox"
                 name="instock"
-                checked={singleProduct.instock}
+                checked={instock}
                 className={
                   singleProduct.instock
                     ? "tw-ml-2 tw-rounded-full tw-bg-violet-400"
                     : "tw-ml-2 tw-rounded-full tw-bg-none tw-border-violet-200"
                 }
-                onChange={handleInputUpdate}
+                onChange={(e) => {
+                  if (e.target.value === "on") {
+                    setInstock(true);
+                  } else {
+                    setInstock(false);
+                  }
+                }}
               />
             </div>
           </div>
